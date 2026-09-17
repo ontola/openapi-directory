@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: Clockify API (read-only time entries subset)
+  version: 1.0.0-readonly
+  description: >-
+    Compatible read-only subset of Clockify's public REST API for
+    synchronizing a user's time entries on one workspace. Clockify has no
+    OAuth2 login; every request authenticates with a personal API key sent
+    as the X-Api-Key header (declared by this platform's auth-overlay).
+    workspaceId and userId are supplied as constants, the same way other
+    catalog platforms without an auto-discovery step (e.g. GitHub Issues'
+    owner/repo) require them. This document preserves only the list and
+    single-item read operations needed by Local Thought, scoped to
+    Clockify's global API origin; regional/private subdomain origins are
+    not covered.
+  contact:
+    name: Clockify Developer Connection
+    url: https://docs.clockify.me/
+  x-apisguru-categories: [productivity]
+  x-origin:
+    - format: openapi
+      url: https://docs.clockify.me/
+      version: "3.0"
+  x-providerName: clockify.me
+  x-serviceName: api-readonly
+servers:
+  - url: https://api.clockify.me/api
+security:
+  - clockifyApiKey: []
+paths:
+  /v1/workspaces/{workspaceId}/user/{userId}/time-entries:
+    get:
+      operationId: get-time-entries-for-user
+      summary: Get time entries for a user on a workspace
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/Start'
+        - $ref: '#/components/parameters/End'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of the user's time entries on this workspace.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/TimeEntry' }
+        '401': { description: The API key is missing or invalid. }
+        '403': { description: The request is not allowed. }
+  /v1/workspaces/{workspaceId}/time-entries/{id}:
+    get:
+      operationId: get-time-entry
+      summary: Get a specific time entry on a workspace
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+        - name: id
+          in: path
+          required: true
+          description: Represents a time entry identifier across the system.
+          schema: { type: string }
+      responses:
+        '200':
+          description: A single time entry.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TimeEntry' }
+        '401': { description: The API key is missing or invalid. }
+        '403': { description: The request is not allowed. }
+        '404': { description: The time entry does not exist. }
+components:
+  securitySchemes: {}
+  parameters:
+    WorkspaceId:
+      name: workspaceId
+      in: path
+      required: true
+      description: Represents a workspace identifier across the system.
+      schema: { type: string }
+    UserId:
+      name: userId
+      in: path
+      required: true
+      description: Represents a user identifier across the system.
+      schema: { type: string }
+    Start:
+      name: start
+      in: query
+      required: false
+      description: Represents a start date in the yyyy-MM-ddThh:mm:ssZ format.
+      schema: { type: string, format: date-time }
+    End:
+      name: end
+      in: query
+      required: false
+      description: Represents an end date in the yyyy-MM-ddThh:mm:ssZ format.
+      schema: { type: string, format: date-time }
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number.
+      schema: { type: integer, minimum: 1, default: 1 }
+    PageSize:
+      name: page-size
+      in: query
+      required: false
+      description: Page size.
+      schema: { type: integer, minimum: 1, default: 50 }
+  schemas:
+    TimeInterval:
+      type: object
+      nullable: true
+      properties:
+        start: { type: string, format: date-time, nullable: true }
+        end: { type: string, format: date-time, nullable: true }
+        duration: { type: string, nullable: true }
+    TimeEntry:
+      type: object
+      required: [id, workspaceId, userId]
+      properties:
+        id: { type: string }
+        workspaceId: { type: string }
+        userId: { type: string }
+        description: { type: string, nullable: true }
+        billable: { type: boolean }
+        projectId: { type: string, nullable: true }
+        taskId: { type: string, nullable: true }
+        tagIds:
+          type: array
+          nullable: true
+          items: { type: string }
+        timeInterval: { $ref: '#/components/schemas/TimeInterval' }
+        type: { type: string, enum: [REGULAR, BREAK] }
+        isLocked: { type: boolean }
+        kioskId: { type: string, nullable: true }
