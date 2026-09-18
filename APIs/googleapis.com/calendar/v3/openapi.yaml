@@ -27,7 +27,7 @@ info:
   x-providerName: googleapis.com
   x-serviceName: calendar
 externalDocs:
-  url: https://developers.google.com/google-apps/calendar/firstapp
+  url: https://developers.google.com/workspace/calendar/firstapp
 tags:
   - name: acl
   - name: calendarList
@@ -48,7 +48,11 @@ paths:
       - $ref: "#/components/parameters/quotaUser"
       - $ref: "#/components/parameters/userIp"
     post:
-      description: Creates a secondary calendar.
+      description: |-
+        Creates a secondary calendar.
+        The authenticated user for the request is made the data owner of the new calendar.
+
+        Note: We recommend to authenticate as the intended data owner of the calendar. You can use domain-wide delegation of authority to allow applications to act on behalf of a specific user. Don't use a service account for authentication. If you use a service account for authentication, the service account is the data owner, which can lead to unexpected behavior. For example, if a service account is the data owner, data ownership cannot be transferred.
       operationId: calendar.calendars.insert
       requestBody:
         content:
@@ -67,6 +71,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendars
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendars
       tags:
         - calendars
   /calendars/{calendarId}:
@@ -88,6 +100,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendars
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendars
       tags:
         - calendars
     get:
@@ -112,6 +132,18 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendars
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendars
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendars.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendars.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.readonly
           Oauth2c:
@@ -153,6 +185,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendars
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendars
       tags:
         - calendars
     put:
@@ -182,6 +222,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendars
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendars
       tags:
         - calendars
   /calendars/{calendarId}/acl:
@@ -232,6 +280,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls.readonly
       tags:
         - acl
     parameters:
@@ -274,6 +330,10 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls
       tags:
         - acl
   /calendars/{calendarId}/acl/watch:
@@ -337,6 +397,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls.readonly
       tags:
         - acl
   /calendars/{calendarId}/acl/{ruleId}:
@@ -364,6 +432,10 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls
       tags:
         - acl
     get:
@@ -394,6 +466,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.readonly
           Oauth2c:
@@ -446,6 +526,10 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls
       tags:
         - acl
     put:
@@ -486,6 +570,10 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls
       tags:
         - acl
   /calendars/{calendarId}/clear:
@@ -515,6 +603,10 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendars
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendars
       tags:
         - calendars
   /calendars/{calendarId}/events:
@@ -533,15 +625,17 @@ paths:
           name: alwaysIncludeEmail
           schema:
             type: boolean
-        - description: Event types to return. Optional. This parameter can be repeated multiple times to return events of different types. The default is ["default", "focusTime", "outOfOffice"].
+        - description: Event types to return. Optional. This parameter can be repeated multiple times to return events of different types. If unset, returns all event types.
           explode: true
           in: query
           name: eventTypes
           schema:
             items:
               enum:
+                - birthday
                 - default
                 - focusTime
+                - fromGmail
                 - outOfOffice
                 - workingLocation
               type: string
@@ -562,6 +656,7 @@ paths:
           in: query
           name: maxResults
           schema:
+            default: 250
             minimum: 1
             type: integer
         - description: The order of the events returned in the result. Optional. The default is an unspecified, stable order.
@@ -681,9 +776,29 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.events.readonly
           Oauth2c:
@@ -715,6 +830,13 @@ paths:
         - description: Version number of conference data supported by the API client. Version 0 assumes no conference data support and ignores conference data in the event's body. Version 1 enables support for copying of ConferenceData as well as for creating new conferences using the createRequest field of conferenceData. The default is 0.
           in: query
           name: conferenceDataVersion
+          schema:
+            maximum: 1
+            minimum: 0
+            type: integer
+        - description: Version number of the event label feature supported by the API client. Version 0 assumes no event label support and processes the colorId field for color management. Version 1 enables support for event labels, and processes the eventLabelId in the event's body. In this case, the colorId field is ignored. The default is 0.
+          in: query
+          name: eventLabelVersion
           schema:
             maximum: 1
             minimum: 0
@@ -765,9 +887,17 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
       tags:
         - events
   /calendars/{calendarId}/events/import:
@@ -780,7 +910,9 @@ paths:
       - $ref: "#/components/parameters/quotaUser"
       - $ref: "#/components/parameters/userIp"
     post:
-      description: Imports an event. This operation is used to add a private copy of an existing event to a calendar.
+      description: |-
+        Imports an event. This operation is used to add a private copy of an existing event to a calendar. Only events with an eventType of default may be imported.
+        Deprecated behavior: If a non-default event is imported, its type will be changed to default and any event-type-specific properties it may have will be dropped.
       operationId: calendar.events.import
       parameters:
         - description: Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword.
@@ -792,6 +924,13 @@ paths:
         - description: Version number of conference data supported by the API client. Version 0 assumes no conference data support and ignores conference data in the event's body. Version 1 enables support for copying of ConferenceData as well as for creating new conferences using the createRequest field of conferenceData. The default is 0.
           in: query
           name: conferenceDataVersion
+          schema:
+            maximum: 1
+            minimum: 0
+            type: integer
+        - description: Version number of the event label feature supported by the API client. Version 0 assumes no event label support and processes the colorId field for color management. Version 1 enables support for event labels, and processes the eventLabelId in the event's body. In this case, the colorId field is ignored. The default is 0.
+          in: query
+          name: eventLabelVersion
           schema:
             maximum: 1
             minimum: 0
@@ -819,9 +958,17 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
       tags:
         - events
   /calendars/{calendarId}/events/quickAdd:
@@ -879,9 +1026,17 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
       tags:
         - events
   /calendars/{calendarId}/events/watch:
@@ -908,15 +1063,17 @@ paths:
           name: alwaysIncludeEmail
           schema:
             type: boolean
-        - description: Event types to return. Optional. This parameter can be repeated multiple times to return events of different types. The default is ["default", "focusTime", "outOfOffice"].
+        - description: Event types to return. Optional. This parameter can be repeated multiple times to return events of different types. If unset, returns all event types.
           explode: true
           in: query
           name: eventTypes
           schema:
             items:
               enum:
+                - birthday
                 - default
                 - focusTime
+                - fromGmail
                 - outOfOffice
                 - workingLocation
               type: string
@@ -937,6 +1094,7 @@ paths:
           in: query
           name: maxResults
           schema:
+            default: 250
             minimum: 1
             type: integer
         - description: The order of the events returned in the result. Optional. The default is an unspecified, stable order.
@@ -1061,9 +1219,29 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.events.readonly
           Oauth2c:
@@ -1117,9 +1295,17 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
       tags:
         - events
     get:
@@ -1167,9 +1353,29 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.events.readonly
           Oauth2c:
@@ -1216,81 +1422,9 @@ paths:
             maximum: 1
             minimum: 0
             type: integer
-        - description: The maximum number of attendees to include in the response. If there are more than the specified number of attendees, only the participant is returned. Optional.
+        - description: Version number of the event label feature supported by the API client. Version 0 assumes no event label support and processes the colorId field for color management. Version 1 enables support for event labels, and processes the eventLabelId in the event's body. In this case, the colorId field is ignored. The default is 0.
           in: query
-          name: maxAttendees
-          schema:
-            minimum: 1
-            type: integer
-        - description: |-
-            Deprecated. Please use sendUpdates instead.
-
-            Whether to send notifications about the event update (for example, description changes, etc.). Note that some emails might still be sent even if you set the value to false. The default is false.
-          in: query
-          name: sendNotifications
-          schema:
-            type: boolean
-        - description: Guests who should receive notifications about the event update (for example, title changes, etc.).
-          in: query
-          name: sendUpdates
-          schema:
-            enum:
-              - all
-              - externalOnly
-              - none
-            type: string
-        - description: Whether API client performing operation supports event attachments. Optional. The default is False.
-          in: query
-          name: supportsAttachments
-          schema:
-            type: boolean
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Event"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Event"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/calendar
-          Oauth2c:
-            - https://www.googleapis.com/auth/calendar
-        - Oauth2:
-            - https://www.googleapis.com/auth/calendar.events
-          Oauth2c:
-            - https://www.googleapis.com/auth/calendar.events
-      tags:
-        - events
-    put:
-      description: Updates an event.
-      operationId: calendar.events.update
-      parameters:
-        - description: Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword.
-          in: path
-          name: calendarId
-          required: true
-          schema:
-            type: string
-        - description: Event identifier.
-          in: path
-          name: eventId
-          required: true
-          schema:
-            type: string
-        - description: Deprecated and ignored. A value will always be returned in the email field for the organizer, creator and attendees, even if no real email address is available (i.e. a generated, non-working value will be provided).
-          in: query
-          name: alwaysIncludeEmail
-          schema:
-            type: boolean
-        - description: Version number of conference data supported by the API client. Version 0 assumes no conference data support and ignores conference data in the event's body. Version 1 enables support for copying of ConferenceData as well as for creating new conferences using the createRequest field of conferenceData. The default is 0.
-          in: query
-          name: conferenceDataVersion
+          name: eventLabelVersion
           schema:
             maximum: 1
             minimum: 0
@@ -1341,9 +1475,111 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
+      tags:
+        - events
+    put:
+      description: Updates an event.
+      operationId: calendar.events.update
+      parameters:
+        - description: Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword.
+          in: path
+          name: calendarId
+          required: true
+          schema:
+            type: string
+        - description: Event identifier.
+          in: path
+          name: eventId
+          required: true
+          schema:
+            type: string
+        - description: Deprecated and ignored. A value will always be returned in the email field for the organizer, creator and attendees, even if no real email address is available (i.e. a generated, non-working value will be provided).
+          in: query
+          name: alwaysIncludeEmail
+          schema:
+            type: boolean
+        - description: Version number of conference data supported by the API client. Version 0 assumes no conference data support and ignores conference data in the event's body. Version 1 enables support for copying of ConferenceData as well as for creating new conferences using the createRequest field of conferenceData. The default is 0.
+          in: query
+          name: conferenceDataVersion
+          schema:
+            maximum: 1
+            minimum: 0
+            type: integer
+        - description: Version number of the event label feature supported by the API client. Version 0 assumes no event label support and processes the colorId field for color management. Version 1 enables support for event labels, and processes the eventLabelId in the event's body. In this case, the colorId field is ignored. The default is 0.
+          in: query
+          name: eventLabelVersion
+          schema:
+            maximum: 1
+            minimum: 0
+            type: integer
+        - description: The maximum number of attendees to include in the response. If there are more than the specified number of attendees, only the participant is returned. Optional.
+          in: query
+          name: maxAttendees
+          schema:
+            minimum: 1
+            type: integer
+        - description: |-
+            Deprecated. Please use sendUpdates instead.
+
+            Whether to send notifications about the event update (for example, description changes, etc.). Note that some emails might still be sent even if you set the value to false. The default is false.
+          in: query
+          name: sendNotifications
+          schema:
+            type: boolean
+        - description: Guests who should receive notifications about the event update (for example, title changes, etc.).
+          in: query
+          name: sendUpdates
+          schema:
+            enum:
+              - all
+              - externalOnly
+              - none
+            type: string
+        - description: Whether API client performing operation supports event attachments. Optional. The default is False.
+          in: query
+          name: supportsAttachments
+          schema:
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Event"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+          description: Successful response
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
       tags:
         - events
   /calendars/{calendarId}/events/{eventId}/instances:
@@ -1423,9 +1659,29 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.events.readonly
           Oauth2c:
@@ -1454,7 +1710,7 @@ paths:
       - $ref: "#/components/parameters/quotaUser"
       - $ref: "#/components/parameters/userIp"
     post:
-      description: Moves an event to another calendar, i.e. changes an event's organizer. Note that only default events can be moved; outOfOffice, focusTime and workingLocation events cannot be moved.
+      description: Moves an event to another calendar, i.e. changes an event's organizer. Note that only default events can be moved; birthday, focusTime, fromGmail, outOfOffice and workingLocation events cannot be moved.
       operationId: calendar.events.move
       parameters:
         - description: Calendar identifier of the source calendar where the event currently is on.
@@ -1508,8 +1764,60 @@ paths:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
       tags:
         - events
+  /calendars/{calendarId}/transferOwnership:
+    parameters:
+      - $ref: "#/components/parameters/alt"
+      - $ref: "#/components/parameters/fields"
+      - $ref: "#/components/parameters/key"
+      - $ref: "#/components/parameters/oauth_token"
+      - $ref: "#/components/parameters/prettyPrint"
+      - $ref: "#/components/parameters/quotaUser"
+      - $ref: "#/components/parameters/userIp"
+    post:
+      description: |-
+        Transfers a secondary calendar between users within a Google Workspace organization. Requires user authentication with Manage Calendars administrator privilege, and one of the following authorization scopes: 
+        - https://www.googleapis.com/auth/calendar 
+        - https://www.googleapis.com/auth/calendar.calendars In the request, set useAdminAccess to true. The secondary calendar must be active to be transferred. Transferring disabled or deleted calendars isn't supported.
+      operationId: calendar.calendars.transferOwnership
+      parameters:
+        - description: Calendar identifier. To retrieve calendar IDs, call the calendarList.list method.
+          in: path
+          name: calendarId
+          required: true
+          schema:
+            type: string
+        - description: The email address of a user who will become the data owner of the calendar.
+          in: query
+          name: newDataOwner
+          required: true
+          schema:
+            type: string
+        - description: When true, the method runs using the user's Google Workspace administrator privileges. The calling user must be a Google Workspace administrator with the Manage Calendars privilege. This method currently only supports admin access, thus only true is accepted for this field.
+          in: query
+          name: useAdminAccess
+          required: true
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Successful response
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendars
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendars
+      tags:
+        - calendars
   /channels/stop:
     parameters:
       - $ref: "#/components/parameters/alt"
@@ -1536,9 +1844,45 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.acls.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.acls.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.events
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.events
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.events.readonly
           Oauth2c:
@@ -1569,6 +1913,34 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.owned.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.public.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.readonly
           Oauth2c:
@@ -1613,6 +1985,14 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.events.freebusy
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.freebusy
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.freebusy
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.readonly
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.readonly
@@ -1638,6 +2018,7 @@ paths:
               - owner
               - reader
               - writer
+              - writerWithoutPrivateAccess
             type: string
         - description: Token specifying which result page to return. Optional.
           in: query
@@ -1654,9 +2035,14 @@ paths:
           name: showHidden
           schema:
             type: boolean
+        - description: Whether to show only entries for calendars from the organization. This parameter is only applicable to Google Workspace users. Optional. The default is False.
+          in: query
+          name: showOwnOrganizationOnly
+          schema:
+            type: boolean
         - description: |-
             Token obtained from the nextSyncToken field returned on the last page of results from the previous list request. It makes the result of this list request contain only entries that have changed since then. If only read-only fields such as calendar properties or ACLs have changed, the entry won't be returned. All entries deleted and hidden since the previous list request will always be in the result set and it is not allowed to set showDeleted neither showHidden to False.
-            To ensure client state consistency minAccessRole query parameter cannot be specified together with nextSyncToken.
+            To ensure client state consistency minAccessRole and showOwnOrganizationOnly query parameters cannot be specified together with nextSyncToken.
             If the syncToken expires, the server will respond with a 410 GONE response code and the client should clear its storage and perform a full synchronization without any syncToken.
             Learn more about incremental synchronization.
             Optional. The default is to return all entries.
@@ -1676,6 +2062,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.readonly
           Oauth2c:
@@ -1716,6 +2110,10 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist
       tags:
         - calendarList
   /users/me/calendarList/watch:
@@ -1746,6 +2144,7 @@ paths:
               - owner
               - reader
               - writer
+              - writerWithoutPrivateAccess
             type: string
         - description: Token specifying which result page to return. Optional.
           in: query
@@ -1762,9 +2161,14 @@ paths:
           name: showHidden
           schema:
             type: boolean
+        - description: Whether to show only entries for calendars from the organization. This parameter is only applicable to Google Workspace users. Optional. The default is False.
+          in: query
+          name: showOwnOrganizationOnly
+          schema:
+            type: boolean
         - description: |-
             Token obtained from the nextSyncToken field returned on the last page of results from the previous list request. It makes the result of this list request contain only entries that have changed since then. If only read-only fields such as calendar properties or ACLs have changed, the entry won't be returned. All entries deleted and hidden since the previous list request will always be in the result set and it is not allowed to set showDeleted neither showHidden to False.
-            To ensure client state consistency minAccessRole query parameter cannot be specified together with nextSyncToken.
+            To ensure client state consistency minAccessRole and showOwnOrganizationOnly query parameters cannot be specified together with nextSyncToken.
             If the syncToken expires, the server will respond with a 410 GONE response code and the client should clear its storage and perform a full synchronization without any syncToken.
             Learn more about incremental synchronization.
             Optional. The default is to return all entries.
@@ -1790,6 +2194,14 @@ paths:
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
         - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
+        - Oauth2:
             - https://www.googleapis.com/auth/calendar.readonly
           Oauth2c:
             - https://www.googleapis.com/auth/calendar.readonly
@@ -1814,6 +2226,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist
       tags:
         - calendarList
     get:
@@ -1838,6 +2258,18 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/calendar.readonly
           Oauth2c:
@@ -1884,6 +2316,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist
       tags:
         - calendarList
     put:
@@ -1918,6 +2358,14 @@ paths:
             - https://www.googleapis.com/auth/calendar
           Oauth2c:
             - https://www.googleapis.com/auth/calendar
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.app.created
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.app.created
+        - Oauth2:
+            - https://www.googleapis.com/auth/calendar.calendarlist
+          Oauth2c:
+            - https://www.googleapis.com/auth/calendar.calendarlist
       tags:
         - calendarList
   /users/me/settings:
@@ -2083,6 +2531,7 @@ components:
       in: query
       name: alt
       schema:
+        default: json
         enum:
           - json
         type: string
@@ -2109,6 +2558,7 @@ components:
       in: query
       name: prettyPrint
       schema:
+        default: true
         type: boolean
     quotaUser:
       description: An opaque string that represents a user for quota purposes. Must not exceed 40 characters.
@@ -2162,8 +2612,10 @@ components:
             - "none" - Provides no access. 
             - "freeBusyReader" - Provides read access to free/busy information. 
             - "reader" - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. 
-            - "writer" - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. 
-            - "owner" - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.
+            - "writerWithoutPrivateAccess" - Provides read and write access to the calendar. Private events will appear to users with writerWithoutPrivateAccess access, but event details will be hidden. 
+            - "writer" - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. Provides read access to the calendar's ACLs. 
+            - "owner" - Provides manager access to the calendar. This role has all of the permissions of the writer role with the additional ability to modify access levels of other users.
+            Important: the owner role is different from the calendar's data owner. A calendar has a single data owner, but can have multiple users with owner role.
           type: string
         scope:
           description: The extent to which calendar access is granted by this ACL rule.
@@ -2183,9 +2635,14 @@ components:
       type: object
     Calendar:
       properties:
+        autoAcceptInvitations:
+          description: Whether this calendar automatically accepts invitations. Only valid for resource calendars.
+          type: boolean
         conferenceProperties:
           $ref: "#/components/schemas/ConferenceProperties"
-          description: Conferencing properties for this calendar, for example what types of conferences are allowed.
+        dataOwner:
+          description: The email of the owner of the calendar. Set only for secondary calendars. Read-only.
+          type: string
         description:
           description: Description of the calendar. Optional.
           type: string
@@ -2199,6 +2656,8 @@ components:
           default: calendar#calendar
           description: Type of the resource ("calendar#calendar").
           type: string
+        labelProperties:
+          $ref: "#/components/schemas/LabelProperties"
         location:
           description: Geographic location of the calendar as free-form text. Optional.
           type: string
@@ -2237,9 +2696,14 @@ components:
             The effective access role that the authenticated user has on the calendar. Read-only. Possible values are:  
             - "freeBusyReader" - Provides read access to free/busy information. 
             - "reader" - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. 
+            - "writerWithoutPrivateAccess" - Provides read and write access to the calendar. Private events will appear to users with writerWithoutPrivateAccess access, but event details will be hidden. 
             - "writer" - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. 
-            - "owner" - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.
+            - "owner" - Provides manager access to the calendar. This role has all of the permissions of the writer role with the additional ability to see and modify access levels of other users.
+            Important: the owner role is different from the calendar's data owner. A calendar has a single data owner, but can have multiple users with owner role.
           type: string
+        autoAcceptInvitations:
+          description: Whether this calendar automatically accepts invitations. Only valid for resource calendars. Read-only.
+          type: boolean
         backgroundColor:
           description: The main color of the calendar in the hexadecimal format "#0088aa". This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.
           type: string
@@ -2248,7 +2712,9 @@ components:
           type: string
         conferenceProperties:
           $ref: "#/components/schemas/ConferenceProperties"
-          description: Conferencing properties for this calendar, for example what types of conferences are allowed.
+        dataOwner:
+          description: The email of the owner of the calendar. Set only for secondary calendars. Read-only.
+          type: string
         defaultReminders:
           description: The default reminders that the authenticated user has for this calendar.
           items:
@@ -2379,13 +2845,11 @@ components:
         calendar:
           additionalProperties:
             $ref: "#/components/schemas/ColorDefinition"
-            description: A calendar color definition.
           description: A global palette of calendar colors, mapping from the color ID to its definition. A calendarListEntry resource refers to one of these color IDs in its colorId field. Read-only.
           type: object
         event:
           additionalProperties:
             $ref: "#/components/schemas/ColorDefinition"
-            description: An event color definition.
           description: A global palette of event colors, mapping from the color ID to its definition. An event resource may refer to one of these color IDs in its colorId field. Read-only.
           type: object
         kind:
@@ -2411,15 +2875,8 @@ components:
           type: string
         conferenceSolution:
           $ref: "#/components/schemas/ConferenceSolution"
-          description: |-
-            The conference solution, such as Google Meet.
-            Unset for a conference with a failed create request.
-            Either conferenceSolution and at least one entryPoint, or createRequest is required.
         createRequest:
           $ref: "#/components/schemas/CreateConferenceRequest"
-          description: |-
-            A request to generate a new conference and attach it to the event. The data is generated asynchronously. To see whether the data is present check the status field.
-            Either conferenceSolution and at least one entryPoint, or createRequest is required.
         entryPoints:
           description: |-
             Information about individual conference entry points, such as URLs or phone numbers.
@@ -2433,7 +2890,6 @@ components:
           type: string
         parameters:
           $ref: "#/components/schemas/ConferenceParameters"
-          description: Additional properties related to a conference. An example would be a solution-specific setting for enabling video streaming.
         signature:
           description: |-
             The signature of the conference data.
@@ -2446,7 +2902,6 @@ components:
       properties:
         addOnParameters:
           $ref: "#/components/schemas/ConferenceParametersAddOnParameters"
-          description: Additional add-on specific data.
       type: object
     ConferenceParametersAddOnParameters:
       properties:
@@ -2486,7 +2941,6 @@ components:
           type: string
         key:
           $ref: "#/components/schemas/ConferenceSolutionKey"
-          description: The key which can uniquely identify the conference solution for this event.
         name:
           description: The user-visible name of this solution. Not localized.
           type: string
@@ -2508,7 +2962,6 @@ components:
       properties:
         conferenceSolutionKey:
           $ref: "#/components/schemas/ConferenceSolutionKey"
-          description: The conference solution, such as Hangouts or Google Meet.
         requestId:
           description: |-
             The client-generated unique ID for this request.
@@ -2516,7 +2969,6 @@ components:
           type: string
         status:
           $ref: "#/components/schemas/ConferenceRequestStatus"
-          description: The status of the conference create request.
       type: object
     EntryPoint:
       properties:
@@ -2625,12 +3077,13 @@ components:
           default: false
           description: Whether attendees may have been omitted from the event's representation. When retrieving an event, this may be due to a restriction specified by the maxAttendee query parameter. When updating an event, this can be used to only update the participant's response. Optional. The default is False.
           type: boolean
+        birthdayProperties:
+          $ref: "#/components/schemas/EventBirthdayProperties"
         colorId:
           description: The color of the event. This is an ID referring to an entry in the event section of the colors definition (see the  colors endpoint). Optional.
           type: string
         conferenceData:
           $ref: "#/components/schemas/ConferenceData"
-          description: The conference-related information, such as details of a Google Meet conference. To create new conference details use the createRequest field. To persist your changes, remember to set the conferenceDataVersion request parameter to 1 for all event modification requests.
         created:
           description: Creation time of the event (as a RFC3339 timestamp). Read-only.
           format: date-time
@@ -2657,7 +3110,6 @@ components:
           type: string
         end:
           $ref: "#/components/schemas/EventDateTime"
-          description: The (exclusive) end time of the event. For a recurring event, this is the end time of the first instance.
         endTimeUnspecified:
           default: false
           description: Whether the end time is actually unspecified. An end time is still provided for compatibility reasons, even if this attribute is set to True. The default is False.
@@ -2665,14 +3117,22 @@ components:
         etag:
           description: ETag of the resource.
           type: string
+        eventLabelId:
+          description: |-
+            The ID of the event label assigned to the event. Optional. This refers to the ID of an entry in the labelProperties.eventLabels property of the calendar (see the Calendars.get endpoint.)
+            This property supersedes the index-based colorId property. To set or change this property, you need to specify eventLabelVersion=1 in the parameters of the insert, import, update, and patch methods.
+            Setting an empty string, or not setting this field at all, will remove the existing label from the event.
+          type: string
         eventType:
           default: default
           description: |-
             Specific type of the event. This cannot be modified after the event is created. Possible values are:  
+            - "birthday" - A special all-day event with an annual recurrence. 
             - "default" - A regular event or not further specified. 
-            - "outOfOffice" - An out-of-office event. 
             - "focusTime" - A focus-time event. 
-            - "workingLocation" - A working location event.  Currently, only "default " and "workingLocation" events can be created using the API. Extended support for other event types will be made available in later releases.
+            - "fromGmail" - An event from Gmail. This type of event cannot be created. 
+            - "outOfOffice" - An out-of-office event. 
+            - "workingLocation" - A working location event.
           type: string
         extendedProperties:
           description: Extended properties of the event.
@@ -2692,7 +3152,6 @@ components:
           type: object
         focusTimeProperties:
           $ref: "#/components/schemas/EventFocusTimeProperties"
-          description: Focus Time event data. Used if eventType is focusTime.
         gadget:
           description: A gadget that extends this event. Gadgets are deprecated; this structure is instead only used for returning birthday calendar metadata.
           properties:
@@ -2791,10 +3250,8 @@ components:
           type: object
         originalStartTime:
           $ref: "#/components/schemas/EventDateTime"
-          description: For an instance of a recurring event, this is the time at which this event would start according to the recurrence data in the recurring event identified by recurringEventId. It uniquely identifies the instance within the recurring event series even if the instance was moved to a different time. Immutable.
         outOfOfficeProperties:
           $ref: "#/components/schemas/EventOutOfOfficeProperties"
-          description: Out of office event data. Used if eventType is outOfOffice.
         privateCopy:
           default: false
           description: If set to True, Event propagation is disabled. Note that it is not the same thing as Private event properties. Optional. Immutable. The default is False.
@@ -2808,7 +3265,7 @@ components:
           description: For an instance of a recurring event, this is the id of the recurring event to which this instance belongs. Immutable.
           type: string
         reminders:
-          description: Information about the event's reminders for the authenticated user.
+          description: Information about the event's reminders for the authenticated user. Note that changing reminders does not also change the updated property of the enclosing event.
           properties:
             overrides:
               description: If the event doesn't use the default reminders, this lists the reminders specific to the event, or, if not set, indicates that no reminders are set for this event. The maximum number of override reminders is 5.
@@ -2835,7 +3292,6 @@ components:
           type: object
         start:
           $ref: "#/components/schemas/EventDateTime"
-          description: The (inclusive) start time of the event. For a recurring event, this is the start time of the first instance.
         status:
           description: |-
             Status of the event. Optional. Possible values are:  
@@ -2860,7 +3316,7 @@ components:
             - "transparent" - The event does not block time on the calendar. This is equivalent to setting Show me as to Available in the Calendar UI.
           type: string
         updated:
-          description: Last modification time of the event (as a RFC3339 timestamp). Read-only.
+          description: Last modification time of the main event data (as a RFC3339 timestamp). Updating event reminders will not cause this to change. Read-only.
           format: date-time
           type: string
         visibility:
@@ -2870,11 +3326,11 @@ components:
             - "default" - Uses the default visibility for events on the calendar. This is the default value. 
             - "public" - The event is public and event details are visible to all readers of the calendar. 
             - "private" - The event is private and only event attendees may view event details. 
-            - "confidential" - The event is private. This value is provided for compatibility reasons.
+            - "confidential" - The event is private. This value is provided for compatibility reasons.  
+            Note on recurring events: Changing the visibility of a single instance of a recurring event can affect all instances of the series. If the new setting is more restrictive (e.g. from public to private), it is applied to all instances. If the new setting is less restrictive (e.g. from private to public), the change is ignored. To make a recurring event less restrictive, you must update the parent recurring event.
           type: string
         workingLocationProperties:
           $ref: "#/components/schemas/EventWorkingLocationProperties"
-          description: Working location event data.
       type: object
     EventAttachment:
       properties:
@@ -2906,6 +3362,14 @@ components:
           description: Number of additional guests. Optional. The default is 0.
           format: int32
           type: integer
+        asyncOperation:
+          default: ""
+          description: |-
+            If present, indicates the status of an asynchronous operation ongoing for this attendee (e.g. listing of members of large attendee groups). Read-only. The default is to not be present.
+            Possible values are:  
+            - "inProgress" - The asynchronous operation is in progress. 
+            - (not present) - Otherwise.
+          type: string
         comment:
           description: The attendee's response comment. Optional.
           type: string
@@ -2937,12 +3401,31 @@ components:
             - "needsAction" - The attendee has not responded to the invitation (recommended for new events). 
             - "declined" - The attendee has declined the invitation. 
             - "tentative" - The attendee has tentatively accepted the invitation. 
-            - "accepted" - The attendee has accepted the invitation.  Warning: If you add an event using the values declined, tentative, or accepted, attendees with the "Add invitations to my calendar" setting set to "When I respond to invitation in email" won't see an event on their calendar unless they choose to change their invitation response in the event invitation email.
+            - "accepted" - The attendee has accepted the invitation.  Warning: If you add an event using the values declined, tentative, or accepted, attendees with the "Add invitations to my calendar" setting set to "When I respond to invitation in email" or "Only if the sender is known" might have their response reset to needsAction and won't see an event in their calendar unless they change their response in the event invitation email. Furthermore, if more than 200 guests are invited to the event, response status is not propagated to the guests.
           type: string
         self:
           default: false
           description: Whether this entry represents the calendar on which this copy of the event appears. Read-only. The default is False.
           type: boolean
+      type: object
+    EventBirthdayProperties:
+      properties:
+        contact:
+          description: "Resource name of the contact this birthday event is linked to. This can be used to fetch contact details from People API. Format: \"people/c12345\". Read-only."
+          type: string
+        customTypeName:
+          description: Custom type label specified for this event. This is populated if birthdayProperties.type is set to "custom". Read-only.
+          type: string
+        type:
+          default: birthday
+          description: |-
+            Type of birthday or special event. Possible values are:  
+            - "anniversary" - An anniversary other than birthday. Always has a contact. 
+            - "birthday" - A birthday event. This is the default value. 
+            - "custom" - A special date whose label is further specified in the customTypeName field. Always has a contact. 
+            - "other" - A special date which does not fall into the other categories, and does not have a custom label. Always has a contact. 
+            - "self" - Calendar owner's own birthday. Cannot have a contact.  The Calendar API only supports creating events with the type "birthday". The type cannot be changed after the event is created.
+          type: string
       type: object
     EventDateTime:
       properties:
@@ -2968,6 +3451,22 @@ components:
           type: string
         declineMessage:
           description: Response message to set if an existing event or new invitation is automatically declined by Calendar.
+          type: string
+      type: object
+    EventLabel:
+      properties:
+        backgroundColor:
+          description: Background color of the label in hexadecimal format, such as "#039be5". Events with this label are displayed in this color. Required.
+          type: string
+        id:
+          description: |-
+            The ID of the label. Optional when inserting a new label. If not provided, a unique ID will be generated. Required when updating a label.
+            If provided, the ID must be unique within the calendar and follow UUID format.
+          type: string
+        name:
+          description: |-
+            Name of the label. Optional.
+            If provided this must have at most 50 characters.
           type: string
       type: object
     EventOutOfOfficeProperties:
@@ -3042,8 +3541,10 @@ components:
             - "none" - The user has no access. 
             - "freeBusyReader" - The user has read access to free/busy information. 
             - "reader" - The user has read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. 
+            - "writerWithoutPrivateAccess" - The user has read and write access to the calendar. Private events will appear to users with writerWithoutPrivateAccess access, but event details will be hidden. 
             - "writer" - The user has read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. 
-            - "owner" - The user has ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.
+            - "owner" - The user has manager access to the calendar. This role has all of the permissions of the writer role with the additional ability to see and modify access levels of other users.
+            Important: the owner role is different from the calendar's data owner. A calendar has a single data owner, but can have multiple users with owner role.
           type: string
         defaultReminders:
           description: The default reminders on the calendar for the authenticated user. These reminders apply to all events on this calendar that do not explicitly override them (i.e. do not have reminders.useDefault set to True).
@@ -3147,13 +3648,11 @@ components:
         calendars:
           additionalProperties:
             $ref: "#/components/schemas/FreeBusyCalendar"
-            description: Free/busy expansions for a single calendar.
           description: List of free/busy information for calendars.
           type: object
         groups:
           additionalProperties:
             $ref: "#/components/schemas/FreeBusyGroup"
-            description: List of calendars that are members of this group.
           description: Expansion of groups.
           type: object
         kind:
@@ -3168,6 +3667,17 @@ components:
           description: The start of the interval.
           format: date-time
           type: string
+      type: object
+    LabelProperties:
+      properties:
+        eventLabels:
+          description: |-
+            Event labels defined on this calendar. If this is present when updating the calendar, it will replace the existing event labels.
+            Extend the list to add a new event label, and remove entities from the list to delete a label from calendar.
+            Each calendar can have a maximum of 200 labels.
+          items:
+            $ref: "#/components/schemas/EventLabel"
+          type: array
       type: object
     Setting:
       properties:
@@ -3225,20 +3735,44 @@ components:
           authorizationUrl: https://accounts.google.com/o/oauth2/auth
           scopes:
             https://www.googleapis.com/auth/calendar: See, edit, share, and permanently delete all the calendars you can access using Google Calendar
+            https://www.googleapis.com/auth/calendar.acls: See and change the sharing permissions of Google calendars you own
+            https://www.googleapis.com/auth/calendar.acls.readonly: See the sharing permissions of Google calendars you own
+            https://www.googleapis.com/auth/calendar.app.created: Make secondary Google calendars, and see, create, change, and delete events on them
+            https://www.googleapis.com/auth/calendar.calendarlist: See, add, and remove Google calendars you’re subscribed to
+            https://www.googleapis.com/auth/calendar.calendarlist.readonly: See the list of Google calendars you’re subscribed to
+            https://www.googleapis.com/auth/calendar.calendars: See and change the properties of Google calendars you have access to, and create secondary calendars
+            https://www.googleapis.com/auth/calendar.calendars.readonly: See the title, description, default time zone, and other properties of Google calendars you have access to
             https://www.googleapis.com/auth/calendar.events: View and edit events on all your calendars
+            https://www.googleapis.com/auth/calendar.events.freebusy: See the availability on Google calendars you have access to
+            https://www.googleapis.com/auth/calendar.events.owned: See, create, change, and delete events on Google calendars you own
+            https://www.googleapis.com/auth/calendar.events.owned.readonly: See the events on Google calendars you own
+            https://www.googleapis.com/auth/calendar.events.public.readonly: See the events on public calendars
             https://www.googleapis.com/auth/calendar.events.readonly: View events on all your calendars
+            https://www.googleapis.com/auth/calendar.freebusy: View your availability in your calendars
             https://www.googleapis.com/auth/calendar.readonly: See and download any calendar you can access using your Google Calendar
             https://www.googleapis.com/auth/calendar.settings.readonly: View your Calendar settings
       type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      description: Oauth 2.0 accessCode authentication
       flows:
         authorizationCode:
           authorizationUrl: https://accounts.google.com/o/oauth2/auth
           scopes:
             https://www.googleapis.com/auth/calendar: See, edit, share, and permanently delete all the calendars you can access using Google Calendar
+            https://www.googleapis.com/auth/calendar.acls: See and change the sharing permissions of Google calendars you own
+            https://www.googleapis.com/auth/calendar.acls.readonly: See the sharing permissions of Google calendars you own
+            https://www.googleapis.com/auth/calendar.app.created: Make secondary Google calendars, and see, create, change, and delete events on them
+            https://www.googleapis.com/auth/calendar.calendarlist: See, add, and remove Google calendars you’re subscribed to
+            https://www.googleapis.com/auth/calendar.calendarlist.readonly: See the list of Google calendars you’re subscribed to
+            https://www.googleapis.com/auth/calendar.calendars: See and change the properties of Google calendars you have access to, and create secondary calendars
+            https://www.googleapis.com/auth/calendar.calendars.readonly: See the title, description, default time zone, and other properties of Google calendars you have access to
             https://www.googleapis.com/auth/calendar.events: View and edit events on all your calendars
+            https://www.googleapis.com/auth/calendar.events.freebusy: See the availability on Google calendars you have access to
+            https://www.googleapis.com/auth/calendar.events.owned: See, create, change, and delete events on Google calendars you own
+            https://www.googleapis.com/auth/calendar.events.owned.readonly: See the events on Google calendars you own
+            https://www.googleapis.com/auth/calendar.events.public.readonly: See the events on public calendars
             https://www.googleapis.com/auth/calendar.events.readonly: View events on all your calendars
+            https://www.googleapis.com/auth/calendar.freebusy: View your availability in your calendars
             https://www.googleapis.com/auth/calendar.readonly: See and download any calendar you can access using your Google Calendar
             https://www.googleapis.com/auth/calendar.settings.readonly: View your Calendar settings
           tokenUrl: https://accounts.google.com/o/oauth2/token
