@@ -1,0 +1,547 @@
+openapi: 3.0.1
+info:
+  title: Transcriptions
+  description: Basepom for all HubSpot Projects
+  version: 2026-03
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+    sales: FREE
+    service: FREE
+    cms: FREE
+    commerce: FREE
+    crmHub: FREE
+    dataHub: FREE
+  x-origin:
+    - format: openapi
+      url: https://api.hubspot.com/public/api/spec/v2/specs/release/75341/version/2026-03
+      version: '3.0'
+  x-conversion:
+    - Fetched from HubSpot's public API spec catalog (https://api.hubspot.com/public/api/spec/v1/specs), product 'Transcriptions', group 'CRM', stable version 2026-03.
+servers:
+  - url: https://api.hubapi.com
+tags:
+  - name: Advanced
+  - name: Basic
+paths:
+  /crm/extensions/calling/2026-03/inbound-call:
+    post:
+      tags:
+        - Advanced
+      summary: Handle Inbound Call
+      description: This endpoint processes inbound calls by accepting a request with details about the call. It requires a JSON payload containing information such as the call's external ID, final status, and phone numbers involved. This operation is useful for integrating third-party call data into HubSpot, allowing for seamless tracking and management of inbound calls.
+      operationId: post-/crm/extensions/calling/2026-03/inbound-call_/crm/v3/extensions/calling/inbound-call
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompletedThirdPartyCallRequest'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedThirdPartyCallResponse'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - crm.objects.contacts.highly_sensitive.write.v2
+        - oauth2:
+            - crm.objects.contacts.write
+        - oauth2:
+            - crm.objects.contacts.sensitive.write.v2
+        - oauth2:
+            - crm.schemas.contacts.write
+  /crm/extensions/calling/2026-03/transcripts:
+    post:
+      tags:
+        - Advanced
+      summary: Create Transcript
+      description: Create a new transcript for a call in your HubSpot account. This endpoint allows you to submit the details of a call transcript, including engagement ID and utterances, to be stored and managed within HubSpot. This is useful for integrating call transcription data into your CRM workflows.
+      operationId: post-/crm/extensions/calling/2026-03/transcripts_/crm/extensions/calling/2026-03/transcripts
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscriptCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscriptCreateResponse'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - crm.extensions_calling_transcripts.write
+  /crm/extensions/calling/2026-03/transcripts/{transcriptId}:
+    get:
+      tags:
+        - Basic
+      summary: Retrieve transcript
+      description: Retrieve a specific call transcript by its unique identifier. This endpoint allows you to access the details of a transcript, including its creation and update timestamps, engagement ID, source, and the transcript utterances. It is useful for reviewing and analyzing call interactions stored in your HubSpot account.
+      operationId: get-/crm/extensions/calling/2026-03/transcripts/{transcriptId}_/crm/extensions/calling/2026-03/transcripts/{transcriptId}
+      parameters:
+        - name: transcriptId
+          in: path
+          description: The unique identifier of the transcript to retrieve.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscriptResponse'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - crm.extensions_calling_transcripts.read
+    delete:
+      tags:
+        - Basic
+      summary: Delete transcript
+      description: Delete a specific call transcript from your HubSpot account using its unique identifier. This operation is useful for managing and cleaning up transcript data that is no longer needed.
+      operationId: delete-/crm/extensions/calling/2026-03/transcripts/{transcriptId}_/crm/extensions/calling/2026-03/transcripts/{transcriptId}
+      parameters:
+        - name: transcriptId
+          in: path
+          description: The unique identifier of the transcript to delete.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No content
+          content: {}
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - crm.extensions_calling_transcripts.write
+components:
+  schemas:
+    CompanyCallerId:
+      title: COMPANY
+      required:
+        - callerIdType
+        - objectCoordinates
+      type: object
+      properties:
+        callerIdType:
+          type: string
+          description: A string representing the type of caller ID. The only valid value is 'COMPANY'.
+          default: COMPANY
+          enum:
+            - COMPANY
+        name:
+          type: string
+          description: A string representing the name associated with the company caller ID.
+        objectCoordinates:
+          $ref: '#/components/schemas/ObjectCoordinates'
+      x-hubspot-sub-type-impl: true
+    CompletedThirdPartyCallRequest:
+      required:
+        - createEngagement
+        - engagementProperties
+        - externalCallId
+        - finalCallStatus
+        - fromNumber
+        - potentialRecipientUserIds
+        - toNumber
+      type: object
+      properties:
+        callStartedTimestamp:
+          type: string
+          description: The date and time when the call started, in ISO 8601 format.
+          format: date-time
+        createEngagement:
+          type: boolean
+          description: A boolean indicating whether an engagement should be created for this call.
+        durationSeconds:
+          type: integer
+          description: The duration of the call in seconds, represented as an integer.
+          format: int32
+        engagementProperties:
+          type: object
+          additionalProperties:
+            type: string
+          description: A map of custom property names to their values, used to store additional information about the engagement.
+        externalCallId:
+          type: string
+          description: A unique identifier for the call provided by the external system.
+        finalCallStatus:
+          type: string
+          description: The final status of the call. Valid values include 'QUEUED', 'RINGING', 'IN_PROGRESS', 'CANCELED', 'COMPLETED', 'BUSY', 'FAILED', 'NO_ANSWER', 'CONNECTING', 'CALLING_CRM_USER', 'MISSED', 'HOLD', and 'UNKNOWN'.
+          enum:
+            - BUSY
+            - CALLING_CRM_USER
+            - CANCELED
+            - COMPLETED
+            - CONNECTING
+            - FAILED
+            - HOLD
+            - IN_PROGRESS
+            - MISSED
+            - NO_ANSWER
+            - QUEUED
+            - RINGING
+            - UNKNOWN
+        fromNumber:
+          $ref: '#/components/schemas/FormattedPhoneNumber'
+        potentialRecipientUserIds:
+          type: array
+          description: An array of integers representing the user IDs of potential recipients of the call.
+          items:
+            type: integer
+            format: int32
+        toNumber:
+          $ref: '#/components/schemas/FormattedPhoneNumber'
+        userId:
+          type: integer
+          description: The unique identifier of the user associated with the call. This is an integer.
+          format: int32
+    CompletedThirdPartyCallResponse:
+      required:
+        - callerIdMatches
+      type: object
+      properties:
+        callerIdMatches:
+          type: array
+          description: An array containing information about the caller ID matches. Each item in the array can be either a ContactCallerId or a CompanyCallerId object.
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/ContactCallerId'
+              - $ref: '#/components/schemas/CompanyCallerId'
+    ContactCallerId:
+      title: CONTACT
+      required:
+        - callerIdType
+        - objectCoordinates
+      type: object
+      properties:
+        callerIdType:
+          type: string
+          description: A string indicating the type of caller ID, which is 'CONTACT' by default.
+          default: CONTACT
+          enum:
+            - CONTACT
+        email:
+          type: string
+          description: The email address of the contact, represented as a string.
+        firstName:
+          type: string
+          description: The first name of the contact, represented as a string.
+        lastName:
+          type: string
+          description: The last name of the contact, represented as a string.
+        objectCoordinates:
+          $ref: '#/components/schemas/ObjectCoordinates'
+      x-hubspot-sub-type-impl: true
+    Error:
+      required:
+        - category
+        - correlationId
+        - message
+      type: object
+      properties:
+        category:
+          type: string
+          description: The error category
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{invalidPropertyName=[propertyValue], missingScopes=[scope1, scope2]}'
+        correlationId:
+          type: string
+          description: A unique identifier for the request. Include this value with any error reports or support tickets
+          format: uuid
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        errors:
+          type: array
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation about the error or recommended remediation steps
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+          example: An error occurred
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents an error response returned by the API when an operation fails. This component is used in various endpoints to provide detailed information about the error encountered.
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+    ErrorDetail:
+      required:
+        - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: The status code associated with the error detail
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{missingScopes=[scope1, scope2]}'
+        in:
+          type: string
+          description: The name of the field or parameter in which the error was found.
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents detailed information about an error that occurred in the API. This component is used to provide additional context and specifics about errors, typically as part of an error response.
+    FormattedPhoneNumber:
+      required:
+        - e164Number
+        - phoneNumberType
+      type: object
+      properties:
+        e164Number:
+          type: string
+          description: The phone number formatted in E.164 standard, which includes the country code and the subscriber number as a string.
+        extension:
+          type: string
+          description: An optional string representing the extension number associated with the phone number.
+        phoneNumberType:
+          type: string
+          description: The type of phone number, represented as a string. Valid values include 'FIXED_LINE', 'MOBILE', 'FIXED_LINE_OR_MOBILE', 'TOLL_FREE', 'PREMIUM_RATE', 'SHARED_COST', 'VOIP', 'PERSONAL_NUMBER', 'PAGER', 'UAN', 'VOICEMAIL', and 'UNKNOWN'.
+          enum:
+            - FIXED_LINE
+            - FIXED_LINE_OR_MOBILE
+            - MOBILE
+            - PAGER
+            - PERSONAL_NUMBER
+            - PREMIUM_RATE
+            - SHARED_COST
+            - TOLL_FREE
+            - UAN
+            - UNKNOWN
+            - VOICEMAIL
+            - VOIP
+    ObjectCoordinates:
+      required:
+        - objectId
+        - objectTypeId
+        - portalId
+      type: object
+      properties:
+        objectId:
+          type: integer
+          description: The unique identifier for the object. It is an integer formatted as int64.
+          format: int64
+        objectTypeId:
+          type: string
+          description: The identifier for the type of object. It is a string.
+        portalId:
+          type: integer
+          description: The unique identifier for the HubSpot portal. It is an integer.
+          format: int32
+    Speaker:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email address of the speaker, represented as a string.
+        id:
+          type: string
+          description: A unique identifier for the speaker, represented as a string.
+        name:
+          type: string
+          description: The name of the speaker, represented as a string.
+    TranscriptCreateRequest:
+      required:
+        - engagementId
+        - transcriptCreateUtterances
+      type: object
+      properties:
+        engagementId:
+          type: integer
+          description: The unique identifier for the engagement associated with this transcript. It is an integer in int64 format.
+          format: int64
+        transcriptCreateUtterances:
+          type: array
+          description: An array of utterances that make up the transcript. Each utterance is represented by a TranscriptCreateUtterance object.
+          items:
+            $ref: '#/components/schemas/TranscriptCreateUtterance'
+    TranscriptCreateResponse:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the created transcript, represented as a string.
+    TranscriptCreateUtterance:
+      required:
+        - endTimeMillis
+        - speaker
+        - startTimeMillis
+        - text
+      type: object
+      properties:
+        endTimeMillis:
+          type: integer
+          description: The end time of the utterance in milliseconds, represented as an integer.
+          format: int64
+        languageCode:
+          type: string
+          description: The language code of the utterance, represented as a string.
+        speaker:
+          $ref: '#/components/schemas/Speaker'
+        startTimeMillis:
+          type: integer
+          description: The start time of the utterance in milliseconds, represented as an integer.
+          format: int64
+        text:
+          type: string
+          description: The content of the utterance as a string.
+    TranscriptResponse:
+      required:
+        - createdAt
+        - engagementId
+        - id
+        - transcriptSource
+        - transcriptUtterances
+        - updatedAt
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: The date and time when this transcript was created, in ISO 8601 date-time format.
+          format: date-time
+        engagementId:
+          type: integer
+          description: The unique identifier for the engagement associated with this transcript. It is an integer in int64 format.
+          format: int64
+        id:
+          type: string
+          description: The unique identifier for this transcript, represented as a string.
+        transcriptSource:
+          type: string
+          description: Indicates the origin of the transcript, which can be either 'HUBSPOT_GENERATED' or 'INTEGRATOR_GENERATED'.
+          enum:
+            - HUBSPOT_GENERATED
+            - INTEGRATOR_GENERATED
+        transcriptUtterances:
+          type: array
+          description: An array of utterances that make up the transcript. Each utterance contains details such as text, timing, and speaker information.
+          items:
+            $ref: '#/components/schemas/TranscriptUtterance'
+        updatedAt:
+          type: string
+          description: The date and time when this transcript was last updated, in ISO 8601 date-time format.
+          format: date-time
+    TranscriptUtterance:
+      required:
+        - endTimeMillis
+        - id
+        - startTimeMillis
+        - text
+      type: object
+      properties:
+        endTimeMillis:
+          type: integer
+          description: The end time of the utterance, given as a Unix timestamp in milliseconds. It marks when the utterance ended.
+          format: int64
+        id:
+          type: string
+          description: A unique identifier for the utterance, represented as a string.
+        languageCode:
+          type: string
+          description: The language code of the utterance, represented as a string. This indicates the language in which the text was spoken.
+        speaker:
+          $ref: '#/components/schemas/Speaker'
+        startTimeMillis:
+          type: integer
+          description: The start time of the utterance, given as a Unix timestamp in milliseconds. It marks when the utterance began.
+          format: int64
+        text:
+          type: string
+          description: The spoken text of the utterance. It is a string representing the actual words spoken.
+  responses:
+    Error:
+      description: An error occurred.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    developer_hapikey:
+      type: apiKey
+      name: hapikey
+      in: query
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+          scopes:
+            crm.extensions_calling_transcripts.read: ''
+            crm.extensions_calling_transcripts.write: ''
+            crm.objects.contacts.highly_sensitive.read.v2: ''
+            crm.objects.contacts.highly_sensitive.write.v2: ''
+            crm.objects.contacts.read: ''
+            crm.objects.contacts.sensitive.read.v2: ''
+            crm.objects.contacts.sensitive.write.v2: ''
+            crm.objects.contacts.write: ''
+            crm.schemas.contacts.read: ''
+            crm.schemas.contacts.write: ''
+    private_apps:
+      type: apiKey
+      name: private-app
+      in: header
+    private_apps_legacy:
+      type: apiKey
+      name: private-app-legacy
+      in: header
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+  commerce: FREE
+  crmHub: FREE
+  dataHub: FREE

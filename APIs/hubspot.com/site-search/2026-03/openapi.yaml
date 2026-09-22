@@ -1,0 +1,229 @@
+openapi: 3.0.1
+info:
+  title: Site Search
+  description: Basepom for all HubSpot Projects
+  version: 2026-03
+  x-hubspot-product-tier-requirements:
+    marketing: PROFESSIONAL
+    sales: FREE
+    service: FREE
+    cms: PROFESSIONAL
+    commerce: FREE
+    crmHub: FREE
+    dataHub: FREE
+  x-hubspot-api-use-case: Build a site search bar to enable users to search through your website content.
+  x-hubspot-introduction: Use the site search API to return HubSpot-hosted content based on search terms. Content can be searched across multiple domains. You can also retrieve all indexed data for a specific website page, blog post, or knowledge base article using its ID.
+  x-origin:
+    - format: openapi
+      url: https://api.hubspot.com/public/api/spec/v2/specs/release/75375/version/2026-03
+      version: '3.0'
+  x-conversion:
+    - Fetched from HubSpot's public API spec catalog (https://api.hubspot.com/public/api/spec/v1/specs), product 'Site Search', group 'CMS', stable version 2026-03.
+servers:
+  - url: https://api.hubapi.com
+tags:
+  - name: Basic
+paths:
+  /cms/site-search/2026-03/indexed-data/{contentId}:
+    get:
+      tags:
+        - Basic
+      summary: Get indexed properties
+      description: Return all indexed data for an asset (e.g., page, blog post, HubDB table), specified by ID. This is useful when debugging why a particular asset is not returned from a custom search.
+      operationId: get-/cms/site-search/2026-03/indexed-data/{contentId}_getById
+      parameters:
+        - name: contentId
+          in: path
+          description: The unique identifier of the content whose indexed data is being retrieved.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            pattern: .*
+            type: string
+        - name: type
+          in: query
+          description: The type of content to retrieve indexed data for. It can include types like LANDING_PAGE, BLOG_POST, SITE_PAGE, KNOWLEDGE_ARTICLE, LISTING_PAGE, or STRUCTURED_CONTENT.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexedData'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - content
+components:
+  schemas:
+    Error:
+      required:
+        - category
+        - correlationId
+        - message
+      type: object
+      properties:
+        category:
+          type: string
+          description: The error category
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{invalidPropertyName=[propertyValue], missingScopes=[scope1, scope2]}'
+        correlationId:
+          type: string
+          description: A unique identifier for the request. Include this value with any error reports or support tickets
+          format: uuid
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        errors:
+          type: array
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation about the error or recommended remediation steps
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+          example: An error occurred
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents an error response returned by the API when an operation fails. This component is used in various endpoints to provide detailed information about the error encountered.
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+    ErrorDetail:
+      required:
+        - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: The status code associated with the error detail
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{missingScopes=[scope1, scope2]}'
+        in:
+          type: string
+          description: The name of the field or parameter in which the error was found.
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents detailed information about an error that occurred in the API. This component is used to provide additional context and specifics about errors, typically as part of an error response.
+    IndexedData:
+      required:
+        - fields
+        - id
+        - type
+      type: object
+      properties:
+        fields:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IndexedField'
+          description: The indexed fields in HubSpot.
+        id:
+          type: string
+          description: The ID of the document in HubSpot.
+        type:
+          type: string
+          description: The type of document. Can be `SITE_PAGE`, `LANDING_PAGE`, `BLOG_POST`, `LISTING_PAGE`, or `KNOWLEDGE_ARTICLE`.
+          enum:
+            - BLOG_POST
+            - KNOWLEDGE_ARTICLE
+            - LANDING_PAGE
+            - LISTING_PAGE
+            - SITE_PAGE
+            - STRUCTURED_CONTENT
+    IndexedField:
+      required:
+        - metadataField
+        - name
+        - value
+        - values
+      type: object
+      properties:
+        metadataField:
+          type: boolean
+          description: Indicates whether the field is a metadata field.
+        name:
+          type: string
+          description: The name of the indexed field.
+        value:
+          type: object
+          properties: {}
+          description: The primary value of the indexed field.
+        values:
+          type: array
+          description: An array of objects representing multiple values for the indexed field.
+          items:
+            type: object
+            properties: {}
+  responses:
+    Error:
+      description: An error occurred.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    developer_hapikey:
+      type: apiKey
+      name: hapikey
+      in: query
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+          scopes:
+            content: ''
+    private_apps:
+      type: apiKey
+      name: private-app
+      in: header
+    private_apps_legacy:
+      type: apiKey
+      name: private-app-legacy
+      in: header
+x-hubspot-available-client-libraries:
+  - Node
+  - Python
+  - Ruby
+  - PHP
+x-hubspot-product-tier-requirements:
+  marketing: PROFESSIONAL
+  sales: FREE
+  service: FREE
+  cms: PROFESSIONAL
+  commerce: FREE
+  crmHub: FREE
+  dataHub: FREE

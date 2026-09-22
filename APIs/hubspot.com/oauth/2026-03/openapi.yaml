@@ -1,0 +1,535 @@
+openapi: 3.0.1
+info:
+  title: Auth Oauth
+  description: Basepom for all HubSpot Projects
+  version: 2026-03
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+    sales: FREE
+    service: FREE
+    cms: FREE
+    commerce: FREE
+    crmHub: FREE
+    dataHub: FREE
+  x-origin:
+    - format: openapi
+      url: https://api.hubspot.com/public/api/spec/v2/specs/release/75328/version/2026-03
+      version: '3.0'
+  x-conversion:
+    - Fetched from HubSpot's public API spec catalog (https://api.hubspot.com/public/api/spec/v1/specs), product 'Oauth', group 'Auth', stable version 2026-03.
+servers:
+  - url: https://api.hubapi.com
+tags:
+  - name: Advanced
+paths:
+  /oauth/2026-03/token:
+    post:
+      tags:
+        - Advanced
+      summary: OAuth token endpoint
+      description: Authenticates a client and returns access and refresh tokens.
+      operationId: post-/oauth/2026-03/token_/oauth/v3/token
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                client_assertion:
+                  type: string
+                client_assertion_type:
+                  type: string
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                code:
+                  type: string
+                code_verifier:
+                  type: string
+                grant_type:
+                  type: string
+                  enum:
+                    - authorization_code
+                    - client_credentials
+                    - refresh_token
+                redirect_uri:
+                  type: string
+                refresh_token:
+                  type: string
+                scope:
+                  type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponseIF'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+  /oauth/2026-03/token/introspect:
+    post:
+      tags:
+        - Advanced
+      summary: Token introspection endpoint
+      description: Returns validity and metadata for access and refresh tokens.
+      operationId: post-/oauth/2026-03/token/introspect_/oauth/v3/token/introspect
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                token:
+                  type: string
+                token_type_hint:
+                  type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenInfoResponseBaseIF'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+  /oauth/2026-03/token/revoke:
+    post:
+      tags:
+        - Advanced
+      summary: Token Revocation endpoint
+      description: Deletes/Revokes provided Refresh Token
+      operationId: post-/oauth/2026-03/token/revoke_/oauth/v3/token/revoke
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                token:
+                  type: string
+                token_type_hint:
+                  type: string
+      responses:
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    AccessTokenResponse:
+      required:
+        - access_token
+        - expires_in
+        - refresh_token
+        - token_type
+        - token_use
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: A string representing the access token that allows access to the API.
+        expires_in:
+          type: integer
+          description: An integer in int64 format indicating the duration in seconds until the access token expires.
+          format: int64
+        hub_id:
+          type: integer
+          description: An integer representing the unique identifier of the HubSpot account (hub) associated with the token.
+          format: int32
+        id_token:
+          type: string
+          description: A string representing the ID token, which is an optional part of the response.
+        refresh_token:
+          type: string
+          description: A string representing the refresh token, which can be used to obtain a new access token.
+        scopes:
+          type: array
+          description: An array of strings specifying the scopes that are granted with the access token.
+          items:
+            type: string
+        token_type:
+          type: string
+          description: A string indicating the type of token issued.
+        token_use:
+          type: string
+          description: Indicates the usage of the token, which is 'access_token' by default. It is a string with a fixed value of 'access_token'.
+          default: access_token
+          enum:
+            - access_token
+        user_id:
+          type: integer
+          description: An integer representing the unique identifier of the user associated with the token.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    ClientCredentialsTokenResponse:
+      required:
+        - access_token
+        - expires_in
+        - token_type
+        - token_use
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: A string representing the access token issued.
+        expires_in:
+          type: integer
+          description: An integer indicating the number of seconds until the token expires, in int64 format.
+          format: int64
+        hub_id:
+          type: integer
+          description: An integer representing the HubSpot account ID associated with the token.
+          format: int32
+        id_token:
+          type: string
+          description: A string representing the ID token, if applicable.
+        scopes:
+          type: array
+          description: An array of strings representing the scopes granted by the token.
+          items:
+            type: string
+        token_type:
+          type: string
+          description: A string indicating the type of the token.
+        token_use:
+          type: string
+          description: Indicates the usage of the token, which is 'client_credentials' by default.
+          default: client_credentials
+          enum:
+            - client_credentials
+        user_id:
+          type: integer
+          description: An integer representing the user ID associated with the token.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    Error:
+      required:
+        - category
+        - correlationId
+        - message
+      type: object
+      properties:
+        category:
+          type: string
+          description: The error category
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{invalidPropertyName=[propertyValue], missingScopes=[scope1, scope2]}'
+        correlationId:
+          type: string
+          description: A unique identifier for the request. Include this value with any error reports or support tickets
+          format: uuid
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        errors:
+          type: array
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation about the error or recommended remediation steps
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+          example: An error occurred
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents an error response returned by the API when an operation fails. This component is used in various endpoints to provide detailed information about the error encountered.
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+    ErrorDetail:
+      required:
+        - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: The status code associated with the error detail
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{missingScopes=[scope1, scope2]}'
+        in:
+          type: string
+          description: The name of the field or parameter in which the error was found.
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents detailed information about an error that occurred in the API. This component is used to provide additional context and specifics about errors, typically as part of an error response.
+    PublicAccessTokenInfoResponse:
+      required:
+        - active
+        - app_id
+        - client_id
+        - expires_in
+        - hub_id
+        - is_private_distribution
+        - scopes
+        - signed_access_token
+        - token
+        - token_type
+        - token_use
+        - user_id
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: A boolean indicating whether the token is currently active.
+        app_id:
+          type: integer
+          description: An integer representing the unique identifier of the application associated with the token.
+          format: int32
+        client_id:
+          type: string
+          description: A string representing the client ID associated with the token.
+        expires_in:
+          type: integer
+          description: An integer in int64 format representing the time in seconds until the token expires.
+          format: int64
+        hub_domain:
+          type: string
+          description: A string representing the domain of the HubSpot account associated with the token.
+        hub_id:
+          type: integer
+          description: An integer representing the unique identifier of the HubSpot account (hub) associated with the token.
+          format: int32
+        is_private_distribution:
+          type: boolean
+          description: A boolean indicating whether the token is for private distribution.
+        scopes:
+          type: array
+          description: An array of strings representing the scopes (permissions) granted to the token.
+          items:
+            type: string
+        signed_access_token:
+          $ref: '#/components/schemas/SignedAccessToken'
+        token:
+          type: string
+          description: A string representing the token itself.
+        token_type:
+          type: string
+          description: A string representing the type of the token.
+        token_use:
+          type: string
+          description: A string indicating the use of the token, which defaults to 'access_token'.
+          default: access_token
+          enum:
+            - access_token
+        user:
+          type: string
+          description: A string representing the username associated with the token.
+        user_id:
+          type: integer
+          description: An integer representing the unique identifier of the user associated with the token.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    PublicRefreshTokenInfoResponse:
+      required:
+        - active
+        - app_id
+        - client_id
+        - hub_id
+        - scopes
+        - token
+        - token_type
+        - token_use
+        - user_id
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: A boolean indicating whether the token is currently active.
+        app_id:
+          type: integer
+          description: An integer representing the unique identifier of the application associated with the token.
+          format: int32
+        client_id:
+          type: string
+          description: A string representing the unique identifier of the client that requested the token.
+        hub_domain:
+          type: string
+          description: A string representing the domain of the HubSpot account associated with the token.
+        hub_id:
+          type: integer
+          description: An integer representing the unique identifier of the HubSpot account associated with the token.
+          format: int32
+        scopes:
+          type: array
+          description: An array of strings representing the scopes associated with the token.
+          items:
+            type: string
+        token:
+          type: string
+          description: The string representation of the refresh token.
+        token_type:
+          type: string
+          description: A string indicating the type of the token.
+        token_use:
+          type: string
+          description: Indicates the use of the token, which is 'refresh_token' by default.
+          default: refresh_token
+          enum:
+            - refresh_token
+        user:
+          type: string
+          description: A string representing the user associated with the token.
+        user_id:
+          type: integer
+          description: An integer representing the unique identifier of the user associated with the token.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    SignedAccessToken:
+      required:
+        - appId
+        - appInstallId
+        - audience
+        - expiresAt
+        - hubId
+        - hublet
+        - installingUserId
+        - isPrivateDistribution
+        - isServiceAccount
+        - isUserLevel
+        - newSignature
+        - scopeToScopeGroupPks
+        - scopes
+        - signature
+        - trialScopeToScopeGroupPks
+        - trialScopes
+        - userId
+      type: object
+      properties:
+        appId:
+          type: integer
+          description: An integer identifying the application that issued the token.
+          format: int32
+        appInstallId:
+          type: string
+          description: A string identifying the installation instance of the application associated with the token.
+        audience:
+          type: string
+          description: A string representing the intended audience for the token.
+        expiresAt:
+          type: integer
+          description: An integer representing the expiration time of the token, in Unix timestamp format.
+          format: int64
+        hubId:
+          type: integer
+          description: An integer identifying the HubSpot account associated with the token.
+          format: int32
+        hublet:
+          type: string
+          description: A string indicating the specific HubSpot region or cluster.
+        installingUserId:
+          type: integer
+          description: An integer identifying the user who installed the application associated with the token.
+          format: int32
+        isPrivateDistribution:
+          type: boolean
+          description: A boolean indicating whether the token is for a private distribution of the application.
+        isServiceAccount:
+          type: boolean
+          description: A boolean indicating whether the token is for a service account.
+        isUserLevel:
+          type: boolean
+          description: A boolean indicating whether the token is associated with a user-level scope.
+        newSignature:
+          type: string
+          description: A string representing a new cryptographic signature for the token.
+        scopeToScopeGroupPks:
+          type: string
+          description: A string mapping scopes to their respective scope group primary keys.
+        scopes:
+          type: string
+          description: A string detailing the permissions granted by the token.
+        signature:
+          type: string
+          description: A string representing the cryptographic signature of the token.
+        trialScopeToScopeGroupPks:
+          type: string
+          description: A string mapping trial scopes to their respective scope group primary keys.
+        trialScopes:
+          type: string
+          description: A string detailing the trial permissions granted by the token.
+        userId:
+          type: integer
+          description: An integer identifying the user associated with the token.
+          format: int32
+    TokenInfoResponseBaseIF:
+      properties: {}
+      oneOf:
+        - $ref: '#/components/schemas/PublicAccessTokenInfoResponse'
+        - $ref: '#/components/schemas/PublicRefreshTokenInfoResponse'
+    TokenResponseIF:
+      properties: {}
+      oneOf:
+        - $ref: '#/components/schemas/AccessTokenResponse'
+        - $ref: '#/components/schemas/ClientCredentialsTokenResponse'
+  responses:
+    Error:
+      description: An error occurred.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    developer_hapikey:
+      type: apiKey
+      name: hapikey
+      in: query
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+          scopes: {}
+    private_apps:
+      type: apiKey
+      name: private-app
+      in: header
+    private_apps_legacy:
+      type: apiKey
+      name: private-app-legacy
+      in: header
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+  commerce: FREE
+  crmHub: FREE
+  dataHub: FREE

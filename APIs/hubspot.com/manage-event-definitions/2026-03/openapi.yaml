@@ -1,0 +1,3306 @@
+openapi: 3.0.1
+info:
+  title: Events Manage Event Definitions
+  description: Basepom for all HubSpot Projects
+  version: 2026-03
+  x-hubspot-product-tier-requirements:
+    marketing: ENTERPRISE
+    sales: ENTERPRISE
+    service: ENTERPRISE
+    cms: ENTERPRISE
+    commerce: ENTERPRISE
+    crmHub: ENTERPRISE
+    dataHub: ENTERPRISE
+  x-origin:
+    - format: openapi
+      url: https://api.hubspot.com/public/api/spec/v2/specs/release/75366/version/2026-03
+      version: '3.0'
+  x-conversion:
+    - Fetched from HubSpot's public API spec catalog (https://api.hubspot.com/public/api/spec/v1/specs), product 'Manage Event Definitions', group 'Events', stable version 2026-03.
+servers:
+  - url: https://api.hubapi.com
+tags:
+  - name: Advanced
+  - name: Basic
+  - name: Batch
+paths:
+  /events/2026-03/event-definitions:
+    get:
+      tags:
+        - Basic
+      summary: Retrieve event definitions
+      description: Retrieve existing custom event definitions.
+      operationId: get-/events/2026-03/event-definitions
+      parameters:
+        - name: after
+          in: query
+          description: The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: includeProperties
+          in: query
+          description: A boolean indicating whether to include properties of the event definitions in the response.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          description: The maximum number of results to display per page.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: searchString
+          in: query
+          description: A string used to search for event definitions by name or other attributes.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: sortOrder
+          in: query
+          description: A string specifying the order in which results should be sorted.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponseWithTotalExternalBehavioralEventTypeDefinition'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - behavioral_events.event_definitions.read_write
+    post:
+      tags:
+        - Basic
+      summary: Create custom event definition
+      description: Create a custom event definition.
+      operationId: post-/events/2026-03/event-definitions
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalBehavioralEventTypeDefinitionEgg'
+        required: true
+      responses:
+        '201':
+          description: successful operation
+          headers:
+            Location:
+              description: URL of the newly created resource
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBehavioralEventTypeDefinition'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - behavioral_events.event_definitions.read_write
+  /events/2026-03/event-definitions/{eventName}:
+    get:
+      tags:
+        - Basic
+      summary: Retrieve a custom event definition
+      description: Fetch a single custom event definition by name.
+      operationId: get-/events/2026-03/event-definitions/{eventName}
+      parameters:
+        - name: eventName
+          in: path
+          description: The unique name of the event whose definition you want to retrieve.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBehavioralEventTypeDefinition'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - behavioral_events.event_definitions.read_write
+    delete:
+      tags:
+        - Basic
+      summary: Delete an event definition
+      description: Delete a custom event definition by name.
+      operationId: delete-/events/2026-03/event-definitions/{eventName}
+      parameters:
+        - name: eventName
+          in: path
+          description: The unique name of the event definition to delete.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No content
+          content: {}
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - behavioral_events.event_definitions.read_write
+    patch:
+      tags:
+        - Basic
+      summary: Update a custom event definition
+      description: Update a specific custom event definition by name.
+      operationId: patch-/events/2026-03/event-definitions/{eventName}
+      parameters:
+        - name: eventName
+          in: path
+          description: The unique name of the event definition to update.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalBehavioralEventTypeDefinitionPatch'
+        required: true
+      responses:
+        '201':
+          description: successful operation
+          headers:
+            Location:
+              description: URL of the newly created resource
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBehavioralEventTypeDefinition'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - behavioral_events.event_definitions.read_write
+  /events/2026-03/event-definitions/{eventName}/property:
+    post:
+      tags:
+        - Advanced
+      summary: Create a property for an event definition
+      description: Create a new property for an existing event definition.
+      operationId: post-/events/2026-03/event-definitions/{eventName}/property
+      parameters:
+        - name: eventName
+          in: path
+          description: The unique name of the event for which the property is being created.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalBehavioralEventPropertyCreate'
+        required: true
+      responses:
+        '201':
+          description: successful operation
+          headers:
+            Location:
+              description: URL of the newly created resource
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - behavioral_events.event_definitions.read_write
+  /events/2026-03/event-definitions/{eventName}/property/{propertyName}:
+    delete:
+      tags:
+        - Basic
+      summary: Delete a property from a custom event definition
+      description: Delete an existing property from a custom event definition.
+      operationId: delete-/events/2026-03/event-definitions/{eventName}/property/{propertyName}
+      parameters:
+        - name: eventName
+          in: path
+          description: The unique identifier of the event from which the property will be deleted.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+        - name: propertyName
+          in: path
+          description: The unique identifier of the property to delete from the specified event.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No content
+          content: {}
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - behavioral_events.event_definitions.read_write
+    patch:
+      tags:
+        - Basic
+      summary: Update an existing custom event property
+      description: Update an existing property in a custom event definition.
+      operationId: patch-/events/2026-03/event-definitions/{eventName}/property/{propertyName}
+      parameters:
+        - name: eventName
+          in: path
+          description: The unique identifier of the event whose property you want to update.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+        - name: propertyName
+          in: path
+          description: The unique identifier of the property to be updated within the specified event.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalBehavioralEventPropertyDefinitionPatch'
+        required: true
+      responses:
+        '201':
+          description: successful operation
+          headers:
+            Location:
+              description: URL of the newly created resource
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - behavioral_events.event_definitions.read_write
+  /events/2026-03/send/batch:
+    post:
+      tags:
+        - Batch
+      summary: Batch send events
+      description: Send a batch of behavioral events to the HubSpot API. This endpoint allows you to submit multiple events in a single request, optimizing the process of event tracking and reducing the number of API calls needed. It is particularly useful for applications that need to log numerous events simultaneously. The endpoint does not return any content upon successful completion.
+      operationId: post-/events/2026-03/send/batch_/events/v3/send/batch
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchedBehavioralEventHttpCompletionRequest'
+        required: true
+      responses:
+        '204':
+          description: No content
+          content: {}
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - oauth2:
+            - analytics.behavioral_events.send
+      x-hubspot-rate-limit-exemptions:
+        - daily
+        - ten-secondly
+components:
+  schemas:
+    AbsoluteComparativeTimestampRefineBy:
+      title: AbsoluteComparativeTimestampRefineBy
+      required:
+        - comparison
+        - timestamp
+        - type
+      type: object
+      properties:
+        comparison:
+          type: string
+          description: A string that indicates the type of comparison to be made, with valid values including 'BEFORE' and 'AFTER'.
+          enum:
+            - AFTER
+            - BEFORE
+        timestamp:
+          type: integer
+          description: An integer representing the specific timestamp to be used in the comparison, formatted as an int64.
+          format: int64
+        type:
+          type: string
+          description: A string that specifies the type of refinement, with a default value of 'AbsoluteComparativeTimestampRefineBy'.
+          default: AbsoluteComparativeTimestampRefineBy
+          enum:
+            - AbsoluteComparativeTimestampRefineBy
+      x-hubspot-sub-type-impl: true
+    AbsoluteRangedTimestampRefineBy:
+      title: AbsoluteRangedTimestampRefineBy
+      required:
+        - lowerTimestamp
+        - rangeType
+        - type
+        - upperTimestamp
+      type: object
+      properties:
+        lowerTimestamp:
+          type: integer
+          description: An integer representing the lower boundary of the timestamp range, in milliseconds since the Unix epoch.
+          format: int64
+        rangeType:
+          type: string
+          description: A string that defines the type of range operation. Valid values include 'BETWEEN' and 'NOT_BETWEEN'.
+          enum:
+            - BETWEEN
+            - NOT_BETWEEN
+        type:
+          type: string
+          description: A string that specifies the type of the component. The default value is 'AbsoluteRangedTimestampRefineBy'.
+          default: AbsoluteRangedTimestampRefineBy
+          enum:
+            - AbsoluteRangedTimestampRefineBy
+        upperTimestamp:
+          type: integer
+          description: An integer representing the upper boundary of the timestamp range, in milliseconds since the Unix epoch.
+          format: int64
+      x-hubspot-sub-type-impl: true
+    AllHistoryRefineBy:
+      title: AllHistoryRefineBy
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: A string that indicates the type of refinement. The default and only valid value is 'AllHistoryRefineBy'.
+          default: AllHistoryRefineBy
+          enum:
+            - AllHistoryRefineBy
+      x-hubspot-sub-type-impl: true
+    AllPropertyTypesOperation:
+      title: alltypes
+      required:
+        - coalescingRefineBy
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+      type: object
+      properties:
+        coalescingRefineBy:
+          description: An object that specifies additional refinement criteria for coalescing, which can be one of several types such as NumOccurrencesRefineBy or SetOccurrencesRefineBy.
+          oneOf:
+            - $ref: '#/components/schemas/NumOccurrencesRefineBy'
+            - $ref: '#/components/schemas/SetOccurrencesRefineBy'
+        defaultValue:
+          type: string
+          description: A string specifying the default value to be used in the operation.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether objects with no value set should be included in the operation.
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the operation to be performed, with valid values including 'IS_KNOWN', 'IS_UNKNOWN', 'IS_BLANK', and 'IS_NOT_BLANK'.
+          enum:
+            - IS_BLANK
+            - IS_KNOWN
+            - IS_NOT_BLANK
+            - IS_UNKNOWN
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, which is 'alltypes' for this component.
+          default: alltypes
+          enum:
+            - alltypes
+        pruningRefineBy:
+          description: An object that specifies additional refinement criteria for pruning, which can be one of several types such as RelativeComparativeTimestampRefineBy or AbsoluteRangedTimestampRefineBy.
+          oneOf:
+            - $ref: '#/components/schemas/RelativeComparativeTimestampRefineBy'
+            - $ref: '#/components/schemas/RelativeRangedTimestampRefineBy'
+            - $ref: '#/components/schemas/AbsoluteComparativeTimestampRefineBy'
+            - $ref: '#/components/schemas/AbsoluteRangedTimestampRefineBy'
+            - $ref: '#/components/schemas/AllHistoryRefineBy'
+            - $ref: '#/components/schemas/TimePointOperation'
+            - $ref: '#/components/schemas/RangedTimeOperation'
+        renderSpec:
+          type: string
+          description: A string that provides rendering specifications for the operation.
+      x-hubspot-sub-type-impl: true
+    AssociationDefinition:
+      required:
+        - allowsCustomLabels
+        - cardinality
+        - category
+        - fromObjectTypeId
+        - hasAllAssociatedObjects
+        - hasCascadingDeletes
+        - hasUserEnforcedMaxFromObjectIds
+        - hasUserEnforcedMaxToObjectIds
+        - hidden
+        - id
+        - inverseAllowsCustomLabels
+        - inverseCardinality
+        - inverseHasAllAssociatedObjects
+        - inverseId
+        - inverseName
+        - isDefault
+        - isInversePrimary
+        - isPrimary
+        - maxFromObjectIds
+        - maxToObjectIds
+        - name
+        - portalUniqueIdentifier
+        - readOnly
+        - toObjectTypeId
+      type: object
+      properties:
+        allowsCustomLabels:
+          type: boolean
+          description: Indicates whether custom labels are allowed for this association.
+        cardinality:
+          type: string
+          description: Defines the nature of the association in terms of quantity. Valid values are 'ONE_TO_ONE' and 'ONE_TO_MANY'.
+          enum:
+            - ONE_TO_MANY
+            - ONE_TO_ONE
+        category:
+          type: string
+          description: The error category
+          enum:
+            - HUBSPOT_DEFINED
+            - INTEGRATOR_DEFINED
+            - USER_DEFINED
+            - WORK
+        fromObjectType:
+          type: string
+          description: The type of object from which the association originates. Valid values include various HubSpot object types such as 'CONTACT', 'COMPANY', 'DEAL', etc.
+          enum:
+            - ABANDONED_CART
+            - ACCEPTANCE_TEST
+            - AD
+            - AD_ACCOUNT
+            - AD_CAMPAIGN
+            - AD_GROUP
+            - AI_FORECAST
+            - ALL_PAGES
+            - APPROVAL
+            - APPROVAL_STEP
+            - ATTRIBUTION
+            - AUDIENCE
+            - AUTOMATION_JOURNEY
+            - AUTOMATION_PLATFORM_FLOW
+            - AUTOMATION_PLATFORM_FLOW_ACTION
+            - BET_ALERT
+            - BET_DELIVERABLE_SERVICE
+            - BLOG_LISTING_PAGE
+            - BLOG_POST
+            - CALL
+            - CAMPAIGN
+            - CAMPAIGN_BUDGET_ITEM
+            - CAMPAIGN_SPEND_ITEM
+            - CAMPAIGN_STEP
+            - CAMPAIGN_TEMPLATE
+            - CAMPAIGN_TEMPLATE_STEP
+            - CART
+            - CASE_STUDY
+            - CHATFLOW
+            - CLIP
+            - CMS_URL
+            - COMBO_EVENT_CONFIGURATION
+            - COMMERCE_PAYMENT
+            - COMMUNICATION
+            - COMPANY
+            - CONTACT
+            - CONTACT_CREATE_ATTRIBUTION
+            - CONTENT
+            - CONTENT_AUDIT
+            - CONTENT_AUDIT_PAGE
+            - CONVERSATION
+            - CONVERSATION_INBOX
+            - CONVERSATION_SESSION
+            - CRM_OBJECTS_DUMMY_TYPE
+            - CRM_PIPELINES_DUMMY_TYPE
+            - CTA
+            - CTA_VARIANT
+            - DATA_PRIVACY_CONSENT
+            - DATA_SYNC_STATE
+            - DEAL
+            - DEAL_CREATE_ATTRIBUTION
+            - DEAL_REGISTRATION
+            - DEAL_SPLIT
+            - DISCOUNT
+            - DISCOUNT_CODE
+            - DISCOUNT_TEMPLATE
+            - EMAIL
+            - ENGAGEMENT
+            - EXPORT
+            - EXTERNAL_WEB_URL
+            - FEE
+            - FEEDBACK_SUBMISSION
+            - FEEDBACK_SURVEY
+            - FILE_MANAGER_FILE
+            - FILE_MANAGER_FOLDER
+            - FOLDER
+            - FORECAST
+            - FORM
+            - FORM_SUBMISSION_INBOUNDDB
+            - GOAL_TARGET
+            - GOAL_TARGET_GROUP
+            - GOAL_TEMPLATE
+            - GSC_PROPERTY
+            - HUB
+            - IMPORT
+            - INVOICE
+            - KEYWORD
+            - KNOWLEDGE_ARTICLE
+            - LANDING_PAGE
+            - LEAD
+            - LINE_ITEM
+            - MARKETING_CALENDAR
+            - MARKETING_CAMPAIGN_UTM
+            - MARKETING_EMAIL
+            - MARKETING_EVENT
+            - MARKETING_EVENT_ATTENDANCE
+            - MARKETING_SMS
+            - MEDIA_BRIDGE
+            - MEETING_EVENT
+            - MIC
+            - NOTE
+            - OBJECT_LIST
+            - ORDER
+            - OWNER
+            - PARTNER_ACCOUNT
+            - PARTNER_CLIENT
+            - PARTNER_CLIENT_REVENUE
+            - PARTNER_SERVICE
+            - PAYMENT_LINK
+            - PAYMENT_SCHEDULE
+            - PAYMENT_SCHEDULE_INSTALLMENT
+            - PERMISSIONS_TESTING
+            - PLAYBOOK
+            - PLAYBOOK_QUESTION
+            - PLAYBOOK_SUBMISSION
+            - PLAYBOOK_SUBMISSION_ANSWER
+            - PLAYLIST
+            - PLAYLIST_FOLDER
+            - PODCAST_EPISODE
+            - PORTAL
+            - PORTAL_OBJECT_SYNC_MESSAGE
+            - POSTAL_MAIL
+            - PRIVACY_SCANNER_COOKIE
+            - PRODUCT
+            - PRODUCT_OR_FOLDER
+            - PROPERTY_INFO
+            - PROSPECTING_AGENT_CONTACT_ASSIGNMENT
+            - PUBLISHING_TASK
+            - QUARANTINED_SUBMISSION
+            - QUOTA
+            - QUOTE
+            - QUOTE_FIELD
+            - QUOTE_MODULE
+            - QUOTE_MODULE_FIELD
+            - QUOTE_TEMPLATE
+            - RESTORABLE_CRM_OBJECT
+            - ROSTER
+            - ROSTER_MEMBER
+            - SALES_DOCUMENT
+            - SALES_TASK
+            - SALES_WORKLOAD
+            - SALESFORCE_SYNC_ERROR
+            - SCHEDULING_PAGE
+            - SCHEMAS_BACKEND_TEST
+            - SCORE_CONFIGURATION
+            - SEQUENCE
+            - SEQUENCE_ENROLLMENT
+            - SEQUENCE_STEP
+            - SEQUENCE_STEP_ENROLLMENT
+            - SERVICE
+            - SITE_PAGE
+            - SNIPPET
+            - SOCIAL_BROADCAST
+            - SOCIAL_CHANNEL
+            - SOCIAL_POST
+            - SOCIAL_PROFILE
+            - SOX_PROTECTED_DUMMY_TYPE
+            - SOX_PROTECTED_TEST_TYPE
+            - SUBMISSION_TAG
+            - SUBSCRIPTION
+            - TASK
+            - TASK_TEMPLATE
+            - TAX
+            - TEMPLATE
+            - TICKET
+            - UNKNOWN
+            - UNSUBSCRIBE
+            - USER
+            - VIEW
+            - VIEW_BLOCK
+            - WEB_INTERACTIVE
+        fromObjectTypeId:
+          type: string
+          description: The object type ID from which the association originates.
+        hasAllAssociatedObjects:
+          type: boolean
+          description: Indicates whether all associated objects are included in the association.
+        hasCascadingDeletes:
+          type: boolean
+          description: Indicates if the association supports cascading deletes.
+        hasUserEnforcedMaxFromObjectIds:
+          type: boolean
+          description: Indicates if there is a user-enforced maximum number of object IDs for the source object type.
+        hasUserEnforcedMaxToObjectIds:
+          type: boolean
+          description: Indicates if there is a user-enforced maximum number of object IDs for the target object type.
+        hidden:
+          type: boolean
+          description: Indicates if the association is hidden.
+        hiddenReason:
+          type: string
+          description: The reason why the association is hidden. Valid values include 'DEFAULT', 'INTERNAL', and 'USER_CONFIGURED'.
+          enum:
+            - DEFAULT
+            - INTERNAL
+            - USER_CONFIGURED
+        id:
+          type: integer
+          description: The unique identifier for the association definition.
+          format: int32
+        inverseAllowsCustomLabels:
+          type: boolean
+          description: Indicates whether custom labels are allowed for the inverse association.
+        inverseCardinality:
+          type: string
+          description: Defines the inverse nature of the association in terms of quantity. Valid values are 'ONE_TO_ONE' and 'ONE_TO_MANY'.
+          enum:
+            - ONE_TO_MANY
+            - ONE_TO_ONE
+        inverseHasAllAssociatedObjects:
+          type: boolean
+          description: Indicates whether all associated objects are included in the inverse association.
+        inverseId:
+          type: integer
+          description: The unique identifier for the inverse association definition.
+          format: int32
+        inverseLabel:
+          type: string
+          description: A human-readable label for the inverse association.
+        inverseName:
+          type: string
+          description: The name of the inverse association.
+        isDefault:
+          type: boolean
+          description: Indicates if this association is the default association.
+        isInversePrimary:
+          type: boolean
+          description: Indicates if the inverse association is the primary association.
+        isPrimary:
+          type: boolean
+          description: Indicates if this association is the primary association.
+        label:
+          type: string
+          description: A human-readable label for the association.
+        maxFromObjectIds:
+          type: integer
+          description: The maximum number of object IDs that can be associated from the source object type.
+          format: int32
+        maxToObjectIds:
+          type: integer
+          description: The maximum number of object IDs that can be associated to the target object type.
+          format: int32
+        name:
+          type: string
+          description: The name of the association.
+        portalUniqueIdentifier:
+          type: string
+          description: A unique identifier for the association within the portal.
+        readOnly:
+          type: boolean
+          description: Indicates if the association is read-only.
+        toObjectType:
+          type: string
+          description: The type of object to which the association points. Valid values include various HubSpot object types such as 'CONTACT', 'COMPANY', 'DEAL', etc.
+          enum:
+            - ABANDONED_CART
+            - ACCEPTANCE_TEST
+            - AD
+            - AD_ACCOUNT
+            - AD_CAMPAIGN
+            - AD_GROUP
+            - AI_FORECAST
+            - ALL_PAGES
+            - APPROVAL
+            - APPROVAL_STEP
+            - ATTRIBUTION
+            - AUDIENCE
+            - AUTOMATION_JOURNEY
+            - AUTOMATION_PLATFORM_FLOW
+            - AUTOMATION_PLATFORM_FLOW_ACTION
+            - BET_ALERT
+            - BET_DELIVERABLE_SERVICE
+            - BLOG_LISTING_PAGE
+            - BLOG_POST
+            - CALL
+            - CAMPAIGN
+            - CAMPAIGN_BUDGET_ITEM
+            - CAMPAIGN_SPEND_ITEM
+            - CAMPAIGN_STEP
+            - CAMPAIGN_TEMPLATE
+            - CAMPAIGN_TEMPLATE_STEP
+            - CART
+            - CASE_STUDY
+            - CHATFLOW
+            - CLIP
+            - CMS_URL
+            - COMBO_EVENT_CONFIGURATION
+            - COMMERCE_PAYMENT
+            - COMMUNICATION
+            - COMPANY
+            - CONTACT
+            - CONTACT_CREATE_ATTRIBUTION
+            - CONTENT
+            - CONTENT_AUDIT
+            - CONTENT_AUDIT_PAGE
+            - CONVERSATION
+            - CONVERSATION_INBOX
+            - CONVERSATION_SESSION
+            - CRM_OBJECTS_DUMMY_TYPE
+            - CRM_PIPELINES_DUMMY_TYPE
+            - CTA
+            - CTA_VARIANT
+            - DATA_PRIVACY_CONSENT
+            - DATA_SYNC_STATE
+            - DEAL
+            - DEAL_CREATE_ATTRIBUTION
+            - DEAL_REGISTRATION
+            - DEAL_SPLIT
+            - DISCOUNT
+            - DISCOUNT_CODE
+            - DISCOUNT_TEMPLATE
+            - EMAIL
+            - ENGAGEMENT
+            - EXPORT
+            - EXTERNAL_WEB_URL
+            - FEE
+            - FEEDBACK_SUBMISSION
+            - FEEDBACK_SURVEY
+            - FILE_MANAGER_FILE
+            - FILE_MANAGER_FOLDER
+            - FOLDER
+            - FORECAST
+            - FORM
+            - FORM_SUBMISSION_INBOUNDDB
+            - GOAL_TARGET
+            - GOAL_TARGET_GROUP
+            - GOAL_TEMPLATE
+            - GSC_PROPERTY
+            - HUB
+            - IMPORT
+            - INVOICE
+            - KEYWORD
+            - KNOWLEDGE_ARTICLE
+            - LANDING_PAGE
+            - LEAD
+            - LINE_ITEM
+            - MARKETING_CALENDAR
+            - MARKETING_CAMPAIGN_UTM
+            - MARKETING_EMAIL
+            - MARKETING_EVENT
+            - MARKETING_EVENT_ATTENDANCE
+            - MARKETING_SMS
+            - MEDIA_BRIDGE
+            - MEETING_EVENT
+            - MIC
+            - NOTE
+            - OBJECT_LIST
+            - ORDER
+            - OWNER
+            - PARTNER_ACCOUNT
+            - PARTNER_CLIENT
+            - PARTNER_CLIENT_REVENUE
+            - PARTNER_SERVICE
+            - PAYMENT_LINK
+            - PAYMENT_SCHEDULE
+            - PAYMENT_SCHEDULE_INSTALLMENT
+            - PERMISSIONS_TESTING
+            - PLAYBOOK
+            - PLAYBOOK_QUESTION
+            - PLAYBOOK_SUBMISSION
+            - PLAYBOOK_SUBMISSION_ANSWER
+            - PLAYLIST
+            - PLAYLIST_FOLDER
+            - PODCAST_EPISODE
+            - PORTAL
+            - PORTAL_OBJECT_SYNC_MESSAGE
+            - POSTAL_MAIL
+            - PRIVACY_SCANNER_COOKIE
+            - PRODUCT
+            - PRODUCT_OR_FOLDER
+            - PROPERTY_INFO
+            - PROSPECTING_AGENT_CONTACT_ASSIGNMENT
+            - PUBLISHING_TASK
+            - QUARANTINED_SUBMISSION
+            - QUOTA
+            - QUOTE
+            - QUOTE_FIELD
+            - QUOTE_MODULE
+            - QUOTE_MODULE_FIELD
+            - QUOTE_TEMPLATE
+            - RESTORABLE_CRM_OBJECT
+            - ROSTER
+            - ROSTER_MEMBER
+            - SALES_DOCUMENT
+            - SALES_TASK
+            - SALES_WORKLOAD
+            - SALESFORCE_SYNC_ERROR
+            - SCHEDULING_PAGE
+            - SCHEMAS_BACKEND_TEST
+            - SCORE_CONFIGURATION
+            - SEQUENCE
+            - SEQUENCE_ENROLLMENT
+            - SEQUENCE_STEP
+            - SEQUENCE_STEP_ENROLLMENT
+            - SERVICE
+            - SITE_PAGE
+            - SNIPPET
+            - SOCIAL_BROADCAST
+            - SOCIAL_CHANNEL
+            - SOCIAL_POST
+            - SOCIAL_PROFILE
+            - SOX_PROTECTED_DUMMY_TYPE
+            - SOX_PROTECTED_TEST_TYPE
+            - SUBMISSION_TAG
+            - SUBSCRIPTION
+            - TASK
+            - TASK_TEMPLATE
+            - TAX
+            - TEMPLATE
+            - TICKET
+            - UNKNOWN
+            - UNSUBSCRIBE
+            - USER
+            - VIEW
+            - VIEW_BLOCK
+            - WEB_INTERACTIVE
+        toObjectTypeId:
+          type: string
+          description: The object type ID to which the association points.
+      description: The definition of an association
+    BatchedBehavioralEventHttpCompletionRequest:
+      required:
+        - inputs
+      type: object
+      properties:
+        inputs:
+          type: array
+          description: An array of BehavioralEventHttpCompletionRequest objects, representing individual behavioral event completion requests to be processed in a batch.
+          items:
+            $ref: '#/components/schemas/BehavioralEventHttpCompletionRequest'
+    BehavioralEventHttpCompletionRequest:
+      required:
+        - eventName
+        - properties
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email of visitor
+        eventName:
+          type: string
+          description: Internal name of the event-type to trigger
+        objectId:
+          type: string
+          description: The object id that this event occurred on. Could be a contact id or a visitor id.
+        occurredAt:
+          type: string
+          description: The time when this event occurred (if any). If this isn't set, the current time will be used
+          format: date-time
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of properties for the event in the format property internal name - property value
+        utk:
+          type: string
+          description: User token
+        uuid:
+          type: string
+          description: A string representing the universally unique identifier for the event.
+    BehavioralEventTypeDefinitionLabels:
+      required:
+        - singular
+      type: object
+      properties:
+        plural:
+          type: string
+          description: The plural label for the event type. This is a string and is optional.
+        singular:
+          type: string
+          description: The singular label for the event type. This is a string and is required.
+    BoolPropertyOperation:
+      title: bool
+      required:
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - value
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string representing the default value for the operation.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set for the property.
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the operation to be performed. Valid values include 'IS_EQUAL_TO', 'IS_NOT_EQUAL_TO', 'HAS_EVER_BEEN_EQUAL_TO', and 'HAS_NEVER_BEEN_EQUAL_TO'.
+          enum:
+            - HAS_EVER_BEEN_EQUAL_TO
+            - HAS_NEVER_BEEN_EQUAL_TO
+            - IS_EQUAL_TO
+            - IS_NOT_EQUAL_TO
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property, which is 'bool' for this operation.
+          default: bool
+          enum:
+            - bool
+        renderSpec:
+          type: string
+          description: A string specifying the rendering specification for the operation.
+        value:
+          type: boolean
+          description: A boolean indicating the value to be used in the operation.
+      x-hubspot-sub-type-impl: true
+    CalendarDatePropertyOperation:
+      title: calendar-date
+      required:
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - timeUnit
+        - timeUnitCount
+        - useFiscalYear
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string representing the default value for the operation.
+        fiscalYearStart:
+          type: string
+          description: A string indicating the starting month of the fiscal year, with options like 'JANUARY', 'FEBRUARY', 'MARCH', etc.
+          enum:
+            - APRIL
+            - AUGUST
+            - DECEMBER
+            - FEBRUARY
+            - JANUARY
+            - JULY
+            - JUNE
+            - MARCH
+            - MAY
+            - NOVEMBER
+            - OCTOBER
+            - SEPTEMBER
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean that determines whether objects with no value set should be included in the operation.
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string that specifies the operation to perform, with valid values including 'IN_THIS_TIME_UNIT', 'IN_THIS_TIME_UNIT_SO_FAR', 'IN_NEXT_TIME_UNIT', 'IN_LAST_TIME_UNIT', and 'IN_LAST_TIME_UNIT_SO_FAR'.
+          enum:
+            - IN_LAST_TIME_UNIT
+            - IN_LAST_TIME_UNIT_SO_FAR
+            - IN_NEXT_TIME_UNIT
+            - IN_THIS_TIME_UNIT
+            - IN_THIS_TIME_UNIT_SO_FAR
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property, defaulting to 'calendar-date'.
+          default: calendar-date
+          enum:
+            - calendar-date
+        renderSpec:
+          type: string
+          description: A string used to define the rendering specifications for the operation.
+        timeUnit:
+          type: string
+          description: A string representing the unit of time for the operation, such as 'DAY', 'WEEK', 'MONTH', 'QUARTER', or 'YEAR'.
+          enum:
+            - DAY
+            - MONTH
+            - QUARTER
+            - WEEK
+            - YEAR
+        timeUnitCount:
+          type: integer
+          description: An integer specifying the number of time units to consider in the operation.
+          format: int32
+        useFiscalYear:
+          type: boolean
+          description: A boolean indicating whether the fiscal year should be used in the operation.
+      x-hubspot-sub-type-impl: true
+    CollectionResponseWithTotalExternalBehavioralEventTypeDefinition:
+      required:
+        - results
+        - total
+      type: object
+      properties:
+        paging:
+          $ref: '#/components/schemas/Paging'
+        results:
+          type: array
+          description: An array containing the external behavioral event type definitions returned in the current page of results.
+          items:
+            $ref: '#/components/schemas/ExternalBehavioralEventTypeDefinition'
+        total:
+          type: integer
+          description: An integer representing the total number of external behavioral event type definitions available.
+          format: int32
+    ComboEventRule:
+      required:
+        - count
+        - eventTypeId
+        - propertyFilters
+      type: object
+      properties:
+        count:
+          type: integer
+          description: An integer specifying the number of occurrences required for the event rule to be satisfied.
+          format: int32
+        eventTypeId:
+          type: string
+          description: The unique identifier for the type of event. It is a string.
+        lookbackWindowDays:
+          type: integer
+          description: An integer representing the number of days to look back when evaluating the event rule.
+          format: int32
+        propertyFilters:
+          type: array
+          description: An array of property filters that define additional criteria for the event. Each filter specifies a property and the operation to apply.
+          items:
+            $ref: '#/components/schemas/PropertyFilter'
+    ComboEventRuleBranch:
+      required:
+        - composingRules
+        - operationType
+        - ruleBranches
+      type: object
+      properties:
+        composingRules:
+          type: array
+          description: An array of ComboEventRule objects that define the individual rules composing this branch of the combo event.
+          items:
+            $ref: '#/components/schemas/ComboEventRule'
+        operationType:
+          type: string
+          description: A string indicating the type of logical operation to be applied between the rules in this branch. Valid values are 'AND' and 'OR'.
+          enum:
+            - AND
+            - OR
+        ruleBranches:
+          type: array
+          description: An array of ComboEventRuleBranch objects, allowing for nested branching logic within the combo event rules.
+          items:
+            $ref: '#/components/schemas/ComboEventRuleBranch'
+    ComparativeBoolPropertyOperation:
+      title: bool-comparative
+      required:
+        - comparisonPropertyName
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+      type: object
+      properties:
+        comparisonPropertyName:
+          type: string
+          description: A string specifying the name of the property to be compared.
+        defaultValue:
+          type: string
+          description: A string representing the default value to use if no value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether objects with no value set should be included in the operation.
+        operationType:
+          type: string
+          description: A string that specifies the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the comparison operator. Valid values are 'IS_EQUAL_TO' and 'IS_NOT_EQUAL_TO'.
+          enum:
+            - IS_EQUAL_TO
+            - IS_NOT_EQUAL_TO
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, which is 'bool-comparative' for this component.
+          default: bool-comparative
+          enum:
+            - bool-comparative
+        renderSpec:
+          type: string
+          description: A string that defines the rendering specification for the operation.
+      x-hubspot-sub-type-impl: true
+    ComparativeDatePropertyOperation:
+      title: datetime-comparative
+      required:
+        - comparisonPropertyName
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+      type: object
+      properties:
+        comparisonPropertyName:
+          type: string
+          description: A string representing the name of the property to compare against.
+        defaultComparisonValue:
+          type: string
+          description: A string specifying the default value for comparison if the comparison property is not set.
+        defaultValue:
+          type: string
+          description: A string providing the default value for the operation if no specific value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether objects with no value set for the property should be included in the operation.
+        operationType:
+          type: string
+          description: A string representing the type of operation being performed.
+        operator:
+          type: string
+          description: A string specifying the comparison operator to use, with valid values being 'IS_BEFORE' and 'IS_AFTER'.
+          enum:
+            - IS_AFTER
+            - IS_BEFORE
+        operatorName:
+          type: string
+          description: A string that provides a human-readable name for the operator being used.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, which is 'datetime-comparative' for this component.
+          default: datetime-comparative
+          enum:
+            - datetime-comparative
+        renderSpec:
+          type: string
+          description: A string used to define how the operation should be rendered, though specifics are not detailed in the schema.
+      x-hubspot-sub-type-impl: true
+    ComparativeNumberPropertyOperation:
+      title: number-comparative
+      required:
+        - comparisonPropertyName
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+      type: object
+      properties:
+        comparisonPropertyName:
+          type: string
+          description: A string representing the name of the property to which the comparison is made.
+        defaultValue:
+          type: string
+          description: A string specifying the default value to use if no value is set for the property being compared.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set for the property being compared.
+        operationType:
+          type: string
+          description: A string representing the type of operation being performed.
+        operator:
+          type: string
+          description: A string indicating the comparison operator to be used. Valid values include 'IS_EQUAL_TO', 'IS_NOT_EQUAL_TO', 'IS_GREATER_THAN', 'IS_GREATER_THAN_OR_EQUAL_TO', 'IS_LESS_THAN', and 'IS_LESS_THAN_OR_EQUAL_TO'.
+          enum:
+            - IS_EQUAL_TO
+            - IS_GREATER_THAN
+            - IS_GREATER_THAN_OR_EQUAL_TO
+            - IS_LESS_THAN
+            - IS_LESS_THAN_OR_EQUAL_TO
+            - IS_NOT_EQUAL_TO
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string representing the type of property operation, with a default value of 'number-comparative'.
+          default: number-comparative
+          enum:
+            - number-comparative
+        renderSpec:
+          type: string
+          description: A string that provides rendering specifications for the operation.
+      x-hubspot-sub-type-impl: true
+    ComparativePropertyUpdatedOperation:
+      title: property-updated-comparative
+      required:
+        - comparisonPropertyName
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+      type: object
+      properties:
+        comparisonPropertyName:
+          type: string
+          description: A string specifying the name of the property to compare against.
+        defaultComparisonValue:
+          type: string
+          description: A string representing the default value to use for comparison if no other value is set.
+        defaultValue:
+          type: string
+          description: A string representing the default value to use if no other value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set for the property.
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string indicating the comparison operator to use, with valid values being 'IS_BEFORE' and 'IS_AFTER'.
+          enum:
+            - IS_AFTER
+            - IS_BEFORE
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string representing the type of property operation, defaulting to 'property-updated-comparative'.
+          default: property-updated-comparative
+          enum:
+            - property-updated-comparative
+        renderSpec:
+          type: string
+          description: A string providing specifications for rendering the operation.
+      x-hubspot-sub-type-impl: true
+    ComparativeStringPropertyOperation:
+      title: string-comparative
+      required:
+        - comparisonPropertyName
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+      type: object
+      properties:
+        comparisonPropertyName:
+          type: string
+          description: A string specifying the name of the property to be compared against.
+        defaultValue:
+          type: string
+          description: A string representing the default value to be used if the property value is not set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether objects with no value set for the property should be included in the operation.
+        operationType:
+          type: string
+          description: A string representing the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the comparison operator used in the operation. Valid values include 'IS_EQUAL_TO', 'IS_NOT_EQUAL_TO', 'CONTAINS', 'DOES_NOT_CONTAIN', 'STARTS_WITH', and 'ENDS_WITH'.
+          enum:
+            - CONTAINS
+            - DOES_NOT_CONTAIN
+            - ENDS_WITH
+            - IS_EQUAL_TO
+            - IS_NOT_EQUAL_TO
+            - STARTS_WITH
+        operatorName:
+          type: string
+          description: A string that provides a human-readable name for the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, which is 'string-comparative' for this component.
+          default: string-comparative
+          enum:
+            - string-comparative
+        renderSpec:
+          type: string
+          description: A string that provides rendering specifications for the operation, though its specific use is not detailed in the spec.
+      x-hubspot-sub-type-impl: true
+    DatePoint:
+      title: DATE
+      required:
+        - day
+        - month
+        - timeType
+        - timezoneSource
+        - year
+        - zoneId
+      type: object
+      properties:
+        day:
+          type: integer
+          description: An integer representing the day component of the date.
+          format: int32
+        hour:
+          type: integer
+          description: An integer representing the hour component of the time.
+          format: int32
+        millisecond:
+          type: integer
+          description: An integer representing the millisecond component of the time.
+          format: int32
+        minute:
+          type: integer
+          description: An integer representing the minute component of the time.
+          format: int32
+        month:
+          type: integer
+          description: An integer representing the month component of the date.
+          format: int32
+        second:
+          type: integer
+          description: An integer representing the second component of the time.
+          format: int32
+        timeType:
+          type: string
+          description: A string indicating the type of time representation, defaulting to 'DATE'.
+          default: DATE
+          enum:
+            - DATE
+        timezoneSource:
+          type: string
+          description: A string specifying the source of the timezone, with valid values including 'CUSTOM', 'USER', and 'PORTAL'.
+          enum:
+            - CUSTOM
+            - PORTAL
+            - USER
+        year:
+          type: integer
+          description: An integer representing the year component of the date.
+          format: int32
+        zoneId:
+          type: string
+          description: A string representing the identifier for the timezone.
+      x-hubspot-sub-type-impl: true
+    DatePropertyOperation:
+      title: date
+      required:
+        - day
+        - includeObjectsWithNoValueSet
+        - month
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - year
+      type: object
+      properties:
+        day:
+          type: integer
+          description: An integer specifying the day component of the date.
+          format: int32
+        defaultValue:
+          type: string
+          description: A string representing the default value to be used if no other value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set for the property.
+        month:
+          type: string
+          description: An integer specifying the month component of the date.
+          enum:
+            - APR
+            - AUG
+            - DEC
+            - FEB
+            - JAN
+            - JUL
+            - JUN
+            - MAR
+            - MAY
+            - NOV
+            - OCT
+            - SEP
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the operation to be performed on the date property, such as comparison operations.
+          enum:
+            - AFTER
+            - BEFORE
+            - EQUAL
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, with a default value of 'date'.
+          default: date
+          enum:
+            - date
+        renderSpec:
+          type: string
+          description: A string that provides specifications for rendering the operation.
+        year:
+          type: integer
+          description: An integer specifying the year component of the date.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    DateTimePropertyOperation:
+      title: datetime
+      required:
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - requiresTimeZoneConversion
+        - timestamp
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string that specifies the default value to be used if no other value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether objects with no value set for this property should be included in the operation.
+        operationType:
+          type: string
+          description: A string that specifies the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the operation to be performed, with valid values including 'IS_BEFORE', 'IS_AFTER', 'IS_EQUAL_TO', 'IS_BEFORE_DATE', and 'IS_AFTER_DATE'.
+          enum:
+            - IS_AFTER
+            - IS_AFTER_DATE
+            - IS_BEFORE
+            - IS_BEFORE_DATE
+            - IS_EQUAL_TO
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property, defaulting to 'datetime'.
+          default: datetime
+          enum:
+            - datetime
+        renderSpec:
+          type: string
+          description: A string that defines how the operation should be rendered or displayed.
+        requiresTimeZoneConversion:
+          type: boolean
+          description: A boolean indicating whether the operation requires conversion based on time zones.
+        timestamp:
+          type: integer
+          description: An integer representing a Unix timestamp in milliseconds, used for datetime comparisons.
+          format: int64
+      x-hubspot-sub-type-impl: true
+    EnumerationPropertyOperation:
+      title: enumeration
+      required:
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - values
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string representing the default value for the operation.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set for this property.
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the operation to be performed, with valid values including 'IS_ANY_OF', 'IS_NONE_OF', 'IS_EXACTLY', 'IS_NOT_EXACTLY', 'CONTAINS_ALL', 'DOES_NOT_CONTAIN_ALL', 'HAS_EVER_BEEN_ANY_OF', 'HAS_NEVER_BEEN_ANY_OF', 'HAS_EVER_BEEN_EXACTLY', 'HAS_NEVER_BEEN_EXACTLY', 'HAS_EVER_CONTAINED_ALL', and 'HAS_NEVER_CONTAINED_ALL'.
+          enum:
+            - CONTAINS_ALL
+            - DOES_NOT_CONTAIN_ALL
+            - HAS_EVER_BEEN_ANY_OF
+            - HAS_EVER_BEEN_EXACTLY
+            - HAS_EVER_CONTAINED_ALL
+            - HAS_NEVER_BEEN_ANY_OF
+            - HAS_NEVER_BEEN_EXACTLY
+            - HAS_NEVER_CONTAINED_ALL
+            - IS_ANY_OF
+            - IS_EXACTLY
+            - IS_NONE_OF
+            - IS_NOT_EXACTLY
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property, which is 'enumeration' by default.
+          default: enumeration
+          enum:
+            - enumeration
+        renderSpec:
+          type: string
+          description: A string specifying how the operation should be rendered.
+        values:
+          type: array
+          description: An array of strings representing the values to be used in the operation.
+          items:
+            type: string
+      x-hubspot-sub-type-impl: true
+    Error:
+      required:
+        - category
+        - correlationId
+        - message
+      type: object
+      properties:
+        category:
+          type: string
+          description: The error category
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{invalidPropertyName=[propertyValue], missingScopes=[scope1, scope2]}'
+        correlationId:
+          type: string
+          description: A unique identifier for the request. Include this value with any error reports or support tickets
+          format: uuid
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        errors:
+          type: array
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation about the error or recommended remediation steps
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+          example: An error occurred
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents an error response returned by the API when an operation fails. This component is used in various endpoints to provide detailed information about the error encountered.
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+    ErrorDetail:
+      required:
+        - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: The status code associated with the error detail
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{missingScopes=[scope1, scope2]}'
+        in:
+          type: string
+          description: The name of the field or parameter in which the error was found.
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents detailed information about an error that occurred in the API. This component is used to provide additional context and specifics about errors, typically as part of an error response.
+    ExternalBehavioralEventPropertyCreate:
+      required:
+        - label
+        - type
+      type: object
+      properties:
+        description:
+          type: string
+          description: A description of the property that will be shown as help text in HubSpot.
+        label:
+          type: string
+          description: Human readable label for the property. Used in HubSpot UI
+        name:
+          type: string
+          description: Internal property name, which must be used when referencing the property from the API
+        options:
+          type: array
+          description: 'A list of available options for the property if it is an enumeration. NOTE: This field is only applicable for enumerated properties.'
+          items:
+            $ref: '#/components/schemas/OptionInput'
+        type:
+          type: string
+          description: 'The data type of the property. Can be one of the following: [string, number, enumeration, datetime]'
+    ExternalBehavioralEventPropertyDefinitionPatch:
+      type: object
+      properties:
+        description:
+          type: string
+          description: A description of the property that will be shown as help text in HubSpot.
+        label:
+          type: string
+          description: Human readable label for the property. Used in HubSpot UI
+        options:
+          type: array
+          description: 'A list of available options for the property if it is an enumeration. NOTE: This field is only applicable for enumerated properties.'
+          items:
+            $ref: '#/components/schemas/OptionInput'
+    ExternalBehavioralEventTypeDefinition:
+      required:
+        - archived
+        - associations
+        - fullyQualifiedName
+        - id
+        - labels
+        - name
+        - objectTypeId
+        - properties
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: A boolean indicating whether the event type is archived.
+        associations:
+          type: array
+          description: An array of association definitions that define the associations related to the event type.
+          items:
+            $ref: '#/components/schemas/AssociationDefinition'
+        comboEventRules:
+          $ref: '#/components/schemas/ComboEventRuleBranch'
+        createdAt:
+          type: string
+          description: A string representing the date and time when the event type was created, in ISO 8601 format.
+          format: date-time
+        createdUserId:
+          type: integer
+          description: An integer representing the ID of the user who created the event type.
+          format: int32
+        customMatchingId:
+          $ref: '#/components/schemas/ExternalObjectResolutionMappingResponse'
+        description:
+          type: string
+          description: A string providing a description of the event type.
+        detailTemplate:
+          type: string
+          description: A string used as a template for the details of the event type.
+        fullyQualifiedName:
+          type: string
+          description: A string representing the fully qualified name of the event type.
+        headerTemplate:
+          type: string
+          description: A string used as a template for the header of the event type.
+        id:
+          type: string
+          description: A string representing the unique identifier of the event type.
+        labels:
+          $ref: '#/components/schemas/BehavioralEventTypeDefinitionLabels'
+        name:
+          type: string
+          description: A string representing the name of the event type.
+        objectTypeId:
+          type: string
+          description: A string representing the object type ID of the event type.
+        primaryObject:
+          type: string
+          description: A string representing the primary object associated with the event type.
+        primaryObjectId:
+          type: string
+          description: A string representing the ID of the primary object associated with the event type.
+        properties:
+          type: array
+          description: An array of property objects that define the properties of the event type.
+          items:
+            $ref: '#/components/schemas/Property'
+        trackingType:
+          type: string
+          description: A string specifying the tracking type of the event. Valid values include 'VISITED_URL', 'CLICKED_ELEMENT', 'CUSTOM_SCRIPT', and others.
+          enum:
+            - APP_EVENT
+            - AUTOCAPTURE_EVENT
+            - CLICKED_ELEMENT
+            - COMBO_EVENT
+            - CUSTOM_SCRIPT
+            - CUSTOM_SIGNAL
+            - IMPORT
+            - MANUAL
+            - POLLING
+            - PROPERTY_CHANGE
+            - VISITED_URL
+            - WEBHOOK
+        updatedAt:
+          type: string
+          description: A string representing the date and time when the event type was last updated, in ISO 8601 format.
+          format: date-time
+        updatedUserId:
+          type: integer
+          description: An integer representing the ID of the user who last updated the event type.
+          format: int32
+    ExternalBehavioralEventTypeDefinitionEgg:
+      required:
+        - includeDefaultProperties
+        - label
+        - propertyDefinitions
+      type: object
+      properties:
+        customMatchingId:
+          $ref: '#/components/schemas/ExternalObjectResolutionMappingRequest'
+        description:
+          type: string
+          description: A description of the event that will be shown as help text in HubSpot.
+        includeDefaultProperties:
+          type: boolean
+          description: A boolean indicating whether to include default properties in the event type definition.
+        label:
+          type: string
+          description: Human readable label for the event. Used in HubSpot UI
+        name:
+          type: string
+          description: 'Internal event name, which must be used when referencing the event from this event definitions API. If a name is not supplied, one will be generated based on the label. The `name` value will also be used to automatically generate a `fullyQualifiedName` for the event definition, which you''ll use when sending event completions to this event. '
+        primaryObject:
+          type: string
+          description: The object type to associate this event to. Can be one of CONTACT, COMPANY, DEAL, TICKET. If no primaryObject is supplied, we will default to associating the event to CONTACT objects.
+        propertyDefinitions:
+          type: array
+          description: List of custom properties on event
+          items:
+            $ref: '#/components/schemas/ExternalBehavioralEventPropertyCreate'
+    ExternalBehavioralEventTypeDefinitionPatch:
+      type: object
+      properties:
+        description:
+          type: string
+          description: A description of the event that will be shown as help text in HubSpot.
+        label:
+          type: string
+          description: Human readable label for the event. Used in HubSpot UI
+    ExternalObjectResolutionMappingRequest:
+      required:
+        - primaryObjectRule
+      type: object
+      properties:
+        primaryObjectRule:
+          $ref: '#/components/schemas/ExternalPrimaryObjectResolutionRule'
+    ExternalObjectResolutionMappingResponse:
+      required:
+        - primaryObjectRule
+      type: object
+      properties:
+        primaryObjectRule:
+          $ref: '#/components/schemas/ExternalPrimaryObjectResolutionRule'
+    ExternalPrimaryObjectResolutionRule:
+      required:
+        - eventPropertyName
+        - targetObjectPropertyName
+      type: object
+      properties:
+        eventPropertyName:
+          type: string
+          description: The name of the property on the event. This is a string that identifies which property of the event is being used in the resolution rule.
+        targetObjectPropertyName:
+          type: string
+          description: The name of the property on the target object. This is a string that identifies which property of the target object is being referred to.
+    FiscalQuarter:
+      title: FISCAL_QUARTER
+      required:
+        - day
+        - month
+        - referenceType
+      type: object
+      properties:
+        day:
+          type: integer
+          description: An integer representing the day within the month.
+          format: int32
+        hour:
+          type: integer
+          description: An integer representing the hour of the day.
+          format: int32
+        millisecond:
+          type: integer
+          description: An integer representing the millisecond within the second.
+          format: int32
+        minute:
+          type: integer
+          description: An integer representing the minute within the hour.
+          format: int32
+        month:
+          type: integer
+          description: An integer representing the month within the fiscal quarter.
+          format: int32
+        referenceType:
+          type: string
+          description: A string indicating the type of reference, which is 'FISCAL_QUARTER' for this component.
+          default: FISCAL_QUARTER
+          enum:
+            - FISCAL_QUARTER
+        second:
+          type: integer
+          description: An integer representing the second within the minute.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    FiscalYear:
+      title: FISCAL_YEAR
+      required:
+        - day
+        - month
+        - referenceType
+      type: object
+      properties:
+        day:
+          type: integer
+          description: An integer representing the day component of the fiscal year.
+          format: int32
+        hour:
+          type: integer
+          description: An integer representing the hour component of the time.
+          format: int32
+        millisecond:
+          type: integer
+          description: An integer representing the millisecond component of the time.
+          format: int32
+        minute:
+          type: integer
+          description: An integer representing the minute component of the time.
+          format: int32
+        month:
+          type: integer
+          description: An integer representing the month component of the fiscal year.
+          format: int32
+        referenceType:
+          type: string
+          description: A string representing the type of reference, which is 'FISCAL_YEAR' by default.
+          default: FISCAL_YEAR
+          enum:
+            - FISCAL_YEAR
+        second:
+          type: integer
+          description: An integer representing the second component of the time.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    IndexOffset:
+      type: object
+      properties:
+        days:
+          type: integer
+          description: An integer representing the number of days to offset.
+          format: int32
+        hours:
+          type: integer
+          description: An integer representing the number of hours to offset.
+          format: int32
+        milliseconds:
+          type: integer
+          description: An integer representing the number of milliseconds to offset.
+          format: int32
+        minutes:
+          type: integer
+          description: An integer representing the number of minutes to offset.
+          format: int32
+        months:
+          type: integer
+          description: An integer representing the number of months to offset.
+          format: int32
+        quarters:
+          type: integer
+          description: An integer representing the number of quarters to offset.
+          format: int32
+        seconds:
+          type: integer
+          description: An integer representing the number of seconds to offset.
+          format: int32
+        weeks:
+          type: integer
+          description: An integer representing the number of weeks to offset.
+          format: int32
+        years:
+          type: integer
+          description: An integer representing the number of years to offset.
+          format: int32
+    IndexedTimePoint:
+      title: INDEXED
+      required:
+        - indexReference
+        - timeType
+        - timezoneSource
+        - zoneId
+      type: object
+      properties:
+        indexReference:
+          description: An object that references a specific point in time, which can be one of several types such as NowReference, TodayReference, or YearReference.
+          oneOf:
+            - $ref: '#/components/schemas/NowReference'
+            - $ref: '#/components/schemas/TodayReference'
+            - $ref: '#/components/schemas/WeekReference'
+            - $ref: '#/components/schemas/MonthReference'
+            - $ref: '#/components/schemas/QuarterReference'
+            - $ref: '#/components/schemas/FiscalQuarter'
+            - $ref: '#/components/schemas/YearReference'
+            - $ref: '#/components/schemas/FiscalYear'
+        offset:
+          $ref: '#/components/schemas/IndexOffset'
+        shouldGenerateRefreshTime:
+          type: boolean
+          description: A boolean indicating whether the refresh time should be generated.
+        timeType:
+          type: string
+          description: A string indicating the type of time point, with a default value of 'INDEXED'.
+          default: INDEXED
+          enum:
+            - INDEXED
+        timezoneSource:
+          type: string
+          description: A string representing the source of the timezone. Valid values include 'CUSTOM', 'USER', and 'PORTAL'.
+          enum:
+            - CUSTOM
+            - PORTAL
+            - USER
+        zoneId:
+          type: string
+          description: A string specifying the identifier for the timezone.
+      x-hubspot-sub-type-impl: true
+    MonthReference:
+      title: MONTH
+      required:
+        - day
+        - referenceType
+      type: object
+      properties:
+        day:
+          type: integer
+          description: An integer representing the day of the month.
+          format: int32
+        hour:
+          type: integer
+          description: An integer representing the hour of the day.
+          format: int32
+        millisecond:
+          type: integer
+          description: An integer representing the millisecond of the second.
+          format: int32
+        minute:
+          type: integer
+          description: An integer representing the minute of the hour.
+          format: int32
+        referenceType:
+          type: string
+          description: A string that indicates the type of reference, which is 'MONTH' by default.
+          default: MONTH
+          enum:
+            - MONTH
+        second:
+          type: integer
+          description: An integer representing the second of the minute.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    MultiStringPropertyOperation:
+      title: multistring
+      required:
+        - coalescingRefineBy
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - values
+      type: object
+      properties:
+        coalescingRefineBy:
+          description: An object that specifies additional refinement criteria for coalescing, which can be one of several predefined schemas such as NumOccurrencesRefineBy or SetOccurrencesRefineBy.
+          oneOf:
+            - $ref: '#/components/schemas/NumOccurrencesRefineBy'
+            - $ref: '#/components/schemas/SetOccurrencesRefineBy'
+        defaultValue:
+          type: string
+          description: A string representing the default value to be used in the operation if no specific value is provided.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether objects with no value set for the property should be included in the operation.
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the operation to be performed, with possible values including 'IS_EQUAL_TO', 'IS_NOT_EQUAL_TO', 'CONTAINS', 'CONTAINS_EXACTLY', 'DOES_NOT_CONTAIN', 'DOES_NOT_CONTAIN_EXACTLY', 'STARTS_WITH', and 'ENDS_WITH'.
+          enum:
+            - CONTAINS
+            - CONTAINS_EXACTLY
+            - DOES_NOT_CONTAIN
+            - DOES_NOT_CONTAIN_EXACTLY
+            - ENDS_WITH
+            - IS_EQUAL_TO
+            - IS_NOT_EQUAL_TO
+            - STARTS_WITH
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string that specifies the type of property operation, which is 'multistring' by default.
+          default: multistring
+          enum:
+            - multistring
+        pruningRefineBy:
+          description: An object that specifies additional refinement criteria for pruning, which can be one of several predefined schemas such as RelativeComparativeTimestampRefineBy or AbsoluteRangedTimestampRefineBy.
+          oneOf:
+            - $ref: '#/components/schemas/RelativeComparativeTimestampRefineBy'
+            - $ref: '#/components/schemas/RelativeRangedTimestampRefineBy'
+            - $ref: '#/components/schemas/AbsoluteComparativeTimestampRefineBy'
+            - $ref: '#/components/schemas/AbsoluteRangedTimestampRefineBy'
+            - $ref: '#/components/schemas/AllHistoryRefineBy'
+            - $ref: '#/components/schemas/TimePointOperation'
+            - $ref: '#/components/schemas/RangedTimeOperation'
+        renderSpec:
+          type: string
+          description: A string that specifies how the operation should be rendered or displayed.
+        values:
+          type: array
+          description: An array of strings representing the values to be used in the operation.
+          items:
+            type: string
+      x-hubspot-sub-type-impl: true
+    NextPage:
+      required:
+        - after
+      type: object
+      properties:
+        after:
+          type: string
+          description: A string token used as a cursor to fetch the next page of results. It is typically returned as part of the paged response.
+        link:
+          type: string
+          description: A string representing the URL link to the next page of results.
+      description: Specifies the paging information needed to retrieve the next set of results in a paginated API response
+    NowReference:
+      title: NOW
+      required:
+        - referenceType
+      type: object
+      properties:
+        hour:
+          type: integer
+          description: An integer representing the hour of the current time.
+          format: int32
+        millisecond:
+          type: integer
+          description: An integer representing the millisecond of the current time.
+          format: int32
+        minute:
+          type: integer
+          description: An integer representing the minute of the current time.
+          format: int32
+        referenceType:
+          type: string
+          description: A string indicating the type of reference, which is always 'NOW' for this component.
+          default: NOW
+          enum:
+            - NOW
+        second:
+          type: integer
+          description: An integer representing the second of the current time.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    NumOccurrencesRefineBy:
+      title: NumOccurrencesRefineBy
+      required:
+        - type
+      type: object
+      properties:
+        maxOccurrences:
+          type: integer
+          description: An integer representing the maximum number of occurrences allowed.
+          format: int32
+        minOccurrences:
+          type: integer
+          description: An integer representing the minimum number of occurrences required.
+          format: int32
+        type:
+          type: string
+          description: A string that specifies the type of refinement, which is 'NumOccurrencesRefineBy' by default.
+          default: NumOccurrencesRefineBy
+          enum:
+            - NumOccurrencesRefineBy
+      x-hubspot-sub-type-impl: true
+    NumberPropertyOperation:
+      title: number
+      required:
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - value
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string representing the default value for the operation if no specific value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether objects with no value set for the property should be included in the operation.
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the comparison operator used in the operation. Valid values include 'IS_EQUAL_TO', 'IS_NOT_EQUAL_TO', 'IS_GREATER_THAN', 'IS_GREATER_THAN_OR_EQUAL_TO', 'IS_LESS_THAN', 'IS_LESS_THAN_OR_EQUAL_TO', 'HAS_EVER_BEEN_EQUAL_TO', and 'HAS_NEVER_BEEN_EQUAL_TO'.
+          enum:
+            - HAS_EVER_BEEN_EQUAL_TO
+            - HAS_NEVER_BEEN_EQUAL_TO
+            - IS_EQUAL_TO
+            - IS_GREATER_THAN
+            - IS_GREATER_THAN_OR_EQUAL_TO
+            - IS_LESS_THAN
+            - IS_LESS_THAN_OR_EQUAL_TO
+            - IS_NOT_EQUAL_TO
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, which is 'number' in this case.
+          default: number
+          enum:
+            - number
+        renderSpec:
+          type: string
+          description: A string that specifies how the operation should be rendered or displayed.
+        value:
+          type: number
+          description: A numeric value used in the operation for comparison.
+      x-hubspot-sub-type-impl: true
+    Option:
+      required:
+        - hidden
+        - label
+        - value
+      type: object
+      properties:
+        description:
+          type: string
+          description: A string providing a description of the option.
+        displayOrder:
+          type: integer
+          description: An integer indicating the order in which the option should be displayed relative to other options.
+          format: int32
+        hidden:
+          type: boolean
+          description: A boolean indicating whether the option is hidden from the user interface.
+        label:
+          type: string
+          description: A string representing the display label of the option.
+        value:
+          type: string
+          description: A string representing the internal value of the option.
+      description: A HubSpot property option
+    OptionInput:
+      required:
+        - displayOrder
+        - hidden
+        - label
+        - value
+      type: object
+      properties:
+        description:
+          type: string
+          description: A description of the option, represented as a string.
+        displayOrder:
+          type: integer
+          description: An integer indicating the order in which the option should be displayed.
+          format: int32
+        hidden:
+          type: boolean
+          description: A boolean indicating whether the option is hidden.
+        label:
+          type: string
+          description: The label of the option, represented as a string.
+        value:
+          type: string
+          description: The value associated with the option, represented as a string.
+    Paging:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/NextPage'
+        prev:
+          $ref: '#/components/schemas/PreviousPage'
+      description: Represents the pagination information for navigating through a list of results in the API. It provides details on how to access the previous or next set of results.
+    PreviousPage:
+      required:
+        - before
+      type: object
+      properties:
+        before:
+          type: string
+          description: A string token used to identify the cursor position before the current page of results.
+        link:
+          type: string
+          description: A string URL that provides a link to the previous page of results.
+      description: specifies the paging information needed to retrieve the previous set of results in a paginated API response
+    Property:
+      required:
+        - description
+        - fieldType
+        - groupName
+        - label
+        - name
+        - options
+        - type
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Indicates whether the property is archived.
+        archivedAt:
+          type: string
+          description: The date and time when this property was archived, in ISO 8601 format.
+          format: date-time
+        calculated:
+          type: boolean
+          description: Indicates whether the property is calculated.
+        calculationFormula:
+          type: string
+          description: The formula used to calculate the property, if applicable.
+        createdAt:
+          type: string
+          description: The date and time when this property was created, in ISO 8601 format.
+          format: date-time
+        createdUserId:
+          type: string
+          description: The ID of the user who created this property.
+        currencyPropertyName:
+          type: string
+          description: The name of the currency property associated with this property.
+        dataSensitivity:
+          type: string
+          description: The sensitivity level of the data. Valid values include 'non_sensitive', 'sensitive', and 'highly_sensitive'.
+          enum:
+            - highly_sensitive
+            - non_sensitive
+            - sensitive
+        dateDisplayHint:
+          type: string
+          description: A hint for how date values should be displayed. Valid values include 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.
+          enum:
+            - absolute
+            - absolute_with_relative
+            - time_since
+            - time_until
+        description:
+          type: string
+          description: A description of the property.
+        displayOrder:
+          type: integer
+          description: The order in which this property is displayed.
+          format: int32
+        externalOptions:
+          type: boolean
+          description: Indicates whether the property options are external.
+        fieldType:
+          type: string
+          description: The field type of the property.
+        formField:
+          type: boolean
+          description: Indicates whether the property is a form field.
+        groupName:
+          type: string
+          description: The name of the group to which this property belongs.
+        hasUniqueValue:
+          type: boolean
+          description: Indicates whether the property has a unique value.
+        hidden:
+          type: boolean
+          description: Indicates whether the property is hidden.
+          example: false
+        hubspotDefined:
+          type: boolean
+          description: Indicates whether the property is defined by HubSpot.
+        label:
+          type: string
+          description: The display label for the property.
+        modificationMetadata:
+          $ref: '#/components/schemas/PropertyModificationMetadata'
+        name:
+          type: string
+          description: The unique name of the property.
+        numberDisplayHint:
+          type: string
+          description: A hint for how number values should be displayed. Valid values include 'unformatted', 'formatted', 'currency', 'percentage', 'duration', and 'probability'.
+          enum:
+            - currency
+            - duration
+            - formatted
+            - percentage
+            - probability
+            - unformatted
+        options:
+          type: array
+          description: An array of options available for this property, each defined by a label, value, and other attributes.
+          items:
+            $ref: '#/components/schemas/Option'
+        referencedObjectType:
+          type: string
+          description: The type of object that this property references.
+        sensitiveDataCategories:
+          type: array
+          description: An array of categories indicating the sensitivity of the data contained in the property.
+          items:
+            type: string
+        showCurrencySymbol:
+          type: boolean
+          description: Indicates whether a currency symbol is shown for the property.
+        textDisplayHint:
+          type: string
+          description: A hint for how text values should be displayed. Valid values include 'unformatted_single_line', 'multi_line', 'email', 'phone_number', 'domain_name', 'ip_address', 'physical_address', and 'postal_code'.
+          enum:
+            - domain_name
+            - email
+            - ip_address
+            - multi_line
+            - phone_number
+            - physical_address
+            - postal_code
+            - unformatted_single_line
+        type:
+          type: string
+          description: The data type of the property.
+        updatedAt:
+          type: string
+          description: The date and time when this property was last updated, in ISO 8601 format.
+          format: date-time
+        updatedUserId:
+          type: string
+          description: The ID of the user who last updated this property.
+      description: A HubSpot property
+    PropertyFilter:
+      title: PROPERTY
+      required:
+        - filterType
+        - operation
+        - property
+      type: object
+      properties:
+        context:
+          $ref: '#/components/schemas/PropertyFilterContext'
+        filterInsightsId:
+          type: integer
+          description: An integer that serves as the identifier for the filter insights.
+          format: int32
+        filterType:
+          type: string
+          description: A string indicating the type of filter being applied. The default value is 'PROPERTY'.
+          default: PROPERTY
+          enum:
+            - PROPERTY
+        frameworkFilterId:
+          type: integer
+          description: An integer representing the unique identifier for the framework filter. It is formatted as an int64.
+          format: int64
+        operation:
+          description: An object defining the operation to be performed on the property. This can be one of several types of operations, such as BoolPropertyOperation, NumberPropertyOperation, StringPropertyOperation, etc.
+          oneOf:
+            - $ref: '#/components/schemas/BoolPropertyOperation'
+            - $ref: '#/components/schemas/NumberPropertyOperation'
+            - $ref: '#/components/schemas/StringPropertyOperation'
+            - $ref: '#/components/schemas/DateTimePropertyOperation'
+            - $ref: '#/components/schemas/RangedDatePropertyOperation'
+            - $ref: '#/components/schemas/ComparativeDatePropertyOperation'
+            - $ref: '#/components/schemas/ComparativeBoolPropertyOperation'
+            - $ref: '#/components/schemas/ComparativeNumberPropertyOperation'
+            - $ref: '#/components/schemas/ComparativeStringPropertyOperation'
+            - $ref: '#/components/schemas/ComparativePropertyUpdatedOperation'
+            - $ref: '#/components/schemas/RollingDateRangePropertyOperation'
+            - $ref: '#/components/schemas/RollingPropertyUpdatedOperation'
+            - $ref: '#/components/schemas/EnumerationPropertyOperation'
+            - $ref: '#/components/schemas/AllPropertyTypesOperation'
+            - $ref: '#/components/schemas/RangedNumberPropertyOperation'
+            - $ref: '#/components/schemas/MultiStringPropertyOperation'
+            - $ref: '#/components/schemas/DatePropertyOperation'
+            - $ref: '#/components/schemas/CalendarDatePropertyOperation'
+            - $ref: '#/components/schemas/TimePointOperation'
+            - $ref: '#/components/schemas/RangedTimeOperation'
+            - $ref: '#/components/schemas/RegexPropertyOperation'
+        property:
+          type: string
+          description: A string representing the name of the property on which the filter is applied.
+      x-hubspot-sub-type-impl: true
+    PropertyFilterContext:
+      required:
+        - objectTypeId
+      type: object
+      properties:
+        objectTypeId:
+          type: string
+          description: A string representing the unique identifier of the object type associated with the property filter context.
+    PropertyModificationMetadata:
+      required:
+        - archivable
+        - readOnlyDefinition
+        - readOnlyValue
+      type: object
+      properties:
+        archivable:
+          type: boolean
+          description: A boolean indicating whether the property can be archived.
+        readOnlyDefinition:
+          type: boolean
+          description: A boolean indicating if the property's definition is read-only.
+        readOnlyOptions:
+          type: boolean
+          description: A boolean indicating if the options for the property are read-only.
+        readOnlyValue:
+          type: boolean
+          description: A boolean indicating if the property's value is read-only.
+    PropertyReferencedTime:
+      title: PROPERTY_REFERENCED
+      required:
+        - property
+        - referenceType
+        - timeType
+        - timezoneSource
+        - zoneId
+      type: object
+      properties:
+        property:
+          type: string
+          description: A string indicating the property from which the time reference is derived.
+        referenceType:
+          type: string
+          description: A string that defines the type of reference, with possible values including 'VALUE', 'UPDATED_AT', 'ANNIVERSARY', 'VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION', and 'ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION'.
+          enum:
+            - ANNIVERSARY
+            - ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION
+            - UPDATED_AT
+            - VALUE
+            - VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
+        timeType:
+          type: string
+          description: A string indicating the type of time reference, with a default value of 'PROPERTY_REFERENCED'.
+          default: PROPERTY_REFERENCED
+          enum:
+            - PROPERTY_REFERENCED
+        timezoneSource:
+          type: string
+          description: A string specifying the source of the timezone, which can be 'CUSTOM', 'USER', or 'PORTAL'.
+          enum:
+            - CUSTOM
+            - PORTAL
+            - USER
+        zoneId:
+          type: string
+          description: A string representing the identifier for the timezone.
+      x-hubspot-sub-type-impl: true
+    QuarterReference:
+      title: QUARTER
+      required:
+        - day
+        - month
+        - referenceType
+      type: object
+      properties:
+        day:
+          type: integer
+          description: An integer representing the day within the month.
+          format: int32
+        hour:
+          type: integer
+          description: An integer representing the hour of the day.
+          format: int32
+        millisecond:
+          type: integer
+          description: An integer representing the millisecond within the second.
+          format: int32
+        minute:
+          type: integer
+          description: An integer representing the minute within the hour.
+          format: int32
+        month:
+          type: integer
+          description: An integer representing the month within the quarter.
+          format: int32
+        referenceType:
+          type: string
+          description: A string that indicates the type of reference, which is 'QUARTER' by default.
+          default: QUARTER
+          enum:
+            - QUARTER
+        second:
+          type: integer
+          description: An integer representing the second within the minute.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    RangedDatePropertyOperation:
+      title: datetime-ranged
+      required:
+        - includeObjectsWithNoValueSet
+        - lowerBoundTimestamp
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - requiresTimeZoneConversion
+        - upperBoundTimestamp
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string representing the default value to use if no specific value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that do not have a value set for the property.
+        lowerBoundTimestamp:
+          type: integer
+          description: An integer representing the lower bound of the date range, specified as a Unix timestamp in milliseconds.
+          format: int64
+        operationType:
+          type: string
+          description: A string representing the type of operation being performed.
+        operator:
+          type: string
+          description: A string specifying the operation to perform, with valid values 'IS_BETWEEN' and 'IS_NOT_BETWEEN'.
+          enum:
+            - IS_BETWEEN
+            - IS_NOT_BETWEEN
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, which is 'datetime-ranged' for this component.
+          default: datetime-ranged
+          enum:
+            - datetime-ranged
+        renderSpec:
+          type: string
+          description: A string that specifies how the operation should be rendered.
+        requiresTimeZoneConversion:
+          type: boolean
+          description: A boolean indicating whether timezone conversion is required for the date range.
+        upperBoundTimestamp:
+          type: integer
+          description: An integer representing the upper bound of the date range, specified as a Unix timestamp in milliseconds.
+          format: int64
+      x-hubspot-sub-type-impl: true
+    RangedNumberPropertyOperation:
+      title: number-ranged
+      required:
+        - includeObjectsWithNoValueSet
+        - lowerBound
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - upperBound
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string representing the default value to use if no value is set for the property.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether objects with no value set for the property should be included in the operation.
+        lowerBound:
+          type: number
+          description: A number representing the lower bound of the range for the operation.
+        operationType:
+          type: string
+          description: A string that specifies the type of operation being performed.
+        operator:
+          type: string
+          description: A string specifying the operation to perform on the property. Valid values include 'IS_BETWEEN' and 'IS_NOT_BETWEEN'.
+          enum:
+            - IS_BETWEEN
+            - IS_NOT_BETWEEN
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, which is 'number-ranged' by default.
+          default: number-ranged
+          enum:
+            - number-ranged
+        renderSpec:
+          type: string
+          description: A string that specifies how the operation should be rendered, though its exact usage is not detailed in the spec.
+        upperBound:
+          type: number
+          description: A number representing the upper bound of the range for the operation.
+      x-hubspot-sub-type-impl: true
+    RangedTimeOperation:
+      title: rangedtime
+      required:
+        - includeObjectsWithNoValueSet
+        - lowerBoundEndpointBehavior
+        - lowerBoundTimePoint
+        - operationType
+        - operator
+        - operatorName
+        - propertyParser
+        - propertyType
+        - type
+        - upperBoundEndpointBehavior
+        - upperBoundTimePoint
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string representing the default value to use if no other value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set for the specified property.
+        lowerBoundEndpointBehavior:
+          type: string
+          description: A string indicating the behavior of the lower bound endpoint, with valid values 'INCLUSIVE' and 'EXCLUSIVE'.
+          enum:
+            - EXCLUSIVE
+            - INCLUSIVE
+        lowerBoundTimePoint:
+          description: Defines the lower bound of the time range, which can be a DatePoint, IndexedTimePoint, or PropertyReferencedTime.
+          oneOf:
+            - $ref: '#/components/schemas/DatePoint'
+            - $ref: '#/components/schemas/IndexedTimePoint'
+            - $ref: '#/components/schemas/PropertyReferencedTime'
+        operationType:
+          type: string
+          description: A string representing the type of operation being performed.
+        operator:
+          type: string
+          description: A string representing the operation to be performed, with valid values 'IS_BETWEEN' and 'IS_NOT_BETWEEN'.
+          enum:
+            - IS_BETWEEN
+            - IS_NOT_BETWEEN
+        operatorName:
+          type: string
+          description: A string indicating the name of the operator used in the operation.
+        propertyParser:
+          type: string
+          description: A string specifying the parser to use for the property, with options including 'VALUE', 'UPDATED_AT', 'ANNIVERSARY', 'VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION', and 'ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION'.
+          enum:
+            - ANNIVERSARY
+            - ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION
+            - UPDATED_AT
+            - VALUE
+            - VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
+        propertyType:
+          type: string
+          description: A string indicating the type of property, defaulting to 'rangedtime'.
+          default: rangedtime
+          enum:
+            - rangedtime
+        renderSpec:
+          type: string
+          description: A string that specifies the rendering specification, if applicable.
+        type:
+          type: string
+          description: A string representing the type of the operation.
+        upperBoundEndpointBehavior:
+          type: string
+          description: A string indicating the behavior of the upper bound endpoint, with valid values 'INCLUSIVE' and 'EXCLUSIVE'.
+          enum:
+            - EXCLUSIVE
+            - INCLUSIVE
+        upperBoundTimePoint:
+          description: Defines the upper bound of the time range, which can be a DatePoint, IndexedTimePoint, or PropertyReferencedTime.
+          oneOf:
+            - $ref: '#/components/schemas/DatePoint'
+            - $ref: '#/components/schemas/IndexedTimePoint'
+            - $ref: '#/components/schemas/PropertyReferencedTime'
+      x-hubspot-sub-type-impl: true
+    RegexPropertyOperation:
+      title: regex
+      required:
+        - caseSensitive
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - pattern
+        - propertyType
+      type: object
+      properties:
+        caseSensitive:
+          type: boolean
+          description: A boolean indicating whether the regex matching should be case-sensitive.
+        defaultValue:
+          type: string
+          description: A string representing the default value to use if no match is found.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set for the property.
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string specifying the regex operation to perform, such as 'MATCHES_REGEX' or 'DOES_NOT_MATCH_REGEX'.
+          enum:
+            - DOES_NOT_MATCH_REGEX
+            - MATCHES_REGEX
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        pattern:
+          type: string
+          description: A string representing the regular expression pattern used for matching.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, with a default value of 'regex'.
+          default: regex
+          enum:
+            - regex
+        renderSpec:
+          type: string
+          description: A string that specifies how the operation should be rendered or displayed.
+      x-hubspot-sub-type-impl: true
+    RelativeComparativeTimestampRefineBy:
+      title: RelativeComparativeTimestampRefineBy
+      required:
+        - comparison
+        - timeOffset
+        - type
+      type: object
+      properties:
+        comparison:
+          type: string
+          description: A string that indicates the comparison direction, either 'BEFORE' or 'AFTER'.
+          enum:
+            - AFTER
+            - BEFORE
+        timeOffset:
+          $ref: '#/components/schemas/TimeOffset'
+        type:
+          type: string
+          description: A string that specifies the type of the refinement, which is 'RelativeComparativeTimestampRefineBy'.
+          default: RelativeComparativeTimestampRefineBy
+          enum:
+            - RelativeComparativeTimestampRefineBy
+      x-hubspot-sub-type-impl: true
+    RelativeRangedTimestampRefineBy:
+      title: RelativeRangedTimestampRefineBy
+      required:
+        - lowerBoundOffset
+        - rangeType
+        - type
+        - upperBoundOffset
+      type: object
+      properties:
+        lowerBoundOffset:
+          $ref: '#/components/schemas/TimeOffset'
+        rangeType:
+          type: string
+          description: A string that indicates the type of range operation. Valid values are 'BETWEEN' and 'NOT_BETWEEN'.
+          enum:
+            - BETWEEN
+            - NOT_BETWEEN
+        type:
+          type: string
+          description: A string that specifies the type of the refinement operation. Default value is 'RelativeRangedTimestampRefineBy'.
+          default: RelativeRangedTimestampRefineBy
+          enum:
+            - RelativeRangedTimestampRefineBy
+        upperBoundOffset:
+          $ref: '#/components/schemas/TimeOffset'
+      x-hubspot-sub-type-impl: true
+    RollingDateRangePropertyOperation:
+      title: datetime-rolling
+      required:
+        - includeObjectsWithNoValueSet
+        - numberOfDays
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - requiresTimeZoneConversion
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string representing the default value to use if no other value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set for the property.
+        numberOfDays:
+          type: integer
+          description: An integer representing the number of days used in the rolling date range calculation.
+          format: int32
+        operationType:
+          type: string
+          description: A string indicating the type of operation being performed.
+        operator:
+          type: string
+          description: A string specifying the operation to be performed, such as 'IS_LESS_THAN_X_DAYS_AGO' or 'IS_MORE_THAN_X_DAYS_FROM_NOW'.
+          enum:
+            - IS_LESS_THAN_X_DAYS_AGO
+            - IS_LESS_THAN_X_DAYS_FROM_NOW
+            - IS_MORE_THAN_X_DAYS_AGO
+            - IS_MORE_THAN_X_DAYS_FROM_NOW
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, with a default value of 'datetime-rolling'.
+          default: datetime-rolling
+          enum:
+            - datetime-rolling
+        renderSpec:
+          type: string
+          description: A string used for rendering specifications, though its specific use is not detailed.
+        requiresTimeZoneConversion:
+          type: boolean
+          description: A boolean indicating whether the operation requires conversion based on time zones.
+      x-hubspot-sub-type-impl: true
+    RollingPropertyUpdatedOperation:
+      title: rolling-property-updated
+      required:
+        - includeObjectsWithNoValueSet
+        - numberOfDays
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string that holds the default value for the property if no other value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether objects with no value set for the property should be included in the operation.
+        numberOfDays:
+          type: integer
+          description: An integer representing the number of days within which the property update operation is evaluated.
+          format: int32
+        operationType:
+          type: string
+          description: A string that specifies the type of operation being performed.
+        operator:
+          type: string
+          description: A string specifying the operation to be performed, with valid values being 'UPDATED_IN_LAST_X_DAYS' and 'NOT_UPDATED_IN_LAST_X_DAYS'.
+          enum:
+            - NOT_UPDATED_IN_LAST_X_DAYS
+            - UPDATED_IN_LAST_X_DAYS
+        operatorName:
+          type: string
+          description: A string representing the name of the operator used in the operation.
+        propertyType:
+          type: string
+          description: A string indicating the type of property operation, which is 'rolling-property-updated'.
+          default: rolling-property-updated
+          enum:
+            - rolling-property-updated
+        renderSpec:
+          type: string
+          description: A string that specifies how the operation should be rendered or displayed.
+      x-hubspot-sub-type-impl: true
+    SetOccurrencesRefineBy:
+      title: SetOccurrencesRefineBy
+      required:
+        - setType
+        - type
+      type: object
+      properties:
+        setType:
+          type: string
+          description: A string that indicates the set type used for refinement. Valid values include 'ALL', 'ALL_INCLUDE_EMPTY', 'ANY', 'NONE', 'NONE_EXCLUDE_EMPTY', and 'ANY_INCLUDE_EMPTY'.
+          enum:
+            - ALL
+            - ALL_INCLUDE_EMPTY
+            - ANY
+            - ANY_INCLUDE_EMPTY
+            - NONE
+            - NONE_EXCLUDE_EMPTY
+        type:
+          type: string
+          description: A string that specifies the type of refinement being applied. The default value is 'SetOccurrencesRefineBy'.
+          default: SetOccurrencesRefineBy
+          enum:
+            - SetOccurrencesRefineBy
+      x-hubspot-sub-type-impl: true
+    StringPropertyOperation:
+      title: string
+      required:
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyType
+        - value
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: The default string value to use if no specific value is set.
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set for the property.
+        operationType:
+          type: string
+          description: The type of operation being performed, represented as a string.
+        operator:
+          type: string
+          description: The operation to perform on the string property. Valid values include 'IS_EQUAL_TO', 'IS_NOT_EQUAL_TO', 'CONTAINS', 'DOES_NOT_CONTAIN', 'STARTS_WITH', 'ENDS_WITH', 'HAS_EVER_BEEN_EQUAL_TO', 'HAS_NEVER_BEEN_EQUAL_TO', 'HAS_EVER_CONTAINED', and 'HAS_NEVER_CONTAINED'.
+          enum:
+            - CONTAINS
+            - DOES_NOT_CONTAIN
+            - ENDS_WITH
+            - HAS_EVER_BEEN_EQUAL_TO
+            - HAS_EVER_CONTAINED
+            - HAS_NEVER_BEEN_EQUAL_TO
+            - HAS_NEVER_CONTAINED
+            - IS_EQUAL_TO
+            - IS_NOT_EQUAL_TO
+            - STARTS_WITH
+        operatorName:
+          type: string
+          description: The name of the operator used in the operation, represented as a string.
+        propertyType:
+          type: string
+          description: The type of property, which is always 'string' for this operation.
+          default: string
+          enum:
+            - string
+        renderSpec:
+          type: string
+          description: A string specifying how the operation should be rendered, though the exact format is not detailed.
+        value:
+          type: string
+          description: The string value to be used in the operation.
+      x-hubspot-sub-type-impl: true
+    TimeOffset:
+      required:
+        - amount
+        - offsetDirection
+        - timeUnit
+      type: object
+      properties:
+        amount:
+          type: integer
+          description: An integer representing the amount of time units for the offset.
+          format: int64
+        offsetDirection:
+          type: string
+          description: A string indicating the direction of the time offset. Valid values are 'PAST' and 'FUTURE'.
+          enum:
+            - FUTURE
+            - PAST
+        timeUnit:
+          type: string
+          description: A string specifying the unit of time for the offset. Valid values include 'WEEKS', 'DAYS', 'HOURS', and 'MINUTES'.
+          enum:
+            - DAYS
+            - HOURS
+            - MINUTES
+            - WEEKS
+    TimePointOperation:
+      title: timepoint
+      required:
+        - endpointBehavior
+        - includeObjectsWithNoValueSet
+        - operationType
+        - operator
+        - operatorName
+        - propertyParser
+        - propertyType
+        - timePoint
+        - type
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: A string indicating the default value for the operation.
+        endpointBehavior:
+          type: string
+          description: A string indicating the endpoint behavior. Valid values are 'INCLUSIVE' and 'EXCLUSIVE'.
+          enum:
+            - EXCLUSIVE
+            - INCLUSIVE
+        includeObjectsWithNoValueSet:
+          type: boolean
+          description: A boolean indicating whether to include objects that have no value set.
+        operationType:
+          type: string
+          description: A string indicating the type of operation.
+        operator:
+          type: string
+          description: A string representing the operator used in the operation. Valid values are 'IS_BEFORE' and 'IS_AFTER'.
+          enum:
+            - IS_AFTER
+            - IS_BEFORE
+        operatorName:
+          type: string
+          description: A string representing the name of the operator.
+        propertyParser:
+          type: string
+          description: A string specifying the property parser. Valid values include 'VALUE', 'UPDATED_AT', 'ANNIVERSARY', 'VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION', and 'ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION'.
+          enum:
+            - ANNIVERSARY
+            - ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION
+            - UPDATED_AT
+            - VALUE
+            - VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
+        propertyType:
+          type: string
+          description: A string indicating the type of property. Defaults to 'timepoint'.
+          default: timepoint
+          enum:
+            - timepoint
+        renderSpec:
+          type: string
+          description: A string that specifies the rendering specification.
+        timePoint:
+          description: An object that specifies the time point. It can be a DatePoint, IndexedTimePoint, or PropertyReferencedTime.
+          oneOf:
+            - $ref: '#/components/schemas/DatePoint'
+            - $ref: '#/components/schemas/IndexedTimePoint'
+            - $ref: '#/components/schemas/PropertyReferencedTime'
+        type:
+          type: string
+          description: A string representing the type of the operation.
+      x-hubspot-sub-type-impl: true
+    TodayReference:
+      title: TODAY
+      required:
+        - referenceType
+      type: object
+      properties:
+        hour:
+          type: integer
+          description: An integer representing the hour of the day.
+          format: int32
+        millisecond:
+          type: integer
+          description: An integer representing the millisecond within the second.
+          format: int32
+        minute:
+          type: integer
+          description: An integer representing the minute within the hour.
+          format: int32
+        referenceType:
+          type: string
+          description: A string indicating the type of reference, with a default and only valid value of 'TODAY'.
+          default: TODAY
+          enum:
+            - TODAY
+        second:
+          type: integer
+          description: An integer representing the second within the minute.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    WeekReference:
+      title: WEEK
+      required:
+        - dayOfWeek
+        - referenceType
+      type: object
+      properties:
+        dayOfWeek:
+          type: string
+          description: A string representing the day of the week. Valid values include 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', and 'SUNDAY'.
+          enum:
+            - FRIDAY
+            - MONDAY
+            - SATURDAY
+            - SUNDAY
+            - THURSDAY
+            - TUESDAY
+            - WEDNESDAY
+        hour:
+          type: integer
+          description: An integer representing the hour of the day.
+          format: int32
+        millisecond:
+          type: integer
+          description: An integer representing the millisecond within the second.
+          format: int32
+        minute:
+          type: integer
+          description: An integer representing the minute within the hour.
+          format: int32
+        referenceType:
+          type: string
+          description: A string indicating the type of reference, which is 'WEEK' by default.
+          default: WEEK
+          enum:
+            - WEEK
+        second:
+          type: integer
+          description: An integer representing the second within the minute.
+          format: int32
+      x-hubspot-sub-type-impl: true
+    YearReference:
+      title: YEAR
+      required:
+        - day
+        - month
+        - referenceType
+      type: object
+      properties:
+        day:
+          type: integer
+          description: An integer representing the day of the month.
+          format: int32
+        hour:
+          type: integer
+          description: An integer representing the hour of the day.
+          format: int32
+        millisecond:
+          type: integer
+          description: An integer representing the millisecond within the second.
+          format: int32
+        minute:
+          type: integer
+          description: An integer representing the minute within the hour.
+          format: int32
+        month:
+          type: integer
+          description: An integer representing the month of the year.
+          format: int32
+        referenceType:
+          type: string
+          description: A string indicating the type of reference, which is 'YEAR' by default.
+          default: YEAR
+          enum:
+            - YEAR
+        second:
+          type: integer
+          description: An integer representing the second within the minute.
+          format: int32
+      x-hubspot-sub-type-impl: true
+  responses:
+    Error:
+      description: An error occurred.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    developer_hapikey:
+      type: apiKey
+      name: hapikey
+      in: query
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+          scopes:
+            analytics.behavioral_events.send: ''
+            behavioral_events.event_definitions.read_write: ''
+    private_apps:
+      type: apiKey
+      name: private-app
+      in: header
+    private_apps_legacy:
+      type: apiKey
+      name: private-app-legacy
+      in: header
+x-hubspot-product-tier-requirements:
+  marketing: ENTERPRISE
+  sales: ENTERPRISE
+  service: ENTERPRISE
+  cms: ENTERPRISE
+  commerce: ENTERPRISE
+  crmHub: ENTERPRISE
+  dataHub: ENTERPRISE
