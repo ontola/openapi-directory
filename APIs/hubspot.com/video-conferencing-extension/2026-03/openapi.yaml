@@ -1,0 +1,249 @@
+openapi: 3.0.1
+info:
+  title: Video Conferencing Extension
+  description: Basepom for all HubSpot Projects
+  version: 2026-03
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+    sales: FREE
+    service: FREE
+    cms: FREE
+    commerce: FREE
+    crmHub: FREE
+    dataHub: FREE
+  x-hubspot-api-use-case: If your company often conducts meetings over Zoom, use this API to enable users to add Zoom information to meeting invitations when schedule meetings in HubSpot.
+  x-hubspot-introduction: Use the video conference API to add video conferencing options when scheduling a meeting in HubSpot.
+  x-origin:
+    - format: openapi
+      url: https://api.hubspot.com/public/api/spec/v2/specs/release/75350/version/2026-03
+      version: '3.0'
+  x-conversion:
+    - Fetched from HubSpot's public API spec catalog (https://api.hubspot.com/public/api/spec/v1/specs), product 'Video Conferencing Extension', group 'CRM', stable version 2026-03.
+servers:
+  - url: https://api.hubapi.com
+tags:
+  - name: Basic
+paths:
+  /crm/extensions/videoconferencing/2026-03/settings/{appId}:
+    get:
+      tags:
+        - Basic
+      summary: Get settings
+      description: Fetch video conference extension settings for your app
+      operationId: get-/crm/extensions/videoconferencing/2026-03/settings/{appId}_getById
+      parameters:
+        - name: appId
+          in: path
+          description: The unique identifier of the app whose video conferencing settings you want to retrieve. It should be an integer.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalSettings'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - developer_hapikey: []
+    put:
+      tags:
+        - Basic
+      summary: Create or update settings
+      description: Create or update video conference extension settings for your app
+      operationId: put-/crm/extensions/videoconferencing/2026-03/settings/{appId}_replace
+      parameters:
+        - name: appId
+          in: path
+          description: The unique identifier of the app whose video conferencing settings are to be updated.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalSettings'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalSettings'
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - developer_hapikey: []
+    delete:
+      tags:
+        - Basic
+      summary: Delete settings
+      description: Delete video conference extension settings for your app
+      operationId: delete-/crm/extensions/videoconferencing/2026-03/settings/{appId}_archive
+      parameters:
+        - name: appId
+          in: path
+          description: The unique identifier of the app whose video conferencing settings are to be deleted. It must be an integer.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: No content
+          content: {}
+        default:
+          description: ''
+          $ref: '#/components/responses/Error'
+      security:
+        - developer_hapikey: []
+components:
+  schemas:
+    Error:
+      required:
+        - category
+        - correlationId
+        - message
+      type: object
+      properties:
+        category:
+          type: string
+          description: The error category
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{invalidPropertyName=[propertyValue], missingScopes=[scope1, scope2]}'
+        correlationId:
+          type: string
+          description: A unique identifier for the request. Include this value with any error reports or support tickets
+          format: uuid
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        errors:
+          type: array
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+        links:
+          type: object
+          additionalProperties:
+            type: string
+          description: A map of link names to associated URIs containing documentation about the error or recommended remediation steps
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+          example: An error occurred
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents an error response returned by the API when an operation fails. This component is used in various endpoints to provide detailed information about the error encountered.
+      example:
+        message: Invalid input (details will vary based on the error)
+        correlationId: aeb5f871-7f07-4993-9211-075dc63e7cbf
+        category: VALIDATION_ERROR
+        links:
+          knowledge-base: https://www.hubspot.com/products/service/knowledge-base
+    ErrorDetail:
+      required:
+        - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: The status code associated with the error detail
+        context:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Context about the error condition
+          example: '{missingScopes=[scope1, scope2]}'
+        in:
+          type: string
+          description: The name of the field or parameter in which the error was found.
+        message:
+          type: string
+          description: A human readable message describing the error along with remediation steps where appropriate
+        subCategory:
+          type: string
+          description: A specific category that contains more specific detail about the error
+      description: Represents detailed information about an error that occurred in the API. This component is used to provide additional context and specifics about errors, typically as part of an error response.
+    ExternalSettings:
+      required:
+        - createMeetingUrl
+      type: object
+      properties:
+        createMeetingUrl:
+          type: string
+          description: A string representing the URL used to create a new meeting. This property is required.
+        deleteMeetingUrl:
+          type: string
+          description: A string representing the URL used to delete a meeting.
+        fetchAccountsUri:
+          type: string
+          description: A string representing the URI used to fetch account information.
+        updateMeetingUrl:
+          type: string
+          description: A string representing the URL used to update an existing meeting.
+        userVerifyUrl:
+          type: string
+          description: A string representing the URL used to verify a user's identity.
+  responses:
+    Error:
+      description: An error occurred.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    developer_hapikey:
+      type: apiKey
+      name: hapikey
+      in: query
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.hubspot.com/oauth/authorize
+          tokenUrl: https://api.hubapi.com/oauth/v1/token
+          scopes: {}
+    private_apps:
+      type: apiKey
+      name: private-app
+      in: header
+    private_apps_legacy:
+      type: apiKey
+      name: private-app-legacy
+      in: header
+x-hubspot-available-client-libraries:
+  - Node
+  - Python
+  - Ruby
+  - PHP
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+  commerce: FREE
+  crmHub: FREE
+  dataHub: FREE
