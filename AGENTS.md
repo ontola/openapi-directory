@@ -1,9 +1,11 @@
-# Handoff: upstream triage & port workflow
+# AGENTS.md — working on this OpenAPI directory fork
+
+Instructions for an agent picking up work in this repo. Read this first.
 
 **Repo**: `ontola/openapi-directory` (fork of `APIs-guru/openapi-directory`).
 Note the git remote resolves via an old org rename — `localthought/openapi-directory` redirects to `ontola`. Pushes print a "This repository moved" notice; harmless.
 
-**Last updated**: 2026-09-22. Main branch at PR #43 merged; PRs #44-#48 open and awaiting merge.
+**Last updated**: 2026-09-22.
 
 ---
 
@@ -15,6 +17,16 @@ Work through the upstream `APIs-guru/openapi-directory` backlog (PRs and issues)
 > "you can skip additions of niche APIs, I'm more interested in additions or corrections of well-known industry APIs."
 
 **Delivery pattern:** one PR per API, against our own `main`, upstream issue/PR link in the **PR body, not the title**. Merge when clean.
+
+**When the backlog runs dry, the task does not stop.** Two standing jobs:
+
+1. **Find specs we don't have.** Search the web for official OpenAPI descriptions of large,
+   well-known APIs. "Official" means published by the vendor, ideally in their own git repo
+   — see §8 for how to tell a real one from a third-party scrape.
+2. **Check what we already have is current.** Most of the value found so far was here, not
+   in new additions: Stripe was 4 years stale, Square was 94 paths behind, Meraki and
+   Mailchimp both needed version bumps. Walk `APIs/` against upstream sources and compare
+   `info.version` and path counts.
 
 **Autonomy level as of the last instruction:** the user said *"i don't need to review them, you can merge them when you think they look good."* That applies to straightforward additions of official vendor specs. It does **not** extend to the deferred/judgment items in §5 — those were explicitly declined or parked and need a fresh go-ahead.
 
@@ -45,9 +57,12 @@ change of mind by the user. Each is one file, `+N / −0`, `MERGEABLE`/`CLEAN`:
 | #46 | Sentry `v0` | 147 / 234 | new; upstream artifact is deref'd, so no `$ref`s at all |
 | #47 | PagerDuty `2.0.0` | 273 / 465 | new |
 | #48 | MongoDB Atlas Admin `2.0` | 333 / 541 | new; filed under `mongodb.com/atlas-admin/` |
+| #50 | Grafana `0.0.1` | 207 / 314 | new; Swagger 2.0 -> OpenAPI 3 |
+| #51 | Square `2.0` | 253 / 332 | **refresh, in-place, -16 paths** — read the PR before merging |
+| #52 | DocuSign eSignature `v2.1` | 213 / 414 | refresh, in-place; Swagger 2.0 -> OpenAPI 3 |
 
-**Grafana is converted and committed locally on `add-grafana-api` but could not be
-pushed** — see §4.
+Grafana (#50) was initially blocked by GitHub push protection over a fake example token in
+Grafana's own spec; the repo owner reviewed it and allowed it. See §7.
 
 ---
 
@@ -133,6 +148,10 @@ It was left unresolved on purpose. Two ways forward, both the user's call:
 
 Do not bypass push protection unilaterally.
 
+### Still to do
+- Refresh audit across the rest of `APIs/` — 717 provider domains, only a handful checked so far.
+- Web search for the vendors below.
+
 ### Missing, official spec not yet located
 Shopify, Intercom, HubSpot, Zendesk, Airtable, Heroku, Snowflake, Elastic, HashiCorp, Coinbase, Dropbox, New Relic, Anthropic, Hugging Face, NVIDIA.
 
@@ -155,6 +174,48 @@ Each of these was either explicitly declined or deliberately deferred.
 - **Greenpeace removal** (#1269) — `greenwire.greenpeace.org` no longer resolves (curl exit 6). Removal is destructive; offered, never requested.
 - **`x-preferred` policy** (#1115) — on `meraki.com`, only the v0 `0.0.0-streaming` spec is flagged `x-preferred: true`, so nothing in the v1 line is preferred. Looks wrong. 1.74.0 was set to `false` mirroring 1.32.0 rather than deciding it.
 - **php-openapi README addition** (#1390) — asked, never answered.
+
+---
+
+## 5b. Recording provenance — REQUIRED for every spec
+
+Every spec must say where it came from and what was done to it. This lives **in the
+spec's own `info` block**, nowhere else.
+
+```yaml
+info:
+  x-origin:                       # WHERE it came from. apis.guru's own convention.
+    - format: swagger             # A CHAIN, oldest first, one entry per format.
+      url: https://raw.githubusercontent.com/grafana/grafana/main/public/api-merged.json
+      version: '2.0'
+    - format: openapi
+      url: https://raw.githubusercontent.com/grafana/grafana/main/public/api-merged.json
+      version: '3.0'
+  x-conversion:                   # WHAT was done. Plain sentences, in order.
+    - Fetched from <repo/path> (<format>).
+    - Converted <A> -> <B> with <tool> <version> <options>; N warnings.
+    - Fixed: <defect and why the fix is right>.
+    - Known upstream defect left as-is: <what, and why not fixed>.
+```
+
+**Why here and not elsewhere** — this was asked directly, so the reasoning is recorded:
+
+- **Not YAML comments at the top of the file.** These specs get round-tripped through
+  PyYAML on every refresh, and `yaml.dump` **silently discards all comments**. Provenance
+  written as a comment survives exactly until the next update, which is precisely when it
+  matters most. This one is disqualifying, not a preference.
+- **Not a README per provider directory.** It does not travel with the spec, it goes stale
+  independently of the file it describes, it has no answer for multi-version providers
+  (`meraki.com/1.32.0` and `1.74.0` have different origins), and it diverges from upstream
+  apis.guru layout for no gain.
+- **`x-origin` already exists and is already the convention here** — it is machine-readable,
+  survives every round-trip, is scoped to the exact spec version it describes, and apis.guru
+  tooling already understands it. `x-conversion` is our addition alongside it, in the same
+  place, for the step log that `x-origin` has no room for.
+
+Write `x-conversion` for a human reading it cold. "Fixed a param" is useless; "PUT
+/v2/vendors/{vendor_id} declared no parameters, so its path variable was undeclared; the
+GET on the same path declares it correctly and the fix mirrors that" is the standard.
 
 ---
 
