@@ -46,20 +46,34 @@ PRs **#7–#42** were this workstream (#1–#6 predate it).
 
 **#40 (Google Vertex AI) was closed, not merged** — see §5.
 
-**#44–#48 are open, verified clean, but NOT merged** — merging was blocked by the
-Claude Code auto-mode classifier ("Merge Without Review"), a harness restriction, not a
-change of mind by the user. Each is one file, `+N / −0`, `MERGEABLE`/`CLEAN`:
+**#44–#54 — the first coverage-gap batch. All merged.** Found by auditing what we already
+have against vendors' own published specs, not from the upstream backlog.
 
 | PR | API | Paths / ops | Note |
 |---|---|---|---|
-| #44 | Stripe `2026-08-26.dahlia` | 419 / 594 | refresh; curated metadata preserved |
+| #44 | Stripe `2026-08-26.dahlia` | 419 / 594 | refresh; was pinned at `2022-11-15`, ~4 years stale |
 | #45 | Figma `0.42.0` | 47 / 54 | new; source already YAML |
 | #46 | Sentry `v0` | 147 / 234 | new; upstream artifact is deref'd, so no `$ref`s at all |
 | #47 | PagerDuty `2.0.0` | 273 / 465 | new |
 | #48 | MongoDB Atlas Admin `2.0` | 333 / 541 | new; filed under `mongodb.com/atlas-admin/` |
 | #50 | Grafana `0.0.1` | 207 / 314 | new; Swagger 2.0 -> OpenAPI 3 |
-| #51 | Square `2.0` | 253 / 332 | **refresh, in-place, -16 paths** — read the PR before merging |
+| #51 | Square `2.0` | 253 / 332 | refresh, **in-place, −16 paths** (Square's retired v1 + Transactions APIs) |
 | #52 | DocuSign eSignature `v2.1` | 213 / 414 | refresh, in-place; Swagger 2.0 -> OpenAPI 3 |
+| #53 | — | — | this file; replaced `HANDOFF-upstream-triage.md`, added §5b |
+| #54 | Intercom `2.14` | 106 / 150 | new |
+
+**#55 (Elasticsearch 9.5) is open at the time of writing** — 581 paths / 845 ops, under
+`elastic.co/9.5`.
+
+**Upstream spec defects found and fixed in this batch** (all verified present in the
+vendor's own published file first, then fixed to match that vendor's own style):
+- Square `PUT /v2/vendors/{vendor_id}` — declared `parameters: []`, leaving its path variable undeclared.
+- Square `POST /oauth2/revoke` — security scopes as `null` instead of `[]`.
+- Intercom `GET /export/reporting_data/{job_identifier}` and `/download/...` — omitted the path parameter.
+
+**Deliberately NOT fixed**, and why:
+- Square `$ref`s `CurrencyExchange` and `AppFeeAllocation` without defining them. Inventing schemas would be fabricating API surface.
+- DocuSign descriptions carry double-encoded UTF-8 (mojibake). It is **DocuSign's own bug, in the source file** — refreshing does not fix it, and rewriting vendor prose is a bigger change than it looks.
 
 Grafana (#50) was initially blocked by GitHub push protection over a fake example token in
 Grafana's own spec; the repo owner reviewed it and allowed it. See §7.
@@ -147,6 +161,24 @@ It was left unresolved on purpose. Two ways forward, both the user's call:
 2. **Redact the example** — but that means editing vendor content, which cuts against how every other spec here was added.
 
 Do not bypass push protection unilaterally.
+
+### HubSpot — 122 "APIs", but far fewer real ones
+
+`https://api.hubspot.com/public/api/spec/v1/specs` returns a **catalog index**, not a spec:
+122 products / 332 versions / 191 stable, each spec at its own URL. Before porting it,
+know what it actually is — verified by fetching two of them:
+
+- **66 of the 122 are CRM object slices of one generic API.** Contacts is 12 paths at
+  `/crm/objects/2026-03/contacts`; Deals is 11 paths at `/crm/objects/2026-03/0-3` — the
+  same endpoint with HubSpot's internal numeric object-type id substituted in. Same six
+  operations each. Porting all 66 yields near-identical files differing by an object name.
+- **~56 are genuinely distinct products** and look like real APIs: CMS (13), Marketing (8),
+  Commerce (7), Automation, Events, Conversations, Files, Webhooks, OAuth.
+- **The catalog contains internal test APIs.** There is a `Test` group holding `At Tests`
+  and `At Debug`, plus `Public App Feature Flags V3` and `Limits Tracking`. Do not import these.
+
+Recommendation on the table but not yet decided: take the ~56 distinct products, skip the
+per-object CRM slices (or take one representative), and exclude the `Test` group.
 
 ### Still to do
 - Refresh audit across the rest of `APIs/` — 717 provider domains, only a handful checked so far.
