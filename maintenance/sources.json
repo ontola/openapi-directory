@@ -293,7 +293,7 @@
     {
       "id": "intercom",
       "provider": "intercom.com",
-      "target": "APIs/intercom.com/2.16/openapi.yaml",
+      "target": "APIs/intercom.com/2.17/openapi.yaml",
       "github": {
         "repository": "intercom/Intercom-OpenAPI",
         "ref": "main",
