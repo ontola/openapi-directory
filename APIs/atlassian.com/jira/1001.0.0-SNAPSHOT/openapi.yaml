@@ -22080,7 +22080,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://developer.atlassian.com/platform/marketplace/atlassian-developer-terms/
   title: The Jira Cloud platform REST API
-  version: 1001.0.0-SNAPSHOT-075425bbde28f069e4778bc256e773dd780217cf
+  version: 1001.0.0-SNAPSHOT-0c0db68a171663452b321ade8630cf9c8cada05d
   x-apisguru-categories:
     - developer_tools
   x-logo:
@@ -22092,7 +22092,7 @@ info:
       url: https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json on 2026-10-08T19:30:13.516074+00:00; entry source SHA-256 d26b518604157e26c8ba72b66e483fcebd055b1eebb4036eb03da53248199e44.
+    - Fetched from https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json on 2026-10-12T19:56:27.230775+00:00; entry source SHA-256 a7f554a7e0f6689b97dddcffb4952488d89f137e575042cb47ec04412cc41447.
     - 'Applied maintenance/patches/jira-platform.json (SHA-256 4fa7cca3286f10141a9e219e1dcad3f7d9546f70cb75644a425534efc8bf98b1): Removed four empty-string defaults on array-item enums of query filters (classification levels status, field search type, screens queryString scope, workflow rule config types). An empty string is outside each declared enum; the enums, optionality and all other content are unchanged. No replacement default or server behavior was inferred.'
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
     - Preserved existing APIs.guru curation metadata from APIs/atlassian.com/jira/1001.0.0-SNAPSHOT/openapi.yaml.
@@ -42987,6 +42987,16 @@ paths:
             default: 1000
             format: int32
             type: integer
+        - description: Case-insensitive prefix used to filter labels before pagination.
+          in: query
+          name: query
+          schema:
+            type: string
+        - description: RECENT\_PROJECTS or ALL\_BROWSEABLE\_PROJECTS. Omitted scope retains the unbounded search. Blank or unrecognised values use ALL\_BROWSEABLE\_PROJECTS.
+          in: query
+          name: scope
+          schema:
+            type: string
       responses:
         '200':
           content:
