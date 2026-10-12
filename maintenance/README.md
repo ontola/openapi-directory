@@ -1319,3 +1319,13 @@ and the previously preferred stored file is set to `false`, for exactly these th
 The importer copies `x-preferred: true` from the old file's curation. A separate small PR
 flips each old file to `false`. Old versions are kept; removals reported against them are
 version differences, not deletions. `x-preferred` policy for any other API stays parked.
+
+## Attio (registered 2026-10-12) and the Webflow v2 lead
+
+`attio` follows the hosted Attio REST description linked from the vendor's OpenAPI
+reference page. It is OpenAPI 3.1, validates natively with no patches, and is a CRM on the
+atomic-plugins roadmap. Webflow's official `webflow/openapi-spec` `openapi/v2.yml` is newer
+than the stored 2023 file but fails native validation. Its error-detail schemas use draft-04
+tuple `items` arrays: the exact 3.1 equivalent is `prefixItems`, but `items` arrays also
+occur in example payloads and must not be touched. It also has null defaults on string
+parameters. It remains a lead until an exact, schema-position-only recipe is reviewed.
