@@ -1896,7 +1896,7 @@
     {
       "id": "adyen-legal-entity",
       "provider": "adyen.com",
-      "target": "APIs/adyen.com/LegalEntityService/3/openapi.yaml",
+      "target": "APIs/adyen.com/LegalEntityService/4/openapi.yaml",
       "github": {
         "repository": "Adyen/adyen-openapi",
         "ref": "main",
