@@ -54,6 +54,8 @@ info:
     - format: openapi
       url: https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/CheckoutService-v70.json
       version: "3.1"
+  x-conversion:
+    - 'Fixed for strict YAML parsers (2026-10-12): the AdditionalDataAirline airline.leg.date_of_travel description was a block scalar whose first line held only a tab, which YAML forbids as indentation. It is now an escaped double-quoted string with exactly the vendor value (verified against the official CheckoutService-v70.json, including the leading tab and newline). No other content changed.'
   x-preferred: true
   x-providerName: adyen.com
   x-publicVersion: true
@@ -4773,12 +4775,7 @@ components:
             *Must not be all zeros.
           type: string
         airline.leg.date_of_travel:
-          description: |-
-            	
-            Date and time of travel in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format `yyyy-MM-dd HH:mm`.
-            * Encoding: ASCII
-            * minLength: 16 characters
-            * maxLength: 16 characters
+          description: "\t\nDate and time of travel in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format `yyyy-MM-dd HH:mm`.\n* Encoding: ASCII\n* minLength: 16 characters\n* maxLength: 16 characters"
           type: string
         airline.leg.depart_airport:
           description: |-
