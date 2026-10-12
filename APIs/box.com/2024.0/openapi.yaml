@@ -12,7 +12,7 @@ info:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
   version: '2024.0'
-  x-box-commit-hash: cae48740aa
+  x-box-commit-hash: 56657ab895
   x-apisguru-categories:
     - cloud
   x-logo:
@@ -20,12 +20,12 @@ info:
   x-providerName: box.com
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/box/box-openapi/5b055e333a802b10b8ca90fcc513643836dd92b4/openapi.json
+      url: https://raw.githubusercontent.com/box/box-openapi/38fa64be562acc8d5f48f76b43c13a86a0e89b21/openapi.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/box/box-openapi/5b055e333a802b10b8ca90fcc513643836dd92b4/openapi.json at commit 5b055e333a802b10b8ca90fcc513643836dd92b4; entry source SHA-256 13cc601e01a7b82133975aaf7aeffb1850159a10ac6365fae00d5af94406d9d4.
+    - Fetched from https://raw.githubusercontent.com/box/box-openapi/38fa64be562acc8d5f48f76b43c13a86a0e89b21/openapi.json at commit 38fa64be562acc8d5f48f76b43c13a86a0e89b21; entry source SHA-256 a47e8193bd979d62f8a37be152e761235df1aa10f42dec2b2997ec5f49f32a56.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
-    - Preserved existing APIs.guru curation metadata from APIs/box.com/2.0.0/openapi.yaml.
+    - Preserved existing APIs.guru curation metadata from APIs/box.com/2024.0/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
 servers:
   - url: https://api.box.com/2.0
@@ -1891,21 +1891,27 @@ paths:
           description: 'The [RFC3230][1] message digest of the chunk uploaded.
 
 
-            Only SHA1 is supported. The SHA1 digest must be base64
+            `SHA-1` and `SHA-512` ([RFC5843][2]) are supported. The digest must be base64
 
             encoded. The format of this header is as
 
-            `sha=BASE64_ENCODED_DIGEST`.
+            `sha=BASE64_ENCODED_DIGEST` for `SHA-1`, or
+
+            `sha-512=BASE64_ENCODED_DIGEST` for `SHA-512`.
 
 
-            To get the value for the `SHA` digest, use the
+            To get the value for the digest, use the
 
             openSSL command to encode the file part:
 
-            `openssl sha1 -binary <FILE_PART_NAME> | base64`.
+            `openssl sha1 -binary <FILE_PART_NAME> | base64` for `SHA-1`, or
+
+            `openssl sha512 -binary <FILE_PART_NAME> | base64` for `SHA-512`.
 
 
-            [1]: https://tools.ietf.org/html/rfc3230'
+            [1]: https://tools.ietf.org/html/rfc3230
+
+            [2]: https://tools.ietf.org/html/rfc5843'
           required: true
           schema:
             type: string
@@ -1926,7 +1932,12 @@ paths:
               format: binary
       responses:
         '200':
-          description: Chunk has been uploaded successfully.
+          description: 'Chunk has been uploaded successfully.
+
+
+            The response always includes `sha512`. It also includes
+
+            `sha1` if the `Digest` header used `SHA-1`.'
           content:
             application/json:
               schema:
@@ -2057,7 +2068,12 @@ paths:
           example: 1000
       responses:
         '200':
-          description: Returns a list of parts that have been uploaded.
+          description: 'Returns a list of parts that have been uploaded.
+
+
+            Each part includes the hash type used to upload it. Parts
+
+            uploaded with a `SHA-512` `Digest` header don''t include `sha1`.'
           content:
             application/json:
               schema:
@@ -2090,9 +2106,9 @@ paths:
         have already been uploaded (cache hits) and only uploading missing parts.
 
 
-        The actual endpoint URL is returned by the [`Create upload session`](e://post-files-upload-sessions)
+        The actual endpoint URL is returned by the [`Create upload session`](https://developer.box.com/reference/post-files-upload-sessions)
 
-        and [`Get upload session`](e://get-files-upload-sessions-id) endpoints.'
+        and [`Get upload session`](https://developer.box.com/reference/get-files-upload-sessions-id) endpoints.'
       parameters:
         - name: upload_session_id
           in: path
@@ -2168,6 +2184,11 @@ paths:
             `sha=BASE64_ENCODED_DIGEST`.
 
 
+            `SHA-512` is not supported for the whole-file digest, even if
+
+            the parts were uploaded with `SHA-512` digests.
+
+
             [1]: https://tools.ietf.org/html/rfc3230'
           required: true
           schema:
@@ -2214,7 +2235,27 @@ paths:
               type: object
               properties:
                 parts:
-                  description: The list details for the uploaded parts.
+                  description: 'The list details for the uploaded parts.
+
+
+                    Each entry can include `sha1` or `sha512`. Include `sha512`
+
+                    on every entry or on none of them. A request where only
+
+                    some entries include `sha512` is rejected.
+
+
+                    Include parts that the server already has, returned as
+
+                    `hits` by the [`Plan upload session`](https://developer.box.com/reference/post-files-upload-sessions-id-plan)
+
+                    endpoint. Use the `part_id`, `offset`, and `size` from the
+
+                    plan response. If the other entries include `sha512`,
+
+                    include the `sha512` value from the plan response.
+
+                    Otherwise, leave the hash out of these entries.'
                   type: array
                   items:
                     $ref: '#/components/schemas/UploadPart'
@@ -2243,6 +2284,12 @@ paths:
                 attempting their commit request again.'
               schema:
                 type: integer
+        '400':
+          description: "Returns an error if the request body is not valid.\n\n* `invalid_parts_field` - Only some entries in `parts` include\n  `sha512`. Include `sha512` on every entry or on none of them."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientError'
         '409':
           description: 'Returns an error if there is already a file with the same name
 
@@ -10192,7 +10239,14 @@ paths:
     post:
       operationId: post_metadata_queries_execute_read
       summary: Query files/folders by metadata
-      description: 'Create a search using SQL-like syntax to return items that match specific
+      description: 'For new integrations, use the [v2026.0 Query API](https://developer.box.com/reference/v2026.0/query-resources).
+
+        This is the latest version of the Query API, with advanced capabilities including multi-template queries and
+
+        Query Insights, and is the API we will continue to enhance with new Query capabilities.
+
+
+        Create a search using SQL-like syntax to return items that match specific
 
         metadata.
 
@@ -24187,6 +24241,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AiResponse'
+        '422':
+          description: The extraction request could not be processed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientError'
         '500':
           description: An unexpected server error.
           content:
@@ -24231,6 +24291,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AiExtractStructuredResponse'
+        '422':
+          description: The extraction request could not be processed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientError'
         '500':
           description: An unexpected server error.
           content:
@@ -27626,6 +27692,7 @@ components:
             - method_not_allowed
             - conflict
             - precondition_failed
+            - unprocessable_entity
             - too_many_requests
             - internal_server_error
             - unavailable
@@ -39831,6 +39898,12 @@ components:
               description: The SHA1 hash of the chunk.
               type: string
               example: 134b65991ed521fcfe4724b7d814ab8ded5185dc
+            sha512:
+              description: 'The `SHA-512` hash of the chunk, as a hex string
+
+                of 128 lower case characters.'
+              type: string
+              example: ae78a0ca28abffe70ac9aba830556cd6eb3fcf1501dbd9b2d7a5f45992c00812cb07b51bbd0a9174e2295671c0e86f30354afa91d281d4fbee6a323a483d6383
       title: Upload part
       x-box-resource-id: upload_part
       x-box-tag: chunked_uploads
@@ -39887,9 +39960,11 @@ components:
           format: int64
           example: 8388608
         sha512:
-          description: The `SHA-512` hash of the chunk.
+          description: 'The `SHA-512` hash of the chunk, as a hex string
+
+            of 128 lower case characters.'
           type: string
-          example: 1f40fc92da241694750979ee6cf582f2d5d7c8b5d9c7f3b8a6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1
+          example: ae78a0ca28abffe70ac9aba830556cd6eb3fcf1501dbd9b2d7a5f45992c00812cb07b51bbd0a9174e2295671c0e86f30354afa91d281d4fbee6a323a483d6383
       required:
         - offset
         - size
@@ -39918,9 +39993,11 @@ components:
           format: int64
           example: 8388608
         sha512:
-          description: The `SHA-512` hash of the chunk.
+          description: 'The `SHA-512` hash of the chunk, as a hex string
+
+            of 128 lower case characters.'
           type: string
-          example: 1f40fc92da241694750979ee6cf582f2d5d7c8b5d9c7f3b8a6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1
+          example: ae78a0ca28abffe70ac9aba830556cd6eb3fcf1501dbd9b2d7a5f45992c00812cb07b51bbd0a9174e2295671c0e86f30354afa91d281d4fbee6a323a483d6383
         part_id:
           description: The unique ID of the chunk.
           type: string
@@ -40115,10 +40192,10 @@ components:
           example:
             - offset: 0
               size: 8388608
-              sha512: 1f40fc92da241694750979ee6cf582f2...
+              sha512: ae78a0ca28abffe70ac9aba830556cd6eb3fcf1501dbd9b2d7a5f45992c00812cb07b51bbd0a9174e2295671c0e86f30354afa91d281d4fbee6a323a483d6383
             - offset: 8388608
               size: 8388608
-              sha512: b109f3bbbc244eb82441917ed06d618b...
+              sha512: 588fde2156e1d8b23c9ca88ed3bed7bd1270e6ba0bb5b97b294ea1498952d7fd505e406097638514df92e9c5fecd0e73bd872499fcd7ea18eeb18567d0e09020
           minItems: 1
       required:
         - parts
@@ -40147,7 +40224,7 @@ components:
           example:
             - offset: 0
               size: 8388608
-              sha512: 1f40fc92da241694750979ee6cf582f2...
+              sha512: ae78a0ca28abffe70ac9aba830556cd6eb3fcf1501dbd9b2d7a5f45992c00812cb07b51bbd0a9174e2295671c0e86f30354afa91d281d4fbee6a323a483d6383
               part_id: BFDF5379
         misses:
           description: 'Parts that do not exist on the server and
@@ -40159,7 +40236,7 @@ components:
           example:
             - offset: 8388608
               size: 8388608
-              sha512: b109f3bbbc244eb82441917ed06d618b...
+              sha512: 588fde2156e1d8b23c9ca88ed3bed7bd1270e6ba0bb5b97b294ea1498952d7fd505e406097638514df92e9c5fecd0e73bd872499fcd7ea18eeb18567d0e09020
       required:
         - upload_session_id
         - hits
