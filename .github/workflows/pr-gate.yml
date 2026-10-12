@@ -1,0 +1,35 @@
+name: PR gate
+
+# One always-present, path-aware check that can be marked required without
+# blocking docs-only PRs. It waits for the validations the changed paths need on
+# the exact head SHA and passes only on actual success. Read-only.
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Trusted base tooling, never the PR's own gate code.
+          ref: ${{ github.event.pull_request.base.sha }}
+          sparse-checkout: maintenance
+      - name: Wait for path-required validations on the exact head
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          if [ -f maintenance/pr_gate.py ]; then
+            python3 maintenance/pr_gate.py
+          else
+            echo "Base revision predates the gate; nothing to enforce yet."
+          fi
