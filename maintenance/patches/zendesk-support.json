@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "description": "Represented the documented null-only value alternative with explicit string type, nullable:true and enum:[null], preserving every other alternative and original oneOf exclusivity (including integer/number overlap). Removed only the exact unused invalid UserLogin parameter component (in:path with query-only deepObject style); no endpoint uses or authentication declarations are removed or relocated. Complete original condition/parameter assertions and conservative JSON Pointer absence preconditions stop replay on changed semantics, vendor corrections or new parameter uses. No OpenAPI version conversion or runtime behavior is invented.",
+  "description": "Represented the documented null-only alternatives (AccessRuleCondition.value, ItamAsset.purchase_cost, OrganizationObject organization_fields values, RequestObject custom_fields/fields values, TicketFieldValueInput.value and TicketObject.brand_id) with explicit string type, nullable:true and enum:[null], preserving every other alternative and original oneOf exclusivity (including integer/number overlap). Removed only the exact unused invalid UserLogin parameter component (in:path with query-only deepObject style); no endpoint uses or authentication declarations are removed or relocated. Complete original condition/parameter assertions and conservative JSON Pointer absence preconditions stop replay on changed semantics, vendor corrections or new parameter uses. No OpenAPI version conversion or runtime behavior is invented.",
   "assertions": [
     {
       "pointer": "#/components/schemas/AccessRuleCondition",
@@ -194,6 +194,345 @@
             "format": "int64"
           },
           "example": 123456
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/ItamAsset/properties/purchase_cost",
+      "from": {
+        "description": "The asset's purchase cost as a decimal number in the major unit of the account's currency. For example, 9.99 represents $9.99 for USD accounts. Legacy records may return the value as a string",
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "description": "The asset's purchase cost as a decimal number in the major unit of the account's currency. For example, 9.99 represents $9.99 for USD accounts. Legacy records may return the value as a string",
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "asset_type_id": {
+          "type": "string",
+          "description": "Id of the asset type"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/OrganizationObject/properties/organization_fields/additionalProperties",
+      "from": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "type": "object",
+        "nullable": true
+      }
+    },
+    {
+      "pointer": "#/components/schemas/RequestObject/properties/custom_fields/items/properties/value",
+      "from": {
+        "description": "The custom field value. Type depends on the field configuration; null when unset",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "description": "The custom field value. Type depends on the field configuration; null when unset",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/RequestObject/properties/fields/items/properties/value",
+      "from": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/TicketFieldValueInput/properties/value",
+      "from": {
+        "description": "The value to assign to the custom field.\nType depends on the field configuration:\n- Text/textarea: string\n- Checkbox: boolean or \"true\"/\"false\" string\n- Dropdown/tagger: string or array of strings (multi-select)\n- Number/decimal: number or string representation\n- Date: string (ISO 8601 format)\n- Lookup: the target record's id, or an id prefixed with `external_id:` or `name:`\n- Multi-lookup: an array of target record ids, up to `max_selections` entries. Each write replaces the\n  entire set of selections. Unresolved ids are silently dropped. See\n  [Setting multi-lookup field values](/api-reference/ticketing/lookup_relationships/lookup_relationships/#setting-multi-lookup-field-values)\n- null when the field has no value set\n",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "example": "745"
+      },
+      "value": {
+        "description": "The value to assign to the custom field.\nType depends on the field configuration:\n- Text/textarea: string\n- Checkbox: boolean or \"true\"/\"false\" string\n- Dropdown/tagger: string or array of strings (multi-select)\n- Number/decimal: number or string representation\n- Date: string (ISO 8601 format)\n- Lookup: the target record's id, or an id prefixed with `external_id:` or `name:`\n- Multi-lookup: an array of target record ids, up to `max_selections` entries. Each write replaces the\n  entire set of selections. Unresolved ids are silently dropped. See\n  [Setting multi-lookup field values](/api-reference/ticketing/lookup_relationships/lookup_relationships/#setting-multi-lookup-field-values)\n- null when the field has no value set\n",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ],
+        "example": "745"
+      },
+      "context": {
+        "id": {
+          "description": "The ID of the custom field",
+          "oneOf": [
+            {
+              "type": "integer",
+              "format": "int64"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "example": 27642
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/TicketObject/properties/brand_id",
+      "from": {
+        "description": "The id of the brand this ticket is associated with. See [Setting up multiple brands](https://support.zendesk.com/hc/en-us/articles/4408829476378)",
+        "oneOf": [
+          {
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "description": "The id of the brand this ticket is associated with. See [Setting up multiple brands](https://support.zendesk.com/hc/en-us/articles/4408829476378)",
+        "oneOf": [
+          {
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "type": {
+          "type": "string",
+          "description": "The type of this ticket",
+          "enum": [
+            "problem",
+            "incident",
+            "question",
+            "task"
+          ],
+          "nullable": true
+        },
+        "url": {
+          "type": "string",
+          "description": "The API url of this ticket",
+          "readOnly": true
         }
       }
     }

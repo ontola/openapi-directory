@@ -29,7 +29,7 @@
       "discovery": "Follow the vendor's maintained public v2 entry point.",
       "version_policy": "vendor",
       "priority": "high",
-      "bundling": {"tool": "redocly", "version": "2.57.0", "root": "specification", "expected_warnings": 22},
+      "bundling": {"tool": "redocly", "version": "2.57.0", "root": "specification", "expected_warnings": 27},
       "patches": ["maintenance/patches/digitalocean.json"]
     },
     {

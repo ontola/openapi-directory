@@ -216,6 +216,13 @@ class UpdaterTests(unittest.TestCase):
         spec = {"openapi": "3.0.3", "info": {"title": "Support guard", "version": "2.0.0"}, "paths": {},
                 "components": {"schemas": {"AccessRuleCondition": condition}, "parameters": {
                     "UserLogin": parameter, **copy.deepcopy(recipe["operations"][1]["context"])}}}
+        extra = recipe["operations"][2:]
+        for operation in extra:  # further null-only alternatives, built from their pinned nodes
+            parts = [p.replace("~1", "/").replace("~0", "~") for p in operation["pointer"][2:].split("/")]
+            node = spec
+            for part in parts[:-2]:
+                node = node.setdefault(part, {})
+            node.setdefault(parts[-2], {}).update(dict(copy.deepcopy(operation["context"]), **{parts[-1]: copy.deepcopy(operation["from"])}))
         source = {"patches": [recipe_path]}
         raw = json.dumps(spec).encode()
         result, steps = update.prepare_document(source, raw)
@@ -223,6 +230,12 @@ class UpdaterTests(unittest.TestCase):
         expected = copy.deepcopy(spec)
         expected["components"]["schemas"]["AccessRuleCondition"]["properties"]["value"] = recipe["operations"][0]["value"]
         del expected["components"]["parameters"]["UserLogin"]
+        for operation in extra:
+            parent_pointer, key = operation["pointer"].rsplit("/", 1)
+            update.pointer(expected, parent_pointer)[key] = operation["value"]
+            self.assertEqual(operation["value"]["oneOf"].count({"type": "string", "nullable": True, "enum": [None]}), 1)
+            self.assertEqual([a for a in operation["value"]["oneOf"] if a.get("enum") != [None]],
+                             [a for a in operation["from"]["oneOf"] if a != {"type": "null"}])
         self.assertEqual(result, expected)
         self.assertIn(update.sha256((update.ROOT / recipe_path).read_bytes()), steps[0])
         for change in ("new use", "style fixed", "removed", "null fixed", "operator changed"):
