@@ -1882,7 +1882,7 @@
     {
       "id": "adyen-checkout",
       "provider": "adyen.com",
-      "target": "APIs/adyen.com/CheckoutService/70/openapi.yaml",
+      "target": "APIs/adyen.com/CheckoutService/72/openapi.yaml",
       "github": {
         "repository": "Adyen/adyen-openapi",
         "ref": "main",
