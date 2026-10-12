@@ -46,20 +46,6 @@ components:
           type: object
           format: uri-map
           nullable: true
-    replay_enum_status:
-      type: string
-      enum:
-        - submitted
-        - starting
-        - running
-        - cancelling
-        - cancelled
-        - failed
-        - completed
-    replay_enum_patchstatus:
-      type: string
-      enum:
-        - cancelling
     events.v1.schema:
       type: object
       properties:
@@ -283,12 +269,12 @@ info:
   x-serviceName: twilio_events_v1
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/twilio/twilio-oai/141f1201b55abcc16b3aa8089e71c4a927326975/spec/json/twilio_events_v1.json
+      url: https://raw.githubusercontent.com/twilio/twilio-oai/d9775142962ea67d5f3d50c5021a23ae6d330c5b/spec/json/twilio_events_v1.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/twilio/twilio-oai/141f1201b55abcc16b3aa8089e71c4a927326975/spec/json/twilio_events_v1.json at commit 141f1201b55abcc16b3aa8089e71c4a927326975; entry source SHA-256 140a58be411abe4686c0b9caef7e52a0e6be73ee7475caaae213200d8054c161.
+    - Fetched from https://raw.githubusercontent.com/twilio/twilio-oai/d9775142962ea67d5f3d50c5021a23ae6d330c5b/spec/json/twilio_events_v1.json at commit d9775142962ea67d5f3d50c5021a23ae6d330c5b; entry source SHA-256 90720e9c2c9abc99236531dce8c854023a3d100bc01b489d7541f2c55b622a40.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
-    - Preserved existing APIs.guru curation metadata from APIs/twilio.com/twilio_events_v1/1.55.0/openapi.yaml.
+    - Preserved existing APIs.guru curation metadata from APIs/twilio.com/twilio_events_v1/1.0.0/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
 openapi: 3.0.1
 paths:
