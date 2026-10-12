@@ -48,7 +48,7 @@ info:
     - format: openapi
       url: https://raw.githubusercontent.com/Adyen/adyen-openapi/main/json/LegalEntityService-v3.json
       version: "3.1"
-  x-preferred: true
+  x-preferred: false
   x-providerName: adyen.com
   x-publicVersion: true
   x-serviceName: LegalEntityService
