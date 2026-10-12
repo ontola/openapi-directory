@@ -11,14 +11,15 @@ info:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
   version: '2025.0'
-  x-box-commit-hash: cae48740aa
+  x-box-commit-hash: 56657ab895
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/box/box-openapi/5b055e333a802b10b8ca90fcc513643836dd92b4/openapi/openapi-v2025.0.json
+      url: https://raw.githubusercontent.com/box/box-openapi/38fa64be562acc8d5f48f76b43c13a86a0e89b21/openapi/openapi-v2025.0.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/box/box-openapi/5b055e333a802b10b8ca90fcc513643836dd92b4/openapi/openapi-v2025.0.json at commit 5b055e333a802b10b8ca90fcc513643836dd92b4; entry source SHA-256 a28dd665970613050341911ed72900c3607d203b0805e71443ce12305aef4282.
+    - Fetched from https://raw.githubusercontent.com/box/box-openapi/38fa64be562acc8d5f48f76b43c13a86a0e89b21/openapi/openapi-v2025.0.json at commit 38fa64be562acc8d5f48f76b43c13a86a0e89b21; entry source SHA-256 346183878efa08ad450cf45064ddeb9f5854dc637eee468fe7aee09db9812f71.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Preserved existing APIs.guru curation metadata from APIs/box.com/2025.0/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
 servers:
   - url: https://api.box.com/2.0
@@ -2561,6 +2562,17 @@ components:
           example:
             name: Aaron Levie
           additionalProperties: {}
+        external_id:
+          description: 'An optional identifier supplied by the caller for this Box Doc Gen job.
+
+            The value is returned on job responses for correlation only. It is not
+
+            a Box resource ID, is not required to be unique, and cannot be used to
+
+            look up the job.'
+          type: string
+          example: 111222_externalID
+          maxLength: 36
       required:
         - generated_file_name
         - user_input
@@ -2571,6 +2583,17 @@ components:
       allOf:
         - $ref: '#/components/schemas/DocGenJob--Base'
         - properties:
+            external_id:
+              description: 'An optional identifier supplied by the caller when the Box Doc Gen
+
+                job was created. Returned for correlation only. It is not a Box
+
+                resource ID, is not required to be unique, and cannot be used to
+
+                look up the job.'
+              type: string
+              example: 111222_externalID
+              maxLength: 36
             batch:
               allOf:
                 - $ref: '#/components/schemas/DocGenBatch--Base'
