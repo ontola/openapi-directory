@@ -1342,3 +1342,14 @@ DigitalOcean's reviewed bundler naming warnings rise from 22 to 27. All five new
 disambiguate same-named components introduced by the new MicroVMs and Spaces key
 resources (`tag_name`, `forbidden`, `not_found`, `name`, `bad_request`), keeping both
 definitions.
+
+## SendGrid per-product descriptions (registered 2026-10-12)
+
+`twilio/sendgrid-oai` now publishes 46 per-product OpenAPI 3.1 files (`spec/json/tsg_*_v3.json`)
+instead of the single combined description stored as `sendgrid.com/1.0.0`. They have no
+overlapping operations, so each valid product is its own service, `sendgrid.com/<product>/1.0.0`
+(45 sources, ids `sendgrid-<product>`). No union is fabricated and the historical combined
+file is unchanged. Their paths carry the `/v3` prefix, unlike the old file, so endpoint
+comparisons with it are not meaningful. `tsg_logs_v3.json` is not registered: a 3.1
+`examples` keyword holds a non-array value. Before registration, all files were scanned
+for SendGrid-API-key-shaped and Twilio-Account-SID-shaped example values; none were found.
