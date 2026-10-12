@@ -12,8 +12,9 @@ info:
       url: https://api-docs.render.com/openapi/render-public-api-1.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://api-docs.render.com/openapi/render-public-api-1.json on 2026-10-09T00:31:30.863536+00:00; entry source SHA-256 cbd7dd0a985e516b89abf3cb8bb63a8640408d0b701650d6b888353122f0e31d.
+    - Fetched from https://api-docs.render.com/openapi/render-public-api-1.json on 2026-10-12T20:03:41.240015+00:00; entry source SHA-256 2683e9ff4de6cfec25a28aef7dfd5b766e13b114f461f95a0f1d241cb5609fdb.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Preserved existing APIs.guru curation metadata from APIs/render.com/1.0.0/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
 x-readme:
   metrics-enabled: false
@@ -9107,14 +9108,17 @@ paths:
                   required:
                     - runtime
                   properties:
-                    baseDir:
-                      type: string
                     branch:
                       type: string
                     buildCommand:
                       type: string
                     buildFilter:
                       $ref: '#/paths/~1build-sources~1{buildSourceId}/patch/requestBody/content/application~1json/schema/properties/git/properties/buildFilter'
+                    dockerContext:
+                      type: string
+                      description: 'Directory passed to `docker build` as the build context, relative to the repository root. Only valid for the `docker` runtime. Defaults to ".".
+
+                        '
                     dockerfilePath:
                       type: string
                     runtime:
@@ -9345,8 +9349,6 @@ paths:
                 git:
                   type: object
                   properties:
-                    baseDir:
-                      type: string
                     branch:
                       type: string
                     buildCommand:
@@ -9368,6 +9370,11 @@ paths:
                           type: array
                           items:
                             type: string
+                    dockerContext:
+                      type: string
+                      description: 'Directory passed to `docker build` as the build context, relative to the repository root. Only valid for the `docker` runtime.
+
+                        '
                     dockerfilePath:
                       type: string
                     runtime:
@@ -12593,8 +12600,6 @@ components:
             $ref: '#/components/schemas/cidrBlockAndDescription'
     webServiceDetailsPOST:
       type: object
-      required:
-        - runtime
       properties:
         buildSourceId:
           $ref: '#/paths/~1build-sources~1{buildSourceId}/parameters/0/schema'
@@ -12607,6 +12612,8 @@ components:
           $ref: '#/components/schemas/serviceEnv'
         runtime:
           $ref: '#/components/schemas/serviceRuntime'
+          x-go-type-skip-optional-pointer: true
+          description: Required unless `buildSourceId` is set, since the build source provides its own runtime.
         envSpecificDetails:
           $ref: '#/components/schemas/envSpecificDetailsPOST'
         healthCheckPath:
@@ -12639,8 +12646,6 @@ components:
             $ref: '#/components/schemas/cidrBlockAndDescription'
     privateServiceDetailsPOST:
       type: object
-      required:
-        - runtime
       properties:
         buildSourceId:
           $ref: '#/paths/~1build-sources~1{buildSourceId}/parameters/0/schema'
@@ -12653,6 +12658,8 @@ components:
           $ref: '#/components/schemas/serviceEnv'
         runtime:
           $ref: '#/components/schemas/serviceRuntime'
+          x-go-type-skip-optional-pointer: true
+          description: Required unless `buildSourceId` is set, since the build source provides its own runtime.
         envSpecificDetails:
           $ref: '#/components/schemas/envSpecificDetailsPOST'
         numInstances:
@@ -12674,8 +12681,6 @@ components:
           $ref: '#/components/schemas/maxShutdownDelaySeconds'
     backgroundWorkerDetailsPOST:
       type: object
-      required:
-        - runtime
       properties:
         buildSourceId:
           $ref: '#/paths/~1build-sources~1{buildSourceId}/parameters/0/schema'
@@ -12688,6 +12693,8 @@ components:
           $ref: '#/components/schemas/serviceEnv'
         runtime:
           $ref: '#/components/schemas/serviceRuntime'
+          x-go-type-skip-optional-pointer: true
+          description: Required unless `buildSourceId` is set, since the build source provides its own runtime.
         envSpecificDetails:
           $ref: '#/components/schemas/envSpecificDetailsPOST'
         numInstances:
@@ -12710,7 +12717,6 @@ components:
     cronJobDetailsPOST:
       type: object
       required:
-        - runtime
         - schedule
       properties:
         buildSourceId:
@@ -12720,6 +12726,8 @@ components:
           $ref: '#/components/schemas/serviceEnv'
         runtime:
           $ref: '#/components/schemas/serviceRuntime'
+          x-go-type-skip-optional-pointer: true
+          description: Required unless `buildSourceId` is set, since the build source provides its own runtime.
         envSpecificDetails:
           $ref: '#/components/schemas/envSpecificDetails'
         plan:
@@ -12733,7 +12741,7 @@ components:
       properties:
         buildSourceId:
           $ref: '#/paths/~1build-sources~1{buildSourceId}/parameters/0/schema'
-          description: The ID of the Build Source to attach this service to. Cannot be combined with other build-configuration changes. Attaching to a Build Source with no builds triggers one.
+          description: The ID of the Build Source to link this service to. Cannot be combined with other build-configuration changes.
         buildId:
           type: string
         autoDeploy:
