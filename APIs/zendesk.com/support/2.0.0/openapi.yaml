@@ -8,8 +8,8 @@ info:
       url: https://developer.zendesk.com/zendesk/oas.yaml
       version: '3.0'
   x-conversion:
-    - Fetched from https://developer.zendesk.com/zendesk/oas.yaml on 2026-10-08T12:19:25.480271+00:00; entry source SHA-256 f911b1bef3a27add7489cacdd04a0ee851022273f5b614e4e648252b72fbece8.
-    - 'Applied maintenance/patches/zendesk-support.json (SHA-256 38d1641799c8a082fdb21f71f500b400e1bd9f752b5e6024e60eaa0dff2b47e5): Represented the documented null-only value alternative with explicit string type, nullable:true and enum:[null], preserving every other alternative and original oneOf exclusivity (including integer/number overlap). Removed only the exact unused invalid UserLogin parameter component (in:path with query-only deepObject style); no endpoint uses or authentication declarations are removed or relocated. Complete original condition/parameter assertions and conservative JSON Pointer absence preconditions stop replay on changed semantics, vendor corrections or new parameter uses. No OpenAPI version conversion or runtime behavior is invented.'
+    - Fetched from https://developer.zendesk.com/zendesk/oas.yaml on 2026-10-12T19:49:13.631354+00:00; entry source SHA-256 b8e4bdb055dc4bc12fadbc4eb86e11c660ec3943f9275de61ec8420b6afb1af6.
+    - 'Applied maintenance/patches/zendesk-support.json (SHA-256 433299af57cc6ab620c236f57b871233fd604b66817215daa0f4d1e856f94106): Represented the documented null-only alternatives (AccessRuleCondition.value, ItamAsset.purchase_cost, OrganizationObject organization_fields values, RequestObject custom_fields/fields values, TicketFieldValueInput.value and TicketObject.brand_id) with explicit string type, nullable:true and enum:[null], preserving every other alternative and original oneOf exclusivity (including integer/number overlap). Removed only the exact unused invalid UserLogin parameter component (in:path with query-only deepObject style); no endpoint uses or authentication declarations are removed or relocated. Complete original condition/parameter assertions and conservative JSON Pointer absence preconditions stop replay on changed semantics, vendor corrections or new parameter uses. No OpenAPI version conversion or runtime behavior is invented.'
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
     - Preserved existing APIs.guru curation metadata from APIs/zendesk.com/support/2.0.0/openapi.yaml.
     - Serialized as YAML with PyYAML 6.0.3; no OpenAPI version conversion.
@@ -152,6 +152,8 @@ tags:
   - name: Task List Templates
   - name: Task Lists
   - name: Onboarding Tasks
+  - name: API Usage
+    description: Admin Center API usage account limits (Classic)
 servers:
   - url: https://{subdomain}.{domain}.com
     variables:
@@ -296,6 +298,7 @@ paths:
                         email_template_photos: true
                         email_template_selection: false
                         gmail_actions: true
+                        gmail_fallback_enabled: true
                         html_mail_template: <html>...</html>
                         mail_delimiter: '##- Please type your reply above this line -##'
                         modern_email_template: true
@@ -355,6 +358,7 @@ paths:
                         email_template_photos: true
                         email_template_selection: false
                         gmail_actions: true
+                        gmail_fallback_enabled: true
                         html_mail_template: <html>...</html>
                         mail_delimiter: '##- Please type your reply above this line -##'
                         modern_email_template: true
@@ -1261,6 +1265,18 @@ paths:
               examples:
                 default:
                   $ref: '#/components/examples/ApprovalRequestsListResponseExample'
+        '400':
+          description: Bad Request - invalid filter or pagination parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalRequestErrors'
+              examples:
+                default:
+                  value:
+                    errors:
+                      - code: InvalidFilterParameter
+                        title: 'Invalid status. Allowed values: active, approved, rejected, withdrawn'
     post:
       operationId: CreateApprovalRequest
       tags:
@@ -2314,6 +2330,13 @@ paths:
           description: When true, includes soft-deleted brands in the response.
           schema:
             type: boolean
+        - name: include
+          in: query
+          description: Use `permissions` to include a top-level array of per-brand permissions with `brand_id`, `can_update`, and `can_delete`.
+          schema:
+            type: string
+            enum:
+              - permissions
       responses:
         '200':
           description: Successful response
@@ -2477,6 +2500,11 @@ paths:
         * Admins, Agents'
       parameters:
         - $ref: '#/components/parameters/BrandId'
+        - name: include
+          in: query
+          description: Use `permissions` to include a top-level permissions array with `brand_id`, `can_update`, and `can_delete`.
+          schema:
+            type: string
       responses:
         '200':
           description: Successful response
@@ -5624,9 +5652,7 @@ paths:
         #### Allowed for
 
 
-        * Administrators
-
-        * Agents with the `manage_roles` permission
+        * Agents
 
         '
       responses:
@@ -6161,6 +6187,22 @@ paths:
         - $ref: '#/components/parameters/DualPaginationPage'
         - $ref: '#/components/parameters/PerPage'
         - $ref: '#/components/parameters/CursorPaginationSort'
+        - name: limit
+          in: query
+          description: Legacy cursor pagination page size. Defaults to the maximum of 100
+          schema:
+            type: integer
+            minimum: 1
+        - name: order
+          in: query
+          description: Legacy cursor pagination sort order. One of `asc` or `desc` (case-insensitive)
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+              - ASC
+              - DESC
       responses:
         '200':
           description: Success response
@@ -11373,6 +11415,35 @@ paths:
       responses:
         '204':
           description: No content response
+  /api/v2/oauth/tokens/delete_many:
+    post:
+      operationId: RevokeManyOAuthTokens
+      tags:
+        - OAuth Tokens
+      summary: Revoke Many Tokens
+      description: 'Revokes multiple OAuth tokens in a single request. Pass the IDs of the tokens to revoke in the `token_ids` array.
+
+
+        #### Allowed For
+
+
+        * Admins
+
+        * Agents with the `manage_api_credentials` permission
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthTokensDeleteManyRequest'
+            examples:
+              default:
+                $ref: '#/components/examples/OAuthTokensDeleteManyRequestExample'
+      responses:
+        '200':
+          description: Success response (empty body)
   /api/v2/organization_fields:
     get:
       operationId: ListOrganizationFields
@@ -13445,6 +13516,11 @@ paths:
         - name: sort_order
           in: query
           description: One of "asc", "desc". Defaults to "asc"
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: A comma-separated list of request statuses to filter by. Example `status=hold,open`
           schema:
             type: string
         - $ref: '#/components/parameters/DualPaginationPage'
@@ -16837,6 +16913,20 @@ paths:
           description: "Displays the `creator_user_id` and `creator_app_name` properties. If the ticket field is created\n by an app, `creator_app_name` is the name of the app and `creator_user_id` is `-1`. If the ticket field\n is not created by an app, `creator_app_name` is null\n"
           schema:
             type: boolean
+        - name: active_forms_count
+          in: query
+          description: 'If true, includes the count of active ticket forms associated with each ticket field in the response.
+
+            '
+          schema:
+            type: boolean
+        - name: only_system_fields
+          in: query
+          description: 'If true, returns only system ticket fields.
+
+            '
+          schema:
+            type: boolean
         - $ref: '#/components/parameters/CursorPaginationPage'
         - $ref: '#/components/parameters/CursorPaginationSort'
         - $ref: '#/components/parameters/IncludeBoundaryIndicators'
@@ -17988,16 +18078,6 @@ paths:
         - $ref: '#/components/parameters/PerPage'
         - $ref: '#/components/parameters/CursorPaginationSort'
         - $ref: '#/components/parameters/TicketsInclude'
-        - name: start_time
-          in: query
-          description: 'Unix epoch time to filter tickets. Only tickets created or updated after
-
-            this time are returned. Example: `?start_time=1332034771`
-
-            '
-          schema:
-            type: integer
-          example: 1332034771
       responses:
         '200':
           description: List tickets
@@ -18290,6 +18370,10 @@ paths:
                       subject: My printer is on fire!
                 default:
                   $ref: '#/components/examples/TicketUpdateResponseExample'
+        '404':
+          description: Ticket not found
+        '409':
+          description: Conflict - optimistic locking failure (database collision)
     delete:
       operationId: DeleteTicket
       tags:
@@ -18572,6 +18656,14 @@ paths:
             enum:
               - asc
               - desc
+        - name: sort
+          in: query
+          description: Cursor pagination sort value. Use `created_at` for ascending order or `-created_at` for descending order
+          schema:
+            type: string
+            enum:
+              - created_at
+              - -created_at
         - $ref: '#/components/parameters/CursorPaginationPage'
       responses:
         '200':
@@ -22697,6 +22789,11 @@ paths:
           description: One of "asc", "desc". Defaults to "asc"
           schema:
             type: string
+        - name: status
+          in: query
+          description: A comma-separated list of request statuses to filter by. Example `status=hold,open`
+          schema:
+            type: string
       responses:
         '200':
           description: Success response
@@ -26336,6 +26433,9 @@ components:
           type: boolean
         custom_dkim_domain:
           type: boolean
+        email_hc_ai_agent_comments:
+          type: boolean
+          description: Whether AI agent comments are included in email notifications for Help Center tickets. Only present when the feature is available for the account.
         email_sender_authentication:
           type: boolean
           description: Whether incoming email is subjected to sender authentication checks (SPF, DKIM). This setting is deprecated and will be removed soon. It can still be turned on, but after it's on you can't turn it off
@@ -26346,6 +26446,7 @@ components:
           enum:
             - default
             - enhanced
+            - enhancedAllTraffic
         email_status:
           type: boolean
           description: Whether email status and delivery information is shown in the Agent Workspace
@@ -26353,8 +26454,14 @@ components:
           type: boolean
         email_template_selection:
           type: boolean
+        email_voice_ai_agent_comments:
+          type: boolean
+          description: Whether AI agent comments are included in email notifications for voice tickets. Only present when the feature is available for the account.
         gmail_actions:
           type: boolean
+        gmail_fallback_enabled:
+          type: boolean
+          description: Whether Gmail messages that cannot be delivered via Gmail are retried via SMTP
         html_mail_template:
           type: string
         mail_delimiter:
@@ -27215,6 +27322,193 @@ components:
           type: boolean
         uk_mobile_forwarding:
           type: boolean
+    AccountSubscriptionCancelRequest:
+      type: object
+      properties:
+        confirm:
+          type: string
+          description: The account's current subdomain, as confirmation of the cancellation
+      required:
+        - confirm
+    AccountSubscriptionCreateRequest:
+      type: object
+      properties:
+        subscription:
+          type: object
+          description: The desired subscription configuration
+          properties:
+            billing_cycle_type:
+              type: integer
+              description: The billing cycle id, for example 1 for monthly
+            max_agents:
+              type: integer
+              description: The number of Zendesk agents
+            payment_method_reference_id:
+              type: string
+              description: The payment method reference id
+            plan_type:
+              type: integer
+              description: The plan type id
+            voice_max_agents:
+              type: integer
+              description: The number of voice agents. Must be less than or equal to max_agents
+          additionalProperties: true
+      required:
+        - subscription
+    AccountSubscriptionCreateResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Confirmation message
+    AccountSubscriptionErrorResponse:
+      type: object
+      description: Error returned when the plan change or purchase cannot be applied
+      properties:
+        description:
+          type: string
+          description: A human-readable description of the error
+        details:
+          type: array
+          description: Additional error details, present for invalid plan configurations
+          items:
+            type: object
+            additionalProperties: true
+        error:
+          type: string
+          description: The error class name
+        message:
+          type: string
+          description: The underlying error message
+      additionalProperties: false
+    AccountSubscriptionObject:
+      type: object
+      description: The current subscription configuration of the account
+      properties:
+        account_type:
+          type: string
+          description: The account type, for example "trial", "spoke", "customer", "sandbox", "sponsored" or "unknown"
+        active:
+          type: boolean
+          description: The account's active status
+        add_agents_available:
+          type: boolean
+          description: Whether agents can be added to the subscription
+        base_agents:
+          type: integer
+          description: The number of Zendesk agents without any secondary agents included
+        billing_backend:
+          type: string
+          description: The account's billing backend
+        collect_vat:
+          type: boolean
+          description: Whether VAT is collected for the subscription
+        created_at:
+          type: string
+          format: date-time
+          description: When the subscription was created
+          nullable: true
+        days_left_in_trial:
+          type: integer
+          description: Days left in the trial period. 0 if the account is not in a trial
+        dunning:
+          type: string
+          description: The account's dunning status, for example "OK", "WARNING", "SECONDCHANCE", "LASTCHANCE" or "SUSPENDED"
+        file_upload_cap:
+          type: integer
+          description: The maximum attachment size in megabytes
+        future_subscription_exists:
+          type: boolean
+          description: Whether a future-dated subscription exists in Zuora
+        help_desk_size:
+          type: string
+          description: The account's help desk size, for example "Small team"
+        is_elite:
+          type: boolean
+          description: The account's elite status
+        max_agents:
+          type: integer
+          description: The total number of Zendesk agents
+        plan_name:
+          type: string
+          description: The plan name, for example "Starter", "Regular", "Plus" or "Enterprise" (depends on the pricing model)
+        plan_type:
+          type: string
+          description: The plan type, for example "Small", "Medium", "Large" or "ExtraLarge"
+        plans:
+          type: object
+          description: 'Per-product plan details. The `zendesk`, `zopim`, `voice`, `guide`, `tpe`, `explore`,
+
+            `answer_bot` and `outbound` keys are present. `guide`, `explore`, `answer_bot` and `outbound`
+
+            are empty objects unless the `pricing` side-load is requested.
+
+            '
+          additionalProperties:
+            additionalProperties: true
+            type: object
+        pricing_model_revision:
+          type: integer
+          description: The id of the pricing model used for this subscription
+        sales_model:
+          type: string
+          description: The account's sales model
+        source:
+          type: string
+          description: The lead source through which the account was created
+          nullable: true
+        suite_active:
+          type: boolean
+          description: Whether the account has a suite trial or paid suite
+          nullable: true
+        suite_allowed:
+          type: boolean
+          description: Whether the account is allowed to use the Suite
+        support_experience_type:
+          type: string
+          description: The support experience type, for example "CX" or "ES"
+        suspended:
+          type: boolean
+          description: The account's suspension status
+        term_end_date:
+          type: string
+          description: The end date of the current subscription term
+          nullable: true
+        trial:
+          type: boolean
+          description: The account's trial status
+        trial_expires_on:
+          type: string
+          description: The end date of the trial
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          description: When the subscription was last updated
+          nullable: true
+        voice_customer:
+          type: boolean
+          description: Whether the account is a voice customer
+        zuora_payment_method_type:
+          type: string
+          description: The payment method type in Zuora, for example "manual invoice", "paypal", "credit card" or "none"
+          nullable: true
+    AccountSubscriptionResponse:
+      type: object
+      properties:
+        subscription:
+          $ref: '#/components/schemas/AccountSubscriptionObject'
+        voice:
+          type: object
+          description: Voice details, present when the `voice` side-load is requested
+          additionalProperties: true
+    AccountSubscriptionStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: The result of the operation, or the reason it was refused
+      additionalProperties: false
     AcknowledgedRiskCreateInput:
       type: object
       properties:
@@ -27914,6 +28208,7 @@ components:
         description:
           type: string
           description: The description of the token that displays in Admin Center
+          nullable: true
         id:
           type: integer
           format: int64
@@ -27938,7 +28233,8 @@ components:
         updated_at:
           type: string
           format: date-time
-          description: The time of the last update of the token
+          description: The time of the last update of the token. Null for legacy tokens that have never been updated
+          nullable: true
           readOnly: true
         user_email:
           type: string
@@ -28009,6 +28305,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiTokenObject'
+        count:
+          type: integer
+          description: The total record count
+        next_page:
+          type: string
+          description: The URL of the next page, if any
+          nullable: true
+        previous_page:
+          type: string
+          description: The URL of the previous page, if any
+          nullable: true
     ApprovalRequestCreateRequest:
       title: ApprovalRequestCreateRequest
       type: object
@@ -28056,6 +28363,22 @@ components:
           type: string
           description: Details and context for the approval request. Shared by all approval requests created in the call.
           example: Please approve this request for a new laptop for the engineering team
+        metadata:
+          type: object
+          description: Optional metadata used to determine the origination of the approval request
+          properties:
+            callback_info:
+              type: object
+              properties:
+                token:
+                  type: string
+                  nullable: true
+              nullable: true
+            workflow_id:
+              type: string
+              description: The id of the workflow that triggered the request, if any
+              nullable: true
+          nullable: true
         subject:
           type: string
           description: Subject line for the approval request. Shared by all approval requests created in the call.
@@ -28479,6 +28802,7 @@ components:
                             content_url:
                               type: string
                               description: URL for the user's photo
+                      nullable: true
                     decision_notes:
                       type: string
                       description: Notes provided with the decision
@@ -28524,6 +28848,7 @@ components:
                 type: integer
                 format: int64
                 description: The id of the ticket associated with this approval request
+                nullable: true
               withdrawn_reason:
                 type: string
                 description: Reason provided when the approval request was withdrawn
@@ -28762,6 +29087,7 @@ components:
         height:
           type: integer
           description: The height of the image file in pixels. If height is unknown, returns null
+          nullable: true
           readOnly: true
         id:
           type: integer
@@ -28799,6 +29125,7 @@ components:
         width:
           type: integer
           description: The width of the image file in pixels. If width is unknown, returns null
+          nullable: true
           readOnly: true
     AttachmentObject:
       type: object
@@ -29461,11 +29788,38 @@ components:
       required:
         - name
         - subdomain
+    BrandPermissionsObject:
+      title: Brand permissions
+      type: object
+      description: What the current user can do with a brand when requested with `include=permissions`.
+      properties:
+        brand_id:
+          type: integer
+          format: int64
+          description: ID of the brand these permissions apply to
+          readOnly: true
+        can_delete:
+          type: boolean
+          description: Whether the current user can delete the brand
+          readOnly: true
+        can_update:
+          type: boolean
+          description: Whether the current user can edit the brand
+          readOnly: true
+      required:
+        - brand_id
+        - can_update
+        - can_delete
     BrandResponse:
       type: object
       properties:
         brand:
           $ref: '#/components/schemas/BrandObject'
+        permissions:
+          type: array
+          description: Per-brand permissions for the current user, returned only with `include=permissions`.
+          items:
+            $ref: '#/components/schemas/BrandPermissionsObject'
     BrandUpdateRequest:
       type: object
       properties:
@@ -29483,6 +29837,11 @@ components:
               description: Array of brands
               items:
                 $ref: '#/components/schemas/BrandObject'
+            permissions:
+              type: array
+              description: Per-brand permissions for the current user, returned only with `include=permissions`.
+              items:
+                $ref: '#/components/schemas/BrandPermissionsObject'
     BulkCreateGroupMembershipsRequest:
       type: object
       properties:
@@ -29628,13 +29987,28 @@ components:
         - count
         - identities
     CollaboratorObject:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-        name:
-          type: string
+      description: 'A collaborator can be specified as a user ID (integer or string), an email address string,
+
+        or an object with name and email properties.
+
+        '
+      oneOf:
+        - type: integer
+          format: int64
+          description: User ID
+        - type: string
+          description: Email address or user ID as a string
+        - type: object
+          description: User with name and email
+          properties:
+            email:
+              type: string
+              format: email
+            name:
+              type: string
+          additionalProperties: true
+          required:
+            - email
       example:
         email: someone@example.com
         name: Someone Special
@@ -29711,15 +30085,12 @@ components:
           properties:
             type:
               type: string
-              description: Either user, agent, or bot
-              enum:
-                - user
-                - agent
-                - bot
+              description: Either user, agent, bot, or system. Chat and messaging events may surface other upstream actor types
               readOnly: true
             zen:sunco:user_id:
               type: string
-              description: A Zendesk resource name prefix describing a messaging user
+              description: A Zendesk resource name prefix describing a messaging user. Null when the event has no messaging user
+              nullable: true
               readOnly: true
             zen:support:user_id:
               type: integer
@@ -29824,15 +30195,19 @@ components:
           properties:
             next:
               type: string
+              nullable: true
             prev:
               type: string
+              nullable: true
         meta:
           type: object
           properties:
             after_cursor:
               type: string
+              nullable: true
             before_cursor:
               type: string
+              nullable: true
             has_more:
               type: boolean
     CopyOptions:
@@ -30275,6 +30650,9 @@ components:
         allow_solving:
           type: boolean
           description: Whether selecting this option allows solving the ticket when the field is required to solve
+        default:
+          type: boolean
+          description: If true, this option is set as the default selection
         id:
           type: integer
           format: int64
@@ -31401,6 +31779,10 @@ components:
           format: date-time
           description: The date and time the custom ticket status was last updated
           readOnly: true
+        url:
+          type: string
+          description: The URL for this resource
+          readOnly: true
       required:
         - status_category
         - agent_label
@@ -31532,6 +31914,7 @@ components:
           type: string
         email:
           type: string
+          nullable: true
         id:
           type: integer
           format: int64
@@ -31545,6 +31928,7 @@ components:
         organization_id:
           type: integer
           format: int64
+          nullable: true
         phone:
           type: string
           nullable: true
@@ -31891,9 +32275,6 @@ components:
                 - delete
             user_email:
               type: string
-            user_id:
-              type: integer
-              format: int64
             user_name:
               type: string
     EmailNotificationObject:
@@ -32452,8 +32833,10 @@ components:
           type: string
           format: email
         user_id:
-          type: integer
-          format: int64
+          oneOf:
+            - type: integer
+              format: int64
+            - type: string
         user_name:
           type: string
           nullable: true
@@ -33121,17 +33504,15 @@ components:
           description: Id of the organization the asset is associated with
           nullable: true
         purchase_cost:
-          type: object
-          description: The asset's purchase cost.
-          properties:
-            amount:
-              type: number
+          description: The asset's purchase cost as a decimal number in the major unit of the account's currency. For example, 9.99 represents $9.99 for USD accounts. Legacy records may return the value as a string
+          oneOf:
+            - type: number
               format: float
-              description: The purchase cost as a decimal number in the major unit of the currency specified in the `currency` field. For example, 9.99 represents $9.99 when currency is "USD"
-            currency:
-              type: string
-              description: The ISO 4217 currency code (for example, USD, EUR)
-          nullable: true
+            - type: string
+            - type: string
+              nullable: true
+              enum:
+                - null
         purchase_date:
           type: string
           format: date
@@ -33743,13 +34124,27 @@ components:
       additionalProperties: true
     JobStatusesResponse:
       type: object
-      properties:
-        job_statuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobStatusObject'
-      required:
-        - job_statuses
+      allOf:
+        - $ref: '#/components/schemas/CursorPaginationMeta'
+        - type: object
+          properties:
+            count:
+              type: integer
+              description: The total record count. Present when the response is paginated
+            job_statuses:
+              type: array
+              items:
+                $ref: '#/components/schemas/JobStatusObject'
+            next_page:
+              type: string
+              description: The URL of the next page, if any
+              nullable: true
+            previous_page:
+              type: string
+              description: The URL of the previous page, if any
+              nullable: true
+          required:
+            - job_statuses
     LegacyAttachmentCreateErrorResponse:
       type: object
       description: A map of attribute names to arrays of validation error messages
@@ -33829,6 +34224,8 @@ components:
                         type: string
                   deleted_at:
                     type: string
+                  description:
+                    type: string
                   id:
                     type: integer
                     format: int64
@@ -33836,7 +34233,32 @@ components:
                     type: string
                   subject:
                     type: string
+                    nullable: true
         - $ref: '#/components/schemas/OffsetPaginationObject'
+        - type: object
+          properties:
+            links:
+              type: object
+              description: Cursor pagination links. Present instead of offset pagination fields when cursor pagination is used
+              properties:
+                next:
+                  type: string
+                  nullable: true
+                prev:
+                  type: string
+                  nullable: true
+            meta:
+              type: object
+              description: Cursor pagination metadata. Present instead of offset pagination fields when cursor pagination is used
+              properties:
+                after_cursor:
+                  type: string
+                  nullable: true
+                before_cursor:
+                  type: string
+                  nullable: true
+                has_more:
+                  type: boolean
     ListTicketCollaboratorsResponse:
       type: object
       additionalProperties: true
@@ -35259,6 +35681,20 @@ components:
       properties:
         token:
           $ref: '#/components/schemas/OauthTokenObject'
+    OAuthTokensDeleteManyRequest:
+      type: object
+      properties:
+        token_ids:
+          type: array
+          description: An array of the IDs of the OAuth tokens to revoke
+          items:
+            type: integer
+            format: int64
+          example:
+            - 1234
+            - 5678
+      required:
+        - token_ids
     OAuthTokensResponse:
       type: object
       properties:
@@ -35859,6 +36295,10 @@ components:
     OrganizationObject:
       type: object
       properties:
+        children_count:
+          type: integer
+          description: Number of direct children when organization hierarchy is enabled, 0 otherwise
+          readOnly: true
         created_at:
           type: string
           description: The time the organization was created
@@ -35899,6 +36339,14 @@ components:
             oneOf:
               - type: string
               - type: number
+              - type: boolean
+              - items:
+                  type: string
+                type: array
+              - type: string
+                nullable: true
+                enum:
+                  - null
           nullable: true
         shared_comments:
           type: boolean
@@ -36021,6 +36469,28 @@ components:
       properties:
         count:
           type: integer
+        links:
+          type: object
+          description: Cursor pagination links. Present instead of offset pagination fields when cursor pagination is used
+          properties:
+            next:
+              type: string
+              nullable: true
+            prev:
+              type: string
+              nullable: true
+        meta:
+          type: object
+          description: Cursor pagination metadata. Present instead of offset pagination fields when cursor pagination is used
+          properties:
+            after_cursor:
+              type: string
+              nullable: true
+            before_cursor:
+              type: string
+              nullable: true
+            has_more:
+              type: boolean
         next_page:
           type: string
           nullable: true
@@ -36725,10 +37195,19 @@ components:
           type: integer
           format: int64
           description: The id of the assignee if the field is visible to end users
+          nullable: true
           readOnly: true
         can_be_solved_by_me:
           type: boolean
           description: If true, an end user can mark the request as solved. See [Update Request](/api-reference/ticketing/tickets/ticket-requests/#update-request)
+          readOnly: true
+        can_comment:
+          type: boolean
+          description: If true, the current user can comment on the request. Present for agent requests
+          readOnly: true
+        can_update_ccs:
+          type: boolean
+          description: If true, the current user can update the request's CCs. Present for agent requests
           readOnly: true
         collaborator_ids:
           type: array
@@ -36752,7 +37231,18 @@ components:
                 type: integer
                 format: int64
               value:
-                type: string
+                description: The custom field value. Type depends on the field configuration; null when unset
+                oneOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      type: string
+                  - type: string
+                    nullable: true
+                    enum:
+                      - null
         custom_status_id:
           type: integer
           format: int64
@@ -36765,6 +37255,7 @@ components:
           type: string
           format: date-time
           description: When the task is due (only applies if the request is of type "task")
+          nullable: true
         email_cc_ids:
           type: array
           description: The ids of users who are currently email CCs on the ticket. See [CCs and followers resources](https://support.zendesk.com/hc/en-us/articles/4408822451482) in the Support Help Center
@@ -36772,10 +37263,32 @@ components:
             type: integer
             format: int64
           readOnly: true
+        fields:
+          type: array
+          description: Alias for custom_fields. Accepted on create, and present on list endpoints
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                format: int64
+              value:
+                oneOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      type: string
+                  - type: string
+                    nullable: true
+                    enum:
+                      - null
         followup_source_id:
           type: integer
           format: int64
           description: The id of the original ticket if this request is a follow-up ticket. See [Create Request](#create-request)
+          nullable: true
           readOnly: true
         group_id:
           type: integer
@@ -36802,6 +37315,7 @@ components:
         recipient:
           type: string
           description: The original recipient e-mail address of the request
+          nullable: true
         requester_id:
           type: integer
           format: int64
@@ -36864,6 +37378,17 @@ components:
     RequestsResponse:
       type: object
       properties:
+        count:
+          type: integer
+          description: The total record count. Present for offset pagination
+        next_page:
+          type: string
+          description: The URL of the next page, if any
+          nullable: true
+        previous_page:
+          type: string
+          description: The URL of the previous page, if any
+          nullable: true
         requests:
           type: array
           items:
@@ -38842,6 +39367,9 @@ components:
                 - abusive_language
                 - uncooperative
                 - impersonating_others
+                - extended_leave
+                - parental_time_off
+                - sabbatical
                 - other_reason
               example: impersonating_others
             suspended_by_actor_zrn:
@@ -38880,6 +39408,9 @@ components:
             - abusive_language
             - uncooperative
             - impersonating_others
+            - extended_leave
+            - parental_time_off
+            - sabbatical
             - other_reason
           example: impersonating_others
           nullable: true
@@ -38930,6 +39461,9 @@ components:
                 - abusive_language
                 - uncooperative
                 - impersonating_others
+                - extended_leave
+                - parental_time_off
+                - sabbatical
                 - other_reason
               example: impersonating_others
             suspended_channels:
@@ -40461,6 +40995,10 @@ components:
           format: date-time
           description: The date and time at which the custom ticket status was last updated
           readOnly: true
+        url:
+          type: string
+          description: The URL for this resource
+          readOnly: true
     TicketFieldInput:
       type: object
       description: The writable attributes accepted when creating a ticket field.
@@ -40571,6 +41109,10 @@ components:
         active:
           type: boolean
           description: Whether this field is available
+        active_forms_count:
+          type: integer
+          description: The number of active ticket forms using this field. Only present when the `active_forms_count` query parameter is passed
+          readOnly: true
         agent_can_edit:
           type: boolean
           description: Whether this field is editable by agents
@@ -40881,12 +41423,14 @@ components:
       description: A ticket custom field value assignment
       properties:
         id:
-          type: integer
-          format: int64
           description: The ID of the custom field
+          oneOf:
+            - type: integer
+              format: int64
+            - type: string
           example: 27642
         value:
-          description: "The value to assign to the custom field.\nType depends on the field configuration:\n- Text/textarea: string\n- Checkbox: boolean or \"true\"/\"false\" string\n- Dropdown/tagger: string or array of strings (multi-select)\n- Number/decimal: number or string representation\n- Date: string (ISO 8601 format)\n- Lookup: the target record's id, or an id prefixed with `external_id:` or `name:`\n- Multi-lookup: an array of target record ids, up to `max_selections` entries. Each write replaces the\n  entire set of selections. Unresolved ids are silently dropped. See\n  [Setting multi-lookup field values](/api-reference/ticketing/lookup_relationships/lookup_relationships/#setting-multi-lookup-field-values)\n"
+          description: "The value to assign to the custom field.\nType depends on the field configuration:\n- Text/textarea: string\n- Checkbox: boolean or \"true\"/\"false\" string\n- Dropdown/tagger: string or array of strings (multi-select)\n- Number/decimal: number or string representation\n- Date: string (ISO 8601 format)\n- Lookup: the target record's id, or an id prefixed with `external_id:` or `name:`\n- Multi-lookup: an array of target record ids, up to `max_selections` entries. Each write replaces the\n  entire set of selections. Unresolved ids are silently dropped. See\n  [Setting multi-lookup field values](/api-reference/ticketing/lookup_relationships/lookup_relationships/#setting-multi-lookup-field-values)\n- null when the field has no value set\n"
           oneOf:
             - type: string
             - type: number
@@ -40894,6 +41438,10 @@ components:
             - type: array
               items:
                 type: string
+            - type: string
+              nullable: true
+              enum:
+                - null
           example: '745'
       required:
         - id
@@ -41178,14 +41726,30 @@ components:
           type: array
           description: The conversation between requesters, collaborators, and agents
           items:
-            allOf:
-              - type: object
-                properties:
-                  value:
-                    type: string
-                    description: The comment string value
+            type: object
+            properties:
+              author_id:
+                type: integer
+                format: int64
+                nullable: true
+              body:
+                type: string
+                description: The comment body in plain text
+              created_at:
+                type: string
+                format: date-time
+              html_body:
+                type: string
+                description: The comment body in HTML
+              metadata:
+                type: object
                 additionalProperties: true
-              - $ref: '#/components/schemas/TicketCommentObject'
+              public:
+                type: boolean
+              value:
+                type: string
+                description: The comment string value (legacy alias for body)
+            additionalProperties: true
         created_at:
           type: string
           format: date-time
@@ -41250,11 +41814,25 @@ components:
         subject:
           type: string
           description: The value of the subject field for this ticket
+        submitter_id:
+          type: integer
+          format: int64
+          description: The user who submitted the ticket. The current API caller is used if not specified
+          nullable: true
         tags:
           type: array
           description: The array of tags applied to this ticket
           items:
             type: string
+        type:
+          type: string
+          description: The type of the ticket. `null` maps to the account's default ticket type
+          enum:
+            - question
+            - incident
+            - problem
+            - task
+          nullable: true
         updated_at:
           type: string
           format: date-time
@@ -41642,10 +42220,15 @@ components:
             format: int64
           writeOnly: true
         brand_id:
-          type: integer
-          format: int64
           description: The id of the brand this ticket is associated with. See [Setting up multiple brands](https://support.zendesk.com/hc/en-us/articles/4408829476378)
-          nullable: true
+          oneOf:
+            - type: integer
+              format: int64
+            - type: string
+            - type: string
+              nullable: true
+              enum:
+                - null
         collaborator_ids:
           type: array
           description: The ids of users currently CC'ed on the ticket
@@ -41675,7 +42258,15 @@ components:
 
             '
           items:
-            $ref: '#/components/schemas/TicketFieldValueInput'
+            oneOf:
+              - $ref: '#/components/schemas/TicketFieldValueInput'
+              - type: object
+                description: 'Alternative format using field ID as key, e.g. {"123": "value"}'
+                not:
+                  required:
+                    - id
+                additionalProperties: true
+                minProperties: 1
         custom_status_id:
           type: integer
           format: int64
@@ -41725,7 +42316,15 @@ components:
 
             '
           items:
-            $ref: '#/components/schemas/TicketFieldValueInput'
+            oneOf:
+              - $ref: '#/components/schemas/TicketFieldValueInput'
+              - type: object
+                description: 'Alternative format using field ID as key, e.g. {"123": "value"}'
+                not:
+                  required:
+                    - id
+                additionalProperties: true
+                minProperties: 1
         follower_ids:
           type: array
           description: The ids of agents currently following the ticket. Ignored when [CCs and followers](https://support.zendesk.com/hc/en-us/articles/4408822451482) is not enabled
@@ -41785,8 +42384,10 @@ components:
           type: array
           description: Write only. List of macro IDs to be recorded in the ticket audit
           items:
-            type: integer
-            format: int64
+            oneOf:
+              - type: integer
+                format: int64
+              - type: string
           writeOnly: true
         metadata:
           type: object
@@ -41824,8 +42425,19 @@ components:
 
             '
         recipient:
-          type: string
           description: The original recipient e-mail address of the ticket. Notification emails for the ticket are sent from this address
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+            - type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                name:
+                  type: string
         requester:
           description: 'Write only. Alternative to requester_id for specifying the ticket requester.
 
@@ -42508,6 +43120,7 @@ components:
           additionalProperties: true
         ticket:
           $ref: '#/components/schemas/TicketObject'
+      additionalProperties: true
     TicketUpdateResponse:
       type: object
       properties:
@@ -43707,6 +44320,9 @@ components:
           description: 'the action the job attempted (`"action": "update"`)
 
             '
+        errors:
+          type: string
+          description: errors encountered while updating the resource, if any
         id:
           type: integer
           format: int64
@@ -43721,6 +44337,9 @@ components:
           description: 'whether the action was successful or not (`"success": true`)
 
             '
+        title:
+          type: string
+          description: the title of the updated resource, when the job provides one
       required:
         - id
         - action
@@ -48000,6 +48619,46 @@ components:
             outbound_enabled: true
             recordings_public: true
             uk_mobile_forwarding: true
+    AccountSubscriptionCancelRequestExample:
+      value:
+        confirm: mysubdomain
+    AccountSubscriptionCancelResponseExample:
+      value:
+        status: Subscription Cancelled
+    AccountSubscriptionCreateRequestExample:
+      value:
+        subscription:
+          billing_cycle_type: 1
+          max_agents: 3
+          payment_method_reference_id: 3alkdj3w4opuioouit
+          plan_type: 2
+    AccountSubscriptionCreateResponseExample:
+      value:
+        message: Subscription created.
+    AccountSubscriptionErrorResponseExample:
+      value:
+        description: Unable to apply changes to plan, please contact support@zendesk.com
+        details:
+          - exception:
+              description: Unable to apply changes to plan, please contact support@zendesk.com
+        error: ZBC::Zuora::InvalidPlanConfigurationError
+    AccountSubscriptionResponseExample:
+      value:
+        subscription:
+          active: true
+          created_at: '2012-12-13T19:43:05Z'
+          days_left_in_trial: 0
+          dunning: OK
+          help_desk_size: Small team
+          max_agents: 5
+          plan_name: Enterprise
+          plan_type: ExtraLarge
+          source: null
+          suspended: false
+          trial: false
+          updated_at: '2012-12-13T19:43:11Z'
+          voice_customer: false
+          zuora_payment_method_type: credit card
     AcknowledgedRiskCreateRequestExample:
       value:
         acknowledged_risk:
@@ -51526,9 +52185,7 @@ components:
           name: My Laptop
           notes: Replacement out of cycle
           organization_id: null
-          purchase_cost:
-            amount: 999.99
-            currency: USD
+          purchase_cost: 999.99
           purchase_date: '2025-11-03'
           serial_number: ABC123XYZ
           status_id: 01K9BT5XE82QS5DG58F4J8WQWY
@@ -51771,9 +52428,7 @@ components:
             name: My Laptop
             notes: Replacement out of cycle
             organization_id: null
-            purchase_cost:
-              amount: 999.99
-              currency: USD
+            purchase_cost: 999.99
             purchase_date: '2025-11-03'
             serial_number: ABC123XYZ
             status_id: 01K9BT5XE82QS5DG58F4J8WQWY
@@ -51852,9 +52507,7 @@ components:
             name: My Laptop
             notes: Replacement out of cycle
             organization_id: null
-            purchase_cost:
-              amount: 999.99
-              currency: USD
+            purchase_cost: 999.99
             purchase_date: '2025-11-03'
             serial_number: ABC123XYZ
             status_id: 01K9BT5XE82QS5DG58F4J8WQWY
@@ -52513,6 +53166,11 @@ components:
           url: https://example.zendesk.com/api/v2/tokens/223443
           used_at: '2010-01-22T00:11:12Z'
           user_id: 29
+    OAuthTokensDeleteManyRequestExample:
+      value:
+        token_ids:
+          - 1234
+          - 5678
     OAuthTokensResponseExample:
       value:
         tokens:
