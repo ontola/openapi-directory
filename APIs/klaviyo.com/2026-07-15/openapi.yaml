@@ -13,12 +13,13 @@ info:
     url: https://www.klaviyo.com/legal
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/klaviyo/openapi/80d70a7ef72df094d624464fd5f33739f4b5b039/openapi/stable.json
+      url: https://raw.githubusercontent.com/klaviyo/openapi/67d0fc1d22f39cea8c9476fca2f9efd595241641/openapi/stable.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/klaviyo/openapi/80d70a7ef72df094d624464fd5f33739f4b5b039/openapi/stable.json at commit 80d70a7ef72df094d624464fd5f33739f4b5b039; entry source SHA-256 271aa3edad69311c0618614a28ca88154b7aa427879f29d4c7d7e1108e3a3f70.
+    - Fetched from https://raw.githubusercontent.com/klaviyo/openapi/67d0fc1d22f39cea8c9476fca2f9efd595241641/openapi/stable.json at commit 67d0fc1d22f39cea8c9476fca2f9efd595241641; entry source SHA-256 32c74d9b5878ced849e0b0bc0b5d9364598f48b3c504bce1fccf333356d30e7d.
     - 'Applied maintenance/patches/klaviyo.json (SHA-256 ccb78ef9d3854a68fc4a360ff06d0d0840a9db21d7196b1d1552530eb8a45c93): Removed five font_family defaults ("Arial, ''Helvetica Neue'', Helvetica, sans-serif") that match more than one oneOf alternative and so fail oneOf validation. The value stays listed as an allowed enum value and as the example; every alternative is unchanged. No replacement default was inferred.'
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Preserved existing APIs.guru curation metadata from APIs/klaviyo.com/2026-07-15/openapi.yaml.
     - Serialized as YAML with PyYAML 6.0.3; no OpenAPI version conversion.
 servers:
   - url: https://a.klaviyo.com
@@ -43826,6 +43827,7 @@ components:
       type: object
       properties:
         content:
+          nullable: true
           type: string
         properties:
           $ref: '#/components/schemas/CouponBlockProperties'
