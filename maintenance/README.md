@@ -1329,3 +1329,16 @@ than the stored 2023 file but fails native validation. Its error-detail schemas 
 tuple `items` arrays: the exact 3.1 equivalent is `prefixItems`, but `items` arrays also
 occur in example payloads and must not be touched. It also has null defaults on string
 parameters. It remains a lead until an exact, schema-position-only recipe is reviewed.
+
+## Zendesk Support null alternatives and DigitalOcean warnings (2026-10-12)
+
+The hosted Zendesk Support publication added six more `{type: "null"}` `oneOf`
+alternatives (ItamAsset.purchase_cost, OrganizationObject organization_fields values,
+RequestObject custom_fields/fields values, TicketFieldValueInput.value,
+TicketObject.brand_id). The existing recipe now represents each in the already-reviewed
+way: explicit `type: string`, `nullable: true`, `enum: [null]`. Every other alternative
+and the original `oneOf` exclusivity are kept, and each node is pinned in full.
+DigitalOcean's reviewed bundler naming warnings rise from 22 to 27. All five new ones
+disambiguate same-named components introduced by the new MicroVMs and Spaces key
+resources (`tag_name`, `forbidden`, `not_found`, `name`, `bad_request`), keeping both
+definitions.
