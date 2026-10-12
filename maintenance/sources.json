@@ -1868,7 +1868,7 @@
     {
       "id": "microsoft-graph",
       "provider": "microsoft.com",
-      "target": "APIs/microsoft.com/graph/1.0.1/openapi.yaml",
+      "target": "APIs/microsoft.com/graph/v1.0/openapi.yaml",
       "github": {
         "repository": "microsoftgraph/msgraph-metadata",
         "ref": "master",
