@@ -1906,6 +1906,16 @@
       "coverage": "Adyen Legal Entity Management API v4 (legal entities, business lines, documents, transfer instruments, onboarding). Preserve authentication and vendor descriptions.",
       "version_policy": "vendor",
       "priority": "high"
+    },
+    {
+      "id": "attio",
+      "provider": "attio.com",
+      "target": "APIs/attio.com/2.0.0/openapi.yaml",
+      "url": "https://api.attio.com/openapi/api",
+      "discovery": "Official Attio REST API description linked from the vendor's OpenAPI reference page (docs.attio.com/rest-api/endpoint-reference/openapi, also listed in docs.attio.com/llms.txt; checked 2026-10-12). Attio is absent from the full fetched main tree. Native OpenAPI 3.1.0 / 2.0.0 / 53 paths / 97 operations validates strictly with no patches. The separate standard-objects and webhooks descriptions are not registered. Hosted health not_assessed; no Git revision claimed.",
+      "coverage": "Attio CRM REST API (objects, attributes, records, lists and entries, notes, tasks, threads/comments, workspace members, webhooks management, meta/self). Preserve OAuth2/bearer authentication and scopes. No curation invented.",
+      "version_policy": "vendor",
+      "priority": "high"
     }
   ]
 }
