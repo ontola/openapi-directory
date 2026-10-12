@@ -7,8 +7,9 @@ info:
       url: https://developers.pipedrive.com/docs/api/v1/openapi.yaml
       version: '3.0'
   x-conversion:
-    - Fetched from https://developers.pipedrive.com/docs/api/v1/openapi.yaml on 2026-10-09T00:29:31.566062+00:00; entry source SHA-256 4ff2a1a915c75a4b02668ee929f4cc0f4f0efca46968b4ff118195b96deb30a5.
+    - Fetched from https://developers.pipedrive.com/docs/api/v1/openapi.yaml on 2026-10-12T19:59:58.248974+00:00; entry source SHA-256 7268bbc4a587566387bf030051e592ed0ddd6e7510c88a7444d0de32036d92a4.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Preserved existing APIs.guru curation metadata from APIs/pipedrive.com/v1/1.0.0/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
 servers:
   - url: https://api.pipedrive.com/v1
@@ -2752,90 +2753,88 @@ paths:
                                       type: integer
                                       description: The ID of the user
                             person_id:
+                              title: dealPersonDataWithId
                               type: object
                               nullable: true
                               allOf:
-                                - title: dealPersonDataWithId
-                                  allOf:
-                                    - type: object
-                                      description: The person who is associated with the deal
-                                      properties:
-                                        active_flag:
-                                          type: boolean
-                                          description: Whether the associated person is active or not
-                                        name:
-                                          type: string
-                                          description: The name of the person associated with the deal
-                                        email:
-                                          type: array
-                                          description: The emails of the person associated with the deal
-                                          items:
-                                            type: object
-                                            properties:
-                                              label:
-                                                type: string
-                                                description: The type of the email
-                                              value:
-                                                type: string
-                                                description: The email of the associated person
-                                              primary:
-                                                type: boolean
-                                                description: If this is the primary email or not
-                                        phone:
-                                          type: array
-                                          description: The phone numbers of the person associated with the deal
-                                          items:
-                                            type: object
-                                            properties:
-                                              label:
-                                                type: string
-                                                description: The type of the phone number
-                                              value:
-                                                type: string
-                                                description: The phone number of the person associated with the deal
-                                              primary:
-                                                type: boolean
-                                                description: If this is the primary phone number or not
-                                        owner_id:
-                                          type: integer
-                                          description: The ID of the owner of the person that is associated with the deal
-                                    - type: object
-                                      properties:
-                                        value:
-                                          type: integer
-                                          description: The ID of the person associated with the deal
+                                - type: object
+                                  description: The person who is associated with the deal
+                                  properties:
+                                    active_flag:
+                                      type: boolean
+                                      description: Whether the associated person is active or not
+                                    name:
+                                      type: string
+                                      description: The name of the person associated with the deal
+                                    email:
+                                      type: array
+                                      description: The emails of the person associated with the deal
+                                      items:
+                                        type: object
+                                        properties:
+                                          label:
+                                            type: string
+                                            description: The type of the email
+                                          value:
+                                            type: string
+                                            description: The email of the associated person
+                                          primary:
+                                            type: boolean
+                                            description: If this is the primary email or not
+                                    phone:
+                                      type: array
+                                      description: The phone numbers of the person associated with the deal
+                                      items:
+                                        type: object
+                                        properties:
+                                          label:
+                                            type: string
+                                            description: The type of the phone number
+                                          value:
+                                            type: string
+                                            description: The phone number of the person associated with the deal
+                                          primary:
+                                            type: boolean
+                                            description: If this is the primary phone number or not
+                                    owner_id:
+                                      type: integer
+                                      description: The ID of the owner of the person that is associated with the deal
+                                - type: object
+                                  properties:
+                                    value:
+                                      type: integer
+                                      description: The ID of the person associated with the deal
                             org_id:
+                              title: DealOrganizationDataWithId
                               type: object
                               nullable: true
                               allOf:
-                                - title: DealOrganizationDataWithId
-                                  allOf:
-                                    - type: object
-                                      description: The organization which is associated with the deal
-                                      properties:
-                                        name:
-                                          type: string
-                                          description: The name of the organization associated with the deal
-                                        people_count:
-                                          type: integer
-                                          description: The number of people connected with the organization that is associated with the deal
-                                        owner_id:
-                                          type: integer
-                                          description: The ID of the owner of the organization that is associated with the deal
-                                        address:
-                                          type: string
-                                          description: The address of the organization that is associated with the deal
-                                        active_flag:
-                                          type: boolean
-                                          description: Whether the associated organization is active or not
-                                        cc_email:
-                                          type: string
-                                          description: The BCC email of the organization associated with the deal
-                                    - type: object
-                                      properties:
-                                        value:
-                                          type: integer
-                                          description: The ID of the organization associated with the deal
+                                - type: object
+                                  description: The organization which is associated with the deal
+                                  properties:
+                                    name:
+                                      type: string
+                                      description: The name of the organization associated with the deal
+                                    people_count:
+                                      type: integer
+                                      description: The number of people connected with the organization that is associated with the deal
+                                    owner_id:
+                                      type: integer
+                                      description: The ID of the owner of the organization that is associated with the deal
+                                    address:
+                                      type: string
+                                      description: The address of the organization that is associated with the deal
+                                    active_flag:
+                                      type: boolean
+                                      description: Whether the associated organization is active or not
+                                    cc_email:
+                                      type: string
+                                      description: The BCC email of the organization associated with the deal
+                                - type: object
+                                  properties:
+                                    value:
+                                      type: integer
+                                      description: The ID of the organization associated with the deal
                         - title: baseDeal
                           type: object
                           properties:
@@ -18227,13 +18226,11 @@ paths:
                         deal:
                           type: object
                           nullable: true
-                          allOf:
-                            - type: object
-                              description: The deal this note is attached to
-                              properties:
-                                title:
-                                  type: string
-                                  description: The title of the deal this note is attached to
+                          description: The deal this note is attached to
+                          properties:
+                            title:
+                              type: string
+                              description: The title of the deal this note is attached to
                         lead_id:
                           type: string
                           format: uuid
@@ -18523,13 +18520,11 @@ paths:
                       deal:
                         type: object
                         nullable: true
-                        allOf:
-                          - type: object
-                            description: The deal this note is attached to
-                            properties:
-                              title:
-                                type: string
-                                description: The title of the deal this note is attached to
+                        description: The deal this note is attached to
+                        properties:
+                          title:
+                            type: string
+                            description: The title of the deal this note is attached to
                       lead_id:
                         type: string
                         format: uuid
@@ -18752,13 +18747,11 @@ paths:
                       deal:
                         type: object
                         nullable: true
-                        allOf:
-                          - type: object
-                            description: The deal this note is attached to
-                            properties:
-                              title:
-                                type: string
-                                description: The title of the deal this note is attached to
+                        description: The deal this note is attached to
+                        properties:
+                          title:
+                            type: string
+                            description: The title of the deal this note is attached to
                       lead_id:
                         type: string
                         format: uuid
@@ -19030,13 +19023,11 @@ paths:
                       deal:
                         type: object
                         nullable: true
-                        allOf:
-                          - type: object
-                            description: The deal this note is attached to
-                            properties:
-                              title:
-                                type: string
-                                description: The title of the deal this note is attached to
+                        description: The deal this note is attached to
+                        properties:
+                          title:
+                            type: string
+                            description: The title of the deal this note is attached to
                       lead_id:
                         type: string
                         format: uuid
@@ -27753,90 +27744,88 @@ paths:
                                           type: integer
                                           description: The ID of the user
                                 person_id:
+                                  title: dealPersonDataWithId
                                   type: object
                                   nullable: true
                                   allOf:
-                                    - title: dealPersonDataWithId
-                                      allOf:
-                                        - type: object
-                                          description: The person who is associated with the deal
-                                          properties:
-                                            active_flag:
-                                              type: boolean
-                                              description: Whether the associated person is active or not
-                                            name:
-                                              type: string
-                                              description: The name of the person associated with the deal
-                                            email:
-                                              type: array
-                                              description: The emails of the person associated with the deal
-                                              items:
-                                                type: object
-                                                properties:
-                                                  label:
-                                                    type: string
-                                                    description: The type of the email
-                                                  value:
-                                                    type: string
-                                                    description: The email of the associated person
-                                                  primary:
-                                                    type: boolean
-                                                    description: If this is the primary email or not
-                                            phone:
-                                              type: array
-                                              description: The phone numbers of the person associated with the deal
-                                              items:
-                                                type: object
-                                                properties:
-                                                  label:
-                                                    type: string
-                                                    description: The type of the phone number
-                                                  value:
-                                                    type: string
-                                                    description: The phone number of the person associated with the deal
-                                                  primary:
-                                                    type: boolean
-                                                    description: If this is the primary phone number or not
-                                            owner_id:
-                                              type: integer
-                                              description: The ID of the owner of the person that is associated with the deal
-                                        - type: object
-                                          properties:
-                                            value:
-                                              type: integer
-                                              description: The ID of the person associated with the deal
+                                    - type: object
+                                      description: The person who is associated with the deal
+                                      properties:
+                                        active_flag:
+                                          type: boolean
+                                          description: Whether the associated person is active or not
+                                        name:
+                                          type: string
+                                          description: The name of the person associated with the deal
+                                        email:
+                                          type: array
+                                          description: The emails of the person associated with the deal
+                                          items:
+                                            type: object
+                                            properties:
+                                              label:
+                                                type: string
+                                                description: The type of the email
+                                              value:
+                                                type: string
+                                                description: The email of the associated person
+                                              primary:
+                                                type: boolean
+                                                description: If this is the primary email or not
+                                        phone:
+                                          type: array
+                                          description: The phone numbers of the person associated with the deal
+                                          items:
+                                            type: object
+                                            properties:
+                                              label:
+                                                type: string
+                                                description: The type of the phone number
+                                              value:
+                                                type: string
+                                                description: The phone number of the person associated with the deal
+                                              primary:
+                                                type: boolean
+                                                description: If this is the primary phone number or not
+                                        owner_id:
+                                          type: integer
+                                          description: The ID of the owner of the person that is associated with the deal
+                                    - type: object
+                                      properties:
+                                        value:
+                                          type: integer
+                                          description: The ID of the person associated with the deal
                                 org_id:
+                                  title: DealOrganizationDataWithId
                                   type: object
                                   nullable: true
                                   allOf:
-                                    - title: DealOrganizationDataWithId
-                                      allOf:
-                                        - type: object
-                                          description: The organization which is associated with the deal
-                                          properties:
-                                            name:
-                                              type: string
-                                              description: The name of the organization associated with the deal
-                                            people_count:
-                                              type: integer
-                                              description: The number of people connected with the organization that is associated with the deal
-                                            owner_id:
-                                              type: integer
-                                              description: The ID of the owner of the organization that is associated with the deal
-                                            address:
-                                              type: string
-                                              description: The address of the organization that is associated with the deal
-                                            active_flag:
-                                              type: boolean
-                                              description: Whether the associated organization is active or not
-                                            cc_email:
-                                              type: string
-                                              description: The BCC email of the organization associated with the deal
-                                        - type: object
-                                          properties:
-                                            value:
-                                              type: integer
-                                              description: The ID of the organization associated with the deal
+                                    - type: object
+                                      description: The organization which is associated with the deal
+                                      properties:
+                                        name:
+                                          type: string
+                                          description: The name of the organization associated with the deal
+                                        people_count:
+                                          type: integer
+                                          description: The number of people connected with the organization that is associated with the deal
+                                        owner_id:
+                                          type: integer
+                                          description: The ID of the owner of the organization that is associated with the deal
+                                        address:
+                                          type: string
+                                          description: The address of the organization that is associated with the deal
+                                        active_flag:
+                                          type: boolean
+                                          description: Whether the associated organization is active or not
+                                        cc_email:
+                                          type: string
+                                          description: The BCC email of the organization associated with the deal
+                                    - type: object
+                                      properties:
+                                        value:
+                                          type: integer
+                                          description: The ID of the organization associated with the deal
                             - title: baseDeal
                               type: object
                               properties:
@@ -32468,13 +32457,11 @@ paths:
                                 deal:
                                   type: object
                                   nullable: true
-                                  allOf:
-                                    - type: object
-                                      description: The deal this note is attached to
-                                      properties:
-                                        title:
-                                          type: string
-                                          description: The title of the deal this note is attached to
+                                  description: The deal this note is attached to
+                                  properties:
+                                    title:
+                                      type: string
+                                      description: The title of the deal this note is attached to
                                 lead_id:
                                   type: string
                                   format: uuid
