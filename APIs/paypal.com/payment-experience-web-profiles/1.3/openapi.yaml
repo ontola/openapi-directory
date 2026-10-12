@@ -4,17 +4,28 @@ info:
   description: Use the Payment Experience API to create seamless payment experience profiles. For information about how to create a PayPal payment with a web experience profile, see <a href="/docs/integration/direct/payment-experience/">Web experience profiles</a>.
   version: '1.3'
   contact: {}
-  x-origin:
-  - format: openapi
-    url: https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/main/openapi/payment-experience_web_experience_profiles_v1.json
-    version: '3.0'
   x-providerName: paypal.com
   x-serviceName: payment-experience-web-profiles
+  x-origin:
+    - format: openapi
+      url: https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/90e8041ffe02d80c452d2b476bedd59a8d219bdc/openapi/payment-experience_web_experience_profiles_v1.json
+      version: '3.0'
+  x-conversion:
+    - Fetched from https://raw.githubusercontent.com/paypal/paypal-rest-api-specifications/90e8041ffe02d80c452d2b476bedd59a8d219bdc/openapi/payment-experience_web_experience_profiles_v1.json at commit 90e8041ffe02d80c452d2b476bedd59a8d219bdc; entry source SHA-256 51b0bd6bab29279f86684e446b2152a7ace62583f47ef8106da1ad6172f30a3f.
+    - 'Applied maintenance/patches/paypal-payment-experience-web-profiles.json (SHA-256 9f6262fc20213dfdea7feeb191b051804df7cac09a558ab5a4ed7d783e4985fb): Removed the type list [number, integer, string, boolean, null, array, object] from patch.value. OpenAPI 3.0 has no type arrays; a schema without type accepts exactly those seven kinds of value (including null), so the accepted values are unchanged.'
+    - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Preserved existing APIs.guru curation metadata from APIs/paypal.com/payment-experience-web-profiles/1.3/openapi.yaml.
+    - Serialized as YAML with PyYAML 6.0.3; no OpenAPI version conversion.
 servers:
-- url: https://api-m.sandbox.paypal.com
-  description: PayPal Sandbox Environment
-- url: https://api-m.paypal.com
-  description: PayPal Live Environment
+  - url: https://api-m.sandbox.paypal.com
+    description: PayPal Sandbox Environment
+  - url: https://api-m.paypal.com
+    description: PayPal Live Environment
+tags:
+  - name: web-profiles
+    description: Use the `/payment-experience/web-profiles` resource to create, show details for, list, update, partially update, and delete web experience profiles.
+externalDocs:
+  url: https://developer.paypal.com/docs/api/payment-experience/v1/
 paths:
   /v1/payment-experience/web-profiles:
     post:
@@ -47,16 +58,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
       parameters:
-      - $ref: '#/components/parameters/paypal_request_id'
+        - $ref: '#/components/parameters/paypal_request_id'
       requestBody:
         $ref: '#/components/requestBodies/web_profile'
       security:
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/payment
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/realtimepayment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/payment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/realtimepayment
       tags:
-      - web-profiles
+        - web-profiles
     get:
       summary: List web experience profiles
       description: Lists the latest 20 web experience profiles for a merchant or subject. To show details for these or additional profiles, you can show web experience profile details by ID.
@@ -81,12 +92,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
       security:
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/payment
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/realtimepayment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/payment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/realtimepayment
       tags:
-      - web-profiles
+        - web-profiles
   /v1/payment-experience/web-profiles/{id}:
     put:
       summary: Update web experience profile
@@ -108,16 +119,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
       parameters:
-      - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/id'
       requestBody:
         $ref: '#/components/requestBodies/web_profile'
       security:
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/payment
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/realtimepayment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/payment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/realtimepayment
       tags:
-      - web-profiles
+        - web-profiles
     patch:
       summary: Partially update web experience profile
       description: Partially-updates a web experience profile, by ID. In the JSON request body, specify a patch object, the path of the profile location to update, and a new value.
@@ -138,7 +149,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
       parameters:
-      - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/id'
       requestBody:
         content:
           application/json:
@@ -147,18 +158,18 @@ paths:
             examples:
               patch_request:
                 value:
-                - op: add
-                  path: /presentation/brand_name
-                  value: new_brand_name
-                - op: remove
-                  path: /flow_config/landing_page_type
+                  - op: add
+                    path: /presentation/brand_name
+                    value: new_brand_name
+                  - op: remove
+                    path: /flow_config/landing_page_type
       security:
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/payment
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/realtimepayment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/payment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/realtimepayment
       tags:
-      - web-profiles
+        - web-profiles
     get:
       summary: Show web experience profile details by ID
       description: Shows details for a web experience profile, by ID.
@@ -183,14 +194,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
       parameters:
-      - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/id'
       security:
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/payment
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/realtimepayment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/payment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/realtimepayment
       tags:
-      - web-profiles
+        - web-profiles
     delete:
       summary: Delete web experience profile
       description: Deletes a web experience profile, by ID.
@@ -211,14 +222,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
       parameters:
-      - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/id'
       security:
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/payment
-      - Oauth2:
-        - https://uri.paypal.com/services/payments/realtimepayment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/payment
+        - Oauth2:
+            - https://uri.paypal.com/services/payments/realtimepayment
       tags:
-      - web-profiles
+        - web-profiles
 components:
   requestBodies:
     web_profile:
@@ -261,9 +272,9 @@ components:
         details:
           $ref: '#/components/schemas/error_details_list'
       required:
-      - name
-      - message
-      - information_link
+        - name
+        - message
+        - information_link
     error_400:
       type: object
       title: Bad Request Error
@@ -272,11 +283,11 @@ components:
         name:
           type: string
           enum:
-          - INVALID_REQUEST
+            - INVALID_REQUEST
         message:
           type: string
           enum:
-          - Request is not well-formed, syntactically incorrect, or violates schema.
+            - Request is not well-formed, syntactically incorrect, or violates schema.
         details:
           type: array
           items:
@@ -299,11 +310,11 @@ components:
         name:
           type: string
           enum:
-          - AUTHENTICATION_FAILURE
+            - AUTHENTICATION_FAILURE
         message:
           type: string
           enum:
-          - Authentication failed due to missing authorization header, or invalid authentication credentials.
+            - Authentication failed due to missing authorization header, or invalid authentication credentials.
         details:
           type: array
           items:
@@ -326,11 +337,11 @@ components:
         name:
           type: string
           enum:
-          - NOT_AUTHORIZED
+            - NOT_AUTHORIZED
         message:
           type: string
           enum:
-          - Authorization failed due to insufficient permissions.
+            - Authorization failed due to insufficient permissions.
         details:
           type: array
           items:
@@ -353,11 +364,11 @@ components:
         name:
           type: string
           enum:
-          - RESOURCE_NOT_FOUND
+            - RESOURCE_NOT_FOUND
         message:
           type: string
           enum:
-          - The specified resource does not exist.
+            - The specified resource does not exist.
         details:
           type: array
           items:
@@ -380,11 +391,11 @@ components:
         name:
           type: string
           enum:
-          - RESOURCE_CONFLICT
+            - RESOURCE_CONFLICT
         message:
           type: string
           enum:
-          - The server has detected a conflict while processing this request.
+            - The server has detected a conflict while processing this request.
         details:
           type: array
           items:
@@ -407,11 +418,11 @@ components:
         name:
           type: string
           enum:
-          - UNSUPPORTED_MEDIA_TYPE
+            - UNSUPPORTED_MEDIA_TYPE
         message:
           type: string
           enum:
-          - The server does not support the request payload's media type.
+            - The server does not support the request payload's media type.
         details:
           type: array
           items:
@@ -434,11 +445,11 @@ components:
         name:
           type: string
           enum:
-          - UNPROCESSABLE_ENTITY
+            - UNPROCESSABLE_ENTITY
         message:
           type: string
           enum:
-          - The requested action could not be performed, semantically incorrect, or failed business validation.
+            - The requested action could not be performed, semantically incorrect, or failed business validation.
         details:
           type: array
           items:
@@ -461,11 +472,11 @@ components:
         name:
           type: string
           enum:
-          - INTERNAL_SERVER_ERROR
+            - INTERNAL_SERVER_ERROR
         message:
           type: string
           enum:
-          - An internal server error occurred.
+            - An internal server error occurred.
         debug_id:
           type: string
           description: The PayPal internal ID. Used for correlation purposes.
@@ -481,8 +492,8 @@ components:
         message: An internal server error occurred.
         debug_id: 90957fca61718
         links:
-        - href: https://developer.paypal.com/api/orders/v2/#error-INTERNAL_SERVER_ERROR
-          rel: information_link
+          - href: https://developer.paypal.com/api/orders/v2/#error-INTERNAL_SERVER_ERROR
+            rel: information_link
     error_503:
       type: object
       title: Service Unavailable Error
@@ -491,11 +502,11 @@ components:
         name:
           type: string
           enum:
-          - SERVICE_UNAVAILABLE
+            - SERVICE_UNAVAILABLE
         message:
           type: string
           enum:
-          - Service Unavailable.
+            - Service Unavailable.
         debug_id:
           type: string
           description: The PayPal internal ID. Used for correlation purposes.
@@ -514,15 +525,15 @@ components:
     error_default:
       description: The default error response.
       oneOf:
-      - $ref: '#/components/schemas/error_400'
-      - $ref: '#/components/schemas/error_401'
-      - $ref: '#/components/schemas/error_403'
-      - $ref: '#/components/schemas/error_404'
-      - $ref: '#/components/schemas/error_409'
-      - $ref: '#/components/schemas/error_415'
-      - $ref: '#/components/schemas/error_422'
-      - $ref: '#/components/schemas/error_500'
-      - $ref: '#/components/schemas/error_503'
+        - $ref: '#/components/schemas/error_400'
+        - $ref: '#/components/schemas/error_401'
+        - $ref: '#/components/schemas/error_403'
+        - $ref: '#/components/schemas/error_404'
+        - $ref: '#/components/schemas/error_409'
+        - $ref: '#/components/schemas/error_415'
+        - $ref: '#/components/schemas/error_422'
+        - $ref: '#/components/schemas/error_500'
+        - $ref: '#/components/schemas/error_503'
     error_details:
       title: Error Details
       type: object
@@ -543,7 +554,7 @@ components:
           type: string
           description: The human-readable description for an issue. The description can change over the lifetime of an API, so clients must not depend on this value.
       required:
-      - issue
+        - issue
     error_details-2:
       type: object
       title: Error Details
@@ -556,8 +567,8 @@ components:
           type: string
           description: The reason for the error.
       required:
-      - field
-      - issue
+        - field
+        - issue
     error_details_list:
       type: array
       description: An array of additional details for the error.
@@ -569,8 +580,8 @@ components:
       description: The request-related [HATEOAS link](/api/rest/responses/#hateoas-links) information.
       type: object
       required:
-      - href
-      - rel
+        - href
+        - rel
       properties:
         href:
           description: The complete target URL. To make the related call, combine the method with this [URI Template-formatted](https://tools.ietf.org/html/rfc6570) link. For pre-processing, include the `$`, `(`, and `)` characters. The `href` is the key HATEOAS component that links a completed call with a subsequent call.
@@ -591,18 +602,18 @@ components:
           maxLength: 6
           pattern: ^[A-Z]*$
           enum:
-          - GET
-          - POST
-          - PUT
-          - DELETE
-          - PATCH
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - PATCH
     error_location:
       type: string
       description: The location of the field that caused the error. Value is `body`, `path`, or `query`.
       enum:
-      - body
-      - path
-      - query
+        - body
+        - path
+        - query
       default: body
     flow_config:
       type: object
@@ -615,11 +626,11 @@ components:
           maxLength: 255
           description: The type of landing page to display on the PayPal site for user checkout. To use the non-PayPal account landing page, set to `Billing`. To use the PayPal account login landing page, set to `Login`.
           x-enumDescriptions:
-          - login
-          - billing
+            - login
+            - billing
           enum:
-          - login
-          - billing
+            - login
+            - billing
         bank_txn_pending_url:
           type: string
           format: uri
@@ -632,20 +643,20 @@ components:
           minLength: 1
           maxLength: 255
           x-enumDescriptions:
-          - COMMIT
+            - COMMIT
           enum:
-          - COMMIT
+            - COMMIT
         return_uri_http_method:
           type: string
           description: The HTTP method to use to redirect the customer to a return URL. Value is `GET` or `POST`.
           minLength: 1
           maxLength: 255
           x-enumDescriptions:
-          - GET
-          - POST
+            - GET
+            - POST
           enum:
-          - GET
-          - POST
+            - GET
+            - POST
     input_fields:
       type: object
       title: Input Field Customization
@@ -670,44 +681,36 @@ components:
           type: string
           description: The operation.
           x-enumDescriptions:
-          - value: add
-            description: Depending on the target location reference, completes one of these functions:<ul><li><strong>The target location is an array index</strong>. Inserts a new value into the array at the specified index.</li><li><strong>The target location is an object parameter that does not already exist</strong>. Adds a new parameter to the object.</li><li><strong>The target location is an object parameter that does exist</strong>. Replaces that parameter's value.</li></ul>The <code>value</code> parameter defines the value to add. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.1">4.1. add</a>.
-          - value: remove
-            description: Removes the value at the target location. For the operation to succeed, the target location must exist. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.2">4.2. remove</a>.
-          - value: replace
-            description: Replaces the value at the target location with a new value. The operation object must contain a <code>value</code> parameter that defines the replacement value. For the operation to succeed, the target location must exist. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.3">4.3. replace</a>.
-          - value: move
-            description: Removes the value at a specified location and adds it to the target location. The operation object must contain a <code>from</code> parameter, which is a string that contains a JSON pointer value that references the location in the target document from which to move the value. For the operation to succeed, the <code>from</code> location must exist. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.4">4.4. move</a>.
-          - value: copy
-            description: Copies the value at a specified location to the target location. The operation object must contain a <code>from</code> parameter, which is a string that contains a JSON pointer value that references the location in the target document from which to copy the value. For the operation to succeed, the <code>from</code> location must exist. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.5">4.5. copy</a>.
-          - value: test
-            description: Tests that a value at the target location is equal to a specified value. The operation object must contain a <code>value</code> parameter that defines the value to compare to the target location's value. For the operation to succeed, the target location must be equal to the <code>value</code> value. For test, <code>equal</code> indicates that the value at the target location and the value that <code>value</code> defines are of the same JSON type. The data type of the value determines how equality is defined:<table><thead align="left"><tr><th>Type</th><th>Considered equal if both values</th></tr></thead><tbody align="left"><tr><td><strong>strings</strong></td><td>Contain the same number of Unicode characters and their code points are byte-by-byte equal.</td></tr><tr><td><strong>numbers</strong></td><td>Are numerically equal.</td></tr><tr><td><strong>arrays</strong></td><td>Contain the same number of values, and each value is equal to the value at the corresponding position in the other array, by using these type-specific rules.</td></tr><tr><td><strong>objects</strong></td><td>Contain the same number of parameters, and each parameter is equal to a parameter in the other object, by comparing their keys (as strings) and their values (by using these type-specific rules).</td></tr><tr><td><strong>literals (<code>false</code>, <code>true</code>, and <code>null</code>)</strong></td><td>Are the same. The comparison is a logical comparison. For example, whitespace between the parameter values of an array is not significant. Also, ordering of the serialization of object parameters is not significant.</td></tr></tbody></table>For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.6">4.6. test</a>.
+            - value: add
+              description: Depending on the target location reference, completes one of these functions:<ul><li><strong>The target location is an array index</strong>. Inserts a new value into the array at the specified index.</li><li><strong>The target location is an object parameter that does not already exist</strong>. Adds a new parameter to the object.</li><li><strong>The target location is an object parameter that does exist</strong>. Replaces that parameter's value.</li></ul>The <code>value</code> parameter defines the value to add. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.1">4.1. add</a>.
+            - value: remove
+              description: Removes the value at the target location. For the operation to succeed, the target location must exist. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.2">4.2. remove</a>.
+            - value: replace
+              description: Replaces the value at the target location with a new value. The operation object must contain a <code>value</code> parameter that defines the replacement value. For the operation to succeed, the target location must exist. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.3">4.3. replace</a>.
+            - value: move
+              description: Removes the value at a specified location and adds it to the target location. The operation object must contain a <code>from</code> parameter, which is a string that contains a JSON pointer value that references the location in the target document from which to move the value. For the operation to succeed, the <code>from</code> location must exist. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.4">4.4. move</a>.
+            - value: copy
+              description: Copies the value at a specified location to the target location. The operation object must contain a <code>from</code> parameter, which is a string that contains a JSON pointer value that references the location in the target document from which to copy the value. For the operation to succeed, the <code>from</code> location must exist. For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.5">4.5. copy</a>.
+            - value: test
+              description: Tests that a value at the target location is equal to a specified value. The operation object must contain a <code>value</code> parameter that defines the value to compare to the target location's value. For the operation to succeed, the target location must be equal to the <code>value</code> value. For test, <code>equal</code> indicates that the value at the target location and the value that <code>value</code> defines are of the same JSON type. The data type of the value determines how equality is defined:<table><thead align="left"><tr><th>Type</th><th>Considered equal if both values</th></tr></thead><tbody align="left"><tr><td><strong>strings</strong></td><td>Contain the same number of Unicode characters and their code points are byte-by-byte equal.</td></tr><tr><td><strong>numbers</strong></td><td>Are numerically equal.</td></tr><tr><td><strong>arrays</strong></td><td>Contain the same number of values, and each value is equal to the value at the corresponding position in the other array, by using these type-specific rules.</td></tr><tr><td><strong>objects</strong></td><td>Contain the same number of parameters, and each parameter is equal to a parameter in the other object, by comparing their keys (as strings) and their values (by using these type-specific rules).</td></tr><tr><td><strong>literals (<code>false</code>, <code>true</code>, and <code>null</code>)</strong></td><td>Are the same. The comparison is a logical comparison. For example, whitespace between the parameter values of an array is not significant. Also, ordering of the serialization of object parameters is not significant.</td></tr></tbody></table>For more information, see <a href="https://tools.ietf.org/html/rfc6902#section-4.6">4.6. test</a>.
           enum:
-          - add
-          - remove
-          - replace
-          - move
-          - copy
-          - test
+            - add
+            - remove
+            - replace
+            - move
+            - copy
+            - test
         path:
           type: string
           description: The <a href="https://tools.ietf.org/html/rfc6901">JSON Pointer</a> to the target document location at which to complete the operation.
         value:
-          type:
-          - number
-          - integer
-          - string
-          - boolean
-          - 'null'
-          - array
-          - object
           title: Patch Value
           description: The value to apply. The <code>remove</code> operation does not require a value.
         from:
           type: string
           description: The <a href="https://tools.ietf.org/html/rfc6901">JSON Pointer</a> to the target document location from which to move the value. Required for the <code>move</code> operation.
       required:
-      - op
+        - op
     patch_request:
       type: array
       title: Patch Request
@@ -739,7 +742,7 @@ components:
       description: A payment web experience profile.
       title: Web Profile
       required:
-      - name
+        - name
       properties:
         id:
           type: string
@@ -784,8 +787,3 @@ components:
       required: true
       schema:
         type: string
-tags:
-- name: web-profiles
-  description: Use the `/payment-experience/web-profiles` resource to create, show details for, list, update, partially update, and delete web experience profiles.
-externalDocs:
-  url: https://developer.paypal.com/docs/api/payment-experience/v1/

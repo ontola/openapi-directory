@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "description": "Removed five font_family defaults (\"Arial, 'Helvetica Neue', Helvetica, sans-serif\") that match more than one oneOf alternative and so fail oneOf validation. The value stays listed as an allowed enum value and as the example; every alternative is unchanged. No replacement default was inferred.",
+  "operations": [
+    {
+      "pointer": "#/components/schemas/TextStyleV0/properties/font_family/default",
+      "from": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+      "remove": true,
+      "context": {
+        "example": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "Arial Black,Arial",
+              "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+              "Century Gothic,AppleGothic,Arial",
+              "Comic Sans MS,Comic Sans,cursive",
+              "Courier",
+              "Courier New",
+              "Geneva,Arial",
+              "Georgia",
+              "Helvetica,Arial",
+              "Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "MS Serif,Georgia",
+              "New York,Georgia",
+              "Palatino Linotype,Palatino,Georgia",
+              "Palatino,Georgia",
+              "Tahoma,sans-serif",
+              "Times New Roman",
+              "Trebuchet MS",
+              "Verdana"
+            ],
+            "description": "Web safe font enumeration."
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "pointer": "#/components/schemas/SMSDisclosureLinkTextStyle/properties/font_family/default",
+      "from": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+      "remove": true,
+      "context": {
+        "example": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "Arial Black,Arial",
+              "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+              "Century Gothic,AppleGothic,Arial",
+              "Comic Sans MS,Comic Sans,cursive",
+              "Courier",
+              "Courier New",
+              "Geneva,Arial",
+              "Georgia",
+              "Helvetica,Arial",
+              "Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "MS Serif,Georgia",
+              "New York,Georgia",
+              "Palatino Linotype,Palatino,Georgia",
+              "Palatino,Georgia",
+              "Tahoma,sans-serif",
+              "Times New Roman",
+              "Trebuchet MS",
+              "Verdana"
+            ],
+            "description": "Web safe font enumeration."
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "pointer": "#/components/schemas/SMSDisclosureTextStyle/properties/font_family/default",
+      "from": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+      "remove": true,
+      "context": {
+        "example": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "Arial Black,Arial",
+              "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+              "Century Gothic,AppleGothic,Arial",
+              "Comic Sans MS,Comic Sans,cursive",
+              "Courier",
+              "Courier New",
+              "Geneva,Arial",
+              "Georgia",
+              "Helvetica,Arial",
+              "Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "MS Serif,Georgia",
+              "New York,Georgia",
+              "Palatino Linotype,Palatino,Georgia",
+              "Palatino,Georgia",
+              "Tahoma,sans-serif",
+              "Times New Roman",
+              "Trebuchet MS",
+              "Verdana"
+            ],
+            "description": "Web safe font enumeration."
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "pointer": "#/components/schemas/BackInStockDynamicButtonTextStyles/properties/font_family/default",
+      "from": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+      "remove": true,
+      "context": {
+        "example": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "Arial Black,Arial",
+              "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+              "Century Gothic,AppleGothic,Arial",
+              "Comic Sans MS,Comic Sans,cursive",
+              "Courier",
+              "Courier New",
+              "Geneva,Arial",
+              "Georgia",
+              "Helvetica,Arial",
+              "Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "MS Serif,Georgia",
+              "New York,Georgia",
+              "Palatino Linotype,Palatino,Georgia",
+              "Palatino,Georgia",
+              "Tahoma,sans-serif",
+              "Times New Roman",
+              "Trebuchet MS",
+              "Verdana"
+            ],
+            "description": "Web safe font enumeration."
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "pointer": "#/components/schemas/RichTextStyle/properties/font_family/default",
+      "from": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+      "remove": true,
+      "context": {
+        "example": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "Arial Black,Arial",
+              "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+              "Century Gothic,AppleGothic,Arial",
+              "Comic Sans MS,Comic Sans,cursive",
+              "Courier",
+              "Courier New",
+              "Geneva,Arial",
+              "Georgia",
+              "Helvetica,Arial",
+              "Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "Lucida,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif",
+              "MS Serif,Georgia",
+              "New York,Georgia",
+              "Palatino Linotype,Palatino,Georgia",
+              "Palatino,Georgia",
+              "Tahoma,sans-serif",
+              "Times New Roman",
+              "Trebuchet MS",
+              "Verdana"
+            ],
+            "description": "Web safe font enumeration."
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}

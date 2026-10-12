@@ -29,7 +29,7 @@
       "discovery": "Follow the vendor's maintained public v2 entry point.",
       "version_policy": "vendor",
       "priority": "high",
-      "bundling": {"tool": "redocly", "version": "2.57.0", "root": "specification", "expected_warnings": 21},
+      "bundling": {"tool": "redocly", "version": "2.57.0", "root": "specification", "expected_warnings": 22},
       "patches": ["maintenance/patches/digitalocean.json"]
     },
     {
@@ -1284,6 +1284,584 @@
       "url": "https://api.ynab.com/papi/open_api_spec.yaml",
       "discovery": "The official YNAB API Endpoints reference (https://api.ynab.com/v1) loads this hosted description (/papi/open_api_spec.yaml), and the official changelog at https://api.ynab.com lists every release through v1.87.0 (checked 2026-10-08). The committed open_api_spec.yaml in the official ynab/ynab-sdk-js repository is an SDK-generation copy whose bytes differ from the hosted publication; monitor the hosted publication, not that mirror. Hosted repository health is not assessed and no Git revision is claimed. Native OpenAPI 3.1.1 / vendor 1.87.0 / 31 paths / 44 operations validates strictly at review with no patches, conversion or bundling. The stored 1.0.0 description (legacy x-origin https://api.youneedabudget.com/papi/spec-v1-swagger.json) is the initial comparison and curation baseline; the new vendor version is imported into its own directory, retaining 1.0.0 byte-for-byte.",
       "coverage": "Official YNAB API v1 (user, plans, accounts, categories, payees, payee locations, months, money movements, transactions, scheduled transactions). The vendor changelog for v1.79.0 (2026-03-05) moved all documented routes from /budgets/{budget_id} to /plans/{plan_id}; it states the /budgets paths continue to work with the original response keys but are no longer documented. Reported /budgets removals against 1.0.0 are therefore documentation renames, not runtime retirements. Preserve vendor deprecated-field descriptions, bearer authentication and rate-limit prose.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "moneybird",
+      "provider": "moneybird.com",
+      "target": "APIs/moneybird.com/v2/openapi.yaml",
+      "github": {
+        "repository": "moneybird/openapi",
+        "ref": "main",
+        "path": "openapi.yml"
+      },
+      "discovery": "Official moneybird/openapi repository (public, unarchived; checked 2026-10-08), the exact source already cited by the stored description's x-origin. The vendor regenerates it several times a day and stamps info.version per release (v2-<date>-<hash>), so the reviewed API-major directory APIs/moneybird.com/v2 is refreshed in place (version_policy stable_directory) instead of creating one directory per release; the exact vendor version stays in the document and provenance. At review (commit 1fb2617a8cb291885a9440c4a99597d53545ef9e) native OpenAPI 3.1.0 / v2-20261008-2ab2a03735 / 214 paths / 299 operations; it fails native validation only on is_trusted default \"default\" for a boolean, removed by the exact recipe. No conversion or bundling.",
+      "coverage": "Official Moneybird API v2 (administrations, contacts, sales/purchase invoices, financial mutations, ledger accounts, reports, webhooks and related resources). Preserve vendor bearer authentication and all operations. The separate APIs/moneybird.com/v2-readonly subset is generated from this file by its own generator (another session's work) and is not changed by refreshes here; regenerate it deliberately after a refresh.",
+      "patches": [
+        "maintenance/patches/moneybird.json"
+      ],
+      "volatile_examples": true,
+      "version_policy": "stable_directory",
+      "priority": "high"
+    },
+    {
+      "id": "openai",
+      "provider": "openai.com",
+      "target": "APIs/openai.com/2.3.0/openapi.yaml",
+      "github": {
+        "repository": "openai/openai-openapi",
+        "ref": "main",
+        "path": "openapi.yaml"
+      },
+      "discovery": "Official openai/openai-openapi repository (public, unarchived; README: machine-readable description of the OpenAI REST API, authored in OpenAPI 3.1; checked 2026-10-08). Fixed declared vendor version 2.3.0 continues to change; refresh in place. At review (b2751c6625493c9c64db21b1b26a4d9300e589e3) native 3.1.0 / 2.3.0 / 228 paths / 356 operations vs stored 224 paths. Native validation fails only on three null defaults that match none of their declared alternatives; the exact recipe removes only those. No conversion or bundling.",
+      "coverage": "OpenAI REST API as published by the vendor, including beta/preview-labelled groups (e.g. Realtime, Assistants, Conversations betas). Preserve vendor lifecycle labels, authentication and servers; not a GA-only subset. The stored file has no prior x-origin; curation is preserved from it.",
+      "patches": [
+        "maintenance/patches/openai.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "klaviyo",
+      "provider": "klaviyo.com",
+      "target": "APIs/klaviyo.com/2026-07-15/openapi.yaml",
+      "github": {
+        "repository": "klaviyo/openapi",
+        "ref": "main",
+        "path": "openapi/stable.json"
+      },
+      "discovery": "Official klaviyo/openapi repository (public, unarchived; checked 2026-10-08). Its README calls openapi/stable.json the full GA spec, the same source used for the API docs and SDKs; beta.json holds pre-release endpoints and is not registered. Klaviyo is absent from the full fetched main tree. At review (80d70a7ef72df094d624464fd5f33739f4b5b039) native 3.0.2 / stable revision 2026-07-15 / 238 paths / 345 operations. Native validation fails only on five font_family defaults that match more than one oneOf alternative; the exact recipe removes only those defaults. New revisions use new version directories.",
+      "coverage": "Klaviyo REST API, GA (stable) revision only: profiles, lists/segments, events, metrics, campaigns, flows, templates, forms, catalogs, reporting and related resources. Beta endpoints are excluded by the vendor's own stable/beta split. Preserve vendor revision header semantics, OAuth/API-key authentication and per-endpoint scopes. No curation is invented for this new provider.",
+      "patches": [
+        "maintenance/patches/klaviyo.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "jira-platform",
+      "provider": "atlassian.com",
+      "target": "APIs/atlassian.com/jira/1001.0.0-SNAPSHOT/openapi.yaml",
+      "url": "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json",
+      "discovery": "Official Jira Cloud platform REST v3 download linked from the Atlassian developer reference; the stored file's x-origin (developer.atlassian.com/cloud/jira/platform/swagger-v3.v3.json) redirects to this canonical dac-static URL, as for Confluence. The vendor stamps info.version per build (1001.0.0-SNAPSHOT-<sha>), so the existing jira/1001.0.0-SNAPSHOT directory is refreshed in place (stable_directory). At review (2026-10-08) native 3.0.1 / 423 paths / 620 operations vs stored 327 paths. Native validation fails only on four empty-string array-item defaults outside their enums; the exact recipe removes only those. Hosted health not_assessed; no Git revision claimed.",
+      "coverage": "Jira Cloud platform REST API v3 (issues, projects, workflows, fields, screens, users, permissions and related platform resources), including vendor experimental/deprecated labels. Not Jira Software (agile), Service Management or Data Center APIs. Preserve tenant server, OAuth/basic authentication and scopes.",
+      "patches": [
+        "maintenance/patches/jira-platform.json"
+      ],
+      "version_policy": "stable_directory",
+      "priority": "high"
+    },
+    {
+      "id": "netlify",
+      "provider": "netlify.com",
+      "target": "APIs/netlify.com/2.60.0/openapi.yaml",
+      "initial_baseline": "APIs/netlify.com/2.16.0/swagger.yaml",
+      "github": {
+        "repository": "netlify/open-api",
+        "ref": "master",
+        "path": "swagger.yml"
+      },
+      "discovery": "Official netlify/open-api repository (public, unarchived; README: OpenAPI reference for the Netlify API behind its Go/JS clients; checked 2026-10-08), the exact swagger.yml already cited by the stored 2.16.0 Swagger. Native Swagger 2.0 / 2.60.0 / 117 paths at review (065567609ce5b47bd210876b86460c659d077d3c) vs stored 2.16.0 / 75 paths. Locked swagger2openapi 7.0.8 makes zero warnings and exactly three counted repairs, all traced to fixUpSubSchema translating the three x-nullable:true properties of databaseComputeSettingsRequest (min_cu, max_cu, sleep_timeout_seconds). Each is guarded; a control conversion without those extensions must have zero warnings/patches and otherwise identical output. Historical 2.16.0 Swagger is the initial curation baseline and stays byte-identical.",
+      "coverage": "Netlify REST API (sites, deploys, builds, forms, functions, DNS, environment variables, database compute and related resources) as published by the vendor. Preserve OAuth authentication and vendor notes; not every Netlify product (e.g. Netlify Functions runtime APIs).",
+      "conversion": {
+        "tool": "swagger2openapi",
+        "version": "7.0.8",
+        "expected_warnings": 0,
+        "expected_patches": 3,
+        "nullable_extensions": [
+          {
+            "from": "#/definitions/databaseComputeSettingsRequest/properties/min_cu",
+            "to": "#/components/schemas/databaseComputeSettingsRequest/properties/min_cu",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 0.25,
+              "maximum": 16,
+              "x-nullable": true,
+              "description": "Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu."
+            }
+          },
+          {
+            "from": "#/definitions/databaseComputeSettingsRequest/properties/max_cu",
+            "to": "#/components/schemas/databaseComputeSettingsRequest/properties/max_cu",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 0.25,
+              "maximum": 16,
+              "x-nullable": true,
+              "description": "Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0."
+            }
+          },
+          {
+            "from": "#/definitions/databaseComputeSettingsRequest/properties/sleep_timeout_seconds",
+            "to": "#/components/schemas/databaseComputeSettingsRequest/properties/sleep_timeout_seconds",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": -1,
+              "x-nullable": true,
+              "description": "Seconds of inactivity before the compute endpoint is suspended. Use -1 for always on, or a non-negative value."
+            }
+          }
+        ]
+      },
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "bitbucket",
+      "provider": "bitbucket.org",
+      "target": "APIs/bitbucket.org/2.0/openapi.yaml",
+      "url": "https://api.bitbucket.org/swagger.json",
+      "discovery": "Removal evidence for the 2026-10-09 refresh (28 paths / 47 operations vs the old snapshot): Issue Tracker removal (changelog, announced 2026-08-20) and Connect addon linker removal (changelog); cross-workspace API end of life (Atlassian announcement, final removal April 2026, changelog CHANGE-2770) covering list-workspaces /workspaces, cross-workspace /repositories and /user/permissions/{repositories,workspaces}; and the staff-announced removal of /pullrequests/{selected_user} (2025-02-20). Official Bitbucket Cloud REST API Swagger description served by api.bitbucket.org (the stored file's x-origin bitbucket.org/api/swagger.json points to the same publication). Fixed declared version 2.0 is refreshed in place. Native Swagger 2.0 / 171 paths at review (2026-10-08). Locked swagger2openapi 7.0.8 makes zero warnings and one counted converter step, traced to processResponse visiting the already-empty description of DELETE /repositories/{workspace}/{repo_slug}/branch-restrictions/{id} 204; the empty string is left unchanged, the same reviewed class as Mailchimp Marketing's counts. Hosted health not_assessed; no Git revision claimed.",
+      "coverage": "Bitbucket Cloud REST API 2.0 (repositories, pull requests, pipelines, workspaces, issues, branch restrictions and related resources). Preserve OAuth/basic/API-token authentication and vendor deprecation notes; not Bitbucket Data Center.",
+      "conversion": {
+        "tool": "swagger2openapi",
+        "version": "7.0.8",
+        "expected_warnings": 0,
+        "expected_patches": 1
+      },
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-conversations-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_conversations_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_conversations_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Conversations v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Conversations v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-voice-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_voice_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_voice_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Voice v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Voice v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-video-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_video_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_video_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Video v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Video v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-lookups-v2",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_lookups_v2/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_lookups_v2.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Lookup v2, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Lookup v2 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-studio-v2",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_studio_v2/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_studio_v2.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Studio v2, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Studio v2 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-serverless-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_serverless_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_serverless_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Serverless v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Serverless v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-taskrouter-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_taskrouter_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_taskrouter_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for TaskRouter v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio TaskRouter v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-sync-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_sync_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_sync_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Sync v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Sync v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-trunking-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_trunking_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_trunking_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Elastic SIP Trunking v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Elastic SIP Trunking v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-intelligence-v2",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_intelligence_v2/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_intelligence_v2.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Conversational Intelligence v2, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Conversational Intelligence v2 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-events-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_events_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_events_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Event Streams v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Event Streams v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-trusthub-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_trusthub_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_trusthub_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Trust Hub v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Trust Hub v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "twilio-flex-v1",
+      "provider": "twilio.com",
+      "target": "APIs/twilio.com/twilio_flex_v1/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "twilio/twilio-oai",
+        "ref": "main",
+        "path": "spec/json/twilio_flex_v1.json"
+      },
+      "discovery": "Official twilio/twilio-oai artifact for Flex v1, the same project already monitored for classic REST, Verify and Messaging (README: GA, actively maintained; checked 2026-10-08). The June 2024 MVR release (vendor PR 111) reset declared versions to 1.0.0; the stored 1.55.0 description is the initial comparison/curation baseline and stays byte-identical, and the actual vendor version is imported into its own directory. Native OpenAPI 3.0.1 validates strictly at review (141f1201b55abcc16b3aa8089e71c4a927326975) with no patches. Pre-scan: no new realistic Account SID (AC...) example values relative to the stored file.",
+      "coverage": "Twilio Flex v1 public artifact only (one product of the Twilio platform). Preserve vendor lifecycle annotations, Basic authentication and examples as published; the project GA label is not a GA guarantee for every operation. Other Twilio products, previews and TwiML are separate.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "resend",
+      "provider": "resend.com",
+      "target": "APIs/resend.com/1.5.1/openapi.yaml",
+      "github": {
+        "repository": "resend/resend-openapi",
+        "ref": "main",
+        "path": "resend.yaml"
+      },
+      "discovery": "Official resend/resend-openapi repository (public, unarchived; checked 2026-10-08), the description behind the Resend API reference. Resend is absent from the full fetched main tree. Native OpenAPI 3.1.2 / 1.5.1 / 72 paths / 113 operations validates strictly at review (8916b099d7f52b8552a2e1ef38a7f16fcd17864c) with no patches. New vendor versions use new directories.",
+      "coverage": "Resend email API (emails, batch, domains, API keys, audiences/contacts, broadcasts, webhooks and related resources). Preserve bearer authentication and vendor descriptions. No curation is invented for this new provider.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "pipedrive-v1",
+      "provider": "pipedrive.com",
+      "target": "APIs/pipedrive.com/v1/1.0.0/openapi.yaml",
+      "url": "https://developers.pipedrive.com/docs/api/v1/openapi.yaml",
+      "discovery": "Official Pipedrive API v1 OpenAPI download linked from https://developers.pipedrive.com/docs/api/v1 (checked 2026-10-08). Pipedrive is absent from the full fetched main tree. Native OpenAPI 3.0.1 / declared 1.0.0 / 143 paths / 213 operations validates strictly with no patches; fixed declared version, content refreshed in place. Hosted health not_assessed; no Git revision claimed.",
+      "coverage": "Pipedrive CRM REST API v1 (deals, persons, organizations, activities, pipelines, products, files, webhooks and related resources). Distinct from API v2, which the vendor publishes alongside it and is registered separately. Preserve API-token/OAuth authentication and vendor deprecation notes.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "pipedrive-v2",
+      "provider": "pipedrive.com",
+      "target": "APIs/pipedrive.com/v2/2.0.0/openapi.yaml",
+      "url": "https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml",
+      "discovery": "Official Pipedrive API v2 OpenAPI download linked from https://developers.pipedrive.com/docs/api/v1 (byte-identical to /docs/api/v2/openapi.yaml; checked 2026-10-08). Native OpenAPI 3.0.1 / 2.0.0 / 85 paths / 158 operations validates strictly with no patches. Hosted health not_assessed.",
+      "coverage": "Pipedrive CRM REST API v2 (the vendor's newer endpoints for deals, persons, organizations, activities, products, pipelines and related resources). Endpoints not in v2 remain in v1. Preserve authentication and vendor lifecycle notes.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "render",
+      "provider": "render.com",
+      "target": "APIs/render.com/1.0.0/openapi.yaml",
+      "url": "https://api-docs.render.com/openapi/render-public-api-1.json",
+      "discovery": "Official Render Public API description: the OpenAPI export of the vendor's API reference at https://api-docs.render.com (ReadMe-hosted, whose pages reference render-public-api-1.json; checked 2026-10-08). Render is absent from the full fetched main tree. Native OpenAPI 3.0.2 / 1.0.0 / 140 paths / 228 operations validates strictly with no patches; fixed declared version, refreshed in place. Hosted health not_assessed; no Git revision claimed.",
+      "coverage": "Render Public API (services, deploys, custom domains, environment groups, Postgres/Key Value, jobs, logs, metrics, blueprints, projects and related resources). Preserve bearer authentication and vendor labels.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "mollie",
+      "provider": "mollie.com",
+      "target": "APIs/mollie.com/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "mollie/openapi",
+        "ref": "main",
+        "path": "specs.yaml"
+      },
+      "discovery": "Official mollie/openapi repository (public, unarchived; README: OpenAPI 3.1 spec matching Mollie's Public API, linked to the official API Reference; checked 2026-10-09). Mollie is absent from the full fetched main tree. Native OpenAPI 3.1.0 / 1.0.0 / 89 paths / 128 operations at review (9761dc389440916d041733e5a51608686982dfb0). It fails native validation only on 35 parameter Reference Objects with a sibling schema; OpenAPI 3.1 says such extra Reference Object properties SHALL be ignored, and the exact recipe removes only those siblings. Schema Object $ref siblings (allowed in 3.1) are untouched. Fixed declared version, refreshed in place.",
+      "coverage": "Mollie public payments API v2 (payments, refunds, chargebacks, customers, mandates, subscriptions, orders, settlements, balances, onboarding and related resources). Preserve API-key/OAuth authentication and vendor x-enumDescriptions/x-method extensions. The removed reference siblings were per-endpoint example/enum/type display overrides, not part of the specified contract. No curation invented.",
+      "patches": [
+        "maintenance/patches/mollie.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-billing-subscriptions",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/billing-subscriptions/1.8/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/billing_subscriptions_v1.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact, the exact source already cited by the stored file (imported in #26-#38). Native validates strictly at review (90e8041ffe02d80c452d2b476bedd59a8d219bdc) with no patches. Content can change at a fixed declared version; refresh in place, new versions get new directories.",
+      "coverage": "PayPal REST Subscriptions v1 (billing plans and subscriptions) only. Preserve OAuth2 security, vendor examples and descriptions. Other PayPal artifacts are registered separately or not at all (several currently fail native validation).",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-checkout-orders",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/checkout-orders/2.32/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/checkout_orders_v2.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact, the exact source already cited by the stored file (imported in #26-#38). Native validates strictly at review (90e8041ffe02d80c452d2b476bedd59a8d219bdc) with no patches. Content can change at a fixed declared version; refresh in place, new versions get new directories.",
+      "coverage": "PayPal REST Orders v2 (checkout orders) only. Preserve OAuth2 security, vendor examples and descriptions. Other PayPal artifacts are registered separately or not at all (several currently fail native validation).",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-payments-payouts-batch",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/payments-payouts-batch/1.9/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/payments_payouts_batch_v1.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact, the exact source already cited by the stored file (imported in #26-#38). Native validates strictly at review (90e8041ffe02d80c452d2b476bedd59a8d219bdc) with no patches. Content can change at a fixed declared version; refresh in place, new versions get new directories.",
+      "coverage": "PayPal REST Payouts v1 (batch payouts) only. Preserve OAuth2 security, vendor examples and descriptions. Other PayPal artifacts are registered separately or not at all (several currently fail native validation).",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-reporting-transactions",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/reporting-transactions/1.9/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/reporting_transactions_v1.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact, the exact source already cited by the stored file (imported in #26-#38). Native validates strictly at review (90e8041ffe02d80c452d2b476bedd59a8d219bdc) with no patches. Content can change at a fixed declared version; refresh in place, new versions get new directories.",
+      "coverage": "PayPal REST Transaction Search v1 only. Preserve OAuth2 security, vendor examples and descriptions. Other PayPal artifacts are registered separately or not at all (several currently fail native validation).",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-shipping-shipment-tracking",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/shipping-shipment-tracking/1.9/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/shipping_shipment_tracking_v1.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact, the exact source already cited by the stored file (imported in #26-#38). Native validates strictly at review (90e8041ffe02d80c452d2b476bedd59a8d219bdc) with no patches. Content can change at a fixed declared version; refresh in place, new versions get new directories.",
+      "coverage": "PayPal REST Shipment Tracking v1 only. Preserve OAuth2 security, vendor examples and descriptions. Other PayPal artifacts are registered separately or not at all (several currently fail native validation).",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-vault-payment-tokens",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/vault-payment-tokens/3.4/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/vault_payment_tokens_v3.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact, the exact source already cited by the stored file (imported in #26-#38). Native validates strictly at review (90e8041ffe02d80c452d2b476bedd59a8d219bdc) with no patches. Content can change at a fixed declared version; refresh in place, new versions get new directories.",
+      "coverage": "PayPal REST Payment Method Tokens v3 only. Preserve OAuth2 security, vendor examples and descriptions. Other PayPal artifacts are registered separately or not at all (several currently fail native validation).",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "circleci-v2",
+      "provider": "circleci.com",
+      "target": "APIs/circleci.com/v2/openapi.yaml",
+      "url": "https://circleci.com/api/v2/openapi.json",
+      "discovery": "Official CircleCI API v2 OpenAPI description served by CircleCI and used by its API v2 reference (checked 2026-10-09). The full tree has only the historical v1 description; v2 is missing. Native OpenAPI 3.0.3 / declared v2 / 76 paths / 111 operations validates strictly with no patches. Hosted health not_assessed; no Git revision claimed. The v1 file stays unchanged.",
+      "coverage": "CircleCI API v2 (pipelines, workflows, jobs, insights, contexts, projects, schedules, webhooks and related resources), distinct from the historical v1 API. Preserve API-token authentication and vendor preview labels.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-catalogs-products",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/catalogs-products/1.0/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/catalogs_products_v1.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact already cited by the stored file. It fails native validation only on representation defects; the exact recipe maintenance/patches/paypal-catalogs-products.json corrects them without changing accepted values (reviewed at 90e8041ffe02d80c452d2b476bedd59a8d219bdc). Refresh in place at a fixed declared version.",
+      "coverage": "PayPal REST Catalog Products v1 only. Preserve OAuth2 security, vendor examples and descriptions.",
+      "patches": [
+        "maintenance/patches/paypal-catalogs-products.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-notifications-webhooks",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/notifications-webhooks/1.11/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/notifications_webhooks_v1.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact already cited by the stored file. It fails native validation only on representation defects; the exact recipe maintenance/patches/paypal-notifications-webhooks.json corrects them without changing accepted values (reviewed at 90e8041ffe02d80c452d2b476bedd59a8d219bdc). Refresh in place at a fixed declared version.",
+      "coverage": "PayPal REST Webhooks Management v1 only. Preserve OAuth2 security, vendor examples and descriptions.",
+      "patches": [
+        "maintenance/patches/paypal-notifications-webhooks.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-payment-experience-web-profiles",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/payment-experience-web-profiles/1.3/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/payment-experience_web_experience_profiles_v1.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact already cited by the stored file. It fails native validation only on representation defects; the exact recipe maintenance/patches/paypal-payment-experience-web-profiles.json corrects them without changing accepted values (reviewed at 90e8041ffe02d80c452d2b476bedd59a8d219bdc). Refresh in place at a fixed declared version.",
+      "coverage": "PayPal REST Payment Experience Web Profiles v1 only. Preserve OAuth2 security, vendor examples and descriptions.",
+      "patches": [
+        "maintenance/patches/paypal-payment-experience-web-profiles.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-customer-partner-referrals",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/customer-partner-referrals/2.5/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/customer_partner_referrals_v2.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact already cited by the stored file. It fails native validation only on representation defects; the exact recipe maintenance/patches/paypal-customer-partner-referrals.json corrects them without changing accepted values (reviewed at 90e8041ffe02d80c452d2b476bedd59a8d219bdc). Refresh in place at a fixed declared version.",
+      "coverage": "PayPal REST Partner Referrals v2 only. Preserve OAuth2 security, vendor examples and descriptions.",
+      "patches": [
+        "maintenance/patches/paypal-customer-partner-referrals.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-invoicing",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/invoicing/2.6/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/invoicing_v2.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact already cited by the stored file. It fails native validation only on representation defects; the exact recipe maintenance/patches/paypal-invoicing.json corrects them without changing accepted values (reviewed at 90e8041ffe02d80c452d2b476bedd59a8d219bdc). Refresh in place at a fixed declared version.",
+      "coverage": "PayPal REST Invoicing v2 only. Preserve OAuth2 security, vendor examples and descriptions.",
+      "patches": [
+        "maintenance/patches/paypal-invoicing.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "paypal-payments",
+      "provider": "paypal.com",
+      "target": "APIs/paypal.com/payments/2.12/openapi.yaml",
+      "github": {
+        "repository": "paypal/paypal-rest-api-specifications",
+        "ref": "main",
+        "path": "openapi/payments_payment_v2.json"
+      },
+      "discovery": "Official paypal/paypal-rest-api-specifications artifact already cited by the stored file. It fails native validation only on representation defects; the exact recipe maintenance/patches/paypal-payments.json corrects them without changing accepted values (reviewed at 90e8041ffe02d80c452d2b476bedd59a8d219bdc). Refresh in place at a fixed declared version.",
+      "coverage": "PayPal REST Payments v2 only. Preserve OAuth2 security, vendor examples and descriptions.",
+      "patches": [
+        "maintenance/patches/paypal-payments.json"
+      ],
       "version_policy": "vendor",
       "priority": "high"
     }

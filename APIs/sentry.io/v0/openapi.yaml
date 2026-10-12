@@ -11,10 +11,10 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/getsentry/sentry-api-schema/7644b769d158f83bc0079e77566bf6247f1c6c0c/openapi-derefed.json
+      url: https://raw.githubusercontent.com/getsentry/sentry-api-schema/377fc3e171804d7c7e1991c4342bdb4eb7f8a2ba/openapi-derefed.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/getsentry/sentry-api-schema/7644b769d158f83bc0079e77566bf6247f1c6c0c/openapi-derefed.json at commit 7644b769d158f83bc0079e77566bf6247f1c6c0c; entry source SHA-256 36523e3f4e861a452216d02175e5401e175e3fbfd8b83371be18b3e96c319f2c.
+    - Fetched from https://raw.githubusercontent.com/getsentry/sentry-api-schema/377fc3e171804d7c7e1991c4342bdb4eb7f8a2ba/openapi-derefed.json at commit 377fc3e171804d7c7e1991c4342bdb4eb7f8a2ba; entry source SHA-256 7a8678be286679d622b38d1e850c6881b195397b97c88cd1d4b4cbbb42c0152c.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
     - Preserved existing APIs.guru curation metadata from APIs/sentry.io/v0/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
@@ -1819,7 +1819,7 @@ paths:
   /api/0/organizations/{organization_id_or_slug}/agents/conversations/:
     get:
       operationId: listOrganizationAIConversations
-      description: "**Experimental:** This API is under active development and may change.\n\nReturn AI conversations ordered by latest span time.\n\n`query` uses Sentry search syntax.\n\n**Span filters**\n\n- Description: `\"payment failed\"`; status: `span.status:[error,internal_error]`.\n- Operation: `gen_ai.operation.type:tool`; tool: `gen_ai.tool.name:get_weather`.\n- Duration: `span.duration:>2s`; ID: `gen_ai.conversation.id:\"session:123\"`\n  or `conversation.conversationId:\"session:123\"`.\n\n**Conversation filters**\n\n- Calls: `conversation.llmCalls` or `conversation.messages`, and\n  `conversation.toolCalls`; failures: `conversation.errors` and\n  `conversation.toolErrors`.\n- Usage: `conversation.inputTokens`, `conversation.outputTokens`,\n  `conversation.totalTokens`, and `conversation.totalCost`.\n- Duration: `conversation.duration` sums AI spans;\n  `conversation.generationDuration` sums LLM calls.\n\nUse numeric comparisons such as `conversation.toolCalls:>2`. Queries return\nconversations, not spans. Each `AND` condition may match a different span.\nReturned totals include all AI spans in selected project, environment, and time\nfilters, not only matching spans.\n\nNegation means no span matches, including when an attribute is absent. Payloads\nare searchable only when recorded and not scrubbed. Payload failure text does\nnot mark a span as failed; set `span.status:error` for reliable failure search."
+      description: "**Experimental:** This API is under active development and may change.\n\nReturn AI conversations ordered by latest span time.\n\n`query` uses Sentry search syntax.\n\n**Span filters**\n\n- Description: `\"payment failed\"`; status: `span.status:[error,internal_error]`.\n- Operation: `gen_ai.operation.type:tool`; tool: `gen_ai.tool.name:get_weather`.\n- Duration: `span.duration:>2s`; ID: `gen_ai.conversation.id:\"session:123\"`\n  or `conversation.conversationId:\"session:123\"`.\n\n**Conversation filters**\n\n- Calls: `conversation.llmCalls` or `conversation.messages`, and\n  `conversation.toolCalls`; failures: `conversation.errors` and\n  `conversation.toolErrors`.\n- Usage: `conversation.inputTokens`, `conversation.outputTokens`,\n  `conversation.totalTokens`, and `conversation.totalCost`.\n- Timespan: `conversation.timeSpan` measures elapsed time between first and last AI spans;\n  `conversation.generationDuration` sums LLM call durations. Both use milliseconds.\n\nUse numeric comparisons such as `conversation.toolCalls:>2`. Queries return\nconversations, not spans. Each `AND` condition may match a different span.\nReturned totals include all AI spans in selected project, environment, and time\nfilters, not only matching spans.\n\nNegation means no span matches, including when an attribute is absent. Payloads\nare searchable only when recorded and not scrubbed. Payload failure text does\nnot mark a span as failed; set `span.status:error` for reliable failure search."
       summary: List an Organization's AI Conversations
       parameters:
         - in: path
@@ -1947,6 +1947,9 @@ paths:
                       type: integer
                     conversationId:
                       type: string
+                    timeSpan:
+                      type: number
+                      format: double
                     title:
                       type: string
                       nullable: true
@@ -2021,6 +2024,7 @@ paths:
                     - projectId
                     - projects
                     - startTimestamp
+                    - timeSpan
                     - title
                     - toolCalls
                     - toolErrors
@@ -2051,6 +2055,7 @@ paths:
                       inputTokens: 320
                       outputTokens: 165
                       totalCost: 0.0042
+                      timeSpan: 2500
                       generationDuration: 1250.5
                       startTimestamp: 1743465600000
                       endTimestamp: 1743465602500
@@ -15449,26 +15454,6 @@ paths:
                 items:
                   type: object
                   properties:
-                    alertRule:
-                      type: object
-                      properties:
-                        targets:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              targetIdentifier:
-                                type: integer
-                              targetType:
-                                type: string
-                            required:
-                              - targetIdentifier
-                              - targetType
-                        environment:
-                          type: string
-                      required:
-                        - environment
-                        - targets
                     id:
                       type: string
                     name:
@@ -17654,41 +17639,6 @@ paths:
                 is_muted:
                   type: boolean
                   description: Disable creation of monitor incidents
-                alert_rule:
-                  allOf:
-                    - type: object
-                      properties:
-                        environment:
-                          type: string
-                          nullable: true
-                          description: Name of the environment
-                          maxLength: 64
-                        targets:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              target_identifier:
-                                type: integer
-                                description: ID of target object
-                              target_type:
-                                enum:
-                                  - Member
-                                  - Team
-                                type: string
-                                description: 'One of [Member, Team]
-
-
-                                  * `Member`
-
-                                  * `Team`'
-                            required:
-                              - target_identifier
-                              - target_type
-                          description: Array of dictionaries with information of the user or team to be notified
-                      required:
-                        - targets
-                  description: Alert rule configuration created alongside the monitor.
               required:
                 - config
                 - name
@@ -17707,26 +17657,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  alertRule:
-                    type: object
-                    properties:
-                      targets:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            targetIdentifier:
-                              type: integer
-                            targetType:
-                              type: string
-                          required:
-                            - targetIdentifier
-                            - targetType
-                      environment:
-                        type: string
-                    required:
-                      - environment
-                      - targets
                   id:
                     type: string
                   name:
@@ -18057,26 +17987,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  alertRule:
-                    type: object
-                    properties:
-                      targets:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            targetIdentifier:
-                              type: integer
-                            targetType:
-                              type: string
-                          required:
-                            - targetIdentifier
-                            - targetType
-                      environment:
-                        type: string
-                    required:
-                      - environment
-                      - targets
                   id:
                     type: string
                   name:
@@ -20268,41 +20178,6 @@ paths:
                 is_muted:
                   type: boolean
                   description: Disable creation of monitor incidents
-                alert_rule:
-                  allOf:
-                    - type: object
-                      properties:
-                        environment:
-                          type: string
-                          nullable: true
-                          description: Name of the environment
-                          maxLength: 64
-                        targets:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              target_identifier:
-                                type: integer
-                                description: ID of target object
-                              target_type:
-                                enum:
-                                  - Member
-                                  - Team
-                                type: string
-                                description: 'One of [Member, Team]
-
-
-                                  * `Member`
-
-                                  * `Team`'
-                            required:
-                              - target_identifier
-                              - target_type
-                          description: Array of dictionaries with information of the user or team to be notified
-                      required:
-                        - targets
-                  description: Alert rule configuration created alongside the monitor.
               required:
                 - config
                 - name
@@ -20320,26 +20195,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  alertRule:
-                    type: object
-                    properties:
-                      targets:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            targetIdentifier:
-                              type: integer
-                            targetType:
-                              type: string
-                          required:
-                            - targetIdentifier
-                            - targetType
-                      environment:
-                        type: string
-                    required:
-                      - environment
-                      - targets
                   id:
                     type: string
                   name:
@@ -32990,6 +32845,106 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  /api/0/organizations/{organization_id_or_slug}/starred-service-spans/:
+    post:
+      operationId: starOrganizationServiceSpan
+      description: '**Experimental:** This API is under active development and may change.
+
+
+        Star a service span for the requesting user. Span queries expose this as the
+
+        `is_starred_transaction` field. Returns `403` if the user has already starred
+
+        the service span.'
+      summary: Star a Service Span
+      parameters:
+        - in: path
+          name: organization_id_or_slug
+          schema:
+            type: string
+          description: The ID or slug of the organization the resource belongs to.
+          required: true
+      tags:
+        - Explore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service_span:
+                  type: string
+                  description: The name of the service span to star or unstar.
+                project_id:
+                  type: integer
+                  minimum: 1
+                  description: The ID of the project the service span belongs to.
+              required:
+                - project_id
+                - service_span
+        required: true
+      security:
+        - auth_token:
+            - member:read
+            - member:write
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-sentry-experimental: true
+    delete:
+      operationId: unstarOrganizationServiceSpan
+      description: '**Experimental:** This API is under active development and may change.
+
+
+        Unstar a service span for the requesting user. Succeeds even if the
+
+        service span was not starred.'
+      summary: Unstar a Service Span
+      parameters:
+        - in: path
+          name: organization_id_or_slug
+          schema:
+            type: string
+          description: The ID or slug of the organization the resource belongs to.
+          required: true
+        - in: query
+          name: service_span
+          schema:
+            type: string
+          description: The name of the service span to unstar.
+          required: true
+        - in: query
+          name: project_id
+          schema:
+            type: integer
+          description: The ID of the project the service span belongs to.
+          required: true
+      tags:
+        - Explore
+      security:
+        - auth_token:
+            - member:read
+            - member:write
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-sentry-experimental: true
   /api/0/organizations/{organization_id_or_slug}/stats-summary/:
     get:
       operationId: getOrganizationStatsSummary
@@ -45519,26 +45474,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  alertRule:
-                    type: object
-                    properties:
-                      targets:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            targetIdentifier:
-                              type: integer
-                            targetType:
-                              type: string
-                          required:
-                            - targetIdentifier
-                            - targetType
-                      environment:
-                        type: string
-                    required:
-                      - environment
-                      - targets
                   id:
                     type: string
                   name:
@@ -47736,41 +47671,6 @@ paths:
                 is_muted:
                   type: boolean
                   description: Disable creation of monitor incidents
-                alert_rule:
-                  allOf:
-                    - type: object
-                      properties:
-                        environment:
-                          type: string
-                          nullable: true
-                          description: Name of the environment
-                          maxLength: 64
-                        targets:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              target_identifier:
-                                type: integer
-                                description: ID of target object
-                              target_type:
-                                enum:
-                                  - Member
-                                  - Team
-                                type: string
-                                description: 'One of [Member, Team]
-
-
-                                  * `Member`
-
-                                  * `Team`'
-                            required:
-                              - target_identifier
-                              - target_type
-                          description: Array of dictionaries with information of the user or team to be notified
-                      required:
-                        - targets
-                  description: Alert rule configuration created alongside the monitor.
               required:
                 - config
                 - name
@@ -47788,26 +47688,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  alertRule:
-                    type: object
-                    properties:
-                      targets:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            targetIdentifier:
-                              type: integer
-                            targetType:
-                              type: string
-                          required:
-                            - targetIdentifier
-                            - targetType
-                      environment:
-                        type: string
-                    required:
-                      - environment
-                      - targets
                   id:
                     type: string
                   name:
@@ -75206,6 +75086,9 @@ components:
             type: integer
           conversationId:
             type: string
+          timeSpan:
+            type: number
+            format: double
           title:
             type: string
             nullable: true
@@ -75280,6 +75163,7 @@ components:
           - projectId
           - projects
           - startTimestamp
+          - timeSpan
           - title
           - toolCalls
           - toolErrors
@@ -78456,26 +78340,6 @@ components:
     Monitor:
       type: object
       properties:
-        alertRule:
-          type: object
-          properties:
-            targets:
-              type: array
-              items:
-                type: object
-                properties:
-                  targetIdentifier:
-                    type: integer
-                  targetType:
-                    type: string
-                required:
-                  - targetIdentifier
-                  - targetType
-            environment:
-              type: string
-          required:
-            - environment
-            - targets
         id:
           type: string
         name:
@@ -78756,84 +78620,11 @@ components:
         - project
         - slug
         - status
-    MonitorAlertRuleTargetValidator:
-      type: object
-      properties:
-        target_identifier:
-          type: integer
-          description: ID of target object
-        target_type:
-          enum:
-            - Member
-            - Team
-          type: string
-          description: 'One of [Member, Team]
-
-
-            * `Member`
-
-            * `Team`'
-      required:
-        - target_identifier
-        - target_type
-    MonitorAlertRuleValidator:
-      type: object
-      properties:
-        environment:
-          type: string
-          nullable: true
-          description: Name of the environment
-          maxLength: 64
-        targets:
-          type: array
-          items:
-            type: object
-            properties:
-              target_identifier:
-                type: integer
-                description: ID of target object
-              target_type:
-                enum:
-                  - Member
-                  - Team
-                type: string
-                description: 'One of [Member, Team]
-
-
-                  * `Member`
-
-                  * `Team`'
-            required:
-              - target_identifier
-              - target_type
-          description: Array of dictionaries with information of the user or team to be notified
-      required:
-        - targets
     MonitorList:
       type: array
       items:
         type: object
         properties:
-          alertRule:
-            type: object
-            properties:
-              targets:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    targetIdentifier:
-                      type: integer
-                    targetType:
-                      type: string
-                  required:
-                    - targetIdentifier
-                    - targetType
-              environment:
-                type: string
-            required:
-              - environment
-              - targets
           id:
             type: string
           name:
@@ -80996,41 +80787,6 @@ components:
         is_muted:
           type: boolean
           description: Disable creation of monitor incidents
-        alert_rule:
-          allOf:
-            - type: object
-              properties:
-                environment:
-                  type: string
-                  nullable: true
-                  description: Name of the environment
-                  maxLength: 64
-                targets:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      target_identifier:
-                        type: integer
-                        description: ID of target object
-                      target_type:
-                        enum:
-                          - Member
-                          - Team
-                        type: string
-                        description: 'One of [Member, Team]
-
-
-                          * `Member`
-
-                          * `Team`'
-                    required:
-                      - target_identifier
-                      - target_type
-                  description: Array of dictionaries with information of the user or team to be notified
-              required:
-                - targets
-          description: Alert rule configuration created alongside the monitor.
       required:
         - config
         - name
@@ -91030,6 +90786,19 @@ components:
         - release_has_some_artifact
         - sdk_debug_id_support
         - sdk_version
+    StarSegment:
+      type: object
+      properties:
+        service_span:
+          type: string
+          description: The name of the service span to star or unstar.
+        project_id:
+          type: integer
+          minimum: 1
+          description: The ID of the project the service span belongs to.
+      required:
+        - project_id
+        - service_span
     StatusDetailsValidator:
       type: object
       properties:

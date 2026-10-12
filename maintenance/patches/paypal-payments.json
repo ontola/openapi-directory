@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "description": "Five boolean properties declare the string default \"false\"; each becomes the boolean false it states (as in the Xero recipe). Types, other constraints and descriptions are unchanged.",
+  "operations": [
+    {
+      "pointer": "#/components/schemas/payment_method_common/properties/can_be_vaulted/default",
+      "from": "false",
+      "context": {
+        "type": "boolean",
+        "description": "Indicates if the payment method can be vaulted or not. A true value indicates the payment method can be vaulted using our vaults product. If false, vaulting is not currently supported for this payment method."
+      },
+      "value": false
+    },
+    {
+      "pointer": "#/components/schemas/paypal/allOf/1/properties/recommended/default",
+      "from": "false",
+      "context": {
+        "type": "boolean",
+        "description": "Indicates if the payment method is recommended or not. A true value indicates the customer is payment ready and this payment method may be presented upfront."
+      },
+      "value": false
+    },
+    {
+      "pointer": "#/components/schemas/venmo/allOf/1/properties/recommended/default",
+      "from": "false",
+      "context": {
+        "type": "boolean",
+        "description": "Indicates if the payment method is recommended or not. A true value indicates the customer is payment ready and this payment method may be presented upfront."
+      },
+      "value": false
+    },
+    {
+      "pointer": "#/components/schemas/find_eligible_methods_request_preferences/properties/include_account_details/default",
+      "from": "false",
+      "context": {
+        "type": "boolean",
+        "description": "If this value is set to true, response will include confirmation if the customer has PayPal and/or Venmo accounts if they are eligible payment methods. Value defaults to false."
+      },
+      "value": false
+    },
+    {
+      "pointer": "#/components/schemas/find_eligible_methods_request_preferences/properties/include_vault_tokens/default",
+      "from": "false",
+      "context": {
+        "type": "boolean",
+        "description": "If this value is set to true, response will include vaulted token information if the eligible funding source has any instrument vaulted for the customer. Value defaults to false."
+      },
+      "value": false
+    }
+  ]
+}

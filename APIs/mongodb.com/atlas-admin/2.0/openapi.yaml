@@ -3946,6 +3946,7 @@ components:
         - EUROPE_WEST1
         - US_EAST4
         - US_WEST1
+        - ASIA_SOUTH1
       type: string
     ApiUserEventTypeViewForNdsGroup:
       description: Unique identifier of event type.
@@ -46014,13 +46015,13 @@ info:
   termsOfService: https://www.mongodb.com/mongodb-management-service-terms-and-conditions
   title: MongoDB Atlas Administration API
   version: '2.0'
-  x-xgen-sha: 4cc01dbb4cd4a11933ea23c6ee41bdbf67d6f49a
+  x-xgen-sha: 203b9c5d88c5ee74b0f62f7982ceced8469989aa
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/mongodb/openapi/2ff7ba0626396efb40b270106efa108a3137bbf1/openapi/v2.json
+      url: https://raw.githubusercontent.com/mongodb/openapi/6689b5deab633644e9ba6ef6f31c236c5292b9ed/openapi/v2.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/mongodb/openapi/2ff7ba0626396efb40b270106efa108a3137bbf1/openapi/v2.json at commit 2ff7ba0626396efb40b270106efa108a3137bbf1; entry source SHA-256 b8e3a8d08c8db92b1b72b5bc59620825a9aeaacc4f9afc1bceab58cd0027e5b3.
+    - Fetched from https://raw.githubusercontent.com/mongodb/openapi/6689b5deab633644e9ba6ef6f31c236c5292b9ed/openapi/v2.json at commit 6689b5deab633644e9ba6ef6f31c236c5292b9ed; entry source SHA-256 717427cfc0e6b745f984abb7736e721f00398079504a865c34590323871ebe64.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
     - Preserved existing APIs.guru curation metadata from APIs/mongodb.com/atlas-admin/2.0/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.

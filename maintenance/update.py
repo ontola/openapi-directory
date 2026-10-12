@@ -419,13 +419,34 @@ def stats(spec):
             "operations": len(operation_set(spec)), "format": spec.get("openapi", spec.get("swagger"))}
 
 
-def compare(old, new):
+def without_examples(value, parent=None):
+    """Copy without OpenAPI example/examples values (not schema properties of that name)."""
+    if isinstance(value, dict):
+        return {k: without_examples(v, k) for k, v in value.items()
+                if parent == "properties" or k not in {"example", "examples"}}
+    if isinstance(value, list):
+        return [without_examples(v) for v in value]
+    return value
+
+
+def compare(old, new, source=None):
     if old is None:
         return {"status": "missing", "source": stats(new)}
     old_view = comparison_content(old)
     new_view = comparison_content(preserve_curation(old, new))
     changed = canonical(old_view) != canonical(new_view)
-    return {
+    volatile = False
+    if changed and source is not None and source.get("volatile_examples") is True:
+        # Reviewed opt-in for vendors that regenerate random example IDs/timestamps
+        # (and, with stable_directory, a per-build version stamp) on every build:
+        # such changes alone are not content drift. Everything else still counts.
+        a, b = without_examples(old_view), without_examples(new_view)
+        if source.get("version_policy") == "stable_directory":
+            a["info"].pop("version", None)
+            b["info"].pop("version", None)
+        if canonical(a) == canonical(b):
+            changed, volatile = False, True
+    result = {
         "status": "changed" if changed else "matches_source",
         "stored": stats(old), "source": stats(new),
         "added_paths": sorted(set(new["paths"]) - set(old["paths"])),
@@ -433,6 +454,9 @@ def compare(old, new):
         "added_operations": sorted(operation_set(new) - operation_set(old)),
         "removed_operations": sorted(operation_set(old) - operation_set(new)),
     }
+    if volatile:
+        result["volatile_example_changes_only"] = True
+    return result
 
 
 def destination(source, spec):
@@ -442,8 +466,14 @@ def destination(source, spec):
     target = Path(source["target"])
     if target.parts[:2] != ("APIs", source["provider"]) or target.name != "openapi.yaml" or ".." in target.parts:
         raise ValueError("Target must be an OpenAPI YAML path inside the provider directory")
-    if source.get("version_policy") != "vendor":
-        raise ValueError("This initial importer supports only declared vendor versions")
+    policy = source.get("version_policy")
+    if policy == "stable_directory":
+        # Vendors that stamp every release (e.g. Moneybird "v2-<date>-<hash>")
+        # keep one reviewed API-major directory, refreshed in place; the exact
+        # vendor version stays recorded in the document and its provenance.
+        return target
+    if policy != "vendor":
+        raise ValueError("This importer supports only declared vendor versions or a reviewed stable directory")
     return target.parent.parent / version / "openapi.yaml"
 
 
@@ -676,7 +706,7 @@ def audit(source, base, cache, health_checker=None):
         cache_snapshot(cache, source["id"], raw, metadata)
         dest = str(destination(source, spec))
         baseline_path, old = baseline(source, spec, base)
-        result.update(compare(old, spec), fetch=metadata, destination=dest,
+        result.update(compare(old, spec, source), fetch=metadata, destination=dest,
                       baseline=baseline_path)
         result["last_successful_comparison"] = now()
         result["validation_errors"] = validate_document(spec)
@@ -744,7 +774,7 @@ def main(argv=None):
         old_dest = stored(str(dest), args.base)
         baseline_path, old = baseline(source, spec, args.base)
         manifest_change = advance_target(args.manifest, source, dest)
-        if old_dest and compare(old_dest, spec)["status"] == "matches_source":
+        if old_dest and compare(old_dest, spec, source)["status"] == "matches_source":
             if manifest_change:
                 errors = validate_document(spec)
                 if errors:

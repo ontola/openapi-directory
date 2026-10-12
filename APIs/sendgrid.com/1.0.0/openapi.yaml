@@ -19,6 +19,8 @@ info:
     - format: openapi
       url: https://raw.githubusercontent.com/sendgrid/sendgrid-oai/main/oai.json
       version: "3.0"
+  x-conversion:
+    - 'Fixed for strict YAML parsers (2026-10-08, ontola/openapi-directory#179): three double-quoted example city strings held raw C1 control characters (U+009F, U+0091, U+0090, U+009C), which YAML forbids unescaped. Wrote them as \x9f, \x91, \x90 and \x9c escapes; every string value is unchanged.'
   x-providerName: sendgrid.com
 externalDocs:
   url: https://sendgrid.com/docs/API_Reference/Web_API_v3/index.html
@@ -12999,7 +13001,7 @@ paths:
                           - TdnvS3nMStREn@miFjGzNDCPZWhiswJNxrFnOYdUAZEpesQ.yxpu
                           - xRzGDTTzzbYK@eJ.wpgb
                           - iI1rOpx2ct@aZhuYGZBxJLZ.phr
-                        city: "ĔȸąÂ¸ȠɏbɄ"
+                        city: "Ĕȸą\x9fÂ¸ȠɏbɄ"
                         contact_id: db637d33-bce1-462c-ae9c-91ec4f761de6
                         country: do
                         first_name: ea et eu
@@ -13166,7 +13168,7 @@ paths:
                           - T9c2Y@HjVQY.zz
                           - p7ShfET@vMMnTUqoqngPSEqbpyoeWN.jlqn
                           - 0VJSIhIUT2k@mJXVtdZVKKswW.xoca
-                        city: "ÝǘźƝǝƉƝ"
+                        city: "ÝǘźƝǝƉ\x91Ɲ\x90"
                         contact_id: 449767ca-d446-45f1-aa9b-432f441b5ca1
                         country: id sunt nisi
                         custom_fields:
@@ -27056,7 +27058,7 @@ components:
               - ZNSN5@czAMqPi.at
               - 7wr51kFVVKlcBSH@DWxOueOZepetzBrku.qosk
               - iib-ObtO7Fxz5@vLJPRIFKPOqJGCEqcIDab.ypn
-            city: "ȎţȸÛ\tč\vCŁ"
+            city: "\x9cȎţȸÛ\tč\vCŁ"
             contact_id: c1183ada-b784-49ac-9b1f-50e73578a6dc
             country: do reprehenderit qui
             custom_fields:

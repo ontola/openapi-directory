@@ -1,0 +1,548 @@
+{
+  "schema_version": 1,
+  "description": "Removed the sibling schema from 35 parameter Reference Objects. OpenAPI 3.1 allows only summary and description beside $ref in a Reference Object and states that any other added properties SHALL be ignored, so removal keeps the document's defined meaning. The removed siblings carried per-endpoint example/enum/type overrides that the vendor's documentation renderer may display; they are not part of the specified contract. Referenced parameters and all Schema Object $ref siblings are unchanged.",
+  "operations": [
+    {
+      "pointer": "#/paths/~1v2~1balances/get/parameters/1/schema",
+      "from": {
+        "type": "string",
+        "example": "bal_gVMhHKqSSRYJyPsuoPNFH"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1balances~1{balanceId}~1transactions/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "baltr_QM24QwzUWR4ev4Xfgyt29A"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1settlements/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "stl_jDk30akdN"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1settlements~1{settlementId}~1captures/get/parameters/2/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Embed the payments that the captures were created for."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1settlements~1{settlementId}~1refunds/get/parameters/2/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Embed the payment related to this refund."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1settlements~1{settlementId}~1chargebacks/get/parameters/2/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Include the payment these chargebacks were issued for."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1invoices/get/parameters/2/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "example": "inv_xBEbP9rvAq"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1profiles/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "pfl_QkEhN94Ba"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1clients/get/parameters/0/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "example": "organization"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1clients/get/parameters/1/schema",
+      "from": {
+        "type": "string",
+        "example": "org_12345678"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1clients~1{organizationId}/get/parameters/0/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "example": "organization"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1webhooks/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "hook_B2EyhTH5N4KWUnoYPcgiH"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1connect~1balance-transfers/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "cbtr_j8NvRAM2WNZtsykpLEX8J"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payments/post/parameters/0/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "details.qrCode"
+        ],
+        "x-enumDescriptions": {
+          "details.qrCode": "Include a QR code object. Only available for iDEAL, Bancontact and bank transfer payments."
+        },
+        "example": "details.qrCode"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/include"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payments~1{paymentId}/get/parameters/0/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "details.qrCode",
+          "details.remainderDetails"
+        ],
+        "x-enumDescriptions": {
+          "details.qrCode": "Include a QR code object. Only available for iDEAL, Bancontact and bank transfer payments.",
+          "details.remainderDetails": "For payments where gift cards or vouchers were applied and the remaining amount\nwas paid with another payment method, this include will add another `details` object specifically for the\nremainder payment."
+        },
+        "example": "details.qrCode"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/include"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payments~1{paymentId}/get/parameters/1/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "captures",
+          "refunds",
+          "chargebacks"
+        ],
+        "x-enumDescriptions": {
+          "captures": "Embed all captures created for this payment.",
+          "refunds": "Embed all refunds created for this payment.",
+          "chargebacks": "Embed all chargebacks created for this payment."
+        },
+        "example": "captures"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1unmatched-credit-transfers/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "uct_abcDEFghij123456789"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1methods/get/parameters/8/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "issuers"
+        ],
+        "x-enumDescriptions": {
+          "issuers": "Include issuer details such as which iDEAL or gift card issuers are available."
+        },
+        "example": "issuers"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/include"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1methods~1all/get/parameters/2/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "issuers",
+          "pricing"
+        ],
+        "x-enumDescriptions": {
+          "issuers": "Include issuer details such as which iDEAL or gift card issuers are available.",
+          "pricing": "Include pricing for each payment method."
+        },
+        "example": "issuers"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/include"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1methods~1{methodId}/get/parameters/3/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "issuers"
+        ],
+        "x-enumDescriptions": {
+          "issuers": "Include issuer details such as which iDEAL or gift card issuers are available."
+        },
+        "example": "issuers"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/include"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payments~1{paymentId}~1refunds/get/parameters/2/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Embed the payment related to this refund."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payments~1{paymentId}~1refunds~1{refundId}/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Embed the payment related to this refund."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1refunds/get/parameters/3/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Embed the payment related to this refund."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payments~1{paymentId}~1chargebacks/get/parameters/2/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Include the payment these chargebacks were issued for."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payments~1{paymentId}~1chargebacks~1{chargebackId}/get/parameters/0/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Include the payment this chargeback was issued for."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1chargebacks/get/parameters/2/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Include the payment these chargebacks were issued for."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payments~1{paymentId}~1captures/get/parameters/2/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Embed the payments that the captures were created for."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payments~1{paymentId}~1captures~1{captureId}/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "enum": [
+          "payment"
+        ],
+        "x-enumDescriptions": {
+          "payment": "Embed the payment this capture was created for."
+        },
+        "example": "payment"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/embed"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1terminals~1pairing-codes/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "termpc_R7gX5Ea9bC4DkFj3G"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1terminals~1pairing-codes/post/parameters/0/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "details.qrCode"
+        ],
+        "x-enumDescriptions": {
+          "details.qrCode": "Include a QR code object."
+        },
+        "example": "details.qrCode"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/include"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1terminals~1pairing-codes~1{pairingCodeId}/get/parameters/1/schema",
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "details.qrCode"
+        ],
+        "x-enumDescriptions": {
+          "details.qrCode": "Include a QR code object."
+        },
+        "example": "details.qrCode"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/include"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1subscriptions/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "sub_rVKGtNd6s3"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1sales-invoices/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "invoice_4Y0eZitmBnQ6IDoMqZQKh"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1business-accounts~1draft-transfers/get/parameters/0/schema",
+      "from": {
+        "type": "string",
+        "example": "badrt_87GByBuj4UCcUTEbs6aGJ"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    },
+    {
+      "pointer": "#/paths/~1v2~1payouts/get/parameters/1/schema",
+      "from": {
+        "example": "payout_j8NvRAM2WNZtsykpLEX8J"
+      },
+      "remove": true,
+      "context": {
+        "$ref": "#/components/parameters/list-from"
+      }
+    }
+  ]
+}

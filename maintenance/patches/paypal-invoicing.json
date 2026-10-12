@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "description": "Corrected representation-only defects without changing accepted values: four string length limits (\"22\", \"1\") become the integers they state; two patterns using the non-ECMAScript inline flag (?i) become the exactly equivalent case-insensitive character classes for all|none and pay|details (ASCII letters only, as in non-Unicode ECMAScript case folding); one boolean default \"false\" becomes false.",
+  "operations": [
+    {
+      "pointer": "#/components/schemas/payment_reference/properties/payment_id/maxLength",
+      "from": "22",
+      "context": {
+        "type": "string",
+        "description": "The ID for the invoice payment."
+      },
+      "value": 22
+    },
+    {
+      "pointer": "#/components/schemas/payment_reference/properties/payment_id/minLength",
+      "from": "1",
+      "context": {
+        "type": "string",
+        "description": "The ID for the invoice payment."
+      },
+      "value": 1
+    },
+    {
+      "pointer": "#/components/schemas/refund_reference/properties/refund_id/maxLength",
+      "from": "22",
+      "context": {
+        "type": "string",
+        "description": "The ID of the refund of an invoice payment."
+      },
+      "value": 22
+    },
+    {
+      "pointer": "#/components/schemas/refund_reference/properties/refund_id/minLength",
+      "from": "1",
+      "context": {
+        "type": "string",
+        "description": "The ID of the refund of an invoice payment."
+      },
+      "value": 1
+    },
+    {
+      "pointer": "#/components/parameters/fields/schema/pattern",
+      "from": "(?i)^(all|none)$",
+      "context": {
+        "type": "string"
+      },
+      "value": "^([Aa][Ll][Ll]|[Nn][Oo][Nn][Ee])$"
+    },
+    {
+      "pointer": "#/components/schemas/qr_config/properties/action/pattern",
+      "from": "(?i)^(pay|details)$",
+      "context": {
+        "type": "string",
+        "description": "The type of URL for which to generate a QR code. Valid values are `pay` and `details`."
+      },
+      "value": "^([Pp][Aa][Yy]|[Dd][Ee][Tt][Aa][Ii][Ll][Ss])$"
+    },
+    {
+      "pointer": "#/components/schemas/fetchtype/properties/fetch_id/default",
+      "from": "false",
+      "context": {
+        "type": "boolean",
+        "description": "Optional to decide the number or ID."
+      },
+      "value": false
+    }
+  ]
+}

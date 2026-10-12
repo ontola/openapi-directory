@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "description": "Removed the invalid default \"default\" from the boolean base_contact_response.is_trusted property. A boolean cannot default to that string, and the vendor publishes no boolean default; no replacement default or server behavior was inferred.",
+  "operations": [
+    {
+      "pointer": "#/components/schemas/base_contact_response/properties/is_trusted/default",
+      "from": "default",
+      "remove": true,
+      "context": {
+        "type": "boolean"
+      }
+    }
+  ]
+}

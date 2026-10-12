@@ -54,6 +54,8 @@ def path_kind(path: str, op_id: str) -> tuple[str, str]:
         return "child_or_singleton", "child resource or singleton-only endpoint"
     if re.search(r"/(find_by_[^/]+|customer_id)/", p):
         return "lookup_helper", "duplicate lookup for a primary collection"
+    if p.endswith("/doubles{format}"):
+        return "lookup_helper", "possible-duplicate record lookup for a primary collection"
     # Collection paths have no terminal path parameter; detail paths do.
     if re.search(r"/\{[^}]+\}\{format\}$", path):
         return "primary_detail", "primary record detail endpoint"

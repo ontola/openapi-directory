@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "description": "Removed duplicate values from two enums (identifier.type and product), keeping first-occurrence order. An enum is a set of allowed values, so the accepted values are unchanged.",
+  "operations": [
+    {
+      "pointer": "#/components/schemas/identifier/properties/type/enum",
+      "from": [
+        "BANK_CODE",
+        "BI_CODE",
+        "BRANCH_CODE",
+        "ROUTING_NUMBER_1",
+        "ROUTING_NUMBER_2",
+        "ROUTING_NUMBER_3",
+        "SWIFT_CODE",
+        "BRANCH_CODE",
+        "INTERMEDIARY_SWIFT_CODE",
+        "BBAN",
+        "BBAN_ENCRYPTED",
+        "BBAN_HMAC",
+        "AGGREGATOR_YODLEE"
+      ],
+      "context": {
+        "type": "string",
+        "description": "The bank account ID type."
+      },
+      "value": [
+        "BANK_CODE",
+        "BI_CODE",
+        "BRANCH_CODE",
+        "ROUTING_NUMBER_1",
+        "ROUTING_NUMBER_2",
+        "ROUTING_NUMBER_3",
+        "SWIFT_CODE",
+        "INTERMEDIARY_SWIFT_CODE",
+        "BBAN",
+        "BBAN_ENCRYPTED",
+        "BBAN_HMAC",
+        "AGGREGATOR_YODLEE"
+      ]
+    },
+    {
+      "pointer": "#/components/schemas/product/enum",
+      "from": [
+        "ALIPAY",
+        "BANCONTACT",
+        "BLIK",
+        "EPS",
+        "PPCP",
+        "EXPRESS_CHECKOUT",
+        "PAYMENT_METHODS",
+        "ADVANCED_VAULTING",
+        "IDEAL",
+        "MB_WAY",
+        "MULTIBANCO",
+        "PAYPAL_COMMERCE_PLATFORM_BUSINESS",
+        "PPPLUS",
+        "PRZELEWY24",
+        "SATISPAY",
+        "TRUSTLY",
+        "WECHAT_PAY",
+        "WEBSITE_PAYMENT_PRO",
+        "ZETTLE",
+        "PAYPAL_COMMERCE_PLATFORM_BUSINESS",
+        "HYPERWALLET_PAYOUTS"
+      ],
+      "context": {
+        "type": "string",
+        "title": "Product Name",
+        "description": "The PayPal product for which the customer is onboarded."
+      },
+      "value": [
+        "ALIPAY",
+        "BANCONTACT",
+        "BLIK",
+        "EPS",
+        "PPCP",
+        "EXPRESS_CHECKOUT",
+        "PAYMENT_METHODS",
+        "ADVANCED_VAULTING",
+        "IDEAL",
+        "MB_WAY",
+        "MULTIBANCO",
+        "PAYPAL_COMMERCE_PLATFORM_BUSINESS",
+        "PPPLUS",
+        "PRZELEWY24",
+        "SATISPAY",
+        "TRUSTLY",
+        "WECHAT_PAY",
+        "WEBSITE_PAYMENT_PRO",
+        "ZETTLE",
+        "HYPERWALLET_PAYOUTS"
+      ]
+    }
+  ]
+}

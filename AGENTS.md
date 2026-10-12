@@ -42,6 +42,22 @@ Projects, Payroll UK, Payroll NZ), and YNAB's hosted 1.87.0 description (documen
 `/budgets` → `/plans` rename per vendor changelog v1.79.0). All nine validate natively
 with no patches. Monitoring becomes **74 artifacts**. API files follow one PR per service.
 
+**Recorded blocks re-validated — 2026-10-08 19:01 UTC (Claude, VPS):** all eleven were
+fetched fresh and validated against main. **None is clean; no import made, no vendor
+content patched beyond existing recipes.** Current observations supersede older counts:
+Cohere still `TruncationStrategy.oneOf: []` (source unchanged at `734aafbe`); Square still
+invalid `info.externalDocs` plus undefined schemas; Slack Web archived/unsupported Swagger;
+**Meraki now 1.75.0 / 733 paths / 1,035 ops (`c88b7cf5`): the undefined `oauth2` scheme is
+in 849 requirements and a new defect appeared, a string `maximum` on
+`GET /devices/{serial}/appliance/performance` parameter 3**; Vercel 324 paths / 447 ops,
+still unsupported `patternProperties`/3.0 keywords; Mailchimp Marketing still boolean
+defaults on string notification fields; Auth0 still the Guardian device-name default vs
+pattern; Cloudflare 2,300 / 3,664 (`76115f48`), same DNS-order default and undefined
+`assets_jwt`/`pages_upload_token`; **Okta now 2026.09.2 (`d788e33f`), same hook-keys
+inline path parameter missing `required`**; Twilio Messaging and Zendesk Conversations
+validate but stay held on push protection (Q-102). Report:
+VPS `cache/maintenance/reports/claude-blocks-1008T1901/`.
+
 **Ongoing authorization — 2026-10-06:** The user explicitly said "you can continue
 past friday, no problem". The original 2026-10-09 deadline is superseded: continue
 local maintenance until the user asks to stop or pause. The existing hourly heartbeat

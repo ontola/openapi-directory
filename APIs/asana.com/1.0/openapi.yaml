@@ -107,10 +107,10 @@ info:
   x-providerName: asana.com
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/Asana/openapi/4cf6c7c629ad6c6649a517c46d9feada5357d542/defs/asana_oas.yaml
+      url: https://raw.githubusercontent.com/Asana/openapi/cd062f4e6c367f5b84f369a8c824e36bbe836ca5/defs/asana_oas.yaml
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/Asana/openapi/4cf6c7c629ad6c6649a517c46d9feada5357d542/defs/asana_oas.yaml at commit 4cf6c7c629ad6c6649a517c46d9feada5357d542; entry source SHA-256 921036ca3b7d118ef81044316aae03fe7dfabd6b28bad0b77735283f240fb106.
+    - Fetched from https://raw.githubusercontent.com/Asana/openapi/cd062f4e6c367f5b84f369a8c824e36bbe836ca5/defs/asana_oas.yaml at commit cd062f4e6c367f5b84f369a8c824e36bbe836ca5; entry source SHA-256 2423c6826079929f863d2816f06903917490f4808c8df1a147db2d30e6857d48.
     - Quoted 1556 unquoted YAML HTTP response-code keys in path operations as strings, matching JSON object-key representation. Checked exact count, integer codes 100-599 and absence of collisions; response bodies, payload keys and schema values are unchanged.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
     - Preserved existing APIs.guru curation metadata from APIs/asana.com/1.0/openapi.yaml.
@@ -7801,6 +7801,10 @@ components:
           type: string
           description: '*Optional*. The gid of the project which the time is attributable to.'
           example: '987654'
+        assignee:
+          type: string
+          description: '*Optional*. The gid of the user which the time is attributed to.'
+          example: '12345'
         billable_status:
           description: '*Optional*. The current billable status of the entry. This field requires the Timesheets and Budgets add-on; including it without the add-on returns a `402 Payment Required` error.'
           type: string
@@ -7836,6 +7840,10 @@ components:
           type: string
           description: '*Optional*. The gid of the project which the time is attributable to.'
           example: '987654'
+        assignee:
+          type: string
+          description: '*Optional*. The gid of the user this entry''s logged time is attributed to. Defaults to the current user; can only be set to another user if you''re their time reviewer or an admin. Reviewer-submitter relationships require the Timesheets and Budgets add-on.'
+          example: '12345'
         billable_status:
           description: '*Optional*. The current billable status of the entry. This field requires the Timesheets and Budgets add-on; including it without the add-on returns a `402 Payment Required` error.'
           type: string
@@ -7885,6 +7893,11 @@ components:
             - $ref: '#/components/schemas/ProjectCompact'
             - type: object
               description: The attributable to project specifies which project's budget a time entry should be counted toward, if the task belongs to more than one project. If it only belongs to one project, it should be that project.
+        assignee:
+          allOf:
+            - $ref: '#/components/schemas/UserCompact'
+            - type: object
+              description: The user this entry's logged time is attributed to.
         created_by:
           allOf:
             - $ref: '#/components/schemas/UserCompact'
@@ -44598,6 +44611,8 @@ paths:
           description: This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. Properties can include nested fields. To learn more, see the [input/output options guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -44616,6 +44631,8 @@ paths:
             items:
               type: string
               enum:
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -44855,6 +44872,8 @@ paths:
           description: This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. Properties can include nested fields. To learn more, see the [input/output options guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -44873,6 +44892,8 @@ paths:
             items:
               type: string
               enum:
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -44989,6 +45010,8 @@ paths:
           required: false
           example:
             - approval_status
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -45012,6 +45035,8 @@ paths:
               type: string
               enum:
                 - approval_status
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -45107,6 +45132,8 @@ paths:
           required: false
           example:
             - approval_status
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -45130,6 +45157,8 @@ paths:
               type: string
               enum:
                 - approval_status
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -45257,6 +45286,8 @@ paths:
           required: false
           example:
             - approval_status
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -45280,6 +45311,8 @@ paths:
               type: string
               enum:
                 - approval_status
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -45461,7 +45494,14 @@ paths:
           example: '12345'
         - name: user
           in: query
-          description: Globally unique identifier for the user to filter time tracking entries by.
+          description: '*Deprecated - please use assignee instead* Globally unique identifier for the user the time tracking entry''s logged time is attributed to, to filter time tracking entries by.'
+          schema:
+            type: string
+          example: '12345'
+          deprecated: true
+        - name: assignee
+          in: query
+          description: Globally unique identifier for the user the time tracking entry's logged time is attributed to, to filter time tracking entries by.
           schema:
             type: string
           example: '12345'
@@ -45498,6 +45538,8 @@ paths:
           description: This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. Properties can include nested fields. To learn more, see the [input/output options guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -45516,6 +45558,8 @@ paths:
             items:
               type: string
               enum:
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype

@@ -25,6 +25,8 @@ info:
     - format: openapi
       url: https://raw.githubusercontent.com/codatio/oas/main/json/Codat-Accounting.json
       version: "3.1"
+  x-conversion:
+    - 'Fixed for strict YAML parsers (2026-10-08, ontola/openapi-directory#179): two block-scalar descriptions (purchase-order totalTaxAmount, sales-order totalDiscount) began with a tab-only line, which YAML forbids as indentation. Removed only those tab-only lines; the description text is unchanged.'
   x-providerName: codat.io
   x-serviceName: accounting
 security:
@@ -43979,7 +43981,6 @@ components:
               type: number
             totalTaxAmount:
               description: |-
-                	
                 Total amount of tax included in the purchase order.
               type: number
           type: object
@@ -44481,7 +44482,6 @@ components:
               type: number
             totalDiscount:
               description: |-
-                	
                 Total value of any discounts applied to the sales order.
               type: number
             totalTaxAmount:

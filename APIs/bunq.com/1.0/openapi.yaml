@@ -1138,7 +1138,9 @@ info:
 
     #### Body
 
-    For the secret, use the API key you received. If you want to create another API key, you can do so in the bunq sandbox app (or production app for the production environment). Login, go to Profile > Security and tap 'API keys'. The freshly created API key can be assigned to one or multiple IP addresses using `POST device-server` within 4 hours before becoming invalid. As soon as you start using your API key, it will remain valid until the next sandbox reset.   For the secret, use the API key you received.
+    For the secret, use the API key you received. If you want to create another API key, you can do so in the bunq sandbox app (or production app for the production environment). Login, go to Profile > Security and tap 'API keys'. The freshly created API key can be assigned to one or multiple IP addresses using `POST device-server` within 4 hours before becoming invalid. As soon as you start using your API key, it will remain valid until the next sandbox reset.
+
+    For the secret, use the API key you received.
 
     ### <span id="topic-quickstart-opening-a-session-call-sequence-post-session-server">3. POST session-server</span>
 
@@ -1394,6 +1396,8 @@ info:
       format: openapi
       url: https://raw.githubusercontent.com/bunq/doc/master/swagger.json
       version: "3.0"
+  x-conversion:
+    - 'Fixed for strict YAML parsers (2026-10-08, ontola/openapi-directory#179): info.description contained two U+2028 LINE SEPARATOR characters inside a block scalar, which libyaml/serde_yaml treat as line breaks, ending the scalar early. Replaced them with a paragraph break; the text after the separators was kept. Only this whitespace changed; no other content.'
   x-providerName: bunq.com
 tags:
   - description: ""

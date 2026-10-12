@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "description": "Removed the type list [number, integer, string, boolean, null, array, object] from patch.value. OpenAPI 3.0 has no type arrays; a schema without type accepts exactly those seven kinds of value (including null), so the accepted values are unchanged.",
+  "operations": [
+    {
+      "pointer": "#/components/schemas/patch/properties/value/type",
+      "from": [
+        "number",
+        "integer",
+        "string",
+        "boolean",
+        "null",
+        "array",
+        "object"
+      ],
+      "context": {
+        "title": "Patch Value",
+        "description": "The value to apply. The <code>remove</code> operation does not require a value."
+      },
+      "remove": true
+    }
+  ]
+}

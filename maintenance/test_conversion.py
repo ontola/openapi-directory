@@ -103,6 +103,21 @@ class ConversionTests(unittest.TestCase):
             with self.subTest(recipe=recipe), tempfile.TemporaryDirectory() as directory, self.assertRaises(ValueError):
                 update.prepare_document(recipe, raw, metadata(raw), Path(directory))
 
+    def test_unguarded_false_nullable_extension_is_preserved_as_nullable_false(self):
+        source, spec = self.nullable_fixture()
+        spec["definitions"]["Record"]["properties"]["label"] = {"type": "string", "x-nullable": False}
+        raw = json.dumps(spec).encode(); observed = metadata(raw)
+        with tempfile.TemporaryDirectory() as directory:
+            converted, _ = update.prepare_document(source, raw, observed, Path(directory))
+        label = converted["components"]["schemas"]["Record"]["properties"]["label"]
+        self.assertEqual(label, {"type": "string", "nullable": False})
+        self.assertEqual(observed["conversion"]["patches"], 1)
+        # An unguarded *true* extension is still rejected.
+        spec["definitions"]["Record"]["properties"]["label"]["x-nullable"] = True
+        raw = json.dumps(spec).encode()
+        with tempfile.TemporaryDirectory() as directory, self.assertRaisesRegex(ValueError, "locations changed"):
+            update.prepare_document(source, raw, metadata(raw), Path(directory))
+
     def test_nullable_control_rejects_unrelated_repairs_even_with_accepted_total(self):
         source, spec = self.nullable_fixture()
         spec["definitions"]["Record"]["properties"]["variant"] = {"type": ["string", "integer"]}

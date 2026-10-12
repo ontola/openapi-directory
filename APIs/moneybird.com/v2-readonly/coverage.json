@@ -1,7 +1,7 @@
 {
   "source": "APIs/moneybird.com/v2/openapi.yaml",
-  "source_sha256": "904cadd6339aa3e7a709334ad664fdbacaa64fc17ab13a594f5fc9973fae4f47",
-  "source_get_count": 112,
+  "source_sha256": "71d3ae0c4947b5601d203444c8c6cb39ebd544e366eb64834e97111ce3053d14",
+  "source_get_count": 115,
   "imported_route_count": 63,
   "routes": [
     {
@@ -63,6 +63,21 @@
         "#/components/parameters/administration_id",
         "customer_id",
         "#/components/parameters/format"
+      ]
+    },
+    {
+      "path": "/{administration_id}/contacts/doubles.json",
+      "method": "GET",
+      "operationId": "get_administration_id_contacts_doubles",
+      "summary": "List possible duplicate contacts",
+      "kind": "lookup_helper",
+      "reason": "possible-duplicate record lookup for a primary collection",
+      "imported": false,
+      "route_in_openapi": false,
+      "parameters": [
+        "#/components/parameters/administration_id",
+        "#/components/parameters/format",
+        "#/components/parameters/page"
       ]
     },
     {
@@ -320,6 +335,7 @@
         "filter",
         "new_filter",
         "#/components/parameters/page",
+        "#/components/parameters/sort",
         "#/components/parameters/per_page"
       ]
     },
@@ -384,6 +400,7 @@
         "filter",
         "new_filter",
         "#/components/parameters/page",
+        "#/components/parameters/sort",
         "#/components/parameters/per_page",
         "exclude_new_general_journal_documents"
       ]
@@ -449,6 +466,7 @@
         "filter",
         "new_filter",
         "#/components/parameters/page",
+        "#/components/parameters/sort",
         "#/components/parameters/per_page"
       ]
     },
@@ -513,6 +531,7 @@
         "filter",
         "new_filter",
         "#/components/parameters/page",
+        "#/components/parameters/sort",
         "#/components/parameters/per_page"
       ]
     },
@@ -577,6 +596,7 @@
         "filter",
         "new_filter",
         "#/components/parameters/page",
+        "#/components/parameters/sort",
         "#/components/parameters/per_page"
       ]
     },
@@ -1077,7 +1097,7 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month"
+        "#/components/parameters/period"
       ]
     },
     {
@@ -1092,7 +1112,24 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period"
+        "#/components/parameters/period",
+        "#/components/parameters/granularity"
+      ]
+    },
+    {
+      "path": "/{administration_id}/reports/bank_balance.json",
+      "method": "GET",
+      "operationId": "get_administration_id_reports_bank_balance",
+      "summary": "Bank balance report",
+      "kind": "report",
+      "reason": "report dataset rather than a primary record collection",
+      "imported": false,
+      "route_in_openapi": false,
+      "parameters": [
+        "#/components/parameters/administration_id",
+        "#/components/parameters/format",
+        "#/components/parameters/period",
+        "#/components/parameters/granularity"
       ]
     },
     {
@@ -1107,7 +1144,8 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month",
+        "#/components/parameters/period",
+        "#/components/parameters/granularity",
         "financial_account_id"
       ]
     },
@@ -1123,7 +1161,8 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month",
+        "#/components/parameters/period",
+        "#/components/parameters/granularity",
         "#/components/parameters/page",
         "#/components/parameters/per_page"
       ]
@@ -1157,7 +1196,8 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month",
+        "#/components/parameters/period",
+        "#/components/parameters/granularity",
         "#/components/parameters/page",
         "#/components/parameters/per_page"
       ]
@@ -1191,7 +1231,8 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month",
+        "#/components/parameters/period",
+        "#/components/parameters/granularity",
         "#/components/parameters/page",
         "#/components/parameters/per_page"
       ]
@@ -1208,7 +1249,8 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month",
+        "#/components/parameters/period",
+        "#/components/parameters/granularity",
         "#/components/parameters/page",
         "#/components/parameters/per_page"
       ]
@@ -1225,7 +1267,8 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period"
+        "#/components/parameters/period",
+        "#/components/parameters/granularity"
       ]
     },
     {
@@ -1240,7 +1283,7 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month",
+        "#/components/parameters/period",
         "#/components/parameters/page",
         "#/components/parameters/per_page",
         "project_id",
@@ -1262,7 +1305,7 @@
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
         "ledger_account_id",
-        "#/components/parameters/period_month",
+        "#/components/parameters/period",
         "#/components/parameters/page",
         "#/components/parameters/per_page"
       ]
@@ -1280,6 +1323,7 @@
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
         "#/components/parameters/period",
+        "#/components/parameters/granularity",
         "project_id"
       ]
     },
@@ -1295,7 +1339,8 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month",
+        "#/components/parameters/period",
+        "#/components/parameters/granularity",
         "#/components/parameters/page",
         "#/components/parameters/per_page"
       ]
@@ -1312,7 +1357,8 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month",
+        "#/components/parameters/period",
+        "#/components/parameters/granularity",
         "#/components/parameters/page",
         "#/components/parameters/per_page"
       ]
@@ -1329,7 +1375,7 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month"
+        "#/components/parameters/period"
       ]
     },
     {
@@ -1344,7 +1390,24 @@
       "parameters": [
         "#/components/parameters/administration_id",
         "#/components/parameters/format",
-        "#/components/parameters/period_month"
+        "#/components/parameters/period",
+        "#/components/parameters/granularity"
+      ]
+    },
+    {
+      "path": "/{administration_id}/reports/working_capital.json",
+      "method": "GET",
+      "operationId": "get_administration_id_reports_working_capital",
+      "summary": "Working capital report",
+      "kind": "report",
+      "reason": "report dataset rather than a primary record collection",
+      "imported": false,
+      "route_in_openapi": false,
+      "parameters": [
+        "#/components/parameters/administration_id",
+        "#/components/parameters/format",
+        "#/components/parameters/period",
+        "#/components/parameters/granularity"
       ]
     },
     {
@@ -1484,6 +1547,7 @@
         "#/components/parameters/format",
         "filter",
         "#/components/parameters/page",
+        "#/components/parameters/sort",
         "#/components/parameters/per_page"
       ]
     },

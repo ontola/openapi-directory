@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "description": "Removed four empty-string defaults on array-item enums of query filters (classification levels status, field search type, screens queryString scope, workflow rule config types). An empty string is outside each declared enum; the enums, optionality and all other content are unchanged. No replacement default or server behavior was inferred.",
+  "operations": [
+    {
+      "pointer": "#/paths/~1rest~1api~13~1classification-levels/get/parameters/0/schema/items/default",
+      "from": "",
+      "remove": true,
+      "context": {
+        "type": "string",
+        "enum": [
+          "PUBLISHED",
+          "ARCHIVED",
+          "DRAFT"
+        ]
+      }
+    },
+    {
+      "pointer": "#/paths/~1rest~1api~13~1field~1search/get/parameters/2/schema/items/default",
+      "from": "",
+      "remove": true,
+      "context": {
+        "type": "string",
+        "enum": [
+          "custom",
+          "system"
+        ]
+      }
+    },
+    {
+      "pointer": "#/paths/~1rest~1api~13~1screens/get/parameters/4/schema/items/default",
+      "from": "",
+      "remove": true,
+      "context": {
+        "type": "string",
+        "enum": [
+          "GLOBAL",
+          "TEMPLATE",
+          "PROJECT"
+        ]
+      }
+    },
+    {
+      "pointer": "#/paths/~1rest~1api~13~1workflow~1rule~1config/get/parameters/2/schema/items/default",
+      "from": "",
+      "remove": true,
+      "context": {
+        "type": "string",
+        "enum": [
+          "postfunction",
+          "condition",
+          "validator"
+        ]
+      }
+    }
+  ]
+}

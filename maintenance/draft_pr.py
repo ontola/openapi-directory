@@ -154,11 +154,11 @@ def build_plan(source_id, base, cache):
             destination = str(update.destination(source, spec))
             baseline_path, old = update.baseline(source, spec, revision)
             previous = update.stored(destination, revision)
-            comparison = update.compare(old, spec)
+            comparison = update.compare(old, spec, source)
             if old is None:
                 comparison.update(added_paths=sorted(spec["paths"]), removed_paths=[],
                                   added_operations=sorted(update.operation_set(spec)), removed_operations=[])
-            if previous is None or update.compare(previous, spec)["status"] != "matches_source":
+            if previous is None or update.compare(previous, spec, source)["status"] != "matches_source":
                 result = update.import_document(source, spec, metadata, old, baseline_path)
                 content = update.serialize_document(result)
                 # Verify the whole curated vendor view, not just versions/counts.

@@ -74,7 +74,10 @@ def prepare(source, spec, metadata, cache, resolve_path=None):
         def extension_paths(value, pointer="#"):
             found = set()
             if isinstance(value, dict):
-                if "x-nullable" in value:
+                # Only true extensions are translated into counted repairs; false ones
+                # become nullable:false in both conversions and stay covered by the
+                # complete control-output equality below.
+                if value.get("x-nullable") is True:
                     found.add(pointer)
                 for key, child in value.items():
                     found |= extension_paths(child, pointer + "/" + key.replace("~", "~0").replace("/", "~1"))

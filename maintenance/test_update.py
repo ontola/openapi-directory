@@ -633,6 +633,134 @@ print(hashlib.sha256(update.serialize_document(result).encode()).hexdigest())
             with self.assertRaises(ValueError):
                 update.destination(source, document(version))
 
+    def test_stable_directory_policy_refreshes_in_place_and_keeps_guards(self):
+        source = {"target": "APIs/example.com/v2/openapi.yaml", "provider": "example.com",
+                  "version_policy": "stable_directory"}
+        for version in ("v2-20261008-2ab2a03735", "v2-20261009-0000000000"):
+            self.assertEqual(str(update.destination(source, document(version))), source["target"])
+        for version in ("", "..", "2026/10"):
+            with self.assertRaises(ValueError):
+                update.destination(source, document(version))
+        with self.assertRaises(ValueError):
+            update.destination(dict(source, target="APIs/other.com/v2/openapi.yaml"), document("v2"))
+        with self.assertRaises(ValueError):
+            update.destination(dict(source, version_policy="guess"), document("v2"))
+
+    def test_moneybird_recipe_removes_only_invalid_boolean_default_and_stops_on_vendor_fix(self):
+        source = {"patches": ["maintenance/patches/moneybird.json"]}
+        spec = {"openapi": "3.1.0", "info": {"title": "Moneybird", "version": "v2-x"}, "paths": {},
+                "components": {"schemas": {"base_contact_response": {"type": "object", "properties": {
+                    "is_trusted": {"type": "boolean", "default": "default"}}}}}}
+        self.assertTrue(update.validate_document(spec))
+        result, steps = update.prepare_document(source, json.dumps(spec).encode())
+        self.assertEqual(result["components"]["schemas"]["base_contact_response"]["properties"]["is_trusted"],
+                         {"type": "boolean"})
+        self.assertEqual(update.validate_document(result), [])
+        for fixed in ({"type": "boolean"}, {"type": "boolean", "default": False}, {"type": "string", "default": "default"}):
+            changed = copy.deepcopy(spec)
+            changed["components"]["schemas"]["base_contact_response"]["properties"]["is_trusted"] = fixed
+            with self.subTest(fixed=fixed), self.assertRaises((ValueError, KeyError)):
+                update.prepare_document(source, json.dumps(changed).encode())
+
+    def test_default_removal_recipes_replay_exactly_and_stop_on_vendor_fix(self):
+        for name in ("openai", "klaviyo", "jira-platform"):
+            source = {"patches": ["maintenance/patches/" + name + ".json"]}
+            recipe = json.loads((update.ROOT / source["patches"][0]).read_text())
+            spec = {"openapi": "3.0.3", "info": {"title": name, "version": "1"}, "paths": {}}
+            for operation in recipe["operations"]:
+                parts = [p.replace("~1", "/").replace("~0", "~") for p in operation["pointer"][2:].split("/")]
+                node = spec
+                for part in parts[:-2]:
+                    node = node.setdefault(part, {})  # minimal skeleton; dict keys stand in for indices
+                node[parts[-2]] = dict(operation["context"], **{parts[-1]: operation["from"]})
+            result, steps = update.prepare_document(source, json.dumps(spec).encode())
+            for operation in recipe["operations"]:
+                with self.assertRaises(KeyError):
+                    update.pointer(result, operation["pointer"])
+            self.assertIn(update.sha256((update.ROOT / source["patches"][0]).read_bytes()), steps[0])
+            fixed = json.loads(json.dumps(spec))
+            first = recipe["operations"][0]["pointer"]
+            parent = update.pointer(fixed, first.rsplit("/", 1)[0])
+            del parent[first.rsplit("/", 1)[1]]
+            with self.subTest(recipe=name), self.assertRaisesRegex(ValueError, "source value changed"):
+                update.prepare_document(source, json.dumps(fixed).encode())
+
+    def test_volatile_examples_opt_in_ignores_only_example_churn(self):
+        source = {"volatile_examples": True, "version_policy": "stable_directory"}
+        old = document("v2-a")
+        old["components"]["schemas"]["Thing"] = {"type": "object", "example": {"id": "1"},
+                                                 "properties": {"example": {"type": "string"}}}
+        old["paths"]["/items/{id}"]["get"]["responses"]["200"]["content"] = {
+            "application/json": {"examples": {"one": {"value": {"id": "1", "created_at": "2026-01-01"}}}}}
+        churn = copy.deepcopy(old)
+        churn["info"]["version"] = "v2-b"
+        churn["components"]["schemas"]["Thing"]["example"] = {"id": "2"}
+        churn["paths"]["/items/{id}"]["get"]["responses"]["200"]["content"]["application/json"]["examples"]["one"]["value"]["id"] = "2"
+        result = update.compare(old, churn, source)
+        self.assertEqual(result["status"], "matches_source")
+        self.assertTrue(result["volatile_example_changes_only"])
+        self.assertEqual(update.compare(old, churn)["status"], "changed")  # strict without opt-in
+        self.assertEqual(update.compare(old, churn, dict(source, version_policy="vendor"))["status"], "changed")
+        real = copy.deepcopy(churn)
+        real["components"]["schemas"]["Thing"]["properties"]["example"]["type"] = "integer"  # a property named example
+        self.assertEqual(update.compare(old, real, source)["status"], "changed")
+        real = copy.deepcopy(churn)
+        real["paths"]["/items/{id}"]["get"]["responses"]["200"]["description"] = "Changed"
+        self.assertEqual(update.compare(old, real, source)["status"], "changed")
+
+    def test_mollie_recipe_drops_only_reference_object_schema_siblings(self):
+        source = {"patches": ["maintenance/patches/mollie.json"]}
+        recipe = json.loads((update.ROOT / source["patches"][0]).read_text())
+        operation = recipe["operations"][0]
+        self.assertEqual(len(recipe["operations"]), 35)
+        self.assertTrue(all(o["pointer"].endswith("/schema") and set(o["context"]) == {"$ref"} for o in recipe["operations"]))
+        ref = operation["context"]["$ref"]
+        target = ref.rsplit("/", 1)[1]
+        parts = [p.replace("~1", "/").replace("~0", "~") for p in operation["pointer"][2:].split("/")]
+        spec = {"openapi": "3.1.0", "info": {"title": "Mollie", "version": "1.0.0"}, "paths": {},
+                "components": {"parameters": {target: {"name": "from", "in": "query", "schema": {"type": "string"}}}}}
+        node = spec
+        for part in parts[:-3]:
+            node = node.setdefault(part, {})
+        node[parts[-3]] = [{}] * int(parts[-2]) + [{"$ref": ref, "schema": operation["from"]}] if parts[-3] == "parameters" else node
+        single = dict(recipe, operations=[operation])
+        path = update.ROOT / "maintenance/patches/mollie.json"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "maintenance/patches").mkdir(parents=True)
+            (root / "maintenance/patches/mollie.json").write_text(json.dumps(single))
+            with patch.object(update, "ROOT", root):
+                result, _ = update.prepare_document(source, json.dumps(spec).encode())
+                self.assertEqual(update.pointer(result, operation["pointer"].rsplit("/", 1)[0]), {"$ref": ref})
+                fixed = json.loads(json.dumps(spec))
+                del update.pointer(fixed, operation["pointer"].rsplit("/", 1)[0])["schema"]
+                with self.assertRaisesRegex(ValueError, "source value changed"):
+                    update.prepare_document(source, json.dumps(fixed).encode())
+
+    def test_paypal_representation_recipes_replay_exactly_and_stop_on_vendor_fix(self):
+        names = ("catalogs-products", "notifications-webhooks", "payment-experience-web-profiles",
+                 "customer-partner-referrals", "invoicing", "payments")
+        for name in names:
+            source = {"patches": ["maintenance/patches/paypal-" + name + ".json"]}
+            recipe = json.loads((update.ROOT / source["patches"][0]).read_text())
+            spec = {"openapi": "3.0.3", "info": {"title": name, "version": "1"}, "paths": {}}
+            for operation in recipe["operations"]:
+                parts = [p.replace("~1", "/").replace("~0", "~") for p in operation["pointer"][2:].split("/")]
+                node = spec
+                for part in parts[:-2]:
+                    node = node.setdefault(part, {})
+                node.setdefault(parts[-2], {}).update(dict(operation["context"], **{parts[-1]: operation["from"]}))
+            result, _ = update.prepare_document(source, json.dumps(spec).encode())
+            for operation in recipe["operations"]:
+                if operation.get("remove"):
+                    with self.assertRaises(KeyError):
+                        update.pointer(result, operation["pointer"])
+                else:
+                    self.assertEqual(update.pointer(result, operation["pointer"]), operation["value"])
+            fixed = json.loads(json.dumps(result))  # an already-corrected vendor source stops replay
+            with self.subTest(recipe=name), self.assertRaises((ValueError, KeyError)):
+                update.prepare_document(source, json.dumps(fixed).encode())
+
     def test_array_pointer_escaped_tokens_and_referenced_parameters(self):
         spec = document()
         self.assertEqual(update.pointer(spec, "#/components/schemas/Choice/oneOf/1"), {"type": "null"})

@@ -11,11 +11,11 @@ info:
     url: https://spdx.org/licenses/MIT
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/a7fdf0cecb483cea15a23081e807dce1e916c127/descriptions/2.16/api.intercom.io.yaml
+      url: https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/e2438f0663be41250d9e58b7ae12a618a9771d3d/descriptions/2.16/api.intercom.io.yaml
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/a7fdf0cecb483cea15a23081e807dce1e916c127/descriptions/2.16/api.intercom.io.yaml at commit a7fdf0cecb483cea15a23081e807dce1e916c127; entry source SHA-256 308d899ccbe08f8022d88e3d7c49d60d3485460f17227bbf9f6ae64d63311d1c.
-    - Selected numeric release 2.16 from the reviewed vendor catalog https://api.github.com/repos/intercom/Intercom-OpenAPI/contents/descriptions?ref=a7fdf0cecb483cea15a23081e807dce1e916c127; catalog SHA-256 4d8a9c5ef4b24ac6c087cb14a5659a13428e3fe3ef47c71b7b048b7e3ac8bf8f. Preview/prerelease directories and releases below 2.16 are excluded.
+    - Fetched from https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/e2438f0663be41250d9e58b7ae12a618a9771d3d/descriptions/2.16/api.intercom.io.yaml at commit e2438f0663be41250d9e58b7ae12a618a9771d3d; entry source SHA-256 58823b3e41657b6cd556a0b8f065ba9edad7db1f3900b8cde6ca52c43f8e30b4.
+    - Selected numeric release 2.16 from the reviewed vendor catalog https://api.github.com/repos/intercom/Intercom-OpenAPI/contents/descriptions?ref=e2438f0663be41250d9e58b7ae12a618a9771d3d; catalog SHA-256 e73b325de3c4ce9cfd568a699afc0e735195294cf67aa6cf8c11e00c0fedbb8b. Preview/prerelease directories and releases below 2.16 are excluded.
     - 'Applied maintenance/patches/intercom.json (SHA-256 6e2c3a0ec38f7a2b39e9d6f6428219c15fbf014c03bd3d5774bddfcd7212c2db): GET /export/reporting_data/{job_identifier} and GET /download/reporting_data/{job_identifier} omit the required path parameter. Add the same required string job_identifier path declaration used in the validated 2.14 import; retain every vendor query/header parameter and assert each complete original list plus operation summary/tags. No endpoint or response schema is invented.'
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
     - Preserved existing APIs.guru curation metadata from APIs/intercom.com/2.16/openapi.yaml.
@@ -5187,9 +5187,10 @@ paths:
                   properties:
                     attributes:
                       type: object
-                      description: 'A hash of conversation attributes. Limit to 10 attributes.
+                      description: 'A hash of conversation attributes. Limit to 20 attributes.
 
                         '
+                      maxProperties: 20
                       additionalProperties: true
                       example:
                         order_id: '98765'
@@ -31824,9 +31825,10 @@ components:
 
             These attributes can be used by Fin to provide more contextual responses.
 
-            Limit to 10 attributes.
+            Limit to 20 attributes.
 
             '
+          maxProperties: 20
           additionalProperties: true
           example:
             priority_level: high

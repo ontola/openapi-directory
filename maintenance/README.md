@@ -349,7 +349,9 @@ referenced file, so changes in helpers are detected even when the entry file is 
 The cache preserves the archive, selected files, file hashes, bundled output, and logs.
 Each import records the snapshot hash, tool version/options, and warning count.
 
-DigitalOcean's recipe has 21 reviewed component naming warnings: separate definitions
+DigitalOcean's recipe has 22 reviewed component naming warnings (the 22nd, reviewed 2026-10-08 at
+vendor `06cf2836409b25c0191f7098bcfdb6bf171237c4`, renames the new Signals `session` model
+to `session-2` because an existing, different `session` schema shares the name): separate definitions
 with identical basenames are disambiguated, retaining both contents. A changed warning
 count stops the run for review. The local bundle was compared with DigitalOcean's
 official published bundle by resolving references across paths and common components.
@@ -1142,6 +1144,147 @@ go-ahead.
   using only `contents: read` and `pull-requests: read`. It posts no status or comment.
   Posting an exact-SHA commit status (which needs `statuses: write`) is part of the
   owner-approved step.
+
+## Stable-directory version policy (Moneybird)
+
+`version_policy: "stable_directory"` refreshes one reviewed API-major directory in place.
+It is for vendors that stamp every regeneration with a new `info.version`; Moneybird
+publishes `v2-<date>-<hash>` several times a day. The exact vendor version stays in the
+document and its provenance; only the directory is stable. All other safety checks apply.
+`moneybird` follows the official `moneybird/openapi` `openapi.yml`, already cited by the
+stored `APIs/moneybird.com/v2/openapi.yaml`. Its exact recipe removes only the invalid
+string default `"default"` from the boolean `base_contact_response.is_trusted`, and stops
+replay if the vendor changes it. The generated `APIs/moneybird.com/v2-readonly` subset
+belongs to its own generator and is not touched by refreshes; regenerate it deliberately
+afterwards.
+
+## OpenAI, Klaviyo and Jira Cloud platform (registered 2026-10-08)
+
+- `openai` follows official `openai/openai-openapi` `openapi.yaml` (OpenAPI 3.1). The fixed
+  declared version 2.3.0 is refreshed in place. The exact recipe removes only three null
+  defaults that match none of their declared alternatives.
+- `klaviyo` follows official `klaviyo/openapi` `openapi/stable.json`. The README calls it
+  the full GA spec behind the docs and SDKs; `beta.json` is not registered. New stable
+  revisions (2026-07-15 at review) get new directories. The recipe removes only five
+  `font_family` defaults that match more than one `oneOf` alternative. The value remains
+  an allowed enum value and the example.
+- `jira-platform` follows the official Jira Cloud platform REST v3 download, the canonical
+  URL behind the stored file's `x-origin`. The vendor stamps every build
+  (`1001.0.0-SNAPSHOT-<sha>`), so it uses `stable_directory` for the existing
+  `jira/1001.0.0-SNAPSHOT` directory. The recipe removes only four empty-string array-item
+  defaults outside their enums. Route removals relative to the three-year-old stored
+  snapshot are source omissions. Most have replacements in the same source (the new
+  `/workflows` and `/workflowscheme` APIs); none is asserted as a runtime retirement.
+
+## Volatile example churn (Moneybird)
+
+A source may set `"volatile_examples": true` after review. The vendor then regenerates
+random example IDs and timestamps on every build. Changes confined to OpenAPI
+`example`/`examples` values (and, with `stable_directory`, the per-build `info.version`
+stamp) are reported as `matches_source` with `volatile_example_changes_only`, rather than
+as drift. Any other change, including schema properties literally named `example`, still
+counts. Moneybird is the only such source: its 2026-10-08 regeneration changed 6,428 leaves,
+all in examples apart from the version stamp. Comparisons stay strict for every other
+source and for serialized-output checks.
+
+## Netlify and Bitbucket (Swagger 2.0, registered 2026-10-08)
+
+- `netlify` follows official `netlify/open-api` `swagger.yml`, converted with the locked
+  converter. Its three counted repairs are the guarded `x-nullable: true` translations of
+  `databaseComputeSettingsRequest` (`min_cu`, `max_cu`, `sleep_timeout_seconds`); the
+  control conversion must otherwise be identical. The nullable location guard now counts
+  only `x-nullable: true`. The converter maps `x-nullable: false` to `nullable: false` in
+  both conversions without a repair, so complete control-output equality still covers it.
+  2.60.0 is imported into its own directory; the historical 2.16.0 Swagger is the initial
+  curation baseline and stays unchanged.
+- `bitbucket` follows the official hosted `https://api.bitbucket.org/swagger.json`. Its one
+  counted converter step is an already-empty response description left unchanged.
+  The in-place refresh of fixed version 2.0 drops 28 paths / 47 operations of the old
+  snapshot. All are vendor-announced removals: the Issue Tracker (changelog, 2026-08-20),
+  Connect addon linkers (changelog), the cross-workspace APIs (`/workspaces`,
+  `/repositories`, `/user/permissions/repositories`, `/user/permissions/workspaces`; Atlassian
+  end-of-life announcement with final removal in April 2026, changelog CHANGE-2770), and
+  `/pullrequests/{selected_user}` (removal announced by Atlassian staff for 2025-02-20).
+  Per-workspace replacements such as `/repositories/{workspace}` remain.
+
+## Thirteen more Twilio services (registered 2026-10-08)
+
+Conversations v1, Voice v1, Video v1, Lookup v2, Studio v2, Serverless v1, TaskRouter v1,
+Sync v1, Elastic SIP Trunking v1, Conversational Intelligence v2, Event Streams v1, Trust Hub
+v1 and Flex v1 follow their own `twilio/twilio-oai` `spec/json` artifacts. They use the same
+policy as classic REST and Verify: the vendor reset declared versions to 1.0.0 (PR 111), so
+the stored 1.55.0 files remain the initial curation baselines and history. All validate
+natively without patches. Before registration, each source was scanned for example values
+shaped like Twilio SIDs. None of these 13 adds a new realistic Account SID (`AC…`); the
+values GitHub push protection flagged for Messaging. Numbers v2, Content v1 and Insights v1
+do add such values and are deliberately **not** registered: they would hit the same push
+protection as Twilio Messaging (Q-102). Legacy or deprecated products (Autopilot, Chat,
+IP Messaging, Notify, Proxy, Frontline, Fax, Preview) are not registered either.
+
+## Resend, Pipedrive and Render (registered 2026-10-09)
+
+Three well-known providers absent from the directory, each from an official publication
+that validates natively with no patches. `resend` follows `resend/resend-openapi`
+`resend.yaml` (OpenAPI 3.1.2). `pipedrive-v1` and `pipedrive-v2` follow the two downloads
+linked from Pipedrive's API docs; they are separate APIs and not combined. `render`
+follows the OpenAPI export of Render's ReadMe-hosted API reference. Hosted sources are
+`not_assessed` for repository health.
+
+Discovery leads not registered (native defects, no recipe adopted): Mollie
+(`mollie/openapi` `specs.yaml`, 3.1 parameter-level `unevaluatedProperties`) and the
+Supabase Management API (`api.supabase.com/api/v1-json`, `const` keywords under OpenAPI
+3.0.0). Adyen Checkout v72 and Legal Entity v4 are newer than the stored files. Adyen's
+stored files carry `x-preferred` curation, so a new-version import depends on the open
+`x-preferred` decision. The stored Checkout v71 also fails the YAML 1.2 loader (a tab in a
+block scalar).
+
+## Mollie (registered 2026-10-09) and the Supabase lead
+
+`mollie` follows official `mollie/openapi` `specs.yaml` (OpenAPI 3.1, matching Mollie's
+public API). Native validation fails only on 35 parameter Reference Objects that carry a
+sibling `schema`. OpenAPI 3.1 allows only `summary`/`description` beside `$ref` in a
+Reference Object and says other properties SHALL be ignored. The exact recipe removes only
+those siblings, keeping the document's defined meaning, and stops if the vendor changes
+any of them. The siblings held per-endpoint example/enum display overrides; that loss is
+stated in provenance. Schema Object `$ref` siblings, which 3.1 allows, are untouched.
+
+The Supabase Management API (`api.supabase.com/api/v1-json`, linked from the official API
+reference) declares OpenAPI 3.0.0 but uses JSON Schema 2020-12 constructs. Most have exact
+3.0 forms (`const` → single-value `enum`, numeric `exclusiveMinimum`, `type: "null"`). Three
+`propertyNames` constraints have no 3.0 equivalent, so no constraint-preserving recipe
+exists. It stays an unregistered lead, without a dialect upgrade.
+
+## PayPal (six artifacts) and CircleCI v2 (registered 2026-10-09)
+
+The six natively valid PayPal REST artifacts already stored from
+`paypal/paypal-rest-api-specifications` are now monitored: Subscriptions v1, Orders v2,
+Payouts v1, Transaction Search v1, Shipment Tracking v1 and Payment Method Tokens v3.
+Content can change at a fixed declared version (Orders 2.32 did). Catalog Products,
+Disputes, Partner Referrals, Invoicing, Webhooks, Web Experience Profiles and Payments
+currently fail native validation: `type` as a list in a 3.0 schema, `enum` on a Parameter
+Object, duplicate enum values, and invalid defaults/limits. They are not registered;
+their stored files are unchanged. `circleci-v2` follows CircleCI's own
+`https://circleci.com/api/v2/openapi.json`, adding the missing v2 API beside the
+historical v1 file.
+
+## PayPal correction recipes (2026-10-09)
+
+Six of the seven natively invalid PayPal artifacts have exact recipes that do not change
+accepted values:
+
+- Catalog Products, Webhooks Management, Web Experience Profiles: remove the
+  `type: [number, integer, string, boolean, null, array, object]` list from `patch.value`.
+  A 3.0 schema without `type` accepts exactly those kinds, null included, as verified with
+  the pinned validator.
+- Partner Referrals: remove duplicate enum values. The allowed set is identical.
+- Invoicing: four string length limits become the integers they state. Two `(?i)` patterns
+  become exact ASCII case-insensitive classes, with 417,844 strings compared against
+  ECMAScript `/i` and zero mismatches. One `"false"` default becomes `false`.
+- Payments: five `"false"` boolean defaults become `false`.
+
+Disputes is **not** corrected. Its `enum` sits on the Parameter Object of a filter that
+accepts comma-separated multiple values, so moving it into the schema would reject valid
+input. It also has a duplicate tag and descriptive defaults that violate their own patterns.
 
 ## Path-aware PR gate
 

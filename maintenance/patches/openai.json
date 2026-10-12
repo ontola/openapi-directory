@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "description": "Removed three invalid null defaults (Realtime session tracing configuration, ConversationParam, BetaConversationParam). In each case null matches none of the declared alternatives, so the default is invalid; nullability elsewhere and every alternative are unchanged. No replacement default or server behavior was inferred.",
+  "operations": [
+    {
+      "pointer": "#/components/schemas/RealtimeSessionCreateResponseGA/properties/tracing/anyOf/0/default",
+      "from": null,
+      "remove": true,
+      "context": {
+        "title": "Tracing Configuration",
+        "oneOf": [
+          {
+            "type": "string",
+            "title": "auto",
+            "default": "auto",
+            "description": "Enables tracing and sets default values for tracing configuration options. Always `auto`.\n",
+            "enum": [
+              "auto"
+            ],
+            "x-stainless-const": true
+          },
+          {
+            "type": "object",
+            "title": "Tracing Configuration",
+            "description": "Granular configuration for tracing.\n",
+            "properties": {
+              "workflow_name": {
+                "type": "string",
+                "description": "The name of the workflow to attach to this trace. This is used to\nname the trace in the Traces Dashboard.\n"
+              },
+              "group_id": {
+                "type": "string",
+                "description": "The group id to attach to this trace to enable filtering and\ngrouping in the Traces Dashboard.\n"
+              },
+              "metadata": {
+                "type": "object",
+                "description": "The arbitrary metadata to attach to this trace to enable\nfiltering in the Traces Dashboard.\n"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "pointer": "#/components/schemas/ConversationParam/default",
+      "from": null,
+      "remove": true,
+      "context": {
+        "oneOf": [
+          {
+            "type": "string",
+            "title": "Conversation ID",
+            "description": "The unique ID of the conversation.\n"
+          },
+          {
+            "$ref": "#/components/schemas/ConversationParam-2"
+          }
+        ]
+      }
+    },
+    {
+      "pointer": "#/components/schemas/BetaConversationParam/default",
+      "from": null,
+      "remove": true,
+      "context": {
+        "oneOf": [
+          {
+            "type": "string",
+            "title": "Conversation ID",
+            "description": "The unique ID of the conversation.\n"
+          },
+          {
+            "$ref": "#/components/schemas/BetaConversationParam-2"
+          }
+        ]
+      }
+    }
+  ]
+}

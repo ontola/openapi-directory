@@ -37,5 +37,9 @@ class ConversionTests(unittest.TestCase):
         self.assertEqual(path_kind('/{administration_id}/downloads{format}', '')[0], 'primary_list')
         self.assertEqual(path_kind('/{administration_id}/sales_invoices/{id}/download_pdf{format}', '')[0], 'binary_or_helper')
 
+    def test_duplicate_lookup_does_not_create_a_second_collection(self):
+        self.assertEqual(path_kind('/{administration_id}/contacts/doubles{format}', '')[0], 'lookup_helper')
+        self.assertEqual(path_kind('/{administration_id}/contacts{format}', '')[0], 'primary_list')
+
 if __name__ == '__main__':
     unittest.main()

@@ -1,6 +1,6 @@
 {
   "source": "APIs/moneybird.com/v2/openapi.yaml",
-  "source_sha256": "904cadd6339aa3e7a709334ad664fdbacaa64fc17ab13a594f5fc9973fae4f47",
+  "source_sha256": "71d3ae0c4947b5601d203444c8c6cb39ebd544e366eb64834e97111ce3053d14",
   "collections": [
     {
       "name": "assets",

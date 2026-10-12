@@ -13,7 +13,9 @@ info:
       url: https://api.endpoints.huggingface.cloud/openapi.json
       version: '3.1'
   x-conversion:
-    - Fetched from https://api.endpoints.huggingface.cloud/openapi.json on 2026-10-02T07:04:35.008765+00:00; source SHA-256 49324380cd3c6c52e8c35b3fee7bf80e715774649e52833b1ca62e4ae130d173.
+    - Fetched from https://api.endpoints.huggingface.cloud/openapi.json on 2026-10-08T19:09:06.807654+00:00; entry source SHA-256 6fca5be0e3e9773dca6cf6b454b6c85c982edd1ff83e19dc53aaaa9f1cc57b2b.
+    - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Preserved existing APIs.guru curation metadata from APIs/huggingface.co/inference-endpoints/2.0.0/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
 paths:
   /v2/audit-logs/{namespace}:
@@ -3302,6 +3304,24 @@ components:
       properties:
         image:
           $ref: '#/components/schemas/EndpointModelImage'
+    InferenceLoadMeasure:
+      type: object
+      description: Targets of the `inferenceLoad` measure, per replica
+      properties:
+        kvCacheUsage:
+          type:
+            - number
+            - 'null'
+          format: double
+          description: 'KV cache utilization percentage (> 0, <= 100, default: 80)'
+          example: 80.0
+        requestsWaiting:
+          type:
+            - number
+            - 'null'
+          format: double
+          description: 'Average requests waiting in the engine queue (> 0, default: 5)'
+          example: 5.0
     InstanceDiff:
       type: object
       required:
@@ -3769,6 +3789,30 @@ components:
               description: Scale when pending requests exceed threshold
           example:
             pendingRequests: 10.0
+        - type: object
+          description: 'Scale on inference engine saturation: KV cache utilization, plus a waiting-queue
+
+            target so a burst is absorbed before the cache fills. Only valid for endpoints
+
+            running a vLLM or SGLang server with its metrics on, from a managed image or a
+
+            custom container launching one.'
+          required:
+            - inferenceLoad
+          properties:
+            inferenceLoad:
+              $ref: '#/components/schemas/InferenceLoadMeasure'
+              description: 'Scale on inference engine saturation: KV cache utilization, plus a waiting-queue
+
+                target so a burst is absorbed before the cache fills. Only valid for endpoints
+
+                running a vLLM or SGLang server with its metrics on, from a managed image or a
+
+                custom container launching one.'
+          example:
+            inferenceLoad:
+              kvCacheUsage: 80.0
+              requestsWaiting: 5.0
       description: Scaling metric with threshold
     ScalingToZeroDiff:
       type: object
