@@ -22,7 +22,7 @@ info:
   x-serviceName: graph
   x-tags:
     - Microsoft
-  x-preferred: true
+  x-preferred: false
 tags:
   - name: admin.admin
     x-ms-docs-toc-type: page
