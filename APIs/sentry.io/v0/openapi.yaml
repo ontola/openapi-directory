@@ -11,10 +11,10 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/getsentry/sentry-api-schema/377fc3e171804d7c7e1991c4342bdb4eb7f8a2ba/openapi-derefed.json
+      url: https://raw.githubusercontent.com/getsentry/sentry-api-schema/be372128abf013698a64d97a88c78f0eb4f4e4cf/openapi-derefed.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/getsentry/sentry-api-schema/377fc3e171804d7c7e1991c4342bdb4eb7f8a2ba/openapi-derefed.json at commit 377fc3e171804d7c7e1991c4342bdb4eb7f8a2ba; entry source SHA-256 7a8678be286679d622b38d1e850c6881b195397b97c88cd1d4b4cbbb42c0152c.
+    - Fetched from https://raw.githubusercontent.com/getsentry/sentry-api-schema/be372128abf013698a64d97a88c78f0eb4f4e4cf/openapi-derefed.json at commit be372128abf013698a64d97a88c78f0eb4f4e4cf; entry source SHA-256 9f9541ce813d3ea01a0b6a650ef339b27037ff24ab2a4e50cb324681536a72fc.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
     - Preserved existing APIs.guru curation metadata from APIs/sentry.io/v0/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
@@ -2098,6 +2098,8 @@ paths:
 
         `stats.errorToolNames` lists tools used by those spans.
 
+        `stats.inputTokens` includes cache-read and cache-write tokens.
+
         Without an explicit range, Sentry widens the search across available retention.
 
         A missing conversation returns an empty `spans` list.'
@@ -2256,10 +2258,16 @@ paths:
                         format: double
                       totalTokens:
                         type: integer
+                      cacheReadTokens:
+                        type: integer
+                      cacheWriteTokens:
+                        type: integer
                       errorToolNames:
                         type: array
                         items:
                           type: string
+                      reasoningTokens:
+                        type: integer
                       usageByModel:
                         type: array
                         items:
@@ -2304,6 +2312,8 @@ paths:
                             - totalCost
                             - totalTokens
                     required:
+                      - cacheReadTokens
+                      - cacheWriteTokens
                       - endTimestamp
                       - errorToolNames
                       - errors
@@ -2311,6 +2321,7 @@ paths:
                       - inputTokens
                       - llmCalls
                       - outputTokens
+                      - reasoningTokens
                       - startTimestamp
                       - toolCalls
                       - toolErrors
@@ -2336,6 +2347,8 @@ paths:
                         slug: weather-assistant
                     webUrl: https://sentry.io/organizations/org-slug/explore/agents/conversations/01JQZ4W8X7J2Q9B4R5M6N7P8T9/?project=1
                     stats:
+                      cacheReadTokens: 0
+                      cacheWriteTokens: 0
                       endTimestamp: 1743465601250
                       errors: 0
                       errorToolNames: []
@@ -2343,6 +2356,7 @@ paths:
                       inputTokens: 0
                       llmCalls: 1
                       outputTokens: 0
+                      reasoningTokens: 0
                       startTimestamp: 1743465600000
                       toolCalls: 0
                       toolErrors: 0
@@ -88072,10 +88086,16 @@ components:
               format: double
             totalTokens:
               type: integer
+            cacheReadTokens:
+              type: integer
+            cacheWriteTokens:
+              type: integer
             errorToolNames:
               type: array
               items:
                 type: string
+            reasoningTokens:
+              type: integer
             usageByModel:
               type: array
               items:
@@ -88120,6 +88140,8 @@ components:
                   - totalCost
                   - totalTokens
           required:
+            - cacheReadTokens
+            - cacheWriteTokens
             - endTimestamp
             - errorToolNames
             - errors
@@ -88127,6 +88149,7 @@ components:
             - inputTokens
             - llmCalls
             - outputTokens
+            - reasoningTokens
             - startTimestamp
             - toolCalls
             - toolErrors
