@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "description": "Removed the duplicated list_metadata entry from the required lists of five list schemas (ConnectionList, DirectoryList, DirectoryGroupList, DirectoryUserList, OrganizationList). required is a set of property names, so the required properties are unchanged.",
+  "operations": [
+    {
+      "pointer": "#/components/schemas/ConnectionList/required",
+      "from": [
+        "object",
+        "data",
+        "list_metadata",
+        "list_metadata"
+      ],
+      "value": [
+        "object",
+        "data",
+        "list_metadata"
+      ],
+      "context": {
+        "type": "object"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/DirectoryList/required",
+      "from": [
+        "object",
+        "data",
+        "list_metadata",
+        "list_metadata"
+      ],
+      "value": [
+        "object",
+        "data",
+        "list_metadata"
+      ],
+      "context": {
+        "type": "object"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/DirectoryGroupList/required",
+      "from": [
+        "object",
+        "data",
+        "list_metadata",
+        "list_metadata"
+      ],
+      "value": [
+        "object",
+        "data",
+        "list_metadata"
+      ],
+      "context": {
+        "type": "object"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/DirectoryUserList/required",
+      "from": [
+        "object",
+        "data",
+        "list_metadata",
+        "list_metadata"
+      ],
+      "value": [
+        "object",
+        "data",
+        "list_metadata"
+      ],
+      "context": {
+        "type": "object"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/OrganizationList/required",
+      "from": [
+        "object",
+        "data",
+        "list_metadata",
+        "list_metadata"
+      ],
+      "value": [
+        "object",
+        "data",
+        "list_metadata"
+      ],
+      "context": {
+        "type": "object"
+      }
+    }
+  ]
+}

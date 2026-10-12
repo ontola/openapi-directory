@@ -2546,6 +2546,47 @@
       "coverage": "Twilio SendGrid v3 Twilio SendGrid Webhook Configuration API only (paths under /v3; global and EU servers as published). Preserve bearer API-key authentication and vendor descriptions.",
       "version_policy": "vendor",
       "priority": "high"
+    },
+    {
+      "id": "neon",
+      "provider": "neon.tech",
+      "target": "APIs/neon.tech/v2/openapi.yaml",
+      "url": "https://neon.tech/api_spec/release/v2.json",
+      "discovery": "Official Neon API v2 description linked from Neon's API reference (checked 2026-10-12). Neon is absent from the full fetched main tree. Native OpenAPI 3.0.3 / v2 / 125 paths / 184 operations validates strictly with no patches. Hosted health not_assessed; no Git revision claimed.",
+      "coverage": "Neon serverless Postgres management API v2 (projects, branches, endpoints, databases, roles, operations, consumption, organizations, API keys). Preserve bearer API-key authentication. No curation invented.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "clerk-backend",
+      "provider": "clerk.com",
+      "target": "APIs/clerk.com/backend/2026-05-12/openapi.yaml",
+      "github": {
+        "repository": "clerk/openapi-specs",
+        "ref": "main",
+        "path": "bapi/2026-05-12.yml"
+      },
+      "discovery": "Official clerk/openapi-specs repository (README: Clerk's public OpenAPI specs; versioned Backend API specs in bapi/; checked 2026-10-12 at 3b078e5e0c17ad5261f06cb00e0a0943614dacb0). Latest Backend API version 2026-05-12: native OpenAPI 3.0.3 / 177 paths / 256 operations, valid with no patches. Clerk publishes one file per dated version, so a later version needs a reviewed path update. Clerk is absent from the full fetched main tree.",
+      "coverage": "Clerk Backend API (users, organizations, sessions, invitations, allowlists/blocklists, JWT templates, domains, webhooks/svix, instance settings). Frontend API and webhooks specs are separate and not registered. Preserve bearer secret-key authentication.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "workos",
+      "provider": "workos.com",
+      "target": "APIs/workos.com/1.0/openapi.yaml",
+      "github": {
+        "repository": "workos/openapi-spec",
+        "ref": "main",
+        "path": "spec/open-api-spec.yaml"
+      },
+      "discovery": "Official workos/openapi-spec repository (README: OpenAPI specification for the WorkOS API; checked 2026-10-12 at c776a3474746b9d9e8129f34e97f37e4d6ac15c1). WorkOS is absent from the full fetched main tree. Native OpenAPI 3.1.1 / 1.0 / 181 paths / 264 operations; it fails native validation only on duplicated list_metadata entries in five required lists, removed by the exact recipe (required is a set).",
+      "coverage": "WorkOS API (SSO, Directory Sync, organizations, user management, audit logs, admin portal, events, MFA and related resources). Preserve bearer API-key authentication.",
+      "patches": [
+        "maintenance/patches/workos.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
     }
   ]
 }
