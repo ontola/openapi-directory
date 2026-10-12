@@ -2546,6 +2546,19 @@
       "coverage": "Twilio SendGrid v3 Twilio SendGrid Webhook Configuration API only (paths under /v3; global and EU servers as published). Preserve bearer API-key authentication and vendor descriptions.",
       "version_policy": "vendor",
       "priority": "high"
+    },
+    {
+      "id": "hetzner-cloud",
+      "provider": "hetzner.cloud",
+      "target": "APIs/hetzner.cloud/1.0.0/openapi.yaml",
+      "url": "https://docs.hetzner.cloud/cloud.spec.json",
+      "discovery": "Official Hetzner Cloud API description served by the vendor's documentation site for its 'cloud' spec (docs.hetzner.cloud registers api.hetzner.cloud with urlPath cloud; checked 2026-10-12). It replaces the stored file's old docs.hetzner.cloud/spec.json, which now returns 404. Native OpenAPI 3.1.2 / fixed 1.0.0 / 152 paths / 190 operations vs stored 112 / 144 (+46 operations, no removals). It fails native validation only on 380 lowercase response-range keys (4xx/5xx), uppercased by the reviewed response_range_case transform (exact count, no collisions). Refreshed in place. Hosted health not_assessed.",
+      "coverage": "Hetzner Cloud API (servers, volumes, networks, load balancers, firewalls, floating/primary IPs, images, certificates, placement groups, actions). Preserve bearer token authentication. Hetzner's separate Robot/DNS/Storage APIs are not covered.",
+      "response_range_case": {
+        "expected_conversions": 380
+      },
+      "version_policy": "vendor",
+      "priority": "high"
     }
   ]
 }

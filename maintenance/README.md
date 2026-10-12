@@ -1353,3 +1353,13 @@ file is unchanged. Their paths carry the `/v3` prefix, unlike the old file, so e
 comparisons with it are not meaningful. `tsg_logs_v3.json` is not registered: a 3.1
 `examples` keyword holds a non-array value. Before registration, all files were scanned
 for SendGrid-API-key-shaped and Twilio-Account-SID-shaped example values; none were found.
+
+## Lowercase response ranges (Hetzner Cloud, 2026-10-12)
+
+An opt-in `response_range_case: {expected_conversions: N}` recipe uppercases lowercase
+response-range keys (`4xx` → `4XX`) in path-operation Responses Objects. Uppercase is the
+only range form OpenAPI defines, and the lowercase key names the same range. It requires
+the exact reviewed count, refuses collisions, and preserves key order and every response
+value. A vendor fix changes the count and stops replay. `hetzner-cloud` uses it for its
+380 keys. The vendor's current 3.1 description adds 46 operations to the stored fixed 1.0.0
+file, with no removals.

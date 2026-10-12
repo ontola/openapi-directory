@@ -1,6 +1,7 @@
 import copy
 import unittest
 
+import response_keys
 import update
 
 
@@ -71,3 +72,33 @@ class ResponseKeyTests(unittest.TestCase):
         spec, _ = update.prepare_document(SOURCE, raw)
         self.assertEqual(set(spec['paths']['/items']['post']['responses']), {'200', '404'})
         self.assertEqual(update.validate_document(spec), [])
+
+
+class RangeCaseTests(unittest.TestCase):
+    def spec(self):
+        return {"openapi": "3.1.0", "info": {"title": "t", "version": "1"}, "paths": {
+            "/a": {"get": {"responses": {"200": {"description": "ok"}, "4xx": {"description": "client"},
+                                         "5xx": {"description": "server"}}}}}}
+
+    def test_uppercases_ranges_in_order_and_validates(self):
+        spec = self.spec()
+        note = response_keys.prepare_range_case({"response_range_case": {"expected_conversions": 2}}, spec)
+        self.assertEqual(list(spec["paths"]["/a"]["get"]["responses"]), ["200", "4XX", "5XX"])
+        self.assertEqual(spec["paths"]["/a"]["get"]["responses"]["4XX"], {"description": "client"})
+        self.assertIn("Uppercased 2", note)
+        self.assertEqual(update.validate_document(spec), [])
+
+    def test_count_change_collision_and_bad_recipe_fail_closed(self):
+        for recipe in ({"expected_conversions": 3}, {"expected_conversions": 0}, {"other": 1}):
+            with self.subTest(recipe=recipe), self.assertRaises(ValueError):
+                response_keys.prepare_range_case({"response_range_case": recipe}, self.spec())
+        spec = self.spec()
+        spec["paths"]["/a"]["get"]["responses"]["4XX"] = {"description": "dup"}
+        with self.assertRaisesRegex(ValueError, "collision"):
+            response_keys.prepare_range_case({"response_range_case": {"expected_conversions": 2}}, spec)
+        fixed = self.spec()  # a vendor fix (already uppercase) stops replay via the count
+        responses = fixed["paths"]["/a"]["get"]["responses"]
+        responses["4XX"] = responses.pop("4xx")
+        responses["5XX"] = responses.pop("5xx")
+        with self.assertRaisesRegex(ValueError, "count changed"):
+            response_keys.prepare_range_case({"response_range_case": {"expected_conversions": 2}}, fixed)
