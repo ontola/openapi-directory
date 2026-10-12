@@ -210,6 +210,28 @@ Do not delete guards, retry rejected pushes, manufacture receipts or restore old
   spec (enum-default defect, path layout change) is a lead.
 - Drift: last full re-check 00:32 UTC; next due in a few hours.
 
+## Claude VPS run, round 6 — 2026-10-09 to 2026-10-12 (newest)
+
+- **PayPal:** exact recipes for six of the seven invalid artifacts (#320); corrected
+  refreshes #321–#326 make the stored files valid. Disputes is skipped: its parameter-level
+  enum would wrongly reject comma-separated multi-values.
+- **Q-110:** path-aware gate #266 merged (`be8b7f9e`). Check name `gate` (workflow
+  "PR gate"); the owner is making it a required status check.
+- **Q-111:** Adyen Checkout v70 made strict-YAML readable with its exact vendor value (#327);
+  registrations #328; Legal Entity v4 #329, Checkout v72 #330 and Microsoft Graph v1.0 #333
+  (about 44 MB) imported as preferred; the old versions set `x-preferred: false` in #331,
+  #332 and #334. Exactly one preferred file per API.
+- **Discovery:** Attio registered (#335) and delivered (#336). Leads not registered:
+  Trello (single-value enums on comma-list fields), Webflow v2 (tuple `items` mixed with
+  example payloads; null defaults), SendGrid's new per-product layout.
+- **Drift:** the re-check at 15:09 UTC found 21 changed, 1 failed and 82 matches. #337
+  extended the Zendesk Support null-alternative recipe (6 more sites) and accepted 27
+  DigitalOcean naming warnings (MicroVMs and Spaces keys; `journeys` → `episodes` rename,
+  vendor commit eb4d28d5). Delivered #338–#357: GitHub, Atlas, Sentry, Intercom 2.17,
+  Datadog v1/v2, Asana, Box ×3, Zendesk Support, OpenAI, Klaviyo, Jira, Twilio Events,
+  Pipedrive v1/v2, Render, CircleCI v2, DigitalOcean. Coinbase is still held (balances removal).
+- Q-102 is unanswered; Q-112 (#239 rollout) is awaiting clarification, untouched.
+
 ## Recommended next work
 
 1. **Deliberate handling of already merged generated branches**, in separate infrastructure.
