@@ -20,10 +20,10 @@ info:
   x-serviceName: api.github.com
   x-origin:
     - format: openapi
-      url: https://raw.githubusercontent.com/github/rest-api-description/2eba8c3ba02f022011539cf01efc43e0251502f8/descriptions/api.github.com/api.github.com.json
+      url: https://raw.githubusercontent.com/github/rest-api-description/58b1e0c00b39b9e46c24dc4a0ba6a2669c90e9c1/descriptions/api.github.com/api.github.com.json
       version: '3.0'
   x-conversion:
-    - Fetched from https://raw.githubusercontent.com/github/rest-api-description/2eba8c3ba02f022011539cf01efc43e0251502f8/descriptions/api.github.com/api.github.com.json at commit 2eba8c3ba02f022011539cf01efc43e0251502f8; entry source SHA-256 ba5ddc1eeeede9f3858abd96325359891f38a2bd8e20fd111abf4230741db194.
+    - Fetched from https://raw.githubusercontent.com/github/rest-api-description/58b1e0c00b39b9e46c24dc4a0ba6a2669c90e9c1/descriptions/api.github.com/api.github.com.json at commit 58b1e0c00b39b9e46c24dc4a0ba6a2669c90e9c1; entry source SHA-256 da3d22e417611cca9a4131dceea89d4d61c3be021b0917f32d9e4422e4fe60f1.
     - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
     - Preserved existing APIs.guru curation metadata from APIs/github.com/api.github.com/1.1.4/openapi.yaml.
     - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
@@ -101734,7 +101734,7 @@ components:
               maximum: 100.0
     repository-rule-copilot-code-review:
       title: copilot_code_review
-      description: Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and their premium requests quota has not reached the limit.
+      description: Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and AI credits.
       type: object
       required:
         - type
