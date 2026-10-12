@@ -1864,6 +1864,48 @@
       ],
       "version_policy": "vendor",
       "priority": "high"
+    },
+    {
+      "id": "microsoft-graph",
+      "provider": "microsoft.com",
+      "target": "APIs/microsoft.com/graph/1.0.1/openapi.yaml",
+      "github": {
+        "repository": "microsoftgraph/msgraph-metadata",
+        "ref": "master",
+        "path": "openapi/v1.0/openapi.yaml"
+      },
+      "discovery": "Official microsoftgraph/msgraph-metadata v1.0 OpenAPI description, the exact source cited by the stored 2023 graph/1.0.1 file (reviewed 2026-10-12 at fd42f0e5bcd96b0c5edd5e62e2956a1dc1c5d17a). Native 3.0.4 / v1.0 / 11,558 paths / 17,885 operations validates strictly with no patches; serialized size is about 44 MB. Imported into its own v1.0 directory; per owner decision Q-111 the new version is x-preferred: true (copied from the stored file's curation) and the stored 1.0.1 file is set to x-preferred: false in a separate PR.",
+      "coverage": "Microsoft Graph v1.0 REST API (generated from the service CSDL by Microsoft's OpenAPI.NET.OData tooling). Not the beta endpoint, which stays at graph-beta/1.0.1. Path additions and removals against the 2023 snapshot reflect the vendor's regenerated layout; they are not asserted runtime retirements.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "adyen-checkout",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/CheckoutService/70/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/CheckoutService-v72.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi CheckoutService-v72.json (reviewed 2026-10-12 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the next release after the stored, currently preferred CheckoutService/70. Adyen publishes one file per major version, so a later version needs a reviewed path update. Per owner decision Q-111 the new version is x-preferred: true and v70 becomes false in a separate PR. The separate CheckoutService-v71 directory is untouched.",
+      "coverage": "Adyen Checkout API v72. Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "adyen-legal-entity",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/LegalEntityService/3/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/LegalEntityService-v4.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi LegalEntityService-v4.json (reviewed 2026-10-12 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the next release after the stored, currently preferred LegalEntityService/3. Per owner decision Q-111 v4 becomes x-preferred: true and v3 becomes false in a separate PR.",
+      "coverage": "Adyen Legal Entity Management API v4 (legal entities, business lines, documents, transfer instruments, onboarding). Preserve authentication and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "high"
     }
   ]
 }
