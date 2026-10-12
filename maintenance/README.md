@@ -1302,3 +1302,20 @@ job actually succeeded; skipped, missing, failed or cancelled jobs fail the gate
 
 Permissions are read-only (`contents`, `actions`, `pull-requests`). Making the check
 required in branch protection is an owner decision.
+
+## Microsoft Graph v1.0 and Adyen Checkout/Legal Entity (owner decision Q-111, 2026-10-12)
+
+The repository owner decided that a newly imported version becomes `x-preferred: true`
+and the previously preferred stored file is set to `false`, for exactly these three APIs:
+
+- `microsoft-graph`: official `msgraph-metadata` v1.0 (11,558 paths, about 44 MB) into
+  `graph/v1.0`; the old file is `graph/1.0.1`.
+- `adyen-checkout`: `CheckoutService-v72.json` into `CheckoutService/72`; the old file is
+  `CheckoutService/70`. #327 made v70 strict-YAML readable without changing its values.
+  `CheckoutService-v71` is untouched.
+- `adyen-legal-entity`: `LegalEntityService-v4.json` into `LegalEntityService/4`; the old
+  file is `LegalEntityService/3`.
+
+The importer copies `x-preferred: true` from the old file's curation. A separate small PR
+flips each old file to `false`. Old versions are kept; removals reported against them are
+version differences, not deletions. `x-preferred` policy for any other API stays parked.
