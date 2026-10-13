@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "description": "Removed info.summary, an OpenAPI 3.1 field not allowed in this OpenAPI 3.0.2 document; its exact text was: \"The Insights API lets you collect events related to your search and discovery experience\". #/components/schemas/queryID used the OpenAPI 3.1 examples keyword in this 3.0.2 document; kept the first value as example. All original values were: [\"3e48cd0616e466948dd85abf5c3fbbe2\", \"message_my-custom-query-id\"]. No other content changed.",
+  "operations": [
+    {
+      "pointer": "#/info/summary",
+      "from": "The Insights API lets you collect events related to your search and discovery experience",
+      "remove": true,
+      "context": {
+        "title": "Insights API"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/queryID",
+      "from": {
+        "type": "string",
+        "pattern": "^([0-9a-f]{32}|message_[!-~]+)$",
+        "maxLength": 128,
+        "description": "Unique identifier for a search query.\n\nThe query ID is required for events related to search or browse requests.\nIf you add `clickAnalytics: true` as a search request parameter, the query ID is included in the API response.\nFor agentic analytics events, the query ID may be prefixed with `message_` followed by any printable string.\n",
+        "examples": [
+          "3e48cd0616e466948dd85abf5c3fbbe2",
+          "message_my-custom-query-id"
+        ]
+      },
+      "value": {
+        "type": "string",
+        "pattern": "^([0-9a-f]{32}|message_[!-~]+)$",
+        "maxLength": 128,
+        "description": "Unique identifier for a search query.\n\nThe query ID is required for events related to search or browse requests.\nIf you add `clickAnalytics: true` as a search request parameter, the query ID is included in the API response.\nFor agentic analytics events, the query ID may be prefixed with `message_` followed by any printable string.\n",
+        "example": "3e48cd0616e466948dd85abf5c3fbbe2"
+      },
+      "context": {
+        "ViewEvent": {
+          "type": "string",
+          "enum": [
+            "view"
+          ]
+        }
+      }
+    }
+  ]
+}
