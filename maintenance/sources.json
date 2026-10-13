@@ -2774,6 +2774,16 @@
       ],
       "version_policy": "vendor",
       "priority": "high"
+    },
+    {
+      "id": "honeycomb",
+      "provider": "honeycomb.io",
+      "target": "APIs/honeycomb.io/1.0.0/openapi.yaml",
+      "url": "https://docs.honeycomb.io/api/openapi-public.yaml",
+      "discovery": "Official Honeycomb API description linked as the downloadable OpenAPI spec from the vendor's API introduction (docs.honeycomb.io/api/introduction; identical bytes at api-docs.honeycomb.io/api/openapi-public.yaml; checked 2026-10-13). Honeycomb is absent from the full fetched main tree. Native OpenAPI 3.1.0 / 1.0.0 / 48 paths / 90 operations validates strictly with no patches. The separate api.honeycomb.io/api.yaml file differs and is not the documented download. Hosted health not_assessed.",
+      "coverage": "Honeycomb observability API (datasets, columns, boards, queries/query results, triggers, SLOs, burn alerts, markers, recipients, environments, API keys, events ingestion). Preserve API-key authentication and US/EU base URLs.",
+      "version_policy": "vendor",
+      "priority": "high"
     }
   ]
 }
