@@ -1,0 +1,744 @@
+openapi: 3.1.0
+info:
+  title: Transactional SMS
+  version: 1.0.0
+  x-origin:
+    - format: openapi
+      url: https://developers.brevo.com/openapi/transactional-sms.json
+      version: '3.1'
+  x-conversion:
+    - Fetched from https://developers.brevo.com/openapi/transactional-sms.json on 2026-10-13T06:36:50.977191+00:00; entry source SHA-256 3ccf39ced5647cfa361087db27e326af84b595d41407fda9f690c75f4564be68.
+    - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
+paths:
+  /transactionalSMS/send:
+    post:
+      operationId: transactionalSms_sendAsyncTransactionalSms
+      summary: Send SMS message asynchronously to a mobile number
+      description: '<Note>If the user includes stop code in the Transactional SMS, then it will be switched to Marketing SMS automatically and it will be interpreted as a Marketing SMS. To send Transactional SMS as Transactional, it is important not to use stop code.
+
+        Note: For adding a stop code, client has to add reply STOP to [STOP_CODE] and the [STOP_CODE] will be replaced with the number.</Note>
+
+        <Note title="For end users in France">Transactional SMS can be sent at any time without time restrictions. However, if a message is categorized as Marketing, it must adhere to specific time restrictions. Messages sent outside of these restricted hours will experience delays and will be processed during allowable times. Specifically, Marketing SMS cannot be processed between 10pm and 8am, on Sundays, and on French public holidays.</Note>'
+      tags:
+        - transactionalSms
+      responses:
+        '201':
+          description: SMS has been sent successfully to the recipient
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transactional_SMS_sendAsyncTransactionalSms_Response_201'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendAsyncTransactionalSmsRequestBadRequestError'
+      requestBody:
+        description: Values to send a transactional SMS
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendTransacSms'
+      security:
+        - api-key: []
+  /transactionalSMS/statistics/aggregatedReport:
+    get:
+      operationId: transactionalSms_getTransacAggregatedSmsReport
+      summary: Get your SMS activity aggregated over a period of time
+      description: Retrieve an aggregated report of your transactional SMS activity over a specified time period, including counts for requests, delivered, hard bounces, soft bounces, blocked, unsubscribed, replied, accepted, rejected, and skipped messages. Filter by date range using `startDate` and `endDate` (both required together, YYYY-MM-DD format) or by a number of past `days` (not compatible with date range). You can further narrow results by `tag`. If no date filter is provided, the report covers all available data and returns the auto-detected date range.
+      tags:
+        - transactionalSms
+      parameters:
+        - name: startDate
+          in: query
+          description: '**Mandatory if endDate is used.** Starting date (YYYY-MM-DD) of the report
+
+            '
+          required: false
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: '**Mandatory if startDate is used.** Ending date (YYYY-MM-DD) of the report
+
+            '
+          required: false
+          schema:
+            type: string
+        - name: days
+          in: query
+          description: 'Number of days in the past including today (positive integer). **Not compatible with startDate and endDate**
+
+            '
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: tag
+          in: query
+          description: Filter on a tag
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Aggregated SMS report informations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transactional_SMS_getTransacAggregatedSmsReport_Response_200'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTransacAggregatedSmsReportRequestBadRequestError'
+      security:
+        - api-key: []
+  /transactionalSMS/statistics/reports:
+    get:
+      operationId: transactionalSms_getTransacSmsReport
+      summary: Get your SMS activity aggregated per day
+      description: Retrieve a day-by-day breakdown of your transactional SMS activity, with each entry containing the date and counts for requests, delivered, hard bounces, soft bounces, blocked, unsubscribed, replied, accepted, rejected, and skipped messages. Filter by date range using `startDate` and `endDate` (both required together, YYYY-MM-DD format), by a number of past `days` (not compatible with date range), or by `tag`. Results are sorted in descending order by default unless overridden with the `sort` parameter.
+      tags:
+        - transactionalSms
+      parameters:
+        - name: startDate
+          in: query
+          description: '**Mandatory if endDate is used.** Starting date (YYYY-MM-DD) of the report
+
+            '
+          required: false
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: '**Mandatory if startDate is used.** Ending date (YYYY-MM-DD) of the report
+
+            '
+          required: false
+          schema:
+            type: string
+        - name: days
+          in: query
+          description: 'Number of days in the past including today (positive integer). **Not compatible with ''startDate'' and ''endDate''**
+
+            '
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: tag
+          in: query
+          description: Filter on a tag
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed
+          required: false
+          schema:
+            $ref: '#/components/schemas/TransactionalSmsStatisticsReportsGetParametersSort'
+            default: desc
+      responses:
+        '200':
+          description: Aggregated SMS report informations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transactional_SMS_getTransacSmsReport_Response_200'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTransacSmsReportRequestBadRequestError'
+      security:
+        - api-key: []
+  /transactionalSMS/statistics/events:
+    get:
+      operationId: transactionalSms_getSmsEvents
+      summary: Get all your SMS activity (unaggregated events)
+      description: Retrieve a paginated list of individual SMS event records (unaggregated), including event type, phone number, message ID, timestamp, tag, and reason or reply content where applicable. Results default to 50 per page (max 100) and are sorted in descending order unless overridden. Filter by date range (`startDate`/`endDate`), past `days` (not compatible with date range), specific `event` type (e.g. delivered, bounces, replies), `phoneNumber`, or `tags`. Bounce events include the failure reason, and reply events include the reply content.
+      tags:
+        - transactionalSms
+      parameters:
+        - name: limit
+          in: query
+          description: Number of documents per page
+          required: false
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            maximum: 100
+            default: 50
+        - name: startDate
+          in: query
+          description: '**Mandatory if endDate is used.** Starting date (YYYY-MM-DD) of the report
+
+            '
+          required: false
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: '**Mandatory if startDate is used.** Ending date (YYYY-MM-DD) of the report
+
+            '
+          required: false
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Index of the first document of the page
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 0
+        - name: days
+          in: query
+          description: 'Number of days in the past including today (positive integer). **Not compatible with ''startDate'' and ''endDate''**
+
+            '
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: phoneNumber
+          in: query
+          description: Filter the report for a specific phone number
+          required: false
+          schema:
+            type: string
+        - name: event
+          in: query
+          description: Filter the report for specific events
+          required: false
+          schema:
+            $ref: '#/components/schemas/TransactionalSmsStatisticsEventsGetParametersEvent'
+        - name: tags
+          in: query
+          description: Filter the report for specific tags passed as a serialized urlencoded array
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Sort the results in the ascending/descending order of record creation. Default order is **descending** if `sort` is not passed
+          required: false
+          schema:
+            $ref: '#/components/schemas/TransactionalSmsStatisticsEventsGetParametersSort'
+            default: desc
+      responses:
+        '200':
+          description: Sms events report informations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transactional_SMS_getSmsEvents_Response_200'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSmsEventsRequestBadRequestError'
+      security:
+        - api-key: []
+tags:
+  - name: transactionalSms
+servers:
+  - url: https://api.brevo.com/v3
+    description: https://api.brevo.com/v3
+components:
+  schemas:
+    SendTransacSmsTag:
+      oneOf:
+        - type: string
+        - type: array
+          items:
+            type: string
+      description: 'Tag of the message. Can be a single string or an array of strings (maximum 10 tags). Each tag must be a non-empty string.
+
+        '
+      title: SendTransacSmsTag
+    SendTransacSmsType:
+      type: string
+      enum:
+        - transactional
+        - marketing
+      default: transactional
+      description: Type of the SMS. Marketing SMS messages are those sent typically with marketing content. Transactional SMS messages are sent to individuals and are triggered in response to some action, such as a sign-up, purchase, etc.
+      title: SendTransacSmsType
+    sendTransacSms:
+      type: object
+      properties:
+        organisationPrefix:
+          type: string
+          description: A recognizable prefix will ensure your audience knows who you are. Recommended by U.S. carriers. This will be added as your Brand Name before the message content. **Prefer verifying maximum length of 160 characters including this prefix in message content to avoid multiple sending of same sms.**
+        recipient:
+          type: string
+          description: 'Mobile number to send SMS with the country code. Must contain between 6 and 15 digits, optionally prefixed with ''+''.
+
+            '
+        sender:
+          type: string
+          maxLength: 15
+          description: 'Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters.** Alphanumeric sender names (up to 11 characters) must contain only letters and digits. Numeric sender names (12-15 characters) must contain only digits.
+
+            '
+        tag:
+          $ref: '#/components/schemas/SendTransacSmsTag'
+          description: 'Tag of the message. Can be a single string or an array of strings (maximum 10 tags). Each tag must be a non-empty string.
+
+            '
+        type:
+          $ref: '#/components/schemas/SendTransacSmsType'
+          default: transactional
+          description: Type of the SMS. Marketing SMS messages are those sent typically with marketing content. Transactional SMS messages are sent to individuals and are triggered in response to some action, such as a sign-up, purchase, etc.
+        unicodeEnabled:
+          type: boolean
+          default: false
+          description: 'Format of the message. It indicates whether the content should be treated as unicode or not.
+
+            '
+        webUrl:
+          type: string
+          format: url
+          description: Webhook to call for each event triggered by the message (delivered etc.)
+        params:
+          type: object
+          additionalProperties:
+            description: Any type
+          description: Pass the set of attributes to customize the template. For example, {"FNAME":"Joe", "LNAME":"Doe"}. These are the placeholder variables in the template that will be replaced with the corresponding values passed in the params object. Applicable only if `templateId` is used.
+        templateId:
+          type: integer
+          description: Template ID to send SMS with the template. When provided, overrides the content parameter. Mandatory if 'content' is not passed.
+        content:
+          type: string
+          description: 'Content of the message. If more than **160 characters** long, will be sent as multiple text messages. Mandatory if ''templateId'' is not passed, ignored if ''templateId'' is passed.
+
+            '
+      required:
+        - recipient
+        - sender
+      title: sendTransacSms
+    Transactional_SMS_sendAsyncTransactionalSms_Response_201:
+      type: object
+      properties:
+        messageId:
+          type: integer
+          format: int64
+      required:
+        - messageId
+      title: Transactional SMS_sendAsyncTransactionalSms_Response_201
+    TransactionalSmsSendPostResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: TransactionalSmsSendPostResponsesContentApplicationJsonSchemaCode
+    SendAsyncTransactionalSmsRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/TransactionalSmsSendPostResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: SendAsyncTransactionalSmsRequestBadRequestError
+    Transactional_SMS_getTransacAggregatedSmsReport_Response_200:
+      type: object
+      properties:
+        accepted:
+          type: integer
+          format: int64
+          description: Number of accepted SMS for the timeframe
+        blocked:
+          type: integer
+          format: int64
+          description: Number of blocked contact for the timeframe
+        delivered:
+          type: integer
+          format: int64
+          description: Number of delivered SMS for the timeframe
+        hardBounces:
+          type: integer
+          format: int64
+          description: Number of hardbounces for the timeframe
+        range:
+          type: string
+          description: Time frame of the report
+        rejected:
+          type: integer
+          format: int64
+          description: Number of rejected SMS for the timeframe
+        replied:
+          type: integer
+          format: int64
+          description: Number of answered SMS for the timeframe
+        requests:
+          type: integer
+          format: int64
+          description: Number of requests for the timeframe
+        skipped:
+          type: integer
+          format: int64
+          description: Number of skipped SMS for the timeframe
+        softBounces:
+          type: integer
+          format: int64
+          description: Number of softbounces for the timeframe
+        unsubscribed:
+          type: integer
+          format: int64
+          description: Number of unsubscription for the timeframe
+      title: Transactional SMS_getTransacAggregatedSmsReport_Response_200
+    TransactionalSmsStatisticsAggregatedReportGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: TransactionalSmsStatisticsAggregatedReportGetResponsesContentApplicationJsonSchemaCode
+    GetTransacAggregatedSmsReportRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/TransactionalSmsStatisticsAggregatedReportGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetTransacAggregatedSmsReportRequestBadRequestError
+    TransactionalSmsStatisticsReportsGetParametersSort:
+      type: string
+      enum:
+        - asc
+        - desc
+      default: desc
+      title: TransactionalSmsStatisticsReportsGetParametersSort
+    TransactionalSmsStatisticsReportsGetResponsesContentApplicationJsonSchemaReportsItems:
+      type: object
+      properties:
+        accepted:
+          type: integer
+          format: int64
+          description: Number of accepted SMS for the date
+        blocked:
+          type: integer
+          format: int64
+          description: Number of blocked contact for the date
+        date:
+          type: string
+          format: date
+          description: Date for which statistics are retrieved
+        delivered:
+          type: integer
+          format: int64
+          description: Number of delivered SMS for the date
+        hardBounces:
+          type: integer
+          format: int64
+          description: Number of hardbounces for the date
+        rejected:
+          type: integer
+          format: int64
+          description: Number of rejected SMS for the date
+        replied:
+          type: integer
+          format: int64
+          description: Number of answered SMS for the date
+        requests:
+          type: integer
+          format: int64
+          description: Number of requests for the date
+        skipped:
+          type: integer
+          format: int64
+          description: Number of skipped SMS for the date
+        softBounces:
+          type: integer
+          format: int64
+          description: Number of softbounces for the date
+        unsubscribed:
+          type: integer
+          format: int64
+          description: Number of unsubscription for the date
+      title: TransactionalSmsStatisticsReportsGetResponsesContentApplicationJsonSchemaReportsItems
+    Transactional_SMS_getTransacSmsReport_Response_200:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionalSmsStatisticsReportsGetResponsesContentApplicationJsonSchemaReportsItems'
+      title: Transactional SMS_getTransacSmsReport_Response_200
+    TransactionalSmsStatisticsReportsGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: TransactionalSmsStatisticsReportsGetResponsesContentApplicationJsonSchemaCode
+    GetTransacSmsReportRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/TransactionalSmsStatisticsReportsGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetTransacSmsReportRequestBadRequestError
+    TransactionalSmsStatisticsEventsGetParametersEvent:
+      type: string
+      enum:
+        - bounces
+        - hardBounces
+        - softBounces
+        - delivered
+        - sent
+        - accepted
+        - unsubscription
+        - replies
+        - blocked
+        - rejected
+        - skipped
+      title: TransactionalSmsStatisticsEventsGetParametersEvent
+    TransactionalSmsStatisticsEventsGetParametersSort:
+      type: string
+      enum:
+        - asc
+        - desc
+      default: desc
+      title: TransactionalSmsStatisticsEventsGetParametersSort
+    TransactionalSmsStatisticsEventsGetResponsesContentApplicationJsonSchemaEventsItemsEvent:
+      type: string
+      enum:
+        - bounces
+        - hardBounces
+        - softBounces
+        - delivered
+        - sent
+        - accepted
+        - unsubscription
+        - replies
+        - blocked
+        - rejected
+        - skipped
+      description: Event which occurred
+      title: TransactionalSmsStatisticsEventsGetResponsesContentApplicationJsonSchemaEventsItemsEvent
+    TransactionalSmsStatisticsEventsGetResponsesContentApplicationJsonSchemaEventsItems:
+      type: object
+      properties:
+        date:
+          type: string
+          description: UTC date-time on which the event has been generated
+        event:
+          $ref: '#/components/schemas/TransactionalSmsStatisticsEventsGetResponsesContentApplicationJsonSchemaEventsItemsEvent'
+          description: Event which occurred
+        messageId:
+          type: string
+          description: Message ID which generated the event
+        phoneNumber:
+          type: string
+          description: Phone number which has generated the event
+        reason:
+          type: string
+          description: Reason of bounce (only available if the event is hardbounce or softbounce)
+        reply:
+          type: string
+        tag:
+          type: string
+          description: Tag of the SMS which generated the event
+      title: TransactionalSmsStatisticsEventsGetResponsesContentApplicationJsonSchemaEventsItems
+    Transactional_SMS_getSmsEvents_Response_200:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionalSmsStatisticsEventsGetResponsesContentApplicationJsonSchemaEventsItems'
+      title: Transactional SMS_getSmsEvents_Response_200
+    TransactionalSmsStatisticsEventsGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: TransactionalSmsStatisticsEventsGetResponsesContentApplicationJsonSchemaCode
+    GetSmsEventsRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/TransactionalSmsStatisticsEventsGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetSmsEventsRequestBadRequestError
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: api-key
+      description: The API key should be passed in the request headers as `api-key` for authentication.
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client_credentials (machine-to-machine) grant. Exchange your app's client_id/client_secret for a short-lived Bearer token.
