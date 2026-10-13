@@ -328,8 +328,8 @@ def security_requirement_errors(spec):
                 continue
             label = method.upper() + " " + location
             check(operation, label)
-            for name, value in operation.get("callbacks", {}).items():
-                callback(value, label + " callback " + name)
+            for name, callback_value in operation.get("callbacks", {}).items():
+                callback(callback_value, label + " callback " + name)
 
     try:
         check(spec, "document")

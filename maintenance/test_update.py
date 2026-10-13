@@ -797,6 +797,19 @@ print(hashlib.sha256(update.serialize_document(result).encode()).hexdigest())
             with self.subTest(recipe=name), self.assertRaises((ValueError, KeyError)):
                 update.prepare_document(source, json.dumps(result).encode())
 
+    def test_security_traversal_continues_after_an_operation_with_callbacks(self):
+        callback = {"{$request.body#/url}": {"post": {"responses": {"200": {"description": "ok"}},
+                                                      "security": [{"Undefined": []}]}}}
+        spec = {"openapi": "3.0.3", "info": {"title": "t", "version": "1"},
+                "components": {"securitySchemes": {"Key": {"type": "apiKey", "in": "header", "name": "K"}}},
+                "paths": {"/a": {
+                    "delete": {"responses": {"200": {"description": "ok"}}, "callbacks": {"hook": callback}},
+                    "post": {"responses": {"200": {"description": "ok"}}, "security": [{"Missing": []}]}}}}
+        errors = update.security_requirement_errors(spec)
+        self.assertFalse(any("traversal" in error for error in errors), errors)
+        self.assertTrue(any("Missing" in error for error in errors), errors)
+        self.assertTrue(any("Undefined" in error for error in errors), errors)
+
     def test_array_pointer_escaped_tokens_and_referenced_parameters(self):
         spec = document()
         self.assertEqual(update.pointer(spec, "#/components/schemas/Choice/oneOf/1"), {"type": "null"})
