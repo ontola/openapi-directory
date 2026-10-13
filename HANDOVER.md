@@ -267,6 +267,24 @@ Do not delete guards, retry rejected pushes, manufacture receipts or restore old
   SendGrid `logs` is not corrected by the vendor (repo unchanged at fb95a935).
 - Drift: last full check 00:30 UTC (round 7); next due in a few hours.
 
+## Claude VPS run, round 9 — 2026-10-13 (newest)
+
+- **Updater fix #425:** the security-requirement check reused its path-item variable inside
+  the callbacks loop, so path items with an operation-with-callbacks before another method
+  reported "traversal" errors instead of being checked. Regression test added.
+- **Algolia Analytics and Insights** registered (#426) and delivered (#427, #428). Analytics
+  removes six invalid null defaults on non-null alternatives. Insights keeps the first
+  `examples` value as `example`, with both quoted in provenance. Both verified by
+  full-document equality.
+- **No faithful fix (leads):** Jira Service Management (8 duplicate operationIds on distinct
+  operations), RingCentral (undefined `OauthBasicScheme`, surfaced by #425), Webflow v2,
+  Docker Hub (OpenAPI 3.2).
+- **Drift** at 05:26 UTC across 163 unblocked sources: delivered GitHub #429 (+10 ops each)
+  and OpenAI #430. Coinbase is still held.
+- **Process note:** a bare `git stash` was run once by mistake in the design worktree and
+  immediately popped (it was this run's own only entry). Don't use `git stash`; use
+  temporary commits or separate worktrees.
+
 ## Recommended next work
 
 1. **Deliberate handling of already merged generated branches**, in separate infrastructure.
