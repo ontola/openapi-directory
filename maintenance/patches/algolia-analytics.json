@@ -1,0 +1,379 @@
+{
+  "schema_version": 1,
+  "description": "Removed info.summary, an OpenAPI 3.1 field not allowed in this OpenAPI 3.0.2 document; its exact text was: \"The Analytics API gives you access to metrics related to your Algolia search experience\". Removed 6 invalid default: null values from non-null oneOf alternatives (the property's separate null alternative still allows null; no replacement default inferred). Represented 7 null-only oneOf alternatives as {type: string, nullable: true, enum: [null]} (accepts only null), keeping every other alternative and oneOf exclusivity. No other content changed.",
+  "operations": [
+    {
+      "pointer": "#/info/summary",
+      "from": "The Analytics API gives you access to metrics related to your Algolia search experience",
+      "remove": true,
+      "context": {
+        "title": "Analytics API"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/clickThroughRate/oneOf/0/default",
+      "from": null,
+      "remove": true,
+      "context": {
+        "type": "number"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/averageClickPosition/oneOf/0/default",
+      "from": null,
+      "remove": true,
+      "context": {
+        "type": "number"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/conversionRate/oneOf/0/default",
+      "from": null,
+      "remove": true,
+      "context": {
+        "type": "number"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/addToCartRate/oneOf/0/default",
+      "from": null,
+      "remove": true,
+      "context": {
+        "type": "number"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/purchaseRate/oneOf/0/default",
+      "from": null,
+      "remove": true,
+      "context": {
+        "type": "number"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/updatedAtNullable/oneOf/0/default",
+      "from": null,
+      "remove": true,
+      "context": {
+        "type": "string"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/clickThroughRate",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.49
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.49
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "default": "asc"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/averageClickPosition",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Average position of a clicked search result in the list of search results.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 1,
+            "example": 2.035
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Average position of a clicked search result in the list of search results.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 1,
+            "example": 2.035
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "default": "asc"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/conversionRate",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.05
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.05
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "default": "asc"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/addToCartRate",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Add-to-cart rate: calculated as the number of tracked searches with at least one add-to-cart event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.1
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Add-to-cart rate: calculated as the number of tracked searches with at least one add-to-cart event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.1
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "default": "asc"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/purchaseRate",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Purchase rate: calculated as the number of tracked searches with at least one purchase event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.05
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "Purchase rate: calculated as the number of tracked searches with at least one purchase event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.05
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "default": "asc"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/getTopFiltersNoResultsResponse/properties",
+      "from": {
+        "values": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Filters for searches without any results.\nIf null, the search term specified with the `search` parameter isn't a search without results,\nor the `search` parameter is absent from the request.\n",
+              "items": {
+                "$ref": "#/components/schemas/getTopFiltersNoResultsValues"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "value": {
+        "values": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Filters for searches without any results.\nIf null, the search term specified with the `search` parameter isn't a search without results,\nor the `search` parameter is absent from the request.\n",
+              "items": {
+                "$ref": "#/components/schemas/getTopFiltersNoResultsValues"
+              }
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        }
+      },
+      "context": {
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    {
+      "pointer": "#/components/schemas/updatedAtNullable",
+      "from": {
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Date and time when the object was updated, in RFC 3339 format.",
+            "example": "2023-07-04T12:49:15Z"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Date and time when the object was updated, in RFC 3339 format.",
+            "example": "2023-07-04T12:49:15Z"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "default": "asc"
+        }
+      }
+    }
+  ]
+}

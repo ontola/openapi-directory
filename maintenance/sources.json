@@ -2740,6 +2740,40 @@
       "coverage": "Jira Software Cloud agile API (boards, sprints, epics, backlog, issue ranking, builds/deployments/development information). Distinct from the Jira platform API (jira-platform). Preserve OAuth/basic authentication and scopes.",
       "version_policy": "vendor",
       "priority": "high"
+    },
+    {
+      "id": "algolia-analytics",
+      "provider": "algolia.com",
+      "target": "APIs/algolia.com/analytics/2.0.0/openapi.yaml",
+      "github": {
+        "repository": "algolia/api-clients-automation",
+        "ref": "main",
+        "path": "specs/bundled/analytics.yml"
+      },
+      "discovery": "Official algolia/api-clients-automation bundled specification (checked 2026-10-13 at 1f36aeb23c1bcd4d80b81e11153f148a6ce4c6ce). Native OpenAPI 3.0.2 / 2.0.0 / 27 paths / 30 operations; the exact recipe corrects the 3.1-only info.summary (text kept verbatim in provenance); 6 invalid null defaults on non-null oneOf alternatives; 7 null-only oneOf alternatives (reviewed nullable single-null enum form), after which it validates strictly (verified by full-document equality).",
+      "coverage": "Algolia Analytics API only. Preserve application-id/API-key authentication and hosts.",
+      "patches": [
+        "maintenance/patches/algolia-analytics.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "algolia-insights",
+      "provider": "algolia.com",
+      "target": "APIs/algolia.com/insights/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "algolia/api-clients-automation",
+        "ref": "main",
+        "path": "specs/bundled/insights.yml"
+      },
+      "discovery": "Official algolia/api-clients-automation bundled specification (checked 2026-10-13 at 1f36aeb23c1bcd4d80b81e11153f148a6ce4c6ce). Native OpenAPI 3.0.2 / 1.0.0 / 4 paths / 7 operations; the exact recipe corrects the 3.1-only info.summary (text kept verbatim in provenance); one 3.1 examples keyword (first value kept as example, all values quoted in provenance), after which it validates strictly (verified by full-document equality).",
+      "coverage": "Algolia Insights API only. Preserve application-id/API-key authentication and hosts.",
+      "patches": [
+        "maintenance/patches/algolia-insights.json"
+      ],
+      "version_policy": "vendor",
+      "priority": "high"
     }
   ]
 }

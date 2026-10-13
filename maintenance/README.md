@@ -1391,3 +1391,15 @@ imported as 2.0 beside the historical 5.3.0 Swagger, which has no `x-preferred` 
 `jira-software` adds the Jira Software Cloud agile API beside the existing platform API.
 Leads recorded: Docker Hub (OpenAPI 3.2, outside the validator's scope), Jira Service
 Management, and RingCentral (validator traversal error, to investigate).
+
+## Algolia Analytics and Insights; leads without faithful fixes (2026-10-13)
+
+`algolia-analytics` additionally removes six `default: null` values that sit on non-null
+alternatives of nullable `oneOf`s. This follows the repository's existing null-default
+precedent, and the separate null alternative still permits null. `algolia-insights` keeps
+the first of the two `examples` values on `queryID` as its 3.0 `example` and quotes both
+values in provenance. Both prepared documents equal the source with exactly these changes.
+No faithful fix exists for: Jira Service Management (eight duplicate `operationId`s on
+distinct operations, where renaming would invent identifiers and dropping one is
+arbitrary), RingCentral (an undefined `OauthBasicScheme`; found after #425 fixed the
+traversal bug), Webflow v2 (ambiguous tuple `items`) or Docker Hub (OpenAPI 3.2).
