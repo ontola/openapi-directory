@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "description": "Corrected one representation-only defect without changing accepted values: the DisputeAttachment fileName pattern uses the non-ECMAScript inline flag (?i) before the extension group. In the vendor's Java regex dialect the flag applies case-insensitive (ASCII) matching from that point to the end of the enclosing group, so only the extension alternatives are affected. They become the exactly equivalent case classes for jpeg|tiff|pdf; the unaffected prefix, anchor, grouping, length limits and description are preserved.",
+  "operations": [
+    {
+      "pointer": "#/components/schemas/DisputeAttachment/properties/fileName/pattern",
+      "from": "([^\\s]+(\\.(?i)(jpeg|tiff|pdf))$)",
+      "context": {
+        "type": "string",
+        "maxLength": 17,
+        "minLength": 4,
+        "description": "The name of the attachment, including its filename extension. Supported filename extensions: **jpeg**, **pdf**, **tiff**."
+      },
+      "value": "([^\\s]+(\\.([Jj][Pp][Ee][Gg]|[Tt][Ii][Ff][Ff]|[Pp][Dd][Ff]))$)"
+    }
+  ]
+}

@@ -2784,6 +2784,349 @@
       "coverage": "Honeycomb observability API (datasets, columns, boards, queries/query results, triggers, SLOs, burn alerts, markers, recipients, environments, API keys, events ingestion). Preserve API-key authentication and US/EU base URLs.",
       "version_policy": "vendor",
       "priority": "high"
+    },
+    {
+      "id": "adyen-a2a-payments",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/A2APaymentsService/1/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/A2APaymentsService-v1.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi A2APaymentsService-v1.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Account-to-Account (A2A) payments API for issuers (balance platform a2aissuer-api). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "adyen-balance-control-v2",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/BalanceControlService/2/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/BalanceControlService-v2.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi BalanceControlService-v2.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Balance Control API v2 (view and manage company/merchant account balances; balance-control servers). The stored BalanceControlService/1 (pal servlet, fund transfers) is a different earlier release and has no x-preferred curation; it is untouched. Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "adyen-capital",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/CapitalService/1/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/CapitalService-v1.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi CapitalService-v1.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Capital API (embedded Adyen Capital grant offers, grants and disbursements for platforms). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "adyen-cloud-device",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/CloudDeviceService/1/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/CloudDeviceService-v1.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi CloudDeviceService-v1.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Cloud device API (Terminal API requests over cloud endpoints, device status; regional live servers). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "adyen-document-collector",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/DocumentCollectorService/1/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/DocumentCollectorService-v1.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi DocumentCollectorService-v1.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Document Collector API (supporting-document uploads for payment processing). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "adyen-foreign-exchange",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/ForeignExchangeService/1/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/ForeignExchangeService-v1.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi ForeignExchangeService-v1.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Foreign Exchange API (balance platform currency conversion rates and conversions). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "adyen-open-banking",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/OpenBankingService/1/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/OpenBankingService-v1.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi OpenBankingService-v1.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Open Banking API (obgateway data sharing and user verification). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "adyen-payments-app",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/PaymentsAppService/1/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/PaymentsAppService-v1.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi PaymentsAppService-v1.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Payments App API (boarding and managing the Adyen Payments App on mobile devices). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "adyen-raise-disputes",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/RaiseDisputesService/4/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/RaiseDisputesService-v4.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi RaiseDisputesService-v4.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly after the exact recipe below. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Raise disputes API v4 for Adyen Issuing (disputes, fraud reports, attachments). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal",
+      "patches": [
+        "maintenance/patches/adyen-raise-disputes.json"
+      ]
+    },
+    {
+      "id": "adyen-session-authentication",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/SessionAuthenticationService/1/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/SessionAuthenticationService-v1.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi SessionAuthenticationService-v1.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "Session authentication API (JWTs for platform components). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "adyen-softpos-configuration",
+      "provider": "adyen.com",
+      "target": "APIs/adyen.com/SoftPOSConfigurationService/3/openapi.yaml",
+      "github": {
+        "repository": "Adyen/adyen-openapi",
+        "ref": "main",
+        "path": "json/SoftPOSConfigurationService-v3.json"
+      },
+      "discovery": "Official Adyen/adyen-openapi SoftPOSConfigurationService-v3.json (reviewed 2026-10-13 at 45520ee6246d7e3d8074c3c5c5e991e65c2c02d6), the latest published major version; the service is absent from the directory. Native OpenAPI 3.1.0 validates strictly with no patches. Adyen's webhook-only notification descriptions (no paths), the deprecated SessionService (POS Mobile API, superseded by SoftPOS configuration) and TransactionService-v4 (a duplicate of Raise disputes v4) are not registered.",
+      "coverage": "SoftPOS configuration API v3 (mobile SDK mutual authentication; regional live servers). Preserve API-key/basic authentication, Adyen test/live servers and vendor descriptions.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-email-api",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/email-api/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/email-api.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Email API OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Email API API (transactional email sending, templates, blocked contacts/domains, events and statistics). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-transactional-sms",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/transactional-sms/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/transactional-sms.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Transactional SMS OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Transactional SMS API (transactional SMS sending, events and statistics). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-transactional-whatsapp",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/transactional-whatsapp/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/transactional-whatsapp.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Transactional WhatsApp OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Transactional WhatsApp API (transactional WhatsApp messages and events). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-marketing-campaigns",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/marketing-campaigns/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/marketing-campaigns.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Marketing Campaigns OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Marketing Campaigns API (email/SMS/WhatsApp campaigns). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-contact-management",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/contact-management/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/contact-management.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Contact Management OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Contact Management API (contacts, lists, folders, attributes and segments). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-events",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/events/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/events.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Events OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Events API (custom event tracking). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-object-management",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/object-management/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/object-management.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Object Management OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Object Management API (custom objects and records). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-accounts-and-settings",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/accounts-and-settings/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/accounts-and-settings.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Accounts and Settings OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Accounts and Settings API (account, senders, domains, webhooks, users, sub-accounts and settings). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-sales-crm",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/sales-crm/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/sales-crm.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Sales CRM OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Sales CRM API (companies, deals, tasks, notes and pipelines). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-conversations",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/conversations/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/conversations.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Conversations OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Conversations API (conversation messages and visitor groups). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-ecommerce",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/ecommerce/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/ecommerce.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Ecommerce OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Ecommerce API (products, categories, orders and coupons). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-loyalty",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/loyalty/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/loyalty.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Loyalty OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Loyalty API (loyalty programs, tiers, balances and rewards). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "brevo-wallet",
+      "provider": "brevo.com",
+      "target": "APIs/brevo.com/wallet/1.0.0/openapi.yaml",
+      "url": "https://developers.brevo.com/openapi/wallet.json",
+      "discovery": "Official Brevo (formerly Sendinblue) Wallet OpenAPI 3.1 description, linked from the vendor's developer-docs OpenAPI index (developers.brevo.com/openapi.json lists one specification per API; the docs llms.txt names it as the raw OpenAPI specification; checked 2026-10-13). Brevo is absent from the directory. Validates strictly with no patches. The older monolithic api.brevo.com/v3/swagger_definition_v3.yml (OpenAPI 3.0.1, referenced from SDK READMEs) is not the current documented download. Hosted health not_assessed.",
+      "coverage": "Brevo Wallet API (wallet passes). Preserve the vendor security schemes and the api.brevo.com/v3 server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "paddle",
+      "provider": "paddle.com",
+      "target": "APIs/paddle.com/1.0/openapi.yaml",
+      "github": {
+        "repository": "PaddleHQ/paddle-openapi",
+        "ref": "main",
+        "path": "v1/openapi.yaml"
+      },
+      "discovery": "Official PaddleHQ/paddle-openapi v1/openapi.yaml (repository homepage developer.paddle.com/api-reference/overview; reviewed 2026-10-13 at 540ea17369325ff866b65ecf6c5105592f16fb5d). Paddle Billing is absent from the directory. Native OpenAPI 3.1.0 / 1.0 / 70 paths / 99 operations validates strictly with no patches. Example API keys in the description are vendor-masked prefixes ending in ****.",
+      "coverage": "Paddle Billing API (products, prices, customers, subscriptions, transactions, adjustments, discounts, reports, notifications, simulations). Preserve bearer authentication and sandbox/live servers.",
+      "version_policy": "vendor",
+      "priority": "high"
+    },
+    {
+      "id": "sumup",
+      "provider": "sumup.com",
+      "target": "APIs/sumup.com/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "sumup/sumup-openapi",
+        "ref": "main",
+        "path": "openapi31.json"
+      },
+      "discovery": "Official sumup/sumup-openapi (linked from developer.sumup.com/api; reviewed 2026-10-13 at c359e2f1291fa81bb533298c5958ab95f0ba11c4). SumUp is absent from the directory. The repository publishes the same API as OpenAPI 3.0.3 (openapi.json/yaml, which the docs page links) and 3.1.0 (openapi31.json). The 3.0.3 rendition uses the 3.1-only schema keyword `examples` and fails strict validation; the vendor's own 3.1.0 rendition (28 paths / 42 operations) validates with no patches and is used.",
+      "coverage": "SumUp REST API (checkouts, customers, transactions, payouts, receipts, merchants, members, roles, readers). Preserve OAuth2/API-key authentication and the api.sumup.com server.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "revolut-open-banking",
+      "provider": "revolut.com",
+      "target": "APIs/revolut.com/open-banking/v3.1.0/openapi.yaml",
+      "github": {
+        "repository": "revolut-engineering/revolut-openapi",
+        "ref": "master",
+        "path": "json/open-banking.json"
+      },
+      "discovery": "Official revolut-engineering/revolut-openapi json/open-banking.json (repository homepage developer.revolut.com; reviewed 2026-10-13 at 951c577b033d23475262c9a1c34a2c7b6ed3df46). Revolut is absent from the directory. OpenAPI 3.0.1 / v3.1.0 / 48 paths / 54 operations validates strictly with no patches. Other files in the repository: Business (invalid: parameter-level uniqueItems and mismatched path parameters), Merchant 2026-08-17 (OpenAPI 3.1.2, examples with unevaluated properties fail) and Crypto Ramp (3.0 schemas using `examples`) are leads, not registered.",
+      "coverage": "Revolut Open Banking API (UK/EEA account information, payment initiation, consents). Preserve the AccessToken/JWS security schemes and production/sandbox servers.",
+      "version_policy": "vendor",
+      "priority": "normal"
+    },
+    {
+      "id": "revolut-x",
+      "provider": "revolut.com",
+      "target": "APIs/revolut.com/revolut-x/1.0.0/openapi.yaml",
+      "github": {
+        "repository": "revolut-engineering/revolut-openapi",
+        "ref": "master",
+        "path": "json/revolut-x.json"
+      },
+      "discovery": "Official revolut-engineering/revolut-openapi json/revolut-x.json, documented at developer.revolut.com/docs/x-api (reviewed 2026-10-13 at 951c577b033d23475262c9a1c34a2c7b6ed3df46). OpenAPI 3.1.0 / 1.0.0 / 23 paths / 26 operations validates strictly with no patches. The private-key text in the description is an elided placeholder.",
+      "coverage": "Revolut X Crypto Exchange REST API (balances, orders, trades, market data). Preserve API-key authentication and the revx.revolut.com server.",
+      "version_policy": "vendor",
+      "priority": "normal"
     }
   ]
 }

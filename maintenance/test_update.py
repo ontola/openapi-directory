@@ -1,6 +1,7 @@
 import copy
 import json
 import os
+import re
 import subprocess
 import tempfile
 import unittest
@@ -773,6 +774,26 @@ print(hashlib.sha256(update.serialize_document(result).encode()).hexdigest())
             fixed = json.loads(json.dumps(result))  # an already-corrected vendor source stops replay
             with self.subTest(recipe=name), self.assertRaises((ValueError, KeyError)):
                 update.prepare_document(source, json.dumps(fixed).encode())
+
+    def test_adyen_raise_disputes_case_class_recipe_is_equivalent_and_stops_on_vendor_fix(self):
+        source = {"patches": ["maintenance/patches/adyen-raise-disputes.json"]}
+        recipe = json.loads((update.ROOT / source["patches"][0]).read_text())
+        self.assertEqual(len(recipe["operations"]), 1)
+        operation = recipe["operations"][0]
+        spec = {"openapi": "3.1.0", "info": {"title": "Raise disputes API", "version": "4"}, "paths": {},
+                "components": {"schemas": {"DisputeAttachment": {"type": "object", "properties": {
+                    "fileName": dict(operation["context"], pattern=operation["from"])}}}}}
+        result, _ = update.prepare_document(source, json.dumps(spec).encode())
+        fixed = update.pointer(result, operation["pointer"])
+        self.assertEqual(fixed, operation["value"])
+        self.assertNotIn("(?", fixed)
+        prefix = re.compile(r"^\(\[\^\\s\]\+\(\\\.")
+        self.assertTrue(prefix.match(fixed) and prefix.match(operation["from"]))
+        for name in ("a.jpeg", "A.JPEG", "x.PdF", "doc.Tiff", "a.png", "a.jpegx", "a.pd", ".pdf"):
+            expected = re.search(operation["from"].replace("(?i)", ""), name.lower()) is not None
+            self.assertEqual(re.search(fixed, name) is not None, expected, name)
+        with self.assertRaisesRegex(ValueError, "source value changed"):
+            update.prepare_document(source, json.dumps(result).encode())
 
     def test_algolia_recipes_replay_exactly_and_stop_on_vendor_fix(self):
         for name in ("search", "recommend", "query-suggestions", "ingestion", "abtesting",
