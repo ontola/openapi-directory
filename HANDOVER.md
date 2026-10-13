@@ -252,6 +252,21 @@ Do not delete guards, retry rejected pushes, manufacture receipts or restore old
   that once listed the endpoint now return 404.
 - `gate` is a required check on main (owner). Q-113 / #239 untouched. Q-102 unanswered.
 
+## Claude VPS run, round 8 — 2026-10-13 (newest)
+
+- **Discovery** (#414; delivered #415–#423):
+  - seven Algolia APIs (Search, Recommend, Query Suggestions, Ingestion, A/B Testing,
+    Monitoring, Personalization) from the official bundled specs. Each has an exact recipe
+    (3.1-only `info.summary` removed with its text kept in provenance; null-only `oneOf`
+    alternatives in the reviewed Zendesk form), verified by full-document equality;
+  - LaunchDarkly v2 (253 paths) as `launchdarkly.com/2.0` beside the 64-path 5.3.0 Swagger;
+  - Jira Software Cloud agile API beside the platform API.
+- **Leads not registered:** Algolia Analytics/Insights, Docker Hub (OpenAPI 3.2), Jira
+  Service Management (invalid), RingCentral (validator traversal error).
+- **Rechecks:** Coinbase still drops `GET /v2/coinbase-accounts/balances` with no notice;
+  SendGrid `logs` is not corrected by the vendor (repo unchanged at fb95a935).
+- Drift: last full check 00:30 UTC (round 7); next due in a few hours.
+
 ## Recommended next work
 
 1. **Deliberate handling of already merged generated branches**, in separate infrastructure.
