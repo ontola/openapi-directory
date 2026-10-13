@@ -252,7 +252,7 @@ Do not delete guards, retry rejected pushes, manufacture receipts or restore old
   that once listed the endpoint now return 404.
 - `gate` is a required check on main (owner). Q-113 / #239 untouched. Q-102 unanswered.
 
-## Claude VPS run, round 8 — 2026-10-13 (newest)
+## Claude VPS run, round 8 — 2026-10-13
 
 - **Discovery** (#414; delivered #415–#423):
   - seven Algolia APIs (Search, Recommend, Query Suggestions, Ingestion, A/B Testing,
@@ -267,7 +267,7 @@ Do not delete guards, retry rejected pushes, manufacture receipts or restore old
   SendGrid `logs` is not corrected by the vendor (repo unchanged at fb95a935).
 - Drift: last full check 00:30 UTC (round 7); next due in a few hours.
 
-## Claude VPS run, round 9 — 2026-10-13 (newest)
+## Claude VPS run, round 9 — 2026-10-13
 
 - **Updater fix #425:** the security-requirement check reused its path-item variable inside
   the callbacks loop, so path items with an operation-with-callbacks before another method
@@ -284,6 +284,18 @@ Do not delete guards, retry rejected pushes, manufacture receipts or restore old
 - **Process note:** a bare `git stash` was run once by mistake in the design worktree and
   immediately popped (it was this run's own only entry). Don't use `git stash`; use
   temporary commits or separate worktrees.
+
+## Claude VPS run, round 10 — 2026-10-13 (newest)
+
+- **Discovery:** Honeycomb registered (#432) from the OpenAPI download linked by its API
+  introduction (3.1.0, 48 paths / 90 operations, valid with no patches). Delivered #433.
+- **Leads not registered:** Miro (missing `components/responses/400`), Ory client API
+  (undefined `sessionToken` scheme), Calendly (docs moved, old export may be stale),
+  Opsgenie (product retiring), BigCommerce and Vimeo (official spec repositories archived).
+- **Coinbase recheck:** still held. The source changed again (Last-Modified 2026-10-09:
+  adds `POST /v2/top-up-links`) but still drops `GET /v2/coinbase-accounts/balances`. There
+  is no vendor notice and the balances docs page returns 404.
+- Drift: last full check 05:26 UTC (round 9); next due in a few hours.
 
 ## Recommended next work
 
