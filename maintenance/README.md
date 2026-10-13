@@ -1403,3 +1403,13 @@ No faithful fix exists for: Jira Service Management (eight duplicate `operationI
 distinct operations, where renaming would invent identifiers and dropping one is
 arbitrary), RingCentral (an undefined `OauthBasicScheme`; found after #425 fixed the
 traversal bug), Webflow v2 (ambiguous tuple `items`) or Docker Hub (OpenAPI 3.2).
+
+## Honeycomb (registered 2026-10-13) and round-10 leads
+
+`honeycomb` follows the OpenAPI download linked from Honeycomb's API introduction
+(`docs.honeycomb.io/api/openapi-public.yaml`). It is OpenAPI 3.1 and valid with no patches.
+Leads with no faithful fix or no current source: Miro (official, maintained `spec.json`,
+but it references a missing `components/responses/400`), Ory client API (undefined
+`sessionToken` scheme), Calendly (docs moved and the old Stoplight export may be stale),
+Opsgenie (official Swagger, but the product is being retired, so not current-priority),
+BigCommerce (official specs repository archived) and Vimeo (official repository archived).
