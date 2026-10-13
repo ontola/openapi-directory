@@ -1,0 +1,119 @@
+openapi: 3.1.0
+info:
+  title: Wallet
+  version: 1.0.0
+  x-origin:
+    - format: openapi
+      url: https://developers.brevo.com/openapi/wallet.json
+      version: '3.1'
+  x-conversion:
+    - Fetched from https://developers.brevo.com/openapi/wallet.json on 2026-10-13T06:48:15.443161+00:00; entry source SHA-256 71478802ddfdcbe9d019365e1c03b5cae5456ce64abf553d47430a4b9c1e97c2.
+    - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
+paths:
+  /wallet/passes/{passId}/installUrl/{contactId}:
+    get:
+      operationId: wallet_getWalletPassInstallUrl
+      summary: Get a pass installation URL for a contact
+      description: Generate a wallet installation URL for a specific contact. The returned URL points to the pass installation page and encodes the pass, contact and organization identifiers as an encrypted token, so it can be shared with the contact (email, SMS, QR code, ...) to add the pass to their Apple Wallet or Google Wallet.
+      tags:
+        - wallet
+      parameters:
+        - name: passId
+          in: path
+          description: Pass ID. The unique identifier of the wallet pass for which to generate an installation URL.
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: contactId
+          in: path
+          description: The Brevo contact ID the installation URL is generated for.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Installation URL generated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/walletPassInstallUrl'
+        '400':
+          description: Invalid `passId` (must be a well-formed UUID) or `contactId` (must be a positive integer).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+        '401':
+          description: Request Authentication Failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+        '403':
+          description: The pass does not belong to the authenticated account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+        '404':
+          description: Pass not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+        '422':
+          description: Wallet is not enabled for this account. The response `code` is `WALLET_NOT_ENABLED`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+        '500':
+          description: Internal error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+tags:
+  - name: wallet
+servers:
+  - url: https://api.brevo.com/v3
+    description: https://api.brevo.com/v3
+components:
+  schemas:
+    walletPassInstallUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The wallet installation URL for the contact. Opening it lets the contact add the pass to their Apple Wallet or Google Wallet.
+      required:
+        - url
+      title: walletPassInstallUrl
+    errorModel:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - message
+      title: errorModel
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: api-key
+      description: The API key should be passed in the request headers as `api-key` for authentication.
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client_credentials (machine-to-machine) grant. Exchange your app's client_id/client_secret for a short-lived Bearer token.
