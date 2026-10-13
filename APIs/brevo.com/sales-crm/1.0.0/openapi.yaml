@@ -1,0 +1,3716 @@
+openapi: 3.1.0
+info:
+  title: Sales CRM
+  version: 1.0.0
+  x-origin:
+    - format: openapi
+      url: https://developers.brevo.com/openapi/sales-crm.json
+      version: '3.1'
+  x-conversion:
+    - Fetched from https://developers.brevo.com/openapi/sales-crm.json on 2026-10-13T06:44:33.868698+00:00; entry source SHA-256 4b1ce21af8e0ad0c0dcf8d29257144004abc3249425c11fce816f1cc8fffb6c4.
+    - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
+paths:
+  /companies:
+    get:
+      operationId: companies_getAllCompanies
+      summary: Get all Companies
+      description: Retrieve a paginated list of companies with optional filtering, sorting, and search capabilities. Results are sorted by creation date in descending order by default, and can be filtered by attributes, linked contacts, linked deals, or modification/creation timestamps.
+      tags:
+        - companies
+      parameters:
+        - name: filters[attributes.name]
+          in: query
+          description: Filter by attributes. If you have a filter for the owner on your side please send it as filters[attributes.owner] and utilize the account email for the filtering.
+          required: false
+          schema:
+            type: string
+        - name: linkedContactsIds
+          in: query
+          description: Filter by linked contacts ids
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: linkedDealsIds
+          in: query
+          description: Filter by linked Deals ids
+          required: false
+          schema:
+            type: string
+            format: objectID
+        - name: modifiedSince
+          in: query
+          description: Filter (urlencoded) the companies modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result.
+          required: false
+          schema:
+            type: string
+        - name: createdSince
+          in: query
+          description: Filter (urlencoded) the companies created after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result.
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Index of the first document of the page
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: Number of documents per page
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: sort
+          in: query
+          description: Sort the results in the ascending/descending order. Default order is **descending** by creation if `sort` is not passed
+          required: false
+          schema:
+            $ref: '#/components/schemas/CompaniesGetParametersSort'
+        - name: sortBy
+          in: query
+          description: The field used to sort field names.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns companies list with filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Companies_getAllCompanies_Response_200'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllCompaniesRequestBadRequestError'
+      security:
+        - api-key: []
+    post:
+      operationId: companies_createACompany
+      summary: Create a company
+      description: Create a new CRM company with the specified name, attributes, and optional associations to contacts and deals. The company name is required, and you can optionally provide a country code when a phone number attribute is included.
+      tags:
+        - companies
+      responses:
+        '200':
+          description: Created new Company
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Companies_createACompany_Response_200'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateACompanyRequestBadRequestError'
+      requestBody:
+        description: Company create data.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attributes:
+                  $ref: '#/components/schemas/CompaniesPostRequestBodyContentApplicationJsonSchemaAttributes'
+                  description: Attributes for company creation
+                countryCode:
+                  type: integer
+                  format: int64
+                  description: Country code if phone_number is passed in attributes.
+                linkedContactsIds:
+                  type: array
+                  items:
+                    type: integer
+                    format: int64
+                  description: Contact ids to be linked with company
+                linkedDealsIds:
+                  type: array
+                  items:
+                    type: string
+                    format: objectID
+                  description: Deal ids to be linked with company
+                name:
+                  type: string
+                  description: Name of company
+              required:
+                - name
+      security:
+        - api-key: []
+  /companies/{id}:
+    get:
+      operationId: companies_getACompany
+      summary: Get a company
+      description: Retrieve the full details of a single company by its identifier, including its attributes, linked contacts, and linked deals. Returns a 404 error if the company does not exist, or a 403 error if the user lacks permission to view the company.
+      tags:
+        - companies
+      parameters:
+        - name: id
+          in: path
+          description: Get Company Details
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns the Company
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetACompanyRequestBadRequestError'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+    delete:
+      operationId: companies_deleteACompany
+      summary: Delete a company
+      description: Permanently delete a company by its identifier. The requesting user must be the company owner or have manage permission on companies; otherwise, a 403 Forbidden error is returned.
+      tags:
+        - companies
+      parameters:
+        - name: id
+          in: path
+          description: Company ID to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: When company deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteACompanyRequestBadRequestError'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+    patch:
+      operationId: companies_updateACompany
+      summary: Update a company
+      description: Update an existing company''s attributes, name, linked contacts, or linked deals. Note that passing `linkedContactsIds` or `linkedDealsIds` replaces the entire list of associations, so omitted IDs will be removed. The company name cannot be set to an empty string.
+      tags:
+        - companies
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Company updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateACompanyRequestBadRequestError'
+        '404':
+          description: Returned when company id is not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        description: Updated company details.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attributes:
+                  $ref: '#/components/schemas/CompaniesIdPatchRequestBodyContentApplicationJsonSchemaAttributes'
+                  description: Attributes for company update
+                countryCode:
+                  type: integer
+                  format: int64
+                  description: Country code if phone_number is passed in attributes.
+                linkedContactsIds:
+                  type: array
+                  items:
+                    type: integer
+                    format: int64
+                  description: Warning - Using PATCH on linkedContactIds replaces the list of linked contacts. Omitted IDs will be removed.
+                linkedDealsIds:
+                  type: array
+                  items:
+                    type: string
+                    format: objectID
+                  description: Warning - Using PATCH on linkedDealsIds replaces the list of linked deals. Omitted IDs will be removed.
+                name:
+                  type: string
+                  description: Name of company
+      security:
+        - api-key: []
+  /crm/attributes:
+    post:
+      operationId: companies_createACompanyDealAttribute
+      summary: Create a company/deal attribute
+      description: Create a new custom attribute for companies or deals. The attribute label must be unique within the object type, cannot exceed 50 characters, and cannot use reserved names. For `single-select` or `multi-choice` attribute types, you must also provide the `optionsLabels` array.
+      tags:
+        - companies
+      responses:
+        '200':
+          description: Created new attribute
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Companies_createACompanyDealAttribute_Response_200'
+        '400':
+          description: Returned when invalid data is posted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        description: Attribute creation data for a company/deal.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attributeType:
+                  $ref: '#/components/schemas/CrmAttributesPostRequestBodyContentApplicationJsonSchemaAttributeType'
+                  description: The type of attribute (must be one of the defined enums)
+                description:
+                  type: string
+                  description: A description of the attribute
+                label:
+                  type: string
+                  description: The label for the attribute (max 50 characters, cannot be empty)
+                objectType:
+                  $ref: '#/components/schemas/CrmAttributesPostRequestBodyContentApplicationJsonSchemaObjectType'
+                  description: The type of object the attribute belongs to. Must be either `companies` or `deals`.
+                optionsLabels:
+                  type: array
+                  items:
+                    type: string
+                  description: Options for multi-choice or single-select attributes
+              required:
+                - attributeType
+                - label
+                - objectType
+      security:
+        - api-key: []
+  /crm/attributes/companies:
+    get:
+      operationId: companies_getCompanyAttributes
+      summary: Get company attributes
+      description: Retrieve the list of all attributes defined for companies, including both system-default and custom attributes. Each attribute includes its label, internal name, type, required status, and available options for select-type attributes.
+      tags:
+        - companies
+      responses:
+        '200':
+          description: Returns list of company attributes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CrmAttributesCompaniesGetResponsesContentApplicationJsonSchemaItems'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCompanyAttributesRequestBadRequestError'
+      security:
+        - api-key: []
+  /companies/link-unlink/{id}:
+    patch:
+      operationId: companies_linkAndUnlinkCompanyWithContactAndDeal
+      summary: Link and Unlink company with contact and deal
+      description: Link or unlink contacts and deals with a specific company in a single request. You can simultaneously link new contacts/deals and unlink existing ones by providing the respective ID arrays in the request body.
+      tags:
+        - companies
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully linked/unlinked contacts and deals with the company.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkAndUnlinkCompanyWithContactAndDealRequestBadRequestError'
+      requestBody:
+        description: Linked / Unlinked contacts and deals ids.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                linkContactIds:
+                  type: array
+                  items:
+                    type: integer
+                    format: int64
+                  description: Contact ids for contacts to be linked with company
+                linkDealsIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Deal ids for deals to be linked with company
+                unlinkContactIds:
+                  type: array
+                  items:
+                    type: integer
+                    format: int64
+                  description: Contact ids for contacts to be unlinked from company
+                unlinkDealsIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Deal ids for deals to be unlinked from company
+      security:
+        - api-key: []
+  /companies/import:
+    post:
+      operationId: companies_importCompaniesCreationAndUpdation
+      summary: Import companies(creation and updation)
+      description: Import companies from a CSV file with mapping options.
+      tags:
+        - companies
+      responses:
+        '200':
+          description: Successfully imported companies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Companies_importCompaniesCreationAndUpdation_Response_200'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportCompaniesCreationAndUpdationRequestBadRequestError'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: 'The CSV file to upload.The file should have the first row as the mapping attribute. Some default attribute names are (a) company_id [brevo mongoID to update companies] (b) associated_contact (c) associated_deal (f) any other attribute with internal name
+
+                    '
+                mapping:
+                  $ref: '#/components/schemas/CompaniesImportPostRequestBodyContentMultipartFormDataSchemaMapping'
+                  description: "The mapping options in JSON format. Here is an example of the JSON structure: ```json {\n  \"link_entities\": true, // Determines whether to link related entities during the import process\n  \"unlink_entities\": false, // Determines whether to unlink related entities during the import process\n  \"update_existing_records\": true, // Determines whether to update based on company ID or treat every row as create\n  \"unset_empty_attributes\": false // Determines whether to unset a specific attribute during update if the values input is blank\n} ```\n"
+      security:
+        - api-key: []
+  /crm/pipeline/details:
+    get:
+      operationId: deals_getPipelineStages
+      summary: Get pipeline stages
+      description: This endpoint is deprecated. Prefer /crm/pipeline/details/{pipelineID} instead.
+      tags:
+        - deals
+      responses:
+        '200':
+          description: Returns list of pipeline stages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPipelineStagesRequestBadRequestError'
+      deprecated: true
+      security:
+        - api-key: []
+  /crm/pipeline/details/{pipelineID}:
+    get:
+      operationId: deals_getAPipeline
+      summary: Get a pipeline
+      description: Retrieve the details of a specific deal pipeline by its identifier, including its stages, stage ordering, and configuration. Use this endpoint to obtain the pipeline and stage IDs needed when creating or updating deals.
+      tags:
+        - deals
+      parameters:
+        - name: pipelineID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns pipeline and its details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipelines'
+        '400':
+          description: Returned when pipeline id is invalid or does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+  /crm/pipeline/details/all:
+    get:
+      operationId: deals_getAllPipelines
+      summary: Get all pipelines
+      description: Retrieve the list of all deal pipelines configured for your account, including each pipeline''s stages and settings. If no pipelines have been configured yet, a default pipeline is automatically created and returned.
+      tags:
+        - deals
+      responses:
+        '200':
+          description: Returns list of pipelines and their details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipelines'
+        '400':
+          description: Returned when pipeline id is invalid or does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+  /crm/attributes/deals:
+    get:
+      operationId: deals_getDealAttributes
+      summary: Get deal attributes
+      description: Retrieve the list of all attributes defined for deals, including both system-default and custom attributes. Each attribute includes its label, internal name, type, required status, and available options for select-type attributes.
+      tags:
+        - deals
+      responses:
+        '200':
+          description: Returns list of deal attributes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CrmAttributesDealsGetResponsesContentApplicationJsonSchemaItems'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDealAttributesRequestBadRequestError'
+      security:
+        - api-key: []
+  /crm/deals:
+    get:
+      operationId: deals_getAllDeals
+      summary: Get all deals
+      description: Retrieve a paginated list of deals with optional filtering, sorting, and search capabilities. Results can be filtered by attributes such as deal name or owner, linked companies, linked contacts, or modification/creation timestamps. Default sort order is descending by creation date.
+      tags:
+        - deals
+      parameters:
+        - name: filters[attributes.deal_name]
+          in: query
+          description: Filter by attributes. If you have a filter for the owner on your end, please send it as filters[attributes.deal_owner] and utilize the account email for the filtering.
+          required: false
+          schema:
+            type: string
+        - name: filters[attributes.deal_owner]
+          in: query
+          description: Filter by the deal owner. Pass the account email address of the deal owner.
+          required: false
+          schema:
+            type: string
+        - name: filters[attributes.deal_stage]
+          in: query
+          description: Filter by the deal stage. Pass the stage id, retrievable from GET /crm/pipeline/details/{pipelineID}.
+          required: false
+          schema:
+            type: string
+        - name: filters[attributes.pipeline]
+          in: query
+          description: Filter by the pipeline. Pass the pipeline id, retrievable from GET /crm/pipeline/details/{pipelineID}.
+          required: false
+          schema:
+            type: string
+        - name: filters[linkedCompaniesIds]
+          in: query
+          description: Filter by linked companies ids
+          required: false
+          schema:
+            type: string
+        - name: filters[linkedContactsIds]
+          in: query
+          description: Filter by linked contacts ids
+          required: false
+          schema:
+            type: string
+        - name: modifiedSince
+          in: query
+          description: Filter (urlencoded) the deals modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result.
+          required: false
+          schema:
+            type: string
+        - name: createdSince
+          in: query
+          description: Filter (urlencoded) the deals created after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result.
+          required: false
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: Index of the first document of the page
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: Number of documents per page
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 50
+        - name: sort
+          in: query
+          description: Sort the results in the ascending/descending order. Default order is **descending** by creation if `sort` is not passed
+          required: false
+          schema:
+            $ref: '#/components/schemas/CrmDealsGetParametersSort'
+        - name: sortBy
+          in: query
+          description: The field used to sort field names.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns deals list with filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deals_getAllDeals_Response_200'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllDealsRequestBadRequestError'
+      security:
+        - api-key: []
+    post:
+      operationId: deals_createADeal
+      summary: Create a deal
+      description: Create a new deal in the CRM with the specified name, attributes, and optional associations to contacts and companies. You can assign the deal to a specific pipeline and stage by providing `pipeline` and `deal_stage` attribute IDs, which can be retrieved from the pipeline details endpoint.
+      tags:
+        - deals
+      responses:
+        '201':
+          description: Created new Deal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deals_createADeal_Response_201'
+        '400':
+          description: Returned when invalid data posted
+          content:
+            application/json:
+              schema:
+                description: Any type
+      requestBody:
+        description: Deal create data.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attributes:
+                  $ref: '#/components/schemas/CrmDealsPostRequestBodyContentApplicationJsonSchemaAttributes'
+                  description: 'Attributes for deal creation To assign owner of a Deal you can send attributes.deal_owner and utilize the account email or ID. If you want to create a deal on a specific pipeline and stage you can use the following attributes `pipeline` and `deal_stage`. Pipeline and deal_stage are ids you can fetch using this endpoint `/crm/pipeline/details/{pipelineID}`
+
+                    '
+                linkedCompaniesIds:
+                  type: array
+                  items:
+                    type: string
+                    format: objectID
+                  description: Company ids to be linked with deal
+                linkedContactsIds:
+                  type: array
+                  items:
+                    type: integer
+                    format: int64
+                  description: Contact ids to be linked with deal
+                name:
+                  type: string
+                  description: Name of deal
+              required:
+                - name
+      security:
+        - api-key: []
+  /crm/deals/{id}:
+    get:
+      operationId: deals_getADeal
+      summary: Get a deal
+      description: Retrieve the full details of a single deal by its identifier, including its attributes, pipeline stage, linked contacts, and linked companies. Returns a 404 error if the deal does not exist.
+      tags:
+        - deals
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns the deal by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deal'
+        '400':
+          description: Returned when deal id is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+    delete:
+      operationId: deals_deleteADeal
+      summary: Delete a deal
+      description: Permanently delete a deal by its identifier. The requesting user must be the deal owner or have manage permission on deals; otherwise, a 403 Forbidden error is returned.
+      tags:
+        - deals
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Returned when item deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteADealRequestBadRequestError'
+        '404':
+          description: Returned when deal id is not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+    patch:
+      operationId: deals_updateADeal
+      summary: Update a deal
+      description: Update an existing deal''s attributes, name, linked contacts, or linked companies. Note that passing `linkedContactsIds` or `linkedCompaniesIds` replaces the entire list of associations, so omitted IDs will be removed. To move a deal to a different pipeline or stage, provide both the `pipeline` and `deal_stage` attribute IDs.
+      tags:
+        - deals
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deal updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateADealRequestBadRequestError'
+        '404':
+          description: Returned when deal id is not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        description: Updated deal details.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attributes:
+                  $ref: '#/components/schemas/CrmDealsIdPatchRequestBodyContentApplicationJsonSchemaAttributes'
+                  description: 'Attributes for deal update To assign owner of a Deal you can send attributes.deal_owner and utilize the account email or ID. If you wish to update the pipeline of a deal you need to provide the `pipeline` and the `deal_stage` Pipeline and deal_stage are ids you can fetch using this endpoint `/crm/pipeline/details/{pipelineID}`
+
+                    '
+                linkedCompaniesIds:
+                  type: array
+                  items:
+                    type: string
+                    format: objectID
+                  description: Warning - Using PATCH on linkedCompaniesIds replaces the list of linked companies. Omitted IDs will be removed.
+                linkedContactsIds:
+                  type: array
+                  items:
+                    type: integer
+                    format: int64
+                  description: Warning - Using PATCH on linkedContactIds replaces the list of linked contacts. Omitted IDs will be removed.
+                name:
+                  type: string
+                  description: Name of deal
+      security:
+        - api-key: []
+  /crm/deals/link-unlink/{id}:
+    patch:
+      operationId: deals_linkAndUnlinkADealWithContactsAndCompanies
+      summary: Link and Unlink a deal with contacts and companies
+      description: Link or unlink contacts and companies with a specific deal in a single request. You can simultaneously link new contacts/companies and unlink existing ones by providing the respective ID arrays in the request body.
+      tags:
+        - deals
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successfully linked/unlinked contacts/companies with the deal.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Returned when query params are invalid or invalid data provided in request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        description: Linked / Unlinked contacts and companies ids.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                linkCompanyIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Company ids to be linked with deal
+                linkContactIds:
+                  type: array
+                  items:
+                    type: integer
+                    format: int64
+                  description: Contact ids for contacts to be linked with deal
+                unlinkCompanyIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Company ids to be unlinked from deal
+                unlinkContactIds:
+                  type: array
+                  items:
+                    type: integer
+                    format: int64
+                  description: Contact ids for contacts to be unlinked from deal
+      security:
+        - api-key: []
+  /crm/deals/import:
+    post:
+      operationId: deals_importDealsCreationAndUpdation
+      summary: Import deals(creation and updation)
+      description: Import deals from a CSV file with mapping options.
+      tags:
+        - deals
+      responses:
+        '200':
+          description: Successfully imported deals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deals_importDealsCreationAndUpdation_Response_200'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportDealsCreationAndUpdationRequestBadRequestError'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: 'The CSV file to upload.The file should have the first row as the mapping attribute. Some default attribute names are (a) deal_id [brevo mongoID to update deals] (b) associated_contact (c) associated_company (f) any other attribute with internal name
+
+                    '
+                mapping:
+                  $ref: '#/components/schemas/CrmDealsImportPostRequestBodyContentMultipartFormDataSchemaMapping'
+                  description: "The mapping options in JSON format. Here is an example of the JSON structure: ```json {\n  \"link_entities\": true, // Determines whether to link related entities during the import process\n  \"unlink_entities\": false, // Determines whether to unlink related entities during the import process\n  \"update_existing_records\": true, // Determines whether to update based on deal ID or treat every row as create\n  \"unset_empty_attributes\": false // Determines whether to unset a specific attribute during update if the values input is blank\n} ```\n"
+      security:
+        - api-key: []
+  /crm/tasktypes:
+    get:
+      operationId: tasks_getAllTaskTypes
+      summary: Get all task types
+      description: Retrieve the list of all available task types, such as Email, Call, Meeting, Todo, Lunch, Deadline, and LinkedIn. If no task types exist yet, the default set is automatically created and returned. Use the task type ID when creating or updating tasks.
+      tags:
+        - tasks
+      responses:
+        '200':
+          description: Returns all the Task types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CrmTasktypesGetResponsesContentApplicationJsonSchemaItems'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllTaskTypesRequestBadRequestError'
+      security:
+        - api-key: []
+  /crm/tasks:
+    get:
+      operationId: tasks_getAllTasks
+      summary: Get all tasks
+      description: Retrieve a paginated list of CRM tasks with optional filtering by task type, status, date range, assignee, and linked entities (contacts, deals, companies). Results are sorted by creation date in descending order by default, with a default limit of 50 tasks per page.
+      tags:
+        - tasks
+      parameters:
+        - name: filter[type]
+          in: query
+          description: Filter by task type (ID)
+          required: false
+          schema:
+            type: string
+        - name: filter[status]
+          in: query
+          description: Filter by task status
+          required: false
+          schema:
+            $ref: '#/components/schemas/CrmTasksGetParametersFilterStatus'
+        - name: filter[date]
+          in: query
+          description: Filter by date
+          required: false
+          schema:
+            $ref: '#/components/schemas/CrmTasksGetParametersFilterDate'
+        - name: filter[assignTo]
+          in: query
+          description: Filter by the "assignTo" ID. You can utilize account emails for the "assignTo" attribute.
+          required: false
+          schema:
+            type: string
+        - name: filter[contacts]
+          in: query
+          description: Filter by contact ids
+          required: false
+          schema:
+            type: string
+        - name: filter[deals]
+          in: query
+          description: Filter by deals ids
+          required: false
+          schema:
+            type: string
+        - name: filter[companies]
+          in: query
+          description: Filter by companies ids
+          required: false
+          schema:
+            type: string
+        - name: dateFrom
+          in: query
+          description: dateFrom to date range filter type (timestamp in milliseconds)
+          required: false
+          schema:
+            type: integer
+        - name: dateTo
+          in: query
+          description: dateTo to date range filter type (timestamp in milliseconds)
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Index of the first document of the page
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: Number of documents per page
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 50
+        - name: sort
+          in: query
+          description: Sort the results in the ascending/descending order. Default order is **descending** by creation if `sort` is not passed
+          required: false
+          schema:
+            $ref: '#/components/schemas/CrmTasksGetParametersSort'
+        - name: sortBy
+          in: query
+          description: The field used to sort field names.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns task list with filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks_getAllTasks_Response_200'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllTasksRequestBadRequestError'
+      security:
+        - api-key: []
+    post:
+      operationId: tasks_createATask
+      summary: Create a task
+      description: Create a new CRM task with the specified name, type, due date, and optional associations to contacts, companies, or deals. A task requires a name, task type ID, and due date at minimum. You can also set a duration, notes, a reminder, and assign the task to a specific user.
+      tags:
+        - tasks
+      responses:
+        '201':
+          description: Created new task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tasks_createATask_Response_201'
+        '400':
+          description: Returned when invalid data posted
+          content:
+            application/json:
+              schema:
+                description: Any type
+      requestBody:
+        description: Task name.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assignToId:
+                  type: string
+                  description: To assign a task to a user you can use either the account email or ID.
+                companiesIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Companies ids for companies a task is linked to
+                contactsIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: Contact ids for contacts linked to this task
+                date:
+                  type: string
+                  format: date-time
+                  description: Task due date and time
+                dealsIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Deal ids for deals a task is linked to
+                done:
+                  type: boolean
+                  description: Task marked as done
+                duration:
+                  type: integer
+                  format: int64
+                  minimum: 0
+                  description: Duration of task in milliseconds [1 minute = 60000 ms]
+                name:
+                  type: string
+                  description: Name of task
+                notes:
+                  type: string
+                  description: Notes added to a task
+                reminder:
+                  $ref: '#/components/schemas/TaskReminder'
+                taskTypeId:
+                  type: string
+                  description: Id for type of task e.g Call / Email / Meeting etc.
+              required:
+                - date
+                - name
+                - taskTypeId
+      security:
+        - api-key: []
+  /crm/tasks/{id}:
+    get:
+      operationId: tasks_getATask
+      summary: Get a task
+      description: Retrieve the full details of a single CRM task by its identifier. The response includes the task''s name, type, status, due date, duration, notes, assignee, reminder settings, and linked contacts, companies, or deals.
+      tags:
+        - tasks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns the Task by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Returned when task id is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+    delete:
+      operationId: tasks_deleteATask
+      summary: Delete a task
+      description: Permanently delete a CRM task by its identifier. This removes the task and cancels any associated reminders. The requesting user must be the task assignee or have manage permission on tasks.
+      tags:
+        - tasks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Returned when item deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteATaskRequestBadRequestError'
+        '404':
+          description: Returned when task id is not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+    patch:
+      operationId: tasks_updateATask
+      summary: Update a task
+      description: Update an existing CRM task''s properties such as name, type, due date, status, duration, notes, assignee, reminder, or linked entities. Only the fields provided in the request body will be updated; omitted fields remain unchanged.
+      tags:
+        - tasks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateATaskRequestBadRequestError'
+        '404':
+          description: Returned when task id is not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        description: Updated task details.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assignToId:
+                  type: string
+                  description: To assign a task to a user you can use either the account email or ID.
+                companiesIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Companies ids for companies a task is linked to
+                contactsIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: Contact ids for contacts linked to this task
+                date:
+                  type: string
+                  format: date-time
+                  description: Task date/time
+                dealsIds:
+                  type: array
+                  items:
+                    type: string
+                  description: Deal ids for deals a task is linked to
+                done:
+                  type: boolean
+                  description: Task marked as done
+                duration:
+                  type: integer
+                  format: int64
+                  description: Duration of task in milliseconds [1 minute = 60000 ms]
+                name:
+                  type: string
+                  description: Name of task
+                notes:
+                  type: string
+                  description: Notes added to a task
+                reminder:
+                  $ref: '#/components/schemas/TaskReminder'
+                taskTypeId:
+                  type: string
+                  description: Id for type of task e.g Call / Email / Meeting etc.
+      security:
+        - api-key: []
+  /crm/notes:
+    get:
+      operationId: notes_getAllNotes
+      summary: Get all notes
+      description: Retrieve a paginated list of CRM notes with optional filtering by entity type, entity IDs, and date range. Results are sorted by creation date in descending order by default, with a default limit of 50 notes per page.
+      tags:
+        - notes
+      parameters:
+        - name: entity
+          in: query
+          description: Filter by note entity type
+          required: false
+          schema:
+            $ref: '#/components/schemas/CrmNotesGetParametersEntity'
+        - name: entityIds
+          in: query
+          description: Filter by note entity IDs
+          required: false
+          schema:
+            type: string
+        - name: dateFrom
+          in: query
+          description: dateFrom to date range filter type (timestamp in milliseconds)
+          required: false
+          schema:
+            type: integer
+        - name: dateTo
+          in: query
+          description: dateTo to date range filter type (timestamp in milliseconds)
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Index of the first document of the page
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: Number of documents per page
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 50
+        - name: sort
+          in: query
+          description: Sort the results in the ascending/descending order. Default order is **descending** by creation if `sort` is not passed
+          required: false
+          schema:
+            $ref: '#/components/schemas/CrmNotesGetParametersSort'
+      responses:
+        '200':
+          description: Returns notes list with filters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllNotesRequestBadRequestError'
+      security:
+        - api-key: []
+    post:
+      operationId: notes_createANote
+      summary: Create a note
+      description: Create a new CRM note and optionally associate it with contacts, companies, or deals. The note text content is required, and you can link the note to multiple entities simultaneously during creation.
+      tags:
+        - notes
+      responses:
+        '200':
+          description: Created new note
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notes_createANote_Response_200'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateANoteRequestBadRequestError'
+        '415':
+          description: Format is not supported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        description: Note data to create a note.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteData'
+      security:
+        - api-key: []
+  /crm/notes/{id}:
+    get:
+      operationId: notes_getANote
+      summary: Get a note
+      description: Retrieve the full details of a single CRM note by its identifier. The response includes the note''s text content, creation date, author, and any associated contacts, companies, or deals.
+      tags:
+        - notes
+      parameters:
+        - name: id
+          in: path
+          description: Note ID to get
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns the Note by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetANoteRequestBadRequestError'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+    patch:
+      operationId: notes_updateANote
+      summary: Update a note
+      description: Update an existing CRM note''s text content and its associations with contacts, companies, or deals. You can modify the note text, change the pinned status, or update the linked entities.
+      tags:
+        - notes
+      parameters:
+        - name: id
+          in: path
+          description: Note ID to update
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Note updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateANoteRequestBadRequestError'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+        '415':
+          description: Format is not supported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        description: Note data to update a note.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoteData'
+      security:
+        - api-key: []
+    delete:
+      operationId: notes_deleteANote
+      summary: Delete a note
+      description: Permanently delete a CRM note by its identifier. This removes the note and unlinks it from any associated contacts, companies, or deals.
+      tags:
+        - notes
+      parameters:
+        - name: id
+          in: path
+          description: Note ID to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Returned when item deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteANoteRequestBadRequestError'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+  /crm/files:
+    get:
+      operationId: files_getAllFiles
+      summary: Get all files
+      description: Retrieve a paginated list of CRM files with optional filtering by entity type, entity IDs, and date range. Results are sorted by creation date in descending order by default, with a default limit of 50 files per page.
+      tags:
+        - files
+      parameters:
+        - name: entity
+          in: query
+          description: Filter by file entity type
+          required: false
+          schema:
+            $ref: '#/components/schemas/CrmFilesGetParametersEntity'
+        - name: entityIds
+          in: query
+          description: Filter by file entity IDs
+          required: false
+          schema:
+            type: string
+        - name: dateFrom
+          in: query
+          description: dateFrom to date range filter type (timestamp in milliseconds)
+          required: false
+          schema:
+            type: integer
+        - name: dateTo
+          in: query
+          description: dateTo to date range filter type (timestamp in milliseconds)
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Index of the first document of the page
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: Number of documents per page
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 50
+        - name: sort
+          in: query
+          description: Sort the results in the ascending/descending order. Default order is **descending** by creation if `sort` is not passed
+          required: false
+          schema:
+            $ref: '#/components/schemas/CrmFilesGetParametersSort'
+      responses:
+        '200':
+          description: Returns files list with filters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FileData'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllFilesRequestBadRequestError'
+      security:
+        - api-key: []
+    post:
+      operationId: files_uploadAFile
+      summary: Upload a file
+      description: Upload a file and associate it with a contact, company, or deal. The file must be sent as multipart form data with a maximum size of 10 MB. You can optionally link the file to a specific entity by providing the corresponding entity ID.
+      tags:
+        - files
+      responses:
+        '201':
+          description: Returns the created File with additional details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileData'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadAFileRequestBadRequestError'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                companyId:
+                  type: string
+                contactId:
+                  type: integer
+                  format: int64
+                dealId:
+                  type: string
+                file:
+                  type: string
+                  format: binary
+                  description: File data to create a file.
+              required:
+                - file
+      security:
+        - api-key: []
+  /crm/files/{id}:
+    get:
+      operationId: files_downloadAFile
+      summary: Download a file
+      description: Get a temporary download URL for a CRM file by its identifier. The returned URL is valid for 5 minutes only and provides direct access to the file content.
+      tags:
+        - files
+      parameters:
+        - name: id
+          in: path
+          description: File id to download.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns downloadable file link. Valid for next 5 minutes only.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Files_downloadAFile_Response_200'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadAFileRequestBadRequestError'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+    delete:
+      operationId: files_deleteAFile
+      summary: Delete a file
+      description: Permanently delete a CRM file by its identifier. This removes the file from storage and unlinks it from any associated contacts, companies, or deals.
+      tags:
+        - files
+      parameters:
+        - name: id
+          in: path
+          description: File id to delete.
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Returned when file is deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteAFileRequestBadRequestError'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+  /crm/files/{id}/data:
+    get:
+      operationId: files_getFileDetails
+      summary: Get file details
+      description: Retrieve the metadata and details of a specific CRM file by its identifier. This returns information such as the file name, size, type, creation date, and associated entities, but does not include the file content itself.
+      tags:
+        - files
+      parameters:
+        - name: id
+          in: path
+          description: File id to get file data.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returned when file is found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileData'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetFileDetailsRequestBadRequestError'
+        '404':
+          description: Returned when item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      security:
+        - api-key: []
+tags:
+  - name: companies
+  - name: deals
+  - name: tasks
+  - name: notes
+  - name: files
+servers:
+  - url: https://api.brevo.com/v3
+    description: https://api.brevo.com/v3
+components:
+  schemas:
+    CompaniesGetParametersSort:
+      type: string
+      enum:
+        - asc
+        - desc
+      title: CompaniesGetParametersSort
+    CompanyAttributes:
+      type: object
+      properties: {}
+      description: Company attributes with values
+      title: CompanyAttributes
+    Company:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CompanyAttributes'
+          description: Company attributes with values
+        id:
+          type: string
+          description: Unique company id
+        linkedContactsIds:
+          type: array
+          items:
+            type: integer
+          description: Contact ids for contacts linked to this company
+        linkedDealsIds:
+          type: array
+          items:
+            type: string
+          description: Deal ids for deals linked to this company
+      description: Company Details
+      title: Company
+    Companies_getAllCompanies_Response_200:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company'
+          description: List of companies
+      description: List of companies
+      title: Companies_getAllCompanies_Response_200
+    CompaniesGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CompaniesGetResponsesContentApplicationJsonSchemaCode
+    GetAllCompaniesRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CompaniesGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetAllCompaniesRequestBadRequestError
+    CompaniesPostRequestBodyContentApplicationJsonSchemaAttributes:
+      type: object
+      properties: {}
+      description: Attributes for company creation
+      title: CompaniesPostRequestBodyContentApplicationJsonSchemaAttributes
+    Companies_createACompany_Response_200:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique company id
+      required:
+        - id
+      description: Created company id
+      title: Companies_createACompany_Response_200
+    CompaniesPostResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CompaniesPostResponsesContentApplicationJsonSchemaCode
+    CreateACompanyRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CompaniesPostResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: CreateACompanyRequestBadRequestError
+    CompaniesIdGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CompaniesIdGetResponsesContentApplicationJsonSchemaCode
+    GetACompanyRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CompaniesIdGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetACompanyRequestBadRequestError
+    errorModel:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - message
+      title: errorModel
+    CompaniesIdDeleteResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CompaniesIdDeleteResponsesContentApplicationJsonSchemaCode
+    DeleteACompanyRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CompaniesIdDeleteResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: DeleteACompanyRequestBadRequestError
+    CompaniesIdPatchRequestBodyContentApplicationJsonSchemaAttributes:
+      type: object
+      properties: {}
+      description: Attributes for company update
+      title: CompaniesIdPatchRequestBodyContentApplicationJsonSchemaAttributes
+    CompaniesIdPatchResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CompaniesIdPatchResponsesContentApplicationJsonSchemaCode
+    UpdateACompanyRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CompaniesIdPatchResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: UpdateACompanyRequestBadRequestError
+    CrmAttributesPostRequestBodyContentApplicationJsonSchemaAttributeType:
+      type: string
+      enum:
+        - text
+        - user
+        - number
+        - single-select
+        - date
+        - boolean
+        - multi-choice
+      description: The type of attribute (must be one of the defined enums)
+      title: CrmAttributesPostRequestBodyContentApplicationJsonSchemaAttributeType
+    CrmAttributesPostRequestBodyContentApplicationJsonSchemaObjectType:
+      type: string
+      enum:
+        - companies
+        - deals
+      description: The type of object the attribute belongs to. Must be either `companies` or `deals`.
+      title: CrmAttributesPostRequestBodyContentApplicationJsonSchemaObjectType
+    Companies_createACompanyDealAttribute_Response_200:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the created attribute
+      required:
+        - id
+      title: Companies_createACompanyDealAttribute_Response_200
+    CrmAttributesCompaniesGetResponsesContentApplicationJsonSchemaItemsAttributeOptionsItems:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      title: CrmAttributesCompaniesGetResponsesContentApplicationJsonSchemaItemsAttributeOptionsItems
+    CrmAttributesCompaniesGetResponsesContentApplicationJsonSchemaItems:
+      type: object
+      properties:
+        internalName:
+          type: string
+          description: Internal name of the attribute
+        attributeTypeName:
+          type: string
+          description: Type of the attribute
+        label:
+          type: string
+          description: Display label of the attribute
+        attributeOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CrmAttributesCompaniesGetResponsesContentApplicationJsonSchemaItemsAttributeOptionsItems'
+          description: Options for single-select or multi-choice attributes
+        isRequired:
+          type: boolean
+          description: Whether this attribute is required
+        isValueReadonly:
+          type: boolean
+          description: Whether this attribute value is read-only
+      description: Company attribute details
+      title: CrmAttributesCompaniesGetResponsesContentApplicationJsonSchemaItems
+    CrmAttributesCompaniesGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmAttributesCompaniesGetResponsesContentApplicationJsonSchemaCode
+    GetCompanyAttributesRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmAttributesCompaniesGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetCompanyAttributesRequestBadRequestError
+    CompaniesLinkUnlinkIdPatchResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CompaniesLinkUnlinkIdPatchResponsesContentApplicationJsonSchemaCode
+    LinkAndUnlinkCompanyWithContactAndDealRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CompaniesLinkUnlinkIdPatchResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: LinkAndUnlinkCompanyWithContactAndDealRequestBadRequestError
+    CompaniesImportPostRequestBodyContentMultipartFormDataSchemaMapping:
+      type: object
+      properties: {}
+      description: "The mapping options in JSON format. Here is an example of the JSON structure: ```json {\n  \"link_entities\": true, // Determines whether to link related entities during the import process\n  \"unlink_entities\": false, // Determines whether to unlink related entities during the import process\n  \"update_existing_records\": true, // Determines whether to update based on company ID or treat every row as create\n  \"unset_empty_attributes\": false // Determines whether to unset a specific attribute during update if the values input is blank\n} ```\n"
+      title: CompaniesImportPostRequestBodyContentMultipartFormDataSchemaMapping
+    Companies_importCompaniesCreationAndUpdation_Response_200:
+      type: object
+      properties:
+        processId:
+          type: integer
+          description: The ID of the import process
+      title: Companies_importCompaniesCreationAndUpdation_Response_200
+    ImportCompaniesCreationAndUpdationRequestBadRequestError:
+      type: object
+      properties:
+        message:
+          type: string
+      title: ImportCompaniesCreationAndUpdationRequestBadRequestError
+    PipelineStagesItems:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Stage id
+        name:
+          type: string
+          description: Stage name
+      description: Stage details
+      title: PipelineStagesItems
+    Pipeline:
+      type: object
+      properties:
+        pipeline:
+          type: string
+          description: Pipeline id
+        pipeline_name:
+          type: string
+          description: Pipeline Name
+        stages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineStagesItems'
+          description: List of pipeline stages
+      description: Pipeline details with stages
+      title: Pipeline
+    CrmPipelineDetailsGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmPipelineDetailsGetResponsesContentApplicationJsonSchemaCode
+    GetPipelineStagesRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmPipelineDetailsGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetPipelineStagesRequestBadRequestError
+    Pipelines:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pipeline'
+      description: List of pipeline
+      title: Pipelines
+    CrmAttributesDealsGetResponsesContentApplicationJsonSchemaItemsAttributeOptionsItems:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      title: CrmAttributesDealsGetResponsesContentApplicationJsonSchemaItemsAttributeOptionsItems
+    CrmAttributesDealsGetResponsesContentApplicationJsonSchemaItems:
+      type: object
+      properties:
+        internalName:
+          type: string
+          description: Internal name of the attribute
+        attributeTypeName:
+          type: string
+          description: Type of the attribute
+        label:
+          type: string
+          description: Display label of the attribute
+        attributeOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CrmAttributesDealsGetResponsesContentApplicationJsonSchemaItemsAttributeOptionsItems'
+          description: Options for single-select or multi-choice attributes
+        isRequired:
+          type: boolean
+          description: Whether this attribute is required
+        isValueReadonly:
+          type: boolean
+          description: Whether this attribute value is read-only
+      description: Deal attribute details
+      title: CrmAttributesDealsGetResponsesContentApplicationJsonSchemaItems
+    CrmAttributesDealsGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmAttributesDealsGetResponsesContentApplicationJsonSchemaCode
+    GetDealAttributesRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmAttributesDealsGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetDealAttributesRequestBadRequestError
+    CrmDealsGetParametersSort:
+      type: string
+      enum:
+        - asc
+        - desc
+      title: CrmDealsGetParametersSort
+    DealAttributes:
+      type: object
+      properties: {}
+      description: Deal attributes with values
+      title: DealAttributes
+    Deal:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique deal id
+        attributes:
+          $ref: '#/components/schemas/DealAttributes'
+          description: Deal attributes with values
+        linkedContactsIds:
+          type: array
+          items:
+            type: integer
+          description: Contact ids for contacts linked to this deal
+        linkedCompaniesIds:
+          type: array
+          items:
+            type: string
+          description: Companies ids for companies linked to this deal
+      description: Deal Details
+      title: Deal
+    Deals_getAllDeals_Response_200:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Deal'
+          description: List of deals
+      description: List of Deals
+      title: Deals_getAllDeals_Response_200
+    CrmDealsGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmDealsGetResponsesContentApplicationJsonSchemaCode
+    GetAllDealsRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmDealsGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetAllDealsRequestBadRequestError
+    CrmDealsPostRequestBodyContentApplicationJsonSchemaAttributes:
+      type: object
+      properties: {}
+      description: 'Attributes for deal creation To assign owner of a Deal you can send attributes.deal_owner and utilize the account email or ID. If you want to create a deal on a specific pipeline and stage you can use the following attributes `pipeline` and `deal_stage`. Pipeline and deal_stage are ids you can fetch using this endpoint `/crm/pipeline/details/{pipelineID}`
+
+        '
+      title: CrmDealsPostRequestBodyContentApplicationJsonSchemaAttributes
+    Deals_createADeal_Response_201:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique deal id
+      required:
+        - id
+      description: Created deal id
+      title: Deals_createADeal_Response_201
+    CrmDealsIdDeleteResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmDealsIdDeleteResponsesContentApplicationJsonSchemaCode
+    DeleteADealRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmDealsIdDeleteResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: DeleteADealRequestBadRequestError
+    CrmDealsIdPatchRequestBodyContentApplicationJsonSchemaAttributes:
+      type: object
+      properties: {}
+      description: 'Attributes for deal update To assign owner of a Deal you can send attributes.deal_owner and utilize the account email or ID. If you wish to update the pipeline of a deal you need to provide the `pipeline` and the `deal_stage` Pipeline and deal_stage are ids you can fetch using this endpoint `/crm/pipeline/details/{pipelineID}`
+
+        '
+      title: CrmDealsIdPatchRequestBodyContentApplicationJsonSchemaAttributes
+    CrmDealsIdPatchResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmDealsIdPatchResponsesContentApplicationJsonSchemaCode
+    UpdateADealRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmDealsIdPatchResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: UpdateADealRequestBadRequestError
+    CrmDealsImportPostRequestBodyContentMultipartFormDataSchemaMapping:
+      type: object
+      properties: {}
+      description: "The mapping options in JSON format. Here is an example of the JSON structure: ```json {\n  \"link_entities\": true, // Determines whether to link related entities during the import process\n  \"unlink_entities\": false, // Determines whether to unlink related entities during the import process\n  \"update_existing_records\": true, // Determines whether to update based on deal ID or treat every row as create\n  \"unset_empty_attributes\": false // Determines whether to unset a specific attribute during update if the values input is blank\n} ```\n"
+      title: CrmDealsImportPostRequestBodyContentMultipartFormDataSchemaMapping
+    Deals_importDealsCreationAndUpdation_Response_200:
+      type: object
+      properties:
+        processId:
+          type: integer
+          description: The ID of the import process
+      title: Deals_importDealsCreationAndUpdation_Response_200
+    ImportDealsCreationAndUpdationRequestBadRequestError:
+      type: object
+      properties:
+        message:
+          type: string
+      title: ImportDealsCreationAndUpdationRequestBadRequestError
+    CrmTasktypesGetResponsesContentApplicationJsonSchemaItems:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of task type
+        title:
+          type: string
+          description: Title of task type
+      title: CrmTasktypesGetResponsesContentApplicationJsonSchemaItems
+    CrmTasktypesGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmTasktypesGetResponsesContentApplicationJsonSchemaCode
+    GetAllTaskTypesRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmTasktypesGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetAllTaskTypesRequestBadRequestError
+    CrmTasksGetParametersFilterStatus:
+      type: string
+      enum:
+        - done
+        - undone
+      title: CrmTasksGetParametersFilterStatus
+    CrmTasksGetParametersFilterDate:
+      type: string
+      enum:
+        - overdue
+        - today
+        - tomorrow
+        - week
+        - range
+      title: CrmTasksGetParametersFilterDate
+    CrmTasksGetParametersSort:
+      type: string
+      enum:
+        - asc
+        - desc
+      title: CrmTasksGetParametersSort
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique task id
+        taskTypeId:
+          type: string
+          description: Id for type of task e.g Call / Email / Meeting etc.
+        name:
+          type: string
+          description: Name of task
+        companiesIds:
+          type: array
+          items:
+            type: string
+          description: Companies ids for companies a task is linked to
+        dealsIds:
+          type: array
+          items:
+            type: string
+          description: Deal ids for deals a task is linked to
+        contactsIds:
+          type: array
+          items:
+            type: integer
+          description: Contact ids for contacts linked to this task
+        assignToId:
+          type: string
+          description: Account id of the user assigned to this task
+        date:
+          type: string
+          format: date-time
+          description: Task due date and time
+        notes:
+          type: string
+          description: Notes added to a task
+        done:
+          type: boolean
+          description: Whether the task is marked as done
+        createdAt:
+          type: string
+          format: date-time
+          description: Task creation date/time
+        updatedAt:
+          type: string
+          format: date-time
+          description: Task last update date/time
+      required:
+        - taskTypeId
+        - name
+        - date
+      description: Task Details
+      title: Task
+    Tasks_getAllTasks_Response_200:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+          description: List of tasks
+      description: List of tasks
+      title: Tasks_getAllTasks_Response_200
+    CrmTasksGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmTasksGetResponsesContentApplicationJsonSchemaCode
+    GetAllTasksRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmTasksGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetAllTasksRequestBadRequestError
+    TaskReminderTypesItems:
+      type: string
+      enum:
+        - email
+        - push
+      title: TaskReminderTypesItems
+    TaskReminderUnit:
+      type: string
+      enum:
+        - minutes
+        - hours
+        - weeks
+        - days
+      description: Unit of time before reminder is to be sent
+      title: TaskReminderUnit
+    TaskReminder:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskReminderTypesItems'
+          description: Type of task reminder e.g email, push
+        unit:
+          $ref: '#/components/schemas/TaskReminderUnit'
+          description: Unit of time before reminder is to be sent
+        value:
+          type: integer
+          description: Value of time unit before reminder is to be sent
+      required:
+        - types
+        - unit
+        - value
+      description: Task reminder date/time for a task
+      title: TaskReminder
+    Tasks_createATask_Response_201:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique task id
+      required:
+        - id
+      description: Task Details
+      title: Tasks_createATask_Response_201
+    CrmTasksIdDeleteResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmTasksIdDeleteResponsesContentApplicationJsonSchemaCode
+    DeleteATaskRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmTasksIdDeleteResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: DeleteATaskRequestBadRequestError
+    CrmTasksIdPatchResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmTasksIdPatchResponsesContentApplicationJsonSchemaCode
+    UpdateATaskRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmTasksIdPatchResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: UpdateATaskRequestBadRequestError
+    CrmNotesGetParametersEntity:
+      type: string
+      enum:
+        - companies
+        - deals
+        - contacts
+      title: CrmNotesGetParametersEntity
+    CrmNotesGetParametersSort:
+      type: string
+      enum:
+        - asc
+        - desc
+      title: CrmNotesGetParametersSort
+    NoteAuthorId:
+      type: object
+      properties: {}
+      description: Account details of user which created the note
+      title: NoteAuthorId
+    Note:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique note Id
+        text:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: 'Content of the note. Supports HTML for rich text formatting. Supported tags include: `<p>` (paragraph), `<b>` / `<strong>` (bold), `<i>` / `<em>` (italic), `<u>` (underline), `<br>` (line break), `<a href="...">` (labelled hyperlink). Example labelled link: `<a href="https://example.com">Link text</a>`.'
+        contactIds:
+          type: array
+          items:
+            type: integer
+          description: Contact ids linked to a note
+        companyIds:
+          type: array
+          items:
+            type: string
+          description: Company ids linked to a note
+        dealIds:
+          type: array
+          items:
+            type: string
+          description: Deal ids linked to a note
+        authorId:
+          $ref: '#/components/schemas/NoteAuthorId'
+          description: Account details of user which created the note
+        createdAt:
+          type: string
+          format: date-time
+          description: Note created date/time
+        updatedAt:
+          type: string
+          format: date-time
+          description: Note updated date/time
+      required:
+        - text
+      description: Note Details
+      title: Note
+    CrmNotesGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmNotesGetResponsesContentApplicationJsonSchemaCode
+    GetAllNotesRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmNotesGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetAllNotesRequestBadRequestError
+    NoteData:
+      type: object
+      properties:
+        companyIds:
+          type: array
+          items:
+            type: string
+          description: Company Ids linked to a note
+        contactIds:
+          type: array
+          items:
+            type: integer
+          description: Contact Ids linked to a note
+        dealIds:
+          type: array
+          items:
+            type: string
+          description: Deal Ids linked to a note
+        text:
+          type: string
+          minLength: 1
+          maxLength: 10000
+          description: 'Content of the note. Supports HTML for rich text formatting. Supported tags include: `<p>` (paragraph), `<b>` / `<strong>` (bold), `<i>` / `<em>` (italic), `<u>` (underline), `<br>` (line break), `<a href="...">` (labelled hyperlink). Example labelled link: `<a href="https://example.com">Link text</a>`.'
+      required:
+        - text
+      description: Note data to be saved
+      title: NoteData
+    Notes_createANote_Response_200:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique note Id
+      description: Created Note ID
+      title: Notes_createANote_Response_200
+    CrmNotesPostResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmNotesPostResponsesContentApplicationJsonSchemaCode
+    CreateANoteRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmNotesPostResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: CreateANoteRequestBadRequestError
+    CrmNotesIdGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmNotesIdGetResponsesContentApplicationJsonSchemaCode
+    GetANoteRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmNotesIdGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetANoteRequestBadRequestError
+    CrmNotesIdPatchResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmNotesIdPatchResponsesContentApplicationJsonSchemaCode
+    UpdateANoteRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmNotesIdPatchResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: UpdateANoteRequestBadRequestError
+    CrmNotesIdDeleteResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmNotesIdDeleteResponsesContentApplicationJsonSchemaCode
+    DeleteANoteRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmNotesIdDeleteResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: DeleteANoteRequestBadRequestError
+    CrmFilesGetParametersEntity:
+      type: string
+      enum:
+        - companies
+        - deals
+        - contacts
+      title: CrmFilesGetParametersEntity
+    CrmFilesGetParametersSort:
+      type: string
+      enum:
+        - asc
+        - desc
+      title: CrmFilesGetParametersSort
+    FileData:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique file id
+        name:
+          type: string
+          description: Name of uploaded file
+        authorId:
+          type: string
+          description: Account id of user which created the file
+        contactId:
+          type: integer
+          format: int64
+          description: Contact id of contact on which file is uploaded
+        dealId:
+          type: string
+          description: Deal id linked to a file
+        companyId:
+          type: string
+          description: Company id linked to a file
+        size:
+          type: integer
+          format: int64
+          description: Size of file in bytes
+        createdAt:
+          type: string
+          format: date-time
+          description: File created date/time
+      description: File data that is uploaded
+      title: FileData
+    CrmFilesGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmFilesGetResponsesContentApplicationJsonSchemaCode
+    GetAllFilesRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmFilesGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetAllFilesRequestBadRequestError
+    CrmFilesPostResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmFilesPostResponsesContentApplicationJsonSchemaCode
+    UploadAFileRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmFilesPostResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: UploadAFileRequestBadRequestError
+    Files_downloadAFile_Response_200:
+      type: object
+      properties:
+        fileUrl:
+          type: string
+          description: A unique link to download the requested file.
+      description: Downloadable file link
+      title: Files_downloadAFile_Response_200
+    CrmFilesIdGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmFilesIdGetResponsesContentApplicationJsonSchemaCode
+    DownloadAFileRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmFilesIdGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: DownloadAFileRequestBadRequestError
+    CrmFilesIdDeleteResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmFilesIdDeleteResponsesContentApplicationJsonSchemaCode
+    DeleteAFileRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmFilesIdDeleteResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: DeleteAFileRequestBadRequestError
+    CrmFilesIdDataGetResponsesContentApplicationJsonSchemaCode:
+      type: string
+      enum:
+        - invalid_parameter
+        - missing_parameter
+        - out_of_range
+        - campaign_processing
+        - campaign_sent
+        - document_not_found
+        - not_enough_credits
+        - permission_denied
+        - duplicate_parameter
+        - duplicate_request
+        - method_not_allowed
+        - unauthorized
+        - account_under_validation
+        - not_acceptable
+        - bad_request
+        - unprocessable_entity
+        - Domain does not exist
+        - Contact email not found
+        - Attribute not found
+        - Category id not found
+        - Invalid parameters passed
+        - Record(s) for identifier not found
+        - Returned when query params are invalid
+        - Returned when invalid data posted
+        - Feed not found
+        - Campaign ID not found
+        - api-key not found
+        - DMARC policy requires domain authentication
+        - DNS records not properly configured
+        - Invalid OTP code provided
+        - OTP code has expired
+        - Domain already exists in your account
+        - The sum of all IP weights must equal 100
+        - Authentication failed
+        - Insufficient credits
+        - Request already processed
+      description: Error code displayed in case of a failure
+      title: CrmFilesIdDataGetResponsesContentApplicationJsonSchemaCode
+    GetFileDetailsRequestBadRequestError:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/CrmFilesIdDataGetResponsesContentApplicationJsonSchemaCode'
+          description: Error code displayed in case of a failure
+        message:
+          type: string
+          description: Readable message associated to the failure
+      required:
+        - code
+        - message
+      title: GetFileDetailsRequestBadRequestError
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: api-key
+      description: The API key should be passed in the request headers as `api-key` for authentication.
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client_credentials (machine-to-machine) grant. Exchange your app's client_id/client_secret for a short-lived Bearer token.
