@@ -1,0 +1,637 @@
+{
+  "schema_version": 1,
+  "description": "Removed info.summary, an OpenAPI 3.1 field not allowed in this OpenAPI 3.0.2 document; its exact text was: \"The Algolia A/B Testing API lets you manage your Algolia A/B tests to optimize your search experience\". Represented 15 null-only oneOf alternatives ({type: null}, not valid in 3.0) as {type: string, nullable: true, enum: [null]}, which accepts only null, keeping every other alternative and oneOf exclusivity. No other content changed.",
+  "operations": [
+    {
+      "pointer": "#/info/summary",
+      "from": "The Algolia A/B Testing API lets you manage your Algolia A/B tests to optimize your search experience",
+      "remove": true,
+      "context": {
+        "title": "A/B Testing API"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/variant/properties/addToCartRate",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Add-to-cart rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#add-to-cart-rate) for this variant.\n",
+            "example": 0
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Add-to-cart rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#add-to-cart-rate) for this variant.\n",
+            "example": 0
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "conversionCount": {
+          "type": "integer",
+          "description": "Number of click events for this variant.",
+          "example": 4785
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/variant/properties/averageClickPosition",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Average click position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position) for this variant.\n",
+            "example": 29.12342
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Average click position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position) for this variant.\n",
+            "example": 29.12342
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "conversionCount": {
+          "type": "integer",
+          "description": "Number of click events for this variant.",
+          "example": 4785
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/variant/properties/clickThroughRate",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Click-through rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate) for this variant.\n",
+            "example": 0.22219857724813036
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Click-through rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate) for this variant.\n",
+            "example": 0.22219857724813036
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "conversionCount": {
+          "type": "integer",
+          "description": "Number of click events for this variant.",
+          "example": 4785
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/variant/properties/conversionRate",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate) for this variant.\n",
+            "example": 0.14546725846658964
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate) for this variant.\n",
+            "example": 0.14546725846658964
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "conversionCount": {
+          "type": "integer",
+          "description": "Number of click events for this variant.",
+          "example": 4785
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/variant/properties/noResultCount",
+      "from": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "description": "Number of [searches without results](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#searches-without-results) for this variant.",
+            "example": 0
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "description": "Number of [searches without results](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#searches-without-results) for this variant.",
+            "example": 0
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "conversionCount": {
+          "type": "integer",
+          "description": "Number of click events for this variant.",
+          "example": 4785
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/variant/properties/purchaseRate",
+      "from": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Purchase rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#purchase-rate) for this variant.\n",
+            "example": 0
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "number",
+            "format": "double",
+            "description": "[Purchase rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#purchase-rate) for this variant.\n",
+            "example": 0
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "conversionCount": {
+          "type": "integer",
+          "description": "Number of click events for this variant.",
+          "example": 4785
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/variant/properties/searchCount",
+      "from": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "description": "Number of searches for this variant.",
+            "example": 86269
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "description": "Number of searches for this variant.",
+            "example": 86269
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "conversionCount": {
+          "type": "integer",
+          "description": "Number of click events for this variant.",
+          "example": 4785
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/variant/properties/userCount",
+      "from": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "description": "Number of users that made searches to this variant.",
+            "example": 55501
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "description": "Number of users that made searches to this variant.",
+            "example": 55501
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "conversionCount": {
+          "type": "integer",
+          "description": "Number of click events for this variant.",
+          "example": 4785
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/variant/properties/trackedUserCount",
+      "from": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "description": "Number of users that made tracked searches to this variant.",
+            "example": 55501
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "description": "Number of users that made tracked searches to this variant.",
+            "example": 55501
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "conversionCount": {
+          "type": "integer",
+          "description": "Number of click events for this variant.",
+          "example": 4785
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/ABTest/properties",
+      "from": {
+        "abTestID": {
+          "$ref": "#/components/schemas/abTestID"
+        },
+        "clickSignificance": {
+          "description": "A/B test significance calculated from click events.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\nLower values have a.\n",
+          "oneOf": [
+            {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "conversionSignificance": {
+          "description": "A/B test significance calculated from conversion events.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\n",
+          "oneOf": [
+            {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "addToCartSignificance": {
+          "description": "A/B test significance calculated from add-to-cart events.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\n",
+          "oneOf": [
+            {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "purchaseSignificance": {
+          "description": "A/B test significance calculated from purchase events.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\n",
+          "oneOf": [
+            {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "revenueSignificance": {
+          "description": "A/B test significance calculated from revenue data.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\n",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number",
+                "format": "double",
+                "x-additionalPropertiesName": "currency code"
+              },
+              "example": {
+                "USD": 1,
+                "EUR": 0.87
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updatedAt": {
+          "$ref": "#/components/schemas/updatedAt"
+        },
+        "createdAt": {
+          "$ref": "#/components/schemas/createdAt"
+        },
+        "endAt": {
+          "$ref": "#/components/schemas/endAt"
+        },
+        "stoppedAt": {
+          "$ref": "#/components/schemas/stoppedAt"
+        },
+        "name": {
+          "$ref": "#/components/schemas/name"
+        },
+        "status": {
+          "$ref": "#/components/schemas/Status"
+        },
+        "variants": {
+          "$ref": "#/components/schemas/variants"
+        },
+        "configuration": {
+          "$ref": "#/components/schemas/ABTestConfiguration"
+        }
+      },
+      "value": {
+        "abTestID": {
+          "$ref": "#/components/schemas/abTestID"
+        },
+        "clickSignificance": {
+          "description": "A/B test significance calculated from click events.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\nLower values have a.\n",
+          "oneOf": [
+            {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "conversionSignificance": {
+          "description": "A/B test significance calculated from conversion events.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\n",
+          "oneOf": [
+            {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "addToCartSignificance": {
+          "description": "A/B test significance calculated from add-to-cart events.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\n",
+          "oneOf": [
+            {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "purchaseSignificance": {
+          "description": "A/B test significance calculated from purchase events.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\n",
+          "oneOf": [
+            {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "revenueSignificance": {
+          "description": "A/B test significance calculated from revenue data.\n\nValues of 0.95 or higher can be considered significant,\nthat is, the difference between A and B variants is _not_ due to random variations.\n",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number",
+                "format": "double",
+                "x-additionalPropertiesName": "currency code"
+              },
+              "example": {
+                "USD": 1,
+                "EUR": 0.87
+              }
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "updatedAt": {
+          "$ref": "#/components/schemas/updatedAt"
+        },
+        "createdAt": {
+          "$ref": "#/components/schemas/createdAt"
+        },
+        "endAt": {
+          "$ref": "#/components/schemas/endAt"
+        },
+        "stoppedAt": {
+          "$ref": "#/components/schemas/stoppedAt"
+        },
+        "name": {
+          "$ref": "#/components/schemas/name"
+        },
+        "status": {
+          "$ref": "#/components/schemas/Status"
+        },
+        "variants": {
+          "$ref": "#/components/schemas/variants"
+        },
+        "configuration": {
+          "$ref": "#/components/schemas/ABTestConfiguration"
+        }
+      },
+      "context": {
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    {
+      "pointer": "#/components/schemas/ABTests",
+      "from": {
+        "oneOf": [
+          {
+            "type": "array",
+            "description": "The list of A/B tests, null if no A/B tests are configured for this application.",
+            "items": {
+              "$ref": "#/components/schemas/ABTest"
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "array",
+            "description": "The list of A/B tests, null if no A/B tests are configured for this application.",
+            "items": {
+              "$ref": "#/components/schemas/ABTest"
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "abTestID": {
+          "type": "integer",
+          "description": "Unique A/B test identifier.",
+          "example": 224
+        }
+      }
+    }
+  ]
+}

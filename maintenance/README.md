@@ -1376,3 +1376,18 @@ the exact reviewed count, refuses collisions, and preserves key order and every 
 value. A vendor fix changes the count and stops replay. `hetzner-cloud` uses it for its
 380 keys. The vendor's current 3.1 description adds 46 operations to the stored fixed 1.0.0
 file, with no removals.
+
+## Algolia, LaunchDarkly v2 and Jira Software (registered 2026-10-13)
+
+Seven Algolia APIs (Search, Recommend, Query Suggestions, Ingestion, A/B Testing,
+Monitoring, Personalization) follow the official bundled specs in
+`algolia/api-clients-automation`. Each recipe removes only the 3.1-only `info.summary`,
+quoting its text verbatim in provenance. Where needed, it represents null-only `oneOf`
+alternatives the reviewed Zendesk way (`{type: string, nullable: true, enum: [null]}`).
+Each prepared document was checked by full equality against the source with exactly
+those changes. Analytics (a null default on a number) and Insights (3.1 `examples` in a 3.0
+schema) are not registered. `launchdarkly` follows the official v2 description and is
+imported as 2.0 beside the historical 5.3.0 Swagger, which has no `x-preferred` flag.
+`jira-software` adds the Jira Software Cloud agile API beside the existing platform API.
+Leads recorded: Docker Hub (OpenAPI 3.2, outside the validator's scope), Jira Service
+Management, and RingCentral (validator traversal error, to investigate).

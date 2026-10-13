@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "description": "Removed info.summary, an OpenAPI 3.1 field not allowed in this OpenAPI 3.0.2 document; its exact text was: \"The Monitoring API lets you check the status of your Algolia infrastructure\". No other content changed.",
+  "operations": [
+    {
+      "pointer": "#/info/summary",
+      "from": "The Monitoring API lets you check the status of your Algolia infrastructure",
+      "remove": true,
+      "context": {
+        "title": "Algolia Monitoring API"
+      }
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "description": "Removed info.summary, an OpenAPI 3.1 field not allowed in this OpenAPI 3.0.2 document; its exact text was: \"The Recommend API lets you retrieve recommendations from one of Algolia's AI recommendation models that you previously trained on your data\". Represented 3 null-only oneOf alternatives ({type: null}, not valid in 3.0) as {type: string, nullable: true, enum: [null]}, which accepts only null, keeping every other alternative and oneOf exclusivity. No other content changed.",
+  "operations": [
+    {
+      "pointer": "#/info/summary",
+      "from": "The Recommend API lets you retrieve recommendations from one of Algolia's AI recommendation models that you previously trained on your data",
+      "remove": true,
+      "context": {
+        "title": "Recommend API"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/insideBoundingBox",
+      "from": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/components/schemas/insideBoundingBoxArray"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          },
+          {
+            "$ref": "#/components/schemas/insideBoundingBoxArray"
+          }
+        ]
+      },
+      "context": {
+        "distinctSeqID": {
+          "type": "integer"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/optionalWords",
+      "from": {
+        "description": "Words that should be considered optional when found in the query.\n\nBy default, records must match all words in the search query to be included in the search results.\nAdding optional words can increase the number of search results by running an additional search query that doesn't include the optional words.\nFor example, if the search query is \"action video\" and \"video\" is optional,\nthe search engine runs two queries: one for \"action video\" and one for \"action\".\nRecords that match all words are ranked higher.\n\nFor a search query with 4 or more words **and** all its words are optional,\nthe number of matched words required for a record to be included in the search results increases for every 1,000 records:\n\n- If `optionalWords` has fewer than 10 words, the required number of matched words increases by 1:\n  results 1 to 1,000 require 1 matched word; results 1,001 to 2,000 need 2 matched words.\n- If `optionalWords` has 10 or more words, the required number of matched words increases by the number of optional words divided by 5 (rounded down).\n  Example: with 18 optional words, results 1 to 1,000 require 1 matched word; results 1,001 to 2,000 need 4 matched words.\n\nFor more information, see [Optional words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/empty-or-insufficient-results/#create-a-list-of-optional-words).\n",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/components/schemas/optionalWordsArray"
+          }
+        ]
+      },
+      "value": {
+        "description": "Words that should be considered optional when found in the query.\n\nBy default, records must match all words in the search query to be included in the search results.\nAdding optional words can increase the number of search results by running an additional search query that doesn't include the optional words.\nFor example, if the search query is \"action video\" and \"video\" is optional,\nthe search engine runs two queries: one for \"action video\" and one for \"action\".\nRecords that match all words are ranked higher.\n\nFor a search query with 4 or more words **and** all its words are optional,\nthe number of matched words required for a record to be included in the search results increases for every 1,000 records:\n\n- If `optionalWords` has fewer than 10 words, the required number of matched words increases by 1:\n  results 1 to 1,000 require 1 matched word; results 1,001 to 2,000 need 2 matched words.\n- If `optionalWords` has 10 or more words, the required number of matched words increases by the number of optional words divided by 5 (rounded down).\n  Example: with 18 optional words, results 1 to 1,000 require 1 matched word; results 1,001 to 2,000 need 4 matched words.\n\nFor more information, see [Optional words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/empty-or-insufficient-results/#create-a-list-of-optional-words).\n",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          },
+          {
+            "$ref": "#/components/schemas/optionalWordsArray"
+          }
+        ]
+      },
+      "context": {
+        "distinctSeqID": {
+          "type": "integer"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/baseRecommendIndexSettings/properties",
+      "from": {
+        "attributesToRetrieve": {
+          "$ref": "#/components/schemas/attributesToRetrieve"
+        },
+        "relevancyStrictness": {
+          "$ref": "#/components/schemas/relevancyStrictness"
+        },
+        "attributesToHighlight": {
+          "$ref": "#/components/schemas/attributesToHighlight"
+        },
+        "attributesToSnippet": {
+          "$ref": "#/components/schemas/attributesToSnippet"
+        },
+        "highlightPreTag": {
+          "$ref": "#/components/schemas/highlightPreTag"
+        },
+        "highlightPostTag": {
+          "$ref": "#/components/schemas/highlightPostTag"
+        },
+        "snippetEllipsisText": {
+          "$ref": "#/components/schemas/snippetEllipsisText"
+        },
+        "restrictHighlightAndSnippetArrays": {
+          "$ref": "#/components/schemas/restrictHighlightAndSnippetArrays"
+        },
+        "minWordSizefor1Typo": {
+          "$ref": "#/components/schemas/minWordSizefor1Typo"
+        },
+        "minWordSizefor2Typos": {
+          "$ref": "#/components/schemas/minWordSizefor2Typos"
+        },
+        "typoTolerance": {
+          "$ref": "#/components/schemas/typoTolerance"
+        },
+        "allowTyposOnNumericTokens": {
+          "$ref": "#/components/schemas/allowTyposOnNumericTokens"
+        },
+        "disableTypoToleranceOnAttributes": {
+          "$ref": "#/components/schemas/disableTypoToleranceOnAttributes"
+        },
+        "ignorePlurals": {
+          "$ref": "#/components/schemas/ignorePlurals"
+        },
+        "removeStopWords": {
+          "$ref": "#/components/schemas/removeStopWords"
+        },
+        "queryLanguages": {
+          "$ref": "#/components/schemas/queryLanguages"
+        },
+        "decompoundQuery": {
+          "$ref": "#/components/schemas/decompoundQuery"
+        },
+        "enablePersonalization": {
+          "$ref": "#/components/schemas/enablePersonalization"
+        },
+        "queryType": {
+          "$ref": "#/components/schemas/queryType"
+        },
+        "removeWordsIfNoResults": {
+          "$ref": "#/components/schemas/removeWordsIfNoResults"
+        },
+        "advancedSyntax": {
+          "$ref": "#/components/schemas/advancedSyntax"
+        },
+        "optionalWords": {
+          "$ref": "#/components/schemas/optionalWords"
+        },
+        "disableExactOnAttributes": {
+          "$ref": "#/components/schemas/disableExactOnAttributes"
+        },
+        "exactOnSingleWordQuery": {
+          "$ref": "#/components/schemas/exactOnSingleWordQuery"
+        },
+        "alternativesAsExact": {
+          "$ref": "#/components/schemas/IndexSettings_alternativesAsExact"
+        },
+        "advancedSyntaxFeatures": {
+          "$ref": "#/components/schemas/IndexSettings_advancedSyntaxFeatures"
+        },
+        "distinct": {
+          "$ref": "#/components/schemas/distinct"
+        },
+        "replaceSynonymsInHighlight": {
+          "$ref": "#/components/schemas/replaceSynonymsInHighlight"
+        },
+        "minProximity": {
+          "$ref": "#/components/schemas/minProximity"
+        },
+        "responseFields": {
+          "$ref": "#/components/schemas/responseFields"
+        },
+        "maxValuesPerFacet": {
+          "$ref": "#/components/schemas/maxValuesPerFacet"
+        },
+        "sortFacetValuesBy": {
+          "$ref": "#/components/schemas/sortFacetValuesBy"
+        },
+        "attributeCriteriaComputedByMinProximity": {
+          "$ref": "#/components/schemas/attributeCriteriaComputedByMinProximity"
+        },
+        "renderingContent": {
+          "$ref": "#/components/schemas/renderingContent"
+        },
+        "enableReRanking": {
+          "$ref": "#/components/schemas/enableReRanking"
+        },
+        "reRankingApplyFilter": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/reRankingApplyFilter"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "value": {
+        "attributesToRetrieve": {
+          "$ref": "#/components/schemas/attributesToRetrieve"
+        },
+        "relevancyStrictness": {
+          "$ref": "#/components/schemas/relevancyStrictness"
+        },
+        "attributesToHighlight": {
+          "$ref": "#/components/schemas/attributesToHighlight"
+        },
+        "attributesToSnippet": {
+          "$ref": "#/components/schemas/attributesToSnippet"
+        },
+        "highlightPreTag": {
+          "$ref": "#/components/schemas/highlightPreTag"
+        },
+        "highlightPostTag": {
+          "$ref": "#/components/schemas/highlightPostTag"
+        },
+        "snippetEllipsisText": {
+          "$ref": "#/components/schemas/snippetEllipsisText"
+        },
+        "restrictHighlightAndSnippetArrays": {
+          "$ref": "#/components/schemas/restrictHighlightAndSnippetArrays"
+        },
+        "minWordSizefor1Typo": {
+          "$ref": "#/components/schemas/minWordSizefor1Typo"
+        },
+        "minWordSizefor2Typos": {
+          "$ref": "#/components/schemas/minWordSizefor2Typos"
+        },
+        "typoTolerance": {
+          "$ref": "#/components/schemas/typoTolerance"
+        },
+        "allowTyposOnNumericTokens": {
+          "$ref": "#/components/schemas/allowTyposOnNumericTokens"
+        },
+        "disableTypoToleranceOnAttributes": {
+          "$ref": "#/components/schemas/disableTypoToleranceOnAttributes"
+        },
+        "ignorePlurals": {
+          "$ref": "#/components/schemas/ignorePlurals"
+        },
+        "removeStopWords": {
+          "$ref": "#/components/schemas/removeStopWords"
+        },
+        "queryLanguages": {
+          "$ref": "#/components/schemas/queryLanguages"
+        },
+        "decompoundQuery": {
+          "$ref": "#/components/schemas/decompoundQuery"
+        },
+        "enablePersonalization": {
+          "$ref": "#/components/schemas/enablePersonalization"
+        },
+        "queryType": {
+          "$ref": "#/components/schemas/queryType"
+        },
+        "removeWordsIfNoResults": {
+          "$ref": "#/components/schemas/removeWordsIfNoResults"
+        },
+        "advancedSyntax": {
+          "$ref": "#/components/schemas/advancedSyntax"
+        },
+        "optionalWords": {
+          "$ref": "#/components/schemas/optionalWords"
+        },
+        "disableExactOnAttributes": {
+          "$ref": "#/components/schemas/disableExactOnAttributes"
+        },
+        "exactOnSingleWordQuery": {
+          "$ref": "#/components/schemas/exactOnSingleWordQuery"
+        },
+        "alternativesAsExact": {
+          "$ref": "#/components/schemas/IndexSettings_alternativesAsExact"
+        },
+        "advancedSyntaxFeatures": {
+          "$ref": "#/components/schemas/IndexSettings_advancedSyntaxFeatures"
+        },
+        "distinct": {
+          "$ref": "#/components/schemas/distinct"
+        },
+        "replaceSynonymsInHighlight": {
+          "$ref": "#/components/schemas/replaceSynonymsInHighlight"
+        },
+        "minProximity": {
+          "$ref": "#/components/schemas/minProximity"
+        },
+        "responseFields": {
+          "$ref": "#/components/schemas/responseFields"
+        },
+        "maxValuesPerFacet": {
+          "$ref": "#/components/schemas/maxValuesPerFacet"
+        },
+        "sortFacetValuesBy": {
+          "$ref": "#/components/schemas/sortFacetValuesBy"
+        },
+        "attributeCriteriaComputedByMinProximity": {
+          "$ref": "#/components/schemas/attributeCriteriaComputedByMinProximity"
+        },
+        "renderingContent": {
+          "$ref": "#/components/schemas/renderingContent"
+        },
+        "enableReRanking": {
+          "$ref": "#/components/schemas/enableReRanking"
+        },
+        "reRankingApplyFilter": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/reRankingApplyFilter"
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        }
+      },
+      "context": {
+        "type": "object",
+        "additionalProperties": false
+      }
+    }
+  ]
+}

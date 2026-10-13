@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "description": "Removed info.summary, an OpenAPI 3.1 field not allowed in this OpenAPI 3.0.2 document; its exact text was: \"The Ingestion API lets you connect third-party services and platforms with Algolia and schedule tasks to ingest your data\". Represented 7 null-only oneOf alternatives ({type: null}, not valid in 3.0) as {type: string, nullable: true, enum: [null]}, which accepts only null, keeping every other alternative and oneOf exclusivity. No other content changed.",
+  "operations": [
+    {
+      "pointer": "#/info/summary",
+      "from": "The Ingestion API lets you connect third-party services and platforms with Algolia and schedule tasks to ingest your data",
+      "remove": true,
+      "context": {
+        "title": "Ingestion API"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/EventStatus",
+      "from": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "created",
+              "started",
+              "retried",
+              "failed",
+              "succeeded",
+              "critical"
+            ]
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "created",
+              "started",
+              "retried",
+              "failed",
+              "succeeded",
+              "critical"
+            ]
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "BigQueryDataType": {
+          "type": "string",
+          "enum": [
+            "ga4",
+            "ga360"
+          ]
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/Event/properties/data",
+      "from": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": true
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": true
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "batchSize": {
+          "type": "integer",
+          "description": "The extracted record batch size.",
+          "example": 10,
+          "minimum": 0,
+          "multipleOf": 1
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/Platform",
+      "from": {
+        "default": null,
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Name of an ecommerce platform with which to authenticate.\nThis determines which authentication type you can select.\n",
+            "enum": [
+              "bigcommerce",
+              "commercetools",
+              "shopify"
+            ]
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "default": null,
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Name of an ecommerce platform with which to authenticate.\nThis determines which authentication type you can select.\n",
+            "enum": [
+              "bigcommerce",
+              "commercetools",
+              "shopify"
+            ]
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "BigQueryDataType": {
+          "type": "string",
+          "enum": [
+            "ga4",
+            "ga360"
+          ]
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/owner",
+      "from": {
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Owner of the resource."
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Owner of the resource."
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "BigQueryDataType": {
+          "type": "string",
+          "enum": [
+            "ga4",
+            "ga360"
+          ]
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/CommercetoolsCustomFields/properties",
+      "from": {
+        "inventory": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Inventory custom fields.",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "price": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Price custom fields.",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "category": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Category custom fields.",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "value": {
+        "inventory": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Inventory custom fields.",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "price": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Price custom fields.",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "category": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Category custom fields.",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        }
+      },
+      "context": {
+        "type": "object",
+        "additionalProperties": false
+      }
+    }
+  ]
+}
