@@ -1354,6 +1354,19 @@ comparisons with it are not meaningful. `tsg_logs_v3.json` is not registered: a 
 `examples` keyword holds a non-array value. Before registration, all files were scanned
 for SendGrid-API-key-shaped and Twilio-Account-SID-shaped example values; none were found.
 
+## Neon, Clerk Backend API and WorkOS (registered 2026-10-12)
+
+Three developer-platform APIs absent from the directory, each from an official publication.
+`neon` follows `neon.tech/api_spec/release/v2.json`. `clerk-backend` follows the latest
+dated Backend API file in `clerk/openapi-specs`. A later dated version needs a reviewed
+path update. `workos` follows `workos/openapi-spec`; its recipe removes only duplicated
+`list_metadata` entries from five `required` lists, which is exact because `required` is
+a set. Neon and Clerk validate with no patches. Leads recorded: Webflow v2. Its error
+`details` schema uses `items: [string, object]`, which can be read as a positional tuple
+(`prefixItems`) or as "each error is a string or an object" (`anyOf`). Those readings
+accept different payloads, so no fix is faithful. Hetzner Cloud's newer 3.1 description
+has a response-level defect, still to be reviewed.
+
 ## Lowercase response ranges (Hetzner Cloud, 2026-10-12)
 
 An opt-in `response_range_case: {expected_conversions: N}` recipe uppercases lowercase
