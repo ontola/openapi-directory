@@ -1366,3 +1366,13 @@ a set. Neon and Clerk validate with no patches. Leads recorded: Webflow v2. Its 
 (`prefixItems`) or as "each error is a string or an object" (`anyOf`). Those readings
 accept different payloads, so no fix is faithful. Hetzner Cloud's newer 3.1 description
 has a response-level defect, still to be reviewed.
+
+## Lowercase response ranges (Hetzner Cloud, 2026-10-12)
+
+An opt-in `response_range_case: {expected_conversions: N}` recipe uppercases lowercase
+response-range keys (`4xx` → `4XX`) in path-operation Responses Objects. Uppercase is the
+only range form OpenAPI defines, and the lowercase key names the same range. It requires
+the exact reviewed count, refuses collisions, and preserves key order and every response
+value. A vendor fix changes the count and stops replay. `hetzner-cloud` uses it for its
+380 keys. The vendor's current 3.1 description adds 46 operations to the stored fixed 1.0.0
+file, with no removals.

@@ -612,6 +612,8 @@ def prepare_document(source, raw, metadata=None, cache=None):
     spec = parse(raw)
     if "yaml_response_keys" in source:
         transformations.append(response_keys.prepare(source, spec))
+    if "response_range_case" in source:
+        transformations.append(response_keys.prepare_range_case(source, spec))
     if metadata and metadata.get("release_catalog"):
         if spec["info"]["version"] != metadata["release_catalog"]["selected_version"]:
             raise ValueError("Declared API version does not match the selected release directory")
