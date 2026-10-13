@@ -1413,3 +1413,35 @@ but it references a missing `components/responses/400`), Ory client API (undefin
 `sessionToken` scheme), Calendly (docs moved and the old Stoplight export may be stale),
 Opsgenie (official Swagger, but the product is being retired, so not current-priority),
 BigCommerce (official specs repository archived) and Vimeo (official repository archived).
+
+## Round 11 registrations (2026-10-13): Adyen services, Brevo, Paddle, SumUp, Revolut
+
+- **Adyen** (`adyen-*`, 11 sources): the latest major version of each service from
+  `Adyen/adyen-openapi` that the directory lacks. These are A2A payments, Balance Control v2,
+  Capital, Cloud device, Document Collector, Foreign Exchange, Open Banking, Payments App,
+  Raise disputes v4, Session authentication and SoftPOS configuration v3.
+  - Raise disputes has one exact recipe: the attachment file-name `(?i)` inline flag
+    becomes ASCII case classes for `jpeg|tiff|pdf`.
+  - Not registered: the webhook-only notification descriptions (no paths; the updater
+    needs `paths`), the deprecated SessionService, and TransactionService-v4 (a duplicate
+    of Raise disputes v4).
+  - Stored BalanceControlService/1 has no `x-preferred` curation and stays untouched.
+- **Brevo** (`brevo-*`, 13 sources): one OpenAPI 3.1 description per product, from the
+  vendor's documented index `developers.brevo.com/openapi.json`. Each is a separate API,
+  with no publication group.
+- **Paddle Billing** (`PaddleHQ/paddle-openapi`) and **Revolut X** register with no patches.
+- **SumUp** uses the vendor's own 3.1.0 rendition. Its docs link the 3.0.3 rendition, which
+  uses the 3.1-only `examples` keyword and fails validation.
+- **Revolut Open Banking** registers with no patches. Leads from the same repository:
+  Business (parameter-level `uniqueItems`, mismatched path parameters), Merchant (3.1.2;
+  examples fail) and Crypto Ramp (`examples` under 3.0).
+
+Other round-11 leads with no faithful fix:
+- **Telnyx v2:** duplicate operationIds and null defaults.
+- **Checkly:** dangling `$ref` `ChecksV1DnsRequestPatch`, plus empty-string defaults that
+  violate `minLength`.
+- **Exoscale v2:** OpenAPI 3.2 tag `parent`.
+- **UpCloud:** mixed `http://` draft-07 / 2020-12 `$schema` dialects.
+- **Linode 4.229.1:** a newer release than the stored 4.151.1. Every path moved under a
+  `/{apiVersion}` prefix, and five `X-Filter` header parameters carry a placeholder
+  `example` beside `content`. Needs a reviewed decision.
