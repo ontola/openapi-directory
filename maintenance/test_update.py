@@ -774,6 +774,29 @@ print(hashlib.sha256(update.serialize_document(result).encode()).hexdigest())
             with self.subTest(recipe=name), self.assertRaises((ValueError, KeyError)):
                 update.prepare_document(source, json.dumps(fixed).encode())
 
+    def test_algolia_recipes_replay_exactly_and_stop_on_vendor_fix(self):
+        for name in ("search", "recommend", "query-suggestions", "ingestion", "abtesting",
+                     "monitoring", "personalization"):
+            source = {"patches": ["maintenance/patches/algolia-" + name + ".json"]}
+            recipe = json.loads((update.ROOT / source["patches"][0]).read_text())
+            self.assertEqual(recipe["operations"][0]["pointer"], "#/info/summary")
+            spec = {"openapi": "3.0.2", "info": {"title": recipe["operations"][0]["context"]["title"], "version": "1",
+                                                 "summary": recipe["operations"][0]["from"]}, "paths": {}}
+            for operation in recipe["operations"][1:]:
+                parts = [p.replace("~1", "/").replace("~0", "~") for p in operation["pointer"][2:].split("/")]
+                node = spec
+                for part in parts[:-2]:
+                    node = node.setdefault(part, {})
+                node.setdefault(parts[-2], {}).update(dict(json.loads(json.dumps(operation["context"])),
+                                                           **{parts[-1]: json.loads(json.dumps(operation["from"]))}))
+                self.assertNotIn('{"type": "null"}', json.dumps(operation["value"]))
+            result, _ = update.prepare_document(source, json.dumps(spec).encode())
+            self.assertNotIn("summary", result["info"])
+            for operation in recipe["operations"][1:]:
+                self.assertEqual(update.pointer(result, operation["pointer"]), operation["value"])
+            with self.subTest(recipe=name), self.assertRaises((ValueError, KeyError)):
+                update.prepare_document(source, json.dumps(result).encode())
+
     def test_array_pointer_escaped_tokens_and_referenced_parameters(self):
         spec = document()
         self.assertEqual(update.pointer(spec, "#/components/schemas/Choice/oneOf/1"), {"type": "null"})

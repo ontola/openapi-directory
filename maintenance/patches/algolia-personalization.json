@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "description": "Removed info.summary, an OpenAPI 3.1 field not allowed in this OpenAPI 3.0.2 document; its exact text was: \"The Personalization API lets you access user profiles built from the personalization strategy\". No other content changed.",
+  "operations": [
+    {
+      "pointer": "#/info/summary",
+      "from": "The Personalization API lets you access user profiles built from the personalization strategy",
+      "remove": true,
+      "context": {
+        "title": "Personalization API"
+      }
+    }
+  ]
+}

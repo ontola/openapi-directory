@@ -1,0 +1,468 @@
+{
+  "schema_version": 1,
+  "description": "Removed info.summary, an OpenAPI 3.1 field not allowed in this OpenAPI 3.0.2 document; its exact text was: \"The Algolia Search API lets you search, configure, and manage your indices and records\". Represented 11 null-only oneOf alternatives ({type: null}, not valid in 3.0) as {type: string, nullable: true, enum: [null]}, which accepts only null, keeping every other alternative and oneOf exclusivity. No other content changed.",
+  "operations": [
+    {
+      "pointer": "#/info/summary",
+      "from": "The Algolia Search API lets you search, configure, and manage your indices and records",
+      "remove": true,
+      "context": {
+        "title": "Search API"
+      }
+    },
+    {
+      "pointer": "#/paths/~11~1indexes~1{indexName}~1rules~1search/post/requestBody/content/application~1json/schema/properties/enabled",
+      "from": {
+        "oneOf": [
+          {
+            "type": "boolean",
+            "description": "If `true`, return only enabled rules.\nIf `false`, return only inactive rules.\nBy default, _all_ rules are returned.\n"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "boolean",
+            "description": "If `true`, return only enabled rules.\nIf `false`, return only inactive rules.\nBy default, _all_ rules are returned.\n"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ],
+        "default": null
+      },
+      "context": {
+        "context": {
+          "type": "string",
+          "description": "Only return rules that match the context (exact match).",
+          "example": "mobile"
+        }
+      }
+    },
+    {
+      "pointer": "#/paths/~11~1logs/get/parameters/2/schema",
+      "from": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "in": "query"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/insideBoundingBox",
+      "from": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/components/schemas/insideBoundingBoxArray"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          },
+          {
+            "$ref": "#/components/schemas/insideBoundingBoxArray"
+          }
+        ]
+      },
+      "context": {
+        "distinctSeqID": {
+          "type": "integer"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/semanticSearch/properties",
+      "from": {
+        "eventSources": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Indices from which to collect click and conversion events.\n\nIf null, the current index and all its replicas are used.\n",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "value": {
+        "eventSources": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "Indices from which to collect click and conversion events.\n\nIf null, the current index and all its replicas are used.\n",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                null
+              ]
+            }
+          ]
+        }
+      },
+      "context": {
+        "type": "object",
+        "description": "Settings for the semantic search part of NeuralSearch.\nOnly used when `mode` is `neuralSearch`.\n"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/optionalWords",
+      "from": {
+        "description": "Words that should be considered optional when found in the query.\n\nBy default, records must match all words in the search query to be included in the search results.\nAdding optional words can increase the number of search results by running an additional search query that doesn't include the optional words.\nFor example, if the search query is \"action video\" and \"video\" is optional,\nthe search engine runs two queries: one for \"action video\" and one for \"action\".\nRecords that match all words are ranked higher.\n\nFor a search query with 4 or more words **and** all its words are optional,\nthe number of matched words required for a record to be included in the search results increases for every 1,000 records:\n\n- If `optionalWords` has fewer than 10 words, the required number of matched words increases by 1:\n  results 1 to 1,000 require 1 matched word; results 1,001 to 2,000 need 2 matched words.\n- If `optionalWords` has 10 or more words, the required number of matched words increases by the number of optional words divided by 5 (rounded down).\n  Example: with 18 optional words, results 1 to 1,000 require 1 matched word; results 1,001 to 2,000 need 4 matched words.\n\nFor more information, see [Optional words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/empty-or-insufficient-results/#create-a-list-of-optional-words).\n",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/components/schemas/optionalWordsArray"
+          }
+        ]
+      },
+      "value": {
+        "description": "Words that should be considered optional when found in the query.\n\nBy default, records must match all words in the search query to be included in the search results.\nAdding optional words can increase the number of search results by running an additional search query that doesn't include the optional words.\nFor example, if the search query is \"action video\" and \"video\" is optional,\nthe search engine runs two queries: one for \"action video\" and one for \"action\".\nRecords that match all words are ranked higher.\n\nFor a search query with 4 or more words **and** all its words are optional,\nthe number of matched words required for a record to be included in the search results increases for every 1,000 records:\n\n- If `optionalWords` has fewer than 10 words, the required number of matched words increases by 1:\n  results 1 to 1,000 require 1 matched word; results 1,001 to 2,000 need 2 matched words.\n- If `optionalWords` has 10 or more words, the required number of matched words increases by the number of optional words divided by 5 (rounded down).\n  Example: with 18 optional words, results 1 to 1,000 require 1 matched word; results 1,001 to 2,000 need 4 matched words.\n\nFor more information, see [Optional words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/empty-or-insufficient-results/#create-a-list-of-optional-words).\n",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          },
+          {
+            "$ref": "#/components/schemas/optionalWordsArray"
+          }
+        ]
+      },
+      "context": {
+        "distinctSeqID": {
+          "type": "integer"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/indexSettingsAsSearchParams/properties/reRankingApplyFilter",
+      "from": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/reRankingApplyFilter"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/reRankingApplyFilter"
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "ranking": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Determines the order in which Algolia returns your results.\n\nBy default, each entry corresponds to a [ranking criteria](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria).\nThe tie-breaking algorithm sequentially applies each criterion in the order they're specified.\nIf you configure a replica index for [sorting by an attribute](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-by-attribute),\nyou put the sorting attribute at the top of the list.\n\n**Modifiers**\n\n- `asc(\"ATTRIBUTE\")`.\n  Sort the index by the values of an attribute, in ascending order.\n- `desc(\"ATTRIBUTE\")`.\n  Sort the index by the values of an attribute, in descending order.\n\nBefore you modify the default setting,\ntest your changes in the dashboard,\nand by [A/B testing](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing).\n",
+          "default": [
+            "typo",
+            "geo",
+            "words",
+            "filters",
+            "proximity",
+            "attribute",
+            "exact",
+            "custom"
+          ],
+          "x-categories": [
+            "Ranking"
+          ]
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/standardEntry",
+      "from": {
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "Key-value pair of a language ISO code and a boolean value.",
+            "example": {
+              "fr": false
+            },
+            "additionalProperties": {
+              "x-additionalPropertiesName": "language",
+              "type": "boolean"
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "Key-value pair of a language ISO code and a boolean value.",
+            "example": {
+              "fr": false
+            },
+            "additionalProperties": {
+              "x-additionalPropertiesName": "language",
+              "type": "boolean"
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "distinctSeqID": {
+          "type": "integer"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/dictionaryLanguage",
+      "from": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Dictionary type. If `null`, this dictionary type isn't supported for the language.",
+            "properties": {
+              "nbCustomEntries": {
+                "description": "Number of custom dictionary entries.",
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Dictionary type. If `null`, this dictionary type isn't supported for the language.",
+            "properties": {
+              "nbCustomEntries": {
+                "description": "Number of custom dictionary entries.",
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "distinctSeqID": {
+          "type": "integer"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/EventStatus",
+      "from": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "created",
+              "started",
+              "retried",
+              "failed",
+              "succeeded",
+              "critical"
+            ]
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "created",
+              "started",
+              "retried",
+              "failed",
+              "succeeded",
+              "critical"
+            ]
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "distinctSeqID": {
+          "type": "integer"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/Event/properties/data",
+      "from": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": true
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": true
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "batchSize": {
+          "type": "integer",
+          "description": "The extracted record batch size.",
+          "example": 10,
+          "minimum": 0,
+          "multipleOf": 1
+        }
+      }
+    },
+    {
+      "pointer": "#/components/parameters/Page/schema",
+      "from": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "value": {
+        "oneOf": [
+          {
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ],
+        "default": null
+      },
+      "context": {
+        "required": false
+      }
+    }
+  ]
+}

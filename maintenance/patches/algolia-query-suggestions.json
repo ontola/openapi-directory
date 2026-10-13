@@ -1,0 +1,285 @@
+{
+  "schema_version": 1,
+  "description": "Removed info.summary, an OpenAPI 3.1 field not allowed in this OpenAPI 3.0.2 document; its exact text was: \"The Query Suggestions API lets you manage your Query Suggestions configurations\". Represented 5 null-only oneOf alternatives ({type: null}, not valid in 3.0) as {type: string, nullable: true, enum: [null]}, which accepts only null, keeping every other alternative and oneOf exclusivity. No other content changed.",
+  "operations": [
+    {
+      "pointer": "#/info/summary",
+      "from": "The Query Suggestions API lets you manage your Query Suggestions configurations",
+      "remove": true,
+      "context": {
+        "title": "Query Suggestions API"
+      }
+    },
+    {
+      "pointer": "#/components/schemas/AnalyticsTags",
+      "from": {
+        "title": "analyticsTags",
+        "description": "Analytics tags for filtering the popular searches.\nFor more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).\n",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "title": "analyticsTags",
+        "description": "Analytics tags for filtering the popular searches.\nFor more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).\n",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "IndexName": {
+          "title": "indexName",
+          "type": "string",
+          "description": "Name of the Query Suggestions index (case-sensitive).",
+          "example": "ALGOLIA_INDEX_NAME"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/Facets",
+      "from": {
+        "title": "facets",
+        "description": "Facets to use as top categories with your suggestions.\n\nIf provided, Query Suggestions adds the top facet values to each suggestion.\n",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Facet"
+            }
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "example": [
+          {
+            "attribute": "category",
+            "amount": 3
+          },
+          {
+            "attribute": "brand",
+            "amount": 2
+          }
+        ]
+      },
+      "value": {
+        "title": "facets",
+        "description": "Facets to use as top categories with your suggestions.\n\nIf provided, Query Suggestions adds the top facet values to each suggestion.\n",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Facet"
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ],
+        "example": [
+          {
+            "attribute": "category",
+            "amount": 3
+          },
+          {
+            "attribute": "brand",
+            "amount": 2
+          }
+        ]
+      },
+      "context": {
+        "IndexName": {
+          "title": "indexName",
+          "type": "string",
+          "description": "Name of the Query Suggestions index (case-sensitive).",
+          "example": "ALGOLIA_INDEX_NAME"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/Generate",
+      "from": {
+        "title": "generate",
+        "description": "Facets used for generating query suggestions from facet values.\n\nFor example, if you set `generate: [\"color\", \"brand\"]`, combinations from the facet values are added as query suggestions,\nsuch as \"blue adidas\", \"red adidas\", \"blue nike\", \"red nike\", etc.\n\nYou can include nested lists.\n",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "example": [
+          [
+            "color",
+            "brand"
+          ]
+        ]
+      },
+      "value": {
+        "title": "generate",
+        "description": "Facets used for generating query suggestions from facet values.\n\nFor example, if you set `generate: [\"color\", \"brand\"]`, combinations from the facet values are added as query suggestions,\nsuch as \"blue adidas\", \"red adidas\", \"blue nike\", \"red nike\", etc.\n\nYou can include nested lists.\n",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ],
+        "example": [
+          [
+            "color",
+            "brand"
+          ]
+        ]
+      },
+      "context": {
+        "IndexName": {
+          "title": "indexName",
+          "type": "string",
+          "description": "Name of the Query Suggestions index (case-sensitive).",
+          "example": "ALGOLIA_INDEX_NAME"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/External",
+      "from": {
+        "description": "Algolia indices with popular searches to use as query suggestions.\n\nRecords of these indices must have these attributes:\n\n- `query`: search query which will be added as a suggestion\n- `count`: measure of popularity of that search query\n\nFor example, you can export popular searches from an external analytics provider, such as Google Analytics or Adobe Analytics,\nand feed this data into an Algolia index.\nYou can use this index to generate query suggestions until your Algolia Analytics has collected enough data.\n",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "description": "Algolia indices with popular searches to use as query suggestions.\n\nRecords of these indices must have these attributes:\n\n- `query`: search query which will be added as a suggestion\n- `count`: measure of popularity of that search query\n\nFor example, you can export popular searches from an external analytics provider, such as Google Analytics or Adobe Analytics,\nand feed this data into an Algolia index.\nYou can use this index to generate query suggestions until your Algolia Analytics has collected enough data.\n",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "IndexName": {
+          "title": "indexName",
+          "type": "string",
+          "description": "Name of the Query Suggestions index (case-sensitive).",
+          "example": "ALGOLIA_INDEX_NAME"
+        }
+      }
+    },
+    {
+      "pointer": "#/components/schemas/Exclude",
+      "from": {
+        "title": "exclude",
+        "description": "Words or regular expressions to exclude from the suggestions.",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "value": {
+        "title": "exclude",
+        "description": "Words or regular expressions to exclude from the suggestions.",
+        "default": null,
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              null
+            ]
+          }
+        ]
+      },
+      "context": {
+        "IndexName": {
+          "title": "indexName",
+          "type": "string",
+          "description": "Name of the Query Suggestions index (case-sensitive).",
+          "example": "ALGOLIA_INDEX_NAME"
+        }
+      }
+    }
+  ]
+}
