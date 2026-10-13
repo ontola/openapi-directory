@@ -1,0 +1,627 @@
+openapi: 3.1.0
+info:
+  title: Object Management
+  version: 1.0.0
+  x-origin:
+    - format: openapi
+      url: https://developers.brevo.com/openapi/object-management.json
+      version: '3.1'
+  x-conversion:
+    - Fetched from https://developers.brevo.com/openapi/object-management.json on 2026-10-13T06:42:12.316143+00:00; entry source SHA-256 99ebd17d2b1866c1351ceaccba1641227067c286a75aab7dbe9a8fa25a6f6e39.
+    - Validated with openapi-spec-validator 0.9.0 with openapi-schema-validator 0.9.0, the Python jsonschema backend, regress 2026.9.1 ECMAScript regex syntax/matching with no flags, and cycle-safe property collection, plus security requirement name resolution across operations, callbacks and webhooks; no schema constraints removed.
+    - Parsed the vendor document and serialized it as YAML with PyYAML 6.0.3; no API content patches or OpenAPI version conversion.
+paths:
+  /objects/{object_type}/batch/upsert:
+    post:
+      operationId: customObjects_upsertrecords
+      summary: Create/Update object records in bulk
+      description: "<Note title=\"Enterprise access only\">Custom objects are only available to Enterprise plans.\nThis feature is in beta. These are subject to change.</Note>\nPerforms bulk create or update (upsert) operations for object records in a single asynchronous request. This endpoint is optimized for high-volume data imports and synchronization scenarios.\n\n**How Upsert Works:**\n- **Create**: Omit `identifiers`, or provide only `ext_id` (if it doesn't already exist). A new record is created with a Brevo-generated `id`.\n- **Update**: Provide `id` (Brevo internal ID) or an `ext_id` that already exists. The matching record is updated with the new attribute values.\n- **Important:** `id` is for **updates only**. Providing an `id` that does not belong to an existing record will fail during async processing (the HTTP response will still be 202, but the record will be rejected in the background). To create a new record with a stable external reference, use `ext_id` instead.\n\n**Request Structure:**\nEach object record in the `records` array can include:\n- `identifiers`: Either `id` (internal Brevo ID) or `ext_id` (your external system ID) — required for updates. **Note:** use `id` (singular), not `ids`.\n- `attributes`: Key-value pairs where each key is the attribute **key** (e.g., `company_name`), not the attribute label (e.g., \"Company Name\").\n- `associations`: Controls linking and unlinking of associated records (optional). Each entry specifies:\n    - `object_type`: The type of the associated object\n    - `action`: `link` (default) to create the association, or `unlink` to remove it\n    - `records`: The associated records to link or unlink (each identified by `ext_id` or `id`)\n    - **Unlink is idempotent** — unlinking a non-existing association is a no-op (no error returned)\n    - `link` and `unlink` actions can be submitted for the same `object_type` in a single record entry\n    - Both associated records must already exist before a link can be created\n\n> **Common mistake:** Passing the attribute **label** (the display name you see in the UI) instead of the attribute **key** will cause the attribute to be silently ignored and the record may not be created as expected.\n\n**Asynchronous Processing:**\n- Returns immediately with a `processId` (HTTP 202 Accepted)\n- Use the processId to track status via the Get process API\n\n**API and Schema Limitations:**\n- Max 1000 object records per request\n- Max request body size: 1 MB\n- Max 500 attributes per object record (matches the schema limit of 500 attributes per object)\n- Unknown attribute keys are silently ignored (no error, no attribute creation)\n- Max 10 association records per associated object-type in each record of the request. If you need more, send multiple requests.\n\n**Important Behaviors:**\n- The object schema must be created before upserting records\n- Unknown attribute keys are silently ignored (no error, no creation)\n- Both associated object records must already exist before creating a link association\n- Unlink operations are idempotent: attempting to unlink a non-existing association returns success\n- `link` and `unlink` actions can be submitted for the same `object_type` in a single record entry\n- Contact objects cannot be created via this endpoint\n- For `category` and `multiple_category` attributes, pass the option **key** as the value (not the option label or option ID).\n- The `id` identifier (internal Brevo ID) can only be used for **updating** existing records. To create new records, either omit identifiers (Brevo auto-generates an ID) or provide an `ext_id`.\n\n**Errors:**\n- Make sure both object records exist before associating them, else the API will return an error.\n- This route does not create objects. The object where the object records are upserted by this API must be created already else the API will return an error \"invalid object type\"."
+      tags:
+        - customObjects
+      parameters:
+        - name: object_type
+          in: path
+          description: Object type for the records to upsert. Must be a previously created custom object type. Only lowercase alphanumeric characters and underscores are allowed (max 32 characters).
+          required: true
+          schema:
+            type: string
+      responses:
+        '202':
+          description: Batch request accepted for processing of upsert object records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Custom_Objects_upsertrecords_Response_202'
+        '400':
+          description: Bad request (e.g., invalid organization ID, invalid object_type, records cannot be empty or more than 1000)
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: Custom objects are not available on this account, or upsert of Brevo standard object records is not supported via this endpoint.
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Object not found for the provided organization or object type
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                description: Any type
+      requestBody:
+        description: Payload for batch upsert object records with associations
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                records:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ObjectsObjectTypeBatchUpsertPostRequestBodyContentApplicationJsonSchemaRecordsItems'
+                  description: List of object records to be upsert. Each record can have attributes, identifiers, and associations.
+              required:
+                - records
+      security:
+        - api-key: []
+  /objects/{object_type}/records:
+    get:
+      operationId: customObjects_getrecords
+      summary: Get the list of object records and total records count for an object.
+      description: '<Note title="Enterprise access only">Custom objects are only available to Enterprise plans.
+
+        This feature is in beta. These are subject to change.</Note>
+
+        This API retrieves a list of object records along with their associated records and provides the total count of records for the specified object. **Note**: Contact as object type is not supported in this endpoint.'
+      tags:
+        - customObjects
+      parameters:
+        - name: object_type
+          in: path
+          description: Object type for the records to retrieve. Must be a previously created custom object type. Contact as object type is not supported in this endpoint.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Number of records returned per page
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            maximum: 1000
+        - name: page_num
+          in: query
+          description: Page number for pagination. It's used to fetch the object records on a provided page number. Must be a valid positive integer.
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+        - name: sort
+          in: query
+          description: Sort order, must be 'asc' or 'desc'. Default to 'desc' if not provided.
+          required: false
+          schema:
+            $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetParametersSort'
+            default: desc
+        - name: association
+          in: query
+          description: Whether to include associations, must be 'true' or 'false'. Default to 'false' if not provided.
+          required: false
+          schema:
+            $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetParametersAssociation'
+      responses:
+        '200':
+          description: A list of object records for an object type. If association param is set true it will return 5 associated records per association for an object type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Custom_Objects_getrecords_Response_200'
+        '400':
+          description: Bad request (e.g., invalid object_type, invalid page number provided)
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: Custom objects are not available on this account.
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '424':
+          description: primary attribute not found
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                description: Any type
+      security:
+        - api-key: []
+  /objects/{object_type}/batch/delete:
+    post:
+      operationId: customObjects_batchDeleteObjectRecords
+      summary: Delete multiple object records (up to 1000) asynchronously
+      description: 'Use this endpoint to delete multiple object records of the same object-type in one request.
+
+        The request is accepted and processed asynchronously. You can track the status of the deletion process using the returned **processId**.
+
+        **Limitations:** - Each request can contain up to **1000** object record identifiers - Either `ids` or `ext_ids` must be provided, but **not both** in the same request - Deletion of Brevo standard object records is not supported via this endpoint - If more records must be deleted, send multiple batch requests
+
+        '
+      tags:
+        - customObjects
+      parameters:
+        - name: object_type
+          in: path
+          description: Object type for the records to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '202':
+          description: Batch request accepted for deletion - process started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Custom_Objects_batchDeleteObjectRecords_Response_202'
+        '400':
+          description: Invalid request (e.g., invalid object_type, invalid request body, both ids and ext_ids provided, or exceeds 1000 identifiers limit)
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: Deletion of Brevo standard object records is not supported via this endpoint
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                description: Any type
+      requestBody:
+        description: List of object record identifiers to delete
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                identifiers:
+                  $ref: '#/components/schemas/ObjectsObjectTypeBatchDeletePostRequestBodyContentApplicationJsonSchemaIdentifiers'
+                  description: Either `ids` or `ext_ids` must be provided, but not both in the same request.
+      security:
+        - api-key: []
+  /objects/{object_type}/associated-records:
+    get:
+      operationId: customObjects_getAssociatedRecords
+      summary: Get the records associated with an object record
+      description: '<Note title="Enterprise access only">Custom objects are only available to Enterprise plans.
+
+        This feature is in beta. These are subject to change.</Note>
+
+        Returns the records associated with a single source record. Associations of every type are returned together in one paginated list, ordered by association creation time with the most recently created association first.
+
+
+        **Identifying the source record**
+
+        Provide exactly one of `id`, `ext_id`, `email` or `sms`. Passing none of them, or more than one, returns `400`. `email` and `sms` are only accepted when `object_type` is `contact`; using either with any other object type returns `400`.
+
+
+        **Object types**
+
+        Use the object type exactly as it is defined in your account, for example `vehicle` for a custom object of that name, or `contact` for contacts. An object type that does not exist in your account returns `400`.
+
+
+        **Filtering by associated object type**
+
+        Use `type` to restrict the response to one or more associated object types, for example `?type=contact&type=garage`. Up to 5 types can be requested per call; more returns `400`. When `type` is omitted, associations of every type are returned.
+
+
+        **Pagination**
+
+        Results are returned 20 per page. The page size is fixed and cannot be changed. Increase `offset` by 20 to walk through the pages until `has_more` is `false`. An `offset` beyond the last record returns an empty `items` array with `has_more` set to `false`.
+
+
+        **Working with contacts**
+
+        - `contact` is supported both as the source `object_type` and as an associated object type.
+
+        - An `id`, `ext_id`, `email` or `sms` that matches no contact returns `404`.
+
+        - If several contacts share the same `ext_id`, `email` or `sms`, identify the contact by `id` to be sure of which one is used.
+
+        - Contacts returned in `items` carry all of the contact''s attributes, with attribute keys in lowercase — `email`, `first_name`, `last_name`, `sms`, `ext_id`, and any other contact attribute lowercased.
+
+        - For contacts, `ext_id`, `created_at` and `updated_at` are not returned on `object`. A contact''s external ID is available as `attributes.ext_id` when it is set.'
+      tags:
+        - customObjects
+      parameters:
+        - name: object_type
+          in: path
+          description: Object type of the source record, exactly as defined in your account. Accepts any object type defined in the account, for example a custom object type or `contact`.
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Internal Brevo ID of the source record. Must be a positive integer. Provide exactly one of `id`, `ext_id`, `email` or `sms`.
+          required: false
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+        - name: ext_id
+          in: query
+          description: External ID of the source record in your system. Provide exactly one of `id`, `ext_id`, `email` or `sms`.
+          required: false
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: Email address of the source contact. Only accepted when `object_type` is `contact`. Provide exactly one of `id`, `ext_id`, `email` or `sms`.
+          required: false
+          schema:
+            type: string
+        - name: sms
+          in: query
+          description: Phone number of the source contact, including the country code. It may be given with or without a leading `+`; percent-encode the `+` as `%2B`, because a literal `+` in a query string is read as a space. Only accepted when `object_type` is `contact`. Provide exactly one of `id`, `ext_id`, `email` or `sms`.
+          required: false
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: Restricts the response to the given associated object types. Repeat the parameter to request several types, for example `?type=contact&type=garage`. Maximum 5 types per call. Associations of every type are returned when omitted.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: offset
+          in: query
+          description: Number of records to skip before the first record of the page. Defaults to 0. Increase by 20 to fetch the next page.
+          required: false
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: A page of records associated with the source record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Custom_Objects_getAssociatedRecords_Response_200'
+        '400':
+          description: Bad request. Returned when none or several of `id`, `ext_id`, `email` and `sms` are provided, when `email` or `sms` is used with an `object_type` other than `contact`, when `id` or `offset` is not a valid value, when more than 5 values are passed to `type`, or when `object_type` or a `type` value is not an object type defined in the account.
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: No record matches the provided `id`, `ext_id`, `email` or `sms` for this object type.
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                description: Any type
+      security:
+        - api-key: []
+tags:
+  - name: customObjects
+servers:
+  - url: https://api.brevo.com/v3
+    description: https://api.brevo.com/v3
+components:
+  schemas:
+    ObjectsObjectTypeBatchUpsertPostRequestBodyContentApplicationJsonSchemaRecordsItems:
+      oneOf:
+        - description: Reference to ObjectsObjectTypeBatchUpsertPostRequestBodyContentApplicationJsonSchemaRecordsItems0
+      title: ObjectsObjectTypeBatchUpsertPostRequestBodyContentApplicationJsonSchemaRecordsItems
+    Custom_Objects_upsertrecords_Response_202:
+      type: object
+      properties:
+        message:
+          type: string
+        processId:
+          type: integer
+          format: int64
+          description: Unique Id for the batch process used to track the status of the batch. **How to use this processId:**   Refer to the [Get process status API](https://developers.brevo.com/reference/get-process) to check the execution status of this batch using the returned `processId`.
+      title: Custom Objects_upsertrecords_Response_202
+    ObjectsObjectTypeRecordsGetParametersSort:
+      type: string
+      enum:
+        - asc
+        - desc
+      default: desc
+      title: ObjectsObjectTypeRecordsGetParametersSort
+    ObjectsObjectTypeRecordsGetParametersAssociation:
+      type: string
+      enum:
+        - 'true'
+        - 'false'
+      title: ObjectsObjectTypeRecordsGetParametersAssociation
+    ? ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItemsOneOf0Identifiers
+    : type: object
+      properties:
+        id:
+          type: integer
+          description: Internal ID of the object record generated by Brevo
+      description: Identifiers attached with the associated object record.
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItemsOneOf0Identifiers
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItems0:
+      type: object
+      properties:
+        identifiers:
+          $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItemsOneOf0Identifiers'
+          description: Identifiers attached with the associated object record.
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItems0
+    ? ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItemsOneOf1Identifiers
+    : type: object
+      properties:
+        id:
+          type: integer
+          description: Internal ID of the object record generated by Brevo
+      description: Identifiers attached with the associated object record.
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItemsOneOf1Identifiers
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItems1:
+      type: object
+      properties:
+        identifiers:
+          $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItemsOneOf1Identifiers'
+          description: Identifiers attached with the associated object record.
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItems1
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItems:
+      oneOf:
+        - $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItems0'
+        - $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItems1'
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItems
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItems0:
+      type: object
+      properties:
+        object_type:
+          type: string
+          description: Type of the associated object
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf0RecordsItems'
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItems0
+    ? ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItemsOneOf0Identifiers
+    : type: object
+      properties:
+        id:
+          type: integer
+          description: Internal ID of the insurance object record generated by Brevo
+      description: Identifiers attached with the associated object record. Only includes the internal ID.
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItemsOneOf0Identifiers
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItems0:
+      type: object
+      properties:
+        identifiers:
+          $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItemsOneOf0Identifiers'
+          description: Identifiers attached with the associated object record. Only includes the internal ID.
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItems0
+    ? ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItemsOneOf1Identifiers
+    : type: object
+      properties:
+        id:
+          type: integer
+          description: Internal ID of the insurance object record generated by Brevo
+      description: Identifiers attached with the associated object record. Only includes the internal ID.
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItemsOneOf1Identifiers
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItems1:
+      type: object
+      properties:
+        identifiers:
+          $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItemsOneOf1Identifiers'
+          description: Identifiers attached with the associated object record. Only includes the internal ID.
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItems1
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItems:
+      oneOf:
+        - $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItems0'
+        - $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItems1'
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItems
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItems1:
+      type: object
+      properties:
+        object_type:
+          type: string
+          description: Type of the associated object
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItemsOneOf1RecordsItems'
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItems1
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItems:
+      oneOf:
+        - $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItems0'
+        - $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItems1'
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItems
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAttributes:
+      type: object
+      properties: {}
+      description: 'Key-value pairs of attribute data for the object record. Each key is the attribute **key** (e.g., `company_name`, `engine_type`), not the attribute label (e.g., "Company Name", "Engine Type"). Only attributes that already exist in the object schema will be present.
+
+        For `category` or `multiple_category` attributes, the value is the option **key** (not the option label or option ID).
+
+        '
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAttributes
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsIdentifiers:
+      type: object
+      properties:
+        ext_id:
+          type: string
+          description: External ID of the record in your system.
+        id:
+          type: integer
+          description: Internal ID of the object record generated by Brevo.
+      description: 'Identifiers for the object record. Supports `id` (singular, not `ids`) or `ext_id`.
+
+        - `ext_id`: Your external system''s identifier for this record.
+
+        - `id`: Internal Brevo record ID.
+
+        '
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsIdentifiers
+    ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItems:
+      type: object
+      properties:
+        associations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAssociationsItems'
+          description: List of associations for the object record. If association query param is true it will return 5 associated records per association.
+        attributes:
+          $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsAttributes'
+          description: 'Key-value pairs of attribute data for the object record. Each key is the attribute **key** (e.g., `company_name`, `engine_type`), not the attribute label (e.g., "Company Name", "Engine Type"). Only attributes that already exist in the object schema will be present.
+
+            For `category` or `multiple_category` attributes, the value is the option **key** (not the option label or option ID).
+
+            '
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the object record was created
+        identifiers:
+          $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItemsIdentifiers'
+          description: 'Identifiers for the object record. Supports `id` (singular, not `ids`) or `ext_id`.
+
+            - `ext_id`: Your external system''s identifier for this record.
+
+            - `id`: Internal Brevo record ID.
+
+            '
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the object record was last updated
+      title: ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItems
+    Custom_Objects_getrecords_Response_200:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+          description: Total number of object records for an object type.
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectsObjectTypeRecordsGetResponsesContentApplicationJsonSchemaRecordsItems'
+      title: Custom Objects_getrecords_Response_200
+    ObjectsObjectTypeBatchDeletePostRequestBodyContentApplicationJsonSchemaIdentifiers:
+      oneOf:
+        - description: Reference to ObjectsObjectTypeBatchDeletePostRequestBodyContentApplicationJsonSchemaIdentifiers0
+        - description: Reference to ObjectsObjectTypeBatchDeletePostRequestBodyContentApplicationJsonSchemaIdentifiers1
+      description: Either `ids` or `ext_ids` must be provided, but not both in the same request.
+      title: ObjectsObjectTypeBatchDeletePostRequestBodyContentApplicationJsonSchemaIdentifiers
+    Custom_Objects_batchDeleteObjectRecords_Response_202:
+      type: object
+      properties:
+        processId:
+          type: integer
+          format: int64
+          description: Identifier for batch process tracking
+        message:
+          type: string
+      title: Custom Objects_batchDeleteObjectRecords_Response_202
+    ObjectsObjectTypeAssociatedRecordsGetResponsesContentApplicationJsonSchemaItemsItemsObjectAttributes:
+      type: object
+      properties: {}
+      description: 'Key-value pairs of attribute data for the associated record. Each key is the attribute **key** (e.g., `company_name`, `engine_type`), not the attribute label (e.g., "Company Name", "Engine Type").
+
+        For `category` or `multiple_category` attributes, the value is the option **key** (not the option label or option ID).
+
+        For contacts, attribute keys are returned in lowercase, for example `email`, `first_name`, `last_name`, `sms` and `ext_id`.
+
+        '
+      title: ObjectsObjectTypeAssociatedRecordsGetResponsesContentApplicationJsonSchemaItemsItemsObjectAttributes
+    ObjectsObjectTypeAssociatedRecordsGetResponsesContentApplicationJsonSchemaItemsItemsObject:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ObjectsObjectTypeAssociatedRecordsGetResponsesContentApplicationJsonSchemaItemsItemsObjectAttributes'
+          description: 'Key-value pairs of attribute data for the associated record. Each key is the attribute **key** (e.g., `company_name`, `engine_type`), not the attribute label (e.g., "Company Name", "Engine Type").
+
+            For `category` or `multiple_category` attributes, the value is the option **key** (not the option label or option ID).
+
+            For contacts, attribute keys are returned in lowercase, for example `email`, `first_name`, `last_name`, `sms` and `ext_id`.
+
+            '
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the associated record was created. Not returned for contacts.
+        ext_id:
+          type: string
+          description: External ID of the associated record in your system. Not returned for contacts, whose external ID is available as `attributes.ext_id`.
+        id:
+          type: integer
+          format: int64
+          description: Internal ID of the associated record generated by Brevo.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the associated record was last updated. Not returned for contacts.
+      description: The associated record. `ext_id`, `attributes`, `created_at` and `updated_at` are omitted when they are not available for the record.
+      title: ObjectsObjectTypeAssociatedRecordsGetResponsesContentApplicationJsonSchemaItemsItemsObject
+    ObjectsObjectTypeAssociatedRecordsGetResponsesContentApplicationJsonSchemaItemsItems:
+      type: object
+      properties:
+        object:
+          $ref: '#/components/schemas/ObjectsObjectTypeAssociatedRecordsGetResponsesContentApplicationJsonSchemaItemsItemsObject'
+          description: The associated record. `ext_id`, `attributes`, `created_at` and `updated_at` are omitted when they are not available for the record.
+        type:
+          type: string
+          description: Object type of the associated record.
+      title: ObjectsObjectTypeAssociatedRecordsGetResponsesContentApplicationJsonSchemaItemsItems
+    Custom_Objects_getAssociatedRecords_Response_200:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: '`true` when at least one more associated record exists after this page.'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectsObjectTypeAssociatedRecordsGetResponsesContentApplicationJsonSchemaItemsItems'
+          description: Associated records for this page, up to 20 per page. Fewer when the last page is reached, empty when the source record has no matching associations.
+        offset:
+          type: integer
+          format: int64
+          description: The offset that was requested.
+      title: Custom Objects_getAssociatedRecords_Response_200
+  securitySchemes:
+    api-key:
+      type: apiKey
+      in: header
+      name: api-key
+      description: The API key should be passed in the request headers as `api-key` for authentication.
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client_credentials (machine-to-machine) grant. Exchange your app's client_id/client_secret for a short-lived Bearer token.
