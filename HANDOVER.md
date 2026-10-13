@@ -232,6 +232,26 @@ Do not delete guards, retry rejected pushes, manufacture receipts or restore old
   Pipedrive v1/v2, Render, CircleCI v2, DigitalOcean. Coinbase is still held (balances removal).
 - Q-102 is unanswered; Q-112 (#239 rollout) is awaiting clarification, untouched.
 
+## Claude VPS run, round 7 — 2026-10-12/13 (newest)
+
+- **SendGrid:** the official `twilio/sendgrid-oai` now publishes 46 per-product OpenAPI 3.1
+  files. 45 valid products are registered as separate services (#359) and delivered as
+  `sendgrid.com/<product>/1.0.0` (#360–#406). No union; the historical combined file is
+  unchanged. `logs` is skipped (invalid `examples`). Pre-scan found no key- or SID-shaped
+  examples.
+- **Discovery:** Neon v2, Clerk Backend API 2026-05-12 and WorkOS (exact
+  duplicate-`required` recipe) registered (#363) and delivered (#407–#409). Hetzner Cloud
+  is refreshed in place (#410, +46 ops) using the new reviewed `response_range_case`
+  transform for 380 lowercase `4xx`/`5xx` keys (#368).
+- **Webflow v2:** no faithful fix. Its error `details` `items: [string, object]` reads
+  either as a positional tuple (`prefixItems`) or as `anyOf`, and the two readings accept
+  different payloads.
+- **Drift** at 00:30 UTC across 152 unblocked sources: delivered GitHub #411 and Mistral
+  #412 (observability `pipeline-configs` → `pipelines` rename in vendor sync v1.14.0).
+- **Coinbase:** still held. The balances removal has no vendor notice, and the docs pages
+  that once listed the endpoint now return 404.
+- `gate` is a required check on main (owner). Q-113 / #239 untouched. Q-102 unanswered.
+
 ## Recommended next work
 
 1. **Deliberate handling of already merged generated branches**, in separate infrastructure.
