@@ -285,7 +285,41 @@ Do not delete guards, retry rejected pushes, manufacture receipts or restore old
   immediately popped (it was this run's own only entry). Don't use `git stash`; use
   temporary commits or separate worktrees.
 
-## Claude VPS run, round 10 — 2026-10-13 (newest)
+## Claude VPS run, round 11 — 2026-10-13 (newest; final round of this VPS run)
+
+- **Registrations #435:** 28 sources, checked as `missing` with 0 errors; 240 tests.
+  Each API delivered in its own generated PR, #436–#463, every one merged with an exact
+  head, one file, validate and gate passing:
+  - Adyen (11 services the directory lacked, from `Adyen/adyen-openapi`): A2A payments,
+    Balance Control v2, Capital, Cloud device, Document Collector, Foreign Exchange, Open
+    Banking, Payments App, Raise disputes v4, Session authentication, SoftPOS configuration
+    v3. Raise disputes has one exact recipe (Java `(?i)` flag becomes ASCII case classes
+    for `jpeg|tiff|pdf`), with a regression test.
+  - Brevo (13 per-product OpenAPI 3.1 descriptions from the documented
+    `developers.brevo.com/openapi.json` index).
+  - Paddle Billing, SumUp (the vendor's 3.1.0 rendition), Revolut Open Banking, Revolut X.
+- **Leads, no faithful fix:**
+  - Telnyx v2 (duplicate operationIds, null defaults).
+  - Checkly (dangling `$ref`).
+  - Exoscale (OpenAPI 3.2 tag `parent`).
+  - UpCloud (mixed `$schema` dialects).
+  - Revolut Business, Merchant and Crypto Ramp.
+  - Adyen webhook-only notification specs (no `paths`; the updater requires them).
+  - Linode 4.229.1, newer than the stored 4.151.1. Every path moved under `/{apiVersion}`,
+    so the removal guard sees all 350 stored operations as removed. Five `X-Filter`
+    parameters also carry a placeholder `example` beside `content`. Needs a reviewed
+    decision.
+- **Drift was not re-run in round 11.** The last full check was 2026-10-13 05:26 UTC
+  (round 9), so the next maintainer should start with a full drift check. It now covers
+  199 unblocked sources, including the 29 added in rounds 10–11.
+- **Holds unchanged:**
+  - Coinbase: still drops `GET /v2/coinbase-accounts/balances` with no notice.
+  - SendGrid logs.
+  - Q-102 (Twilio/Zendesk push protection) is unanswered.
+  - #239 is untouched per Q-113.
+- This VPS coordinator run is retired. No open `claude/` PRs remain.
+
+## Claude VPS run, round 10 — 2026-10-13
 
 - **Discovery:** Honeycomb registered (#432) from the OpenAPI download linked by its API
   introduction (3.1.0, 48 paths / 90 operations, valid with no patches). Delivered #433.
