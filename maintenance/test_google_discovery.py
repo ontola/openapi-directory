@@ -173,6 +173,13 @@ class GoogleDiscoveryTests(unittest.TestCase):
         # third-party OAS validator currently misresolves a $ref in a default.
         self.assertEqual(google.check(native, document)["schemas"], 1)
 
+    def test_reference_inventory_does_not_confuse_property_names_with_keywords(self):
+        native = source()
+        native["schemas"]["Note"]["properties"]["default"] = {"$ref": "Note"}
+        native["schemas"]["x-invented"] = {"$ref": "Note"}
+        document = google.convert(native)
+        self.assertEqual(google.check(native, document)["references"], 5)
+
 
 if __name__ == "__main__":
     unittest.main()

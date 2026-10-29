@@ -92,3 +92,17 @@ one such case). No timestamp-only rewrite is needed for identical content.
 Increase the conversion-profile version when changing published conversion
 behavior. Source provenance lives in each artifact's `info.x-origin` and
 `info.x-conversion`; it does not depend on this guide or YAML comments.
+
+## Exact-head CI
+
+The read-only `Google API validation` workflow executes tooling from the
+PR's trusted base. It reads changed Google files from the exact head,
+fetches their immutable official source URLs, verifies source hashes and
+reconstructs each generated description with the base's curation. Every
+field must match, with full OAS/native/schema/reference/typed checks. Reports
+label older manually authored artifacts as `legacy-oas-only`; generated
+artifacts are `native-projection`. The PR gate requires the actual workflow
+job to succeed for Google API changes, including manual batch branches.
+The full machine report is uploaded; no write permission or publication
+step is added. An infrastructure PR with no API changes checks zero API
+artifacts explicitly rather than claiming a generated-head validation.

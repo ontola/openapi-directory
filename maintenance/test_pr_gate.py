@@ -32,6 +32,15 @@ class GateTests(unittest.TestCase):
             self.assertEqual(pr_gate.evaluate(needs, [run(1, name)], jobs)[0], "fail", conclusion)
         self.assertEqual(pr_gate.evaluate(needs, [run(1, name)], {1: []})[0], "fail")
 
+    def test_google_changes_require_actual_exact_head_validation(self):
+        needs, notes = pr_gate.required(["APIs/googleapis.com/invented/v1/openapi.yaml"], "codex/google-refresh")
+        self.assertEqual(needs, [pr_gate.GOOGLE])
+        self.assertEqual(notes, [])
+        self.assertEqual(pr_gate.evaluate(needs, [], {})[0], "pending")
+        workflow = [run(1, pr_gate.GOOGLE[0])]
+        self.assertEqual(pr_gate.evaluate(needs, workflow, {1: [{"name": "validate-google", "conclusion": "skipped"}]})[0], "fail")
+        self.assertEqual(pr_gate.evaluate(needs, workflow, {1: [{"name": "validate-google", "conclusion": "success"}]})[0], "pass")
+
     def test_latest_run_decides_and_success_passes(self):
         needs = [pr_gate.MAINTENANCE]
         name = pr_gate.MAINTENANCE[0]

@@ -387,7 +387,12 @@ def check(source, document):
                     node = node[int(key)] if isinstance(node, list) else node[key]
                 refs += 1
             for key, child in value.items():
-                if key not in {"default", "example", "examples", "enum"} and not key.startswith("x-"):
+                if key in {"schemas", "properties", "parameters", "responses", "headers", "requestBodies"} and isinstance(child, dict):
+                    # Names in these maps are data: a property named default
+                    # or a schema named x-widget is not an annotation keyword.
+                    for named in child.values():
+                        visit(named)
+                elif key not in {"default", "example", "examples", "enum"} and not key.startswith("x-"):
                     visit(child)
         elif isinstance(value, list):
             for child in value:
