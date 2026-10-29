@@ -4175,3 +4175,4 @@ x-google-discovery:
   rootUrl: https://analyticshub.googleapis.com/
   servicePath: ''
   version_module: true
+x-hasEquivalentPaths: true

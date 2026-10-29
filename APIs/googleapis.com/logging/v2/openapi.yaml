@@ -20861,3 +20861,4 @@ x-google-discovery:
   rootUrl: https://logging.googleapis.com/
   servicePath: ''
   version_module: true
+x-hasEquivalentPaths: true

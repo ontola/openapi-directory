@@ -8060,3 +8060,4 @@ x-google-discovery:
   rootUrl: https://beyondcorp.googleapis.com/
   servicePath: ''
   version_module: true
+x-hasEquivalentPaths: true

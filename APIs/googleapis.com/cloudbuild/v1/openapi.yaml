@@ -6394,3 +6394,4 @@ x-google-discovery:
   rootUrl: https://cloudbuild.googleapis.com/
   servicePath: ''
   version_module: true
+x-hasEquivalentPaths: true

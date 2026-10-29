@@ -30206,3 +30206,4 @@ x-google-discovery:
   rootUrl: https://dialogflow.googleapis.com/
   servicePath: ''
   version_module: true
+x-hasEquivalentPaths: true

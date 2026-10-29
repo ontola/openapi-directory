@@ -1725,3 +1725,4 @@ x-google-discovery:
   rootUrl: https://cloudfunctions.googleapis.com/
   servicePath: ''
   version_module: true
+x-hasEquivalentPaths: true

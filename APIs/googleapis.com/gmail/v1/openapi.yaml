@@ -5652,3 +5652,4 @@ x-google-discovery:
   revision: '20261005'
   rootUrl: https://gmail.googleapis.com/
   servicePath: ''
+x-hasEquivalentPaths: true

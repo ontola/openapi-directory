@@ -1888,3 +1888,4 @@ x-google-discovery:
   revision: '20260915'
   rootUrl: https://pubsub.googleapis.com/
   servicePath: ''
+x-hasEquivalentPaths: true

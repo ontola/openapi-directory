@@ -30744,3 +30744,4 @@ x-google-discovery:
   rootUrl: https://apigee.googleapis.com/
   servicePath: ''
   version_module: true
+x-hasEquivalentPaths: true

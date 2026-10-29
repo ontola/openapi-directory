@@ -44,6 +44,11 @@ and typed YAML roundtrip checks. Existing APIs.guru curation is preserved;
 new files receive no invented curation. See the
 [conversion profile and limitations](../GOOGLE_DISCOVERY.md).
 
+All 34 baseline root-level `x-hasEquivalentPaths` flags are preserved: 30
+are on refreshed descriptions and four are on unchanged historical files.
+An independent comparison checks root, info and contact curation after the
+merge, in addition to the exact-head source reconstruction.
+
 Two exact-node compatibility corrections are reported: Reports' impossible
 empty `orgUnitID` defaults remain as annotations while value constraints stay
 unchanged; PageSpeed's RE2 inline-case pattern becomes an equivalent portable

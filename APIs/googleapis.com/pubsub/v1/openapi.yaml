@@ -4610,3 +4610,4 @@ x-google-discovery:
   revision: '20261013'
   rootUrl: https://pubsub.googleapis.com/
   servicePath: ''
+x-hasEquivalentPaths: true

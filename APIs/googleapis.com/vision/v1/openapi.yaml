@@ -9054,3 +9054,4 @@ x-google-discovery:
   rootUrl: https://vision.googleapis.com/
   servicePath: ''
   version_module: true
+x-hasEquivalentPaths: true
