@@ -81,7 +81,9 @@ validated files locally. A working-tree edit or changed candidate/source
 hash stops replacement; no credentials, Git writes or network calls occur.
 Committing, PR creation, CI review and merging remain separate operations.
 
-Existing APIs.guru info/contact curation, externalDocs and tags survive.
+Existing APIs.guru info/contact curation, externalDocs, tags and root-level
+`x-hasEquivalentPaths` flags survive. A separate post-merge comparison checks
+those values independently of the curation merge itself.
 New descriptions get no invented curation. New vendor versions have their
 own directories. Missing historical sources remain unchanged and are listed
 as `source_unavailable`; missing indexed artifacts are reported separately.
