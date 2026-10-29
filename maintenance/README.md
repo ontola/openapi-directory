@@ -1,5 +1,10 @@
 # Official-source maintenance
 
+The separately invoked [Google Discovery refresh](GOOGLE_DISCOVERY.md)
+converts a pinned official Discovery checkout and reports/locally imports
+the Google family. It is outside the scheduled `sources.json` audit and
+does not enable an automatic publisher.
+
 This updater checks only the service artifacts configured in `sources.json`,
 including both public GitHub REST descriptions. It does not claim coverage of the
 entire directory or discover every vendor release. Bounded monthly discovery and an

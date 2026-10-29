@@ -1,5 +1,16 @@
 # AGENTS.md — working on this OpenAPI directory fork
 
+**Google refresh authorization — 2026-10-29:** Michiel explicitly requested
+"can you refresh all of google in ontola/openapi-directory please?" This
+supersedes the parked Google-regeneration restriction below for this work,
+including the Google services previously excluded from the general upkeep
+task. Other parked items remain unchanged. Keep v1 was refreshed separately
+in #466 and its immutable downstream pins are preserved. The broader refresh
+uses a pinned official Google Discovery mirror, retains historical versions
+without an available source, and checks every method/schema/reference and
+typed YAML serialization before importing. Converter infrastructure and API
+delivery are separate PRs; no scheduled writer or automation is enabled.
+
 Instructions for an agent picking up work in this repo. Read this first.
 
 **Repo**: `ontola/openapi-directory` (fork of `APIs-guru/openapi-directory`).
