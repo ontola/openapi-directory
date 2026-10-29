@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://dfareporting.googleapis.com/dfareporting/v3.5
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -21,147 +19,117 @@ info:
   x-logo:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/dfareporting.v3.5.json
+      version: v1
     - format: openapi
-      url: https://dfareporting.googleapis.com/$discovery/rest?version=v3.5
-      version: "3.0"
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/dfareporting.v3.5.json
+      version: '3.0'
   x-preferred: false
   x-providerName: googleapis.com
   x-serviceName: dfareporting
-externalDocs:
-  url: https://developers.google.com/doubleclick-advertisers/
-tags:
-  - name: media
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20240821; original source SHA-256 ab27889cf77bb6614338f832262f09a10bf647861e464523ff6fad4706837fc9.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://dfareporting.googleapis.com/dfareporting/v3.5
 paths:
-  /userprofiles/{profileId}/creativeAssets/{advertiserId}/creativeAssets:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+  /userprofiles/{userprofilesId}/creativeAssets/{creativeAssetsId}/creativeAssets:
     post:
-      description: Inserts a new creative asset.
       operationId: dfareporting.media.upload
+      description: Inserts a new creative asset.
       parameters:
-        - description: User profile ID associated with this request.
+        - name: userprofilesId
           in: path
-          name: profileId
           required: true
+          description: Component of the original `profileId` resource name. User profile ID associated with this request.
           schema:
             type: string
-        - description: Advertiser ID of this creative. This is a required field.
+        - name: creativeAssetsId
           in: path
-          name: advertiserId
           required: true
+          description: Component of the original `advertiserId` resource name. Advertiser ID of this creative. This is a required field.
           schema:
             type: string
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              $ref: "#/components/schemas/CreativeAssetMetadata"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreativeAssetMetadata"
-          description: Successful response
+      tags:
+        - media
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/dfatrafficking
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/dfatrafficking
-      tags:
-        - media
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreativeAssetMetadata'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreativeAssetMetadata'
+      x-google-discovery:
+        path: userprofiles/{+profileId}/creativeAssets/{+advertiserId}/creativeAssets
+        flatPath: userprofiles/{userprofilesId}/creativeAssets/{creativeAssetsId}/creativeAssets
+        resourceNameBindings:
+          userprofilesId: profileId
+          creativeAssetsId: advertiserId
+        resourceNameParameters:
+          advertiserId:
+            description: Advertiser ID of this creative. This is a required field.
+            format: int64
+            location: path
+            pattern: ^[^/]+$
+            required: true
+            type: string
+          profileId:
+            description: User profile ID associated with this request.
+            format: int64
+            location: path
+            pattern: ^[^/]+$
+            required: true
+            type: string
+        mediaUpload:
+          accept:
+            - '*/*'
+          maxSize: '1073741824'
+          protocols:
+            simple:
+              multipart: true
+              path: /upload/dfareporting/v3.5/userprofiles/{+profileId}/creativeAssets/{+advertiserId}/creativeAssets
+        supportsMediaUpload: true
+        parameterOrder:
+          - profileId
+          - advertiserId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     ClickTag:
       description: Creative Click Tag.
+      x-google-discovery-id: ClickTag
       properties:
         clickThroughUrl:
-          $ref: "#/components/schemas/CreativeClickThroughUrl"
           description: Parameter value for the specified click tag. This field contains a click-through url.
+          allOf:
+            - $ref: '#/components/schemas/CreativeClickThroughUrl'
         eventName:
           description: Advertiser event name associated with the click tag. This field is used by DISPLAY_IMAGE_GALLERY and HTML5_BANNER creatives. Applicable to DISPLAY when the primary asset type is not HTML_IMAGE.
           type: string
@@ -171,6 +139,7 @@ components:
       type: object
     CreativeAssetId:
       description: Creative Asset ID.
+      x-google-discovery-id: CreativeAssetId
       properties:
         name:
           description: 'Name of the creative asset. This is a required field while inserting an asset. After insertion, this assetIdentifier is used to identify the uploaded asset. Characters in the name must be alphanumeric or one of the following: ".-_ ". Spaces are allowed.'
@@ -184,23 +153,32 @@ components:
             - HTML
             - HTML_IMAGE
             - AUDIO
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
           type: string
       type: object
     CreativeAssetMetadata:
       description: CreativeAssets contains properties of a creative asset file which will be uploaded or has already been uploaded. Refer to the creative sample code for how to upload assets and insert a creative.
+      x-google-discovery-id: CreativeAssetMetadata
       properties:
         assetIdentifier:
-          $ref: "#/components/schemas/CreativeAssetId"
           description: ID of the creative asset. This is a required field.
+          allOf:
+            - $ref: '#/components/schemas/CreativeAssetId'
         clickTags:
           description: List of detected click tags for assets. This is a read-only, auto-generated field. This field is empty for a rich media asset.
           items:
-            $ref: "#/components/schemas/ClickTag"
+            $ref: '#/components/schemas/ClickTag'
           type: array
         counterCustomEvents:
           description: List of counter events configured for the asset. This is a read-only, auto-generated field and only applicable to a rich media asset.
           items:
-            $ref: "#/components/schemas/CreativeCustomEvent"
+            $ref: '#/components/schemas/CreativeCustomEvent'
           type: array
         detectedFeatures:
           description: List of feature dependencies for the creative asset that are detected by Campaign Manager. Feature dependencies are features that a browser must be able to support in order to render your HTML5 creative correctly. This is a read-only, auto-generated field.
@@ -272,34 +250,98 @@ components:
               - WEBGL
               - SVG_FILTERS
               - SVG_FE_IMAGE
+            x-google-enum-descriptions:
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
             type: string
           type: array
         exitCustomEvents:
           description: List of exit events configured for the asset. This is a read-only, auto-generated field and only applicable to a rich media asset.
           items:
-            $ref: "#/components/schemas/CreativeCustomEvent"
+            $ref: '#/components/schemas/CreativeCustomEvent'
           type: array
         id:
           description: Numeric ID of the asset. This is a read-only, auto-generated field.
           format: int64
           type: string
         idDimensionValue:
-          $ref: "#/components/schemas/DimensionValue"
           description: Dimension value for the numeric ID of the asset. This is a read-only, auto-generated field.
+          allOf:
+            - $ref: '#/components/schemas/DimensionValue'
         kind:
           description: 'Identifies what kind of resource this is. Value: the fixed string "dfareporting#creativeAssetMetadata".'
           type: string
-        mediaRequestInfo:
-          $ref: "#/components/schemas/MediaRequestInfo"
-        mediaResponseInfo:
-          $ref: "#/components/schemas/MediaResponseInfo"
         richMedia:
           description: True if the uploaded asset is a rich media asset. This is a read-only, auto-generated field.
           type: boolean
         timerCustomEvents:
           description: List of timer events configured for the asset. This is a read-only, auto-generated field and only applicable to a rich media asset.
           items:
-            $ref: "#/components/schemas/CreativeCustomEvent"
+            $ref: '#/components/schemas/CreativeCustomEvent'
           type: array
         warnedValidationRules:
           description: 'Rules validated during code generation that generated a warning. This is a read-only, auto-generated field. Possible values are: - "ADMOB_REFERENCED" - "ASSET_FORMAT_UNSUPPORTED_DCM" - "ASSET_INVALID" - "CLICK_TAG_HARD_CODED" - "CLICK_TAG_INVALID" - "CLICK_TAG_IN_GWD" - "CLICK_TAG_MISSING" - "CLICK_TAG_MORE_THAN_ONE" - "CLICK_TAG_NON_TOP_LEVEL" - "COMPONENT_UNSUPPORTED_DCM" - "ENABLER_UNSUPPORTED_METHOD_DCM" - "EXTERNAL_FILE_REFERENCED" - "FILE_DETAIL_EMPTY" - "FILE_TYPE_INVALID" - "GWD_PROPERTIES_INVALID" - "HTML5_FEATURE_UNSUPPORTED" - "LINKED_FILE_NOT_FOUND" - "MAX_FLASH_VERSION_11" - "MRAID_REFERENCED" - "NOT_SSL_COMPLIANT" - "ORPHANED_ASSET" - "PRIMARY_HTML_MISSING" - "SVG_INVALID" - "ZIP_INVALID" '
@@ -331,14 +373,42 @@ components:
               - SVG_INVALID
               - CLICK_TAG_IN_RICH_MEDIA
               - MISSING_ENABLER_REFERENCE
+            x-google-enum-descriptions:
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
             type: string
           type: array
       type: object
     CreativeClickThroughUrl:
       description: Click-through URL
+      x-google-discovery-id: CreativeClickThroughUrl
       properties:
         computedClickThroughUrl:
-          description: "Read-only convenience field representing the actual URL that will be used for this click-through. The URL is computed as follows: - If landingPageId is specified then that landing page's URL is assigned to this field. - Otherwise, the customClickThroughUrl is assigned to this field. "
+          description: 'Read-only convenience field representing the actual URL that will be used for this click-through. The URL is computed as follows: - If landingPageId is specified then that landing page''s URL is assigned to this field. - Otherwise, the customClickThroughUrl is assigned to this field. '
           type: string
         customClickThroughUrl:
           description: Custom click-through URL. Applicable if the landingPageId field is left unset.
@@ -350,6 +420,7 @@ components:
       type: object
     CreativeCustomEvent:
       description: Creative Custom Event.
+      x-google-discovery-id: CreativeCustomEvent
       properties:
         advertiserCustomEventId:
           description: Unique ID of this event used by Reporting and Data Transfer. This is a read-only field.
@@ -364,6 +435,10 @@ components:
             - ADVERTISER_EVENT_TIMER
             - ADVERTISER_EVENT_EXIT
             - ADVERTISER_EVENT_COUNTER
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
           type: string
         artworkLabel:
           description: Artwork label column, used to link events in Campaign Manager back to events in Studio. This is a required field and should not be modified after insertion.
@@ -375,17 +450,24 @@ components:
             - ARTWORK_TYPE_HTML5
             - ARTWORK_TYPE_MIXED
             - ARTWORK_TYPE_IMAGE
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
           type: string
         exitClickThroughUrl:
-          $ref: "#/components/schemas/CreativeClickThroughUrl"
           description: Exit click-through URL for the event. This field is used only for exit events.
+          allOf:
+            - $ref: '#/components/schemas/CreativeClickThroughUrl'
         id:
           description: ID of this event. This is a required field and should not be modified after insertion.
           format: int64
           type: string
         popupWindowProperties:
-          $ref: "#/components/schemas/PopupWindowProperties"
           description: Properties for rich media popup windows. This field is used only for exit events.
+          allOf:
+            - $ref: '#/components/schemas/PopupWindowProperties'
         targetType:
           description: Target type used by the event.
           enum:
@@ -394,6 +476,12 @@ components:
             - TARGET_SELF
             - TARGET_PARENT
             - TARGET_POPUP
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
           type: string
         videoReportingId:
           description: Video reporting ID, used to differentiate multiple videos in a single creative. This is a read-only field.
@@ -401,6 +489,7 @@ components:
       type: object
     DimensionValue:
       description: Represents a DimensionValue resource.
+      x-google-discovery-id: DimensionValue
       properties:
         dimensionName:
           description: The name of the dimension.
@@ -421,106 +510,19 @@ components:
             - BEGINS_WITH
             - CONTAINS
             - WILDCARD_EXPRESSION
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
           type: string
         value:
           description: The value of the dimension.
           type: string
       type: object
-    MediaRequestInfo:
-      description: Extra information added to operations that support Scotty media requests.
-      properties:
-        currentBytes:
-          description: The number of current bytes uploaded or downloaded.
-          format: int64
-          type: string
-        customData:
-          description: Data to be copied to backend requests. Custom data is returned to Scotty in the agent_state field, which Scotty will then provide in subsequent upload notifications.
-          type: string
-        diffObjectVersion:
-          description: Set if the http request info is diff encoded. The value of this field is the version number of the base revision. This is corresponding to Apiary's mediaDiffObjectVersion (//depot/google3/java/com/google/api/server/media/variable/DiffObjectVersionVariable.java). See go/esf-scotty-diff-upload for more information.
-          type: string
-        finalStatus:
-          description: The existence of the final_status field indicates that this is the last call to the agent for this request_id. http://google3/uploader/agent/scotty_agent.proto?l=737&rcl=347601929
-          format: int32
-          type: integer
-        notificationType:
-          description: The type of notification received from Scotty.
-          enum:
-            - START
-            - PROGRESS
-            - END
-            - RESPONSE_SENT
-            - ERROR
-          type: string
-        requestId:
-          description: The Scotty request ID.
-          type: string
-        requestReceivedParamsServingInfo:
-          description: The partition of the Scotty server handling this request. type is uploader_service.RequestReceivedParamsServingInfo LINT.IfChange(request_received_params_serving_info_annotations) LINT.ThenChange()
-          format: byte
-          type: string
-        totalBytes:
-          description: The total size of the file.
-          format: int64
-          type: string
-        totalBytesIsEstimated:
-          description: Whether the total bytes field contains an estimated data.
-          type: boolean
-      type: object
-    MediaResponseInfo:
-      description: "This message is for backends to pass their scotty media specific fields to ESF. Backend will include this in their response message to ESF. Example: ExportFile is an rpc defined for upload using scotty from ESF. rpc ExportFile(ExportFileRequest) returns (ExportFileResponse) Message ExportFileResponse will include apiserving.MediaResponseInfo to tell ESF about data like dynamic_dropzone it needs to pass to Scotty. message ExportFileResponse { optional gdata.Media blob = 1; optional apiserving.MediaResponseInfo media_response_info = 2 }"
-      properties:
-        customData:
-          description: Data to copy from backend response to the next backend requests. Custom data is returned to Scotty in the agent_state field, which Scotty will then provide in subsequent upload notifications.
-          type: string
-        dataStorageTransform:
-          description: Specifies any transformation to be applied to data before persisting it or retrieving from storage. E.g., encryption options for blobstore2. This should be of the form uploader_service.DataStorageTransform.
-          format: byte
-          type: string
-        dynamicDropTarget:
-          description: "Specifies the Scotty Drop Target to use for uploads. If present in a media response, Scotty does not upload to a standard drop zone. Instead, Scotty saves the upload directly to the location specified in this drop target. Unlike drop zones, the drop target is the final storage location for an upload. So, the agent does not need to clone the blob at the end of the upload. The agent is responsible for garbage collecting any orphaned blobs that may occur due to aborted uploads. For more information, see the drop target design doc here: http://goto/ScottyDropTarget This field will be preferred to dynamicDropzone. If provided, the identified field in the response must be of the type uploader.agent.DropTarget."
-          format: byte
-          type: string
-        dynamicDropzone:
-          description: Specifies the Scotty dropzone to use for uploads.
-          type: string
-        requestClass:
-          description: Request class to use for all Blobstore operations for this request.
-          enum:
-            - UNKNOWN_REQUEST_CLASS
-            - LATENCY_SENSITIVE
-            - PRODUCTION_BATCH
-            - BEST_EFFORT
-          type: string
-        scottyAgentUserId:
-          description: Requester ID passed along to be recorded in the Scotty logs
-          format: int64
-          type: string
-        scottyCustomerLog:
-          description: Customer-specific data to be recorded in the Scotty logs type is logs_proto_scotty.CustomerLog
-          format: byte
-          type: string
-        trafficClassField:
-          description: "Specifies the TrafficClass that Scotty should use for any RPCs to fetch the response bytes. Will override the traffic class GTOS of the incoming http request. This is a temporary field to facilitate whitelisting and experimentation by the bigstore agent only. For instance, this does not apply to RTMP reads. WARNING: DO NOT USE WITHOUT PERMISSION FROM THE SCOTTY TEAM."
-          enum:
-            - BE1
-            - AF1
-            - AF2
-            - AF3
-            - AF4
-            - NC1
-            - NC0
-            - BE0
-            - LLQ
-            - LLQ1
-            - LLQ2
-          type: string
-        verifyHashFromHeader:
-          description: Tells Scotty to verify hashes on the agent's behalf by parsing out the X-Goog-Hash header.
-          type: boolean
-      type: object
     OffsetPosition:
       description: Offset Position.
+      x-google-discovery-id: OffsetPosition
       properties:
         left:
           description: Offset distance from left side of an asset or a window.
@@ -533,18 +535,24 @@ components:
       type: object
     PopupWindowProperties:
       description: Popup Window Properties.
+      x-google-discovery-id: PopupWindowProperties
       properties:
         dimension:
-          $ref: "#/components/schemas/Size"
-          description: "Popup dimension for a creative. This is a read-only field. Applicable to the following creative types: all RICH_MEDIA and all VPAID"
+          description: 'Popup dimension for a creative. This is a read-only field. Applicable to the following creative types: all RICH_MEDIA and all VPAID'
+          allOf:
+            - $ref: '#/components/schemas/Size'
         offset:
-          $ref: "#/components/schemas/OffsetPosition"
           description: Upper-left corner coordinates of the popup window. Applicable if positionType is COORDINATES.
+          allOf:
+            - $ref: '#/components/schemas/OffsetPosition'
         positionType:
           description: Popup window position either centered or at specific coordinate.
           enum:
             - CENTER
             - COORDINATES
+          x-google-enum-descriptions:
+            - ''
+            - ''
           type: string
         showAddressBar:
           description: Whether to display the browser address bar.
@@ -567,6 +575,7 @@ components:
       type: object
     Size:
       description: Represents the dimensions of ads, placements, creatives, or creative assets.
+      x-google-discovery-id: Size
       properties:
         height:
           description: Height of this size. Acceptable values are 0 to 32767, inclusive.
@@ -587,21 +596,122 @@ components:
           format: int32
           type: integer
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/dfatrafficking: View and manage your DoubleClick Campaign Manager's (DCM) display ad campaigns
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/dfatrafficking: View and manage your DoubleClick Campaign Manager's (DCM) display ad campaigns
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/doubleclick-advertisers/
+tags:
+  - name: media
+x-google-discovery:
+  basePath: /dfareporting/v3.5/
+  baseUrl: https://dfareporting.googleapis.com/dfareporting/v3.5/
+  batchPath: batch
+  canonicalName: Dfareporting
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: dfareporting:v3.5
+  kind: discovery#restDescription
+  mtlsRootUrl: https://dfareporting.mtls.googleapis.com/
+  name: dfareporting
+  revision: '20240821'
+  rootUrl: https://dfareporting.googleapis.com/
+  servicePath: dfareporting/v3.5/

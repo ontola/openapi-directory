@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://advisorynotifications.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -20,241 +18,576 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://advisorynotifications.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/advisorynotifications.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/advisorynotifications.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: advisorynotifications
-externalDocs:
-  url: https://cloud.google.com/advisory-notifications
-tags:
-  - name: organizations
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20240331; original source SHA-256 7f3ceeb96c7004fdd6c21313ab68b382d73c0c3836014e3eb9bc3fe929d326c1.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://advisorynotifications.googleapis.com
 paths:
-  /v1/{name}:
+  /v1/organizations/{organizationsId}/locations/{locationsId}/settings:
     get:
-      description: Gets a notification.
-      operationId: advisorynotifications.projects.locations.notifications.get
+      operationId: advisorynotifications.organizations.locations.getSettings
+      description: Get notification settings.
       parameters:
-        - description: "Required. A name of the notification to retrieve. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{projects}/locations/{location}/notifications/{notification}."
+        - name: organizationsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
           schema:
             type: string
-        - description: ISO code for requested localization language. If unset, will be interpereted as "en". If the requested language is valid, but not supported for this notification, English will be returned with an "Not applicable" LocalizationState. If the ISO code is invalid (i.e. not a real language), this RPC will throw an error.
-          in: query
-          name: languageCode
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Notification"
-          description: Successful response
+      tags:
+        - organizations
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Settings'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     patch:
-      description: Update notification settings.
       operationId: advisorynotifications.organizations.locations.updateSettings
+      description: Update notification settings.
       parameters:
-        - description: "Identifier. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings."
+        - name: organizationsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
           schema:
             type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Settings"
+              $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Settings'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Settings"
-          description: Successful response
+                $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Settings'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/locations/{locationsId}/notifications/{notificationsId}:
+    get:
+      operationId: advisorynotifications.organizations.locations.notifications.get
+      description: Gets a notification.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. A name of the notification to retrieve. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{projects}/locations/{location}/notifications/{notification}.'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. A name of the notification to retrieve. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{projects}/locations/{location}/notifications/{notification}.'
+          schema:
+            type: string
+        - name: notificationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. A name of the notification to retrieve. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{projects}/locations/{location}/notifications/{notification}.'
+          schema:
+            type: string
+        - name: languageCode
+          in: query
+          schema:
+            type: string
+          description: ISO code for requested localization language. If unset, will be interpereted as "en". If the requested language is valid, but not supported for this notification, English will be returned with an "Not applicable" LocalizationState. If the ISO code is invalid (i.e. not a real language), this RPC will throw an error.
+      tags:
+        - organizations
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - organizations
-  /v1/{parent}/notifications:
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Notification'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/notifications/{notificationsId}
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+          notificationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. A name of the notification to retrieve. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{projects}/locations/{location}/notifications/{notification}.'
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+/notifications/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/locations/{locationsId}/notifications:
     get:
+      operationId: advisorynotifications.organizations.locations.notifications.list
       description: Lists notifications under a given parent.
-      operationId: advisorynotifications.projects.locations.notifications.list
       parameters:
-        - description: Required. The parent, which owns this collection of notifications. Must be of the form "organizations/{organization}/locations/{location}" or "projects/{project}/locations/{location}"
+        - name: organizationsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent, which owns this collection of notifications. Must be of the form "organizations/{organization}/locations/{location}" or "projects/{project}/locations/{location}".
           schema:
             type: string
-        - description: ISO code for requested localization language. If unset, will be interpereted as "en". If the requested language is valid, but not supported for this notification, English will be returned with an "Not applicable" LocalizationState. If the ISO code is invalid (i.e. not a real language), this RPC will throw an error.
-          in: query
-          name: languageCode
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent, which owns this collection of notifications. Must be of the form "organizations/{organization}/locations/{location}" or "projects/{project}/locations/{location}".
           schema:
             type: string
-        - description: The maximum number of notifications to return. The service may return fewer than this value. If unspecified or equal to 0, at most 50 notifications will be returned. The maximum value is 50; values above 50 will be coerced to 50.
+        - name: languageCode
           in: query
-          name: pageSize
           schema:
+            type: string
+          description: ISO code for requested localization language. If unset, will be interpereted as "en". If the requested language is valid, but not supported for this notification, English will be returned with an "Not applicable" LocalizationState. If the ISO code is invalid (i.e. not a real language), this RPC will throw an error.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: A page token returned from a previous request. When paginating, all other parameters provided in the request must match the call that returned the page token.
+          description: The maximum number of notifications to return. The service may return fewer than this value. If unspecified or equal to 0, at most 50 notifications will be returned. The maximum value is 50; values above 50 will be coerced to 50.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-        - description: Specifies which parts of the notification resource should be returned in the response.
+          description: A page token returned from a previous request. When paginating, all other parameters provided in the request must match the call that returned the page token.
+        - name: view
           in: query
-          name: view
           schema:
             enum:
               - NOTIFICATION_VIEW_UNSPECIFIED
               - BASIC
               - FULL
+            x-google-enum-descriptions:
+              - Not specified, equivalent to BASIC.
+              - 'Server responses only include title, creation time and Notification ID. Note: for internal use responses also include the last update time, the latest message text and whether notification has attachments.'
+              - Include everything.
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1ListNotificationsResponse"
-          description: Successful response
+          description: Specifies which parts of the notification resource should be returned in the response.
+      tags:
+        - organizations
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1ListNotificationsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/notifications
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/notifications
+        resourceNameBindings:
+          organizationsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent, which owns this collection of notifications. Must be of the form "organizations/{organization}/locations/{location}" or "projects/{project}/locations/{location}".
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/settings:
+    get:
+      operationId: advisorynotifications.projects.locations.getSettings
+      description: Get notification settings.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Settings'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: advisorynotifications.projects.locations.updateSettings
+      description: Update notification settings.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Settings'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Settings'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/notifications/{notificationsId}:
+    get:
+      operationId: advisorynotifications.projects.locations.notifications.get
+      description: Gets a notification.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. A name of the notification to retrieve. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{projects}/locations/{location}/notifications/{notification}.'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. A name of the notification to retrieve. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{projects}/locations/{location}/notifications/{notification}.'
+          schema:
+            type: string
+        - name: notificationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. A name of the notification to retrieve. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{projects}/locations/{location}/notifications/{notification}.'
+          schema:
+            type: string
+        - name: languageCode
+          in: query
+          schema:
+            type: string
+          description: ISO code for requested localization language. If unset, will be interpereted as "en". If the requested language is valid, but not supported for this notification, English will be returned with an "Not applicable" LocalizationState. If the ISO code is invalid (i.e. not a real language), this RPC will throw an error.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Notification'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/notifications/{notificationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          notificationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. A name of the notification to retrieve. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{projects}/locations/{location}/notifications/{notification}.'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/notifications/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/notifications:
+    get:
+      operationId: advisorynotifications.projects.locations.notifications.list
+      description: Lists notifications under a given parent.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent, which owns this collection of notifications. Must be of the form "organizations/{organization}/locations/{location}" or "projects/{project}/locations/{location}".
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent, which owns this collection of notifications. Must be of the form "organizations/{organization}/locations/{location}" or "projects/{project}/locations/{location}".
+          schema:
+            type: string
+        - name: languageCode
+          in: query
+          schema:
+            type: string
+          description: ISO code for requested localization language. If unset, will be interpereted as "en". If the requested language is valid, but not supported for this notification, English will be returned with an "Not applicable" LocalizationState. If the ISO code is invalid (i.e. not a real language), this RPC will throw an error.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of notifications to return. The service may return fewer than this value. If unspecified or equal to 0, at most 50 notifications will be returned. The maximum value is 50; values above 50 will be coerced to 50.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token returned from a previous request. When paginating, all other parameters provided in the request must match the call that returned the page token.
+        - name: view
+          in: query
+          schema:
+            enum:
+              - NOTIFICATION_VIEW_UNSPECIFIED
+              - BASIC
+              - FULL
+            x-google-enum-descriptions:
+              - Not specified, equivalent to BASIC.
+              - 'Server responses only include title, creation time and Notification ID. Note: for internal use responses also include the last update time, the latest message text and whether notification has attachments.'
+              - Include everything.
+            type: string
+          description: Specifies which parts of the notification resource should be returned in the response.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1ListNotificationsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/notifications
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/notifications
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent, which owns this collection of notifications. Must be of the form "organizations/{organization}/locations/{location}" or "projects/{project}/locations/{location}".
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     GoogleCloudAdvisorynotificationsV1Attachment:
       description: Attachment with specific information about the issue.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1Attachment
       properties:
         csv:
-          $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Csv"
           description: A CSV file attachment. Max size is 10 MB.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Csv'
         displayName:
           description: The title of the attachment.
           type: string
       type: object
     GoogleCloudAdvisorynotificationsV1Csv:
       description: A representation of a CSV file attachment, as a list of column headers and a list of data rows.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1Csv
       properties:
         dataRows:
           description: The list of data rows in a CSV file, as string arrays rather than as a single comma-separated string.
           items:
-            $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1CsvCsvRow"
+            $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1CsvCsvRow'
           type: array
         headers:
           description: The list of headers for data columns in a CSV file.
@@ -264,6 +597,7 @@ components:
       type: object
     GoogleCloudAdvisorynotificationsV1CsvCsvRow:
       description: A representation of a single data row in a CSV file.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1CsvCsvRow
       properties:
         entries:
           description: The data entries in a CSV file row, as a string array rather than a single comma-separated string.
@@ -273,6 +607,7 @@ components:
       type: object
     GoogleCloudAdvisorynotificationsV1ListNotificationsResponse:
       description: Response of ListNotifications endpoint.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1ListNotificationsResponse
       properties:
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -280,7 +615,7 @@ components:
         notifications:
           description: List of notifications under a given parent.
           items:
-            $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Notification"
+            $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Notification'
           type: array
         totalSize:
           description: Estimation of a total number of notifications.
@@ -289,15 +624,17 @@ components:
       type: object
     GoogleCloudAdvisorynotificationsV1Message:
       description: A message which contains notification details.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1Message
       properties:
         attachments:
           description: The attachments to download.
           items:
-            $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Attachment"
+            $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Attachment'
           type: array
         body:
-          $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1MessageBody"
           description: The message content.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1MessageBody'
         createTime:
           description: The Message creation timestamp.
           format: google-datetime
@@ -309,13 +646,16 @@ components:
       type: object
     GoogleCloudAdvisorynotificationsV1MessageBody:
       description: A message body containing text.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1MessageBody
       properties:
         text:
-          $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Text"
           description: The text content of the message body.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Text'
       type: object
     GoogleCloudAdvisorynotificationsV1Notification:
       description: A notification object for notifying customers about security and privacy issues.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1Notification
       properties:
         createTime:
           description: Output only. Time the notification was created.
@@ -325,10 +665,10 @@ components:
         messages:
           description: A list of messages in the notification.
           items:
-            $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Message"
+            $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Message'
           type: array
         name:
-          description: "The resource name of the notification. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{project}/locations/{location}/notifications/{notification}."
+          description: 'The resource name of the notification. Format: organizations/{organization}/locations/{location}/notifications/{notification} or projects/{project}/locations/{location}/notifications/{notification}.'
           type: string
         notificationType:
           description: Type of notification
@@ -338,13 +678,21 @@ components:
             - NOTIFICATION_TYPE_SENSITIVE_ACTIONS
             - NOTIFICATION_TYPE_SECURITY_MSA
             - NOTIFICATION_TYPE_THREAT_HORIZONS
+          x-google-enum-descriptions:
+            - Default type
+            - Security and privacy advisory notifications
+            - Sensitive action notifications
+            - General security MSA
+            - Threat horizons MSA
           type: string
         subject:
-          $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Subject"
           description: The subject line of the notification.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Subject'
       type: object
     GoogleCloudAdvisorynotificationsV1NotificationSettings:
       description: Settings for each NotificationType.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1NotificationSettings
       properties:
         enabled:
           description: Whether the associated NotificationType is enabled.
@@ -352,28 +700,32 @@ components:
       type: object
     GoogleCloudAdvisorynotificationsV1Settings:
       description: Settings for Advisory Notifications.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1Settings
       properties:
         etag:
           description: Required. Fingerprint for optimistic concurrency returned in Get requests. Must be provided for Update requests. If the value provided does not match the value known to the server, ABORTED will be thrown, and the client should retry the read-modify-write cycle.
           type: string
         name:
-          description: "Identifier. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings."
+          description: 'Identifier. The resource name of the settings to retrieve. Format: organizations/{organization}/locations/{location}/settings or projects/{projects}/locations/{location}/settings.'
           type: string
         notificationSettings:
           additionalProperties:
-            $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1NotificationSettings"
+            $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1NotificationSettings'
           description: Required. Map of each notification type and its settings to get/set all settings at once. The server will validate the value for each notification type.
           type: object
       type: object
     GoogleCloudAdvisorynotificationsV1Subject:
       description: A subject line of a notification.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1Subject
       properties:
         text:
-          $ref: "#/components/schemas/GoogleCloudAdvisorynotificationsV1Text"
           description: The text content.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudAdvisorynotificationsV1Text'
       type: object
     GoogleCloudAdvisorynotificationsV1Text:
       description: A text object containing the English text and its localized copies.
+      x-google-discovery-id: GoogleCloudAdvisorynotificationsV1Text
       properties:
         enText:
           description: The English copy.
@@ -385,26 +737,134 @@ components:
             - LOCALIZATION_STATE_NOT_APPLICABLE
             - LOCALIZATION_STATE_PENDING
             - LOCALIZATION_STATE_COMPLETED
+          x-google-enum-descriptions:
+            - Not used.
+            - 'Localization is not applicable for requested language. This can happen when: - The requested language was not supported by Advisory Notifications at the time of localization (including notifications created before the localization feature was launched). - The requested language is English, so only the English text is returned.'
+            - Localization for requested language is in progress, and not ready yet.
+            - Localization for requested language is completed.
           type: string
         localizedText:
           description: The requested localized copy (if applicable).
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/advisory-notifications
+tags:
+  - name: organizations
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://advisorynotifications.googleapis.com/
+  batchPath: batch
+  canonicalName: Advisorynotifications
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: advisorynotifications:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://advisorynotifications.mtls.googleapis.com/
+  name: advisorynotifications
+  revision: '20240331'
+  rootUrl: https://advisorynotifications.googleapis.com/
+  servicePath: ''
+  version_module: true

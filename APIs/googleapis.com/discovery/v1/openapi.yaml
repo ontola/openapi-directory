@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://www.googleapis.com/discovery/v1
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -22,129 +20,102 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://discovery.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/discovery.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/discovery.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: discovery
-externalDocs:
-  url: https://developers.google.com/discovery/
-tags:
-  - name: apis
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20200806; original source SHA-256 18e5c0cc1282c67feacee7c1b6650c81d076056edd5fb3592f18c9308556f5d8.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://www.googleapis.com/discovery/v1
 paths:
-  /apis:
-    get:
-      description: Retrieve the list of APIs supported at this endpoint.
-      operationId: discovery.apis.list
-      parameters:
-        - description: Only include APIs with the given name.
-          in: query
-          name: name
-          schema:
-            type: string
-        - description: Return only the preferred version of an API.
-          in: query
-          name: preferred
-          schema:
-            type: boolean
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DirectoryList"
-          description: Successful response
-      tags:
-        - apis
-    parameters:
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/userIp"
   /apis/{api}/{version}/rest:
     get:
-      description: Retrieve the description of a particular version of an api.
       operationId: discovery.apis.getRest
+      description: Retrieve the description of a particular version of an api.
       parameters:
-        - description: The name of the API.
+        - name: api
           in: path
-          name: api
-          required: true
           schema:
             type: string
-        - description: The version of the API.
-          in: path
-          name: version
+          description: The name of the API.
           required: true
+        - name: version
+          in: path
           schema:
             type: string
+          description: The version of the API.
+          required: true
+      tags:
+        - apis
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RestDescription"
-          description: Successful response
+                $ref: '#/components/schemas/RestDescription'
+      x-google-discovery:
+        path: apis/{api}/{version}/rest
+        parameterOrder:
+          - api
+          - version
+    parameters:
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/userIp'
+  /apis:
+    get:
+      operationId: discovery.apis.list
+      description: Retrieve the list of APIs supported at this endpoint.
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: Only include APIs with the given name.
+        - name: preferred
+          in: query
+          schema:
+            default: false
+            type: boolean
+          description: Return only the preferred version of an API.
       tags:
         - apis
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectoryList'
+      x-google-discovery:
+        path: apis
     parameters:
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/userIp"
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/userIp'
 components:
-  parameters:
-    alt:
-      description: Data format for the response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: An opaque string that represents a user for quota purposes. Must not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    userIp:
-      description: Deprecated. Please use quotaUser instead.
-      in: query
-      name: userIp
-      schema:
-        type: string
   schemas:
     DirectoryList:
+      x-google-discovery-id: DirectoryList
       properties:
         discoveryVersion:
           default: v1
@@ -208,13 +179,15 @@ components:
           type: string
       type: object
     JsonSchema:
+      x-google-discovery-id: JsonSchema
       properties:
         $ref:
           description: A reference to another schema. The value of this property is the "id" of another schema.
           type: string
         additionalProperties:
-          $ref: "#/components/schemas/JsonSchema"
           description: If this is a schema for an object, this property is the schema for any additional properties with dynamic keys on this object.
+          allOf:
+            - $ref: '#/components/schemas/JsonSchema'
         annotations:
           description: Additional information about this property.
           properties:
@@ -224,6 +197,9 @@ components:
                 type: string
               type: array
           type: object
+        default:
+          description: The default value of this property (if one exists).
+          type: string
         deprecated:
           description: Whether the parameter is deprecated.
           type: boolean
@@ -246,14 +222,15 @@ components:
             type: string
           type: array
         format:
-          description: "An additional regular expression or key that helps constrain the value. For more details see: http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.23"
+          description: 'An additional regular expression or key that helps constrain the value. For more details see: http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.23'
           type: string
         id:
           description: Unique identifier for this schema.
           type: string
         items:
-          $ref: "#/components/schemas/JsonSchema"
           description: If this is a schema for an array, this property is the schema for each element in the array.
+          allOf:
+            - $ref: '#/components/schemas/JsonSchema'
         location:
           description: Whether this parameter goes in the query or the path for REST requests.
           type: string
@@ -264,12 +241,13 @@ components:
           description: The minimum value of this parameter.
           type: string
         pattern:
-          description: "The regular expression this parameter must conform to. Uses Java 6 regex format: http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html"
+          description: 'The regular expression this parameter must conform to. Uses Java 6 regex format: http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html'
           type: string
         properties:
           additionalProperties:
-            $ref: "#/components/schemas/JsonSchema"
             description: A single property of this object. The value is itself a JSON Schema object describing this property.
+            allOf:
+              - $ref: '#/components/schemas/JsonSchema'
           description: If this is a schema for an object, list the schema for each property of this object.
           type: object
         readOnly:
@@ -282,7 +260,7 @@ components:
           description: Whether the parameter is required.
           type: boolean
         type:
-          description: "The value type for this schema. A list of values can be found here: http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1"
+          description: 'The value type for this schema. A list of values can be found here: http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1'
           type: string
         variant:
           description: In a variant data type, the value of one property is used to determine how to interpret the entire entity. Its value must exist in a map of descriminant values to schema names.
@@ -303,6 +281,7 @@ components:
           type: object
       type: object
     RestDescription:
+      x-google-discovery-id: RestDescription
       properties:
         auth:
           description: Authentication information.
@@ -323,10 +302,10 @@ components:
               type: object
           type: object
         basePath:
-          description: "[DEPRECATED] The base path for REST requests."
+          description: '[DEPRECATED] The base path for REST requests.'
           type: string
         baseUrl:
-          description: "[DEPRECATED] The base URL for REST requests."
+          description: '[DEPRECATED] The base URL for REST requests.'
           type: string
         batchPath:
           description: The path for REST batch requests.
@@ -399,8 +378,9 @@ components:
           type: array
         methods:
           additionalProperties:
-            $ref: "#/components/schemas/RestMethod"
             description: An individual method description.
+            allOf:
+              - $ref: '#/components/schemas/RestMethod'
           description: API-level methods for this API.
           type: object
         name:
@@ -417,8 +397,9 @@ components:
           type: string
         parameters:
           additionalProperties:
-            $ref: "#/components/schemas/JsonSchema"
             description: Description of a single parameter.
+            allOf:
+              - $ref: '#/components/schemas/JsonSchema'
           description: Common parameters that apply across all apis.
           type: object
         protocol:
@@ -427,8 +408,9 @@ components:
           type: string
         resources:
           additionalProperties:
-            $ref: "#/components/schemas/RestResource"
             description: An individual resource description. Contains methods and sub-resources related to this resource.
+            allOf:
+              - $ref: '#/components/schemas/RestResource'
           description: The resources in this API.
           type: object
         revision:
@@ -439,8 +421,9 @@ components:
           type: string
         schemas:
           additionalProperties:
-            $ref: "#/components/schemas/JsonSchema"
             description: An individual schema description.
+            allOf:
+              - $ref: '#/components/schemas/JsonSchema'
           description: The schemas for this API.
           type: object
         servicePath:
@@ -456,7 +439,11 @@ components:
           type: boolean
       type: object
     RestMethod:
+      x-google-discovery-id: RestMethod
       properties:
+        apiVersion:
+          description: The API Version of this method, as passed in via the `X-Goog-Api-Version` header or `$apiVersion` query parameter.
+          type: string
         deprecated:
           description: Whether this method is deprecated.
           type: boolean
@@ -520,8 +507,9 @@ components:
           type: array
         parameters:
           additionalProperties:
-            $ref: "#/components/schemas/JsonSchema"
             description: Details for a single parameter in this method.
+            allOf:
+              - $ref: '#/components/schemas/JsonSchema'
           description: Details for all parameters in this method.
           type: object
         path:
@@ -563,20 +551,91 @@ components:
           type: boolean
       type: object
     RestResource:
+      x-google-discovery-id: RestResource
       properties:
         deprecated:
           description: Whether this resource is deprecated.
           type: boolean
         methods:
           additionalProperties:
-            $ref: "#/components/schemas/RestMethod"
             description: Description for any methods on this resource.
+            allOf:
+              - $ref: '#/components/schemas/RestMethod'
           description: Methods on this resource.
           type: object
         resources:
           additionalProperties:
-            $ref: "#/components/schemas/RestResource"
             description: Description for any sub-resources on this resource.
+            allOf:
+              - $ref: '#/components/schemas/RestResource'
           description: Sub-resources on this resource.
           type: object
       type: object
+  parameters:
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+        type: string
+      description: Data format for the response.
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: An opaque string that represents a user for quota purposes. Must not exceed 40 characters.
+    userIp:
+      name: userIp
+      in: query
+      schema:
+        type: string
+      description: Deprecated. Please use quotaUser instead.
+  securitySchemes: {}
+externalDocs:
+  url: https://developers.google.com/discovery/
+tags:
+  - name: apis
+x-google-discovery:
+  basePath: /discovery/v1/
+  baseUrl: https://www.googleapis.com/discovery/v1/
+  batchPath: batch/discovery/v1
+  etag: '"-2NioU2H8y8siEzrBOV_qzRI6kQ/vabF8Q1ADCm_Bt9EBq9rkrRawQA"'
+  icons:
+    x16: http://www.google.com/images/icons/feature/filing_cabinet_search-g16.png
+    x32: http://www.google.com/images/icons/feature/filing_cabinet_search-g32.png
+  id: discovery:v1
+  kind: discovery#restDescription
+  name: discovery
+  revision: '20200806'
+  rootUrl: https://www.googleapis.com/
+  servicePath: discovery/v1/

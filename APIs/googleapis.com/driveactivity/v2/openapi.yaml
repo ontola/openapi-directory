@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://driveactivity.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -21,149 +19,90 @@ info:
   x-logo:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
-    - converter:
-        url: https://github.com/mermade/oas-kit
-        version: 7.0.4
-      format: google
-      url: https://driveactivity.googleapis.com/$discovery/rest?version=v2
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/driveactivity.v2.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/driveactivity.v2.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: driveactivity
-externalDocs:
-  url: https://developers.google.com/drive/activity/
-tags:
-  - name: activity
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20250816; original source SHA-256 b61c50bef1cab211ed7b5bd9a58a54e5f22ec04b459296f1699fd019d5c7808e.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://driveactivity.googleapis.com
 paths:
   /v2/activity:query:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
     post:
-      description: Query past activity in Google Drive.
       operationId: driveactivity.activity.query
+      description: Query past activity in Google Drive.
+      tags:
+        - activity
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/drive.activity
+        - Oauth2c:
+            - https://www.googleapis.com/auth/drive.activity
+        - Oauth2:
+            - https://www.googleapis.com/auth/drive.activity.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/drive.activity.readonly
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/QueryDriveActivityRequest"
+              $ref: '#/components/schemas/QueryDriveActivityRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/QueryDriveActivityResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/drive.activity
-          Oauth2c:
-            - https://www.googleapis.com/auth/drive.activity
-        - Oauth2:
-            - https://www.googleapis.com/auth/drive.activity.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/drive.activity.readonly
-      tags:
-        - activity
+                $ref: '#/components/schemas/QueryDriveActivityResponse'
+      x-google-discovery:
+        path: v2/activity:query
+        flatPath: v2/activity:query
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Action:
       description: Information about the action.
+      x-google-discovery-id: Action
       properties:
         actor:
-          $ref: "#/components/schemas/Actor"
           description: The actor responsible for this action (or empty if all actors are responsible).
+          allOf:
+            - $ref: '#/components/schemas/Actor'
         detail:
-          $ref: "#/components/schemas/ActionDetail"
           description: The type and detailed information about the action.
+          allOf:
+            - $ref: '#/components/schemas/ActionDetail'
         target:
-          $ref: "#/components/schemas/Target"
           description: The target this action affects (or empty if affecting all targets). This represents the state of the target immediately after this action occurred.
+          allOf:
+            - $ref: '#/components/schemas/Target'
         timeRange:
-          $ref: "#/components/schemas/TimeRange"
           description: The action occurred over this time range.
+          allOf:
+            - $ref: '#/components/schemas/TimeRange'
         timestamp:
           description: The action occurred at this specific time.
           format: google-datetime
@@ -171,77 +110,100 @@ components:
       type: object
     ActionDetail:
       description: Data describing the type and additional information of an action.
+      x-google-discovery-id: ActionDetail
       properties:
         appliedLabelChange:
-          $ref: "#/components/schemas/AppliedLabelChange"
           description: Label was changed.
+          allOf:
+            - $ref: '#/components/schemas/AppliedLabelChange'
         comment:
-          $ref: "#/components/schemas/Comment"
           description: A change about comments was made.
+          allOf:
+            - $ref: '#/components/schemas/Comment'
         create:
-          $ref: "#/components/schemas/Create"
           description: An object was created.
+          allOf:
+            - $ref: '#/components/schemas/Create'
         delete:
-          $ref: "#/components/schemas/Delete"
           description: An object was deleted.
+          allOf:
+            - $ref: '#/components/schemas/Delete'
         dlpChange:
-          $ref: "#/components/schemas/DataLeakPreventionChange"
           description: A change happened in data leak prevention status.
+          allOf:
+            - $ref: '#/components/schemas/DataLeakPreventionChange'
         edit:
-          $ref: "#/components/schemas/Edit"
           description: An object was edited.
+          allOf:
+            - $ref: '#/components/schemas/Edit'
         move:
-          $ref: "#/components/schemas/Move"
           description: An object was moved.
+          allOf:
+            - $ref: '#/components/schemas/Move'
         permissionChange:
-          $ref: "#/components/schemas/PermissionChange"
           description: The permission on an object was changed.
+          allOf:
+            - $ref: '#/components/schemas/PermissionChange'
         reference:
-          $ref: "#/components/schemas/ApplicationReference"
           description: An object was referenced in an application outside of Drive/Docs.
+          allOf:
+            - $ref: '#/components/schemas/ApplicationReference'
         rename:
-          $ref: "#/components/schemas/Rename"
           description: An object was renamed.
+          allOf:
+            - $ref: '#/components/schemas/Rename'
         restore:
-          $ref: "#/components/schemas/Restore"
           description: A deleted object was restored.
+          allOf:
+            - $ref: '#/components/schemas/Restore'
         settingsChange:
-          $ref: "#/components/schemas/SettingsChange"
           description: Settings were changed.
+          allOf:
+            - $ref: '#/components/schemas/SettingsChange'
       type: object
     Actor:
       description: The actor of a Drive activity.
+      x-google-discovery-id: Actor
       properties:
         administrator:
-          $ref: "#/components/schemas/Administrator"
           description: An administrator.
+          allOf:
+            - $ref: '#/components/schemas/Administrator'
         anonymous:
-          $ref: "#/components/schemas/AnonymousUser"
           description: An anonymous user.
+          allOf:
+            - $ref: '#/components/schemas/AnonymousUser'
         impersonation:
-          $ref: "#/components/schemas/Impersonation"
           description: An account acting on behalf of another.
+          allOf:
+            - $ref: '#/components/schemas/Impersonation'
         system:
-          $ref: "#/components/schemas/SystemEvent"
           description: A non-user actor (i.e. system triggered).
+          allOf:
+            - $ref: '#/components/schemas/SystemEvent'
         user:
-          $ref: "#/components/schemas/User"
           description: An end user.
+          allOf:
+            - $ref: '#/components/schemas/User'
       type: object
     Administrator:
       description: Empty message representing an administrator.
+      x-google-discovery-id: Administrator
       properties: {}
       type: object
     AnonymousUser:
       description: Empty message representing an anonymous user or indicating the authenticated user should be anonymized.
+      x-google-discovery-id: AnonymousUser
       properties: {}
       type: object
     Anyone:
       description: Represents any user (including a logged out user).
+      x-google-discovery-id: Anyone
       properties: {}
       type: object
     ApplicationReference:
       description: Activity in applications other than Drive.
+      x-google-discovery-id: ApplicationReference
       properties:
         type:
           description: The reference type corresponding to this event.
@@ -249,24 +211,30 @@ components:
             - UNSPECIFIED_REFERENCE_TYPE
             - LINK
             - DISCUSS
+          x-google-enum-descriptions:
+            - The type is not available.
+            - The links of one or more Drive items were posted.
+            - Comments were made regarding a Drive item.
           type: string
       type: object
     AppliedLabelChange:
       description: Label changes that were made on the Target.
+      x-google-discovery-id: AppliedLabelChange
       properties:
         changes:
           description: Changes that were made to the Label on the Target.
           items:
-            $ref: "#/components/schemas/AppliedLabelChangeDetail"
+            $ref: '#/components/schemas/AppliedLabelChangeDetail'
           type: array
       type: object
     AppliedLabelChangeDetail:
       description: A change made to a Label on the Target.
+      x-google-discovery-id: AppliedLabelChangeDetail
       properties:
         fieldChanges:
           description: Field Changes. Only present if `types` contains `LABEL_FIELD_VALUE_CHANGED`.
           items:
-            $ref: "#/components/schemas/FieldValueChange"
+            $ref: '#/components/schemas/FieldValueChange'
           type: array
         label:
           description: The Label name representing the Label that changed. This name always contains the revision of the Label that was used when this Action occurred. The format is `labels/id@revision`.
@@ -283,15 +251,23 @@ components:
               - LABEL_REMOVED
               - LABEL_FIELD_VALUE_CHANGED
               - LABEL_APPLIED_BY_ITEM_CREATE
+            x-google-enum-descriptions:
+              - The type of change to this Label is not available.
+              - The identified Label was added to the Target.
+              - The identified Label was removed from the Target.
+              - Field values were changed on the Target.
+              - The Label was applied as a side-effect of Drive item creation.
             type: string
           type: array
       type: object
     Assignment:
       description: A comment with an assignment.
+      x-google-discovery-id: Assignment
       properties:
         assignedUser:
-          $ref: "#/components/schemas/User"
           description: The user to whom the comment was assigned.
+          allOf:
+            - $ref: '#/components/schemas/User'
         subtype:
           description: The sub-type of this event.
           enum:
@@ -303,58 +279,81 @@ components:
             - RESOLVED
             - REOPENED
             - REASSIGNED
+          x-google-enum-descriptions:
+            - Subtype not available.
+            - An assignment was added.
+            - An assignment was deleted.
+            - An assignment reply was added.
+            - An assignment reply was deleted.
+            - An assignment was resolved.
+            - A resolved assignment was reopened.
+            - An assignment was reassigned.
           type: string
       type: object
     Comment:
       description: A change about comments on an object.
+      x-google-discovery-id: Comment
       properties:
         assignment:
-          $ref: "#/components/schemas/Assignment"
           description: A change on an assignment.
+          allOf:
+            - $ref: '#/components/schemas/Assignment'
         mentionedUsers:
           description: Users who are mentioned in this comment.
           items:
-            $ref: "#/components/schemas/User"
+            $ref: '#/components/schemas/User'
           type: array
         post:
-          $ref: "#/components/schemas/Post"
           description: A change on a regular posted comment.
+          allOf:
+            - $ref: '#/components/schemas/Post'
         suggestion:
-          $ref: "#/components/schemas/Suggestion"
           description: A change on a suggestion.
+          allOf:
+            - $ref: '#/components/schemas/Suggestion'
       type: object
     ConsolidationStrategy:
       description: How the individual activities are consolidated. If a set of activities is related they can be consolidated into one combined activity, such as one actor performing the same action on multiple targets, or multiple actors performing the same action on a single target. The strategy defines the rules for which activities are related.
+      x-google-discovery-id: ConsolidationStrategy
       properties:
         legacy:
-          $ref: "#/components/schemas/Legacy"
           description: The individual activities are consolidated using the legacy strategy.
+          allOf:
+            - $ref: '#/components/schemas/Legacy'
         none:
-          $ref: "#/components/schemas/NoConsolidation"
           description: The individual activities are not consolidated.
+          allOf:
+            - $ref: '#/components/schemas/NoConsolidation'
       type: object
     Copy:
       description: An object was created by copying an existing object.
+      x-google-discovery-id: Copy
       properties:
         originalObject:
-          $ref: "#/components/schemas/TargetReference"
           description: The original object.
+          allOf:
+            - $ref: '#/components/schemas/TargetReference'
       type: object
     Create:
       description: An object was created.
+      x-google-discovery-id: Create
       properties:
         copy:
-          $ref: "#/components/schemas/Copy"
           description: If present, indicates the object was created by copying an existing Drive object.
+          allOf:
+            - $ref: '#/components/schemas/Copy'
         new:
-          $ref: "#/components/schemas/New"
           description: If present, indicates the object was newly created (e.g. as a blank document), not derived from a Drive object or external object.
+          allOf:
+            - $ref: '#/components/schemas/New'
         upload:
-          $ref: "#/components/schemas/Upload"
           description: If present, indicates the object originated externally and was uploaded to Drive.
+          allOf:
+            - $ref: '#/components/schemas/Upload'
       type: object
     DataLeakPreventionChange:
       description: A change in the object's data leak prevention status.
+      x-google-discovery-id: DataLeakPreventionChange
       properties:
         type:
           description: The type of Data Leak Prevention (DLP) change.
@@ -362,10 +361,15 @@ components:
             - TYPE_UNSPECIFIED
             - FLAGGED
             - CLEARED
+          x-google-enum-descriptions:
+            - An update to the DLP state that is neither FLAGGED or CLEARED.
+            - Document has been flagged as containing sensitive content.
+            - Document is no longer flagged as containing sensitive content.
           type: string
       type: object
     Date:
       description: Wrapper for Date Field value.
+      x-google-discovery-id: Date
       properties:
         value:
           description: Date value.
@@ -374,6 +378,7 @@ components:
       type: object
     Delete:
       description: An object was deleted.
+      x-google-discovery-id: Delete
       properties:
         type:
           description: The type of delete action taken.
@@ -381,14 +386,20 @@ components:
             - TYPE_UNSPECIFIED
             - TRASH
             - PERMANENT_DELETE
+          x-google-enum-descriptions:
+            - Deletion type is not available.
+            - An object was put into the trash.
+            - An object was deleted permanently.
           type: string
       type: object
     DeletedUser:
       description: A user whose account has since been deleted.
+      x-google-discovery-id: DeletedUser
       properties: {}
       type: object
     Domain:
       description: Information about a domain.
+      x-google-discovery-id: Domain
       properties:
         legacyId:
           description: An opaque string used to identify this domain.
@@ -399,41 +410,46 @@ components:
       type: object
     Drive:
       description: Information about a shared drive.
+      x-google-discovery-id: Drive
       properties:
         name:
           description: The resource name of the shared drive. The format is `COLLECTION_ID/DRIVE_ID`. Clients should not assume a specific collection ID for this resource name.
           type: string
         root:
-          $ref: "#/components/schemas/DriveItem"
           description: The root of this shared drive.
+          allOf:
+            - $ref: '#/components/schemas/DriveItem'
         title:
           description: The title of the shared drive.
           type: string
       type: object
     DriveActivity:
       description: A single Drive activity comprising one or more Actions by one or more Actors on one or more Targets. Some Action groupings occur spontaneously, such as moving an item into a shared folder triggering a permission change. Other groupings of related Actions, such as multiple Actors editing one item or moving multiple files into a new folder, are controlled by the selection of a ConsolidationStrategy in the QueryDriveActivityRequest.
+      x-google-discovery-id: DriveActivity
       properties:
         actions:
           description: Details on all actions in this activity.
           items:
-            $ref: "#/components/schemas/Action"
+            $ref: '#/components/schemas/Action'
           type: array
         actors:
           description: All actor(s) responsible for the activity.
           items:
-            $ref: "#/components/schemas/Actor"
+            $ref: '#/components/schemas/Actor'
           type: array
         primaryActionDetail:
-          $ref: "#/components/schemas/ActionDetail"
           description: Key information about the primary action for this activity. This is either representative, or the most important, of all actions in the activity, according to the ConsolidationStrategy in the request.
+          allOf:
+            - $ref: '#/components/schemas/ActionDetail'
         targets:
           description: All Google Drive objects this activity is about (e.g. file, folder, drive). This represents the state of the target immediately after the actions occurred.
           items:
-            $ref: "#/components/schemas/Target"
+            $ref: '#/components/schemas/Target'
           type: array
         timeRange:
-          $ref: "#/components/schemas/TimeRange"
           description: The activity occurred over this time range.
+          allOf:
+            - $ref: '#/components/schemas/TimeRange'
         timestamp:
           description: The activity occurred at this specific time.
           format: google-datetime
@@ -441,10 +457,12 @@ components:
       type: object
     DriveFile:
       description: A Drive item which is a file.
+      x-google-discovery-id: DriveFile
       properties: {}
       type: object
     DriveFolder:
       description: A Drive item which is a folder.
+      x-google-discovery-id: DriveFolder
       properties:
         type:
           description: The type of Drive folder.
@@ -453,55 +471,71 @@ components:
             - MY_DRIVE_ROOT
             - SHARED_DRIVE_ROOT
             - STANDARD_FOLDER
+          x-google-enum-descriptions:
+            - The folder type is unknown.
+            - The folder is the root of a user's MyDrive.
+            - The folder is the root of a shared drive.
+            - The folder is a standard, non-root, folder.
           type: string
       type: object
     DriveItem:
       description: A Drive item, such as a file or folder.
+      x-google-discovery-id: DriveItem
       properties:
         driveFile:
-          $ref: "#/components/schemas/DriveFile"
           description: The Drive item is a file.
+          allOf:
+            - $ref: '#/components/schemas/DriveFile'
         driveFolder:
-          $ref: "#/components/schemas/DriveFolder"
           description: The Drive item is a folder. Includes information about the type of folder.
+          allOf:
+            - $ref: '#/components/schemas/DriveFolder'
         file:
-          $ref: "#/components/schemas/File"
           deprecated: true
           description: This field is deprecated; please use the `driveFile` field instead.
+          allOf:
+            - $ref: '#/components/schemas/File'
         folder:
-          $ref: "#/components/schemas/Folder"
           deprecated: true
           description: This field is deprecated; please use the `driveFolder` field instead.
+          allOf:
+            - $ref: '#/components/schemas/Folder'
         mimeType:
-          description: The MIME type of the Drive item. See https://developers.google.com/drive/v3/web/mime-types.
+          description: The MIME type of the Drive item. See https://developers.google.com/workspace/drive/v3/web/mime-types.
           type: string
         name:
           description: The target Drive item. The format is `items/ITEM_ID`.
           type: string
         owner:
-          $ref: "#/components/schemas/Owner"
           description: Information about the owner of this Drive item.
+          allOf:
+            - $ref: '#/components/schemas/Owner'
         title:
           description: The title of the Drive item.
           type: string
       type: object
     DriveItemReference:
       description: A lightweight reference to a Drive item, such as a file or folder.
+      x-google-discovery-id: DriveItemReference
       properties:
         driveFile:
-          $ref: "#/components/schemas/DriveFile"
           description: The Drive item is a file.
+          allOf:
+            - $ref: '#/components/schemas/DriveFile'
         driveFolder:
-          $ref: "#/components/schemas/DriveFolder"
           description: The Drive item is a folder. Includes information about the type of folder.
+          allOf:
+            - $ref: '#/components/schemas/DriveFolder'
         file:
-          $ref: "#/components/schemas/File"
           deprecated: true
           description: This field is deprecated; please use the `driveFile` field instead.
+          allOf:
+            - $ref: '#/components/schemas/File'
         folder:
-          $ref: "#/components/schemas/Folder"
           deprecated: true
           description: This field is deprecated; please use the `driveFolder` field instead.
+          allOf:
+            - $ref: '#/components/schemas/Folder'
         name:
           description: The target Drive item. The format is `items/ITEM_ID`.
           type: string
@@ -511,6 +545,7 @@ components:
       type: object
     DriveReference:
       description: A lightweight reference to a shared drive.
+      x-google-discovery-id: DriveReference
       properties:
         name:
           description: The resource name of the shared drive. The format is `COLLECTION_ID/DRIVE_ID`. Clients should not assume a specific collection ID for this resource name.
@@ -521,38 +556,49 @@ components:
       type: object
     Edit:
       description: An empty message indicating an object was edited.
+      x-google-discovery-id: Edit
       properties: {}
       type: object
     FieldValue:
       description: Contains a value of a Field.
+      x-google-discovery-id: FieldValue
       properties:
         date:
-          $ref: "#/components/schemas/Date"
           description: Date Field value.
+          allOf:
+            - $ref: '#/components/schemas/Date'
         integer:
-          $ref: "#/components/schemas/Integer"
           description: Integer Field value.
+          allOf:
+            - $ref: '#/components/schemas/Integer'
         selection:
-          $ref: "#/components/schemas/Selection"
           description: Selection Field value.
+          allOf:
+            - $ref: '#/components/schemas/Selection'
         selectionList:
-          $ref: "#/components/schemas/SelectionList"
           description: Selection List Field value.
+          allOf:
+            - $ref: '#/components/schemas/SelectionList'
         text:
-          $ref: "#/components/schemas/Text"
           description: Text Field value.
+          allOf:
+            - $ref: '#/components/schemas/Text'
         textList:
-          $ref: "#/components/schemas/TextList"
           description: Text List Field value.
+          allOf:
+            - $ref: '#/components/schemas/TextList'
         user:
-          $ref: "#/components/schemas/SingleUser"
           description: User Field value.
+          allOf:
+            - $ref: '#/components/schemas/SingleUser'
         userList:
-          $ref: "#/components/schemas/UserList"
           description: User List Field value.
+          allOf:
+            - $ref: '#/components/schemas/UserList'
       type: object
     FieldValueChange:
       description: Change to a Field value.
+      x-google-discovery-id: FieldValueChange
       properties:
         displayName:
           description: The human-readable display name for this field.
@@ -561,36 +607,42 @@ components:
           description: The ID of this field. Field IDs are unique within a Label.
           type: string
         newValue:
-          $ref: "#/components/schemas/FieldValue"
           description: The value that is now set on the field. If not present, the field was cleared. At least one of {old_value|new_value} is always set.
+          allOf:
+            - $ref: '#/components/schemas/FieldValue'
         oldValue:
-          $ref: "#/components/schemas/FieldValue"
           description: The value that was previously set on the field. If not present, the field was newly set. At least one of {old_value|new_value} is always set.
+          allOf:
+            - $ref: '#/components/schemas/FieldValue'
       type: object
     File:
       deprecated: true
       description: This item is deprecated; please see `DriveFile` instead.
+      x-google-discovery-id: File
       properties: {}
       type: object
     FileComment:
       description: A comment on a file.
+      x-google-discovery-id: FileComment
       properties:
         legacyCommentId:
-          description: The comment in the discussion thread. This identifier is an opaque string compatible with the Drive API; see https://developers.google.com/drive/v3/reference/comments/get
+          description: The comment in the discussion thread. This identifier is an opaque string compatible with the Drive API; see https://developers.google.com/workspace/drive/v3/reference/comments/get
           type: string
         legacyDiscussionId:
-          description: The discussion thread to which the comment was added. This identifier is an opaque string compatible with the Drive API and references the first comment in a discussion; see https://developers.google.com/drive/v3/reference/comments/get
+          description: The discussion thread to which the comment was added. This identifier is an opaque string compatible with the Drive API and references the first comment in a discussion; see https://developers.google.com/workspace/drive/v3/reference/comments/get
           type: string
         linkToDiscussion:
           description: The link to the discussion thread containing this comment, for example, `https://docs.google.com/DOCUMENT_ID/edit?disco=THREAD_ID`.
           type: string
         parent:
-          $ref: "#/components/schemas/DriveItem"
           description: The Drive item containing this comment.
+          allOf:
+            - $ref: '#/components/schemas/DriveItem'
       type: object
     Folder:
       deprecated: true
       description: This item is deprecated; please see `DriveFolder` instead.
+      x-google-discovery-id: Folder
       properties:
         type:
           description: This field is deprecated; please see `DriveFolder.type` instead.
@@ -599,10 +651,16 @@ components:
             - MY_DRIVE_ROOT
             - TEAM_DRIVE_ROOT
             - STANDARD_FOLDER
+          x-google-enum-descriptions:
+            - This item is deprecated; please see `DriveFolder.Type` instead.
+            - This item is deprecated; please see `DriveFolder.Type` instead.
+            - This item is deprecated; please see `DriveFolder.Type` instead.
+            - This item is deprecated; please see `DriveFolder.Type` instead.
           type: string
       type: object
     Group:
       description: Information about a group.
+      x-google-discovery-id: Group
       properties:
         email:
           description: The email address of the group.
@@ -613,13 +671,16 @@ components:
       type: object
     Impersonation:
       description: Information about an impersonation, where an admin acts on behalf of an end user. Information about the acting admin is not currently available.
+      x-google-discovery-id: Impersonation
       properties:
         impersonatedUser:
-          $ref: "#/components/schemas/User"
           description: The impersonated user.
+          allOf:
+            - $ref: '#/components/schemas/User'
       type: object
     Integer:
       description: Wrapper for Integer Field value.
+      x-google-discovery-id: Integer
       properties:
         value:
           description: Integer value.
@@ -628,6 +689,7 @@ components:
       type: object
     KnownUser:
       description: A known user.
+      x-google-discovery-id: KnownUser
       properties:
         isCurrentUser:
           description: True if this is the user making the request.
@@ -638,64 +700,77 @@ components:
       type: object
     Legacy:
       description: A strategy that consolidates activities using the grouping rules from the legacy V1 Activity API. Similar actions occurring within a window of time can be grouped across multiple targets (such as moving a set of files at once) or multiple actors (such as several users editing the same item). Grouping rules for this strategy are specific to each type of action.
+      x-google-discovery-id: Legacy
       properties: {}
       type: object
     Move:
       description: An object was moved.
+      x-google-discovery-id: Move
       properties:
         addedParents:
           description: The added parent object(s).
           items:
-            $ref: "#/components/schemas/TargetReference"
+            $ref: '#/components/schemas/TargetReference'
           type: array
         removedParents:
           description: The removed parent object(s).
           items:
-            $ref: "#/components/schemas/TargetReference"
+            $ref: '#/components/schemas/TargetReference'
           type: array
       type: object
     New:
       description: An object was created from scratch.
+      x-google-discovery-id: New
       properties: {}
       type: object
     NoConsolidation:
       description: A strategy that does no consolidation of individual activities.
+      x-google-discovery-id: NoConsolidation
       properties: {}
       type: object
     Owner:
       description: Information about the owner of a Drive item.
+      x-google-discovery-id: Owner
       properties:
         domain:
-          $ref: "#/components/schemas/Domain"
           description: The domain of the Drive item owner.
+          allOf:
+            - $ref: '#/components/schemas/Domain'
         drive:
-          $ref: "#/components/schemas/DriveReference"
           description: The drive that owns the item.
+          allOf:
+            - $ref: '#/components/schemas/DriveReference'
         teamDrive:
-          $ref: "#/components/schemas/TeamDriveReference"
           deprecated: true
           description: This field is deprecated; please use the `drive` field instead.
+          allOf:
+            - $ref: '#/components/schemas/TeamDriveReference'
         user:
-          $ref: "#/components/schemas/User"
           description: The user that owns the Drive item.
+          allOf:
+            - $ref: '#/components/schemas/User'
       type: object
     Permission:
       description: The permission setting of an object.
+      x-google-discovery-id: Permission
       properties:
         allowDiscovery:
           description: If true, the item can be discovered (e.g. in the user's "Shared with me" collection) without needing a link to the item.
           type: boolean
         anyone:
-          $ref: "#/components/schemas/Anyone"
           description: If set, this permission applies to anyone, even logged out users.
+          allOf:
+            - $ref: '#/components/schemas/Anyone'
         domain:
-          $ref: "#/components/schemas/Domain"
           description: The domain to whom this permission applies.
+          allOf:
+            - $ref: '#/components/schemas/Domain'
         group:
-          $ref: "#/components/schemas/Group"
           description: The group to whom this permission applies.
+          allOf:
+            - $ref: '#/components/schemas/Group'
         role:
-          description: Indicates the [Google Drive permissions role](https://developers.google.com/drive/web/manage-sharing#roles). The role determines a user's ability to read, write, and comment on items.
+          description: Indicates the [Google Drive permissions role](https://developers.google.com/workspace/drive/web/manage-sharing#roles). The role determines a user's ability to read, write, and comment on items.
           enum:
             - ROLE_UNSPECIFIED
             - OWNER
@@ -705,27 +780,39 @@ components:
             - COMMENTER
             - VIEWER
             - PUBLISHED_VIEWER
+          x-google-enum-descriptions:
+            - The role is not available.
+            - A role granting full access.
+            - A role granting the ability to manage people and settings.
+            - A role granting the ability to contribute and manage content.
+            - A role granting the ability to contribute content. This role is sometimes also known as "writer".
+            - A role granting the ability to view and comment on content.
+            - A role granting the ability to view content. This role is sometimes also known as "reader".
+            - A role granting the ability to view content only after it has been published to the web. This role is sometimes also known as "published reader". See https://support.google.com/sites/answer/6372880 for more information.
           type: string
         user:
-          $ref: "#/components/schemas/User"
           description: The user to whom this permission applies.
+          allOf:
+            - $ref: '#/components/schemas/User'
       type: object
     PermissionChange:
       description: A change of the permission setting on an item.
+      x-google-discovery-id: PermissionChange
       properties:
         addedPermissions:
           description: The set of permissions added by this change.
           items:
-            $ref: "#/components/schemas/Permission"
+            $ref: '#/components/schemas/Permission'
           type: array
         removedPermissions:
           description: The set of permissions removed by this change.
           items:
-            $ref: "#/components/schemas/Permission"
+            $ref: '#/components/schemas/Permission'
           type: array
       type: object
     Post:
       description: A regular posted comment.
+      x-google-discovery-id: Post
       properties:
         subtype:
           description: The sub-type of this event.
@@ -737,17 +824,27 @@ components:
             - REPLY_DELETED
             - RESOLVED
             - REOPENED
+          x-google-enum-descriptions:
+            - Subtype not available.
+            - A post was added.
+            - A post was deleted.
+            - A reply was added.
+            - A reply was deleted.
+            - A posted comment was resolved.
+            - A posted comment was reopened.
           type: string
       type: object
     QueryDriveActivityRequest:
       description: The request message for querying Drive activity.
+      x-google-discovery-id: QueryDriveActivityRequest
       properties:
         ancestorName:
           description: Return activities for this Drive folder, plus all children and descendants. The format is `items/ITEM_ID`.
           type: string
         consolidationStrategy:
-          $ref: "#/components/schemas/ConsolidationStrategy"
           description: Details on how to consolidate related actions that make up the activity. If not set, then related actions aren't consolidated.
+          allOf:
+            - $ref: '#/components/schemas/ConsolidationStrategy'
         filter:
           description: 'The filtering for items returned from this query request. The format of the filter string is a sequence of expressions, joined by an optional "AND", where each expression is of the form "field operator value". Supported fields: - `time`: Uses numerical operators on date values either in terms of milliseconds since Jan 1, 1970 or in RFC 3339 format. Examples: - `time > 1452409200000 AND time <= 1492812924310` - `time >= "2016-01-10T01:02:03-05:00"` - `detail.action_detail_case`: Uses the "has" operator (:) and either a singular value or a list of allowed action types enclosed in parentheses, separated by a space. To exclude a result from the response, prepend a hyphen (`-`) to the beginning of the filter string. Examples: - `detail.action_detail_case:RENAME` - `detail.action_detail_case:(CREATE RESTORE)` - `-detail.action_detail_case:MOVE` '
           type: string
@@ -764,11 +861,12 @@ components:
       type: object
     QueryDriveActivityResponse:
       description: Response message for querying Drive activity.
+      x-google-discovery-id: QueryDriveActivityResponse
       properties:
         activities:
           description: List of activity requested.
           items:
-            $ref: "#/components/schemas/DriveActivity"
+            $ref: '#/components/schemas/DriveActivity'
           type: array
         nextPageToken:
           description: Token to retrieve the next page of results, or empty if there are no more results in the list.
@@ -776,6 +874,7 @@ components:
       type: object
     Rename:
       description: An object was renamed.
+      x-google-discovery-id: Rename
       properties:
         newTitle:
           description: The new title of the drive object.
@@ -786,16 +885,21 @@ components:
       type: object
     Restore:
       description: A deleted object was restored.
+      x-google-discovery-id: Restore
       properties:
         type:
           description: The type of restore action taken.
           enum:
             - TYPE_UNSPECIFIED
             - UNTRASH
+          x-google-enum-descriptions:
+            - The type is not available.
+            - An object was restored from the trash.
           type: string
       type: object
     RestrictionChange:
       description: Information about restriction policy changes to a feature.
+      x-google-discovery-id: RestrictionChange
       properties:
         feature:
           description: The feature which had a change in restriction policy.
@@ -806,6 +910,26 @@ components:
             - ITEM_DUPLICATION
             - DRIVE_FILE_STREAM
             - FILE_ORGANIZER_CAN_SHARE_FOLDERS
+            - READERS_CAN_DOWNLOAD
+            - WRITERS_CAN_DOWNLOAD
+          x-google-enum-deprecated:
+            - false
+            - false
+            - false
+            - true
+            - false
+            - false
+            - false
+            - false
+          x-google-enum-descriptions:
+            - The feature which changed restriction settings was not available.
+            - When restricted, this prevents items from being shared outside the domain.
+            - When restricted, this prevents direct sharing of individual items.
+            - 'Deprecated: Use READERS_CAN_DOWNLOAD instead.'
+            - When restricted, this prevents use of Drive File Stream.
+            - When restricted, this limits sharing of folders to managers only.
+            - When restricted, this prevents actions like copy, download, and print for readers. Replaces ITEM_DUPLICATION.
+            - When restricted, this prevents actions like copy, download, and print for writers.
           type: string
         newRestriction:
           description: The restriction in place after the change.
@@ -813,10 +937,15 @@ components:
             - RESTRICTION_UNSPECIFIED
             - UNRESTRICTED
             - FULLY_RESTRICTED
+          x-google-enum-descriptions:
+            - The type of restriction is not available.
+            - The feature is available without restriction.
+            - The use of this feature is fully restricted.
           type: string
       type: object
     Selection:
       description: Wrapper for Selection Field value as combined value/display_name pair for selected choice.
+      x-google-discovery-id: Selection
       properties:
         displayName:
           description: Selection value as human-readable display string.
@@ -827,24 +956,27 @@ components:
       type: object
     SelectionList:
       description: Wrapper for SelectionList Field value.
+      x-google-discovery-id: SelectionList
       properties:
         values:
           description: Selection values.
           items:
-            $ref: "#/components/schemas/Selection"
+            $ref: '#/components/schemas/Selection'
           type: array
       type: object
     SettingsChange:
       description: Information about settings changes.
+      x-google-discovery-id: SettingsChange
       properties:
         restrictionChanges:
           description: The set of changes made to restrictions.
           items:
-            $ref: "#/components/schemas/RestrictionChange"
+            $ref: '#/components/schemas/RestrictionChange'
           type: array
       type: object
     SingleUser:
       description: Wrapper for User Field value.
+      x-google-discovery-id: SingleUser
       properties:
         value:
           description: User value as email.
@@ -852,6 +984,7 @@ components:
       type: object
     Suggestion:
       description: A suggestion.
+      x-google-discovery-id: Suggestion
       properties:
         subtype:
           description: The sub-type of this event.
@@ -865,10 +998,21 @@ components:
             - REJECTED
             - ACCEPT_DELETED
             - REJECT_DELETED
+          x-google-enum-descriptions:
+            - Subtype not available.
+            - A suggestion was added.
+            - A suggestion was deleted.
+            - A suggestion reply was added.
+            - A suggestion reply was deleted.
+            - A suggestion was accepted.
+            - A suggestion was rejected.
+            - An accepted suggestion was deleted.
+            - A rejected suggestion was deleted.
           type: string
       type: object
     SystemEvent:
       description: Event triggered by system operations instead of end users.
+      x-google-discovery-id: SystemEvent
       properties:
         type:
           description: The type of the system event that may triggered activity.
@@ -876,49 +1020,64 @@ components:
             - TYPE_UNSPECIFIED
             - USER_DELETION
             - TRASH_AUTO_PURGE
+          x-google-enum-descriptions:
+            - The event type is unspecified.
+            - The event is a consequence of a user account being deleted.
+            - The event is due to the system automatically purging trash.
           type: string
       type: object
     Target:
-      description: Information about the target of activity. For more information on how activity history is shared with users, see [Activity history visibility](https://developers.google.com/drive/activity/v2#activityhistory).
+      description: Information about the target of activity. For more information on how activity history is shared with users, see [Activity history visibility](https://developers.google.com/workspace/drive/activity/v2#activityhistory).
+      x-google-discovery-id: Target
       properties:
         drive:
-          $ref: "#/components/schemas/Drive"
           description: The target is a shared drive.
+          allOf:
+            - $ref: '#/components/schemas/Drive'
         driveItem:
-          $ref: "#/components/schemas/DriveItem"
           description: The target is a Drive item.
+          allOf:
+            - $ref: '#/components/schemas/DriveItem'
         fileComment:
-          $ref: "#/components/schemas/FileComment"
           description: The target is a comment on a Drive file.
+          allOf:
+            - $ref: '#/components/schemas/FileComment'
         teamDrive:
-          $ref: "#/components/schemas/TeamDrive"
           deprecated: true
           description: This field is deprecated; please use the `drive` field instead.
+          allOf:
+            - $ref: '#/components/schemas/TeamDrive'
       type: object
     TargetReference:
       description: A lightweight reference to the target of activity.
+      x-google-discovery-id: TargetReference
       properties:
         drive:
-          $ref: "#/components/schemas/DriveReference"
           description: The target is a shared drive.
+          allOf:
+            - $ref: '#/components/schemas/DriveReference'
         driveItem:
-          $ref: "#/components/schemas/DriveItemReference"
           description: The target is a Drive item.
+          allOf:
+            - $ref: '#/components/schemas/DriveItemReference'
         teamDrive:
-          $ref: "#/components/schemas/TeamDriveReference"
           deprecated: true
           description: This field is deprecated; please use the `drive` field instead.
+          allOf:
+            - $ref: '#/components/schemas/TeamDriveReference'
       type: object
     TeamDrive:
       deprecated: true
       description: This item is deprecated; please see `Drive` instead.
+      x-google-discovery-id: TeamDrive
       properties:
         name:
           description: This field is deprecated; please see `Drive.name` instead.
           type: string
         root:
-          $ref: "#/components/schemas/DriveItem"
           description: This field is deprecated; please see `Drive.root` instead.
+          allOf:
+            - $ref: '#/components/schemas/DriveItem'
         title:
           description: This field is deprecated; please see `Drive.title` instead.
           type: string
@@ -926,6 +1085,7 @@ components:
     TeamDriveReference:
       deprecated: true
       description: This item is deprecated; please see `DriveReference` instead.
+      x-google-discovery-id: TeamDriveReference
       properties:
         name:
           description: This field is deprecated; please see `DriveReference.name` instead.
@@ -936,6 +1096,7 @@ components:
       type: object
     Text:
       description: Wrapper for Text Field value.
+      x-google-discovery-id: Text
       properties:
         value:
           description: Value of Text Field.
@@ -943,15 +1104,17 @@ components:
       type: object
     TextList:
       description: Wrapper for Text List Field value.
+      x-google-discovery-id: TextList
       properties:
         values:
           description: Text values.
           items:
-            $ref: "#/components/schemas/Text"
+            $ref: '#/components/schemas/Text'
           type: array
       type: object
     TimeRange:
       description: Information about time ranges.
+      x-google-discovery-id: TimeRange
       properties:
         endTime:
           description: The end of the time range.
@@ -964,51 +1127,160 @@ components:
       type: object
     UnknownUser:
       description: A user about whom nothing is currently known.
+      x-google-discovery-id: UnknownUser
       properties: {}
       type: object
     Upload:
       description: An object was uploaded into Drive.
+      x-google-discovery-id: Upload
       properties: {}
       type: object
     User:
       description: Information about an end user.
+      x-google-discovery-id: User
       properties:
         deletedUser:
-          $ref: "#/components/schemas/DeletedUser"
           description: A user whose account has since been deleted.
+          allOf:
+            - $ref: '#/components/schemas/DeletedUser'
         knownUser:
-          $ref: "#/components/schemas/KnownUser"
           description: A known user.
+          allOf:
+            - $ref: '#/components/schemas/KnownUser'
         unknownUser:
-          $ref: "#/components/schemas/UnknownUser"
           description: A user about whom nothing is currently known.
+          allOf:
+            - $ref: '#/components/schemas/UnknownUser'
       type: object
     UserList:
       description: Wrapper for UserList Field value.
+      x-google-discovery-id: UserList
       properties:
         values:
           description: User values.
           items:
-            $ref: "#/components/schemas/SingleUser"
+            $ref: '#/components/schemas/SingleUser'
           type: array
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/drive.activity: View and add to the activity record of files in your Google Drive
             https://www.googleapis.com/auth/drive.activity.readonly: View the activity record of files in your Google Drive
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/drive.activity: View and add to the activity record of files in your Google Drive
             https://www.googleapis.com/auth/drive.activity.readonly: View the activity record of files in your Google Drive
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/drive/activity/
+tags:
+  - name: activity
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://driveactivity.googleapis.com/
+  batchPath: batch
+  canonicalName: Drive Activity
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: driveactivity:v2
+  kind: discovery#restDescription
+  mtlsRootUrl: https://driveactivity.mtls.googleapis.com/
+  name: driveactivity
+  revision: '20250816'
+  rootUrl: https://driveactivity.googleapis.com/
+  servicePath: ''
+  version_module: true

@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://transcoder.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: "This API converts video files into formats suitable for consumer distribution. For more information, see the Transcoder API overview. "
+  description: 'This API converts video files into formats suitable for consumer distribution. For more information, see the Transcoder API overview. '
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -20,337 +18,537 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://transcoder.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/transcoder.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/transcoder.v1.json
+      version: '3.0'
   x-preferred: true
   x-providerName: googleapis.com
   x-serviceName: transcoder
-externalDocs:
-  url: https://cloud.google.com/transcoder/docs/
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20250723; original source SHA-256 ebc1c5791c87004a1216e2226f0d5f4d93d6b8ce32686d22cbd2c587077158de.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://transcoder.googleapis.com
 paths:
-  /v1/{name}:
-    delete:
-      description: Deletes a job template.
-      operationId: transcoder.projects.locations.jobTemplates.delete
+  /v1/projects/{projectsId}/locations/{locationsId}/jobTemplates:
+    post:
+      operationId: transcoder.projects.locations.jobTemplates.create
+      description: Creates a job template in the specified region.
       parameters:
-        - description: Required. The name of the job template to delete. `projects/{project}/locations/{location}/jobTemplates/{job_template}`
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `parent` resource name. Required. The parent location to create this job template. Format: `projects/{project}/locations/{location}`'
           schema:
             type: string
-        - description: If set to true, and the job template is not found, the request will succeed but no action will be taken on the server.
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent location to create this job template. Format: `projects/{project}/locations/{location}`'
+          schema:
+            type: string
+        - name: jobTemplateId
           in: query
-          name: allowMissing
+          schema:
+            type: string
+          description: Required. The ID to use for the job template, which will become the final component of the job template's resource name. This value should be 4-63 characters, and valid characters must match the regular expression `a-zA-Z*`.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobTemplate'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobTemplate'
+      x-google-discovery:
+        path: v1/{+parent}/jobTemplates
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/jobTemplates
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent location to create this job template. Format: `projects/{project}/locations/{location}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: transcoder.projects.locations.jobTemplates.list
+      description: Lists job templates in the specified region.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent location from which to retrieve the collection of job templates. Format: `projects/{project}/locations/{location}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent location from which to retrieve the collection of job templates. Format: `projects/{project}/locations/{location}`'
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The filter expression, following the syntax outlined in https://google.aip.dev/160.
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: One or more fields to compare and use to sort the output. See https://google.aip.dev/132#ordering.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of items to return.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The `next_page_token` value returned from a previous List request, if any.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListJobTemplatesResponse'
+      x-google-discovery:
+        path: v1/{+parent}/jobTemplates
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/jobTemplates
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent location from which to retrieve the collection of job templates. Format: `projects/{project}/locations/{location}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/jobTemplates/{jobTemplatesId}:
+    delete:
+      operationId: transcoder.projects.locations.jobTemplates.delete
+      description: Deletes a job template.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the job template to delete. `projects/{project}/locations/{location}/jobTemplates/{job_template}`
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the job template to delete. `projects/{project}/locations/{location}/jobTemplates/{job_template}`
+          schema:
+            type: string
+        - name: jobTemplatesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the job template to delete. `projects/{project}/locations/{location}/jobTemplates/{job_template}`
+          schema:
+            type: string
+        - name: allowMissing
+          in: query
           schema:
             type: boolean
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
+          description: If set to true, and the job template is not found, the request will succeed but no action will be taken on the server.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/jobTemplates/{jobTemplatesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          jobTemplatesId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the job template to delete. `projects/{project}/locations/{location}/jobTemplates/{job_template}`
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/jobTemplates/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     get:
-      description: Returns the job template data.
       operationId: transcoder.projects.locations.jobTemplates.get
+      description: Returns the job template data.
       parameters:
-        - description: "Required. The name of the job template to retrieve. Format: `projects/{project}/locations/{location}/jobTemplates/{job_template}`"
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Required. The name of the job template to retrieve. Format: `projects/{project}/locations/{location}/jobTemplates/{job_template}`'
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/JobTemplate"
-          description: Successful response
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the job template to retrieve. Format: `projects/{project}/locations/{location}/jobTemplates/{job_template}`'
+          schema:
+            type: string
+        - name: jobTemplatesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the job template to retrieve. Format: `projects/{project}/locations/{location}/jobTemplates/{job_template}`'
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/jobTemplates:
-    get:
-      description: Lists job templates in the specified region.
-      operationId: transcoder.projects.locations.jobTemplates.list
-      parameters:
-        - description: "Required. The parent location from which to retrieve the collection of job templates. Format: `projects/{project}/locations/{location}`"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: The filter expression, following the syntax outlined in https://google.aip.dev/160.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: One or more fields to compare and use to sort the output. See https://google.aip.dev/132#ordering.
-          in: query
-          name: orderBy
-          schema:
-            type: string
-        - description: The maximum number of items to return.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The `next_page_token` value returned from a previous List request, if any.
-          in: query
-          name: pageToken
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListJobTemplatesResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+                $ref: '#/components/schemas/JobTemplate'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/jobTemplates/{jobTemplatesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          jobTemplatesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the job template to retrieve. Format: `projects/{project}/locations/{location}/jobTemplates/{job_template}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/jobTemplates/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/jobs:
     post:
-      description: Creates a job template in the specified region.
-      operationId: transcoder.projects.locations.jobTemplates.create
-      parameters:
-        - description: "Required. The parent location to create this job template. Format: `projects/{project}/locations/{location}`"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Required. The ID to use for the job template, which will become the final component of the job template's resource name. This value should be 4-63 characters, and valid characters must match the regular expression `a-zA-Z*`.
-          in: query
-          name: jobTemplateId
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/JobTemplate"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/JobTemplate"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/jobs:
-    get:
-      description: Lists jobs in the specified region.
-      operationId: transcoder.projects.locations.jobs.list
-      parameters:
-        - description: "Required. Format: `projects/{project}/locations/{location}`"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: The filter expression, following the syntax outlined in https://google.aip.dev/160.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: One or more fields to compare and use to sort the output. See https://google.aip.dev/132#ordering.
-          in: query
-          name: orderBy
-          schema:
-            type: string
-        - description: The maximum number of items to return.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The `next_page_token` value returned from a previous List request, if any.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListJobsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a job in the specified region.
       operationId: transcoder.projects.locations.jobs.create
+      description: Creates a job in the specified region.
       parameters:
-        - description: "Required. The parent location to create and process this job. Format: `projects/{project}/locations/{location}`"
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The parent location to create and process this job. Format: `projects/{project}/locations/{location}`'
           schema:
             type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent location to create and process this job. Format: `projects/{project}/locations/{location}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Job"
+              $ref: '#/components/schemas/Job'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Job"
-          description: Successful response
+                $ref: '#/components/schemas/Job'
+      x-google-discovery:
+        path: v1/{+parent}/jobs
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/jobs
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent location to create and process this job. Format: `projects/{project}/locations/{location}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: transcoder.projects.locations.jobs.list
+      description: Lists jobs in the specified region.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Format: `projects/{project}/locations/{location}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Format: `projects/{project}/locations/{location}`'
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The filter expression, following the syntax outlined in https://google.aip.dev/160.
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: One or more fields to compare and use to sort the output. See https://google.aip.dev/132#ordering.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of items to return.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The `next_page_token` value returned from a previous List request, if any.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListJobsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/jobs
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/jobs
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. Format: `projects/{project}/locations/{location}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/jobs/{jobsId}:
+    delete:
+      operationId: transcoder.projects.locations.jobs.delete
+      description: Deletes a job.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the job to delete. Format: `projects/{project}/locations/{location}/jobs/{job}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the job to delete. Format: `projects/{project}/locations/{location}/jobs/{job}`'
+          schema:
+            type: string
+        - name: jobsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the job to delete. Format: `projects/{project}/locations/{location}/jobs/{job}`'
+          schema:
+            type: string
+        - name: allowMissing
+          in: query
+          schema:
+            type: boolean
+          description: If set to true, and the job is not found, the request will succeed but no action will be taken on the server.
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/jobs/{jobsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          jobsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the job to delete. Format: `projects/{project}/locations/{location}/jobs/{job}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/jobs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: transcoder.projects.locations.jobs.get
+      description: Returns the job data.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the job to retrieve. Format: `projects/{project}/locations/{location}/jobs/{job}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the job to retrieve. Format: `projects/{project}/locations/{location}/jobs/{job}`'
+          schema:
+            type: string
+        - name: jobsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the job to retrieve. Format: `projects/{project}/locations/{location}/jobs/{job}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/jobs/{jobsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          jobsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the job to retrieve. Format: `projects/{project}/locations/{location}/jobs/{job}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/jobs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     AdBreak:
       description: Ad break.
+      x-google-discovery-id: AdBreak
       properties:
         startTimeOffset:
           description: Start time in seconds for the ad break, relative to the output file timeline. The default is `0s`.
@@ -359,64 +557,79 @@ components:
       type: object
     Aes128Encryption:
       description: Configuration for AES-128 encryption.
+      x-google-discovery-id: Aes128Encryption
       properties: {}
       type: object
     Animation:
       description: Animation types.
+      x-google-discovery-id: Animation
       properties:
         animationEnd:
-          $ref: "#/components/schemas/AnimationEnd"
           description: End previous animation.
+          allOf:
+            - $ref: '#/components/schemas/AnimationEnd'
         animationFade:
-          $ref: "#/components/schemas/AnimationFade"
           description: Display overlay object with fade animation.
+          allOf:
+            - $ref: '#/components/schemas/AnimationFade'
         animationStatic:
-          $ref: "#/components/schemas/AnimationStatic"
           description: Display static overlay object.
+          allOf:
+            - $ref: '#/components/schemas/AnimationStatic'
       type: object
     AnimationEnd:
       description: End previous overlay animation from the video. Without `AnimationEnd`, the overlay object will keep the state of previous animation until the end of the video.
+      x-google-discovery-id: AnimationEnd
       properties:
         startTimeOffset:
-          description: "The time to end overlay object, in seconds. Default: 0"
+          description: 'The time to end overlay object, in seconds. Default: 0'
           format: google-duration
           type: string
       type: object
     AnimationFade:
       description: Display overlay object with fade animation.
+      x-google-discovery-id: AnimationFade
       properties:
         endTimeOffset:
-          description: "The time to end the fade animation, in seconds. Default: `start_time_offset` + 1s"
+          description: 'The time to end the fade animation, in seconds. Default: `start_time_offset` + 1s'
           format: google-duration
           type: string
         fadeType:
-          description: "Required. Type of fade animation: `FADE_IN` or `FADE_OUT`."
+          description: 'Required. Type of fade animation: `FADE_IN` or `FADE_OUT`.'
           enum:
             - FADE_TYPE_UNSPECIFIED
             - FADE_IN
             - FADE_OUT
+          x-google-enum-descriptions:
+            - The fade type is not specified.
+            - Fade the overlay object into view.
+            - Fade the overlay object out of view.
           type: string
         startTimeOffset:
-          description: "The time to start the fade animation, in seconds. Default: 0"
+          description: 'The time to start the fade animation, in seconds. Default: 0'
           format: google-duration
           type: string
         xy:
-          $ref: "#/components/schemas/NormalizedCoordinate"
-          description: "Normalized coordinates based on output video resolution. Valid values: `0.0`–`1.0`. `xy` is the upper-left coordinate of the overlay object. For example, use the x and y coordinates {0,0} to position the top-left corner of the overlay animation in the top-left corner of the output video."
+          description: 'Normalized coordinates based on output video resolution. Valid values: `0.0`–`1.0`. `xy` is the upper-left coordinate of the overlay object. For example, use the x and y coordinates {0,0} to position the top-left corner of the overlay animation in the top-left corner of the output video.'
+          allOf:
+            - $ref: '#/components/schemas/NormalizedCoordinate'
       type: object
     AnimationStatic:
       description: Display static overlay object.
+      x-google-discovery-id: AnimationStatic
       properties:
         startTimeOffset:
-          description: "The time to start displaying the overlay object, in seconds. Default: 0"
+          description: 'The time to start displaying the overlay object, in seconds. Default: 0'
           format: google-duration
           type: string
         xy:
-          $ref: "#/components/schemas/NormalizedCoordinate"
-          description: "Normalized coordinates based on output video resolution. Valid values: `0.0`–`1.0`. `xy` is the upper-left coordinate of the overlay object. For example, use the x and y coordinates {0,0} to position the top-left corner of the overlay animation in the top-left corner of the output video."
+          description: 'Normalized coordinates based on output video resolution. Valid values: `0.0`–`1.0`. `xy` is the upper-left coordinate of the overlay object. For example, use the x and y coordinates {0,0} to position the top-left corner of the overlay animation in the top-left corner of the output video.'
+          allOf:
+            - $ref: '#/components/schemas/NormalizedCoordinate'
       type: object
     Audio:
       description: Audio preprocessing configuration.
+      x-google-discovery-id: Audio
       properties:
         highBoost:
           description: Enable boosting high frequency components. The default is `false`. **Note:** This field is not supported.
@@ -425,12 +638,13 @@ components:
           description: Enable boosting low frequency components. The default is `false`. **Note:** This field is not supported.
           type: boolean
         lufs:
-          description: "Specify audio loudness normalization in loudness units relative to full scale (LUFS). Enter a value between -24 and 0 (the default), where: * -24 is the Advanced Television Systems Committee (ATSC A/85) standard * -23 is the EU R128 broadcast standard * -19 is the prior standard for online mono audio * -18 is the ReplayGain standard * -16 is the prior standard for stereo audio * -14 is the new online audio standard recommended by Spotify, as well as Amazon Echo * 0 disables normalization"
+          description: 'Specify audio loudness normalization in loudness units relative to full scale (LUFS). Enter a value between -24 and 0 (the default), where: * -24 is the Advanced Television Systems Committee (ATSC A/85) standard * -23 is the EU R128 broadcast standard * -19 is the prior standard for online mono audio * -18 is the ReplayGain standard * -16 is the prior standard for stereo audio * -14 is the new online audio standard recommended by Spotify, as well as Amazon Echo * 0 disables normalization'
           format: double
           type: number
       type: object
     AudioMapping:
       description: The mapping for the JobConfig.edit_list atoms with audio EditAtom.inputs.
+      x-google-discovery-id: AudioMapping
       properties:
         atomKey:
           description: Required. The EditAtom.key that references the atom with audio inputs in the JobConfig.edit_list.
@@ -457,6 +671,7 @@ components:
       type: object
     AudioStream:
       description: Audio stream resource.
+      x-google-discovery-id: AudioStream
       properties:
         bitrateBps:
           description: Required. Audio bitrate in bits per second. Must be between 1 and 10,000,000.
@@ -472,7 +687,7 @@ components:
             type: string
           type: array
         codec:
-          description: "The codec for this audio stream. The default is `aac`. Supported audio codecs: - `aac` - `aac-he` - `aac-he-v2` - `mp3` - `ac3` - `eac3`"
+          description: 'The codec for this audio stream. The default is `aac`. Supported audio codecs: - `aac` - `aac-he` - `aac-he-v2` - `mp3` - `ac3` - `eac3` - `vorbis`'
           type: string
         displayName:
           description: The name for this particular audio stream that will be added to the HLS/DASH manifest. Not supported in MP4 files.
@@ -483,7 +698,7 @@ components:
         mapping:
           description: The mapping for the JobConfig.edit_list atoms with audio EditAtom.inputs.
           items:
-            $ref: "#/components/schemas/AudioMapping"
+            $ref: '#/components/schemas/AudioMapping'
           type: array
         sampleRateHertz:
           description: The audio sample rate in Hertz. The default is 48000 Hertz.
@@ -492,23 +707,26 @@ components:
       type: object
     BwdifConfig:
       description: Bob Weaver Deinterlacing Filter Configuration.
+      x-google-discovery-id: BwdifConfig
       properties:
         deinterlaceAllFrames:
           description: Deinterlace all frames rather than just the frames identified as interlaced. The default is `false`.
           type: boolean
         mode:
-          description: "Specifies the deinterlacing mode to adopt. The default is `send_frame`. Supported values: - `send_frame`: Output one frame for each frame - `send_field`: Output one frame for each field"
+          description: 'Specifies the deinterlacing mode to adopt. The default is `send_frame`. Supported values: - `send_frame`: Output one frame for each frame - `send_field`: Output one frame for each field'
           type: string
         parity:
-          description: "The picture field parity assumed for the input interlaced video. The default is `auto`. Supported values: - `tff`: Assume the top field is first - `bff`: Assume the bottom field is first - `auto`: Enable automatic detection of field parity"
+          description: 'The picture field parity assumed for the input interlaced video. The default is `auto`. Supported values: - `tff`: Assume the top field is first - `bff`: Assume the bottom field is first - `auto`: Enable automatic detection of field parity'
           type: string
       type: object
     Clearkey:
       description: Clearkey configuration.
+      x-google-discovery-id: Clearkey
       properties: {}
       type: object
     Color:
       description: Color preprocessing configuration. **Note:** This configuration is not supported.
+      x-google-discovery-id: Color
       properties:
         brightness:
           description: Control brightness of the video. Enter a value between -1 and 1, where -1 is minimum brightness and 1 is maximum brightness. 0 is no change. The default is 0.
@@ -525,6 +743,7 @@ components:
       type: object
     Crop:
       description: Video cropping configuration for the input video. The cropped input video is scaled to match the output resolution.
+      x-google-discovery-id: Crop
       properties:
         bottomPixels:
           description: The number of pixels to crop from the bottom. The default is 0.
@@ -544,7 +763,8 @@ components:
           type: integer
       type: object
     DashConfig:
-      description: "`DASH` manifest configuration."
+      description: '`DASH` manifest configuration.'
+      x-google-discovery-id: DashConfig
       properties:
         segmentReferenceScheme:
           description: The segment reference scheme for a `DASH` manifest. The default is `SEGMENT_LIST`.
@@ -552,10 +772,15 @@ components:
             - SEGMENT_REFERENCE_SCHEME_UNSPECIFIED
             - SEGMENT_LIST
             - SEGMENT_TEMPLATE_NUMBER
+          x-google-enum-descriptions:
+            - The segment reference scheme is not specified.
+            - 'Explicitly lists the URLs of media files for each segment. For example, if SegmentSettings.individual_segments is `true`, then the manifest contains fields similar to the following: ```xml ... ```'
+            - 'SegmentSettings.individual_segments must be set to `true` to use this segment reference scheme. Uses the DASH specification `` tag to determine the URLs of media files for each segment. For example: ```xml ... ```'
           type: string
       type: object
     Deblock:
       description: Deblock preprocessing configuration. **Note:** This configuration is not supported.
+      x-google-discovery-id: Deblock
       properties:
         enabled:
           description: Enable deblocker. The default is `false`.
@@ -567,43 +792,53 @@ components:
       type: object
     Deinterlace:
       description: Deinterlace configuration for input video.
+      x-google-discovery-id: Deinterlace
       properties:
         bwdif:
-          $ref: "#/components/schemas/BwdifConfig"
           description: Specifies the Bob Weaver Deinterlacing Filter Configuration.
+          allOf:
+            - $ref: '#/components/schemas/BwdifConfig'
         yadif:
-          $ref: "#/components/schemas/YadifConfig"
           description: Specifies the Yet Another Deinterlacing Filter Configuration.
+          allOf:
+            - $ref: '#/components/schemas/YadifConfig'
       type: object
     Denoise:
       description: Denoise preprocessing configuration. **Note:** This configuration is not supported.
+      x-google-discovery-id: Denoise
       properties:
         strength:
           description: Set strength of the denoise. Enter a value between 0 and 1. The higher the value, the smoother the image. 0 is no denoising. The default is 0.
           format: double
           type: number
         tune:
-          description: "Set the denoiser mode. The default is `standard`. Supported denoiser modes: - `standard` - `grain`"
+          description: 'Set the denoiser mode. The default is `standard`. Supported denoiser modes: - `standard` - `grain`'
           type: string
       type: object
     DrmSystems:
       description: Defines configuration for DRM systems in use.
+      x-google-discovery-id: DrmSystems
       properties:
         clearkey:
-          $ref: "#/components/schemas/Clearkey"
           description: Clearkey configuration.
+          allOf:
+            - $ref: '#/components/schemas/Clearkey'
         fairplay:
-          $ref: "#/components/schemas/Fairplay"
           description: Fairplay configuration.
+          allOf:
+            - $ref: '#/components/schemas/Fairplay'
         playready:
-          $ref: "#/components/schemas/Playready"
           description: Playready configuration.
+          allOf:
+            - $ref: '#/components/schemas/Playready'
         widevine:
-          $ref: "#/components/schemas/Widevine"
           description: Widevine configuration.
+          allOf:
+            - $ref: '#/components/schemas/Widevine'
       type: object
     EditAtom:
       description: Edit atom.
+      x-google-discovery-id: EditAtom
       properties:
         endTimeOffset:
           description: End time in seconds for the atom, relative to the input file timeline. When `end_time_offset` is not specified, the `inputs` are used until the end of the atom.
@@ -624,59 +859,73 @@ components:
       type: object
     ElementaryStream:
       description: Encoding of an input file such as an audio, video, or text track. Elementary streams must be packaged before mapping and sharing between different output formats.
+      x-google-discovery-id: ElementaryStream
       properties:
         audioStream:
-          $ref: "#/components/schemas/AudioStream"
           description: Encoding of an audio stream.
+          allOf:
+            - $ref: '#/components/schemas/AudioStream'
         key:
           description: A unique key for this elementary stream.
           type: string
         textStream:
-          $ref: "#/components/schemas/TextStream"
           description: Encoding of a text stream. For example, closed captions or subtitles.
+          allOf:
+            - $ref: '#/components/schemas/TextStream'
         videoStream:
-          $ref: "#/components/schemas/VideoStream"
           description: Encoding of a video stream.
+          allOf:
+            - $ref: '#/components/schemas/VideoStream'
       type: object
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     Encryption:
       description: Encryption settings.
+      x-google-discovery-id: Encryption
       properties:
         aes128:
-          $ref: "#/components/schemas/Aes128Encryption"
           description: Configuration for AES-128 encryption.
+          allOf:
+            - $ref: '#/components/schemas/Aes128Encryption'
         drmSystems:
-          $ref: "#/components/schemas/DrmSystems"
           description: Required. DRM system(s) to use; at least one must be specified. If a DRM system is omitted, it is considered disabled.
+          allOf:
+            - $ref: '#/components/schemas/DrmSystems'
         id:
           description: Required. Identifier for this set of encryption options.
           type: string
         mpegCenc:
-          $ref: "#/components/schemas/MpegCommonEncryption"
           description: Configuration for MPEG Common Encryption (MPEG-CENC).
+          allOf:
+            - $ref: '#/components/schemas/MpegCommonEncryption'
         sampleAes:
-          $ref: "#/components/schemas/SampleAesEncryption"
           description: Configuration for SAMPLE-AES encryption.
+          allOf:
+            - $ref: '#/components/schemas/SampleAesEncryption'
         secretManagerKeySource:
-          $ref: "#/components/schemas/SecretManagerSource"
           description: Keys are stored in Google Secret Manager.
+          allOf:
+            - $ref: '#/components/schemas/SecretManagerSource'
       type: object
     Fairplay:
       description: Fairplay configuration.
+      x-google-discovery-id: Fairplay
       properties: {}
       type: object
     Fmp4Config:
-      description: "`fmp4` container configuration."
+      description: '`fmp4` container configuration.'
+      x-google-discovery-id: Fmp4Config
       properties:
         codecTag:
-          description: "Optional. Specify the codec tag string that will be used in the media bitstream. When not specified, the codec appropriate value is used. Supported H265 codec tags: - `hvc1` (default) - `hev1`"
+          description: 'Optional. Specify the codec tag string that will be used in the media bitstream. When not specified, the codec appropriate value is used. Supported H265 codec tags: - `hvc1` (default) - `hev1`'
           type: string
       type: object
     H264CodecSettings:
       description: H264 codec settings.
+      x-google-discovery-id: H264CodecSettings
       properties:
         allowOpenGop:
           description: Specifies whether an open Group of Pictures (GOP) structure should be allowed or not. The default is `false`.
@@ -704,7 +953,7 @@ components:
           description: Use two-pass encoding strategy to achieve better video quality. H264CodecSettings.rate_control_mode must be `vbr`. The default is `false`.
           type: boolean
         entropyCoder:
-          description: "The entropy coder to use. The default is `cabac`. Supported entropy coders: - `cavlc` - `cabac`"
+          description: 'The entropy coder to use. The default is `cabac`. Supported entropy coders: - `cavlc` - `cabac`'
           type: string
         frameRate:
           description: Required. The target video frame rate in frames per second (FPS). Must be less than or equal to 120.
@@ -716,6 +965,10 @@ components:
             - FRAME_RATE_CONVERSION_STRATEGY_UNSPECIFIED
             - DOWNSAMPLE
             - DROP_DUPLICATE
+          x-google-enum-descriptions:
+            - Unspecified frame rate conversion strategy.
+            - Selectively retain frames to reduce the output frame rate. Every _n_ th frame is kept, where `n = ceil(input frame rate / target frame rate)`. When _n_ = 1 (that is, the target frame rate is greater than the input frame rate), the output frame rate matches the input frame rate. When _n_ > 1, frames are dropped and the output frame rate is equal to `(input frame rate / n)`. For more information, see [Calculate frame rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate).
+            - Drop or duplicate frames to match the specified frame rate.
           type: string
         gopDuration:
           description: Select the GOP size based on the specified duration. The default is `3s`. Note that `gopDuration` must be less than or equal to [`segmentDuration`](#SegmentSettings), and [`segmentDuration`](#SegmentSettings) must be divisible by `gopDuration`.
@@ -730,23 +983,25 @@ components:
           format: int32
           type: integer
         hlg:
-          $ref: "#/components/schemas/H264ColorFormatHLG"
           description: Optional. HLG color format setting for H264.
+          allOf:
+            - $ref: '#/components/schemas/H264ColorFormatHLG'
         pixelFormat:
-          description: "Pixel format to use. The default is `yuv420p`. Supported pixel formats: - `yuv420p` pixel format - `yuv422p` pixel format - `yuv444p` pixel format - `yuv420p10` 10-bit HDR pixel format - `yuv422p10` 10-bit HDR pixel format - `yuv444p10` 10-bit HDR pixel format - `yuv420p12` 12-bit HDR pixel format - `yuv422p12` 12-bit HDR pixel format - `yuv444p12` 12-bit HDR pixel format"
+          description: 'Pixel format to use. The default is `yuv420p`. Supported pixel formats: - `yuv420p` pixel format - `yuv422p` pixel format - `yuv444p` pixel format - `yuv420p10` 10-bit HDR pixel format - `yuv422p10` 10-bit HDR pixel format - `yuv444p10` 10-bit HDR pixel format - `yuv420p12` 12-bit HDR pixel format - `yuv422p12` 12-bit HDR pixel format - `yuv444p12` 12-bit HDR pixel format'
           type: string
         preset:
           description: Enforces the specified codec preset. The default is `veryfast`. The available options are [FFmpeg-compatible](https://trac.ffmpeg.org/wiki/Encode/H.264#Preset). Note that certain values for this field may cause the transcoder to override other fields you set in the `H264CodecSettings` message.
           type: string
         profile:
-          description: "Enforces the specified codec profile. The following profiles are supported: * `baseline` * `main` * `high` (default) The available options are [FFmpeg-compatible](https://trac.ffmpeg.org/wiki/Encode/H.264#Tune). Note that certain values for this field may cause the transcoder to override other fields you set in the `H264CodecSettings` message."
+          description: 'Enforces the specified codec profile. The following profiles are supported: * `baseline` * `main` * `high` (default) The available options are [FFmpeg-compatible](https://trac.ffmpeg.org/wiki/Encode/H.264#Tune). Note that certain values for this field may cause the transcoder to override other fields you set in the `H264CodecSettings` message.'
           type: string
         rateControlMode:
-          description: "Specify the mode. The default is `vbr`. Supported rate control modes: - `vbr` - variable bitrate - `crf` - constant rate factor"
+          description: 'Specify the mode. The default is `vbr`. Supported rate control modes: - `vbr` - variable bitrate - `crf` - constant rate factor'
           type: string
         sdr:
-          $ref: "#/components/schemas/H264ColorFormatSDR"
           description: Optional. SDR color format setting for H264.
+          allOf:
+            - $ref: '#/components/schemas/H264ColorFormatSDR'
         tune:
           description: Enforces the specified codec tune. The available options are [FFmpeg-compatible](https://trac.ffmpeg.org/wiki/Encode/H.264#Tune). Note that certain values for this field may cause the transcoder to override other fields you set in the `H264CodecSettings` message.
           type: string
@@ -765,14 +1020,17 @@ components:
       type: object
     H264ColorFormatHLG:
       description: Convert the input video to a Hybrid Log Gamma (HLG) video.
+      x-google-discovery-id: H264ColorFormatHLG
       properties: {}
       type: object
     H264ColorFormatSDR:
       description: Convert the input video to a Standard Dynamic Range (SDR) video.
+      x-google-discovery-id: H264ColorFormatSDR
       properties: {}
       type: object
     H265CodecSettings:
       description: H265 codec settings.
+      x-google-discovery-id: H265CodecSettings
       properties:
         allowOpenGop:
           description: Specifies whether an open Group of Pictures (GOP) structure should be allowed or not. The default is `false`.
@@ -809,6 +1067,10 @@ components:
             - FRAME_RATE_CONVERSION_STRATEGY_UNSPECIFIED
             - DOWNSAMPLE
             - DROP_DUPLICATE
+          x-google-enum-descriptions:
+            - Unspecified frame rate conversion strategy.
+            - Selectively retain frames to reduce the output frame rate. Every _n_ th frame is kept, where `n = ceil(input frame rate / target frame rate)`. When _n_ = 1 (that is, the target frame rate is greater than the input frame rate), the output frame rate matches the input frame rate. When _n_ > 1, frames are dropped and the output frame rate is equal to `(input frame rate / n)`. For more information, see [Calculate frame rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate).
+            - Drop or duplicate frames to match the specified frame rate.
           type: string
         gopDuration:
           description: Select the GOP size based on the specified duration. The default is `3s`. Note that `gopDuration` must be less than or equal to [`segmentDuration`](#SegmentSettings), and [`segmentDuration`](#SegmentSettings) must be divisible by `gopDuration`.
@@ -819,30 +1081,33 @@ components:
           format: int32
           type: integer
         hdr10:
-          $ref: "#/components/schemas/H265ColorFormatHDR10"
           description: Optional. HDR10 color format setting for H265.
+          allOf:
+            - $ref: '#/components/schemas/H265ColorFormatHDR10'
         heightPixels:
           description: The height of the video in pixels. Must be an even integer. When not specified, the height is adjusted to match the specified width and input aspect ratio. If both are omitted, the input height is used. For portrait videos that contain horizontal ASR and rotation metadata, provide the height, in pixels, per the horizontal ASR. The API calculates the width per the horizontal ASR. The API detects any rotation metadata and swaps the requested height and width for the output.
           format: int32
           type: integer
         hlg:
-          $ref: "#/components/schemas/H265ColorFormatHLG"
           description: Optional. HLG color format setting for H265.
+          allOf:
+            - $ref: '#/components/schemas/H265ColorFormatHLG'
         pixelFormat:
-          description: "Pixel format to use. The default is `yuv420p`. Supported pixel formats: - `yuv420p` pixel format - `yuv422p` pixel format - `yuv444p` pixel format - `yuv420p10` 10-bit HDR pixel format - `yuv422p10` 10-bit HDR pixel format - `yuv444p10` 10-bit HDR pixel format - `yuv420p12` 12-bit HDR pixel format - `yuv422p12` 12-bit HDR pixel format - `yuv444p12` 12-bit HDR pixel format"
+          description: 'Pixel format to use. The default is `yuv420p`. Supported pixel formats: - `yuv420p` pixel format - `yuv422p` pixel format - `yuv444p` pixel format - `yuv420p10` 10-bit HDR pixel format - `yuv422p10` 10-bit HDR pixel format - `yuv444p10` 10-bit HDR pixel format - `yuv420p12` 12-bit HDR pixel format - `yuv422p12` 12-bit HDR pixel format - `yuv444p12` 12-bit HDR pixel format'
           type: string
         preset:
           description: Enforces the specified codec preset. The default is `veryfast`. The available options are [FFmpeg-compatible](https://trac.ffmpeg.org/wiki/Encode/H.265). Note that certain values for this field may cause the transcoder to override other fields you set in the `H265CodecSettings` message.
           type: string
         profile:
-          description: "Enforces the specified codec profile. The following profiles are supported: * 8-bit profiles * `main` (default) * `main-intra` * `mainstillpicture` * 10-bit profiles * `main10` (default) * `main10-intra` * `main422-10` * `main422-10-intra` * `main444-10` * `main444-10-intra` * 12-bit profiles * `main12` (default) * `main12-intra` * `main422-12` * `main422-12-intra` * `main444-12` * `main444-12-intra` The available options are [FFmpeg-compatible](https://x265.readthedocs.io/). Note that certain values for this field may cause the transcoder to override other fields you set in the `H265CodecSettings` message."
+          description: 'Enforces the specified codec profile. The following profiles are supported: * 8-bit profiles * `main` (default) * `main-intra` * `mainstillpicture` * 10-bit profiles * `main10` (default) * `main10-intra` * `main422-10` * `main422-10-intra` * `main444-10` * `main444-10-intra` * 12-bit profiles * `main12` (default) * `main12-intra` * `main422-12` * `main422-12-intra` * `main444-12` * `main444-12-intra` The available options are [FFmpeg-compatible](https://x265.readthedocs.io/). Note that certain values for this field may cause the transcoder to override other fields you set in the `H265CodecSettings` message.'
           type: string
         rateControlMode:
-          description: "Specify the mode. The default is `vbr`. Supported rate control modes: - `vbr` - variable bitrate - `crf` - constant rate factor"
+          description: 'Specify the mode. The default is `vbr`. Supported rate control modes: - `vbr` - variable bitrate - `crf` - constant rate factor'
           type: string
         sdr:
-          $ref: "#/components/schemas/H265ColorFormatSDR"
           description: Optional. SDR color format setting for H265.
+          allOf:
+            - $ref: '#/components/schemas/H265ColorFormatSDR'
         tune:
           description: Enforces the specified codec tune. The available options are [FFmpeg-compatible](https://trac.ffmpeg.org/wiki/Encode/H.265). Note that certain values for this field may cause the transcoder to override other fields you set in the `H265CodecSettings` message.
           type: string
@@ -861,53 +1126,76 @@ components:
       type: object
     H265ColorFormatHDR10:
       description: Convert the input video to a High Dynamic Range 10 (HDR10) video.
+      x-google-discovery-id: H265ColorFormatHDR10
       properties: {}
       type: object
     H265ColorFormatHLG:
       description: Convert the input video to a Hybrid Log Gamma (HLG) video.
+      x-google-discovery-id: H265ColorFormatHLG
       properties: {}
       type: object
     H265ColorFormatSDR:
       description: Convert the input video to a Standard Dynamic Range (SDR) video.
+      x-google-discovery-id: H265ColorFormatSDR
       properties: {}
       type: object
     Image:
       description: Overlaid image.
+      x-google-discovery-id: Image
       properties:
         alpha:
           description: Target image opacity. Valid values are from `1.0` (solid, default) to `0.0` (transparent), exclusive. Set this to a value greater than `0.0`.
           format: double
           type: number
         resolution:
-          $ref: "#/components/schemas/NormalizedCoordinate"
-          description: "Normalized image resolution, based on output video resolution. Valid values: `0.0`–`1.0`. To respect the original image aspect ratio, set either `x` or `y` to `0.0`. To use the original image resolution, set both `x` and `y` to `0.0`."
+          description: 'Normalized image resolution, based on output video resolution. Valid values: `0.0`–`1.0`. To respect the original image aspect ratio, set either `x` or `y` to `0.0`. To use the original image resolution, set both `x` and `y` to `0.0`.'
+          allOf:
+            - $ref: '#/components/schemas/NormalizedCoordinate'
         uri:
           description: Required. URI of the image in Cloud Storage. For example, `gs://bucket/inputs/image.png`. Only PNG and JPEG images are supported.
           type: string
       type: object
     Input:
       description: Input asset.
+      x-google-discovery-id: Input
       properties:
+        attributes:
+          description: Optional. Input Attributes.
+          allOf:
+            - $ref: '#/components/schemas/InputAttributes'
         key:
           description: A unique key for this input. Must be specified when using advanced mapping and edit lists.
           type: string
         preprocessingConfig:
-          $ref: "#/components/schemas/PreprocessingConfig"
           description: Preprocessing configurations.
+          allOf:
+            - $ref: '#/components/schemas/PreprocessingConfig'
         uri:
           description: URI of the media. Input files must be at least 5 seconds in duration and stored in Cloud Storage (for example, `gs://bucket/inputs/file.mp4`). If empty, the value is populated from Job.input_uri. See [Supported input and output formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
           type: string
       type: object
+    InputAttributes:
+      description: Input attributes that provide additional information about the input asset.
+      x-google-discovery-id: InputAttributes
+      properties:
+        trackDefinitions:
+          description: Optional. A list of track definitions for the input asset.
+          items:
+            $ref: '#/components/schemas/TrackDefinition'
+          type: array
+      type: object
     Job:
       description: Transcoding job resource.
+      x-google-discovery-id: Job
       properties:
         batchModePriority:
           description: The processing priority of a batch job. This field can only be set for batch mode jobs. The default value is 0. This value cannot be negative. Higher values correspond to higher priorities for the job.
           format: int32
           type: integer
         config:
-          $ref: "#/components/schemas/JobConfig"
           description: The configuration for this job.
+          allOf:
+            - $ref: '#/components/schemas/JobConfig'
         createTime:
           description: Output only. The time the job was created.
           format: google-datetime
@@ -919,9 +1207,13 @@ components:
           readOnly: true
           type: string
         error:
-          $ref: "#/components/schemas/Status"
           description: Output only. An error object that describes the reason for the failure. This property is always present when ProcessingState is `FAILED`.
           readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/Status'
+        fillContentGaps:
+          description: Optional. Insert silence and duplicate frames when timestamp gaps are detected in a given stream.
+          type: boolean
         inputUri:
           description: Input only. Specify the `input_uri` to populate empty `uri` fields in each element of `Job.config.inputs` or `JobTemplate.config.inputs` when using template. URI of the media. Input files must be at least 5 seconds in duration and stored in Cloud Storage (for example, `gs://bucket/inputs/file.mp4`). See [Supported input and output formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
           type: string
@@ -936,9 +1228,13 @@ components:
             - PROCESSING_MODE_UNSPECIFIED
             - PROCESSING_MODE_INTERACTIVE
             - PROCESSING_MODE_BATCH
+          x-google-enum-descriptions:
+            - The job processing mode is not specified.
+            - The job processing mode is interactive mode. Interactive job will either be ran or rejected if quota does not allow for it.
+            - The job processing mode is batch mode. Batch mode allows queuing of jobs.
           type: string
         name:
-          description: "The resource name of the job. Format: `projects/{project_number}/locations/{location}/jobs/{job}`"
+          description: 'The resource name of the job. Format: `projects/{project_number}/locations/{location}/jobs/{job}`'
           type: string
         optimization:
           description: Optional. The optimization strategy of the job. The default is `AUTODETECT`.
@@ -946,6 +1242,10 @@ components:
             - OPTIMIZATION_STRATEGY_UNSPECIFIED
             - AUTODETECT
             - DISABLED
+          x-google-enum-descriptions:
+            - The optimization strategy is not specified.
+            - Prioritize job processing speed.
+            - Disable all optimizations.
           type: string
         outputUri:
           description: Input only. Specify the `output_uri` to populate an empty `Job.config.output.uri` or `JobTemplate.config.output.uri` when using template. URI for the output file(s). For example, `gs://my-bucket/outputs/`. See [Supported input and output formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
@@ -963,10 +1263,16 @@ components:
             - RUNNING
             - SUCCEEDED
             - FAILED
+          x-google-enum-descriptions:
+            - The processing state is not specified.
+            - The job is enqueued and will be picked up for processing soon.
+            - The job is being processed.
+            - The job has been completed successfully.
+            - The job has failed. For additional information, see [Troubleshooting](https://cloud.google.com/transcoder/docs/troubleshooting).
           readOnly: true
           type: string
         templateId:
-          description: "Input only. Specify the `template_id` to use for populating `Job.config`. The default is `preset/web-hd`, which is the only supported preset. User defined JobTemplate: `{job_template_id}`"
+          description: 'Input only. Specify the `template_id` to use for populating `Job.config`. The default is `preset/web-hd`, which is the only supported preset. User defined JobTemplate: `{job_template_id}`'
           type: string
         ttlAfterCompletionDays:
           description: Job time to live value in days, which will be effective after job completion. Job should be deleted automatically after the given TTL. Enter a value between 1 and 90. The default is 30.
@@ -975,81 +1281,87 @@ components:
       type: object
     JobConfig:
       description: Job configuration
+      x-google-discovery-id: JobConfig
       properties:
         adBreaks:
           description: List of ad breaks. Specifies where to insert ad break tags in the output manifests.
           items:
-            $ref: "#/components/schemas/AdBreak"
+            $ref: '#/components/schemas/AdBreak'
           type: array
         editList:
           description: List of edit atoms. Defines the ultimate timeline of the resulting file or manifest.
           items:
-            $ref: "#/components/schemas/EditAtom"
+            $ref: '#/components/schemas/EditAtom'
           type: array
         elementaryStreams:
           description: List of elementary streams.
           items:
-            $ref: "#/components/schemas/ElementaryStream"
+            $ref: '#/components/schemas/ElementaryStream'
           type: array
         encryptions:
           description: List of encryption configurations for the content. Each configuration has an ID. Specify this ID in the MuxStream.encryption_id field to indicate the configuration to use for that `MuxStream` output.
           items:
-            $ref: "#/components/schemas/Encryption"
+            $ref: '#/components/schemas/Encryption'
           type: array
         inputs:
           description: List of input assets stored in Cloud Storage.
           items:
-            $ref: "#/components/schemas/Input"
+            $ref: '#/components/schemas/Input'
           type: array
         manifests:
           description: List of output manifests.
           items:
-            $ref: "#/components/schemas/Manifest"
+            $ref: '#/components/schemas/Manifest'
           type: array
         muxStreams:
           description: List of multiplexing settings for output streams.
           items:
-            $ref: "#/components/schemas/MuxStream"
+            $ref: '#/components/schemas/MuxStream'
           type: array
         output:
-          $ref: "#/components/schemas/Output"
           description: Output configuration.
+          allOf:
+            - $ref: '#/components/schemas/Output'
         overlays:
           description: List of overlays on the output video, in descending Z-order.
           items:
-            $ref: "#/components/schemas/Overlay"
+            $ref: '#/components/schemas/Overlay'
           type: array
         pubsubDestination:
-          $ref: "#/components/schemas/PubsubDestination"
           description: Destination on Pub/Sub.
+          allOf:
+            - $ref: '#/components/schemas/PubsubDestination'
         spriteSheets:
           description: List of output sprite sheets. Spritesheets require at least one VideoStream in the Jobconfig.
           items:
-            $ref: "#/components/schemas/SpriteSheet"
+            $ref: '#/components/schemas/SpriteSheet'
           type: array
       type: object
     JobTemplate:
       description: Transcoding job template resource.
+      x-google-discovery-id: JobTemplate
       properties:
         config:
-          $ref: "#/components/schemas/JobConfig"
           description: The configuration for this template.
+          allOf:
+            - $ref: '#/components/schemas/JobConfig'
         labels:
           additionalProperties:
             type: string
           description: The labels associated with this job template. You can use these to organize and group your job templates.
           type: object
         name:
-          description: "The resource name of the job template. Format: `projects/{project_number}/locations/{location}/jobTemplates/{job_template}`"
+          description: 'The resource name of the job template. Format: `projects/{project_number}/locations/{location}/jobTemplates/{job_template}`'
           type: string
       type: object
     ListJobTemplatesResponse:
       description: Response message for `TranscoderService.ListJobTemplates`.
+      x-google-discovery-id: ListJobTemplatesResponse
       properties:
         jobTemplates:
           description: List of job templates in the specified region.
           items:
-            $ref: "#/components/schemas/JobTemplate"
+            $ref: '#/components/schemas/JobTemplate'
           type: array
         nextPageToken:
           description: The pagination token.
@@ -1062,11 +1374,12 @@ components:
       type: object
     ListJobsResponse:
       description: Response message for `TranscoderService.ListJobs`.
+      x-google-discovery-id: ListJobsResponse
       properties:
         jobs:
           description: List of jobs in the specified region.
           items:
-            $ref: "#/components/schemas/Job"
+            $ref: '#/components/schemas/Job'
           type: array
         nextPageToken:
           description: The pagination token.
@@ -1079,10 +1392,12 @@ components:
       type: object
     Manifest:
       description: Manifest configuration.
+      x-google-discovery-id: Manifest
       properties:
         dash:
-          $ref: "#/components/schemas/DashConfig"
-          description: "`DASH` manifest configuration."
+          description: '`DASH` manifest configuration.'
+          allOf:
+            - $ref: '#/components/schemas/DashConfig'
         fileName:
           description: The name of the generated file. The default is `manifest` with the extension suffix corresponding to the Manifest.type.
           type: string
@@ -1097,20 +1412,26 @@ components:
             - MANIFEST_TYPE_UNSPECIFIED
             - HLS
             - DASH
+          x-google-enum-descriptions:
+            - The manifest type is not specified.
+            - Create an HLS manifest. The corresponding file extension is `.m3u8`.
+            - Create an MPEG-DASH manifest. The corresponding file extension is `.mpd`.
           type: string
       type: object
     MpegCommonEncryption:
       description: Configuration for MPEG Common Encryption (MPEG-CENC).
+      x-google-discovery-id: MpegCommonEncryption
       properties:
         scheme:
-          description: "Required. Specify the encryption scheme. Supported encryption schemes: - `cenc` - `cbcs`"
+          description: 'Required. Specify the encryption scheme. Supported encryption schemes: - `cenc` - `cbcs`'
           type: string
       type: object
     MuxStream:
       description: Multiplexing settings for output stream.
+      x-google-discovery-id: MuxStream
       properties:
         container:
-          description: "The container format. The default is `mp4` Supported container formats: - `ts` - `fmp4`- the corresponding file extension is `.m4s` - `mp4` - `vtt` See also: [Supported input and output formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats)"
+          description: 'The container format. The default is `mp4` Supported streaming formats: - `ts` - `fmp4`- the corresponding file extension is `.m4s` Supported standalone file formats: - `mp4` - `mp3` - `ogg` - `vtt` See also: [Supported input and output formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats)'
           type: string
         elementaryStreams:
           description: List of ElementaryStream.key values multiplexed in this stream.
@@ -1124,17 +1445,20 @@ components:
           description: The name of the generated file. The default is MuxStream.key with the extension suffix corresponding to the MuxStream.container. Individual segments also have an incremental 10-digit zero-padded suffix starting from 0 before the extension, such as `mux_stream0000000123.ts`.
           type: string
         fmp4:
-          $ref: "#/components/schemas/Fmp4Config"
           description: Optional. `fmp4` container configuration.
+          allOf:
+            - $ref: '#/components/schemas/Fmp4Config'
         key:
           description: A unique key for this multiplexed stream.
           type: string
         segmentSettings:
-          $ref: "#/components/schemas/SegmentSettings"
           description: Segment settings for `ts`, `fmp4` and `vtt`.
+          allOf:
+            - $ref: '#/components/schemas/SegmentSettings'
       type: object
     NormalizedCoordinate:
-      description: "2D normalized coordinates. Default: `{0.0, 0.0}`"
+      description: '2D normalized coordinates. Default: `{0.0, 0.0}`'
+      x-google-discovery-id: NormalizedCoordinate
       properties:
         x:
           description: Normalized x coordinate.
@@ -1147,25 +1471,29 @@ components:
       type: object
     Output:
       description: Location of output file(s) in a Cloud Storage bucket.
+      x-google-discovery-id: Output
       properties:
         uri:
-          description: URI for the output file(s). For example, `gs://my-bucket/outputs/`. If empty, the value is populated from Job.output_uri. See [Supported input and output formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
+          description: URI for the output file(s). For example, `gs://my-bucket/outputs/`. Must be a directory and not a top-level bucket. If empty, the value is populated from Job.output_uri. See [Supported input and output formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
           type: string
       type: object
     Overlay:
       description: Overlay configuration.
+      x-google-discovery-id: Overlay
       properties:
         animations:
           description: List of animations. The list should be chronological, without any time overlap.
           items:
-            $ref: "#/components/schemas/Animation"
+            $ref: '#/components/schemas/Animation'
           type: array
         image:
-          $ref: "#/components/schemas/Image"
           description: Image overlay.
+          allOf:
+            - $ref: '#/components/schemas/Image'
       type: object
     Pad:
       description: Pad filter configuration for the input video. The padded input video is scaled after padding with black to match the output resolution.
+      x-google-discovery-id: Pad
       properties:
         bottomPixels:
           description: The number of pixels to add to the bottom. The default is 0.
@@ -1186,46 +1514,58 @@ components:
       type: object
     Playready:
       description: Playready configuration.
+      x-google-discovery-id: Playready
       properties: {}
       type: object
     PreprocessingConfig:
       description: Preprocessing configurations.
+      x-google-discovery-id: PreprocessingConfig
       properties:
         audio:
-          $ref: "#/components/schemas/Audio"
           description: Audio preprocessing configuration.
+          allOf:
+            - $ref: '#/components/schemas/Audio'
         color:
-          $ref: "#/components/schemas/Color"
           description: Color preprocessing configuration.
+          allOf:
+            - $ref: '#/components/schemas/Color'
         crop:
-          $ref: "#/components/schemas/Crop"
           description: Specify the video cropping configuration.
+          allOf:
+            - $ref: '#/components/schemas/Crop'
         deblock:
-          $ref: "#/components/schemas/Deblock"
           description: Deblock preprocessing configuration.
+          allOf:
+            - $ref: '#/components/schemas/Deblock'
         deinterlace:
-          $ref: "#/components/schemas/Deinterlace"
           description: Specify the video deinterlace configuration.
+          allOf:
+            - $ref: '#/components/schemas/Deinterlace'
         denoise:
-          $ref: "#/components/schemas/Denoise"
           description: Denoise preprocessing configuration.
+          allOf:
+            - $ref: '#/components/schemas/Denoise'
         pad:
-          $ref: "#/components/schemas/Pad"
           description: Specify the video pad filter configuration.
+          allOf:
+            - $ref: '#/components/schemas/Pad'
       type: object
     PubsubDestination:
       description: A Pub/Sub destination.
+      x-google-discovery-id: PubsubDestination
       properties:
         topic:
-          description: "The name of the Pub/Sub topic to publish job completion notification to. For example: `projects/{project}/topics/{topic}`."
+          description: 'The name of the Pub/Sub topic to publish job completion notification to. For example: `projects/{project}/topics/{topic}`.'
           type: string
       type: object
     SampleAesEncryption:
       description: Configuration for SAMPLE-AES encryption.
+      x-google-discovery-id: SampleAesEncryption
       properties: {}
       type: object
     SecretManagerSource:
       description: Configuration for secrets stored in Google Secret Manager.
+      x-google-discovery-id: SecretManagerSource
       properties:
         secretVersion:
           description: 'Required. The name of the Secret Version containing the encryption key in the following format: `projects/{project}/secrets/{secret_id}/versions/{version_number}` Note that only numbered versions are supported. Aliases like "latest" are not supported.'
@@ -1233,6 +1573,7 @@ components:
       type: object
     SegmentSettings:
       description: Segment settings for `ts`, `fmp4` and `vtt`.
+      x-google-discovery-id: SegmentSettings
       properties:
         individualSegments:
           description: Required. Create an individual segment file. The default is `false`.
@@ -1244,6 +1585,7 @@ components:
       type: object
     SpriteSheet:
       description: Sprite sheet configuration.
+      x-google-discovery-id: SpriteSheet
       properties:
         columnCount:
           description: The maximum number of sprites per row in a sprite sheet. The default is 0, which indicates no maximum limit.
@@ -1257,7 +1599,7 @@ components:
           description: Required. File name prefix for the generated sprite sheets. Each sprite sheet has an incremental 10-digit zero-padded suffix starting from 0 before the extension, such as `sprite_sheet0000000123.jpeg`.
           type: string
         format:
-          description: "Format type. The default is `jpeg`. Supported formats: - `jpeg`"
+          description: 'Format type. The default is `jpeg`. Supported formats: - `jpeg`'
           type: string
         interval:
           description: Starting from `0s`, create sprites at regular intervals. Specify the interval value in seconds.
@@ -1289,7 +1631,8 @@ components:
           type: integer
       type: object
     Status:
-      description: "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors)."
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
       properties:
         code:
           description: The status code, which should be an enum value of google.rpc.Code.
@@ -1300,6 +1643,7 @@ components:
           items:
             additionalProperties:
               description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
             type: object
           type: array
         message:
@@ -1308,6 +1652,7 @@ components:
       type: object
     TextMapping:
       description: The mapping for the JobConfig.edit_list atoms with text EditAtom.inputs.
+      x-google-discovery-id: TextMapping
       properties:
         atomKey:
           description: Required. The EditAtom.key that references atom with text inputs in the JobConfig.edit_list.
@@ -1322,9 +1667,10 @@ components:
       type: object
     TextStream:
       description: Encoding of a text stream. For example, closed captions or subtitles.
+      x-google-discovery-id: TextStream
       properties:
         codec:
-          description: "The codec for this text stream. The default is `webvtt`. Supported text codecs: - `srt` - `ttml` - `cea608` - `cea708` - `webvtt`"
+          description: 'The codec for this text stream. The default is `webvtt`. Supported text codecs: - `srt` - `ttml` - `cea608` - `cea708` - `webvtt`'
           type: string
         displayName:
           description: The name for this particular text stream that will be added to the HLS/DASH manifest. Not supported in MP4 files.
@@ -1335,24 +1681,52 @@ components:
         mapping:
           description: The mapping for the JobConfig.edit_list atoms with text EditAtom.inputs.
           items:
-            $ref: "#/components/schemas/TextMapping"
+            $ref: '#/components/schemas/TextMapping'
+          type: array
+      type: object
+    TrackDefinition:
+      description: Track definition for the input asset.
+      x-google-discovery-id: TrackDefinition
+      properties:
+        detectLanguages:
+          description: Optional. Whether to automatically detect the languages present in the track. If true, the system will attempt to identify all the languages present in the track and populate the languages field.
+          type: boolean
+        detectedLanguages:
+          description: Output only. A list of languages detected in the input asset, represented by a BCP 47 language code, such as "en-US" or "sr-Latn". For more information, see https://www.unicode.org/reports/tr35/#Unicode_locale_identifier. This field is only populated if the detect_languages field is set to true.
+          items:
+            type: string
+          readOnly: true
+          type: array
+        inputTrack:
+          description: The input track.
+          format: int32
+          type: integer
+        languages:
+          description: Optional. A list of languages spoken in the input asset, represented by a BCP 47 language code, such as "en-US" or "sr-Latn". For more information, see https://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+          items:
+            type: string
           type: array
       type: object
     VideoStream:
       description: Video stream resource.
+      x-google-discovery-id: VideoStream
       properties:
         h264:
-          $ref: "#/components/schemas/H264CodecSettings"
           description: H264 codec settings.
+          allOf:
+            - $ref: '#/components/schemas/H264CodecSettings'
         h265:
-          $ref: "#/components/schemas/H265CodecSettings"
           description: H265 codec settings.
+          allOf:
+            - $ref: '#/components/schemas/H265CodecSettings'
         vp9:
-          $ref: "#/components/schemas/Vp9CodecSettings"
           description: VP9 codec settings.
+          allOf:
+            - $ref: '#/components/schemas/Vp9CodecSettings'
       type: object
     Vp9CodecSettings:
       description: VP9 codec settings.
+      x-google-discovery-id: Vp9CodecSettings
       properties:
         bitrateBps:
           description: Required. The video bitrate in bits per second. The minimum value is 1,000. The maximum value is 480,000,000.
@@ -1372,6 +1746,10 @@ components:
             - FRAME_RATE_CONVERSION_STRATEGY_UNSPECIFIED
             - DOWNSAMPLE
             - DROP_DUPLICATE
+          x-google-enum-descriptions:
+            - Unspecified frame rate conversion strategy.
+            - Selectively retain frames to reduce the output frame rate. Every _n_ th frame is kept, where `n = ceil(input frame rate / target frame rate)`. When _n_ = 1 (that is, the target frame rate is greater than the input frame rate), the output frame rate matches the input frame rate. When _n_ > 1, frames are dropped and the output frame rate is equal to `(input frame rate / n)`. For more information, see [Calculate frame rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate).
+            - Drop or duplicate frames to match the specified frame rate.
           type: string
         gopDuration:
           description: Select the GOP size based on the specified duration. The default is `3s`. Note that `gopDuration` must be less than or equal to [`segmentDuration`](#SegmentSettings), and [`segmentDuration`](#SegmentSettings) must be divisible by `gopDuration`.
@@ -1386,20 +1764,22 @@ components:
           format: int32
           type: integer
         hlg:
-          $ref: "#/components/schemas/Vp9ColorFormatHLG"
           description: Optional. HLG color format setting for VP9.
+          allOf:
+            - $ref: '#/components/schemas/Vp9ColorFormatHLG'
         pixelFormat:
-          description: "Pixel format to use. The default is `yuv420p`. Supported pixel formats: - `yuv420p` pixel format - `yuv422p` pixel format - `yuv444p` pixel format - `yuv420p10` 10-bit HDR pixel format - `yuv422p10` 10-bit HDR pixel format - `yuv444p10` 10-bit HDR pixel format - `yuv420p12` 12-bit HDR pixel format - `yuv422p12` 12-bit HDR pixel format - `yuv444p12` 12-bit HDR pixel format"
+          description: 'Pixel format to use. The default is `yuv420p`. Supported pixel formats: - `yuv420p` pixel format - `yuv422p` pixel format - `yuv444p` pixel format - `yuv420p10` 10-bit HDR pixel format - `yuv422p10` 10-bit HDR pixel format - `yuv444p10` 10-bit HDR pixel format - `yuv420p12` 12-bit HDR pixel format - `yuv422p12` 12-bit HDR pixel format - `yuv444p12` 12-bit HDR pixel format'
           type: string
         profile:
-          description: "Enforces the specified codec profile. The following profiles are supported: * `profile0` (default) * `profile1` * `profile2` * `profile3` The available options are [WebM-compatible](https://www.webmproject.org/vp9/profiles/). Note that certain values for this field may cause the transcoder to override other fields you set in the `Vp9CodecSettings` message."
+          description: 'Enforces the specified codec profile. The following profiles are supported: * `profile0` (default) * `profile1` * `profile2` * `profile3` The available options are [WebM-compatible](https://www.webmproject.org/vp9/profiles/). Note that certain values for this field may cause the transcoder to override other fields you set in the `Vp9CodecSettings` message.'
           type: string
         rateControlMode:
-          description: "Specify the mode. The default is `vbr`. Supported rate control modes: - `vbr` - variable bitrate"
+          description: 'Specify the mode. The default is `vbr`. Supported rate control modes: - `vbr` - variable bitrate'
           type: string
         sdr:
-          $ref: "#/components/schemas/Vp9ColorFormatSDR"
           description: Optional. SDR color format setting for VP9.
+          allOf:
+            - $ref: '#/components/schemas/Vp9ColorFormatSDR'
         widthPixels:
           description: The width of the video in pixels. Must be an even integer. When not specified, the width is adjusted to match the specified height and input aspect ratio. If both are omitted, the input width is used. For portrait videos that contain horizontal ASR and rotation metadata, provide the width, in pixels, per the horizontal ASR. The API calculates the height per the horizontal ASR. The API detects any rotation metadata and swaps the requested height and width for the output.
           format: int32
@@ -1407,18 +1787,22 @@ components:
       type: object
     Vp9ColorFormatHLG:
       description: Convert the input video to a Hybrid Log Gamma (HLG) video.
+      x-google-discovery-id: Vp9ColorFormatHLG
       properties: {}
       type: object
     Vp9ColorFormatSDR:
       description: Convert the input video to a Standard Dynamic Range (SDR) video.
+      x-google-discovery-id: Vp9ColorFormatSDR
       properties: {}
       type: object
     Widevine:
       description: Widevine configuration.
+      x-google-discovery-id: Widevine
       properties: {}
       type: object
     YadifConfig:
       description: Yet Another Deinterlacing Filter Configuration.
+      x-google-discovery-id: YadifConfig
       properties:
         deinterlaceAllFrames:
           description: Deinterlace all frames rather than just the frames identified as interlaced. The default is `false`.
@@ -1427,27 +1811,129 @@ components:
           description: Disable spacial interlacing. The default is `false`.
           type: boolean
         mode:
-          description: "Specifies the deinterlacing mode to adopt. The default is `send_frame`. Supported values: - `send_frame`: Output one frame for each frame - `send_field`: Output one frame for each field"
+          description: 'Specifies the deinterlacing mode to adopt. The default is `send_frame`. Supported values: - `send_frame`: Output one frame for each frame - `send_field`: Output one frame for each field'
           type: string
         parity:
-          description: "The picture field parity assumed for the input interlaced video. The default is `auto`. Supported values: - `tff`: Assume the top field is first - `bff`: Assume the bottom field is first - `auto`: Enable automatic detection of field parity"
+          description: 'The picture field parity assumed for the input interlaced video. The default is `auto`. Supported values: - `tff`: Assume the top field is first - `bff`: Assume the bottom field is first - `auto`: Enable automatic detection of field parity'
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/transcoder/docs/
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://transcoder.googleapis.com/
+  batchPath: batch
+  canonicalName: Transcoder
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: transcoder:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://transcoder.mtls.googleapis.com/
+  name: transcoder
+  revision: '20250723'
+  rootUrl: https://transcoder.googleapis.com/
+  servicePath: ''
+  version_module: true

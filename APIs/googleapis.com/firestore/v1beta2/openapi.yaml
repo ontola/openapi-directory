@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://firestore.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: "Accesses the NoSQL document database built for automatic scaling, high performance, and ease of application development. "
+  description: 'Accesses the NoSQL document database built for automatic scaling, high performance, and ease of application development. '
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -22,450 +20,817 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://firestore.googleapis.com/$discovery/rest?version=v1beta2
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/firestore.v1beta2.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/firestore.v1beta2.json
+      version: '3.0'
   x-preferred: true
   x-providerName: googleapis.com
   x-serviceName: firestore
-externalDocs:
-  url: https://cloud.google.com/firestore
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260810; original source SHA-256 2bdaaadc057fe0f098145794e8dbaec7fe2f72afaf072cf6becab7b9f83af932.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://firestore.googleapis.com
 paths:
-  /v1beta2/{name}:
-    delete:
-      description: Deletes a composite index.
-      operationId: firestore.projects.databases.collectionGroups.indexes.delete
-      parameters:
-        - description: A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/datastore
-          Oauth2c:
-            - https://www.googleapis.com/auth/datastore
-      tags:
-        - projects
-    get:
-      description: Gets a composite index.
-      operationId: firestore.projects.databases.collectionGroups.indexes.get
-      parameters:
-        - description: A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Index"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/datastore
-          Oauth2c:
-            - https://www.googleapis.com/auth/datastore
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: "Updates a field configuration. Currently, field updates apply only to single field index configuration. However, calls to FirestoreAdmin.UpdateField should provide a field mask to avoid changing any configuration that the caller isn't aware of. The field mask should be specified as: `{ paths: \"index_config\" }`. This call returns a google.longrunning.Operation which may be used to track the status of the field update. The metadata for the operation will be the type FieldOperationMetadata. To configure the default field settings for the database, use the special `Field` with resource name: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*`."
-      operationId: firestore.projects.databases.collectionGroups.fields.patch
-      parameters:
-        - description: "A field name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}` A field path may be a simple field name, e.g. `address` or a path to fields within map_value , e.g. `address.city`, or a special field path. The only valid special field is `*`, which represents any field. Field paths may be quoted using ` (backtick). The only character that needs to be escaped within a quoted field path is the backtick character itself, escaped using a backslash. Special characters in field paths that must be quoted include: `*`, `.`, ``` (backtick), `[`, `]`, as well as any ascii symbolic characters. Examples: (Note: Comments here are written in markdown syntax, so there is an additional layer of backticks to represent a code block) `\\`address.city\\`` represents a field named `address.city`, not the map key `city` in the field `address`. `\\`*\\`` represents a field named `*`, not any field. A special `Field` contains the default indexing settings for all fields. This field's resource name is: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*` Indexes defined on this `Field` will be applied to all fields which do not have their own `Field` index configuration."
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: A mask, relative to the field. If specified, only configuration specified by this field_mask will be updated in the field.
-          in: query
-          name: updateMask
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Field"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleLongrunningOperation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/datastore
-          Oauth2c:
-            - https://www.googleapis.com/auth/datastore
-      tags:
-        - projects
-  /v1beta2/{name}:exportDocuments:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+  /v1beta2/projects/{projectsId}/databases/{databasesId}:exportDocuments:
     post:
-      description: Exports a copy of all or a subset of documents from Google Cloud Firestore to another storage system, such as Google Cloud Storage. Recent updates to documents may not be reflected in the export. The export occurs in the background and its progress can be monitored and managed via the Operation resource that is created. The output of an export may only be used once the associated operation is done. If an export operation is cancelled before completion it may leave partial data behind in Google Cloud Storage.
       operationId: firestore.projects.databases.exportDocuments
+      description: Exports a copy of all or a subset of documents from Google Cloud Firestore to another storage system, such as Google Cloud Storage. Recent updates to documents may not be reflected in the export. The export occurs in the background and its progress can be monitored and managed via the Operation resource that is created. The output of an export may only be used once the associated operation is done. If an export operation is cancelled before completion it may leave partial data behind in Google Cloud Storage.
       parameters:
-        - description: "Database to export. Should be of the form: `projects/{project_id}/databases/{database_id}`."
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Database to export. Should be of the form: `projects/{project_id}/databases/{database_id}`.'
           schema:
             type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Database to export. Should be of the form: `projects/{project_id}/databases/{database_id}`.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/datastore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datastore
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2ExportDocumentsRequest"
+              $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2ExportDocumentsRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleLongrunningOperation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/datastore
-          Oauth2c:
-            - https://www.googleapis.com/auth/datastore
-      tags:
-        - projects
-  /v1beta2/{name}:importDocuments:
+                $ref: '#/components/schemas/GoogleLongrunningOperation'
+      x-google-discovery:
+        path: v1beta2/{+name}:exportDocuments
+        flatPath: v1beta2/projects/{projectsId}/databases/{databasesId}:exportDocuments
+        resourceNameBindings:
+          projectsId: name
+          databasesId: name
+        resourceNameParameters:
+          name:
+            description: 'Database to export. Should be of the form: `projects/{project_id}/databases/{database_id}`.'
+            location: path
+            pattern: ^projects/[^/]+/databases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/databases/{databasesId}:importDocuments:
     post:
-      description: Imports documents into Google Cloud Firestore. Existing documents with the same name are overwritten. The import occurs in the background and its progress can be monitored and managed via the Operation resource that is created. If an ImportDocuments operation is cancelled, it is possible that a subset of the data has already been imported to Cloud Firestore.
       operationId: firestore.projects.databases.importDocuments
+      description: Imports documents into Google Cloud Firestore. Existing documents with the same name are overwritten. The import occurs in the background and its progress can be monitored and managed via the Operation resource that is created. If an ImportDocuments operation is cancelled, it is possible that a subset of the data has already been imported to Cloud Firestore.
       parameters:
-        - description: "Database to import into. Should be of the form: `projects/{project_id}/databases/{database_id}`."
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Database to import into. Should be of the form: `projects/{project_id}/databases/{database_id}`.'
           schema:
             type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Database to import into. Should be of the form: `projects/{project_id}/databases/{database_id}`.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/datastore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datastore
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2ImportDocumentsRequest"
+              $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2ImportDocumentsRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleLongrunningOperation"
-          description: Successful response
+                $ref: '#/components/schemas/GoogleLongrunningOperation'
+      x-google-discovery:
+        path: v1beta2/{+name}:importDocuments
+        flatPath: v1beta2/projects/{projectsId}/databases/{databasesId}:importDocuments
+        resourceNameBindings:
+          projectsId: name
+          databasesId: name
+        resourceNameParameters:
+          name:
+            description: 'Database to import into. Should be of the form: `projects/{project_id}/databases/{database_id}`.'
+            location: path
+            pattern: ^projects/[^/]+/databases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/fields/{fieldsId}:
+    get:
+      operationId: firestore.projects.databases.collectionGroups.fields.get
+      description: Gets the metadata and configuration for a Field.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_id}`
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_id}`
+          schema:
+            type: string
+        - name: collectionGroupsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_id}`
+          schema:
+            type: string
+        - name: fieldsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_id}`
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/datastore
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/datastore
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Field'
+      x-google-discovery:
+        path: v1beta2/{+name}
+        flatPath: v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/fields/{fieldsId}
+        resourceNameBindings:
+          projectsId: name
+          databasesId: name
+          collectionGroupsId: name
+          fieldsId: name
+        resourceNameParameters:
+          name:
+            description: A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_id}`
+            location: path
+            pattern: ^projects/[^/]+/databases/[^/]+/collectionGroups/[^/]+/fields/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: firestore.projects.databases.collectionGroups.fields.patch
+      description: 'Updates a field configuration. Currently, field updates apply only to single field index configuration. However, calls to FirestoreAdmin.UpdateField should provide a field mask to avoid changing any configuration that the caller isn''t aware of. The field mask should be specified as: `{ paths: "index_config" }`. This call returns a google.longrunning.Operation which may be used to track the status of the field update. The metadata for the operation will be the type FieldOperationMetadata. To configure the default field settings for the database, use the special `Field` with resource name: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*`.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. A field name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}` A field path may be a simple field name, e.g. `address` or a path to fields within map_value , e.g. `address.city`, or a special field path. The only valid special field is `*`, which represents any field. Field paths may be quoted using ` (backtick). The only character that needs to be escaped within a quoted field path is the backtick character itself, escaped using a backslash. Special characters in field paths that must be quoted include: `*`, `.`, ``` (backtick), `[`, `]`, as well as any ascii symbolic characters. Examples: (Note: Comments here are written in markdown syntax, so there is an additional layer of backticks to represent a code block) `\`address.city\`` represents a field named `address.city`, not the map key `city` in the field `address`. `\`*\`` represents a field named `*`, not any field. A special `Field` contains the default indexing settings for all fields. This field''s resource name is: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*` Indexes defined on this `Field` will be applied to all fields which do not have their own `Field` index configuration.'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. A field name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}` A field path may be a simple field name, e.g. `address` or a path to fields within map_value , e.g. `address.city`, or a special field path. The only valid special field is `*`, which represents any field. Field paths may be quoted using ` (backtick). The only character that needs to be escaped within a quoted field path is the backtick character itself, escaped using a backslash. Special characters in field paths that must be quoted include: `*`, `.`, ``` (backtick), `[`, `]`, as well as any ascii symbolic characters. Examples: (Note: Comments here are written in markdown syntax, so there is an additional layer of backticks to represent a code block) `\`address.city\`` represents a field named `address.city`, not the map key `city` in the field `address`. `\`*\`` represents a field named `*`, not any field. A special `Field` contains the default indexing settings for all fields. This field''s resource name is: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*` Indexes defined on this `Field` will be applied to all fields which do not have their own `Field` index configuration.'
+          schema:
+            type: string
+        - name: collectionGroupsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. A field name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}` A field path may be a simple field name, e.g. `address` or a path to fields within map_value , e.g. `address.city`, or a special field path. The only valid special field is `*`, which represents any field. Field paths may be quoted using ` (backtick). The only character that needs to be escaped within a quoted field path is the backtick character itself, escaped using a backslash. Special characters in field paths that must be quoted include: `*`, `.`, ``` (backtick), `[`, `]`, as well as any ascii symbolic characters. Examples: (Note: Comments here are written in markdown syntax, so there is an additional layer of backticks to represent a code block) `\`address.city\`` represents a field named `address.city`, not the map key `city` in the field `address`. `\`*\`` represents a field named `*`, not any field. A special `Field` contains the default indexing settings for all fields. This field''s resource name is: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*` Indexes defined on this `Field` will be applied to all fields which do not have their own `Field` index configuration.'
+          schema:
+            type: string
+        - name: fieldsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. A field name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}` A field path may be a simple field name, e.g. `address` or a path to fields within map_value , e.g. `address.city`, or a special field path. The only valid special field is `*`, which represents any field. Field paths may be quoted using ` (backtick). The only character that needs to be escaped within a quoted field path is the backtick character itself, escaped using a backslash. Special characters in field paths that must be quoted include: `*`, `.`, ``` (backtick), `[`, `]`, as well as any ascii symbolic characters. Examples: (Note: Comments here are written in markdown syntax, so there is an additional layer of backticks to represent a code block) `\`address.city\`` represents a field named `address.city`, not the map key `city` in the field `address`. `\`*\`` represents a field named `*`, not any field. A special `Field` contains the default indexing settings for all fields. This field''s resource name is: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*` Indexes defined on this `Field` will be applied to all fields which do not have their own `Field` index configuration.'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: A mask, relative to the field. If specified, only configuration specified by this field_mask will be updated in the field.
       tags:
         - projects
-  /v1beta2/{parent}/fields:
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/datastore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datastore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Field'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleLongrunningOperation'
+      x-google-discovery:
+        path: v1beta2/{+name}
+        flatPath: v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/fields/{fieldsId}
+        resourceNameBindings:
+          projectsId: name
+          databasesId: name
+          collectionGroupsId: name
+          fieldsId: name
+        resourceNameParameters:
+          name:
+            description: 'A field name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}` A field path may be a simple field name, e.g. `address` or a path to fields within map_value , e.g. `address.city`, or a special field path. The only valid special field is `*`, which represents any field. Field paths may be quoted using ` (backtick). The only character that needs to be escaped within a quoted field path is the backtick character itself, escaped using a backslash. Special characters in field paths that must be quoted include: `*`, `.`, ``` (backtick), `[`, `]`, as well as any ascii symbolic characters. Examples: (Note: Comments here are written in markdown syntax, so there is an additional layer of backticks to represent a code block) `\`address.city\`` represents a field named `address.city`, not the map key `city` in the field `address`. `\`*\`` represents a field named `*`, not any field. A special `Field` contains the default indexing settings for all fields. This field''s resource name is: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*` Indexes defined on this `Field` will be applied to all fields which do not have their own `Field` index configuration.'
+            location: path
+            pattern: ^projects/[^/]+/databases/[^/]+/collectionGroups/[^/]+/fields/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/fields:
     get:
-      description: Lists the field configuration and metadata for this database. Currently, FirestoreAdmin.ListFields only supports listing fields that have been explicitly overridden. To issue this query, call FirestoreAdmin.ListFields with the filter set to `indexConfig.usesAncestorConfig:false`.
       operationId: firestore.projects.databases.collectionGroups.fields.list
+      description: Lists the field configuration and metadata for this database. Currently, FirestoreAdmin.ListFields only supports listing fields that have been explicitly overridden. To issue this query, call FirestoreAdmin.ListFields with the filter set to `indexConfig.usesAncestorConfig:false`.
       parameters:
-        - description: A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
           schema:
             type: string
-        - description: The filter to apply to list results. Currently, FirestoreAdmin.ListFields only supports listing fields that have been explicitly overridden. To issue this query, call FirestoreAdmin.ListFields with the filter set to `indexConfig.usesAncestorConfig:false`.
-          in: query
-          name: filter
+        - name: databasesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
           schema:
             type: string
-        - description: The number of results to return.
-          in: query
-          name: pageSize
+        - name: collectionGroupsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
           schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The filter to apply to list results. Currently, FirestoreAdmin.ListFields only supports listing fields that have been explicitly overridden. To issue this query, call FirestoreAdmin.ListFields with the filter set to `indexConfig.usesAncestorConfig:false`.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: A page token, returned from a previous call to FirestoreAdmin.ListFields, that may be used to get the next page of results.
+          description: The number of results to return.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2ListFieldsResponse"
-          description: Successful response
+          description: A page token, returned from a previous call to FirestoreAdmin.ListFields, that may be used to get the next page of results.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/datastore
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/datastore
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta2/{parent}/indexes:
-    get:
-      description: Lists composite indexes.
-      operationId: firestore.projects.databases.collectionGroups.indexes.list
-      parameters:
-        - description: A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: The filter to apply to list results.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: The number of results to return.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A page token, returned from a previous call to FirestoreAdmin.ListIndexes, that may be used to get the next page of results.
-          in: query
-          name: pageToken
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2ListIndexesResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/datastore
-          Oauth2c:
-            - https://www.googleapis.com/auth/datastore
-      tags:
-        - projects
+                $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2ListFieldsResponse'
+      x-google-discovery:
+        path: v1beta2/{+parent}/fields
+        flatPath: v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/fields
+        resourceNameBindings:
+          projectsId: parent
+          databasesId: parent
+          collectionGroupsId: parent
+        resourceNameParameters:
+          parent:
+            description: A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+            location: path
+            pattern: ^projects/[^/]+/databases/[^/]+/collectionGroups/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/indexes:
     post:
-      description: Creates a composite index. This returns a google.longrunning.Operation which may be used to track the status of the creation. The metadata for the operation will be the type IndexOperationMetadata.
       operationId: firestore.projects.databases.collectionGroups.indexes.create
+      description: Creates a composite index. This returns a google.longrunning.Operation which may be used to track the status of the creation. The metadata for the operation will be the type IndexOperationMetadata.
       parameters:
-        - description: A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
           schema:
             type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+          schema:
+            type: string
+        - name: collectionGroupsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/datastore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datastore
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Index"
+              $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Index'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleLongrunningOperation"
-          description: Successful response
+                $ref: '#/components/schemas/GoogleLongrunningOperation'
+      x-google-discovery:
+        path: v1beta2/{+parent}/indexes
+        flatPath: v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/indexes
+        resourceNameBindings:
+          projectsId: parent
+          databasesId: parent
+          collectionGroupsId: parent
+        resourceNameParameters:
+          parent:
+            description: A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+            location: path
+            pattern: ^projects/[^/]+/databases/[^/]+/collectionGroups/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: firestore.projects.databases.collectionGroups.indexes.list
+      description: Lists composite indexes.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+          schema:
+            type: string
+        - name: collectionGroupsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The filter to apply to list results.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The number of results to return.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token, returned from a previous call to FirestoreAdmin.ListIndexes, that may be used to get the next page of results.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/datastore
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/datastore
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2ListIndexesResponse'
+      x-google-discovery:
+        path: v1beta2/{+parent}/indexes
+        flatPath: v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/indexes
+        resourceNameBindings:
+          projectsId: parent
+          databasesId: parent
+          collectionGroupsId: parent
+        resourceNameParameters:
+          parent:
+            description: A parent name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}`
+            location: path
+            pattern: ^projects/[^/]+/databases/[^/]+/collectionGroups/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/indexes/{indexesId}:
+    delete:
+      operationId: firestore.projects.databases.collectionGroups.indexes.delete
+      description: Deletes a composite index.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+          schema:
+            type: string
+        - name: collectionGroupsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+          schema:
+            type: string
+        - name: indexesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/datastore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datastore
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1beta2/{+name}
+        flatPath: v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/indexes/{indexesId}
+        resourceNameBindings:
+          projectsId: name
+          databasesId: name
+          collectionGroupsId: name
+          indexesId: name
+        resourceNameParameters:
+          name:
+            description: A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+            location: path
+            pattern: ^projects/[^/]+/databases/[^/]+/collectionGroups/[^/]+/indexes/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: firestore.projects.databases.collectionGroups.indexes.get
+      description: Gets a composite index.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+          schema:
+            type: string
+        - name: collectionGroupsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+          schema:
+            type: string
+        - name: indexesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/datastore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datastore
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Index'
+      x-google-discovery:
+        path: v1beta2/{+name}
+        flatPath: v1beta2/projects/{projectsId}/databases/{databasesId}/collectionGroups/{collectionGroupsId}/indexes/{indexesId}
+        resourceNameBindings:
+          projectsId: name
+          databasesId: name
+          collectionGroupsId: name
+          indexesId: name
+        resourceNameParameters:
+          name:
+            description: A name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+            location: path
+            pattern: ^projects/[^/]+/databases/[^/]+/collectionGroups/[^/]+/indexes/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
+      type: object
+    GoogleFirestoreAdminV1BulkDeleteDocumentsMetadata:
+      description: Metadata for google.longrunning.Operation results from FirestoreAdmin.BulkDeleteDocuments.
+      x-google-discovery-id: GoogleFirestoreAdminV1BulkDeleteDocumentsMetadata
+      properties:
+        collectionIds:
+          description: The IDs of the collection groups that are being deleted.
+          items:
+            type: string
+          type: array
+        endTime:
+          description: The time this operation completed. Will be unset if operation still in progress.
+          format: google-datetime
+          type: string
+        namespaceIds:
+          description: Which namespace IDs are being deleted.
+          items:
+            type: string
+          type: array
+        operationState:
+          description: The state of the operation.
+          enum:
+            - OPERATION_STATE_UNSPECIFIED
+            - INITIALIZING
+            - PROCESSING
+            - CANCELLING
+            - FINALIZING
+            - SUCCESSFUL
+            - FAILED
+            - CANCELLED
+          x-google-enum-descriptions:
+            - Unspecified.
+            - Request is being prepared for processing.
+            - Request is actively being processed.
+            - Request is in the process of being cancelled after user called google.longrunning.Operations.CancelOperation on the operation.
+            - Request has been processed and is in its finalization stage.
+            - Request has completed successfully.
+            - Request has finished being processed, but encountered an error.
+            - Request has finished being cancelled after user called google.longrunning.Operations.CancelOperation.
+          type: string
+        progressBytes:
+          description: The progress, in bytes, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1Progress'
+        progressDocuments:
+          description: The progress, in documents, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1Progress'
+        snapshotTime:
+          description: The timestamp that corresponds to the version of the database that is being read to get the list of documents to delete. This time can also be used as the timestamp of PITR in case of disaster recovery (subject to PITR window limit).
+          format: google-datetime
+          type: string
+        startTime:
+          description: The time this operation started.
+          format: google-datetime
+          type: string
+      type: object
+    GoogleFirestoreAdminV1CloneDatabaseMetadata:
+      description: Metadata for the long-running operation from the CloneDatabase request.
+      x-google-discovery-id: GoogleFirestoreAdminV1CloneDatabaseMetadata
+      properties:
+        database:
+          description: The name of the database being cloned to.
+          type: string
+        endTime:
+          description: The time the clone finished, unset for ongoing clones.
+          format: google-datetime
+          type: string
+        operationState:
+          description: The operation state of the clone.
+          enum:
+            - OPERATION_STATE_UNSPECIFIED
+            - INITIALIZING
+            - PROCESSING
+            - CANCELLING
+            - FINALIZING
+            - SUCCESSFUL
+            - FAILED
+            - CANCELLED
+          x-google-enum-descriptions:
+            - Unspecified.
+            - Request is being prepared for processing.
+            - Request is actively being processed.
+            - Request is in the process of being cancelled after user called google.longrunning.Operations.CancelOperation on the operation.
+            - Request has been processed and is in its finalization stage.
+            - Request has completed successfully.
+            - Request has finished being processed, but encountered an error.
+            - Request has finished being cancelled after user called google.longrunning.Operations.CancelOperation.
+          type: string
+        pitrSnapshot:
+          description: The snapshot from which this database was cloned.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1PitrSnapshot'
+        progressPercentage:
+          description: How far along the clone is as an estimated percentage of remaining time.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1Progress'
+        startTime:
+          description: The time the clone was started.
+          format: google-datetime
+          type: string
       type: object
     GoogleFirestoreAdminV1CreateDatabaseMetadata:
       description: Metadata related to the create database operation.
+      x-google-discovery-id: GoogleFirestoreAdminV1CreateDatabaseMetadata
       properties: {}
       type: object
     GoogleFirestoreAdminV1DeleteDatabaseMetadata:
       description: Metadata related to the delete database operation.
+      x-google-discovery-id: GoogleFirestoreAdminV1DeleteDatabaseMetadata
       properties: {}
+      type: object
+    GoogleFirestoreAdminV1PitrSnapshot:
+      description: A consistent snapshot of a database at a specific point in time. A PITR (Point-in-time recovery) snapshot with previous versions of a database's data is available for every minute up to the associated database's data retention period. If the PITR feature is enabled, the retention period is 7 days; otherwise, it is one hour.
+      x-google-discovery-id: GoogleFirestoreAdminV1PitrSnapshot
+      properties:
+        database:
+          description: 'Required. The name of the database that this was a snapshot of. Format: `projects/{project}/databases/{database}`.'
+          type: string
+        databaseUid:
+          description: Output only. Public UUID of the database the snapshot was associated with.
+          format: byte
+          readOnly: true
+          type: string
+        snapshotTime:
+          description: Required. Snapshot time of the database.
+          format: google-datetime
+          type: string
       type: object
     GoogleFirestoreAdminV1Progress:
       description: Describes the progress of the operation. Unit of work is generic and must be interpreted based on where Progress is used.
+      x-google-discovery-id: GoogleFirestoreAdminV1Progress
       properties:
         completedWork:
           description: The amount of work completed.
@@ -478,6 +843,7 @@ components:
       type: object
     GoogleFirestoreAdminV1RestoreDatabaseMetadata:
       description: Metadata for the long-running operation from the RestoreDatabase request.
+      x-google-discovery-id: GoogleFirestoreAdminV1RestoreDatabaseMetadata
       properties:
         backup:
           description: The name of the backup restoring from.
@@ -500,10 +866,20 @@ components:
             - SUCCESSFUL
             - FAILED
             - CANCELLED
+          x-google-enum-descriptions:
+            - Unspecified.
+            - Request is being prepared for processing.
+            - Request is actively being processed.
+            - Request is in the process of being cancelled after user called google.longrunning.Operations.CancelOperation on the operation.
+            - Request has been processed and is in its finalization stage.
+            - Request has completed successfully.
+            - Request has finished being processed, but encountered an error.
+            - Request has finished being cancelled after user called google.longrunning.Operations.CancelOperation.
           type: string
         progressPercentage:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1Progress"
           description: How far along the restore is as an estimated percentage of remaining time.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1Progress'
         startTime:
           description: The time the restore was started.
           format: google-datetime
@@ -511,10 +887,41 @@ components:
       type: object
     GoogleFirestoreAdminV1UpdateDatabaseMetadata:
       description: Metadata related to the update database operation.
-      properties: {}
+      x-google-discovery-id: GoogleFirestoreAdminV1UpdateDatabaseMetadata
+      properties:
+        endTime:
+          description: The time this operation completed. Will be unset if operation still in progress.
+          format: google-datetime
+          type: string
+        startTime:
+          description: The time this operation started.
+          format: google-datetime
+          type: string
+        state:
+          description: The state of the operation.
+          enum:
+            - OPERATION_STATE_UNSPECIFIED
+            - INITIALIZING
+            - PROCESSING
+            - CANCELLING
+            - FINALIZING
+            - SUCCESSFUL
+            - FAILED
+            - CANCELLED
+          x-google-enum-descriptions:
+            - Unspecified.
+            - Request is being prepared for processing.
+            - Request is actively being processed.
+            - Request is in the process of being cancelled after user called google.longrunning.Operations.CancelOperation on the operation.
+            - Request has been processed and is in its finalization stage.
+            - Request has completed successfully.
+            - Request has finished being processed, but encountered an error.
+            - Request has finished being cancelled after user called google.longrunning.Operations.CancelOperation.
+          type: string
       type: object
     GoogleFirestoreAdminV1beta2ExportDocumentsMetadata:
       description: Metadata for google.longrunning.Operation results from FirestoreAdmin.ExportDocuments.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2ExportDocumentsMetadata
       properties:
         collectionIds:
           description: Which collection ids are being exported.
@@ -536,16 +943,27 @@ components:
             - SUCCESSFUL
             - FAILED
             - CANCELLED
+          x-google-enum-descriptions:
+            - Unspecified.
+            - Request is being prepared for processing.
+            - Request is actively being processed.
+            - Request is in the process of being cancelled after user called google.longrunning.Operations.CancelOperation on the operation.
+            - Request has been processed and is in its finalization stage.
+            - Request has completed successfully.
+            - Request has finished being processed, but encountered an error.
+            - Request has finished being cancelled after user called google.longrunning.Operations.CancelOperation.
           type: string
         outputUriPrefix:
           description: Where the entities are being exported to.
           type: string
         progressBytes:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Progress"
           description: The progress, in bytes, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Progress'
         progressDocuments:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Progress"
           description: The progress, in documents, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Progress'
         startTime:
           description: The time this operation started.
           format: google-datetime
@@ -553,6 +971,7 @@ components:
       type: object
     GoogleFirestoreAdminV1beta2ExportDocumentsRequest:
       description: The request for FirestoreAdmin.ExportDocuments.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2ExportDocumentsRequest
       properties:
         collectionIds:
           description: Which collection ids to export. Unspecified means all collections.
@@ -560,11 +979,12 @@ components:
             type: string
           type: array
         outputUriPrefix:
-          description: "The output URI. Currently only supports Google Cloud Storage URIs of the form: `gs://BUCKET_NAME[/NAMESPACE_PATH]`, where `BUCKET_NAME` is the name of the Google Cloud Storage bucket and `NAMESPACE_PATH` is an optional Google Cloud Storage namespace path. When choosing a name, be sure to consider Google Cloud Storage naming guidelines: https://cloud.google.com/storage/docs/naming. If the URI is a bucket (without a namespace path), a prefix will be generated based on the start time."
+          description: 'The output URI. Currently only supports Google Cloud Storage URIs of the form: `gs://BUCKET_NAME[/NAMESPACE_PATH]`, where `BUCKET_NAME` is the name of the Google Cloud Storage bucket and `NAMESPACE_PATH` is an optional Google Cloud Storage namespace path. When choosing a name, be sure to consider Google Cloud Storage naming guidelines: https://cloud.google.com/storage/docs/naming. If the URI is a bucket (without a namespace path), a prefix will be generated based on the start time.'
           type: string
       type: object
     GoogleFirestoreAdminV1beta2ExportDocumentsResponse:
       description: Returned in the google.longrunning.Operation response field.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2ExportDocumentsResponse
       properties:
         outputUriPrefix:
           description: Location of the output files. This can be used to begin an import into Cloud Firestore (this project or another project) after the operation completes successfully.
@@ -572,34 +992,39 @@ components:
       type: object
     GoogleFirestoreAdminV1beta2Field:
       description: Represents a single field in the database. Fields are grouped by their "Collection Group", which represent all collections in the database with the same id.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2Field
       properties:
         indexConfig:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2IndexConfig"
           description: The index configuration for this field. If unset, field indexing will revert to the configuration defined by the `ancestor_field`. To explicitly remove all indexes for this field, specify an index config with an empty list of indexes.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2IndexConfig'
         name:
-          description: "A field name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}` A field path may be a simple field name, e.g. `address` or a path to fields within map_value , e.g. `address.city`, or a special field path. The only valid special field is `*`, which represents any field. Field paths may be quoted using ` (backtick). The only character that needs to be escaped within a quoted field path is the backtick character itself, escaped using a backslash. Special characters in field paths that must be quoted include: `*`, `.`, ``` (backtick), `[`, `]`, as well as any ascii symbolic characters. Examples: (Note: Comments here are written in markdown syntax, so there is an additional layer of backticks to represent a code block) `\\`address.city\\`` represents a field named `address.city`, not the map key `city` in the field `address`. `\\`*\\`` represents a field named `*`, not any field. A special `Field` contains the default indexing settings for all fields. This field's resource name is: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*` Indexes defined on this `Field` will be applied to all fields which do not have their own `Field` index configuration."
+          description: 'A field name of the form `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}` A field path may be a simple field name, e.g. `address` or a path to fields within map_value , e.g. `address.city`, or a special field path. The only valid special field is `*`, which represents any field. Field paths may be quoted using ` (backtick). The only character that needs to be escaped within a quoted field path is the backtick character itself, escaped using a backslash. Special characters in field paths that must be quoted include: `*`, `.`, ``` (backtick), `[`, `]`, as well as any ascii symbolic characters. Examples: (Note: Comments here are written in markdown syntax, so there is an additional layer of backticks to represent a code block) `\`address.city\`` represents a field named `address.city`, not the map key `city` in the field `address`. `\`*\`` represents a field named `*`, not any field. A special `Field` contains the default indexing settings for all fields. This field''s resource name is: `projects/{project_id}/databases/{database_id}/collectionGroups/__default__/fields/*` Indexes defined on this `Field` will be applied to all fields which do not have their own `Field` index configuration.'
           type: string
       type: object
     GoogleFirestoreAdminV1beta2FieldOperationMetadata:
       description: Metadata for google.longrunning.Operation results from FirestoreAdmin.UpdateField.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2FieldOperationMetadata
       properties:
         bytesProgress:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Progress"
           description: The progress, in bytes, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Progress'
         documentProgress:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Progress"
           description: The progress, in documents, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Progress'
         endTime:
           description: The time this operation completed. Will be unset if operation still in progress.
           format: google-datetime
           type: string
         field:
-          description: "The field resource that this operation is acting on. For example: `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}`"
+          description: 'The field resource that this operation is acting on. For example: `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}`'
           type: string
         indexConfigDeltas:
           description: A list of IndexConfigDelta, which describe the intent of this operation.
           items:
-            $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2IndexConfigDelta"
+            $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2IndexConfigDelta'
           type: array
         startTime:
           description: The time this operation started.
@@ -616,10 +1041,20 @@ components:
             - SUCCESSFUL
             - FAILED
             - CANCELLED
+          x-google-enum-descriptions:
+            - Unspecified.
+            - Request is being prepared for processing.
+            - Request is actively being processed.
+            - Request is in the process of being cancelled after user called google.longrunning.Operations.CancelOperation on the operation.
+            - Request has been processed and is in its finalization stage.
+            - Request has completed successfully.
+            - Request has finished being processed, but encountered an error.
+            - Request has finished being cancelled after user called google.longrunning.Operations.CancelOperation.
           type: string
       type: object
     GoogleFirestoreAdminV1beta2ImportDocumentsMetadata:
       description: Metadata for google.longrunning.Operation results from FirestoreAdmin.ImportDocuments.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2ImportDocumentsMetadata
       properties:
         collectionIds:
           description: Which collection ids are being imported.
@@ -644,13 +1079,24 @@ components:
             - SUCCESSFUL
             - FAILED
             - CANCELLED
+          x-google-enum-descriptions:
+            - Unspecified.
+            - Request is being prepared for processing.
+            - Request is actively being processed.
+            - Request is in the process of being cancelled after user called google.longrunning.Operations.CancelOperation on the operation.
+            - Request has been processed and is in its finalization stage.
+            - Request has completed successfully.
+            - Request has finished being processed, but encountered an error.
+            - Request has finished being cancelled after user called google.longrunning.Operations.CancelOperation.
           type: string
         progressBytes:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Progress"
           description: The progress, in bytes, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Progress'
         progressDocuments:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Progress"
           description: The progress, in documents, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Progress'
         startTime:
           description: The time this operation started.
           format: google-datetime
@@ -658,6 +1104,7 @@ components:
       type: object
     GoogleFirestoreAdminV1beta2ImportDocumentsRequest:
       description: The request for FirestoreAdmin.ImportDocuments.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2ImportDocumentsRequest
       properties:
         collectionIds:
           description: Which collection ids to import. Unspecified means all collections included in the import.
@@ -665,19 +1112,20 @@ components:
             type: string
           type: array
         inputUriPrefix:
-          description: "Location of the exported files. This must match the output_uri_prefix of an ExportDocumentsResponse from an export that has completed successfully. See: google.firestore.admin.v1beta2.ExportDocumentsResponse.output_uri_prefix."
+          description: 'Location of the exported files. This must match the output_uri_prefix of an ExportDocumentsResponse from an export that has completed successfully. See: google.firestore.admin.v1beta2.ExportDocumentsResponse.output_uri_prefix.'
           type: string
       type: object
     GoogleFirestoreAdminV1beta2Index:
       description: Cloud Firestore indexes enable simple and complex queries against documents in a database.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2Index
       properties:
         fields:
           description: The fields supported by this index. For composite indexes, this is always 2 or more fields. The last field entry is always for the field path `__name__`. If, on creation, `__name__` was not specified as the last field, it will be added automatically with the same direction as that of the last field defined. If the final field in a composite index is not directional, the `__name__` will be ordered ASCENDING (unless explicitly specified). For single field indexes, this will always be exactly one entry with a field path equal to the field path of the associated field.
           items:
-            $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2IndexField"
+            $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2IndexField'
           type: array
         name:
-          description: "Output only. A server defined name for this index. The form of this name for composite indexes will be: `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{composite_index_id}` For single field indexes, this field will be empty."
+          description: 'Output only. A server defined name for this index. The form of this name for composite indexes will be: `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{composite_index_id}` For single field indexes, this field will be empty.'
           type: string
         queryScope:
           description: Indexes with a collection query scope specified allow queries against a collection that is the child of a specific document, specified at query time, and that has the same collection id. Indexes with a collection group query scope specified allow queries against all collections descended from a specific document, specified at query time, and that have the same collection id as this index.
@@ -685,6 +1133,10 @@ components:
             - QUERY_SCOPE_UNSPECIFIED
             - COLLECTION
             - COLLECTION_GROUP
+          x-google-enum-descriptions:
+            - The query scope is unspecified. Not a valid option.
+            - Indexes with a collection query scope specified allow queries against a collection that is the child of a specific document, specified at query time, and that has the collection id specified by the index.
+            - Indexes with a collection group query scope specified allow queries against all collections that has the collection id specified by the index.
           type: string
         state:
           description: Output only. The serving state of the index.
@@ -693,10 +1145,16 @@ components:
             - CREATING
             - READY
             - NEEDS_REPAIR
+          x-google-enum-descriptions:
+            - The state is unspecified.
+            - The index is being created. There is an active long-running operation for the index. The index is updated when writing a document. Some index data may exist.
+            - The index is ready to be used. The index is updated when writing a document. The index is fully populated from all stored documents it applies to.
+            - The index was being created, but something went wrong. There is no active long-running operation for the index, and the most recently finished long-running operation failed. The index is not updated when writing a document. Some index data may exist. Use the google.longrunning.Operations API to determine why the operation that last attempted to create this index failed, then re-create the index.
           type: string
       type: object
     GoogleFirestoreAdminV1beta2IndexConfig:
       description: The index configuration for this field.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2IndexConfig
       properties:
         ancestorField:
           description: Output only. Specifies the resource name of the `Field` from which this field's index configuration is set (when `uses_ancestor_config` is true), or from which it *would* be set if this field had no index configuration (when `uses_ancestor_config` is false).
@@ -704,7 +1162,7 @@ components:
         indexes:
           description: The indexes supported for this field.
           items:
-            $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Index"
+            $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Index'
           type: array
         reverting:
           description: Output only When true, the `Field`'s index configuration is in the process of being reverted. Once complete, the index config will transition to the same state as the field specified by `ancestor_field`, at which point `uses_ancestor_config` will be `true` and `reverting` will be `false`.
@@ -715,6 +1173,7 @@ components:
       type: object
     GoogleFirestoreAdminV1beta2IndexConfigDelta:
       description: Information about an index configuration change.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2IndexConfigDelta
       properties:
         changeType:
           description: Specifies how the index is changing.
@@ -722,19 +1181,28 @@ components:
             - CHANGE_TYPE_UNSPECIFIED
             - ADD
             - REMOVE
+          x-google-enum-descriptions:
+            - The type of change is not specified or known.
+            - The single field index is being added.
+            - The single field index is being removed.
           type: string
         index:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Index"
           description: The index being changed.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Index'
       type: object
     GoogleFirestoreAdminV1beta2IndexField:
       description: A field in an index. The field_path describes which field is indexed, the value_mode describes how the field value is indexed.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2IndexField
       properties:
         arrayConfig:
           description: Indicates that this field supports operations on `array_value`s.
           enum:
             - ARRAY_CONFIG_UNSPECIFIED
             - CONTAINS
+          x-google-enum-descriptions:
+            - The index does not support additional array queries.
+            - The index supports array containment queries.
           type: string
         fieldPath:
           description: Can be __name__. For single field indexes, this must match the name of the field or may be omitted.
@@ -745,24 +1213,31 @@ components:
             - ORDER_UNSPECIFIED
             - ASCENDING
             - DESCENDING
+          x-google-enum-descriptions:
+            - The ordering is unspecified. Not a valid option.
+            - The field is ordered by ascending field value.
+            - The field is ordered by descending field value.
           type: string
       type: object
     GoogleFirestoreAdminV1beta2IndexOperationMetadata:
       description: Metadata for google.longrunning.Operation results from FirestoreAdmin.CreateIndex.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2IndexOperationMetadata
       properties:
         endTime:
           description: The time this operation completed. Will be unset if operation still in progress.
           format: google-datetime
           type: string
         index:
-          description: "The index resource that this operation is acting on. For example: `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`"
+          description: 'The index resource that this operation is acting on. For example: `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`'
           type: string
         progressBytes:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Progress"
           description: The progress, in bytes, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Progress'
         progressDocuments:
-          $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Progress"
           description: The progress, in documents, of this operation.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Progress'
         startTime:
           description: The time this operation started.
           format: google-datetime
@@ -778,15 +1253,25 @@ components:
             - SUCCESSFUL
             - FAILED
             - CANCELLED
+          x-google-enum-descriptions:
+            - Unspecified.
+            - Request is being prepared for processing.
+            - Request is actively being processed.
+            - Request is in the process of being cancelled after user called google.longrunning.Operations.CancelOperation on the operation.
+            - Request has been processed and is in its finalization stage.
+            - Request has completed successfully.
+            - Request has finished being processed, but encountered an error.
+            - Request has finished being cancelled after user called google.longrunning.Operations.CancelOperation.
           type: string
       type: object
     GoogleFirestoreAdminV1beta2ListFieldsResponse:
       description: The response for FirestoreAdmin.ListFields.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2ListFieldsResponse
       properties:
         fields:
           description: The requested fields.
           items:
-            $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Field"
+            $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Field'
           type: array
         nextPageToken:
           description: A page token that may be used to request another page of results. If blank, this is the last page.
@@ -794,11 +1279,12 @@ components:
       type: object
     GoogleFirestoreAdminV1beta2ListIndexesResponse:
       description: The response for FirestoreAdmin.ListIndexes.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2ListIndexesResponse
       properties:
         indexes:
           description: The requested indexes.
           items:
-            $ref: "#/components/schemas/GoogleFirestoreAdminV1beta2Index"
+            $ref: '#/components/schemas/GoogleFirestoreAdminV1beta2Index'
           type: array
         nextPageToken:
           description: A page token that may be used to request another page of results. If blank, this is the last page.
@@ -806,6 +1292,7 @@ components:
       type: object
     GoogleFirestoreAdminV1beta2Progress:
       description: Describes the progress of the operation. Unit of work is generic and must be interpreted based on where Progress is used.
+      x-google-discovery-id: GoogleFirestoreAdminV1beta2Progress
       properties:
         completedWork:
           description: The amount of work completed.
@@ -818,16 +1305,19 @@ components:
       type: object
     GoogleLongrunningOperation:
       description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: GoogleLongrunningOperation
       properties:
         done:
           description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
           type: boolean
         error:
-          $ref: "#/components/schemas/Status"
           description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
           type: object
         name:
@@ -836,11 +1326,13 @@ components:
         response:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
           type: object
       type: object
     Status:
-      description: "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors)."
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
       properties:
         code:
           description: The status code, which should be an enum value of google.rpc.Code.
@@ -851,29 +1343,403 @@ components:
           items:
             additionalProperties:
               description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
             type: object
           type: array
         message:
           description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/datastore: View and manage your Google Cloud Datastore data
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/datastore: View and manage your Google Cloud Datastore data
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/firestore
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://firestore.googleapis.com/
+  batchPath: batch
+  canonicalName: Firestore
+  endpoints:
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.africa-south1.rep.googleapis.com/
+      location: africa-south1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-east1.rep.googleapis.com/
+      location: asia-east1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-east2.rep.googleapis.com/
+      location: asia-east2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-northeast1.rep.googleapis.com/
+      location: asia-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-northeast2.rep.googleapis.com/
+      location: asia-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-northeast3.rep.googleapis.com/
+      location: asia-northeast3
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-south1.rep.googleapis.com/
+      location: asia-south1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-south2.rep.googleapis.com/
+      location: asia-south2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-southeast1.rep.googleapis.com/
+      location: asia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-southeast2.rep.googleapis.com/
+      location: asia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.asia-southeast3.rep.googleapis.com/
+      location: asia-southeast3
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.australia-southeast1.rep.googleapis.com/
+      location: australia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.australia-southeast2.rep.googleapis.com/
+      location: australia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-central2.rep.googleapis.com/
+      location: europe-central2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-north1.rep.googleapis.com/
+      location: europe-north1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-north2.rep.googleapis.com/
+      location: europe-north2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-southwest1.rep.googleapis.com/
+      location: europe-southwest1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-west1.rep.googleapis.com/
+      location: europe-west1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-west10.rep.googleapis.com/
+      location: europe-west10
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-west12.rep.googleapis.com/
+      location: europe-west12
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-west2.rep.googleapis.com/
+      location: europe-west2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-west3.rep.googleapis.com/
+      location: europe-west3
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-west4.rep.googleapis.com/
+      location: europe-west4
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-west6.rep.googleapis.com/
+      location: europe-west6
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-west8.rep.googleapis.com/
+      location: europe-west8
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.europe-west9.rep.googleapis.com/
+      location: europe-west9
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.me-central1.rep.googleapis.com/
+      location: me-central1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.me-central2.rep.googleapis.com/
+      location: me-central2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.me-west1.rep.googleapis.com/
+      location: me-west1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.northamerica-northeast1.rep.googleapis.com/
+      location: northamerica-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.northamerica-northeast2.rep.googleapis.com/
+      location: northamerica-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.northamerica-south1.rep.googleapis.com/
+      location: northamerica-south1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.southamerica-east1.rep.googleapis.com/
+      location: southamerica-east1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.southamerica-west1.rep.googleapis.com/
+      location: southamerica-west1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us-central1.rep.googleapis.com/
+      location: us-central1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us-east1.rep.googleapis.com/
+      location: us-east1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us-east4.rep.googleapis.com/
+      location: us-east4
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us-east5.rep.googleapis.com/
+      location: us-east5
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us-south1.rep.googleapis.com/
+      location: us-south1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us-west1.rep.googleapis.com/
+      location: us-west1
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us-west2.rep.googleapis.com/
+      location: us-west2
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us-west3.rep.googleapis.com/
+      location: us-west3
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us-west4.rep.googleapis.com/
+      location: us-west4
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.africa-south1.rep.googleapis.com/
+      location: africa-south1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-east1.rep.googleapis.com/
+      location: asia-east1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-east2.rep.googleapis.com/
+      location: asia-east2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-northeast1.rep.googleapis.com/
+      location: asia-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-northeast2.rep.googleapis.com/
+      location: asia-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-northeast3.rep.googleapis.com/
+      location: asia-northeast3
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-south1.rep.googleapis.com/
+      location: asia-south1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-south2.rep.googleapis.com/
+      location: asia-south2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-southeast1.rep.googleapis.com/
+      location: asia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-southeast2.rep.googleapis.com/
+      location: asia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.asia-southeast3.rep.googleapis.com/
+      location: asia-southeast3
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.australia-southeast1.rep.googleapis.com/
+      location: australia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.australia-southeast2.rep.googleapis.com/
+      location: australia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-central2.rep.googleapis.com/
+      location: europe-central2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-north1.rep.googleapis.com/
+      location: europe-north1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-north2.rep.googleapis.com/
+      location: europe-north2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-southwest1.rep.googleapis.com/
+      location: europe-southwest1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-west1.rep.googleapis.com/
+      location: europe-west1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-west10.rep.googleapis.com/
+      location: europe-west10
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-west12.rep.googleapis.com/
+      location: europe-west12
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-west2.rep.googleapis.com/
+      location: europe-west2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-west3.rep.googleapis.com/
+      location: europe-west3
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-west4.rep.googleapis.com/
+      location: europe-west4
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-west6.rep.googleapis.com/
+      location: europe-west6
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-west8.rep.googleapis.com/
+      location: europe-west8
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.europe-west9.rep.googleapis.com/
+      location: europe-west9
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.me-central1.rep.googleapis.com/
+      location: me-central1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.me-central2.rep.googleapis.com/
+      location: me-central2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.me-west1.rep.googleapis.com/
+      location: me-west1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.northamerica-northeast1.rep.googleapis.com/
+      location: northamerica-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.northamerica-northeast2.rep.googleapis.com/
+      location: northamerica-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.northamerica-south1.rep.googleapis.com/
+      location: northamerica-south1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.southamerica-east1.rep.googleapis.com/
+      location: southamerica-east1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.southamerica-west1.rep.googleapis.com/
+      location: southamerica-west1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us-central1.rep.googleapis.com/
+      location: us-central1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us-east1.rep.googleapis.com/
+      location: us-east1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us-east4.rep.googleapis.com/
+      location: us-east4
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us-east5.rep.googleapis.com/
+      location: us-east5
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us-south1.rep.googleapis.com/
+      location: us-south1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us-west1.rep.googleapis.com/
+      location: us-west1
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us-west2.rep.googleapis.com/
+      location: us-west2
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us-west3.rep.googleapis.com/
+      location: us-west3
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us-west4.rep.googleapis.com/
+      location: us-west4
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.eu.rep.googleapis.com/
+      location: eu
+    - description: Regional Endpoint
+      endpointUrl: https://firestore.us.rep.googleapis.com/
+      location: us
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.eu.rep.googleapis.com/
+      location: eu
+    - description: Regional Endpoint
+      endpointUrl: https://batch-firestore.us.rep.googleapis.com/
+      location: us
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: firestore:v1beta2
+  kind: discovery#restDescription
+  mtlsRootUrl: https://firestore.mtls.googleapis.com/
+  name: firestore
+  revision: '20260810'
+  rootUrl: https://firestore.googleapis.com/
+  servicePath: ''
+  version_module: true

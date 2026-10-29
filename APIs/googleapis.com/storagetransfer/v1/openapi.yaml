@@ -1,13 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://storagetransfer.googleapis.com/
-x-hasEquivalentPaths: true
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: "Transfers data from external data sources to a Google Cloud Storage bucket or between Google Cloud Storage buckets. "
+  description: 'Transfers data from external data sources to a Google Cloud Storage bucket or between Google Cloud Storage buckets. '
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -22,682 +19,925 @@ info:
   x-logo:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
-    - converter:
-        url: https://github.com/mermade/oas-kit
-        version: 7.0.4
-      format: google
-      url: https://storagetransfer.googleapis.com/$discovery/rest?version=v1
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/storagetransfer.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/storagetransfer.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: storagetransfer
-externalDocs:
-  url: https://cloud.google.com/storage-transfer/docs
-tags:
-  - name: googleServiceAccounts
-  - name: projects
-  - name: transferJobs
-  - name: transferOperations
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260619; original source SHA-256 a7eba09129fd281c4a611be7ee8dcd46bb30bd9983833687c6c641a953f2296e.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://storagetransfer.googleapis.com
 paths:
   /v1/googleServiceAccounts/{projectId}:
     get:
-      description: Returns the Google service account that is used by Storage Transfer Service to access buckets in the project where transfers run or in other projects. Each Google service account is associated with one Google Cloud project. Users should add this service account to the Google Cloud Storage bucket ACLs to grant access to Storage Transfer Service. This service account is created and owned by Storage Transfer Service and can only be used by Storage Transfer Service.
       operationId: storagetransfer.googleServiceAccounts.get
+      description: Returns the Google service account that is used by Storage Transfer Service to access buckets in the project where transfers run or in other projects. Each Google service account is associated with one Google Cloud project. Users should add this service account to the Google Cloud Storage bucket ACLs to grant access to Storage Transfer Service. This service account is created and owned by Storage Transfer Service and can only be used by Storage Transfer Service.
       parameters:
-        - description: Required. The ID of the Google Cloud project that the Google service account is associated with.
+        - name: projectId
           in: path
-          name: projectId
-          required: true
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleServiceAccount"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
+          description: Required. The ID of the Google Cloud project that the Google service account is associated with.
+          required: true
       tags:
         - googleServiceAccounts
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/projects/{projectId}/agentPools:
-    get:
-      description: Lists agent pools.
-      operationId: storagetransfer.projects.agentPools.list
-      parameters:
-        - description: Required. The ID of the Google Cloud project that owns the job.
-          in: path
-          name: projectId
-          required: true
-          schema:
-            type: string
-        - description: 'An optional list of query parameters specified as JSON text in the form of: `{"agentPoolNames":["agentpool1","agentpool2",...]}` Since `agentPoolNames` support multiple values, its values must be specified with array notation. When the filter is either empty or not provided, the list returns all agent pools for the project.'
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: The list page size. The max allowed value is `256`.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The list page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListAgentPoolsResponse"
-          description: Successful response
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleServiceAccount'
+      x-google-discovery:
+        path: v1/googleServiceAccounts/{projectId}
+        flatPath: v1/googleServiceAccounts/{projectId}
+        parameterOrder:
+          - projectId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/agentPools:
     post:
-      description: Creates an agent pool resource.
       operationId: storagetransfer.projects.agentPools.create
+      description: Creates an agent pool resource.
       parameters:
-        - description: Required. The ID of the Google Cloud project that owns the agent pool.
+        - name: projectsId
           in: path
-          name: projectId
           required: true
+          description: Component of the original `projectId` resource name. Required. The ID of the Google Cloud project that owns the agent pool.
           schema:
             type: string
-        - description: "Required. The ID of the agent pool to create. The `agent_pool_id` must meet the following requirements: * Length of 128 characters or less. * Not start with the string `goog`. * Start with a lowercase ASCII character, followed by: * Zero or more: lowercase Latin alphabet characters, numerals, hyphens (`-`), periods (`.`), underscores (`_`), or tildes (`~`). * One or more numerals or lowercase ASCII characters. As expressed by the regular expression: `^(?!goog)[a-z]([a-z0-9-._~]*[a-z0-9])?$`."
+        - name: agentPoolId
           in: query
-          name: agentPoolId
           schema:
             type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AgentPool"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AgentPool"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
+          description: 'Required. The ID of the agent pool to create. The `agent_pool_id` must meet the following requirements: * Length of 128 characters or less. * Not start with the string `goog`. * Start with a lowercase ASCII character, followed by: * Zero or more: lowercase Latin alphabet characters, numerals, hyphens (`-`), periods (`.`), underscores (`_`), or tildes (`~`). * One or more numerals or lowercase ASCII characters. As expressed by the regular expression: `^(?!goog)[a-z]([a-z0-9-._~]*[a-z0-9])?$`.'
       tags:
         - projects
-  /v1/transferJobs:
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentPool'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPool'
+      x-google-discovery:
+        path: v1/projects/{+projectId}/agentPools
+        flatPath: v1/projects/{projectsId}/agentPools
+        resourceNameBindings:
+          projectsId: projectId
+        resourceNameParameters:
+          projectId:
+            description: Required. The ID of the Google Cloud project that owns the agent pool.
+            location: path
+            pattern: ^[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - projectId
     get:
-      description: Lists transfer jobs.
-      operationId: storagetransfer.transferJobs.list
+      operationId: storagetransfer.projects.agentPools.list
+      description: Lists agent pools.
       parameters:
-        - description: 'Required. A list of query parameters specified as JSON text in the form of: `{"projectId":"my_project_id", "jobNames":["jobid1","jobid2",...], "jobStatuses":["status1","status2",...]}` Since `jobNames` and `jobStatuses` support multiple values, their values must be specified with array notation. `projectId` is required. `jobNames` and `jobStatuses` are optional. The valid values for `jobStatuses` are case-insensitive: ENABLED, DISABLED, and DELETED.'
-          in: query
-          name: filter
+        - name: projectsId
+          in: path
           required: true
+          description: Component of the original `projectId` resource name. Required. The ID of the Google Cloud project that owns the job.
           schema:
             type: string
-        - description: The list page size. The max allowed value is 256.
+        - name: filter
           in: query
-          name: pageSize
           schema:
+            type: string
+          description: 'An optional list of query parameters specified as JSON text in the form of: `{"agentPoolNames":["agentpool1","agentpool2",...]}` Since `agentPoolNames` support multiple values, its values must be specified with array notation. When the filter is either empty or not provided, the list returns all agent pools for the project.'
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: The list page token.
+          description: The list page size. The max allowed value is `256`.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListTransferJobsResponse"
-          description: Successful response
+          description: The list page token.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - transferJobs
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentPoolsResponse'
+      x-google-discovery:
+        path: v1/projects/{+projectId}/agentPools
+        flatPath: v1/projects/{projectsId}/agentPools
+        resourceNameBindings:
+          projectsId: projectId
+        resourceNameParameters:
+          projectId:
+            description: Required. The ID of the Google Cloud project that owns the job.
+            location: path
+            pattern: ^[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - projectId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a transfer job that runs periodically.
-      operationId: storagetransfer.transferJobs.create
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/TransferJob"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TransferJob"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - transferJobs
-  /v1/{jobName}:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/agentPools/{agentPoolsId}:
     delete:
-      description: Deletes a transfer job. Deleting a transfer job sets its status to DELETED.
-      operationId: storagetransfer.transferJobs.delete
-      parameters:
-        - description: Required. The job to delete.
-          in: path
-          name: jobName
-          required: true
-          schema:
-            type: string
-        - description: Required. The ID of the Google Cloud project that owns the job.
-          in: query
-          name: projectId
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - transferJobs
-    get:
-      description: Gets a transfer job.
-      operationId: storagetransfer.transferJobs.get
-      parameters:
-        - description: Required. The job to get.
-          in: path
-          name: jobName
-          required: true
-          schema:
-            type: string
-        - description: Required. The ID of the Google Cloud project that owns the job.
-          in: query
-          name: projectId
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TransferJob"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - transferJobs
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Updates a transfer job. Updating a job's transfer spec does not affect transfer operations that are running already. **Note:** The job's status field can be modified using this RPC (for example, to set a job's status to DELETED, DISABLED, or ENABLED).
-      operationId: storagetransfer.transferJobs.patch
-      parameters:
-        - description: Required. The name of job to update.
-          in: path
-          name: jobName
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateTransferJobRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TransferJob"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - transferJobs
-  /v1/{jobName}:run:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Starts a new operation for the specified transfer job. A `TransferJob` has a maximum of one active `TransferOperation`. If this method is called while a `TransferOperation` is active, an error is returned.
-      operationId: storagetransfer.transferJobs.run
-      parameters:
-        - description: Required. The name of the transfer job.
-          in: path
-          name: jobName
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RunTransferJobRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - transferJobs
-  /v1/{name}:
-    delete:
-      description: Deletes an agent pool.
       operationId: storagetransfer.projects.agentPools.delete
+      description: Deletes an agent pool.
       parameters:
-        - description: Required. The name of the agent pool to delete.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Required. The name of the agent pool to delete.
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
+        - name: agentPoolsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the agent pool to delete.
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/agentPools/{agentPoolsId}
+        resourceNameBindings:
+          projectsId: name
+          agentPoolsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the agent pool to delete.
+            location: path
+            pattern: ^projects/[^/]+/agentPools/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     get:
-      description: Lists transfer operations. Operations are ordered by their creation time in reverse chronological order.
-      operationId: storagetransfer.transferOperations.list
+      operationId: storagetransfer.projects.agentPools.get
+      description: Gets an agent pool.
       parameters:
-        - description: Required. The name of the type being listed; must be `transferOperations`.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Required. The name of the agent pool to get.
           schema:
             type: string
-        - description: "Required. A list of query parameters specified as JSON text in the form of: `{\"projectId\":\"my_project_id\", \"jobNames\":[\"jobid1\",\"jobid2\",...], \"jobNamePattern\": \"job_name_pattern\", \"operationNames\":[\"opid1\",\"opid2\",...], \"operationNamePattern\": \"operation_name_pattern\", \"minCreationTime\": \"min_creation_time\", \"maxCreationTime\": \"max_creation_time\", \"transferStatuses\":[\"status1\",\"status2\",...]}` Since `jobNames`, `operationNames`, and `transferStatuses` support multiple values, they must be specified with array notation. `projectId` is the only argument that is required. If specified, `jobNamePattern` and `operationNamePattern` must match the full job or operation name respectively. '*' is a wildcard matching 0 or more characters. `minCreationTime` and `maxCreationTime` should be timestamps encoded as a string in the [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. The valid values for `transferStatuses` are case-insensitive: IN_PROGRESS, PAUSED, SUCCESS, FAILED, and ABORTED."
-          in: query
-          name: filter
-          required: true
-          schema:
-            type: string
-        - description: The list page size. The max allowed value is 256.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The list page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListOperationsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - transferOperations
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Updates an existing agent pool resource.
-      operationId: storagetransfer.projects.agentPools.patch
-      parameters:
-        - description: "Required. Specifies a unique string that identifies the agent pool. Format: `projects/{project_id}/agentPools/{agent_pool_id}`"
+        - name: agentPoolsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Required. The name of the agent pool to get.
           schema:
             type: string
-        - description: "The [field mask] (https://developers.google.com/protocol-buffers/docs/reference/google.protobuf) of the fields in `agentPool` to update in this request. The following `agentPool` fields can be updated: * display_name * bandwidth_limit"
-          in: query
-          name: updateMask
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AgentPool"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AgentPool"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
       tags:
         - projects
-  /v1/{name}:cancel:
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPool'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/agentPools/{agentPoolsId}
+        resourceNameBindings:
+          projectsId: name
+          agentPoolsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the agent pool to get.
+            location: path
+            pattern: ^projects/[^/]+/agentPools/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: storagetransfer.projects.agentPools.patch
+      description: Updates an existing agent pool resource.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Specifies a unique string that identifies the agent pool. Format: `projects/{project_id}/agentPools/{agent_pool_id}`'
+          schema:
+            type: string
+        - name: agentPoolsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Specifies a unique string that identifies the agent pool. Format: `projects/{project_id}/agentPools/{agent_pool_id}`'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: 'The [field mask] (https://developers.google.com/protocol-buffers/docs/reference/google.protobuf) of the fields in `agentPool` to update in this request. The following `agentPool` fields can be updated: * display_name * bandwidth_limit'
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentPool'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPool'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/agentPools/{agentPoolsId}
+        resourceNameBindings:
+          projectsId: name
+          agentPoolsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Specifies a unique string that identifies the agent pool. Format: `projects/{project_id}/agentPools/{agent_pool_id}`'
+            location: path
+            pattern: ^projects/[^/]+/agentPools/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/transferJobs:
     post:
-      description: Cancels a transfer. Use the transferOperations.get method to check if the cancellation succeeded or if the operation completed despite the `cancel` request. When you cancel an operation, the currently running transfer is interrupted. For recurring transfer jobs, the next instance of the transfer job will still run. For example, if your job is configured to run every day at 1pm and you cancel Monday's operation at 1:05pm, Monday's transfer will stop. However, a transfer job will still be attempted on Tuesday. This applies only to currently running operations. If an operation is not currently running, `cancel` does nothing. *Caution:* Canceling a transfer job can leave your data in an unknown state. We recommend that you restore the state at both the destination and the source after the `cancel` request completes so that your data is in a consistent state. When you cancel a job, the next job computes a delta of files and may repair any inconsistent state. For instance, if you run a job every day, and today's job found 10 new files and transferred five files before you canceled the job, tomorrow's transfer operation will compute a new delta with the five files that were not copied today plus any new files discovered tomorrow.
+      operationId: storagetransfer.transferJobs.create
+      description: Creates a transfer job that runs periodically.
+      tags:
+        - transferJobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferJob'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferJob'
+      x-google-discovery:
+        path: v1/transferJobs
+        flatPath: v1/transferJobs
+        parameterOrder: []
+    get:
+      operationId: storagetransfer.transferJobs.list
+      description: Lists transfer jobs.
+      parameters:
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: 'Required. A list of query parameters specified as JSON text in the form of: ``` { "projectId":"my_project_id", "jobNames":["jobid1","jobid2",...], "jobStatuses":["status1","status2",...], "dataBackend":"QUERY_REPLICATION_CONFIGS", "sourceBucket":"source-bucket-name", "sinkBucket":"sink-bucket-name", } ``` The JSON formatting in the example is for display only; provide the query parameters without spaces or line breaks. * `projectId` is required. * Since `jobNames` and `jobStatuses` support multiple values, their values must be specified with array notation. `jobNames` and `jobStatuses` are optional. Valid values are case-insensitive: * ENABLED * DISABLED * DELETED * Specify `"dataBackend":"QUERY_REPLICATION_CONFIGS"` to return a list of cross-bucket replication jobs. * Limit the results to jobs from a particular bucket with `sourceBucket` and/or to a particular bucket with `sinkBucket`.'
+          required: true
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The list page size. The max allowed value is 256.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The list page token.
+      tags:
+        - transferJobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTransferJobsResponse'
+      x-google-discovery:
+        path: v1/transferJobs
+        flatPath: v1/transferJobs
+        parameterOrder:
+          - filter
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/transferJobs/{transferJobsId}:
+    delete:
+      operationId: storagetransfer.transferJobs.delete
+      description: Deletes a transfer job. Deleting a transfer job sets its status to DELETED.
+      parameters:
+        - name: transferJobsId
+          in: path
+          required: true
+          description: Component of the original `jobName` resource name. Required. The job to delete.
+          schema:
+            type: string
+        - name: projectId
+          in: query
+          schema:
+            type: string
+          description: Required. The ID of the Google Cloud project that owns the job.
+          required: true
+      tags:
+        - transferJobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+jobName}
+        flatPath: v1/transferJobs/{transferJobsId}
+        resourceNameBindings:
+          transferJobsId: jobName
+        resourceNameParameters:
+          jobName:
+            description: Required. The job to delete.
+            location: path
+            pattern: ^transferJobs/.*$
+            required: true
+            type: string
+        parameterOrder:
+          - jobName
+          - projectId
+    get:
+      operationId: storagetransfer.transferJobs.get
+      description: Gets a transfer job.
+      parameters:
+        - name: transferJobsId
+          in: path
+          required: true
+          description: Component of the original `jobName` resource name. Required. The job to get.
+          schema:
+            type: string
+        - name: projectId
+          in: query
+          schema:
+            type: string
+          description: Required. The ID of the Google Cloud project that owns the job.
+          required: true
+      tags:
+        - transferJobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferJob'
+      x-google-discovery:
+        path: v1/{+jobName}
+        flatPath: v1/transferJobs/{transferJobsId}
+        resourceNameBindings:
+          transferJobsId: jobName
+        resourceNameParameters:
+          jobName:
+            description: Required. The job to get.
+            location: path
+            pattern: ^transferJobs/.*$
+            required: true
+            type: string
+        parameterOrder:
+          - jobName
+          - projectId
+    patch:
+      operationId: storagetransfer.transferJobs.patch
+      description: Updates a transfer job. Updating a job's transfer spec does not affect transfer operations that are running already. **Note:** The job's status field can be modified using this RPC (for example, to set a job's status to DELETED, DISABLED, or ENABLED).
+      parameters:
+        - name: transferJobsId
+          in: path
+          required: true
+          description: Component of the original `jobName` resource name. Required. The name of job to update.
+          schema:
+            type: string
+      tags:
+        - transferJobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTransferJobRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferJob'
+      x-google-discovery:
+        path: v1/{+jobName}
+        flatPath: v1/transferJobs/{transferJobsId}
+        resourceNameBindings:
+          transferJobsId: jobName
+        resourceNameParameters:
+          jobName:
+            description: Required. The name of job to update.
+            location: path
+            pattern: ^transferJobs/.*$
+            required: true
+            type: string
+        parameterOrder:
+          - jobName
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/transferJobs/{transferJobsId}:run:
+    post:
+      operationId: storagetransfer.transferJobs.run
+      description: Starts a new operation for the specified transfer job. A `TransferJob` has a maximum of one active `TransferOperation`. If this method is called while a `TransferOperation` is active, an error is returned.
+      parameters:
+        - name: transferJobsId
+          in: path
+          required: true
+          description: Component of the original `jobName` resource name. Required. The name of the transfer job.
+          schema:
+            type: string
+      tags:
+        - transferJobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunTransferJobRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+jobName}:run
+        flatPath: v1/transferJobs/{transferJobsId}:run
+        resourceNameBindings:
+          transferJobsId: jobName
+        resourceNameParameters:
+          jobName:
+            description: Required. The name of the transfer job.
+            location: path
+            pattern: ^transferJobs/.*$
+            required: true
+            type: string
+        parameterOrder:
+          - jobName
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/transferOperations/{transferOperationsId}:cancel:
+    post:
       operationId: storagetransfer.transferOperations.cancel
+      description: Cancels a transfer. Use the transferOperations.get method to check if the cancellation succeeded or if the operation completed despite the `cancel` request. When you cancel an operation, the currently running transfer is interrupted. For recurring transfer jobs, the next instance of the transfer job will still run. For example, if your job is configured to run every day at 1pm and you cancel Monday's operation at 1:05pm, Monday's transfer will stop. However, a transfer job will still be attempted on Tuesday. This applies only to currently running operations. If an operation is not currently running, `cancel` does nothing. *Caution:* Canceling a transfer job can leave your data in an unknown state. We recommend that you restore the state at both the destination and the source after the `cancel` request completes so that your data is in a consistent state. When you cancel a job, the next job computes a delta of files and may repair any inconsistent state. For instance, if you run a job every day, and today's job found 10 new files and transferred five files before you canceled the job, tomorrow's transfer operation will compute a new delta with the five files that were not copied today plus any new files discovered tomorrow.
       parameters:
-        - description: The name of the operation resource to be cancelled.
+        - name: transferOperationsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
           schema:
             type: string
+      tags:
+        - transferOperations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CancelOperationRequest"
+              $ref: '#/components/schemas/CancelOperationRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}:cancel
+        flatPath: v1/transferOperations/{transferOperationsId}:cancel
+        resourceNameBindings:
+          transferOperationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be cancelled.
+            location: path
+            pattern: ^transferOperations/.*$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/transferOperations/{transferOperationsId}:
+    get:
+      operationId: storagetransfer.transferOperations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: transferOperationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - transferOperations
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/transferOperations/{transferOperationsId}
+        resourceNameBindings:
+          transferOperationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^transferOperations/.*$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/transferOperations:
+    get:
+      operationId: storagetransfer.transferOperations.list
+      description: Lists transfer operations. Operations are ordered by their creation time in reverse chronological order.
+      parameters:
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: 'Required. A list of query parameters specified as JSON text in the form of: `{"projectId":"my_project_id", "jobNames":["jobid1","jobid2",...], "jobNamePattern": "job_name_pattern", "operationNames":["opid1","opid2",...], "operationNamePattern": "operation_name_pattern", "minCreationTime": "min_creation_time", "maxCreationTime": "max_creation_time", "transferStatuses":["status1","status2",...]}` Since `jobNames`, `operationNames`, and `transferStatuses` support multiple values, they must be specified with array notation. `projectId` is the only argument that is required. If specified, `jobNamePattern` and `operationNamePattern` must match the full job or operation name respectively. ''*'' is a wildcard matching 0 or more characters. `minCreationTime` and `maxCreationTime` should be timestamps encoded as a string in the [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. The valid values for `transferStatuses` are case-insensitive: IN_PROGRESS, PAUSED, SUCCESS, FAILED, and ABORTED.'
+          required: true
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The list page size. The max allowed value is 256.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The list page token.
+        - name: returnPartialSuccess
+          in: query
+          schema:
+            type: boolean
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the ListOperationsResponse.unreachable field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"`. This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
       tags:
         - transferOperations
-  /v1/{name}:pause:
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/transferOperations
+        resourceNameBindings: {}
+        resourceNameConstants:
+          name: transferOperations
+        resourceNameParameters:
+          name:
+            description: Required. The name of the type being listed; must be `transferOperations`.
+            location: path
+            pattern: ^transferOperations$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+          - filter
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/transferOperations/{transferOperationsId}:pause:
     post:
-      description: Pauses a transfer operation.
       operationId: storagetransfer.transferOperations.pause
+      description: Pauses a transfer operation.
       parameters:
-        - description: Required. The name of the transfer operation.
+        - name: transferOperationsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Required. The name of the transfer operation.
           schema:
             type: string
+      tags:
+        - transferOperations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PauseTransferOperationRequest"
+              $ref: '#/components/schemas/PauseTransferOperationRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - transferOperations
-  /v1/{name}:resume:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}:pause
+        flatPath: v1/transferOperations/{transferOperationsId}:pause
+        resourceNameBindings:
+          transferOperationsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the transfer operation.
+            location: path
+            pattern: ^transferOperations/.*$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/transferOperations/{transferOperationsId}:resume:
     post:
-      description: Resumes a transfer operation that is paused.
       operationId: storagetransfer.transferOperations.resume
+      description: Resumes a transfer operation that is paused.
       parameters:
-        - description: Required. The name of the transfer operation.
+        - name: transferOperationsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Required. The name of the transfer operation.
           schema:
             type: string
+      tags:
+        - transferOperations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ResumeTransferOperationRequest"
+              $ref: '#/components/schemas/ResumeTransferOperationRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - transferOperations
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}:resume
+        flatPath: v1/transferOperations/{transferOperationsId}:resume
+        resourceNameBindings:
+          transferOperationsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the transfer operation.
+            location: path
+            pattern: ^transferOperations/.*$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     AgentPool:
-      description: Represents an On-Premises Agent pool.
+      description: Represents an agent pool.
+      x-google-discovery-id: AgentPool
       properties:
         bandwidthLimit:
-          $ref: "#/components/schemas/BandwidthLimit"
           description: Specifies the bandwidth limit details. If this field is unspecified, the default value is set as 'No Limit'.
+          allOf:
+            - $ref: '#/components/schemas/BandwidthLimit'
         displayName:
           description: Specifies the client-specified AgentPool description.
           type: string
         name:
-          description: "Required. Specifies a unique string that identifies the agent pool. Format: `projects/{project_id}/agentPools/{agent_pool_id}`"
+          description: 'Required. Specifies a unique string that identifies the agent pool. Format: `projects/{project_id}/agentPools/{agent_pool_id}`'
           type: string
         state:
           description: Output only. Specifies the state of the AgentPool.
@@ -706,11 +946,17 @@ components:
             - CREATING
             - CREATED
             - DELETING
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - This is an initialization state. During this stage, resources are allocated for the AgentPool.
+            - Determines that the AgentPool is created for use. At this state, Agents can join the AgentPool and participate in the transfer jobs in that pool.
+            - Determines that the AgentPool deletion has been initiated, and all the resources are scheduled to be cleaned up and freed.
           readOnly: true
           type: string
       type: object
     AwsAccessKey:
       description: AWS access key (see [AWS Security Credentials](https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)). For information on our data retention policy for user credentials, see [User credentials](/storage-transfer/docs/data-retention#user-credentials).
+      x-google-discovery-id: AwsAccessKey
       properties:
         accessKeyId:
           description: Required. AWS access key ID.
@@ -721,6 +967,7 @@ components:
       type: object
     AwsS3CompatibleData:
       description: An AwsS3CompatibleData resource.
+      x-google-discovery-id: AwsS3CompatibleData
       properties:
         bucketName:
           description: Required. Specifies the name of the bucket.
@@ -735,26 +982,35 @@ components:
           description: Specifies the region to sign requests with. This can be left blank if requests should be signed with an empty region.
           type: string
         s3Metadata:
-          $ref: "#/components/schemas/S3CompatibleMetadata"
           description: A S3 compatible metadata.
+          allOf:
+            - $ref: '#/components/schemas/S3CompatibleMetadata'
       type: object
     AwsS3Data:
       description: An AwsS3Data resource can be a data source, but not a data sink. In an AwsS3Data resource, an object's name is the S3 object's key name.
+      x-google-discovery-id: AwsS3Data
       properties:
         awsAccessKey:
-          $ref: "#/components/schemas/AwsAccessKey"
           description: Input only. AWS access key used to sign the API requests to the AWS S3 bucket. Permissions on the bucket must be granted to the access ID of the AWS access key. For information on our data retention policy for user credentials, see [User credentials](/storage-transfer/docs/data-retention#user-credentials).
+          allOf:
+            - $ref: '#/components/schemas/AwsAccessKey'
         bucketName:
           description: Required. S3 Bucket name (see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/create-bucket-get-location-example.html)).
           type: string
         cloudfrontDomain:
-          description: "Optional. Cloudfront domain name pointing to this bucket (as origin), to use when fetching. Format: `https://{id}.cloudfront.net` or any valid custom domain `https://...`"
+          description: 'Optional. The CloudFront distribution domain name pointing to this bucket, to use when fetching. See [Transfer from S3 via CloudFront](https://cloud.google.com/storage-transfer/docs/s3-cloudfront) for more information. Format: `https://{id}.cloudfront.net` or any valid custom domain. Must begin with `https://`.'
           type: string
         credentialsSecret:
-          description: 'Optional. The Resource name of a secret in Secret Manager. AWS credentials must be stored in Secret Manager in JSON format: { "access_key_id": "ACCESS_KEY_ID", "secret_access_key": "SECRET_ACCESS_KEY" } GoogleServiceAccount must be granted `roles/secretmanager.secretAccessor` for the resource. See [Configure access to a source: Amazon S3] (https://cloud.google.com/storage-transfer/docs/source-amazon-s3#secret_manager) for more information. If `credentials_secret` is specified, do not specify role_arn or aws_access_key. This feature is in [preview](https://cloud.google.com/terms/service-terms#1). Format: `projects/{project_number}/secrets/{secret_name}`'
+          description: 'Optional. The Resource name of a secret in Secret Manager. AWS credentials must be stored in Secret Manager in JSON format: { "access_key_id": "ACCESS_KEY_ID", "secret_access_key": "SECRET_ACCESS_KEY" } GoogleServiceAccount must be granted `roles/secretmanager.secretAccessor` for the resource. See [Configure access to a source: Amazon S3] (https://cloud.google.com/storage-transfer/docs/source-amazon-s3#secret_manager) for more information. If `credentials_secret` is specified, do not specify role_arn or aws_access_key. Format: `projects/{project_number}/secrets/{secret_name}`'
           type: string
+        managedPrivateNetwork:
+          description: Egress bytes over a Google-managed private network. This network is shared between other users of Storage Transfer Service.
+          type: boolean
         path:
           description: Root path to transfer objects. Must be an empty string or full path name that ends with a '/'. This field is treated as an object prefix. As such, it should generally not begin with a '/'.
+          type: string
+        privateNetworkService:
+          description: 'Service Directory Service to be used as the endpoint for transfers from a custom VPC. Format: `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service}`'
           type: string
         roleArn:
           description: The Amazon Resource Name (ARN) of the role to support temporary credentials via `AssumeRoleWithWebIdentity`. For more information about ARNs, see [IAM ARNs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns). When a role ARN is provided, Transfer Service fetches temporary credentials for the session using a `AssumeRoleWithWebIdentity` call for the provided role using the GoogleServiceAccount for this project.
@@ -762,18 +1018,27 @@ components:
       type: object
     AzureBlobStorageData:
       description: An AzureBlobStorageData resource can be a data source, but not a data sink. An AzureBlobStorageData resource represents one Azure container. The storage account determines the [Azure endpoint](https://docs.microsoft.com/en-us/azure/storage/common/storage-create-storage-account#storage-account-endpoints). In an AzureBlobStorageData resource, a blobs's name is the [Azure Blob Storage blob's key name](https://docs.microsoft.com/en-us/rest/api/storageservices/naming-and-referencing-containers--blobs--and-metadata#blob-names).
+      x-google-discovery-id: AzureBlobStorageData
       properties:
         azureCredentials:
-          $ref: "#/components/schemas/AzureCredentials"
           description: Required. Input only. Credentials used to authenticate API requests to Azure. For information on our data retention policy for user credentials, see [User credentials](/storage-transfer/docs/data-retention#user-credentials).
+          allOf:
+            - $ref: '#/components/schemas/AzureCredentials'
         container:
           description: Required. The container to transfer from the Azure Storage account.
           type: string
         credentialsSecret:
-          description: 'Optional. The Resource name of a secret in Secret Manager. The Azure SAS token must be stored in Secret Manager in JSON format: { "sas_token" : "SAS_TOKEN" } GoogleServiceAccount must be granted `roles/secretmanager.secretAccessor` for the resource. See [Configure access to a source: Microsoft Azure Blob Storage] (https://cloud.google.com/storage-transfer/docs/source-microsoft-azure#secret_manager) for more information. If `credentials_secret` is specified, do not specify azure_credentials. This feature is in [preview](https://cloud.google.com/terms/service-terms#1). Format: `projects/{project_number}/secrets/{secret_name}`'
+          description: 'Optional. The Resource name of a secret in Secret Manager. The Azure SAS token must be stored in Secret Manager in JSON format: { "sas_token" : "SAS_TOKEN" } GoogleServiceAccount must be granted `roles/secretmanager.secretAccessor` for the resource. See [Configure access to a source: Microsoft Azure Blob Storage] (https://cloud.google.com/storage-transfer/docs/source-microsoft-azure#secret_manager) for more information. If `credentials_secret` is specified, do not specify azure_credentials. Format: `projects/{project_number}/secrets/{secret_name}`'
           type: string
+        federatedIdentityConfig:
+          description: Optional. Federated identity config of a user registered Azure application. If `federated_identity_config` is specified, do not specify azure_credentials or credentials_secret.
+          allOf:
+            - $ref: '#/components/schemas/FederatedIdentityConfig'
         path:
           description: Root path to transfer objects. Must be an empty string or full path name that ends with a '/'. This field is treated as an object prefix. As such, it should generally not begin with a '/'.
+          type: string
+        privateNetworkService:
+          description: 'Service Directory Service to be used as the endpoint for transfers from a custom VPC. Format: `projects/{project_id}/locations/{location}/namespaces/{namespace}/services/{service}`'
           type: string
         storageAccount:
           description: Required. The name of the Azure Storage account.
@@ -781,6 +1046,7 @@ components:
       type: object
     AzureCredentials:
       description: Azure credentials For information on our data retention policy for user credentials, see [User credentials](/storage-transfer/docs/data-retention#user-credentials).
+      x-google-discovery-id: AzureCredentials
       properties:
         sasToken:
           description: Required. Azure shared access signature (SAS). For more information about SAS, see [Grant limited access to Azure Storage resources using shared access signatures (SAS)](https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview).
@@ -788,6 +1054,7 @@ components:
       type: object
     BandwidthLimit:
       description: Specifies a bandwidth limit for an agent pool.
+      x-google-discovery-id: BandwidthLimit
       properties:
         limitMbps:
           description: Bandwidth rate in megabytes per second, distributed across all the agents in the pool.
@@ -796,10 +1063,12 @@ components:
       type: object
     CancelOperationRequest:
       description: The request message for Operations.CancelOperation.
+      x-google-discovery-id: CancelOperationRequest
       properties: {}
       type: object
     Date:
-      description: "Represents a whole or partial calendar date, such as a birthday. The time of day and time zone are either specified elsewhere or are insignificant. The date is relative to the Gregorian Calendar. This can represent one of the following: * A full date, with non-zero year, month, and day values. * A month and day, with a zero year (for example, an anniversary). * A year on its own, with a zero month and a zero day. * A year and month, with a zero day (for example, a credit card expiration date). Related types: * google.type.TimeOfDay * google.type.DateTime * google.protobuf.Timestamp"
+      description: 'Represents a whole or partial calendar date, such as a birthday. The time of day and time zone are either specified elsewhere or are insignificant. The date is relative to the Gregorian Calendar. This can represent one of the following: * A full date, with non-zero year, month, and day values. * A month and day, with a zero year (for example, an anniversary). * A year on its own, with a zero month and a zero day. * A year and month, with a zero day (for example, a credit card expiration date). Related types: * google.type.TimeOfDay * google.type.DateTime * google.protobuf.Timestamp'
+      x-google-discovery-id: Date
       properties:
         day:
           description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
@@ -815,23 +1084,27 @@ components:
           type: integer
       type: object
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     ErrorLogEntry:
-      description: An entry describing an error that has occurred.
+      description: LINT.IfChange An entry describing an error that has occurred.
+      x-google-discovery-id: ErrorLogEntry
       properties:
         errorDetails:
-          description: A list of messages that carry the error details.
+          description: Optional. A list of messages that carry the error details.
           items:
             type: string
           type: array
         url:
-          description: Required. A URL that refers to the target (a data source, a data sink, or an object) with which the error is associated.
+          description: Output only. A URL that refers to the target (a data source, a data sink, or an object) with which the error is associated.
+          readOnly: true
           type: string
       type: object
     ErrorSummary:
       description: A summary of errors by error code, plus a count and sample error log entries.
+      x-google-discovery-id: ErrorSummary
       properties:
         errorCode:
           description: Required.
@@ -853,6 +1126,24 @@ components:
             - INTERNAL
             - UNAVAILABLE
             - DATA_LOSS
+          x-google-enum-descriptions:
+            - 'Not an error; returned on success. HTTP Mapping: 200 OK'
+            - 'The operation was cancelled, typically by the caller. HTTP Mapping: 499 Client Closed Request'
+            - 'Unknown error. For example, this error may be returned when a `Status` value received from another address space belongs to an error space that is not known in this address space. Also errors raised by APIs that do not return enough error information may be converted to this error. HTTP Mapping: 500 Internal Server Error'
+            - 'The client specified an invalid argument. Note that this differs from `FAILED_PRECONDITION`. `INVALID_ARGUMENT` indicates arguments that are problematic regardless of the state of the system (e.g., a malformed file name). HTTP Mapping: 400 Bad Request'
+            - 'The deadline expired before the operation could complete. For operations that change the state of the system, this error may be returned even if the operation has completed successfully. For example, a successful response from a server could have been delayed long enough for the deadline to expire. HTTP Mapping: 504 Gateway Timeout'
+            - 'Some requested entity (e.g., file or directory) was not found. Note to server developers: if a request is denied for an entire class of users, such as gradual feature rollout or undocumented allowlist, `NOT_FOUND` may be used. If a request is denied for some users within a class of users, such as user-based access control, `PERMISSION_DENIED` must be used. HTTP Mapping: 404 Not Found'
+            - 'The entity that a client attempted to create (e.g., file or directory) already exists. HTTP Mapping: 409 Conflict'
+            - 'The caller does not have permission to execute the specified operation. `PERMISSION_DENIED` must not be used for rejections caused by exhausting some resource (use `RESOURCE_EXHAUSTED` instead for those errors). `PERMISSION_DENIED` must not be used if the caller can not be identified (use `UNAUTHENTICATED` instead for those errors). This error code does not imply the request is valid or the requested entity exists or satisfies other pre-conditions. HTTP Mapping: 403 Forbidden'
+            - 'The request does not have valid authentication credentials for the operation. HTTP Mapping: 401 Unauthorized'
+            - 'Some resource has been exhausted, perhaps a per-user quota, or perhaps the entire file system is out of space. HTTP Mapping: 429 Too Many Requests'
+            - 'The operation was rejected because the system is not in a state required for the operation''s execution. For example, the directory to be deleted is non-empty, an rmdir operation is applied to a non-directory, etc. Service implementors can use the following guidelines to decide between `FAILED_PRECONDITION`, `ABORTED`, and `UNAVAILABLE`: (a) Use `UNAVAILABLE` if the client can retry just the failing call. (b) Use `ABORTED` if the client should retry at a higher level. For example, when a client-specified test-and-set fails, indicating the client should restart a read-modify-write sequence. (c) Use `FAILED_PRECONDITION` if the client should not retry until the system state has been explicitly fixed. For example, if an "rmdir" fails because the directory is non-empty, `FAILED_PRECONDITION` should be returned since the client should not retry unless the files are deleted from the directory. HTTP Mapping: 400 Bad Request'
+            - 'The operation was aborted, typically due to a concurrency issue such as a sequencer check failure or transaction abort. See the guidelines above for deciding between `FAILED_PRECONDITION`, `ABORTED`, and `UNAVAILABLE`. HTTP Mapping: 409 Conflict'
+            - 'The operation was attempted past the valid range. E.g., seeking or reading past end-of-file. Unlike `INVALID_ARGUMENT`, this error indicates a problem that may be fixed if the system state changes. For example, a 32-bit file system will generate `INVALID_ARGUMENT` if asked to read at an offset that is not in the range [0,2^32-1], but it will generate `OUT_OF_RANGE` if asked to read from an offset past the current file size. There is a fair bit of overlap between `FAILED_PRECONDITION` and `OUT_OF_RANGE`. We recommend using `OUT_OF_RANGE` (the more specific error) when it applies so that callers who are iterating through a space can easily look for an `OUT_OF_RANGE` error to detect when they are done. HTTP Mapping: 400 Bad Request'
+            - 'The operation is not implemented or is not supported/enabled in this service. HTTP Mapping: 501 Not Implemented'
+            - 'Internal errors. This means that some invariants expected by the underlying system have been broken. This error code is reserved for serious errors. HTTP Mapping: 500 Internal Server Error'
+            - 'The service is currently unavailable. This is most likely a transient condition, which can be corrected by retrying with a backoff. Note that it is not always safe to retry non-idempotent operations. See the guidelines above for deciding between `FAILED_PRECONDITION`, `ABORTED`, and `UNAVAILABLE`. HTTP Mapping: 503 Service Unavailable'
+            - 'Unrecoverable data loss or corruption. HTTP Mapping: 500 Internal Server Error'
           type: string
         errorCount:
           description: Required. Count of this type of error.
@@ -861,11 +1152,12 @@ components:
         errorLogEntries:
           description: Error samples. At most 5 error log entries are recorded for a given error code for a single transfer operation.
           items:
-            $ref: "#/components/schemas/ErrorLogEntry"
+            $ref: '#/components/schemas/ErrorLogEntry'
           type: array
       type: object
     EventStream:
       description: Specifies the Event-driven transfer options. Event-driven transfers listen to an event stream to transfer updated files.
+      x-google-discovery-id: EventStream
       properties:
         eventStreamExpirationTime:
           description: Specifies the data and time at which Storage Transfer Service stops listening for events from this stream. After this time, any transfers in progress will complete, but no new transfers are initiated.
@@ -879,14 +1171,26 @@ components:
           description: Required. Specifies a unique name of the resource such as AWS SQS ARN in the form 'arn:aws:sqs:region:account_id:queue_name', or Pub/Sub subscription resource name in the form 'projects/{project}/subscriptions/{sub}'.
           type: string
       type: object
+    FederatedIdentityConfig:
+      description: The identity of an Azure application through which Storage Transfer Service can authenticate requests using Azure workload identity federation. Storage Transfer Service can issue requests to Azure Storage through registered Azure applications, eliminating the need to pass credentials to Storage Transfer Service directly. To configure federated identity, see [Configure access to Microsoft Azure Storage](https://cloud.google.com/storage-transfer/docs/source-microsoft-azure#option_3_authenticate_using_federated_identity).
+      x-google-discovery-id: FederatedIdentityConfig
+      properties:
+        clientId:
+          description: Required. The client (application) ID of the application with federated credentials.
+          type: string
+        tenantId:
+          description: Required. The tenant (directory) ID of the application with federated credentials.
+          type: string
+      type: object
     GcsData:
       description: In a GcsData resource, an object's name is the Cloud Storage object's name and its "last modification time" refers to the object's `updated` property of Cloud Storage objects, which changes when the content or the metadata of the object is updated.
+      x-google-discovery-id: GcsData
       properties:
         bucketName:
           description: Required. Cloud Storage bucket name. Must meet [Bucket Name Requirements](/storage/docs/naming#requirements).
           type: string
         managedFolderTransferEnabled:
-          description: "Transfer managed folders is in public preview. This option is only applicable to the Cloud Storage source bucket. If set to true: - The source managed folder will be transferred to the destination bucket - The destination managed folder will always be overwritten, other OVERWRITE options will not be supported"
+          description: 'Preview. Enables the transfer of managed folders between Cloud Storage buckets. Set this option on the gcs_data_source. If set to true: - Managed folders in the source bucket are transferred to the destination bucket. - Managed folders in the destination bucket are overwritten. Other OVERWRITE options are not supported. See [Transfer Cloud Storage managed folders](/storage-transfer/docs/managed-folders).'
           type: boolean
         path:
           description: Root path to transfer objects. Must be an empty string or full path name that ends with a '/'. This field is treated as an object prefix. As such, it should generally not begin with a '/'. The root path value must meet [Object Name Requirements](/storage/docs/naming#objectnames).
@@ -894,6 +1198,7 @@ components:
       type: object
     GoogleServiceAccount:
       description: Google service account
+      x-google-discovery-id: GoogleServiceAccount
       properties:
         accountEmail:
           description: Email address of the service account.
@@ -904,6 +1209,7 @@ components:
       type: object
     HdfsData:
       description: An HdfsData resource specifies a path within an HDFS entity (e.g. a cluster). All cluster-specific settings, such as namenodes and ports, are configured on the transfer agents servicing requests, so HdfsData only contains the root path to the data in our transfer.
+      x-google-discovery-id: HdfsData
       properties:
         path:
           description: Root path to transfer files.
@@ -911,18 +1217,20 @@ components:
       type: object
     HttpData:
       description: 'An HttpData resource specifies a list of objects on the web to be transferred over HTTP. The information of the objects to be transferred is contained in a file referenced by a URL. The first line in the file must be `"TsvHttpData-1.0"`, which specifies the format of the file. Subsequent lines specify the information of the list of objects, one object per list entry. Each entry has the following tab-delimited fields: * **HTTP URL** — The location of the object. * **Length** — The size of the object in bytes. * **MD5** — The base64-encoded MD5 hash of the object. For an example of a valid TSV file, see [Transferring data from URLs](https://cloud.google.com/storage-transfer/docs/create-url-list). When transferring data based on a URL list, keep the following in mind: * When an object located at `http(s)://hostname:port/` is transferred to a data sink, the name of the object at the data sink is `/`. * If the specified size of an object does not match the actual size of the object fetched, the object is not transferred. * If the specified MD5 does not match the MD5 computed from the transferred bytes, the object transfer fails. * Ensure that each URL you specify is publicly accessible. For example, in Cloud Storage you can [share an object publicly] (/storage/docs/cloud-console#_sharingdata) and get a link to it. * Storage Transfer Service obeys `robots.txt` rules and requires the source HTTP server to support `Range` requests and to return a `Content-Length` header in each response. * ObjectConditions have no effect when filtering objects to transfer.'
+      x-google-discovery-id: HttpData
       properties:
         listUrl:
-          description: Required. The URL that points to the file that stores the object list entries. This file must allow public access. Currently, only URLs with HTTP and HTTPS schemes are supported.
+          description: Required. The URL that points to the file that stores the object list entries. This file must allow public access. The URL is either an HTTP/HTTPS address (e.g. `https://example.com/urllist.tsv`) or a Cloud Storage path (e.g. `gs://my-bucket/urllist.tsv`).
           type: string
       type: object
     ListAgentPoolsResponse:
       description: Response from ListAgentPools.
+      x-google-discovery-id: ListAgentPoolsResponse
       properties:
         agentPools:
           description: A list of agent pools.
           items:
-            $ref: "#/components/schemas/AgentPool"
+            $ref: '#/components/schemas/AgentPool'
           type: array
         nextPageToken:
           description: The list next page token.
@@ -930,6 +1238,7 @@ components:
       type: object
     ListOperationsResponse:
       description: The response message for Operations.ListOperations.
+      x-google-discovery-id: ListOperationsResponse
       properties:
         nextPageToken:
           description: The standard List next-page token.
@@ -937,11 +1246,17 @@ components:
         operations:
           description: A list of operations that matches the specified filter in the request.
           items:
-            $ref: "#/components/schemas/Operation"
+            $ref: '#/components/schemas/Operation'
+          type: array
+        unreachable:
+          description: Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections. For example, when attempting to list all resources across all supported locations.
+          items:
+            type: string
           type: array
       type: object
     ListTransferJobsResponse:
       description: Response from ListTransferJobs.
+      x-google-discovery-id: ListTransferJobsResponse
       properties:
         nextPageToken:
           description: The list next page token.
@@ -949,37 +1264,50 @@ components:
         transferJobs:
           description: A list of transfer jobs.
           items:
-            $ref: "#/components/schemas/TransferJob"
+            $ref: '#/components/schemas/TransferJob'
           type: array
       type: object
     LoggingConfig:
-      description: Specifies the logging behavior for transfer operations. For cloud-to-cloud transfers, logs are sent to Cloud Logging. See [Read transfer logs](https://cloud.google.com/storage-transfer/docs/read-transfer-logs) for details. For transfers to or from a POSIX file system, logs are stored in the Cloud Storage bucket that is the source or sink of the transfer. See [Managing Transfer for on-premises jobs] (https://cloud.google.com/storage-transfer/docs/managing-on-prem-jobs#viewing-logs) for details.
+      description: Specifies the logging behavior for transfer operations. Logs can be sent to Cloud Logging for all transfer types. See [Read transfer logs](https://cloud.google.com/storage-transfer/docs/read-transfer-logs) for details.
+      x-google-discovery-id: LoggingConfig
       properties:
         enableOnpremGcsTransferLogs:
-          description: For transfers with a PosixFilesystem source, this option enables the Cloud Storage transfer logs for this transfer.
+          description: For PosixFilesystem transfers, enables [file system transfer logs](https://cloud.google.com/storage-transfer/docs/on-prem-transfer-log-format) instead of, or in addition to, Cloud Logging. This option ignores [LoggableAction] and [LoggableActionState]. If these are set, Cloud Logging will also be enabled for this transfer.
           type: boolean
         logActionStates:
-          description: States in which `log_actions` are logged. If empty, no logs are generated. Not supported for transfers with PosixFilesystem data sources; use enable_onprem_gcs_transfer_logs instead.
+          description: States in which `log_actions` are logged. If empty, no logs are generated.
           items:
             enum:
               - LOGGABLE_ACTION_STATE_UNSPECIFIED
               - SUCCEEDED
               - FAILED
+              - SKIPPED
+            x-google-enum-descriptions:
+              - Default value. This value is unused.
+              - '`LoggableAction` completed successfully. `SUCCEEDED` actions are logged as INFO.'
+              - '`LoggableAction` terminated in an error state. `FAILED` actions are logged as ERROR.'
+              - The `COPY` action was skipped for this file. Only supported for agent-based transfers. `SKIPPED` actions are logged as INFO.
             type: string
           type: array
         logActions:
-          description: Specifies the actions to be logged. If empty, no logs are generated. Not supported for transfers with PosixFilesystem data sources; use enable_onprem_gcs_transfer_logs instead.
+          description: Specifies the actions to be logged. If empty, no logs are generated.
           items:
             enum:
               - LOGGABLE_ACTION_UNSPECIFIED
               - FIND
               - DELETE
               - COPY
+            x-google-enum-descriptions:
+              - Default value. This value is unused.
+              - Listing objects in a bucket.
+              - Deleting objects at the source or the destination.
+              - Copying objects to the destination.
             type: string
           type: array
       type: object
     MetadataOptions:
       description: Specifies the metadata options for running a transfer.
+      x-google-discovery-id: MetadataOptions
       properties:
         acl:
           description: Specifies how each object's ACLs should be preserved for transfers between Google Cloud Storage buckets. If unspecified, the default behavior is the same as ACL_DESTINATION_BUCKET_DEFAULT.
@@ -987,6 +1315,10 @@ components:
             - ACL_UNSPECIFIED
             - ACL_DESTINATION_BUCKET_DEFAULT
             - ACL_PRESERVE
+          x-google-enum-descriptions:
+            - ACL behavior is unspecified.
+            - Use the destination bucket's default object ACLS, if applicable.
+            - Preserve the object's original ACLs. This requires the service account to have `storage.objects.getIamPolicy` permission for the source object. [Uniform bucket-level access](https://cloud.google.com/storage/docs/uniform-bucket-level-access) must not be enabled on either the source or destination buckets.
           type: string
         gid:
           description: Specifies how each file's POSIX group ID (GID) attribute should be handled by the transfer. By default, GID is not preserved. Only applicable to transfers involving POSIX file systems, and ignored for other transfers.
@@ -994,6 +1326,10 @@ components:
             - GID_UNSPECIFIED
             - GID_SKIP
             - GID_NUMBER
+          x-google-enum-descriptions:
+            - GID behavior is unspecified.
+            - Do not preserve GID during a transfer job.
+            - Preserve GID during a transfer job.
           type: string
         kmsKey:
           description: Specifies how each object's Cloud KMS customer-managed encryption key (CMEK) is preserved for transfers between Google Cloud Storage buckets. If unspecified, the default behavior is the same as KMS_KEY_DESTINATION_BUCKET_DEFAULT.
@@ -1001,6 +1337,10 @@ components:
             - KMS_KEY_UNSPECIFIED
             - KMS_KEY_DESTINATION_BUCKET_DEFAULT
             - KMS_KEY_PRESERVE
+          x-google-enum-descriptions:
+            - KmsKey behavior is unspecified.
+            - Use the destination bucket's default encryption settings.
+            - Preserve the object's original Cloud KMS customer-managed encryption key (CMEK) if present. Objects that do not use a Cloud KMS encryption key will be encrypted using the destination bucket's encryption settings.
           type: string
         mode:
           description: Specifies how each file's mode attribute should be handled by the transfer. By default, mode is not preserved. Only applicable to transfers involving POSIX file systems, and ignored for other transfers.
@@ -1008,6 +1348,10 @@ components:
             - MODE_UNSPECIFIED
             - MODE_SKIP
             - MODE_PRESERVE
+          x-google-enum-descriptions:
+            - Mode behavior is unspecified.
+            - Do not preserve mode during a transfer job.
+            - Preserve mode during a transfer job.
           type: string
         storageClass:
           description: Specifies the storage class to set on objects being transferred to Google Cloud Storage buckets. If unspecified, the default behavior is the same as STORAGE_CLASS_DESTINATION_BUCKET_DEFAULT.
@@ -1019,6 +1363,14 @@ components:
             - STORAGE_CLASS_NEARLINE
             - STORAGE_CLASS_COLDLINE
             - STORAGE_CLASS_ARCHIVE
+          x-google-enum-descriptions:
+            - Storage class behavior is unspecified.
+            - Use the destination bucket's default storage class.
+            - Preserve the object's original storage class. This is only supported for transfers from Google Cloud Storage buckets. REGIONAL and MULTI_REGIONAL storage classes will be mapped to STANDARD to ensure they can be written to the destination bucket.
+            - Set the storage class to STANDARD.
+            - Set the storage class to NEARLINE.
+            - Set the storage class to COLDLINE.
+            - Set the storage class to ARCHIVE.
           type: string
         symlink:
           description: Specifies how symlinks should be handled by the transfer. By default, symlinks are not preserved. Only applicable to transfers involving POSIX file systems, and ignored for other transfers.
@@ -1026,6 +1378,10 @@ components:
             - SYMLINK_UNSPECIFIED
             - SYMLINK_SKIP
             - SYMLINK_PRESERVE
+          x-google-enum-descriptions:
+            - Symlink behavior is unspecified.
+            - Do not preserve symlinks during a transfer job.
+            - Preserve symlinks during a transfer job.
           type: string
         temporaryHold:
           description: Specifies how each object's temporary hold status should be preserved for transfers between Google Cloud Storage buckets. If unspecified, the default behavior is the same as TEMPORARY_HOLD_PRESERVE.
@@ -1033,13 +1389,21 @@ components:
             - TEMPORARY_HOLD_UNSPECIFIED
             - TEMPORARY_HOLD_SKIP
             - TEMPORARY_HOLD_PRESERVE
+          x-google-enum-descriptions:
+            - Temporary hold behavior is unspecified.
+            - Do not set a temporary hold on the destination object.
+            - Preserve the object's original temporary hold status.
           type: string
         timeCreated:
-          description: Specifies how each object's `timeCreated` metadata is preserved for transfers. If unspecified, the default behavior is the same as TIME_CREATED_SKIP.
+          description: Specifies how each object's `timeCreated` metadata is preserved for transfers. If unspecified, the default behavior is the same as TIME_CREATED_SKIP. This behavior is supported for transfers to Cloud Storage buckets from Cloud Storage, Amazon S3, S3-compatible storage, and Azure sources.
           enum:
             - TIME_CREATED_UNSPECIFIED
             - TIME_CREATED_SKIP
             - TIME_CREATED_PRESERVE_AS_CUSTOM_TIME
+          x-google-enum-descriptions:
+            - TimeCreated behavior is unspecified.
+            - Do not preserve the `timeCreated` metadata from the source object.
+            - Preserves the source object's `timeCreated` or `lastModified` metadata in the `customTime` field in the destination object. Note that any value stored in the source object's `customTime` field will not be propagated to the destination object.
           type: string
         uid:
           description: Specifies how each file's POSIX user ID (UID) attribute should be handled by the transfer. By default, UID is not preserved. Only applicable to transfers involving POSIX file systems, and ignored for other transfers.
@@ -1047,10 +1411,15 @@ components:
             - UID_UNSPECIFIED
             - UID_SKIP
             - UID_NUMBER
+          x-google-enum-descriptions:
+            - UID behavior is unspecified.
+            - Do not preserve UID during a transfer job.
+            - Preserve UID during a transfer job.
           type: string
       type: object
     NotificationConfig:
       description: 'Specification to configure notifications published to Pub/Sub. Notifications are published to the customer-provided topic using the following `PubsubMessage.attributes`: * `"eventType"`: one of the EventType values * `"payloadFormat"`: one of the PayloadFormat values * `"projectId"`: the project_id of the `TransferOperation` * `"transferJobName"`: the transfer_job_name of the `TransferOperation` * `"transferOperationName"`: the name of the `TransferOperation` The `PubsubMessage.data` contains a TransferOperation resource formatted according to the specified `PayloadFormat`.'
+      x-google-discovery-id: NotificationConfig
       properties:
         eventTypes:
           description: Event types for which a notification is desired. If empty, send notifications for all event types.
@@ -1060,6 +1429,11 @@ components:
               - TRANSFER_OPERATION_SUCCESS
               - TRANSFER_OPERATION_FAILED
               - TRANSFER_OPERATION_ABORTED
+            x-google-enum-descriptions:
+              - Illegal value, to avoid allowing a default.
+              - '`TransferOperation` completed with status SUCCESS.'
+              - '`TransferOperation` completed with status FAILED.'
+              - '`TransferOperation` completed with status ABORTED.'
             type: string
           type: array
         payloadFormat:
@@ -1068,21 +1442,31 @@ components:
             - PAYLOAD_FORMAT_UNSPECIFIED
             - NONE
             - JSON
+          x-google-enum-descriptions:
+            - Illegal value, to avoid allowing a default.
+            - No payload is included with the notification.
+            - '`TransferOperation` is [formatted as a JSON response](https://developers.google.com/protocol-buffers/docs/proto3#json), in application/json.'
           type: string
         pubsubTopic:
-          description: "Required. The `Topic.name` of the Pub/Sub topic to which to publish notifications. Must be of the format: `projects/{project}/topics/{topic}`. Not matching this format results in an INVALID_ARGUMENT error."
+          description: 'Required. The `Topic.name` of the Pub/Sub topic to which to publish notifications. Must be of the format: `projects/{project}/topics/{topic}`. Not matching this format results in an INVALID_ARGUMENT error.'
           type: string
       type: object
     ObjectConditions:
-      description: Conditions that determine which objects are transferred. Applies only to Cloud Data Sources such as S3, Azure, and Cloud Storage. The "last modification time" refers to the time of the last change to the object's content or metadata — specifically, this is the `updated` property of Cloud Storage objects, the `LastModified` field of S3 objects, and the `Last-Modified` header of Azure blobs. Transfers with a PosixFilesystem source or destination don't support `ObjectConditions`.
+      description: Conditions that determine which objects are transferred. Applies only to Cloud Data Sources such as S3, Azure, and Cloud Storage. The "last modification time" refers to the time of the last change to the object's content or metadata — specifically, this is the `updated` property of Cloud Storage objects, the `LastModified` field of S3 objects, and the `Last-Modified` header of Azure blobs. For S3 objects, the `LastModified` value is the time the object begins uploading. If the object meets your "last modification time" criteria, but has not finished uploading, the object is not transferred. See [Transfer from Amazon S3 to Cloud Storage](https://cloud.google.com/storage-transfer/docs/create-transfers/agentless/s3#transfer_options) for more information. Transfers with a PosixFilesystem source or destination don't support `ObjectConditions`.
+      x-google-discovery-id: ObjectConditions
       properties:
         excludePrefixes:
-          description: "If you specify `exclude_prefixes`, Storage Transfer Service uses the items in the `exclude_prefixes` array to determine which objects to exclude from a transfer. Objects must not start with one of the matching `exclude_prefixes` for inclusion in a transfer. The following are requirements of `exclude_prefixes`: * Each exclude-prefix can contain any sequence of Unicode characters, to a max length of 1024 bytes when UTF8-encoded, and must not contain Carriage Return or Line Feed characters. Wildcard matching and regular expression matching are not supported. * Each exclude-prefix must omit the leading slash. For example, to exclude the object `s3://my-aws-bucket/logs/y=2015/requests.gz`, specify the exclude-prefix as `logs/y=2015/requests.gz`. * None of the exclude-prefix values can be empty, if specified. * Each exclude-prefix must exclude a distinct portion of the object namespace. No exclude-prefix may be a prefix of another exclude-prefix. * If include_prefixes is specified, then each exclude-prefix must start with the value of a path explicitly included by `include_prefixes`. The max size of `exclude_prefixes` is 1000. For more information, see [Filtering objects from transfers](/storage-transfer/docs/filtering-objects-from-transfers)."
+          description: 'If you specify `exclude_prefixes`, Storage Transfer Service uses the items in the `exclude_prefixes` array to determine which objects to exclude from a transfer. Objects must not start with one of the matching `exclude_prefixes` for inclusion in a transfer. The following are requirements of `exclude_prefixes`: * Each exclude-prefix can contain any sequence of Unicode characters, to a max length of 1024 bytes when UTF8-encoded, and must not contain Carriage Return or Line Feed characters. Wildcard matching and regular expression matching are not supported. * Each exclude-prefix must omit the leading slash. For example, to exclude the object `s3://my-aws-bucket/logs/y=2015/requests.gz`, specify the exclude-prefix as `logs/y=2015/requests.gz`. * None of the exclude-prefix values can be empty, if specified. * Each exclude-prefix must exclude a distinct portion of the object namespace. No exclude-prefix may be a prefix of another exclude-prefix. * If include_prefixes is specified, then each exclude-prefix must start with the value of a path explicitly included by `include_prefixes`. The max size of `exclude_prefixes` is 1000. For more information, see [Filtering objects from transfers](/storage-transfer/docs/filtering-objects-from-transfers).'
           items:
             type: string
           type: array
         includePrefixes:
-          description: "If you specify `include_prefixes`, Storage Transfer Service uses the items in the `include_prefixes` array to determine which objects to include in a transfer. Objects must start with one of the matching `include_prefixes` for inclusion in the transfer. If exclude_prefixes is specified, objects must not start with any of the `exclude_prefixes` specified for inclusion in the transfer. The following are requirements of `include_prefixes`: * Each include-prefix can contain any sequence of Unicode characters, to a max length of 1024 bytes when UTF8-encoded, and must not contain Carriage Return or Line Feed characters. Wildcard matching and regular expression matching are not supported. * Each include-prefix must omit the leading slash. For example, to include the object `s3://my-aws-bucket/logs/y=2015/requests.gz`, specify the include-prefix as `logs/y=2015/requests.gz`. * None of the include-prefix values can be empty, if specified. * Each include-prefix must include a distinct portion of the object namespace. No include-prefix may be a prefix of another include-prefix. The max size of `include_prefixes` is 1000. For more information, see [Filtering objects from transfers](/storage-transfer/docs/filtering-objects-from-transfers)."
+          description: 'If you specify `include_prefixes`, Storage Transfer Service uses the items in the `include_prefixes` array to determine which objects to include in a transfer. Objects must start with one of the matching `include_prefixes` for inclusion in the transfer. If exclude_prefixes is specified, objects must not start with any of the `exclude_prefixes` specified for inclusion in the transfer. The following are requirements of `include_prefixes`: * Each include-prefix can contain any sequence of Unicode characters, to a max length of 1024 bytes when UTF8-encoded, and must not contain Carriage Return or Line Feed characters. Wildcard matching and regular expression matching are not supported. * Each include-prefix must omit the leading slash. For example, to include the object `s3://my-aws-bucket/logs/y=2015/requests.gz`, specify the include-prefix as `logs/y=2015/requests.gz`. * None of the include-prefix values can be empty, if specified. * Each include-prefix must include a distinct portion of the object namespace. No include-prefix may be a prefix of another include-prefix. The max size of `include_prefixes` is 1000. For more information, see [Filtering objects from transfers](/storage-transfer/docs/filtering-objects-from-transfers).'
+          items:
+            type: string
+          type: array
+        includeStorageClasses:
+          description: 'Optional. If specified, objects in the source matching any of the storage classes in this field will be transferred. Objects in storage classes not included in this field will be skipped. If empty, the default behavior regarding the storage classes is applied. This includes all storage classes except "GLACIER" as per default behavior. Currently, this field only supports S3 data source. For the list of valid Amazon S3 storage classnames, please refer to the AWS documentation: https://docs.aws.amazon.com/AmazonS3/latest/userguide/sc-howtoset.html'
           items:
             type: string
           type: array
@@ -1091,8 +1475,11 @@ components:
           format: google-datetime
           type: string
         lastModifiedSince:
-          description: "If specified, only objects with a \"last modification time\" on or after this timestamp and objects that don't have a \"last modification time\" are transferred. The `last_modified_since` and `last_modified_before` fields can be used together for chunked data processing. For example, consider a script that processes each day's worth of data at a time. For that you'd set each of the fields as follows: * `last_modified_since` to the start of the day * `last_modified_before` to the end of the day"
+          description: 'If specified, only objects with a "last modification time" on or after this timestamp and objects that don''t have a "last modification time" are transferred. The `last_modified_since` and `last_modified_before` fields can be used together for chunked data processing. For example, consider a script that processes each day''s worth of data at a time. For that you''d set each of the fields as follows: * `last_modified_since` to the start of the day * `last_modified_before` to the end of the day'
           format: google-datetime
+          type: string
+        matchGlob:
+          description: Optional. If specified, only objects matching this glob are transferred.
           type: string
         maxTimeElapsedSinceLastModification:
           description: Ensures that objects are not transferred if a specific maximum time has elapsed since the "last modification time". When a TransferOperation begins, objects with a "last modification time" are transferred only if the elapsed time between the start_time of the `TransferOperation`and the "last modification time" of the object is less than the value of max_time_elapsed_since_last_modification`. Objects that do not have a "last modification time" are also transferred.
@@ -1105,16 +1492,19 @@ components:
       type: object
     Operation:
       description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
       properties:
         done:
           description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
           type: boolean
         error:
-          $ref: "#/components/schemas/Status"
           description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Represents the transfer operation object. To request a TransferOperation object, use transferOperations.get.
           type: object
         name:
@@ -1123,26 +1513,52 @@ components:
         response:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
           type: object
       type: object
     PauseTransferOperationRequest:
       description: Request passed to PauseTransferOperation.
+      x-google-discovery-id: PauseTransferOperationRequest
       properties: {}
       type: object
     PosixFilesystem:
       description: A POSIX filesystem resource.
+      x-google-discovery-id: PosixFilesystem
       properties:
         rootDirectory:
           description: Root directory path to the filesystem.
           type: string
       type: object
+    ReplicationSpec:
+      description: Specifies the configuration for a cross-bucket replication job. Cross-bucket replication copies new or updated objects from a source Cloud Storage bucket to a destination Cloud Storage bucket. Existing objects in the source bucket are not copied by a new cross-bucket replication job.
+      x-google-discovery-id: ReplicationSpec
+      properties:
+        gcsDataSink:
+          description: The Cloud Storage bucket to which to replicate objects.
+          allOf:
+            - $ref: '#/components/schemas/GcsData'
+        gcsDataSource:
+          description: The Cloud Storage bucket from which to replicate objects.
+          allOf:
+            - $ref: '#/components/schemas/GcsData'
+        objectConditions:
+          description: Object conditions that determine which objects are transferred. For replication jobs, only `include_prefixes` and `exclude_prefixes` are supported.
+          allOf:
+            - $ref: '#/components/schemas/ObjectConditions'
+        transferOptions:
+          description: Specifies the metadata options to be applied during replication. Delete options are not supported. If a delete option is specified, the request fails with an INVALID_ARGUMENT error.
+          allOf:
+            - $ref: '#/components/schemas/TransferOptions'
+      type: object
     ResumeTransferOperationRequest:
       description: Request passed to ResumeTransferOperation.
+      x-google-discovery-id: ResumeTransferOperationRequest
       properties: {}
       type: object
     RunTransferJobRequest:
       description: Request passed to RunTransferJob.
+      x-google-discovery-id: RunTransferJobRequest
       properties:
         projectId:
           description: Required. The ID of the Google Cloud project that owns the transfer job.
@@ -1150,6 +1566,7 @@ components:
       type: object
     S3CompatibleMetadata:
       description: S3CompatibleMetadata contains the metadata fields that apply to the basic types of S3-compatible data providers.
+      x-google-discovery-id: S3CompatibleMetadata
       properties:
         authMethod:
           description: Specifies the authentication and authorization method used by the storage service. When not specified, Transfer Service will attempt to determine right auth method to use.
@@ -1157,6 +1574,10 @@ components:
             - AUTH_METHOD_UNSPECIFIED
             - AUTH_METHOD_AWS_SIGNATURE_V4
             - AUTH_METHOD_AWS_SIGNATURE_V2
+          x-google-enum-descriptions:
+            - AuthMethod is not specified.
+            - Auth requests with AWS SigV4.
+            - Auth requests with AWS SigV2.
           type: string
         listApi:
           description: The Listing API to use for discovering objects. When not specified, Transfer Service will attempt to determine the right API to use.
@@ -1164,6 +1585,10 @@ components:
             - LIST_API_UNSPECIFIED
             - LIST_OBJECTS_V2
             - LIST_OBJECTS
+          x-google-enum-descriptions:
+            - ListApi is not specified.
+            - Perform listing using ListObjectsV2 API.
+            - Legacy ListObjects API.
           type: string
         protocol:
           description: Specifies the network protocol of the agent. When not specified, the default value of NetworkProtocol NETWORK_PROTOCOL_HTTPS is used.
@@ -1171,6 +1596,10 @@ components:
             - NETWORK_PROTOCOL_UNSPECIFIED
             - NETWORK_PROTOCOL_HTTPS
             - NETWORK_PROTOCOL_HTTP
+          x-google-enum-descriptions:
+            - NetworkProtocol is not specified.
+            - Perform requests using HTTPS.
+            - 'Not recommended: This sends data in clear-text. This is only appropriate within a closed network or for publicly available data. Perform requests using HTTP.'
           type: string
         requestModel:
           description: Specifies the API request model used to call the storage service. When not specified, the default value of RequestModel REQUEST_MODEL_VIRTUAL_HOSTED_STYLE is used.
@@ -1178,30 +1607,40 @@ components:
             - REQUEST_MODEL_UNSPECIFIED
             - REQUEST_MODEL_VIRTUAL_HOSTED_STYLE
             - REQUEST_MODEL_PATH_STYLE
+          x-google-enum-descriptions:
+            - RequestModel is not specified.
+            - 'Perform requests using Virtual Hosted Style. Example: https://bucket-name.s3.region.amazonaws.com/key-name'
+            - 'Perform requests using Path Style. Example: https://s3.region.amazonaws.com/bucket-name/key-name'
           type: string
       type: object
     Schedule:
       description: Transfers can be scheduled to recur or to run just once.
+      x-google-discovery-id: Schedule
       properties:
         endTimeOfDay:
-          $ref: "#/components/schemas/TimeOfDay"
-          description: "The time in UTC that no further transfer operations are scheduled. Combined with schedule_end_date, `end_time_of_day` specifies the end date and time for starting new transfer operations. This field must be greater than or equal to the timestamp corresponding to the combintation of schedule_start_date and start_time_of_day, and is subject to the following: * If `end_time_of_day` is not set and `schedule_end_date` is set, then a default value of `23:59:59` is used for `end_time_of_day`. * If `end_time_of_day` is set and `schedule_end_date` is not set, then INVALID_ARGUMENT is returned."
+          description: 'The time in UTC that no further transfer operations are scheduled. Combined with schedule_end_date, `end_time_of_day` specifies the end date and time for starting new transfer operations. This field must be greater than or equal to the timestamp corresponding to the combination of schedule_start_date and start_time_of_day, and is subject to the following: * If `end_time_of_day` is not set and `schedule_end_date` is set, then a default value of `23:59:59` is used for `end_time_of_day`. * If `end_time_of_day` is set and `schedule_end_date` is not set, then INVALID_ARGUMENT is returned.'
+          allOf:
+            - $ref: '#/components/schemas/TimeOfDay'
         repeatInterval:
           description: Interval between the start of each scheduled TransferOperation. If unspecified, the default value is 24 hours. This value may not be less than 1 hour.
           format: google-duration
           type: string
         scheduleEndDate:
-          $ref: "#/components/schemas/Date"
-          description: "The last day a transfer runs. Date boundaries are determined relative to UTC time. A job runs once per 24 hours within the following guidelines: * If `schedule_end_date` and schedule_start_date are the same and in the future relative to UTC, the transfer is executed only one time. * If `schedule_end_date` is later than `schedule_start_date` and `schedule_end_date` is in the future relative to UTC, the job runs each day at start_time_of_day through `schedule_end_date`."
+          description: 'The last day a transfer runs. Date boundaries are determined relative to UTC time. A job runs once per 24 hours within the following guidelines: * If `schedule_end_date` and schedule_start_date are the same and in the future relative to UTC, the transfer is executed only one time. * If `schedule_end_date` is later than `schedule_start_date` and `schedule_end_date` is in the future relative to UTC, the job runs each day at start_time_of_day through `schedule_end_date`.'
+          allOf:
+            - $ref: '#/components/schemas/Date'
         scheduleStartDate:
-          $ref: "#/components/schemas/Date"
           description: Required. The start date of a transfer. Date boundaries are determined relative to UTC time. If `schedule_start_date` and start_time_of_day are in the past relative to the job's creation time, the transfer starts the day after you schedule the transfer request. **Note:** When starting jobs at or near midnight UTC it is possible that a job starts later than expected. For example, if you send an outbound request on June 1 one millisecond prior to midnight UTC and the Storage Transfer Service server receives the request on June 2, then it creates a TransferJob with `schedule_start_date` set to June 2 and a `start_time_of_day` set to midnight UTC. The first scheduled TransferOperation takes place on June 3 at midnight UTC.
+          allOf:
+            - $ref: '#/components/schemas/Date'
         startTimeOfDay:
-          $ref: "#/components/schemas/TimeOfDay"
-          description: "The time in UTC that a transfer job is scheduled to run. Transfers may start later than this time. If `start_time_of_day` is not specified: * One-time transfers run immediately. * Recurring transfers run immediately, and each day at midnight UTC, through schedule_end_date. If `start_time_of_day` is specified: * One-time transfers run at the specified time. * Recurring transfers run at the specified time each day, through `schedule_end_date`."
+          description: 'The time in UTC that a transfer job is scheduled to run. Transfers may start later than this time. If `start_time_of_day` is not specified: * One-time transfers run immediately. * Recurring transfers run immediately, and each day at midnight UTC, through schedule_end_date. If `start_time_of_day` is specified: * One-time transfers run at the specified time. * Recurring transfers run at the specified time each day, through `schedule_end_date`.'
+          allOf:
+            - $ref: '#/components/schemas/TimeOfDay'
       type: object
     Status:
-      description: "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors)."
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
       properties:
         code:
           description: The status code, which should be an enum value of google.rpc.Code.
@@ -1212,6 +1651,7 @@ components:
           items:
             additionalProperties:
               description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
             type: object
           type: array
         message:
@@ -1220,26 +1660,28 @@ components:
       type: object
     TimeOfDay:
       description: Represents a time of day. The date and time zone are either not significant or are specified elsewhere. An API may choose to allow leap seconds. Related types are google.type.Date and `google.protobuf.Timestamp`.
+      x-google-discovery-id: TimeOfDay
       properties:
         hours:
-          description: Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value "24:00:00" for scenarios like business closing time.
+          description: Hours of a day in 24 hour format. Must be greater than or equal to 0 and typically must be less than or equal to 23. An API may choose to allow the value "24:00:00" for scenarios like business closing time.
           format: int32
           type: integer
         minutes:
-          description: Minutes of hour of day. Must be from 0 to 59.
+          description: Minutes of an hour. Must be greater than or equal to 0 and less than or equal to 59.
           format: int32
           type: integer
         nanos:
-          description: Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
+          description: Fractions of seconds, in nanoseconds. Must be greater than or equal to 0 and less than or equal to 999,999,999.
           format: int32
           type: integer
         seconds:
-          description: Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds.
+          description: Seconds of a minute. Must be greater than or equal to 0 and typically must be less than or equal to 59. An API may allow the value 60 if it allows leap-seconds.
           format: int32
           type: integer
       type: object
     TransferCounters:
       description: A collection of counters that report the progress of a transfer operation.
+      x-google-discovery-id: TransferCounters
       properties:
         bytesCopiedToSink:
           description: Bytes that are copied to the data sink.
@@ -1325,9 +1767,18 @@ components:
           description: Objects in the data source that are not transferred because they already exist in the data sink.
           format: int64
           type: string
+        unrestoredDeepArchiveObjectsSkippedCount:
+          description: Number of unrestored deep archive objects skipped.
+          format: int64
+          type: string
+        unsupportedS3GlacierObjectsSkippedCount:
+          description: Number of glacier objects skipped, glacier objects are unsupported by default regardless of the restore status. Allowlist the project to copy glacier objects if needed.
+          format: int64
+          type: string
       type: object
     TransferJob:
       description: This resource represents the configuration of a transfer job that runs periodically.
+      x-google-discovery-id: TransferJob
       properties:
         creationTime:
           description: Output only. The time that the transfer job was created.
@@ -1343,8 +1794,9 @@ components:
           description: A description provided by the user for the job. Its max length is 1024 bytes when Unicode-encoded.
           type: string
         eventStream:
-          $ref: "#/components/schemas/EventStream"
           description: Specifies the event stream for the transfer job for event-driven transfers. When EventStream is specified, the Schedule fields are ignored.
+          allOf:
+            - $ref: '#/components/schemas/EventStream'
         lastModificationTime:
           description: Output only. The time that the transfer job was last modified.
           format: google-datetime
@@ -1354,20 +1806,30 @@ components:
           description: The name of the most recently started TransferOperation of this JobConfig. Present if a TransferOperation has been created for this JobConfig.
           type: string
         loggingConfig:
-          $ref: "#/components/schemas/LoggingConfig"
           description: Logging configuration.
+          allOf:
+            - $ref: '#/components/schemas/LoggingConfig'
         name:
           description: 'A unique name (within the transfer project) assigned when the job is created. If this field is empty in a CreateTransferJobRequest, Storage Transfer Service assigns a unique name. Otherwise, the specified name is used as the unique name for this job. If the specified name is in use by a job, the creation request fails with an ALREADY_EXISTS error. This name must start with `"transferJobs/"` prefix and end with a letter or a number, and should be no more than 128 characters. For transfers involving PosixFilesystem, this name must start with `transferJobs/OPI` specifically. For all other transfer types, this name must not start with `transferJobs/OPI`. Non-PosixFilesystem example: `"transferJobs/^(?!OPI)[A-Za-z0-9-._~]*[A-Za-z0-9]$"` PosixFilesystem example: `"transferJobs/OPI^[A-Za-z0-9-._~]*[A-Za-z0-9]$"` Applications must not rely on the enforcement of naming requirements involving OPI. Invalid job names fail with an INVALID_ARGUMENT error.'
           type: string
         notificationConfig:
-          $ref: "#/components/schemas/NotificationConfig"
-          description: Notification configuration. This is not supported for transfers involving PosixFilesystem.
+          description: Notification configuration.
+          allOf:
+            - $ref: '#/components/schemas/NotificationConfig'
         projectId:
           description: The ID of the Google Cloud project that owns the job.
           type: string
+        replicationSpec:
+          description: Replication specification.
+          allOf:
+            - $ref: '#/components/schemas/ReplicationSpec'
         schedule:
-          $ref: "#/components/schemas/Schedule"
           description: Specifies schedule for the transfer job. This is an optional field. When the field is not set, the job never executes a transfer, unless you invoke RunTransferJob or update the job to have a non-empty schedule.
+          allOf:
+            - $ref: '#/components/schemas/Schedule'
+        serviceAccount:
+          description: Optional. The user-managed service account to which to delegate service agent permissions. You can grant Cloud Storage bucket permissions to this service account instead of to the Transfer Service service agent. Either the service account email (`SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com`) or the unique ID (`123456789012345678901`) are accepted. See https://docs.cloud.google.com/storage-transfer/docs/delegate-service-agent-permissions for required permissions.
+          type: string
         status:
           description: Status of the job. This value MUST be specified for `CreateTransferJobRequests`. **Note:** The effect of the new job status takes place during a subsequent job run. For example, if you change the job status from ENABLED to DISABLED, and an operation spawned by the transfer is running, the status change would not affect the current operation.
           enum:
@@ -1375,13 +1837,20 @@ components:
             - ENABLED
             - DISABLED
             - DELETED
+          x-google-enum-descriptions:
+            - Zero is an illegal value.
+            - New transfers are performed based on the schedule.
+            - New transfers are not scheduled.
+            - This is a soft delete state. After a transfer job is set to this state, the job and all the transfer executions are subject to garbage collection. Transfer jobs become eligible for garbage collection 30 days after their status is set to `DELETED`.
           type: string
         transferSpec:
-          $ref: "#/components/schemas/TransferSpec"
           description: Transfer specification.
+          allOf:
+            - $ref: '#/components/schemas/TransferSpec'
       type: object
     TransferManifest:
       description: Specifies where the manifest is located.
+      x-google-discovery-id: TransferManifest
       properties:
         location:
           description: Specifies the path to the manifest in Cloud Storage. The Google-managed service account for the transfer must have `storage.objects.get` permission for this object. An example path is `gs://bucket_name/path/manifest.csv`.
@@ -1389,10 +1858,12 @@ components:
       type: object
     TransferOperation:
       description: A description of the execution of a transfer.
+      x-google-discovery-id: TransferOperation
       properties:
         counters:
-          $ref: "#/components/schemas/TransferCounters"
           description: Information about the progress of the transfer operation.
+          allOf:
+            - $ref: '#/components/schemas/TransferCounters'
         endTime:
           description: End time of this transfer execution.
           format: google-datetime
@@ -1400,17 +1871,19 @@ components:
         errorBreakdowns:
           description: Summarizes errors encountered with sample error log entries.
           items:
-            $ref: "#/components/schemas/ErrorSummary"
+            $ref: '#/components/schemas/ErrorSummary'
           type: array
         loggingConfig:
-          $ref: "#/components/schemas/LoggingConfig"
           description: Cloud Logging configuration.
+          allOf:
+            - $ref: '#/components/schemas/LoggingConfig'
         name:
           description: A globally unique ID assigned by the system.
           type: string
         notificationConfig:
-          $ref: "#/components/schemas/NotificationConfig"
           description: Notification configuration.
+          allOf:
+            - $ref: '#/components/schemas/NotificationConfig'
         projectId:
           description: The ID of the Google Cloud project that owns the operation.
           type: string
@@ -1429,28 +1902,40 @@ components:
             - ABORTED
             - QUEUED
             - SUSPENDING
+          x-google-enum-descriptions:
+            - Zero is an illegal value.
+            - In progress.
+            - Paused.
+            - Completed successfully.
+            - Terminated due to an unrecoverable failure.
+            - Aborted by the user.
+            - Temporarily delayed by the system. No user action is required.
+            - The operation is suspending and draining the ongoing work to completion.
           type: string
         transferJobName:
           description: The name of the transfer job that triggers this transfer operation.
           type: string
         transferSpec:
-          $ref: "#/components/schemas/TransferSpec"
           description: Transfer specification.
+          allOf:
+            - $ref: '#/components/schemas/TransferSpec'
       type: object
     TransferOptions:
       description: TransferOptions define the actions to be performed on objects in a transfer.
+      x-google-discovery-id: TransferOptions
       properties:
         deleteObjectsFromSourceAfterTransfer:
           description: Whether objects should be deleted from the source after they are transferred to the sink. **Note:** This option and delete_objects_unique_in_sink are mutually exclusive.
           type: boolean
         deleteObjectsUniqueInSink:
-          description: Whether objects that exist only in the sink should be deleted. **Note:** This option and delete_objects_from_source_after_transfer are mutually exclusive.
+          description: Whether objects that exist only in the sink should be deleted from the sink. **Note:** This option and delete_objects_from_source_after_transfer are mutually exclusive.
           type: boolean
         metadataOptions:
-          $ref: "#/components/schemas/MetadataOptions"
           description: Represents the selected metadata options for a transfer job.
+          allOf:
+            - $ref: '#/components/schemas/MetadataOptions'
         overwriteObjectsAlreadyExistingInSink:
-          description: When to overwrite objects that already exist in the sink. The default is that only objects that are different from the source are ovewritten. If true, all objects in the sink whose name matches an object in the source are overwritten with the source object.
+          description: When to overwrite objects that already exist in the sink. The default is that only objects that are different from the source are overwritten. If true, all objects in the sink whose name matches an object in the source are overwritten with the source object.
           type: boolean
         overwriteWhen:
           description: When to overwrite objects that already exist in the sink. If not set, overwrite behavior is determined by overwrite_objects_already_existing_in_sink.
@@ -1459,44 +1944,61 @@ components:
             - DIFFERENT
             - NEVER
             - ALWAYS
+          x-google-enum-descriptions:
+            - Overwrite behavior is unspecified.
+            - Overwrites destination objects with the source objects, only if the objects have the same name but different HTTP ETags or checksum values.
+            - Never overwrites a destination object if a source object has the same name. In this case, the source object is not transferred.
+            - Always overwrite the destination object with the source object, even if the HTTP Etags or checksum values are the same.
           type: string
       type: object
     TransferSpec:
       description: Configuration for running a transfer.
+      x-google-discovery-id: TransferSpec
       properties:
         awsS3CompatibleDataSource:
-          $ref: "#/components/schemas/AwsS3CompatibleData"
-          description: An AWS S3 compatible data source.
+          description: Optional. An AWS S3 compatible data source.
+          allOf:
+            - $ref: '#/components/schemas/AwsS3CompatibleData'
         awsS3DataSource:
-          $ref: "#/components/schemas/AwsS3Data"
-          description: An AWS S3 data source.
+          description: Optional. An AWS S3 data source.
+          allOf:
+            - $ref: '#/components/schemas/AwsS3Data'
         azureBlobStorageDataSource:
-          $ref: "#/components/schemas/AzureBlobStorageData"
-          description: An Azure Blob Storage data source.
+          description: Optional. An Azure Blob Storage data source.
+          allOf:
+            - $ref: '#/components/schemas/AzureBlobStorageData'
         gcsDataSink:
-          $ref: "#/components/schemas/GcsData"
-          description: A Cloud Storage data sink.
+          description: Optional. A Cloud Storage data sink.
+          allOf:
+            - $ref: '#/components/schemas/GcsData'
         gcsDataSource:
-          $ref: "#/components/schemas/GcsData"
-          description: A Cloud Storage data source.
+          description: Optional. A Cloud Storage data source.
+          allOf:
+            - $ref: '#/components/schemas/GcsData'
         gcsIntermediateDataLocation:
-          $ref: "#/components/schemas/GcsData"
           description: For transfers between file systems, specifies a Cloud Storage bucket to be used as an intermediate location through which to transfer data. See [Transfer data between file systems](https://cloud.google.com/storage-transfer/docs/file-to-file) for more information.
+          allOf:
+            - $ref: '#/components/schemas/GcsData'
         hdfsDataSource:
-          $ref: "#/components/schemas/HdfsData"
-          description: An HDFS cluster data source.
+          description: Optional. An HDFS cluster data source.
+          allOf:
+            - $ref: '#/components/schemas/HdfsData'
         httpDataSource:
-          $ref: "#/components/schemas/HttpData"
-          description: An HTTP URL data source.
+          description: Optional. An HTTP URL data source.
+          allOf:
+            - $ref: '#/components/schemas/HttpData'
         objectConditions:
-          $ref: "#/components/schemas/ObjectConditions"
           description: Only objects that satisfy these object conditions are included in the set of data source and data sink objects. Object conditions based on objects' "last modification time" do not exclude objects in a data sink.
+          allOf:
+            - $ref: '#/components/schemas/ObjectConditions'
         posixDataSink:
-          $ref: "#/components/schemas/PosixFilesystem"
-          description: A POSIX Filesystem data sink.
+          description: Optional. A POSIX Filesystem data sink.
+          allOf:
+            - $ref: '#/components/schemas/PosixFilesystem'
         posixDataSource:
-          $ref: "#/components/schemas/PosixFilesystem"
-          description: A POSIX Filesystem data source.
+          description: Optional. A POSIX Filesystem data source.
+          allOf:
+            - $ref: '#/components/schemas/PosixFilesystem'
         sinkAgentPoolName:
           description: Specifies the agent pool name associated with the posix data sink. When unspecified, the default name is used.
           type: string
@@ -1504,41 +2006,150 @@ components:
           description: Specifies the agent pool name associated with the posix data source. When unspecified, the default name is used.
           type: string
         transferManifest:
-          $ref: "#/components/schemas/TransferManifest"
           description: A manifest file provides a list of objects to be transferred from the data source. This field points to the location of the manifest file. Otherwise, the entire source bucket is used. ObjectConditions still apply.
+          allOf:
+            - $ref: '#/components/schemas/TransferManifest'
         transferOptions:
-          $ref: "#/components/schemas/TransferOptions"
           description: If the option delete_objects_unique_in_sink is `true` and time-based object conditions such as 'last modification time' are specified, the request fails with an INVALID_ARGUMENT error.
+          allOf:
+            - $ref: '#/components/schemas/TransferOptions'
       type: object
     UpdateTransferJobRequest:
       description: Request passed to UpdateTransferJob.
+      x-google-discovery-id: UpdateTransferJobRequest
       properties:
         projectId:
           description: Required. The ID of the Google Cloud project that owns the job.
           type: string
         transferJob:
-          $ref: "#/components/schemas/TransferJob"
-          description: "Required. The job to update. `transferJob` is expected to specify one or more of five fields: description, transfer_spec, notification_config, logging_config, and status. An `UpdateTransferJobRequest` that specifies other fields are rejected with the error INVALID_ARGUMENT. Updating a job status to DELETED requires `storagetransfer.jobs.delete` permission."
+          description: 'Required. The job to update. `transferJob` is expected to specify one or more of five fields: description, transfer_spec, notification_config, logging_config, and status. An `UpdateTransferJobRequest` that specifies other fields are rejected with the error INVALID_ARGUMENT. Updating a job status to DELETED requires `storagetransfer.jobs.delete` permission.'
+          allOf:
+            - $ref: '#/components/schemas/TransferJob'
         updateTransferJobFieldMask:
-          description: "The field mask of the fields in `transferJob` that are to be updated in this request. Fields in `transferJob` that can be updated are: description, transfer_spec, notification_config, logging_config, and status. To update the `transfer_spec` of the job, a complete transfer specification must be provided. An incomplete specification missing any required fields is rejected with the error INVALID_ARGUMENT."
+          description: 'The field mask of the fields in `transferJob` that are to be updated in this request. Fields in `transferJob` that can be updated are: description, transfer_spec, notification_config, logging_config, and status. To update the `transfer_spec` of the job, a complete transfer specification must be provided. An incomplete specification missing any required fields is rejected with the error INVALID_ARGUMENT.'
           format: google-fieldmask
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/storage-transfer/docs
+tags:
+  - name: googleServiceAccounts
+  - name: projects
+  - name: transferJobs
+  - name: transferOperations
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://storagetransfer.googleapis.com/
+  batchPath: batch
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: storagetransfer:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://storagetransfer.mtls.googleapis.com/
+  name: storagetransfer
+  revision: '20260619'
+  rootUrl: https://storagetransfer.googleapis.com/
+  servicePath: ''
+  version_module: true
+x-hasEquivalentPaths: true

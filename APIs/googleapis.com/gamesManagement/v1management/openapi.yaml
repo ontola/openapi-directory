@@ -1,17 +1,15 @@
-openapi: 3.0.0
-servers:
-  - url: https://gamesmanagement.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: The Google Play Game Management API allows developers to manage resources from the Google Play Game service.
+  description: The Google Play Games Management API allows developers to manage resources from the Google Play Game service.
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
   termsOfService: https://developers.google.com/terms/
-  title: Google Play Game Management
+  title: Google Play Games Services Management API
   version: v1management
   x-apiClientRegistration:
     url: https://console.developers.google.com
@@ -22,672 +20,688 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://gamesmanagement.googleapis.com/$discovery/rest?version=v1management
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/gamesManagement.v1management.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/gamesManagement.v1management.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: gamesManagement
-externalDocs:
-  url: https://developers.google.com/games/
-tags:
-  - name: achievements
-  - name: applications
-  - name: events
-  - name: players
-  - name: scores
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20251003; original source SHA-256 8d69029c2e868d2ae03f8dd29d4d515cba9500fbcdf97722742dfc1b0c5a64fd.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://gamesmanagement.googleapis.com
 paths:
-  /games/v1management/achievements/reset:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+  /games/v1management/achievements/{achievementId}/reset:
     post:
-      description: Resets all achievements for the currently authenticated player for your application. This method is only accessible to whitelisted tester accounts for your application.
-      operationId: gamesManagement.achievements.resetAll
+      operationId: gamesManagement.achievements.reset
+      description: Resets the achievement with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application.
+      parameters:
+        - name: achievementId
+          in: path
+          schema:
+            type: string
+          description: The ID of the achievement used by this method.
+          required: true
+      tags:
+        - achievements
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AchievementResetAllResponse"
-          description: Successful response
+                $ref: '#/components/schemas/AchievementResetResponse'
+      x-google-discovery:
+        path: games/v1management/achievements/{achievementId}/reset
+        flatPath: games/v1management/achievements/{achievementId}/reset
+        parameterOrder:
+          - achievementId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/achievements/reset:
+    post:
+      operationId: gamesManagement.achievements.resetAll
+      description: Resets all achievements for the currently authenticated player for your application. This method is only accessible to whitelisted tester accounts for your application.
+      tags:
+        - achievements
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/games
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/games
-      tags:
-        - achievements
-  /games/v1management/achievements/resetAllForAllPlayers:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets all draft achievements for all players. This method is only available to user accounts for your developer console.
-      operationId: gamesManagement.achievements.resetAllForAllPlayers
       responses:
-        "200":
-          description: Successful response
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AchievementResetAllResponse'
+      x-google-discovery:
+        path: games/v1management/achievements/reset
+        flatPath: games/v1management/achievements/reset
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/achievements/resetAllForAllPlayers:
+    post:
+      operationId: gamesManagement.achievements.resetAllForAllPlayers
+      description: Resets all draft achievements for all players. This method is only available to user accounts for your developer console.
+      tags:
+        - achievements
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/games
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/achievements/resetAllForAllPlayers
+        flatPath: games/v1management/achievements/resetAllForAllPlayers
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/achievements/{achievementId}/resetForAllPlayers:
+    post:
+      operationId: gamesManagement.achievements.resetForAllPlayers
+      description: Resets the achievement with the given ID for all players. This method is only available to user accounts for your developer console. Only draft achievements can be reset.
+      parameters:
+        - name: achievementId
+          in: path
+          schema:
+            type: string
+          description: The ID of the achievement used by this method.
+          required: true
       tags:
         - achievements
-  /games/v1management/achievements/resetMultipleForAllPlayers:
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/achievements/{achievementId}/resetForAllPlayers
+        flatPath: games/v1management/achievements/{achievementId}/resetForAllPlayers
+        parameterOrder:
+          - achievementId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/achievements/resetMultipleForAllPlayers:
     post:
-      description: Resets achievements with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft achievements may be reset.
       operationId: gamesManagement.achievements.resetMultipleForAllPlayers
+      description: Resets achievements with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft achievements may be reset.
+      tags:
+        - achievements
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AchievementResetMultipleForAllRequest"
+              $ref: '#/components/schemas/AchievementResetMultipleForAllRequest'
       responses:
-        "200":
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
-      tags:
-        - achievements
-  /games/v1management/achievements/{achievementId}/reset:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/achievements/resetMultipleForAllPlayers
+        flatPath: games/v1management/achievements/resetMultipleForAllPlayers
+        parameterOrder: []
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets the achievement with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application.
-      operationId: gamesManagement.achievements.reset
-      parameters:
-        - description: The ID of the achievement used by this method.
-          in: path
-          name: achievementId
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AchievementResetResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
-      tags:
-        - achievements
-  /games/v1management/achievements/{achievementId}/resetForAllPlayers:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets the achievement with the given ID for all players. This method is only available to user accounts for your developer console. Only draft achievements can be reset.
-      operationId: gamesManagement.achievements.resetForAllPlayers
-      parameters:
-        - description: The ID of the achievement used by this method.
-          in: path
-          name: achievementId
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
-      tags:
-        - achievements
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /games/v1management/applications/{applicationId}/players/hidden:
     get:
-      description: Get the list of players hidden from the given application. This method is only available to user accounts for your developer console.
       operationId: gamesManagement.applications.listHidden
+      description: Get the list of players hidden from the given application. This method is only available to user accounts for your developer console.
       parameters:
-        - description: The application ID from the Google Play developer console.
+        - name: applicationId
           in: path
-          name: applicationId
+          schema:
+            type: string
+          description: The application ID from the Google Play developer console.
           required: true
-          schema:
-            type: string
-        - description: The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified `maxResults`.
+        - name: maxResults
           in: query
-          name: maxResults
           schema:
+            format: int32
             type: integer
-        - description: The token returned by the previous request.
+          description: The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified `maxResults`.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/HiddenPlayerList"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
+          description: The token returned by the previous request.
       tags:
         - applications
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /games/v1management/applications/{applicationId}/players/hidden/{playerId}:
-    delete:
-      description: Unhide the given player's leaderboard scores from the given application. This method is only available to user accounts for your developer console.
-      operationId: gamesManagement.players.unhide
-      parameters:
-        - description: The application ID from the Google Play developer console.
-          in: path
-          name: applicationId
-          required: true
-          schema:
-            type: string
-        - description: A player ID. A value of `me` may be used in place of the authenticated player's ID.
-          in: path
-          name: playerId
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Successful response
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/games
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/games
-      tags:
-        - players
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Hide the given player's leaderboard scores from the given application. This method is only available to user accounts for your developer console.
-      operationId: gamesManagement.players.hide
-      parameters:
-        - description: The application ID from the Google Play developer console.
-          in: path
-          name: applicationId
-          required: true
-          schema:
-            type: string
-        - description: A player ID. A value of `me` may be used in place of the authenticated player's ID.
-          in: path
-          name: playerId
-          required: true
-          schema:
-            type: string
       responses:
-        "200":
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
-      tags:
-        - players
-  /games/v1management/events/reset:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HiddenPlayerList'
+      x-google-discovery:
+        path: games/v1management/applications/{applicationId}/players/hidden
+        flatPath: games/v1management/applications/{applicationId}/players/hidden
+        parameterOrder:
+          - applicationId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets all player progress on all events for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application.
-      operationId: gamesManagement.events.resetAll
-      responses:
-        "200":
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
-      tags:
-        - events
-  /games/v1management/events/resetAllForAllPlayers:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets all draft events for all players. This method is only available to user accounts for your developer console.
-      operationId: gamesManagement.events.resetAllForAllPlayers
-      responses:
-        "200":
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
-      tags:
-        - events
-  /games/v1management/events/resetMultipleForAllPlayers:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets events with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft events may be reset.
-      operationId: gamesManagement.events.resetMultipleForAllPlayers
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/EventsResetMultipleForAllRequest"
-      responses:
-        "200":
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
-      tags:
-        - events
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /games/v1management/events/{eventId}/reset:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
     post:
-      description: Resets all player progress on the event with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application.
       operationId: gamesManagement.events.reset
+      description: Resets all player progress on the event with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application.
       parameters:
-        - description: The ID of the event.
+        - name: eventId
           in: path
-          name: eventId
-          required: true
           schema:
             type: string
-      responses:
-        "200":
-          description: Successful response
+          description: The ID of the event.
+          required: true
+      tags:
+        - events
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/games
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/events/{eventId}/reset
+        flatPath: games/v1management/events/{eventId}/reset
+        parameterOrder:
+          - eventId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/events/reset:
+    post:
+      operationId: gamesManagement.events.resetAll
+      description: Resets all player progress on all events for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application.
       tags:
         - events
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/events/reset
+        flatPath: games/v1management/events/reset
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/events/resetAllForAllPlayers:
+    post:
+      operationId: gamesManagement.events.resetAllForAllPlayers
+      description: Resets all draft events for all players. This method is only available to user accounts for your developer console.
+      tags:
+        - events
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/events/resetAllForAllPlayers
+        flatPath: games/v1management/events/resetAllForAllPlayers
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /games/v1management/events/{eventId}/resetForAllPlayers:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
     post:
-      description: Resets the event with the given ID for all players. This method is only available to user accounts for your developer console. Only draft events can be reset.
       operationId: gamesManagement.events.resetForAllPlayers
+      description: Resets the event with the given ID for all players. This method is only available to user accounts for your developer console. Only draft events can be reset.
       parameters:
-        - description: The ID of the event.
+        - name: eventId
           in: path
-          name: eventId
-          required: true
           schema:
             type: string
-      responses:
-        "200":
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
+          description: The ID of the event.
+          required: true
       tags:
         - events
-  /games/v1management/leaderboards/{leaderboardId}/scores/reset:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets scores for the leaderboard with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application.
-      operationId: gamesManagement.scores.reset
-      parameters:
-        - description: The ID of the leaderboard.
-          in: path
-          name: leaderboardId
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PlayerScoreResetResponse"
-          description: Successful response
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/games
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/games
-      tags:
-        - scores
-  /games/v1management/leaderboards/{leaderboardId}/scores/resetForAllPlayers:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets scores for the leaderboard with the given ID for all players. This method is only available to user accounts for your developer console. Only draft leaderboards can be reset.
-      operationId: gamesManagement.scores.resetForAllPlayers
-      parameters:
-        - description: The ID of the leaderboard.
-          in: path
-          name: leaderboardId
-          required: true
-          schema:
-            type: string
       responses:
-        "200":
-          description: Successful response
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/events/{eventId}/resetForAllPlayers
+        flatPath: games/v1management/events/{eventId}/resetForAllPlayers
+        parameterOrder:
+          - eventId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/events/resetMultipleForAllPlayers:
+    post:
+      operationId: gamesManagement.events.resetMultipleForAllPlayers
+      description: Resets events with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft events may be reset.
+      tags:
+        - events
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/games
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/games
-      tags:
-        - scores
-  /games/v1management/scores/reset:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets all scores for all leaderboards for the currently authenticated players. This method is only accessible to whitelisted tester accounts for your application.
-      operationId: gamesManagement.scores.resetAll
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PlayerScoreResetAllResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
-      tags:
-        - scores
-  /games/v1management/scores/resetAllForAllPlayers:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets scores for all draft leaderboards for all players. This method is only available to user accounts for your developer console.
-      operationId: gamesManagement.scores.resetAllForAllPlayers
-      responses:
-        "200":
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/games
-          Oauth2c:
-            - https://www.googleapis.com/auth/games
-      tags:
-        - scores
-  /games/v1management/scores/resetMultipleForAllPlayers:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Resets scores for the leaderboards with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft leaderboards may be reset.
-      operationId: gamesManagement.scores.resetMultipleForAllPlayers
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ScoresResetMultipleForAllRequest"
+              $ref: '#/components/schemas/EventsResetMultipleForAllRequest'
       responses:
-        "200":
-          description: Successful response
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/events/resetMultipleForAllPlayers
+        flatPath: games/v1management/events/resetMultipleForAllPlayers
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/applications/{applicationId}/players/hidden/{playerId}:
+    post:
+      operationId: gamesManagement.players.hide
+      description: Hide the given player's leaderboard scores from the given application. This method is only available to user accounts for your developer console.
+      parameters:
+        - name: applicationId
+          in: path
+          schema:
+            type: string
+          description: The application ID from the Google Play developer console.
+          required: true
+        - name: playerId
+          in: path
+          schema:
+            type: string
+          description: A player ID. A value of `me` may be used in place of the authenticated player's ID.
+          required: true
+      tags:
+        - players
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/games
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/applications/{applicationId}/players/hidden/{playerId}
+        flatPath: games/v1management/applications/{applicationId}/players/hidden/{playerId}
+        parameterOrder:
+          - applicationId
+          - playerId
+    delete:
+      operationId: gamesManagement.players.unhide
+      description: Unhide the given player's leaderboard scores from the given application. This method is only available to user accounts for your developer console.
+      parameters:
+        - name: applicationId
+          in: path
+          schema:
+            type: string
+          description: The application ID from the Google Play developer console.
+          required: true
+        - name: playerId
+          in: path
+          schema:
+            type: string
+          description: A player ID. A value of `me` may be used in place of the authenticated player's ID.
+          required: true
+      tags:
+        - players
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/applications/{applicationId}/players/hidden/{playerId}
+        flatPath: games/v1management/applications/{applicationId}/players/hidden/{playerId}
+        parameterOrder:
+          - applicationId
+          - playerId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/leaderboards/{leaderboardId}/scores/reset:
+    post:
+      operationId: gamesManagement.scores.reset
+      description: Resets scores for the leaderboard with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application.
+      parameters:
+        - name: leaderboardId
+          in: path
+          schema:
+            type: string
+          description: The ID of the leaderboard.
+          required: true
       tags:
         - scores
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerScoreResetResponse'
+      x-google-discovery:
+        path: games/v1management/leaderboards/{leaderboardId}/scores/reset
+        flatPath: games/v1management/leaderboards/{leaderboardId}/scores/reset
+        parameterOrder:
+          - leaderboardId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/scores/reset:
+    post:
+      operationId: gamesManagement.scores.resetAll
+      description: Resets all scores for all leaderboards for the currently authenticated players. This method is only accessible to whitelisted tester accounts for your application.
+      tags:
+        - scores
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerScoreResetAllResponse'
+      x-google-discovery:
+        path: games/v1management/scores/reset
+        flatPath: games/v1management/scores/reset
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/scores/resetAllForAllPlayers:
+    post:
+      operationId: gamesManagement.scores.resetAllForAllPlayers
+      description: Resets scores for all draft leaderboards for all players. This method is only available to user accounts for your developer console.
+      tags:
+        - scores
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/scores/resetAllForAllPlayers
+        flatPath: games/v1management/scores/resetAllForAllPlayers
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/leaderboards/{leaderboardId}/scores/resetForAllPlayers:
+    post:
+      operationId: gamesManagement.scores.resetForAllPlayers
+      description: Resets scores for the leaderboard with the given ID for all players. This method is only available to user accounts for your developer console. Only draft leaderboards can be reset.
+      parameters:
+        - name: leaderboardId
+          in: path
+          schema:
+            type: string
+          description: The ID of the leaderboard.
+          required: true
+      tags:
+        - scores
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/leaderboards/{leaderboardId}/scores/resetForAllPlayers
+        flatPath: games/v1management/leaderboards/{leaderboardId}/scores/resetForAllPlayers
+        parameterOrder:
+          - leaderboardId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /games/v1management/scores/resetMultipleForAllPlayers:
+    post:
+      operationId: gamesManagement.scores.resetMultipleForAllPlayers
+      description: Resets scores for the leaderboards with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft leaderboards may be reset.
+      tags:
+        - scores
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/games
+        - Oauth2c:
+            - https://www.googleapis.com/auth/games
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoresResetMultipleForAllRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: games/v1management/scores/resetMultipleForAllPlayers
+        flatPath: games/v1management/scores/resetMultipleForAllPlayers
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     AchievementResetAllResponse:
       description: Achievement reset all response.
+      x-google-discovery-id: AchievementResetAllResponse
       properties:
         kind:
           description: Uniquely identifies the type of this resource. Value is always the fixed string `gamesManagement#achievementResetAllResponse`.
@@ -695,10 +709,11 @@ components:
         results:
           description: The achievement reset results.
           items:
-            $ref: "#/components/schemas/AchievementResetResponse"
+            $ref: '#/components/schemas/AchievementResetResponse'
           type: array
       type: object
     AchievementResetMultipleForAllRequest:
+      x-google-discovery-id: AchievementResetMultipleForAllRequest
       properties:
         achievement_ids:
           description: The IDs of achievements to reset.
@@ -711,6 +726,7 @@ components:
       type: object
     AchievementResetResponse:
       description: An achievement reset response.
+      x-google-discovery-id: AchievementResetResponse
       properties:
         currentState:
           description: 'The current state of the achievement. This is the same as the initial state of the achievement. Possible values are: - "`HIDDEN`"- Achievement is hidden. - "`REVEALED`" - Achievement is revealed. - "`UNLOCKED`" - Achievement is unlocked. '
@@ -727,6 +743,7 @@ components:
       type: object
     EventsResetMultipleForAllRequest:
       description: Multiple events reset all request.
+      x-google-discovery-id: EventsResetMultipleForAllRequest
       properties:
         event_ids:
           description: The IDs of events to reset.
@@ -739,24 +756,28 @@ components:
       type: object
     GamesPlayerExperienceInfoResource:
       description: 1P/3P metadata about the player's experience.
+      x-google-discovery-id: GamesPlayerExperienceInfoResource
       properties:
         currentExperiencePoints:
           description: The current number of experience points for the player.
           format: int64
           type: string
         currentLevel:
-          $ref: "#/components/schemas/GamesPlayerLevelResource"
           description: The current level of the player.
+          allOf:
+            - $ref: '#/components/schemas/GamesPlayerLevelResource'
         lastLevelUpTimestampMillis:
           description: The timestamp when the player was leveled up, in millis since Unix epoch UTC.
           format: int64
           type: string
         nextLevel:
-          $ref: "#/components/schemas/GamesPlayerLevelResource"
           description: The next level of the player. If the current level is the maximum level, this should be same as the current level.
+          allOf:
+            - $ref: '#/components/schemas/GamesPlayerLevelResource'
       type: object
     GamesPlayerLevelResource:
       description: 1P/3P metadata about a user's level.
+      x-google-discovery-id: GamesPlayerLevelResource
       properties:
         level:
           description: The level for the user.
@@ -773,6 +794,7 @@ components:
       type: object
     HiddenPlayer:
       description: The HiddenPlayer resource.
+      x-google-discovery-id: HiddenPlayer
       properties:
         hiddenTimeMillis:
           description: Output only. The time this player was hidden.
@@ -784,17 +806,19 @@ components:
           readOnly: true
           type: string
         player:
-          $ref: "#/components/schemas/Player"
           description: Output only. The player information.
           readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/Player'
       type: object
     HiddenPlayerList:
       description: A list of hidden players.
+      x-google-discovery-id: HiddenPlayerList
       properties:
         items:
           description: The players.
           items:
-            $ref: "#/components/schemas/HiddenPlayer"
+            $ref: '#/components/schemas/HiddenPlayer'
           type: array
         kind:
           description: Uniquely identifies the type of this resource. Value is always the fixed string `gamesManagement#hiddenPlayerList`.
@@ -805,6 +829,7 @@ components:
       type: object
     Player:
       description: A Player resource.
+      x-google-discovery-id: Player
       properties:
         avatarImageUrl:
           description: The base URL for the image that represents the player.
@@ -819,8 +844,9 @@ components:
           description: The name to display for the player.
           type: string
         experienceInfo:
-          $ref: "#/components/schemas/GamesPlayerExperienceInfoResource"
           description: An object to represent Play Game experience information for the player.
+          allOf:
+            - $ref: '#/components/schemas/GamesPlayerExperienceInfoResource'
         kind:
           description: Uniquely identifies the type of this resource. Value is always the fixed string `gamesManagement#player`.
           type: string
@@ -841,14 +867,16 @@ components:
           description: The ID of the player.
           type: string
         profileSettings:
-          $ref: "#/components/schemas/ProfileSettings"
           description: The player's profile settings. Controls whether or not the player's profile is visible to other players.
+          allOf:
+            - $ref: '#/components/schemas/ProfileSettings'
         title:
           description: The player's title rewarded for their game activities.
           type: string
       type: object
     PlayerScoreResetAllResponse:
       description: A list of leaderboard reset resources.
+      x-google-discovery-id: PlayerScoreResetAllResponse
       properties:
         kind:
           description: Uniquely identifies the type of this resource. Value is always the fixed string `gamesManagement#playerScoreResetAllResponse`.
@@ -856,11 +884,12 @@ components:
         results:
           description: The leaderboard reset results.
           items:
-            $ref: "#/components/schemas/PlayerScoreResetResponse"
+            $ref: '#/components/schemas/PlayerScoreResetResponse'
           type: array
       type: object
     PlayerScoreResetResponse:
       description: A list of reset leaderboard entry resources.
+      x-google-discovery-id: PlayerScoreResetResponse
       properties:
         definitionId:
           description: The ID of an leaderboard for which player state has been updated.
@@ -876,6 +905,7 @@ components:
       type: object
     ProfileSettings:
       description: Profile settings
+      x-google-discovery-id: ProfileSettings
       properties:
         kind:
           description: Uniquely identifies the type of this resource. Value is always the fixed string `gamesManagement#profileSettings`.
@@ -884,6 +914,7 @@ components:
           type: boolean
       type: object
     ScoresResetMultipleForAllRequest:
+      x-google-discovery-id: ScoresResetMultipleForAllRequest
       properties:
         kind:
           description: Uniquely identifies the type of this resource. Value is always the fixed string `gamesManagement#scoresResetMultipleForAllRequest`.
@@ -894,21 +925,126 @@ components:
             type: string
           type: array
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/games: Create, edit, and delete your Google Play Games activity
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/games: Create, edit, and delete your Google Play Games activity
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/games/
+tags:
+  - name: achievements
+  - name: applications
+  - name: events
+  - name: players
+  - name: scores
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://gamesmanagement.googleapis.com/
+  batchPath: batch
+  canonicalName: Games Management
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: gamesManagement:v1management
+  kind: discovery#restDescription
+  mtlsRootUrl: https://gamesmanagement.mtls.googleapis.com/
+  name: gamesManagement
+  revision: '20251003'
+  rootUrl: https://gamesmanagement.googleapis.com/
+  servicePath: ''

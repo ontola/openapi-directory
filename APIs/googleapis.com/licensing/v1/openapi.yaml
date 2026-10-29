@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://licensing.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -22,428 +20,418 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://licensing.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/licensing.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/licensing.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: licensing
-externalDocs:
-  url: https://developers.google.com/admin-sdk/licensing/
-tags:
-  - name: licenseAssignments
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20251108; original source SHA-256 6abd19e3a14e20d614ad0b561be6d4cf38ab2964cb693f5ff0549138e72cae1a.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://licensing.googleapis.com
 paths:
-  /apps/licensing/v1/product/{productId}/sku/{skuId}/user:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Assign a license.
-      operationId: licensing.licenseAssignments.insert
-      parameters:
-        - description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
-          in: path
-          name: productId
-          required: true
-          schema:
-            type: string
-        - description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
-          in: path
-          name: skuId
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/LicenseAssignmentInsert"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/LicenseAssignment"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/apps.licensing
-          Oauth2c:
-            - https://www.googleapis.com/auth/apps.licensing
-      tags:
-        - licenseAssignments
   /apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}:
     delete:
-      description: Revoke a license.
       operationId: licensing.licenseAssignments.delete
+      description: Revoke a license.
       parameters:
-        - description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
+        - name: productId
           in: path
-          name: productId
-          required: true
           schema:
             type: string
-        - description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
-          in: path
-          name: skuId
+          description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
           required: true
+        - name: skuId
+          in: path
           schema:
             type: string
-        - description: The user's current primary email address. If the user's email address changes, use the new email address in your API requests. Since a `userId` is subject to change, do not use a `userId` value as a key for persistent data. This key could break if the current user's email address changes. If the `userId` is suspended, the license status changes.
-          in: path
-          name: userId
+          description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
           required: true
+        - name: userId
+          in: path
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
+          description: The user's current primary email address. If the user's email address changes, use the new email address in your API requests. Since a `userId` is subject to change, do not use a `userId` value as a key for persistent data. This key could break if the current user's email address changes. If the `userId` is suspended, the license status changes.
+          required: true
+      tags:
+        - licenseAssignments
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/apps.licensing
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/apps.licensing
-      tags:
-        - licenseAssignments
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}
+        flatPath: apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}
+        parameterOrder:
+          - productId
+          - skuId
+          - userId
     get:
-      description: Get a specific user's license by product SKU.
       operationId: licensing.licenseAssignments.get
+      description: Get a specific user's license by product SKU.
       parameters:
-        - description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
+        - name: productId
           in: path
-          name: productId
-          required: true
           schema:
             type: string
-        - description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
-          in: path
-          name: skuId
+          description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
           required: true
+        - name: skuId
+          in: path
           schema:
             type: string
-        - description: The user's current primary email address. If the user's email address changes, use the new email address in your API requests. Since a `userId` is subject to change, do not use a `userId` value as a key for persistent data. This key could break if the current user's email address changes. If the `userId` is suspended, the license status changes.
-          in: path
-          name: userId
+          description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
           required: true
+        - name: userId
+          in: path
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/LicenseAssignment"
-          description: Successful response
+          description: The user's current primary email address. If the user's email address changes, use the new email address in your API requests. Since a `userId` is subject to change, do not use a `userId` value as a key for persistent data. This key could break if the current user's email address changes. If the `userId` is suspended, the license status changes.
+          required: true
+      tags:
+        - licenseAssignments
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/apps.licensing
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/apps.licensing
-      tags:
-        - licenseAssignments
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseAssignment'
+      x-google-discovery:
+        path: apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}
+        flatPath: apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}
+        parameterOrder:
+          - productId
+          - skuId
+          - userId
     patch:
-      description: Reassign a user's product SKU with a different SKU in the same product. This method supports patch semantics.
       operationId: licensing.licenseAssignments.patch
+      description: Reassign a user's product SKU with a different SKU in the same product. This method supports patch semantics.
       parameters:
-        - description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
+        - name: productId
           in: path
-          name: productId
-          required: true
           schema:
             type: string
-        - description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
-          in: path
-          name: skuId
+          description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
           required: true
+        - name: skuId
+          in: path
           schema:
             type: string
-        - description: The user's current primary email address. If the user's email address changes, use the new email address in your API requests. Since a `userId` is subject to change, do not use a `userId` value as a key for persistent data. This key could break if the current user's email address changes. If the `userId` is suspended, the license status changes.
-          in: path
-          name: userId
+          description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
           required: true
+        - name: userId
+          in: path
           schema:
             type: string
+          description: The user's current primary email address. If the user's email address changes, use the new email address in your API requests. Since a `userId` is subject to change, do not use a `userId` value as a key for persistent data. This key could break if the current user's email address changes. If the `userId` is suspended, the license status changes.
+          required: true
+      tags:
+        - licenseAssignments
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apps.licensing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apps.licensing
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LicenseAssignment"
+              $ref: '#/components/schemas/LicenseAssignment'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LicenseAssignment"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/apps.licensing
-          Oauth2c:
-            - https://www.googleapis.com/auth/apps.licensing
-      tags:
-        - licenseAssignments
+                $ref: '#/components/schemas/LicenseAssignment'
+      x-google-discovery:
+        path: apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}
+        flatPath: apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}
+        parameterOrder:
+          - productId
+          - skuId
+          - userId
     put:
-      description: Reassign a user's product SKU with a different SKU in the same product.
       operationId: licensing.licenseAssignments.update
+      description: Reassign a user's product SKU with a different SKU in the same product.
       parameters:
-        - description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
+        - name: productId
           in: path
-          name: productId
-          required: true
           schema:
             type: string
-        - description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
-          in: path
-          name: skuId
+          description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
           required: true
+        - name: skuId
+          in: path
           schema:
             type: string
-        - description: The user's current primary email address. If the user's email address changes, use the new email address in your API requests. Since a `userId` is subject to change, do not use a `userId` value as a key for persistent data. This key could break if the current user's email address changes. If the `userId` is suspended, the license status changes.
-          in: path
-          name: userId
+          description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
           required: true
+        - name: userId
+          in: path
           schema:
             type: string
+          description: The user's current primary email address. If the user's email address changes, use the new email address in your API requests. Since a `userId` is subject to change, do not use a `userId` value as a key for persistent data. This key could break if the current user's email address changes. If the `userId` is suspended, the license status changes.
+          required: true
+      tags:
+        - licenseAssignments
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apps.licensing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apps.licensing
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LicenseAssignment"
+              $ref: '#/components/schemas/LicenseAssignment'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LicenseAssignment"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/apps.licensing
-          Oauth2c:
-            - https://www.googleapis.com/auth/apps.licensing
-      tags:
-        - licenseAssignments
-  /apps/licensing/v1/product/{productId}/sku/{skuId}/users:
-    get:
-      description: List all users assigned licenses for a specific product SKU.
-      operationId: licensing.licenseAssignments.listForProductAndSku
-      parameters:
-        - description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
-          in: path
-          name: productId
-          required: true
-          schema:
-            type: string
-        - description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
-          in: path
-          name: skuId
-          required: true
-          schema:
-            type: string
-        - description: The customer's unique ID as defined in the Admin console, such as `C00000000`. If the customer is suspended, the server returns an error.
-          in: query
-          name: customerId
-          required: true
-          schema:
-            type: string
-        - description: The `maxResults` query string determines how many entries are returned on each page of a large response. This is an optional parameter. The value must be a positive number.
-          in: query
-          name: maxResults
-          schema:
-            maximum: 1000
-            minimum: 1
-            type: integer
-        - description: Token to fetch the next page of data. The `maxResults` query string is related to the `pageToken` since `maxResults` determines how many entries are returned on each page. This is an optional query string. If not specified, the server returns the first page.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/LicenseAssignmentList"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/apps.licensing
-          Oauth2c:
-            - https://www.googleapis.com/auth/apps.licensing
-      tags:
-        - licenseAssignments
+                $ref: '#/components/schemas/LicenseAssignment'
+      x-google-discovery:
+        path: apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}
+        flatPath: apps/licensing/v1/product/{productId}/sku/{skuId}/user/{userId}
+        parameterOrder:
+          - productId
+          - skuId
+          - userId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /apps/licensing/v1/product/{productId}/sku/{skuId}/user:
+    post:
+      operationId: licensing.licenseAssignments.insert
+      description: Assign a license.
+      parameters:
+        - name: productId
+          in: path
+          schema:
+            type: string
+          description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
+          required: true
+        - name: skuId
+          in: path
+          schema:
+            type: string
+          description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
+          required: true
+      tags:
+        - licenseAssignments
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apps.licensing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apps.licensing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseAssignmentInsert'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseAssignment'
+      x-google-discovery:
+        path: apps/licensing/v1/product/{productId}/sku/{skuId}/user
+        flatPath: apps/licensing/v1/product/{productId}/sku/{skuId}/user
+        parameterOrder:
+          - productId
+          - skuId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /apps/licensing/v1/product/{productId}/users:
     get:
-      description: List all users assigned licenses for a specific product SKU.
       operationId: licensing.licenseAssignments.listForProduct
+      description: List all users assigned licenses for a specific product SKU.
       parameters:
-        - description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
+        - name: productId
           in: path
-          name: productId
-          required: true
           schema:
             type: string
-        - description: The customer's unique ID as defined in the Admin console, such as `C00000000`. If the customer is suspended, the server returns an error.
-          in: query
-          name: customerId
+          description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
           required: true
+        - name: customerId
+          in: query
           schema:
             type: string
-        - description: The `maxResults` query string determines how many entries are returned on each page of a large response. This is an optional parameter. The value must be a positive number.
+          description: The customer's unique ID as defined in the Admin console, such as `C00000000`. If the customer is suspended, the server returns an error.
+          required: true
+        - name: maxResults
           in: query
-          name: maxResults
           schema:
+            default: 100
+            format: uint32
             maximum: 1000
             minimum: 1
             type: integer
-        - description: Token to fetch the next page of data. The `maxResults` query string is related to the `pageToken` since `maxResults` determines how many entries are returned on each page. This is an optional query string. If not specified, the server returns the first page.
+          description: The `maxResults` query string determines how many entries are returned on each page of a large response. This is an optional parameter. The value must be a positive number.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
+            default: ''
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/LicenseAssignmentList"
-          description: Successful response
+          description: Token to fetch the next page of data. The `maxResults` query string is related to the `pageToken` since `maxResults` determines how many entries are returned on each page. This is an optional query string. If not specified, the server returns the first page.
+      tags:
+        - licenseAssignments
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/apps.licensing
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/apps.licensing
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseAssignmentList'
+      x-google-discovery:
+        path: apps/licensing/v1/product/{productId}/users
+        flatPath: apps/licensing/v1/product/{productId}/users
+        parameterOrder:
+          - productId
+          - customerId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /apps/licensing/v1/product/{productId}/sku/{skuId}/users:
+    get:
+      operationId: licensing.licenseAssignments.listForProductAndSku
+      description: List all users assigned licenses for a specific product SKU.
+      parameters:
+        - name: productId
+          in: path
+          schema:
+            type: string
+          description: A product's unique identifier. For more information about products in this version of the API, see Products and SKUs.
+          required: true
+        - name: skuId
+          in: path
+          schema:
+            type: string
+          description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
+          required: true
+        - name: customerId
+          in: query
+          schema:
+            type: string
+          description: The customer's unique ID as defined in the Admin console, such as `C00000000`. If the customer is suspended, the server returns an error.
+          required: true
+        - name: maxResults
+          in: query
+          schema:
+            default: 100
+            format: uint32
+            maximum: 1000
+            minimum: 1
+            type: integer
+          description: The `maxResults` query string determines how many entries are returned on each page of a large response. This is an optional parameter. The value must be a positive number.
+        - name: pageToken
+          in: query
+          schema:
+            default: ''
+            type: string
+          description: Token to fetch the next page of data. The `maxResults` query string is related to the `pageToken` since `maxResults` determines how many entries are returned on each page. This is an optional query string. If not specified, the server returns the first page.
       tags:
         - licenseAssignments
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apps.licensing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apps.licensing
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseAssignmentList'
+      x-google-discovery:
+        path: apps/licensing/v1/product/{productId}/sku/{skuId}/users
+        flatPath: apps/licensing/v1/product/{productId}/sku/{skuId}/users
+        parameterOrder:
+          - productId
+          - skuId
+          - customerId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     LicenseAssignment:
       description: Representation of a license assignment.
+      x-google-discovery-id: LicenseAssignment
       properties:
         etags:
           description: ETag of the resource.
@@ -453,6 +441,9 @@ components:
           description: Identifies the resource as a LicenseAssignment, which is `licensing#licenseAssignment`.
           type: string
         productId:
+          x-google-annotations:
+            required:
+              - licensing.licenseAssignments.update
           description: A product's unique identifier. For more information about products in this version of the API, see Product and SKU IDs.
           type: string
         productName:
@@ -462,23 +453,34 @@ components:
           description: Link to this page.
           type: string
         skuId:
+          x-google-annotations:
+            required:
+              - licensing.licenseAssignments.update
           description: A product SKU's unique identifier. For more information about available SKUs in this version of the API, see Products and SKUs.
           type: string
         skuName:
           description: Display Name of the sku of the product.
           type: string
         userId:
+          x-google-annotations:
+            required:
+              - licensing.licenseAssignments.update
           description: The user's current primary email address. If the user's email address changes, use the new email address in your API requests. Since a `userId` is subject to change, do not use a `userId` value as a key for persistent data. This key could break if the current user's email address changes. If the `userId` is suspended, the license status changes.
           type: string
       type: object
     LicenseAssignmentInsert:
       description: Representation of a license assignment.
+      x-google-discovery-id: LicenseAssignmentInsert
       properties:
         userId:
+          x-google-annotations:
+            required:
+              - licensing.licenseAssignments.insert
           description: Email id of the user
           type: string
       type: object
     LicenseAssignmentList:
+      x-google-discovery-id: LicenseAssignmentList
       properties:
         etag:
           description: ETag of the resource.
@@ -486,7 +488,7 @@ components:
         items:
           description: The LicenseAssignments in this page of results.
           items:
-            $ref: "#/components/schemas/LicenseAssignment"
+            $ref: '#/components/schemas/LicenseAssignment'
           type: array
         kind:
           default: licensing#licenseAssignmentList
@@ -496,21 +498,121 @@ components:
           description: The token that you must submit in a subsequent request to retrieve additional license results matching your query parameters. The `maxResults` query string is related to the `nextPageToken` since `maxResults` determines how many entries are returned on each next page.
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
-            https://www.googleapis.com/auth/apps.licensing: View and manage G Suite licenses for your domain
-      type: oauth2
+            https://www.googleapis.com/auth/apps.licensing: View and manage Google Workspace licenses for your domain
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
-            https://www.googleapis.com/auth/apps.licensing: View and manage G Suite licenses for your domain
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+            https://www.googleapis.com/auth/apps.licensing: View and manage Google Workspace licenses for your domain
+externalDocs:
+  url: https://developers.google.com/admin-sdk/licensing/
+tags:
+  - name: licenseAssignments
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://licensing.googleapis.com/
+  batchPath: batch
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: licensing:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://licensing.mtls.googleapis.com/
+  name: licensing
+  revision: '20251108'
+  rootUrl: https://licensing.googleapis.com/
+  servicePath: ''

@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://youtubereporting.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -21,488 +19,479 @@ info:
   x-logo:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
-    - converter:
-        url: https://github.com/mermade/oas-kit
-        version: 7.0.4
-      format: google
-      url: https://youtubereporting.googleapis.com/$discovery/rest?version=v1
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/youtubereporting.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/youtubereporting.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: youtubereporting
-externalDocs:
-  url: https://developers.google.com/youtube/reporting/v1/reports/
-tags:
-  - name: jobs
-  - name: media
-  - name: reportTypes
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260506; original source SHA-256 d28a0a512216a0ec21ebf388bcdd3bd9bd7d30d24cdbbf7c30207a0a8cd2281a.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://youtubereporting.googleapis.com
 paths:
   /v1/jobs:
-    get:
-      description: Lists jobs.
-      operationId: youtubereporting.jobs.list
+    post:
+      operationId: youtubereporting.jobs.create
+      description: Creates a job and returns it.
       parameters:
-        - description: If set to true, also system-managed jobs will be returned; otherwise only user-created jobs will be returned. System-managed jobs can neither be modified nor deleted.
+        - name: onBehalfOfContentOwner
           in: query
-          name: includeSystemManaged
-          schema:
-            type: boolean
-        - description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
-          in: query
-          name: onBehalfOfContentOwner
           schema:
             type: string
-        - description: Requested page size. Server may return fewer jobs than requested. If unspecified, server will pick an appropriate default.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A token identifying a page of results the server should return. Typically, this is the value of ListReportTypesResponse.next_page_token returned in response to the previous call to the `ListJobs` method.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListJobsResponse"
-          description: Successful response
+          description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
+      tags:
+        - jobs
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/yt-analytics.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/yt-analytics.readonly
-      tags:
-        - jobs
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a job and returns it.
-      operationId: youtubereporting.jobs.create
-      parameters:
-        - description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
-          in: query
-          name: onBehalfOfContentOwner
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Job"
+              $ref: '#/components/schemas/Job'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Job"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-      tags:
-        - jobs
-  /v1/jobs/{jobId}:
-    delete:
-      description: Deletes a job.
-      operationId: youtubereporting.jobs.delete
-      parameters:
-        - description: The ID of the job to delete.
-          in: path
-          name: jobId
-          required: true
-          schema:
-            type: string
-        - description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
-          in: query
-          name: onBehalfOfContentOwner
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-      tags:
-        - jobs
+                $ref: '#/components/schemas/Job'
+      x-google-discovery:
+        path: v1/jobs
+        flatPath: v1/jobs
+        parameterOrder: []
     get:
-      description: Gets a job.
-      operationId: youtubereporting.jobs.get
+      operationId: youtubereporting.jobs.list
+      description: Lists jobs.
       parameters:
-        - description: The ID of the job to retrieve.
-          in: path
-          name: jobId
-          required: true
-          schema:
-            type: string
-        - description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
+        - name: includeSystemManaged
           in: query
-          name: onBehalfOfContentOwner
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Job"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-      tags:
-        - jobs
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/jobs/{jobId}/reports:
-    get:
-      description: Lists reports created by a specific job. Returns NOT_FOUND if the job does not exist.
-      operationId: youtubereporting.jobs.reports.list
-      parameters:
-        - description: The ID of the job.
-          in: path
-          name: jobId
-          required: true
-          schema:
-            type: string
-        - description: If set, only reports created after the specified date/time are returned.
-          in: query
-          name: createdAfter
-          schema:
-            type: string
-        - description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
-          in: query
-          name: onBehalfOfContentOwner
-          schema:
-            type: string
-        - description: Requested page size. Server may return fewer report types than requested. If unspecified, server will pick an appropriate default.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A token identifying a page of results the server should return. Typically, this is the value of ListReportsResponse.next_page_token returned in response to the previous call to the `ListReports` method.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-        - description: If set, only reports whose start time is greater than or equal the specified date/time are returned.
-          in: query
-          name: startTimeAtOrAfter
-          schema:
-            type: string
-        - description: If set, only reports whose start time is smaller than the specified date/time are returned.
-          in: query
-          name: startTimeBefore
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListReportsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-      tags:
-        - jobs
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/jobs/{jobId}/reports/{reportId}:
-    get:
-      description: Gets the metadata of a specific report.
-      operationId: youtubereporting.jobs.reports.get
-      parameters:
-        - description: The ID of the job.
-          in: path
-          name: jobId
-          required: true
-          schema:
-            type: string
-        - description: The ID of the report to retrieve.
-          in: path
-          name: reportId
-          required: true
-          schema:
-            type: string
-        - description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
-          in: query
-          name: onBehalfOfContentOwner
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Report"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-      tags:
-        - jobs
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/media/{resourceName}:
-    get:
-      description: Method for media download. Download is supported on the URI `/v1/media/{+name}?alt=media`.
-      operationId: youtubereporting.media.download
-      parameters:
-        - description: Name of the media that is being downloaded.
-          in: path
-          name: resourceName
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GdataMedia"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/yt-analytics.readonly
-      tags:
-        - media
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/reportTypes:
-    get:
-      description: Lists report types.
-      operationId: youtubereporting.reportTypes.list
-      parameters:
-        - description: If set to true, also system-managed report types will be returned; otherwise only the report types that can be used to create new reporting jobs will be returned.
-          in: query
-          name: includeSystemManaged
           schema:
             type: boolean
-        - description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
+          description: If set to true, also system-managed jobs will be returned; otherwise only user-created jobs will be returned. System-managed jobs can neither be modified nor deleted.
+        - name: onBehalfOfContentOwner
           in: query
-          name: onBehalfOfContentOwner
           schema:
             type: string
-        - description: Requested page size. Server may return fewer report types than requested. If unspecified, server will pick an appropriate default.
+          description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: A token identifying a page of results the server should return. Typically, this is the value of ListReportTypesResponse.next_page_token returned in response to the previous call to the `ListReportTypes` method.
+          description: Requested page size. Server may return fewer jobs than requested. If unspecified, server will pick an appropriate default.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListReportTypesResponse"
-          description: Successful response
+          description: A token identifying a page of results the server should return. Typically, this is the value of ListReportTypesResponse.next_page_token returned in response to the previous call to the `ListJobs` method.
+      tags:
+        - jobs
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/yt-analytics.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/yt-analytics.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListJobsResponse'
+      x-google-discovery:
+        path: v1/jobs
+        flatPath: v1/jobs
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/jobs/{jobId}:
+    delete:
+      operationId: youtubereporting.jobs.delete
+      description: Deletes a job.
+      parameters:
+        - name: jobId
+          in: path
+          schema:
+            type: string
+          description: The ID of the job to delete.
+          required: true
+        - name: onBehalfOfContentOwner
+          in: query
+          schema:
+            type: string
+          description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
+      tags:
+        - jobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/jobs/{jobId}
+        flatPath: v1/jobs/{jobId}
+        parameterOrder:
+          - jobId
+    get:
+      operationId: youtubereporting.jobs.get
+      description: Gets a job.
+      parameters:
+        - name: jobId
+          in: path
+          schema:
+            type: string
+          description: The ID of the job to retrieve.
+          required: true
+        - name: onBehalfOfContentOwner
+          in: query
+          schema:
+            type: string
+          description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
+      tags:
+        - jobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+      x-google-discovery:
+        path: v1/jobs/{jobId}
+        flatPath: v1/jobs/{jobId}
+        parameterOrder:
+          - jobId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/jobs/{jobId}/reports/{reportId}:
+    get:
+      operationId: youtubereporting.jobs.reports.get
+      description: Gets the metadata of a specific report.
+      parameters:
+        - name: jobId
+          in: path
+          schema:
+            type: string
+          description: The ID of the job.
+          required: true
+        - name: reportId
+          in: path
+          schema:
+            type: string
+          description: The ID of the report to retrieve.
+          required: true
+        - name: onBehalfOfContentOwner
+          in: query
+          schema:
+            type: string
+          description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
+      tags:
+        - jobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+      x-google-discovery:
+        path: v1/jobs/{jobId}/reports/{reportId}
+        flatPath: v1/jobs/{jobId}/reports/{reportId}
+        parameterOrder:
+          - jobId
+          - reportId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/jobs/{jobId}/reports:
+    get:
+      operationId: youtubereporting.jobs.reports.list
+      description: Lists reports created by a specific job. Returns NOT_FOUND if the job does not exist.
+      parameters:
+        - name: jobId
+          in: path
+          schema:
+            type: string
+          description: The ID of the job.
+          required: true
+        - name: createdAfter
+          in: query
+          schema:
+            format: google-datetime
+            type: string
+          description: If set, only reports created after the specified date/time are returned.
+        - name: onBehalfOfContentOwner
+          in: query
+          schema:
+            type: string
+          description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Requested page size. Server may return fewer report types than requested. If unspecified, server will pick an appropriate default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A token identifying a page of results the server should return. Typically, this is the value of ListReportsResponse.next_page_token returned in response to the previous call to the `ListReports` method.
+        - name: startTimeAtOrAfter
+          in: query
+          schema:
+            format: google-datetime
+            type: string
+          description: If set, only reports whose start time is greater than or equal the specified date/time are returned.
+        - name: startTimeBefore
+          in: query
+          schema:
+            format: google-datetime
+            type: string
+          description: If set, only reports whose start time is smaller than the specified date/time are returned.
+      tags:
+        - jobs
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListReportsResponse'
+      x-google-discovery:
+        path: v1/jobs/{jobId}/reports
+        flatPath: v1/jobs/{jobId}/reports
+        parameterOrder:
+          - jobId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/media/{mediaId}:
+    get:
+      operationId: youtubereporting.media.download
+      description: Method for media download. Download is supported on the URI `/v1/media/{+name}?alt=media`.
+      parameters:
+        - name: mediaId
+          in: path
+          required: true
+          description: Component of the original `resourceName` resource name. Name of the media that is being downloaded.
+          schema:
+            type: string
+      tags:
+        - media
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GdataMedia'
+            '*/*':
+              schema:
+                type: string
+                format: binary
+      x-google-discovery:
+        path: v1/media/{+resourceName}
+        flatPath: v1/media/{mediaId}
+        resourceNameBindings:
+          mediaId: resourceName
+        resourceNameParameters:
+          resourceName:
+            description: Name of the media that is being downloaded.
+            location: path
+            pattern: ^.*$
+            required: true
+            type: string
+        supportsMediaDownload: true
+        useMediaDownloadService: true
+        parameterOrder:
+          - resourceName
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/reportTypes:
+    get:
+      operationId: youtubereporting.reportTypes.list
+      description: Lists report types.
+      parameters:
+        - name: includeSystemManaged
+          in: query
+          schema:
+            type: boolean
+          description: If set to true, also system-managed report types will be returned; otherwise only the report types that can be used to create new reporting jobs will be returned.
+        - name: onBehalfOfContentOwner
+          in: query
+          schema:
+            type: string
+          description: The content owner's external ID on which behalf the user is acting on. If not set, the user is acting for himself (his own channel).
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Requested page size. Server may return fewer report types than requested. If unspecified, server will pick an appropriate default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A token identifying a page of results the server should return. Typically, this is the value of ListReportTypesResponse.next_page_token returned in response to the previous call to the `ListReportTypes` method.
       tags:
         - reportTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics-monetary.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/yt-analytics.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListReportTypesResponse'
+      x-google-discovery:
+        path: v1/reportTypes
+        flatPath: v1/reportTypes
+        parameterOrder: []
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     GdataBlobstore2Info:
       description: gdata
+      x-google-discovery-id: GdataBlobstore2Info
       properties:
         blobGeneration:
           description: gdata
@@ -511,12 +500,20 @@ components:
         blobId:
           description: gdata
           type: string
+        downloadExternalReadToken:
+          description: gdata
+          format: byte
+          type: string
         downloadReadHandle:
           description: gdata
           format: byte
           type: string
         readToken:
           description: gdata
+          type: string
+        uploadFragmentListCreationInfo:
+          description: gdata
+          format: byte
           type: string
         uploadMetadataContainer:
           description: gdata
@@ -525,6 +522,7 @@ components:
       type: object
     GdataCompositeMedia:
       description: gdata
+      x-google-discovery-id: GdataCompositeMedia
       properties:
         blobRef:
           deprecated: true
@@ -532,8 +530,9 @@ components:
           format: byte
           type: string
         blobstore2Info:
-          $ref: "#/components/schemas/GdataBlobstore2Info"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataBlobstore2Info'
         cosmoBinaryReference:
           description: gdata
           format: byte
@@ -555,8 +554,9 @@ components:
           format: byte
           type: string
         objectId:
-          $ref: "#/components/schemas/GdataObjectId"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataObjectId'
         path:
           description: gdata
           type: string
@@ -568,6 +568,12 @@ components:
             - INLINE
             - BIGSTORE_REF
             - COSMO_BINARY_REFERENCE
+          x-google-enum-descriptions:
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
           type: string
         sha1Hash:
           description: gdata
@@ -576,6 +582,7 @@ components:
       type: object
     GdataContentTypeInfo:
       description: gdata
+      x-google-discovery-id: GdataContentTypeInfo
       properties:
         bestGuess:
           description: gdata
@@ -586,26 +593,36 @@ components:
         fromFileName:
           description: gdata
           type: string
+        fromFusionId:
+          description: gdata
+          type: string
         fromHeader:
           description: gdata
           type: string
         fromUrlPath:
           description: gdata
           type: string
+        fusionIdDetectionMetadata:
+          description: gdata
+          format: byte
+          type: string
       type: object
     GdataDiffChecksumsResponse:
       description: gdata
+      x-google-discovery-id: GdataDiffChecksumsResponse
       properties:
         checksumsLocation:
-          $ref: "#/components/schemas/GdataCompositeMedia"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataCompositeMedia'
         chunkSizeBytes:
           description: gdata
           format: int64
           type: string
         objectLocation:
-          $ref: "#/components/schemas/GdataCompositeMedia"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataCompositeMedia'
         objectSizeBytes:
           description: gdata
           format: int64
@@ -616,36 +633,44 @@ components:
       type: object
     GdataDiffDownloadResponse:
       description: gdata
+      x-google-discovery-id: GdataDiffDownloadResponse
       properties:
         objectLocation:
-          $ref: "#/components/schemas/GdataCompositeMedia"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataCompositeMedia'
       type: object
     GdataDiffUploadRequest:
       description: gdata
+      x-google-discovery-id: GdataDiffUploadRequest
       properties:
         checksumsInfo:
-          $ref: "#/components/schemas/GdataCompositeMedia"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataCompositeMedia'
         objectInfo:
-          $ref: "#/components/schemas/GdataCompositeMedia"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataCompositeMedia'
         objectVersion:
           description: gdata
           type: string
       type: object
     GdataDiffUploadResponse:
       description: gdata
+      x-google-discovery-id: GdataDiffUploadResponse
       properties:
         objectVersion:
           description: gdata
           type: string
         originalObject:
-          $ref: "#/components/schemas/GdataCompositeMedia"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataCompositeMedia'
       type: object
     GdataDiffVersionResponse:
       description: gdata
+      x-google-discovery-id: GdataDiffVersionResponse
       properties:
         objectSizeBytes:
           description: gdata
@@ -657,6 +682,7 @@ components:
       type: object
     GdataDownloadParameters:
       description: gdata
+      x-google-discovery-id: GdataDownloadParameters
       properties:
         allowGzipCompression:
           description: gdata
@@ -667,6 +693,7 @@ components:
       type: object
     GdataMedia:
       description: gdata
+      x-google-discovery-id: GdataMedia
       properties:
         algorithm:
           deprecated: true
@@ -683,19 +710,21 @@ components:
           format: byte
           type: string
         blobstore2Info:
-          $ref: "#/components/schemas/GdataBlobstore2Info"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataBlobstore2Info'
         compositeMedia:
           description: gdata
           items:
-            $ref: "#/components/schemas/GdataCompositeMedia"
+            $ref: '#/components/schemas/GdataCompositeMedia'
           type: array
         contentType:
           description: gdata
           type: string
         contentTypeInfo:
-          $ref: "#/components/schemas/GdataContentTypeInfo"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataContentTypeInfo'
         cosmoBinaryReference:
           description: gdata
           format: byte
@@ -705,23 +734,29 @@ components:
           format: uint32
           type: integer
         diffChecksumsResponse:
-          $ref: "#/components/schemas/GdataDiffChecksumsResponse"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataDiffChecksumsResponse'
         diffDownloadResponse:
-          $ref: "#/components/schemas/GdataDiffDownloadResponse"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataDiffDownloadResponse'
         diffUploadRequest:
-          $ref: "#/components/schemas/GdataDiffUploadRequest"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataDiffUploadRequest'
         diffUploadResponse:
-          $ref: "#/components/schemas/GdataDiffUploadResponse"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataDiffUploadResponse'
         diffVersionResponse:
-          $ref: "#/components/schemas/GdataDiffVersionResponse"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataDiffVersionResponse'
         downloadParameters:
-          $ref: "#/components/schemas/GdataDownloadParameters"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataDownloadParameters'
         filename:
           description: gdata
           type: string
@@ -752,8 +787,9 @@ components:
           format: byte
           type: string
         objectId:
-          $ref: "#/components/schemas/GdataObjectId"
           description: gdata
+          allOf:
+            - $ref: '#/components/schemas/GdataObjectId'
         path:
           description: gdata
           type: string
@@ -773,12 +809,30 @@ components:
             - DIFF_UPLOAD_RESPONSE
             - COSMO_BINARY_REFERENCE
             - ARBITRARY_BYTES
+          x-google-enum-descriptions:
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
+            - gdata
           type: string
         sha1Hash:
           description: gdata
           format: byte
           type: string
         sha256Hash:
+          description: gdata
+          format: byte
+          type: string
+        sha512Hash:
           description: gdata
           format: byte
           type: string
@@ -792,6 +846,7 @@ components:
       type: object
     GdataObjectId:
       description: gdata
+      x-google-discovery-id: GdataObjectId
       properties:
         bucketName:
           description: gdata
@@ -806,6 +861,7 @@ components:
       type: object
     Job:
       description: A job creating reports of a specific type.
+      x-google-discovery-id: Job
       properties:
         createTime:
           description: The creation date/time of the job.
@@ -830,11 +886,12 @@ components:
       type: object
     ListJobsResponse:
       description: Response message for ReportingService.ListJobs.
+      x-google-discovery-id: ListJobsResponse
       properties:
         jobs:
           description: The list of jobs.
           items:
-            $ref: "#/components/schemas/Job"
+            $ref: '#/components/schemas/Job'
           type: array
         nextPageToken:
           description: A token to retrieve next page of results. Pass this value in the ListJobsRequest.page_token field in the subsequent call to `ListJobs` method to retrieve the next page of results.
@@ -842,6 +899,7 @@ components:
       type: object
     ListReportTypesResponse:
       description: Response message for ReportingService.ListReportTypes.
+      x-google-discovery-id: ListReportTypesResponse
       properties:
         nextPageToken:
           description: A token to retrieve next page of results. Pass this value in the ListReportTypesRequest.page_token field in the subsequent call to `ListReportTypes` method to retrieve the next page of results.
@@ -849,11 +907,12 @@ components:
         reportTypes:
           description: The list of report types.
           items:
-            $ref: "#/components/schemas/ReportType"
+            $ref: '#/components/schemas/ReportType'
           type: array
       type: object
     ListReportsResponse:
       description: Response message for ReportingService.ListReports.
+      x-google-discovery-id: ListReportsResponse
       properties:
         nextPageToken:
           description: A token to retrieve next page of results. Pass this value in the ListReportsRequest.page_token field in the subsequent call to `ListReports` method to retrieve the next page of results.
@@ -861,11 +920,12 @@ components:
         reports:
           description: The list of report types.
           items:
-            $ref: "#/components/schemas/Report"
+            $ref: '#/components/schemas/Report'
           type: array
       type: object
     Report:
       description: A report's metadata including the URL from which the report itself can be downloaded.
+      x-google-discovery-id: Report
       properties:
         createTime:
           description: The date/time when this report was created.
@@ -895,6 +955,7 @@ components:
       type: object
     ReportType:
       description: A report type.
+      x-google-discovery-id: ReportType
       properties:
         deprecateTime:
           description: The date/time when this report type was/will be deprecated.
@@ -910,23 +971,125 @@ components:
           description: True if this a system-managed report type; otherwise false. Reporting jobs for system-managed report types are created automatically and can thus not be used in the `CreateJob` method.
           type: boolean
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/yt-analytics-monetary.readonly: View monetary and non-monetary YouTube Analytics reports for your YouTube content
             https://www.googleapis.com/auth/yt-analytics.readonly: View YouTube Analytics reports for your YouTube content
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/yt-analytics-monetary.readonly: View monetary and non-monetary YouTube Analytics reports for your YouTube content
             https://www.googleapis.com/auth/yt-analytics.readonly: View YouTube Analytics reports for your YouTube content
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/youtube/reporting/v1/reports/
+tags:
+  - name: jobs
+  - name: media
+  - name: reportTypes
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://youtubereporting.googleapis.com/
+  batchPath: batch
+  canonicalName: YouTube Reporting
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: youtubereporting:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://youtubereporting.mtls.googleapis.com/
+  name: youtubereporting
+  revision: '20260506'
+  rootUrl: https://youtubereporting.googleapis.com/
+  servicePath: ''

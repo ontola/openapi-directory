@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://www.googleapis.com/siteVerification/v1
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -22,268 +20,257 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://siteverification.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/siteVerification.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/siteVerification.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: siteVerification
-externalDocs:
-  url: https://developers.google.com/site-verification/
-tags:
-  - name: webResource
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20191119; original source SHA-256 a54ec6ab9477fac2daa736a61905bb7d4ba189db9b042ef82fca743c9d8c5a66.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://www.googleapis.com/siteVerification/v1
 paths:
-  /token:
-    parameters:
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/userIp"
-    post:
-      description: Get a verification token for placing on a website or domain.
-      operationId: siteVerification.webResource.getToken
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SiteVerificationWebResourceGettokenRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SiteVerificationWebResourceGettokenResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/siteverification
-          Oauth2c:
-            - https://www.googleapis.com/auth/siteverification
-        - Oauth2:
-            - https://www.googleapis.com/auth/siteverification.verify_only
-          Oauth2c:
-            - https://www.googleapis.com/auth/siteverification.verify_only
-      tags:
-        - webResource
-  /webResource:
-    get:
-      description: Get the list of your verified websites and domains.
-      operationId: siteVerification.webResource.list
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SiteVerificationWebResourceListResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/siteverification
-          Oauth2c:
-            - https://www.googleapis.com/auth/siteverification
-      tags:
-        - webResource
-    parameters:
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/userIp"
-    post:
-      description: Attempt verification of a website or domain.
-      operationId: siteVerification.webResource.insert
-      parameters:
-        - description: The method to use for verifying a site or domain.
-          in: query
-          name: verificationMethod
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SiteVerificationWebResourceResource"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SiteVerificationWebResourceResource"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/siteverification
-          Oauth2c:
-            - https://www.googleapis.com/auth/siteverification
-        - Oauth2:
-            - https://www.googleapis.com/auth/siteverification.verify_only
-          Oauth2c:
-            - https://www.googleapis.com/auth/siteverification.verify_only
-      tags:
-        - webResource
   /webResource/{id}:
     delete:
-      description: Relinquish ownership of a website or domain.
       operationId: siteVerification.webResource.delete
+      description: Relinquish ownership of a website or domain.
       parameters:
-        - description: The id of a verified site or domain.
+        - name: id
           in: path
-          name: id
-          required: true
           schema:
             type: string
-      responses:
-        "200":
-          description: Successful response
+          description: The id of a verified site or domain.
+          required: true
+      tags:
+        - webResource
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/siteverification
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/siteverification
-      tags:
-        - webResource
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+      x-google-discovery:
+        path: webResource/{id}
+        parameterOrder:
+          - id
     get:
-      description: Get the most current data for a website or domain.
       operationId: siteVerification.webResource.get
+      description: Get the most current data for a website or domain.
       parameters:
-        - description: The id of a verified site or domain.
+        - name: id
           in: path
-          name: id
-          required: true
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SiteVerificationWebResourceResource"
-          description: Successful response
+          description: The id of a verified site or domain.
+          required: true
+      tags:
+        - webResource
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/siteverification
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/siteverification
-      tags:
-        - webResource
-    parameters:
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/userIp"
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteVerificationWebResourceResource'
+      x-google-discovery:
+        path: webResource/{id}
+        parameterOrder:
+          - id
     patch:
-      description: Modify the list of owners for your website or domain. This method supports patch semantics.
       operationId: siteVerification.webResource.patch
+      description: Modify the list of owners for your website or domain. This method supports patch semantics.
       parameters:
-        - description: The id of a verified site or domain.
+        - name: id
           in: path
-          name: id
-          required: true
           schema:
             type: string
+          description: The id of a verified site or domain.
+          required: true
+      tags:
+        - webResource
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/siteverification
+        - Oauth2c:
+            - https://www.googleapis.com/auth/siteverification
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SiteVerificationWebResourceResource"
+              $ref: '#/components/schemas/SiteVerificationWebResourceResource'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SiteVerificationWebResourceResource"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/siteverification
-          Oauth2c:
-            - https://www.googleapis.com/auth/siteverification
-      tags:
-        - webResource
+                $ref: '#/components/schemas/SiteVerificationWebResourceResource'
+      x-google-discovery:
+        path: webResource/{id}
+        parameterOrder:
+          - id
     put:
-      description: Modify the list of owners for your website or domain.
       operationId: siteVerification.webResource.update
+      description: Modify the list of owners for your website or domain.
       parameters:
-        - description: The id of a verified site or domain.
+        - name: id
           in: path
-          name: id
-          required: true
           schema:
             type: string
+          description: The id of a verified site or domain.
+          required: true
+      tags:
+        - webResource
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/siteverification
+        - Oauth2c:
+            - https://www.googleapis.com/auth/siteverification
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SiteVerificationWebResourceResource"
+              $ref: '#/components/schemas/SiteVerificationWebResourceResource'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SiteVerificationWebResourceResource"
-          description: Successful response
+                $ref: '#/components/schemas/SiteVerificationWebResourceResource'
+      x-google-discovery:
+        path: webResource/{id}
+        parameterOrder:
+          - id
+    parameters:
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/userIp'
+  /token:
+    post:
+      operationId: siteVerification.webResource.getToken
+      description: Get a verification token for placing on a website or domain.
+      tags:
+        - webResource
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/siteverification
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/siteverification
+        - Oauth2:
+            - https://www.googleapis.com/auth/siteverification.verify_only
+        - Oauth2c:
+            - https://www.googleapis.com/auth/siteverification.verify_only
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteVerificationWebResourceGettokenRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteVerificationWebResourceGettokenResponse'
+      x-google-discovery:
+        path: token
+    parameters:
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/userIp'
+  /webResource:
+    post:
+      operationId: siteVerification.webResource.insert
+      description: Attempt verification of a website or domain.
+      parameters:
+        - name: verificationMethod
+          in: query
+          schema:
+            type: string
+          description: The method to use for verifying a site or domain.
+          required: true
       tags:
         - webResource
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/siteverification
+        - Oauth2c:
+            - https://www.googleapis.com/auth/siteverification
+        - Oauth2:
+            - https://www.googleapis.com/auth/siteverification.verify_only
+        - Oauth2c:
+            - https://www.googleapis.com/auth/siteverification.verify_only
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteVerificationWebResourceResource'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteVerificationWebResourceResource'
+      x-google-discovery:
+        path: webResource
+        parameterOrder:
+          - verificationMethod
+    get:
+      operationId: siteVerification.webResource.list
+      description: Get the list of your verified websites and domains.
+      tags:
+        - webResource
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/siteverification
+        - Oauth2c:
+            - https://www.googleapis.com/auth/siteverification
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteVerificationWebResourceListResponse'
+      x-google-discovery:
+        path: webResource
+    parameters:
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/userIp'
 components:
-  parameters:
-    alt:
-      description: Data format for the response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: An opaque string that represents a user for quota purposes. Must not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    userIp:
-      description: Deprecated. Please use quotaUser instead.
-      in: query
-      name: userIp
-      schema:
-        type: string
   schemas:
     SiteVerificationWebResourceGettokenRequest:
+      x-google-discovery-id: SiteVerificationWebResourceGettokenRequest
       properties:
         site:
           description: The site for which a verification token will be generated.
@@ -300,6 +287,7 @@ components:
           type: string
       type: object
     SiteVerificationWebResourceGettokenResponse:
+      x-google-discovery-id: SiteVerificationWebResourceGettokenResponse
       properties:
         method:
           description: The verification method to use in conjunction with this token. For FILE, the token should be placed in the top-level directory of the site, stored inside a file of the same name. For META, the token should be placed in the HEAD tag of the default page that is loaded for the site. For DNS, the token should be placed in a TXT record of the domain.
@@ -309,14 +297,16 @@ components:
           type: string
       type: object
     SiteVerificationWebResourceListResponse:
+      x-google-discovery-id: SiteVerificationWebResourceListResponse
       properties:
         items:
           description: The list of sites that are owned by the authenticated user.
           items:
-            $ref: "#/components/schemas/SiteVerificationWebResourceResource"
+            $ref: '#/components/schemas/SiteVerificationWebResourceResource'
           type: array
       type: object
     SiteVerificationWebResourceResource:
+      x-google-discovery-id: SiteVerificationWebResourceResource
       properties:
         id:
           description: The string used to identify this site. This value should be used in the "id" portion of the REST URL for the Get, Update, and Delete operations.
@@ -337,23 +327,88 @@ components:
               type: string
           type: object
       type: object
+  parameters:
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+        type: string
+      description: Data format for the response.
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: false
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: An opaque string that represents a user for quota purposes. Must not exceed 40 characters.
+    userIp:
+      name: userIp
+      in: query
+      schema:
+        type: string
+      description: Deprecated. Please use quotaUser instead.
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/siteverification: Manage the list of sites and domains you control
             https://www.googleapis.com/auth/siteverification.verify_only: Manage your new site verifications with Google
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/siteverification: Manage the list of sites and domains you control
             https://www.googleapis.com/auth/siteverification.verify_only: Manage your new site verifications with Google
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/site-verification/
+tags:
+  - name: webResource
+x-google-discovery:
+  basePath: /siteVerification/v1/
+  baseUrl: https://www.googleapis.com/siteVerification/v1/
+  batchPath: batch/siteVerification/v1
+  etag: '"u9GIe6H63LSGq-9_t39K2Zx_EAc/ffKkQHIfwnRAzOSRWAT_SYBS6HY"'
+  icons:
+    x16: https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png
+    x32: https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png
+  id: siteVerification:v1
+  kind: discovery#restDescription
+  name: siteVerification
+  revision: '20191119'
+  rootUrl: https://www.googleapis.com/
+  servicePath: siteVerification/v1/

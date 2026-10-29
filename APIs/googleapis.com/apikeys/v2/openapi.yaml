@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://apikeys.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -19,423 +17,684 @@ info:
   x-logo:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/apikeys.v2.json
+      version: v1
     - format: openapi
-      url: https://apikeys.googleapis.com/$discovery/rest?version=v2
-      version: "3.0"
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/apikeys.v2.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: apikeys
-externalDocs:
-  url: https://cloud.google.com/api-keys/docs
-tags:
-  - name: keys
-  - name: operations
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260818; original source SHA-256 188d4f36bd0bea4aedf5e8e4ee7339be24916f9379f3619ba9d12d33de9454c9.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://apikeys.googleapis.com
 paths:
   /v2/keys:lookupKey:
     get:
-      description: Find the parent project and resource name of the API key that matches the key string in the request. If the API key has been purged, resource name will not be set. The service account must have the `apikeys.keys.lookup` permission on the parent project.
       operationId: apikeys.keys.lookupKey
+      description: Find the parent project and resource name of the API key that matches the key string in the request. If the API key has been purged, resource name will not be set. The service account must have the `apikeys.keys.lookup` permission on the parent project.
       parameters:
-        - description: Required. Finds the project that owns the key string value.
+        - name: keyString
           in: query
-          name: keyString
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/V2LookupKeyResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
+          description: Required. Finds the project that owns the key string value.
       tags:
         - keys
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v2/{name}:
-    delete:
-      description: "Deletes an API key. Deleted key can be retrieved within 30 days of deletion. Afterward, key will be purged from the project. NOTE: Key is a global resource; hence the only supported value for location is `global`."
-      operationId: apikeys.projects.locations.keys.delete
-      parameters:
-        - description: Required. The resource name of the API key to be deleted.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: Optional. The etag known to the client for the expected state of the key. This is to be used for optimistic concurrency.
-          in: query
-          name: etag
-          schema:
-            type: string
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+                $ref: '#/components/schemas/V2LookupKeyResponse'
+      x-google-discovery:
+        path: v2/keys:lookupKey
+        flatPath: v2/keys:lookupKey
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v2/operations/{operationsId}:
     get:
-      description: "Gets the metadata for an API key. The key string of the API key isn't included in the response. NOTE: Key is a global resource; hence the only supported value for location is `global`."
-      operationId: apikeys.projects.locations.keys.get
+      operationId: apikeys.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
       parameters:
-        - description: Required. The resource name of the API key to get.
+        - name: operationsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
           schema:
             type: string
+      tags:
+        - operations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/V2Key"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: "Patches the modifiable fields of an API key. The key string of the API key isn't included in the response. NOTE: Key is a global resource; hence the only supported value for location is `global`."
-      operationId: apikeys.projects.locations.keys.patch
-      parameters:
-        - description: "Output only. The resource name of the key. The `name` has the form: `projects//locations/global/keys/`. For example: `projects/123456867718/locations/global/keys/b7ff1f9f-8275-410a-94dd-3855ee9b5dd2` NOTE: Key is a global resource; hence the only supported value for location is `global`."
-          in: path
-          name: name
-          required: true
-          schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v2/{+name}
+        flatPath: v2/operations/{operationsId}
+        resourceNameBindings:
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^operations/[^/]+$
+            required: true
             type: string
-        - description: 'The field mask specifies which fields to be updated as part of this request. All other fields are ignored. Mutable fields are: `display_name`, `restrictions`, and `annotations`. If an update mask is not provided, the service treats it as an implied mask equivalent to all allowed fields that are set on the wire. If the field mask has a special value "*", the service treats it equivalent to replace all allowed mutable fields.'
-          in: query
-          name: updateMask
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/V2Key"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v2/{name}/keyString:
-    get:
-      description: "Get the key string for an API key. NOTE: Key is a global resource; hence the only supported value for location is `global`."
-      operationId: apikeys.projects.locations.keys.getKeyString
-      parameters:
-        - description: Required. The resource name of the API key to be retrieved.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/V2GetKeyStringResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-      tags:
-        - projects
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v2/{name}:undelete:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v2/projects/{projectsId}/locations/{locationsId}/keys:
     post:
-      description: "Undeletes an API key which was deleted within 30 days. NOTE: Key is a global resource; hence the only supported value for location is `global`."
-      operationId: apikeys.projects.locations.keys.undelete
+      operationId: apikeys.projects.locations.keys.create
+      description: 'Creates a new API key. NOTE: Key is a global resource; hence the only supported value for location is `global`.'
       parameters:
-        - description: Required. The resource name of the API key to be undeleted.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: Component of the original `parent` resource name. Required. The project in which the API key is created. The parent field must be in format of "projects//locations/global".
           schema:
             type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project in which the API key is created. The parent field must be in format of "projects//locations/global".
+          schema:
+            type: string
+        - name: keyId
+          in: query
+          schema:
+            type: string
+          description: 'User specified key id (optional). If specified, it will become the final component of the key resource name. The id must be unique within the project, must conform with RFC-1034, is restricted to lower-cased letters, and has a maximum length of 63 characters. In another word, the id must match the regular expression: `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`. The id must NOT be a UUID-like string.'
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/V2UndeleteKeyRequest"
+              $ref: '#/components/schemas/V2Key'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v2/{parent}/keys:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v2/{+parent}/keys
+        flatPath: v2/projects/{projectsId}/locations/{locationsId}/keys
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project in which the API key is created. The parent field must be in format of "projects//locations/global".
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: "Lists the API keys owned by a project. The key string of the API key isn't included in the response. NOTE: Key is a global resource; hence the only supported value for location is `global`."
       operationId: apikeys.projects.locations.keys.list
+      description: 'Lists the API keys owned by a project. The key string of the API key isn''t included in the response. NOTE: Key is a global resource; hence the only supported value for location is `global`.'
       parameters:
-        - description: Required. Lists all API keys associated with this project.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. Lists all API keys associated with this project. The parent field must be in format of "projects//locations/global".
           schema:
             type: string
-        - description: Optional. Specifies the maximum number of results to be returned at a time.
-          in: query
-          name: pageSize
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. Lists all API keys associated with this project. The parent field must be in format of "projects//locations/global".
           schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: Optional. Requests a specific page of results.
+          description: Optional. Specifies the maximum number of results to be returned at a time.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-        - description: Optional. Indicate that keys deleted in the past 30 days should also be returned.
+          description: Optional. Requests a specific page of results.
+        - name: showDeleted
           in: query
-          name: showDeleted
           schema:
             type: boolean
+          description: Optional. Indicate that keys deleted in the past 30 days should also be returned.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/V2ListKeysResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
+                $ref: '#/components/schemas/V2ListKeysResponse'
+      x-google-discovery:
+        path: v2/{+parent}/keys
+        flatPath: v2/projects/{projectsId}/locations/{locationsId}/keys
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. Lists all API keys associated with this project. The parent field must be in format of "projects//locations/global".
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v2/projects/{projectsId}/locations/{locationsId}/keys/{keysId}:
+    delete:
+      operationId: apikeys.projects.locations.keys.delete
+      description: 'Deletes an API key. Deleted key can be retrieved within 30 days of deletion. Afterward, key will be purged from the project. NOTE: Key is a global resource; hence the only supported value for location is `global`.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to be deleted.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to be deleted.
+          schema:
+            type: string
+        - name: keysId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to be deleted.
+          schema:
+            type: string
+        - name: checkExistingUsage
+          in: query
+          schema:
+            enum:
+              - CHECK_EXISTING_USAGE_UNSPECIFIED
+              - SKIP
+              - CHECK
+            x-google-enum-descriptions:
+              - When unset, the default behavior is used, which is SKIP.
+              - If set, skip checking existing usage when deleting a key.
+              - If set, existing usage is checked when deleting the key. If the key has usage in the last 7 days, the request returns a FAILED_PRECONDITION error.
+            type: string
+          description: Optional. Defines the behavior for checking existing usage when deleting a key.
+        - name: etag
+          in: query
+          schema:
+            type: string
+          description: Optional. The etag known to the client for the expected state of the key. This is to be used for optimistic concurrency.
       tags:
         - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: "Creates a new API key. NOTE: Key is a global resource; hence the only supported value for location is `global`."
-      operationId: apikeys.projects.locations.keys.create
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v2/{+name}
+        flatPath: v2/projects/{projectsId}/locations/{locationsId}/keys/{keysId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          keysId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the API key to be deleted.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/keys/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: apikeys.projects.locations.keys.get
+      description: 'Gets the metadata for an API key. The key string of the API key isn''t included in the response. NOTE: Key is a global resource; hence the only supported value for location is `global`.'
       parameters:
-        - description: Required. The project in which the API key is created.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to get.
           schema:
             type: string
-        - description: "User specified key id (optional). If specified, it will become the final component of the key resource name. The id must be unique within the project, must conform with RFC-1034, is restricted to lower-cased letters, and has a maximum length of 63 characters. In another word, the id must match the regular expression: `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`. The id must NOT be a UUID-like string."
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to get.
+          schema:
+            type: string
+        - name: keysId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to get.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Key'
+      x-google-discovery:
+        path: v2/{+name}
+        flatPath: v2/projects/{projectsId}/locations/{locationsId}/keys/{keysId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          keysId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the API key to get.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/keys/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: apikeys.projects.locations.keys.patch
+      description: 'Patches the modifiable fields of an API key. The key string of the API key isn''t included in the response. NOTE: Key is a global resource; hence the only supported value for location is `global`.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the key. The `name` has the form: `projects//locations/global/keys/`. For example: `projects/123456867718/locations/global/keys/b7ff1f9f-8275-410a-94dd-3855ee9b5dd2` NOTE: Key is a global resource; hence the only supported value for location is `global`.'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the key. The `name` has the form: `projects//locations/global/keys/`. For example: `projects/123456867718/locations/global/keys/b7ff1f9f-8275-410a-94dd-3855ee9b5dd2` NOTE: Key is a global resource; hence the only supported value for location is `global`.'
+          schema:
+            type: string
+        - name: keysId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the key. The `name` has the form: `projects//locations/global/keys/`. For example: `projects/123456867718/locations/global/keys/b7ff1f9f-8275-410a-94dd-3855ee9b5dd2` NOTE: Key is a global resource; hence the only supported value for location is `global`.'
+          schema:
+            type: string
+        - name: checkExistingUsage
           in: query
-          name: keyId
           schema:
+            enum:
+              - CHECK_EXISTING_USAGE_UNSPECIFIED
+              - SKIP
+              - CHECK
+            x-google-enum-descriptions:
+              - When unset, the default behavior is used, which is SKIP.
+              - If set, skip checking existing usage when updating a key.
+              - If set, existing usage is checked when updating the key. If the key has usage in the last 7 days, the request returns a FAILED_PRECONDITION error.
             type: string
+          description: Optional. Defines the behavior for checking existing usage when updating a key.
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: 'The field mask specifies which fields to be updated as part of this request. All other fields are ignored. Mutable fields are: `display_name`, `restrictions`, and `annotations`. If an update mask is not provided, the service treats it as an implied mask equivalent to all allowed fields that are set on the wire. If the field mask has a special value "*", the service treats it equivalent to replace all allowed mutable fields.'
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/V2Key"
+              $ref: '#/components/schemas/V2Key'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v2/{+name}
+        flatPath: v2/projects/{projectsId}/locations/{locationsId}/keys/{keysId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          keysId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. The resource name of the key. The `name` has the form: `projects//locations/global/keys/`. For example: `projects/123456867718/locations/global/keys/b7ff1f9f-8275-410a-94dd-3855ee9b5dd2` NOTE: Key is a global resource; hence the only supported value for location is `global`.'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/keys/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v2/projects/{projectsId}/locations/{locationsId}/keys/{keysId}/keyString:
+    get:
+      operationId: apikeys.projects.locations.keys.getKeyString
+      description: 'Get the key string for an API key. NOTE: Key is a global resource; hence the only supported value for location is `global`.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to be retrieved.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to be retrieved.
+          schema:
+            type: string
+        - name: keysId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to be retrieved.
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2GetKeyStringResponse'
+      x-google-discovery:
+        path: v2/{+name}/keyString
+        flatPath: v2/projects/{projectsId}/locations/{locationsId}/keys/{keysId}/keyString
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          keysId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the API key to be retrieved.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/keys/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v2/projects/{projectsId}/locations/{locationsId}/keys/{keysId}:undelete:
+    post:
+      operationId: apikeys.projects.locations.keys.undelete
+      description: 'Undeletes an API key which was deleted within 30 days. NOTE: Key is a global resource; hence the only supported value for location is `global`.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to be undeleted.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to be undeleted.
+          schema:
+            type: string
+        - name: keysId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the API key to be undeleted.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2c:
+            - https://www.googleapis.com/auth/apikeys
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UndeleteKeyRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v2/{+name}:undelete
+        flatPath: v2/projects/{projectsId}/locations/{locationsId}/keys/{keysId}:undelete
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          keysId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the API key to be undeleted.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/keys/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Operation:
       description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
       properties:
         done:
           description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
           type: boolean
         error:
-          $ref: "#/components/schemas/Status"
           description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
           type: object
         name:
@@ -444,11 +703,13 @@ components:
         response:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
           type: object
       type: object
     Status:
-      description: "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors)."
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
       properties:
         code:
           description: The status code, which should be an enum value of google.rpc.Code.
@@ -459,6 +720,7 @@ components:
           items:
             additionalProperties:
               description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
             type: object
           type: array
         message:
@@ -467,37 +729,41 @@ components:
       type: object
     V2AndroidApplication:
       description: Identifier of an Android application for key use.
+      x-google-discovery-id: V2AndroidApplication
       properties:
         packageName:
           description: The package name of the application.
           type: string
         sha1Fingerprint:
-          description: "The SHA1 fingerprint of the application. For example, both sha1 formats are acceptable : DA:39:A3:EE:5E:6B:4B:0D:32:55:BF:EF:95:60:18:90:AF:D8:07:09 or DA39A3EE5E6B4B0D3255BFEF95601890AFD80709. Output format is the latter."
+          description: 'The SHA1 fingerprint of the application. For example, both sha1 formats are acceptable : DA:39:A3:EE:5E:6B:4B:0D:32:55:BF:EF:95:60:18:90:AF:D8:07:09 or DA39A3EE5E6B4B0D3255BFEF95601890AFD80709. Output format is the latter.'
           type: string
       type: object
     V2AndroidKeyRestrictions:
       description: The Android apps that are allowed to use the key.
+      x-google-discovery-id: V2AndroidKeyRestrictions
       properties:
         allowedApplications:
           description: A list of Android applications that are allowed to make API calls with this key.
           items:
-            $ref: "#/components/schemas/V2AndroidApplication"
+            $ref: '#/components/schemas/V2AndroidApplication'
           type: array
       type: object
     V2ApiTarget:
       description: A restriction for a specific service and optionally one or multiple specific methods. Both fields are case insensitive.
+      x-google-discovery-id: V2ApiTarget
       properties:
         methods:
-          description: "Optional. List of one or more methods that can be called. If empty, all methods for the service are allowed. A wildcard (*) can be used as the last symbol. Valid examples: `google.cloud.translate.v2.TranslateService.GetSupportedLanguage` `TranslateText` `Get*` `translate.googleapis.com.Get*`"
+          description: 'Optional. List of one or more methods that can be called. If empty, all methods for the service are allowed. A wildcard (*) can be used as the last symbol. Valid examples: `google.cloud.translate.v2.TranslateService.GetSupportedLanguage` `TranslateText` `Get*` `translate.googleapis.com.Get*`'
           items:
             type: string
           type: array
         service:
-          description: "The service for this restriction. It should be the canonical service name, for example: `translate.googleapis.com`. You can use [`gcloud services list`](/sdk/gcloud/reference/services/list) to get a list of services that are enabled in the project."
+          description: 'The service for this restriction. It should be the canonical service name, for example: `translate.googleapis.com`. You can use [`gcloud services list`](https://cloud.google.com/sdk/gcloud/reference/services/list) to get a list of services that are enabled in the project.'
           type: string
       type: object
     V2BrowserKeyRestrictions:
       description: The HTTP referrers (websites) that are allowed to use the key.
+      x-google-discovery-id: V2BrowserKeyRestrictions
       properties:
         allowedReferrers:
           description: A list of regular expressions for the referrer URLs that are allowed to make API calls with this key.
@@ -507,6 +773,7 @@ components:
       type: object
     V2GetKeyStringResponse:
       description: Response message for `GetKeyString` method.
+      x-google-discovery-id: V2GetKeyStringResponse
       properties:
         keyString:
           description: An encrypted and signed value of the key.
@@ -514,6 +781,7 @@ components:
       type: object
     V2IosKeyRestrictions:
       description: The iOS apps that are allowed to use the key.
+      x-google-discovery-id: V2IosKeyRestrictions
       properties:
         allowedBundleIds:
           description: A list of bundle IDs that are allowed when making API calls with this key.
@@ -523,6 +791,7 @@ components:
       type: object
     V2Key:
       description: The representation of a key managed by the API Keys API.
+      x-google-discovery-id: V2Key
       properties:
         annotations:
           additionalProperties:
@@ -543,20 +812,22 @@ components:
           description: Human-readable display name of this key that you can modify. The maximum length is 63 characters.
           type: string
         etag:
-          description: Output only. A checksum computed by the server based on the current value of the Key resource. This may be sent on update and delete requests to ensure the client has an up-to-date value before proceeding. See https://google.aip.dev/154.
-          readOnly: true
+          description: A checksum computed by the server based on the current value of the Key resource. This may be sent on update and delete requests to ensure the client has an up-to-date value before proceeding. See https://google.aip.dev/154.
           type: string
         keyString:
           description: Output only. An encrypted and signed value held by this key. This field can be accessed only through the `GetKeyString` method.
           readOnly: true
           type: string
         name:
-          description: "Output only. The resource name of the key. The `name` has the form: `projects//locations/global/keys/`. For example: `projects/123456867718/locations/global/keys/b7ff1f9f-8275-410a-94dd-3855ee9b5dd2` NOTE: Key is a global resource; hence the only supported value for location is `global`."
-          readOnly: true
+          description: 'Identifier. The resource name of the key. The `name` has the form: `projects//locations/global/keys/`. For example: `projects/123456867718/locations/global/keys/b7ff1f9f-8275-410a-94dd-3855ee9b5dd2` NOTE: Key is a global resource; hence the only supported value for location is `global`.'
           type: string
         restrictions:
-          $ref: "#/components/schemas/V2Restrictions"
           description: Key restrictions.
+          allOf:
+            - $ref: '#/components/schemas/V2Restrictions'
+        serviceAccountEmail:
+          description: Optional. The email address of [the service account](https://cloud.google.com/iam/docs/service-accounts) the key is bound to.
+          type: string
         uid:
           description: Output only. Unique id in UUID4 format.
           readOnly: true
@@ -569,11 +840,12 @@ components:
       type: object
     V2ListKeysResponse:
       description: Response message for `ListKeys` method.
+      x-google-discovery-id: V2ListKeysResponse
       properties:
         keys:
           description: A list of API keys.
           items:
-            $ref: "#/components/schemas/V2Key"
+            $ref: '#/components/schemas/V2Key'
           type: array
         nextPageToken:
           description: The pagination token for the next page of results.
@@ -581,6 +853,7 @@ components:
       type: object
     V2LookupKeyResponse:
       description: Response message for `LookupKey` method.
+      x-google-discovery-id: V2LookupKeyResponse
       properties:
         name:
           description: The resource name of the API key. If the API key has been purged, resource name is empty.
@@ -591,27 +864,33 @@ components:
       type: object
     V2Restrictions:
       description: Describes the restrictions on the key.
+      x-google-discovery-id: V2Restrictions
       properties:
         androidKeyRestrictions:
-          $ref: "#/components/schemas/V2AndroidKeyRestrictions"
           description: The Android apps that are allowed to use the key.
+          allOf:
+            - $ref: '#/components/schemas/V2AndroidKeyRestrictions'
         apiTargets:
           description: A restriction for a specific service and optionally one or more specific methods. Requests are allowed if they match any of these restrictions. If no restrictions are specified, all targets are allowed.
           items:
-            $ref: "#/components/schemas/V2ApiTarget"
+            $ref: '#/components/schemas/V2ApiTarget'
           type: array
         browserKeyRestrictions:
-          $ref: "#/components/schemas/V2BrowserKeyRestrictions"
           description: The HTTP referrers (websites) that are allowed to use the key.
+          allOf:
+            - $ref: '#/components/schemas/V2BrowserKeyRestrictions'
         iosKeyRestrictions:
-          $ref: "#/components/schemas/V2IosKeyRestrictions"
           description: The iOS apps that are allowed to use the key.
+          allOf:
+            - $ref: '#/components/schemas/V2IosKeyRestrictions'
         serverKeyRestrictions:
-          $ref: "#/components/schemas/V2ServerKeyRestrictions"
           description: The IP addresses of callers that are allowed to use the key.
+          allOf:
+            - $ref: '#/components/schemas/V2ServerKeyRestrictions'
       type: object
     V2ServerKeyRestrictions:
       description: The IP addresses of callers that are allowed to use the key.
+      x-google-discovery-id: V2ServerKeyRestrictions
       properties:
         allowedIps:
           description: A list of the caller IP addresses that are allowed to make API calls with this key.
@@ -621,25 +900,134 @@ components:
       type: object
     V2UndeleteKeyRequest:
       description: Request message for `UndeleteKey` method.
+      x-google-discovery-id: V2UndeleteKeyRequest
       properties: {}
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
+            https://www.googleapis.com/auth/apikeys: See, edit, configure, and delete your Google Cloud API Keys data and see the email address for your Google Account
+            https://www.googleapis.com/auth/apikeys.readonly: See your Google Cloud API Keys data and the email address of your Google Account
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/cloud-platform.read-only: View your data across Google Cloud services and see the email address of your Google Account
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
+            https://www.googleapis.com/auth/apikeys: See, edit, configure, and delete your Google Cloud API Keys data and see the email address for your Google Account
+            https://www.googleapis.com/auth/apikeys.readonly: See your Google Cloud API Keys data and the email address of your Google Account
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/cloud-platform.read-only: View your data across Google Cloud services and see the email address of your Google Account
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/api-keys/docs
+tags:
+  - name: keys
+  - name: operations
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://apikeys.googleapis.com/
+  batchPath: batch
+  canonicalName: Api Keys Service
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: apikeys:v2
+  kind: discovery#restDescription
+  mtlsRootUrl: https://apikeys.mtls.googleapis.com/
+  name: apikeys
+  revision: '20260818'
+  rootUrl: https://apikeys.googleapis.com/
+  servicePath: ''
+  version_module: true

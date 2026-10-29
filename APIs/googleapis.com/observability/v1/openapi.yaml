@@ -1,0 +1,3608 @@
+openapi: 3.0.3
+info:
+  title: Observability API
+  version: v1
+  description: Provides functionality for configuring the observability scope, which controls the log, metric, and trace data that you can view.
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/observability.v1.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/observability.v1.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20261022; original source SHA-256 2fd45d856a0bc15c59e0449db241856406a3100069269a06c87f6f58d0104adb.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://observability.googleapis.com
+paths:
+  /v1/folders/{foldersId}/locations/{locationsId}:
+    get:
+      operationId: observability.folders.locations.get
+      description: Gets information about a location.
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/folders/{foldersId}/locations/{locationsId}
+        resourceNameBindings:
+          foldersId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Resource name for the location.
+            location: path
+            pattern: ^folders/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/folders/{foldersId}/locations/{locationsId}/settings:
+    get:
+      operationId: observability.folders.locations.getSettings
+      description: Get Settings
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the settings to retrieve. Name format: "projects/[PROJECT_ID]/locations/[LOCATION]/settings" "folders/[FOLDER_ID]/locations/[LOCATION]/settings" "organizations/[ORGANIZATION_ID]/locations/[LOCATION]/settings"'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the settings to retrieve. Name format: "projects/[PROJECT_ID]/locations/[LOCATION]/settings" "folders/[FOLDER_ID]/locations/[LOCATION]/settings" "organizations/[ORGANIZATION_ID]/locations/[LOCATION]/settings"'
+          schema:
+            type: string
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/folders/{foldersId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          foldersId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the settings to retrieve. Name format: "projects/[PROJECT_ID]/locations/[LOCATION]/settings" "folders/[FOLDER_ID]/locations/[LOCATION]/settings" "organizations/[ORGANIZATION_ID]/locations/[LOCATION]/settings"'
+            location: path
+            pattern: ^folders/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: observability.folders.locations.updateSettings
+      description: Update Settings
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. The resource name of the settings.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. The resource name of the settings.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The field mask specifying which fields of the settings are to be updated.
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Settings'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/folders/{foldersId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          foldersId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. The resource name of the settings.
+            location: path
+            pattern: ^folders/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/folders/{foldersId}/locations:
+    get:
+      operationId: observability.folders.locations.list
+      description: 'Lists information about the supported locations for this service. This method lists locations based on the resource scope provided in the ListLocationsRequest.name field: * **Global locations**: If `name` is empty, the method lists the public locations available to all projects. * **Project-specific locations**: If `name` follows the format `projects/{project}`, the method lists locations visible to that specific project. This includes public, private, or other project-specific locations enabled for the project. For gRPC and client library implementations, the resource name is passed as the `name` field. For direct service calls, the resource name is incorporated into the request path based on the specific service implementation and version.'
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource that owns the locations collection, if applicable.
+          schema:
+            type: string
+        - name: extraLocationTypes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: Optional. Do not use this field unless explicitly documented otherwise. This is primarily for internal usage.
+          style: form
+          explode: true
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of results to return. If not set, the service selects a default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
+      x-google-discovery:
+        path: v1/{+name}/locations
+        flatPath: v1/folders/{foldersId}/locations
+        resourceNameBindings:
+          foldersId: name
+        resourceNameParameters:
+          name:
+            description: The resource that owns the locations collection, if applicable.
+            location: path
+            pattern: ^folders/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/folders/{foldersId}/locations/{locationsId}/operations/{operationsId}:cancel:
+    post:
+      operationId: observability.folders.locations.operations.cancel
+      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelOperationRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}:cancel
+        flatPath: v1/folders/{foldersId}/locations/{locationsId}/operations/{operationsId}:cancel
+        resourceNameBindings:
+          foldersId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be cancelled.
+            location: path
+            pattern: ^folders/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/folders/{foldersId}/locations/{locationsId}/operations/{operationsId}:
+    delete:
+      operationId: observability.folders.locations.operations.delete
+      description: Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/folders/{foldersId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          foldersId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be deleted.
+            location: path
+            pattern: ^folders/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: observability.folders.locations.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/folders/{foldersId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          foldersId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^folders/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/folders/{foldersId}/locations/{locationsId}/operations:
+    get:
+      operationId: observability.folders.locations.operations.list
+      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The standard list filter.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The standard list page size.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The standard list page token.
+        - name: returnPartialSuccess
+          in: query
+          schema:
+            type: boolean
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the ListOperationsResponse.unreachable field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"`. This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1/{+name}/operations
+        flatPath: v1/folders/{foldersId}/locations/{locationsId}/operations
+        resourceNameBindings:
+          foldersId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation's parent resource.
+            location: path
+            pattern: ^folders/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/locations/{locationsId}:
+    get:
+      operationId: observability.organizations.locations.get
+      description: Gets information about a location.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Resource name for the location.
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/locations/{locationsId}/settings:
+    get:
+      operationId: observability.organizations.locations.getSettings
+      description: Get Settings
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the settings to retrieve. Name format: "projects/[PROJECT_ID]/locations/[LOCATION]/settings" "folders/[FOLDER_ID]/locations/[LOCATION]/settings" "organizations/[ORGANIZATION_ID]/locations/[LOCATION]/settings"'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the settings to retrieve. Name format: "projects/[PROJECT_ID]/locations/[LOCATION]/settings" "folders/[FOLDER_ID]/locations/[LOCATION]/settings" "organizations/[ORGANIZATION_ID]/locations/[LOCATION]/settings"'
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the settings to retrieve. Name format: "projects/[PROJECT_ID]/locations/[LOCATION]/settings" "folders/[FOLDER_ID]/locations/[LOCATION]/settings" "organizations/[ORGANIZATION_ID]/locations/[LOCATION]/settings"'
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: observability.organizations.locations.updateSettings
+      description: Update Settings
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. The resource name of the settings.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. The resource name of the settings.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The field mask specifying which fields of the settings are to be updated.
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Settings'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. The resource name of the settings.
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/locations:
+    get:
+      operationId: observability.organizations.locations.list
+      description: 'Lists information about the supported locations for this service. This method lists locations based on the resource scope provided in the ListLocationsRequest.name field: * **Global locations**: If `name` is empty, the method lists the public locations available to all projects. * **Project-specific locations**: If `name` follows the format `projects/{project}`, the method lists locations visible to that specific project. This includes public, private, or other project-specific locations enabled for the project. For gRPC and client library implementations, the resource name is passed as the `name` field. For direct service calls, the resource name is incorporated into the request path based on the specific service implementation and version.'
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource that owns the locations collection, if applicable.
+          schema:
+            type: string
+        - name: extraLocationTypes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: Optional. Do not use this field unless explicitly documented otherwise. This is primarily for internal usage.
+          style: form
+          explode: true
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of results to return. If not set, the service selects a default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
+      x-google-discovery:
+        path: v1/{+name}/locations
+        flatPath: v1/organizations/{organizationsId}/locations
+        resourceNameBindings:
+          organizationsId: name
+        resourceNameParameters:
+          name:
+            description: The resource that owns the locations collection, if applicable.
+            location: path
+            pattern: ^organizations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/locations/{locationsId}/operations/{operationsId}:cancel:
+    post:
+      operationId: observability.organizations.locations.operations.cancel
+      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelOperationRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}:cancel
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/operations/{operationsId}:cancel
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be cancelled.
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/locations/{locationsId}/operations/{operationsId}:
+    delete:
+      operationId: observability.organizations.locations.operations.delete
+      description: Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be deleted.
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: observability.organizations.locations.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/locations/{locationsId}/operations:
+    get:
+      operationId: observability.organizations.locations.operations.list
+      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The standard list filter.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The standard list page size.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The standard list page token.
+        - name: returnPartialSuccess
+          in: query
+          schema:
+            type: boolean
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the ListOperationsResponse.unreachable field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"`. This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1/{+name}/operations
+        flatPath: v1/organizations/{organizationsId}/locations/{locationsId}/operations
+        resourceNameBindings:
+          organizationsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation's parent resource.
+            location: path
+            pattern: ^organizations/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}:
+    get:
+      operationId: observability.projects.locations.get
+      description: Gets information about a location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Resource name for the location.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/settings:
+    get:
+      operationId: observability.projects.locations.getSettings
+      description: Get Settings
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the settings to retrieve. Name format: "projects/[PROJECT_ID]/locations/[LOCATION]/settings" "folders/[FOLDER_ID]/locations/[LOCATION]/settings" "organizations/[ORGANIZATION_ID]/locations/[LOCATION]/settings"'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the settings to retrieve. Name format: "projects/[PROJECT_ID]/locations/[LOCATION]/settings" "folders/[FOLDER_ID]/locations/[LOCATION]/settings" "organizations/[ORGANIZATION_ID]/locations/[LOCATION]/settings"'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the settings to retrieve. Name format: "projects/[PROJECT_ID]/locations/[LOCATION]/settings" "folders/[FOLDER_ID]/locations/[LOCATION]/settings" "organizations/[ORGANIZATION_ID]/locations/[LOCATION]/settings"'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: observability.projects.locations.updateSettings
+      description: Update Settings
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. The resource name of the settings.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. The resource name of the settings.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The field mask specifying which fields of the settings are to be updated.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Settings'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/settings
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. The resource name of the settings.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/settings$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations:
+    get:
+      operationId: observability.projects.locations.list
+      description: 'Lists information about the supported locations for this service. This method lists locations based on the resource scope provided in the ListLocationsRequest.name field: * **Global locations**: If `name` is empty, the method lists the public locations available to all projects. * **Project-specific locations**: If `name` follows the format `projects/{project}`, the method lists locations visible to that specific project. This includes public, private, or other project-specific locations enabled for the project. For gRPC and client library implementations, the resource name is passed as the `name` field. For direct service calls, the resource name is incorporated into the request path based on the specific service implementation and version.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource that owns the locations collection, if applicable.
+          schema:
+            type: string
+        - name: extraLocationTypes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: Optional. Do not use this field unless explicitly documented otherwise. This is primarily for internal usage.
+          style: form
+          explode: true
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of results to return. If not set, the service selects a default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
+      x-google-discovery:
+        path: v1/{+name}/locations
+        flatPath: v1/projects/{projectsId}/locations
+        resourceNameBindings:
+          projectsId: name
+        resourceNameParameters:
+          name:
+            description: The resource that owns the locations collection, if applicable.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/buckets:
+    post:
+      operationId: observability.projects.locations.buckets.create
+      description: Create a new bucket.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Name of the project and location for the bucket. The format is: projects/[PROJECT_ID]/locations/[LOCATION]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Name of the project and location for the bucket. The format is: projects/[PROJECT_ID]/locations/[LOCATION]'
+          schema:
+            type: string
+        - name: bucketId
+          in: query
+          schema:
+            type: string
+          description: Required. Id of the bucket to create.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bucket'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+parent}/buckets
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. Name of the project and location for the bucket. The format is: projects/[PROJECT_ID]/locations/[LOCATION]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: observability.projects.locations.buckets.list
+      description: List buckets of a project in a particular location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of buckets. The format is: projects/[PROJECT_ID]/locations/[LOCATION]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of buckets. The format is: projects/[PROJECT_ID]/locations/[LOCATION]'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of buckets to return. If unspecified, then at most 100 buckets are returned. The maximum value is 1000; values above 1000 are coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListBuckets` call. Provide this to retrieve the subsequent page.
+        - name: showDeleted
+          in: query
+          schema:
+            type: boolean
+          description: Optional. If true, then the response will include deleted buckets.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBucketsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/buckets
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent, which owns this collection of buckets. The format is: projects/[PROJECT_ID]/locations/[LOCATION]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}:
+    get:
+      operationId: observability.projects.locations.buckets.get
+      description: Get bucket resource.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the bucket to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the bucket to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the bucket to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bucket'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          bucketsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the bucket to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: observability.projects.locations.buckets.patch
+      description: Update a bucket.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the bucket. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the bucket. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the bucket. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The list of fields to update.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bucket'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          bucketsId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. Name of the bucket. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}:
+    get:
+      operationId: observability.projects.locations.buckets.datasets.get
+      description: Get a dataset.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the dataset to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the dataset to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the dataset to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: datasetsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the dataset to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          bucketsId: name
+          datasetsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the dataset to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+/datasets/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets:
+    get:
+      operationId: observability.projects.locations.buckets.datasets.list
+      description: List datasets of a bucket.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent bucket that owns this collection of datasets. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent bucket that owns this collection of datasets. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent bucket that owns this collection of datasets. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of datasets to return. If unspecified, then at most 100 datasets are returned. The maximum value is 1000; values above 1000 are coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListDatasets` call. Provide this to retrieve the subsequent page.
+        - name: showDeleted
+          in: query
+          schema:
+            type: boolean
+          description: Optional. If true, then the response will include deleted datasets.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDatasetsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/datasets
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          bucketsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent bucket that owns this collection of datasets. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/links:
+    post:
+      operationId: observability.projects.locations.buckets.datasets.links.create
+      description: Create a new link.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Name of the containing dataset for this link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Name of the containing dataset for this link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Name of the containing dataset for this link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: datasetsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Name of the containing dataset for this link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: linkId
+          in: query
+          schema:
+            type: string
+          description: Required. Id of the link to create.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Link'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+parent}/links
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/links
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          bucketsId: parent
+          datasetsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. Name of the containing dataset for this link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+/datasets/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: observability.projects.locations.buckets.datasets.links.list
+      description: List links of a dataset.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent dataset that owns this collection of links. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent dataset that owns this collection of links. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent dataset that owns this collection of links. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: datasetsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent dataset that owns this collection of links. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of links to return. If unspecified, then at most 100 links are returned. The maximum value is 1000; values above 1000 are coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListLinks` call. Provide this to retrieve the subsequent page.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLinksResponse'
+      x-google-discovery:
+        path: v1/{+parent}/links
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/links
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          bucketsId: parent
+          datasetsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent dataset that owns this collection of links. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+/datasets/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/links/{linksId}:
+    delete:
+      operationId: observability.projects.locations.buckets.datasets.links.delete
+      description: Delete a link.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to delete. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to delete. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to delete. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: datasetsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to delete. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: linksId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to delete. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/links/{linksId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          bucketsId: name
+          datasetsId: name
+          linksId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the link to delete. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+/datasets/[^/]+/links/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: observability.projects.locations.buckets.datasets.links.get
+      description: Get a link.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: datasetsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: linksId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the link to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/links/{linksId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          bucketsId: name
+          datasetsId: name
+          linksId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the link to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+/datasets/[^/]+/links/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: observability.projects.locations.buckets.datasets.links.patch
+      description: Update a link.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: datasetsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: linksId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The list of fields to update.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Link'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/links/{linksId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          bucketsId: name
+          datasetsId: name
+          linksId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. Name of the link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+/datasets/[^/]+/links/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/views/{viewsId}:
+    get:
+      operationId: observability.projects.locations.buckets.datasets.views.get
+      description: Get a view.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the view to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/views/[VIEW_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the view to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/views/[VIEW_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the view to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/views/[VIEW_ID]'
+          schema:
+            type: string
+        - name: datasetsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the view to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/views/[VIEW_ID]'
+          schema:
+            type: string
+        - name: viewsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the view to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/views/[VIEW_ID]'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/View'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/views/{viewsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          bucketsId: name
+          datasetsId: name
+          viewsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the view to retrieve. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/views/[VIEW_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+/datasets/[^/]+/views/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/views:
+    get:
+      operationId: observability.projects.locations.buckets.datasets.views.list
+      description: List views of a dataset.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Dataset whose views are to be listed. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Dataset whose views are to be listed. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: bucketsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Dataset whose views are to be listed. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: datasetsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Dataset whose views are to be listed. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of views to return. If unspecified, then at most 100 views are returned. The maximum value is 1000; values above 1000 are coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListViews` call. Provide this to retrieve the subsequent page.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListViewsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/views
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/buckets/{bucketsId}/datasets/{datasetsId}/views
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          bucketsId: parent
+          datasetsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. Dataset whose views are to be listed. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/buckets/[^/]+/datasets/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel:
+    post:
+      operationId: observability.projects.locations.operations.cancel
+      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelOperationRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}:cancel
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be cancelled.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:
+    delete:
+      operationId: observability.projects.locations.operations.delete
+      description: Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be deleted.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: observability.projects.locations.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/operations:
+    get:
+      operationId: observability.projects.locations.operations.list
+      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The standard list filter.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The standard list page size.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The standard list page token.
+        - name: returnPartialSuccess
+          in: query
+          schema:
+            type: boolean
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the ListOperationsResponse.unreachable field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"`. This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1/{+name}/operations
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/operations
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation's parent resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/scopes/{scopesId}:
+    get:
+      operationId: observability.projects.locations.scopes.get
+      description: Gets details of a single Scope.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the resource. The format is: projects/{project}/locations/{location}/scopes/{scope} The `{location}` field must be set to `global`. The `{scope}` field must be set to `_Default`.'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the resource. The format is: projects/{project}/locations/{location}/scopes/{scope} The `{location}` field must be set to `global`. The `{scope}` field must be set to `_Default`.'
+          schema:
+            type: string
+        - name: scopesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the resource. The format is: projects/{project}/locations/{location}/scopes/{scope} The `{location}` field must be set to `global`. The `{scope}` field must be set to `_Default`.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scope'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/scopes/{scopesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          scopesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the resource. The format is: projects/{project}/locations/{location}/scopes/{scope} The `{location}` field must be set to `global`. The `{scope}` field must be set to `_Default`.'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/scopes/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: observability.projects.locations.scopes.patch
+      description: Updates the parameters of a single Scope.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the resource. The format is: projects/{project}/locations/{location}/scopes/{scope} The `{location}` field must be set to `global`. The `{scope}` field must be set to `_Default`.'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the resource. The format is: projects/{project}/locations/{location}/scopes/{scope} The `{location}` field must be set to `global`. The `{scope}` field must be set to `_Default`.'
+          schema:
+            type: string
+        - name: scopesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. Name of the resource. The format is: projects/{project}/locations/{location}/scopes/{scope} The `{location}` field must be set to `global`. The `{scope}` field must be set to `_Default`.'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. Field mask is used to specify the fields to be overwritten in the Scope resource by the update. The fields specified in the update_mask are relative to the resource, not the full request. A field is overwritten when it is in the mask. If the user does not provide a mask, then all fields present in the request are overwritten.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scope'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scope'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/scopes/{scopesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          scopesId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. Name of the resource. The format is: projects/{project}/locations/{location}/scopes/{scope} The `{location}` field must be set to `global`. The `{scope}` field must be set to `_Default`.'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/scopes/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/traceScopes:
+    post:
+      operationId: observability.projects.locations.traceScopes.create
+      description: Create a new TraceScope.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The full resource name of the location where the trace scope should be created projects/[PROJECT_ID]/locations/[LOCATION_ID] For example: projects/my-project/locations/global'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The full resource name of the location where the trace scope should be created projects/[PROJECT_ID]/locations/[LOCATION_ID] For example: projects/my-project/locations/global'
+          schema:
+            type: string
+        - name: traceScopeId
+          in: query
+          schema:
+            type: string
+          description: Required. A client-assigned identifier for the trace scope.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraceScope'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceScope'
+      x-google-discovery:
+        path: v1/{+parent}/traceScopes
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/traceScopes
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The full resource name of the location where the trace scope should be created projects/[PROJECT_ID]/locations/[LOCATION_ID] For example: projects/my-project/locations/global'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: observability.projects.locations.traceScopes.list
+      description: List TraceScopes of a project in a particular location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The full resource name of the location to look for trace scopes: projects/[PROJECT_ID]/locations/[LOCATION_ID] For example: projects/my-project/locations/global'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The full resource name of the location to look for trace scopes: projects/[PROJECT_ID]/locations/[LOCATION_ID] For example: projects/my-project/locations/global'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of `next_page_token` in the response indicates that more results might be available.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. If present, then retrieve the next batch of results from the preceding call to this method. `page_token` must be the value of `next_page_token` from the previous response. The values of other method parameters should be identical to those in the previous call.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTraceScopesResponse'
+      x-google-discovery:
+        path: v1/{+parent}/traceScopes
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/traceScopes
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The full resource name of the location to look for trace scopes: projects/[PROJECT_ID]/locations/[LOCATION_ID] For example: projects/my-project/locations/global'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/traceScopes/{traceScopesId}:
+    delete:
+      operationId: observability.projects.locations.traceScopes.delete
+      description: Delete a TraceScope.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The full resource name of the trace scope to delete: projects/[PROJECT_ID]/locations/[LOCATION_ID]/traceScopes/[TRACE_SCOPE_ID] For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The full resource name of the trace scope to delete: projects/[PROJECT_ID]/locations/[LOCATION_ID]/traceScopes/[TRACE_SCOPE_ID] For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          schema:
+            type: string
+        - name: traceScopesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The full resource name of the trace scope to delete: projects/[PROJECT_ID]/locations/[LOCATION_ID]/traceScopes/[TRACE_SCOPE_ID] For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/traceScopes/{traceScopesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          traceScopesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The full resource name of the trace scope to delete: projects/[PROJECT_ID]/locations/[LOCATION_ID]/traceScopes/[TRACE_SCOPE_ID] For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/traceScopes/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: observability.projects.locations.traceScopes.get
+      description: Get TraceScope resource.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the trace scope: projects/[PROJECT_ID]/locations/[LOCATION_ID]/traceScopes/[TRACE_SCOPE_ID] For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the trace scope: projects/[PROJECT_ID]/locations/[LOCATION_ID]/traceScopes/[TRACE_SCOPE_ID] For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          schema:
+            type: string
+        - name: traceScopesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the trace scope: projects/[PROJECT_ID]/locations/[LOCATION_ID]/traceScopes/[TRACE_SCOPE_ID] For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceScope'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/traceScopes/{traceScopesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          traceScopesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The resource name of the trace scope: projects/[PROJECT_ID]/locations/[LOCATION_ID]/traceScopes/[TRACE_SCOPE_ID] For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/traceScopes/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: observability.projects.locations.traceScopes.patch
+      description: Update a TraceScope.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the trace scope. For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the trace scope. For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          schema:
+            type: string
+        - name: traceScopesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the trace scope. For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The list of fields to update.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraceScope'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceScope'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/traceScopes/{traceScopesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          traceScopesId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. The resource name of the trace scope. For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/traceScopes/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    Bucket:
+      description: Bucket configuration for storing observability data.
+      x-google-discovery-id: Bucket
+      properties:
+        cmekSettings:
+          description: Optional. Settings for configuring CMEK on a bucket.
+          allOf:
+            - $ref: '#/components/schemas/CmekSettings'
+        createTime:
+          description: Output only. Create timestamp.
+          format: google-datetime
+          readOnly: true
+          type: string
+        deleteTime:
+          description: Output only. Delete timestamp.
+          format: google-datetime
+          readOnly: true
+          type: string
+        description:
+          description: Optional. Description of the bucket.
+          type: string
+        displayName:
+          description: Optional. User friendly display name.
+          type: string
+        name:
+          description: 'Identifier. Name of the bucket. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]'
+          type: string
+        purgeTime:
+          description: Output only. Timestamp when the bucket in soft-deleted state is purged.
+          format: google-datetime
+          readOnly: true
+          type: string
+        updateTime:
+          description: Output only. Update timestamp.
+          format: google-datetime
+          readOnly: true
+          type: string
+      type: object
+    CancelOperationRequest:
+      description: The request message for Operations.CancelOperation.
+      x-google-discovery-id: CancelOperationRequest
+      properties: {}
+      type: object
+    CmekSettings:
+      description: Settings for configuring CMEK for a bucket.
+      x-google-discovery-id: CmekSettings
+      properties:
+        kmsKey:
+          description: 'Optional. The resource name for the configured Cloud KMS key. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/keyRings/[KEYRING]/cryptoKeys/[KEY] For example: projects/my-project/locations/us-central1/keyRings/my-ring/cryptoKeys/my-key'
+          type: string
+        kmsKeyVersion:
+          description: 'Output only. The CryptoKeyVersion resource name for the configured Cloud KMS key. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/keyRings/[KEYRING]/cryptoKeys/[KEY]/cryptoKeyVersions/[VERSION] For example: projects/my-project/locations/us-central1/keyRings/my-ring/cryptoKeys/my-key/cryptoKeyVersions/1 This read-only field is used to convey the specific configured CryptoKeyVersion of the `kms_key` that has been configured. It is populated when the CMEK settings are bound to a single key version.'
+          readOnly: true
+          type: string
+        serviceAccountId:
+          description: Output only. The service account used to access the key.
+          readOnly: true
+          type: string
+      type: object
+    Dataset:
+      description: A dataset is a collection of data that has a specific configuration. A dataset can be backed by multiple tables. One bucket can have multiple datasets.
+      x-google-discovery-id: Dataset
+      properties:
+        createTime:
+          description: Output only. Create timestamp.
+          format: google-datetime
+          readOnly: true
+          type: string
+        deleteTime:
+          description: Output only. Delete timestamp.
+          format: google-datetime
+          readOnly: true
+          type: string
+        description:
+          description: Optional. Description of the dataset.
+          type: string
+        displayName:
+          description: Optional. User friendly display name.
+          type: string
+        name:
+          description: 'Identifier. Name of the dataset. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]'
+          type: string
+        purgeTime:
+          description: Output only. Timestamp when the dataset in soft-deleted state is purged.
+          format: google-datetime
+          readOnly: true
+          type: string
+      type: object
+    Empty:
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
+      properties: {}
+      type: object
+    Link:
+      description: A link lets a dataset be accessible to BigQuery via usage of linked datasets.
+      x-google-discovery-id: Link
+      properties:
+        createTime:
+          description: Output only. Create timestamp.
+          format: google-datetime
+          readOnly: true
+          type: string
+        description:
+          description: Optional. Description of the link.
+          type: string
+        displayName:
+          description: Optional. A user friendly display name.
+          type: string
+        name:
+          description: 'Identifier. Name of the link. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/links/[LINK_ID]'
+          type: string
+      type: object
+    ListBucketsResponse:
+      description: Response for listing buckets.
+      x-google-discovery-id: ListBucketsResponse
+      properties:
+        buckets:
+          description: Optional. The list of buckets.
+          items:
+            $ref: '#/components/schemas/Bucket'
+          type: array
+        nextPageToken:
+          description: Optional. A token that can be sent as `page_token` to retrieve the next page. When this field is omitted, there are no subsequent pages.
+          type: string
+      type: object
+    ListDatasetsResponse:
+      description: Response for listing datasets.
+      x-google-discovery-id: ListDatasetsResponse
+      properties:
+        datasets:
+          description: The list of datasets.
+          items:
+            $ref: '#/components/schemas/Dataset'
+          type: array
+        nextPageToken:
+          description: A token that can be sent as `page_token` to retrieve the next page. When this field is omitted, there are no subsequent pages.
+          type: string
+      type: object
+    ListLinksResponse:
+      description: Response for listing links.
+      x-google-discovery-id: ListLinksResponse
+      properties:
+        links:
+          description: The list of links.
+          items:
+            $ref: '#/components/schemas/Link'
+          type: array
+        nextPageToken:
+          description: Optional. A token that can be sent as `page_token` to retrieve the next page. When this field is omitted, there are no subsequent pages.
+          type: string
+      type: object
+    ListLocationsResponse:
+      description: The response message for Locations.ListLocations.
+      x-google-discovery-id: ListLocationsResponse
+      properties:
+        locations:
+          description: A list of locations that matches the specified filter in the request.
+          items:
+            $ref: '#/components/schemas/Location'
+          type: array
+        nextPageToken:
+          description: The standard List next-page token.
+          type: string
+      type: object
+    ListOperationsResponse:
+      description: The response message for Operations.ListOperations.
+      x-google-discovery-id: ListOperationsResponse
+      properties:
+        nextPageToken:
+          description: The standard List next-page token.
+          type: string
+        operations:
+          description: A list of operations that matches the specified filter in the request.
+          items:
+            $ref: '#/components/schemas/Operation'
+          type: array
+        unreachable:
+          description: Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections. For example, when attempting to list all resources across all supported locations.
+          items:
+            type: string
+          type: array
+      type: object
+    ListTraceScopesResponse:
+      description: Response for listing TraceScopes.
+      x-google-discovery-id: ListTraceScopesResponse
+      properties:
+        nextPageToken:
+          description: Optional. If there might be more results than appear in this response, then `next_page_token` is included. To get the next set of results, call the same method again using the value of `next_page_token` as `page_token`.
+          type: string
+        traceScopes:
+          description: Optional. A list of trace scopes.
+          items:
+            $ref: '#/components/schemas/TraceScope'
+          type: array
+      type: object
+    ListViewsResponse:
+      description: Response for listing views.
+      x-google-discovery-id: ListViewsResponse
+      properties:
+        nextPageToken:
+          description: Optional. A token that can be sent as `page_token` to retrieve the next page. When this field is omitted, there are no subsequent pages.
+          type: string
+        views:
+          description: The list of views.
+          items:
+            $ref: '#/components/schemas/View'
+          type: array
+      type: object
+    Location:
+      description: A resource that represents a Google Cloud location.
+      x-google-discovery-id: Location
+      properties:
+        displayName:
+          description: The friendly name for this location, typically a nearby city name. For example, "Tokyo".
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          description: 'Cross-service attributes for the location. For example {"cloud.googleapis.com/region": "us-east1"}'
+          type: object
+        locationId:
+          description: 'The canonical id for this location. For example: `"us-east1"`.'
+          type: string
+        metadata:
+          additionalProperties:
+            description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
+          description: Service-specific metadata. For example the available capacity at the given location.
+          type: object
+        name:
+          description: 'Resource name for the location, which may vary between implementations. For example: `"projects/example-project/locations/us-east1"`'
+          type: string
+      type: object
+    Operation:
+      description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
+      properties:
+        done:
+          description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
+          type: boolean
+        error:
+          description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
+        metadata:
+          additionalProperties:
+            description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
+          description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
+          type: object
+        name:
+          description: The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should be a resource name ending with `operations/{unique_id}`.
+          type: string
+        response:
+          additionalProperties:
+            description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
+          description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
+          type: object
+      type: object
+    OperationMetadata:
+      description: Represents the metadata of the long-running operation.
+      x-google-discovery-id: OperationMetadata
+      properties:
+        apiVersion:
+          description: Output only. API version used to start the operation.
+          readOnly: true
+          type: string
+        createTime:
+          description: Output only. The time the operation was created.
+          format: google-datetime
+          readOnly: true
+          type: string
+        endTime:
+          description: Output only. The time the operation finished running.
+          format: google-datetime
+          readOnly: true
+          type: string
+        requestedCancellation:
+          description: Output only. Identifies whether the user has requested cancellation of the operation. Operations that have been cancelled successfully have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
+          readOnly: true
+          type: boolean
+        statusMessage:
+          description: Output only. Human-readable status of the operation, if any.
+          readOnly: true
+          type: string
+        target:
+          description: Output only. Server-defined resource path for the target of the operation.
+          readOnly: true
+          type: string
+        verb:
+          description: Output only. Name of the verb executed by the operation.
+          readOnly: true
+          type: string
+      type: object
+    Scope:
+      description: Message describing Scope object
+      x-google-discovery-id: Scope
+      properties:
+        logScope:
+          description: 'Required. The full resource name of the `logging.googleapis.com/LogScope`. For example: //logging.googleapis.com/projects/myproject/locations/global/logScopes/my-log-scope'
+          type: string
+        name:
+          description: 'Identifier. Name of the resource. The format is: projects/{project}/locations/{location}/scopes/{scope} The `{location}` field must be set to `global`. The `{scope}` field must be set to `_Default`.'
+          type: string
+        traceScope:
+          description: 'Required. The unqualified resource name of the `cloudtrace.googleapis.com/TraceScope`. For example: projects/myproject/locations/global/traceScopes/my-trace-scope'
+          type: string
+        updateTime:
+          description: 'Output only. Update timestamp. Note: The Update timestamp for the default scope is initially unset.'
+          format: google-datetime
+          readOnly: true
+          type: string
+      type: object
+    Settings:
+      description: Describes the settings associated with a project, organization, or folder.
+      x-google-discovery-id: Settings
+      properties:
+        defaultStorageLocation:
+          description: Optional. The location which should be used when any regional resources are provisioned by Google Cloud.
+          type: string
+        kmsKeyName:
+          description: 'Optional. The resource name for the configured Cloud KMS key. KMS key name format: "projects/[PROJECT_ID]/locations/[LOCATION]/keyRings/[KEYRING]/cryptoKeys/[KEY]" For example: `"projects/my-project/locations/us-central1/keyRings/my-ring/cryptoKeys/my-key"`'
+          type: string
+        name:
+          description: Identifier. The resource name of the settings.
+          type: string
+        serviceAccountId:
+          description: Output only. The service account for the given resource container, such as project or folder. This will be used by Cloud Observability to perform actions in the container's project like access KMS keys or create Links. Always the same service account per resource container regardless of region.
+          readOnly: true
+          type: string
+      type: object
+    Status:
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
+      properties:
+        code:
+          description: The status code, which should be an enum value of google.rpc.Code.
+          format: int32
+          type: integer
+        details:
+          description: A list of messages that carry the error details. There is a common set of message types for APIs to use.
+          items:
+            additionalProperties:
+              description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
+            type: object
+          type: array
+        message:
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
+          type: string
+      type: object
+    TraceScope:
+      description: A trace scope is a collection of resources whose traces are queried together.
+      x-google-discovery-id: TraceScope
+      properties:
+        createTime:
+          description: Output only. The creation timestamp of the trace scope.
+          format: google-datetime
+          readOnly: true
+          type: string
+        description:
+          description: Optional. Describes this trace scope. The maximum length of the description is 8000 characters.
+          type: string
+        name:
+          description: 'Identifier. The resource name of the trace scope. For example: projects/my-project/locations/global/traceScopes/my-trace-scope'
+          type: string
+        resourceNames:
+          description: Required. Names of the projects that are included in this trace scope. * `projects/[PROJECT_ID]` A trace scope can include a maximum of 20 projects.
+          items:
+            type: string
+          type: array
+        updateTime:
+          description: Output only. The last update timestamp of the trace scope.
+          format: google-datetime
+          readOnly: true
+          type: string
+      type: object
+    View:
+      description: A view corresponds to a read-only representation of a subset of the data in a dataset.
+      x-google-discovery-id: View
+      properties:
+        createTime:
+          description: Output only. Create timestamp.
+          format: google-datetime
+          readOnly: true
+          type: string
+        description:
+          description: Optional. Description of the view.
+          type: string
+        displayName:
+          description: Optional. User friendly display name.
+          type: string
+        name:
+          description: 'Identifier. Name of the view. The format is: projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]/datasets/[DATASET_ID]/views/[VIEW_ID]'
+          type: string
+        updateTime:
+          description: Output only. Update timestamp.
+          format: google-datetime
+          readOnly: true
+          type: string
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
+externalDocs:
+  url: https://cloud.google.com/stackdriver/docs/
+tags:
+  - name: folders
+  - name: organizations
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://observability.googleapis.com/
+  batchPath: batch
+  canonicalName: Cloud Observability
+  endpoints:
+    - description: Regional Endpoint
+      endpointUrl: https://observability.africa-south1.rep.googleapis.com/
+      location: africa-south1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-east1.rep.googleapis.com/
+      location: asia-east1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-east2.rep.googleapis.com/
+      location: asia-east2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-northeast2.rep.googleapis.com/
+      location: asia-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-northeast3.rep.googleapis.com/
+      location: asia-northeast3
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-south1.rep.googleapis.com/
+      location: asia-south1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-south2.rep.googleapis.com/
+      location: asia-south2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-southeast2.rep.googleapis.com/
+      location: asia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-southeast3.rep.googleapis.com/
+      location: asia-southeast3
+    - description: Regional Endpoint
+      endpointUrl: https://observability.australia-southeast2.rep.googleapis.com/
+      location: australia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-north2.rep.googleapis.com/
+      location: europe-north2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-west1.rep.googleapis.com/
+      location: europe-west1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-west3.rep.googleapis.com/
+      location: europe-west3
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-west4.rep.googleapis.com/
+      location: europe-west4
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-west6.rep.googleapis.com/
+      location: europe-west6
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-west8.rep.googleapis.com/
+      location: europe-west8
+    - description: Regional Endpoint
+      endpointUrl: https://observability.me-central1.rep.googleapis.com/
+      location: me-central1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.northamerica-northeast2.rep.googleapis.com/
+      location: northamerica-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.northamerica-south1.rep.googleapis.com/
+      location: northamerica-south1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.southamerica-west1.rep.googleapis.com/
+      location: southamerica-west1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us-central1.rep.googleapis.com/
+      location: us-central1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us-east1.rep.googleapis.com/
+      location: us-east1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us-east5.rep.googleapis.com/
+      location: us-east5
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us-south1.rep.googleapis.com/
+      location: us-south1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us-west1.rep.googleapis.com/
+      location: us-west1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us-west2.rep.googleapis.com/
+      location: us-west2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us-west3.rep.googleapis.com/
+      location: us-west3
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-northeast1.rep.googleapis.com/
+      location: asia-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.asia-southeast1.rep.googleapis.com/
+      location: asia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.australia-southeast1.rep.googleapis.com/
+      location: australia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-central2.rep.googleapis.com/
+      location: europe-central2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-north1.rep.googleapis.com/
+      location: europe-north1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-southwest1.rep.googleapis.com/
+      location: europe-southwest1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-west10.rep.googleapis.com/
+      location: europe-west10
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-west12.rep.googleapis.com/
+      location: europe-west12
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-west2.rep.googleapis.com/
+      location: europe-west2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.europe-west9.rep.googleapis.com/
+      location: europe-west9
+    - description: Regional Endpoint
+      endpointUrl: https://observability.me-central2.rep.googleapis.com/
+      location: me-central2
+    - description: Regional Endpoint
+      endpointUrl: https://observability.me-west1.rep.googleapis.com/
+      location: me-west1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.northamerica-northeast1.rep.googleapis.com/
+      location: northamerica-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.southamerica-east1.rep.googleapis.com/
+      location: southamerica-east1
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us-east4.rep.googleapis.com/
+      location: us-east4
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us-west4.rep.googleapis.com/
+      location: us-west4
+    - description: Regional Endpoint
+      endpointUrl: https://observability.us.rep.googleapis.com/
+      location: us
+    - description: Regional Endpoint
+      endpointUrl: https://observability.eu.rep.googleapis.com/
+      location: eu
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: observability:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://observability.mtls.googleapis.com/
+  name: observability
+  revision: '20261022'
+  rootUrl: https://observability.googleapis.com/
+  servicePath: ''
+  version_module: true

@@ -1,0 +1,576 @@
+openapi: 3.0.3
+info:
+  title: Merchant API
+  version: quota_v1
+  description: Programmatically manage your Merchant Center Accounts.
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/merchantapi.quota_v1.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/merchantapi.quota_v1.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260901; original source SHA-256 0ee864142f01d52a7ca630578e8b6a63c42f209ad256f18d09e97493b92050ff.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://merchantapi.googleapis.com
+paths:
+  /quota/v1/accounts/{accountsId}/limits/{limitsId}:
+    get:
+      operationId: merchantapi.accounts.limits.get
+      description: Retrieves an account limit.
+      parameters:
+        - name: accountsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the limit to retrieve. Format: `accounts/{account}/limits/{limit}` For example: `accounts/123/limits/products~ADS_NON_EEA`'
+          schema:
+            type: string
+        - name: limitsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the limit to retrieve. Format: `accounts/{account}/limits/{limit}` For example: `accounts/123/limits/products~ADS_NON_EEA`'
+          schema:
+            type: string
+      tags:
+        - accounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/content
+        - Oauth2c:
+            - https://www.googleapis.com/auth/content
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountLimit'
+      x-google-discovery:
+        path: quota/v1/{+name}
+        flatPath: quota/v1/accounts/{accountsId}/limits/{limitsId}
+        resourceNameBindings:
+          accountsId: name
+          limitsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the limit to retrieve. Format: `accounts/{account}/limits/{limit}` For example: `accounts/123/limits/products~ADS_NON_EEA`'
+            location: path
+            pattern: ^accounts/[^/]+/limits/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /quota/v1/accounts/{accountsId}/limits:
+    get:
+      operationId: merchantapi.accounts.limits.list
+      description: Lists the limits of an account.
+      parameters:
+        - name: accountsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent account. Format: `accounts/{account}`'
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Required. A filter on the limit `type` is required, for example, `type = "products"`.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of limits to return. The service may return fewer than this value. If unspecified, at most 100 limits will be returned. The maximum value is 100; values above 100 will be coerced to 100.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListAccountLimits` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListAccountLimits` must match the call that provided the page token.
+      tags:
+        - accounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/content
+        - Oauth2c:
+            - https://www.googleapis.com/auth/content
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAccountLimitsResponse'
+      x-google-discovery:
+        path: quota/v1/{+parent}/limits
+        flatPath: quota/v1/accounts/{accountsId}/limits
+        resourceNameBindings:
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent account. Format: `accounts/{account}`'
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /quota/v1/accounts/{accountsId}/quotas:
+    get:
+      operationId: merchantapi.accounts.quotas.list
+      description: Lists the daily call quota and usage per group for your Merchant Center account.
+      parameters:
+        - name: accountsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The merchant account who owns the collection of method quotas Format: accounts/{account}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of quotas to return in the response, used for paging. Defaults to 500; values above 1000 will be coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. Token (if provided) to retrieve the subsequent page. All other parameters must match the original call that provided the page token.
+      tags:
+        - accounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/content
+        - Oauth2c:
+            - https://www.googleapis.com/auth/content
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListQuotaGroupsResponse'
+      x-google-discovery:
+        path: quota/v1/{+parent}/quotas
+        flatPath: quota/v1/accounts/{accountsId}/quotas
+        resourceNameBindings:
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The merchant account who owns the collection of method quotas Format: accounts/{account}'
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    AccountLimit:
+      description: A limit of a certain type that is applied to an account.
+      x-google-discovery-id: AccountLimit
+      properties:
+        name:
+          description: 'Identifier. The limit part of the name will be a combination of the type and the scope. For example: `accounts/123/limits/products~ADS_NON_EEA` Format: `accounts/{account}/limits/{limit}`'
+          type: string
+        products:
+          description: The limit for products.
+          allOf:
+            - $ref: '#/components/schemas/ProductLimit'
+      type: object
+    ListAccountLimitsResponse:
+      description: Response message for the `ListAccountLimits` method.
+      x-google-discovery-id: ListAccountLimitsResponse
+      properties:
+        accountLimits:
+          description: The limits for the given account.
+          items:
+            $ref: '#/components/schemas/AccountLimit'
+          type: array
+        nextPageToken:
+          description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
+          type: string
+      type: object
+    ListQuotaGroupsResponse:
+      description: Response message for the ListMethodGroups method.
+      x-google-discovery-id: ListQuotaGroupsResponse
+      properties:
+        nextPageToken:
+          description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
+          type: string
+        quotaGroups:
+          description: The methods, current quota usage and limits per each group. The quota is shared between all methods in the group. The groups are sorted in descending order based on quota_usage.
+          items:
+            $ref: '#/components/schemas/QuotaGroup'
+          type: array
+      type: object
+    MethodDetails:
+      description: The method details per method in the Merchant API.
+      x-google-discovery-id: MethodDetails
+      properties:
+        method:
+          description: Output only. The name of the method for example `products.list`.
+          readOnly: true
+          type: string
+        path:
+          description: Output only. The path for the method such as `products/v1/productInputs.insert`
+          readOnly: true
+          type: string
+        subapi:
+          description: Output only. The sub-API that the method belongs to.
+          readOnly: true
+          type: string
+        version:
+          description: Output only. The API version that the method belongs to.
+          readOnly: true
+          type: string
+      type: object
+    ProductChange:
+      description: The change that happened to the product including old value, new value, country code as the region code and reporting context.
+      x-google-discovery-id: ProductChange
+      properties:
+        newValue:
+          description: 'The new value of the changed resource or attribute. If empty, it means that the product was deleted. Will have one of these values : (`approved`, `pending`, `disapproved`, ``)'
+          type: string
+        oldValue:
+          description: 'The old value of the changed resource or attribute. If empty, it means that the product was created. Will have one of these values : (`approved`, `pending`, `disapproved`, ``)'
+          type: string
+        regionCode:
+          description: Countries that have the change (if applicable). Represented in the ISO 3166 format.
+          type: string
+        reportingContext:
+          description: Reporting contexts that have the change (if applicable). Currently this field supports only (`SHOPPING_ADS`, `LOCAL_INVENTORY_ADS`, `YOUTUBE_SHOPPING`, `YOUTUBE_CHECKOUT`, `YOUTUBE_AFFILIATE`) from the enum value [ReportingContextEnum](/merchant/api/reference/rest/Shared.Types/ReportingContextEnum)
+          enum:
+            - REPORTING_CONTEXT_ENUM_UNSPECIFIED
+            - SHOPPING_ADS
+            - DISCOVERY_ADS
+            - DEMAND_GEN_ADS
+            - DEMAND_GEN_ADS_DISCOVER_SURFACE
+            - VIDEO_ADS
+            - DISPLAY_ADS
+            - LOCAL_INVENTORY_ADS
+            - VEHICLE_INVENTORY_ADS
+            - FREE_LISTINGS
+            - FREE_LISTINGS_UCP_CHECKOUT
+            - FREE_LOCAL_LISTINGS
+            - FREE_LOCAL_VEHICLE_LISTINGS
+            - YOUTUBE_AFFILIATE
+            - YOUTUBE_SHOPPING
+            - CLOUD_RETAIL
+            - LOCAL_CLOUD_RETAIL
+            - PRODUCT_REVIEWS
+            - MERCHANT_REVIEWS
+            - YOUTUBE_CHECKOUT
+            - RENTAL_ADS
+          x-google-enum-deprecated:
+            - false
+            - false
+            - true
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+            - false
+          x-google-enum-descriptions:
+            - Not specified.
+            - '[Shopping ads](https://support.google.com/merchants/answer/6149970).'
+            - 'Deprecated: Use `DEMAND_GEN_ADS` instead. [Discovery and Demand Gen ads](https://support.google.com/merchants/answer/13389785).'
+            - '[Demand Gen ads](https://support.google.com/merchants/answer/13389785).'
+            - '[Demand Gen ads on Discover surface](https://support.google.com/merchants/answer/13389785).'
+            - '[Video ads](https://support.google.com/google-ads/answer/6340491).'
+            - '[Display ads](https://support.google.com/merchants/answer/6069387).'
+            - '[Local inventory ads](https://support.google.com/merchants/answer/3271956).'
+            - '[Vehicle inventory ads](https://support.google.com/merchants/answer/11544533).'
+            - '[Free product listings](https://support.google.com/merchants/answer/9199328).'
+            - '[Free product listings on UCP checkout](https://developers.google.com/merchant/ucp).'
+            - '[Free local product listings](https://support.google.com/merchants/answer/9825611).'
+            - '[Free local vehicle listings](https://support.google.com/merchants/answer/11544533).'
+            - '[Youtube Affiliate](https://support.google.com/youtube/answer/13376398).'
+            - '[YouTube Shopping](https://support.google.com/merchants/answer/13478370).'
+            - '[Cloud retail](https://cloud.google.com/solutions/retail).'
+            - '[Local cloud retail](https://cloud.google.com/solutions/retail).'
+            - '[Product Reviews](https://support.google.com/merchants/answer/14620732).'
+            - '[Merchant Reviews](https://developers.google.com/merchant-review-feeds).'
+            - YouTube Checkout .
+            - Real Estate Rental Ads. .
+          type: string
+      type: object
+    ProductLimit:
+      description: The limit for products.
+      x-google-discovery-id: ProductLimit
+      properties:
+        limit:
+          description: Required. The maximum number of products that are allowed in the account in the given scope.
+          format: int64
+          type: string
+        scope:
+          description: Required. The scope of the product limit.
+          enum:
+            - SCOPE_UNSPECIFIED
+            - ADS_NON_EEA
+            - ADS_EEA
+          x-google-enum-descriptions:
+            - Default value. Should not be used.
+            - Limit for products in non-EEA countries.
+            - Limit for products in EEA countries.
+          type: string
+      type: object
+    ProductStatusChangeMessage:
+      description: The message that the merchant will receive to notify about product status change event
+      x-google-discovery-id: ProductStatusChangeMessage
+      properties:
+        account:
+          description: 'The target account that owns the entity that changed. Format : `accounts/{merchant_id}`'
+          type: string
+        attribute:
+          description: The attribute in the resource that changed, in this case it will be always `Status`.
+          enum:
+            - ATTRIBUTE_UNSPECIFIED
+            - STATUS
+          x-google-enum-descriptions:
+            - Unspecified attribute
+            - Status of the changed entity
+          type: string
+        changes:
+          description: A message to describe the change that happened to the product
+          items:
+            $ref: '#/components/schemas/ProductChange'
+          type: array
+        eventTime:
+          description: The time at which the event was generated. If you want to order the notification messages you receive you should rely on this field not on the order of receiving the notifications.
+          format: google-datetime
+          type: string
+        expirationTime:
+          description: Optional. The product expiration time. This field will not be set if the notification is sent for a product deletion event.
+          format: google-datetime
+          type: string
+        managingAccount:
+          description: 'The account that manages the merchant''s account. can be the same as merchant id if it is standalone account. Format : `accounts/{service_provider_id}`'
+          type: string
+        resource:
+          description: 'The product name. Format: `accounts/{account}/products/{product}`'
+          type: string
+        resourceId:
+          description: The product id.
+          type: string
+        resourceType:
+          description: The resource that changed, in this case it will always be `Product`.
+          enum:
+            - RESOURCE_UNSPECIFIED
+            - PRODUCT
+            - ACCOUNT_SERVICE
+          x-google-enum-descriptions:
+            - Unspecified resource
+            - 'Resource type : product'
+            - Account service
+          type: string
+      type: object
+    QuotaGroup:
+      description: The group information for methods in the Merchant API. The quota is shared between all methods in the group. Even if none of the methods within the group have usage the information for the group is returned.
+      x-google-discovery-id: QuotaGroup
+      properties:
+        methodDetails:
+          description: Output only. List of all methods group quota applies to.
+          items:
+            $ref: '#/components/schemas/MethodDetails'
+          readOnly: true
+          type: array
+        name:
+          description: 'Identifier. The resource name of the quota group. Format: accounts/{account}/quotas/{group} Note: There is no guarantee on the format of {group}'
+          type: string
+        quotaLimit:
+          description: Output only. The maximum number of calls allowed per day for the group.
+          format: int64
+          readOnly: true
+          type: string
+        quotaMinuteLimit:
+          description: Output only. The maximum number of calls allowed per minute for the group.
+          format: int64
+          readOnly: true
+          type: string
+        quotaUsage:
+          description: Output only. The current quota usage, meaning the number of calls already made on a given day to the methods in the group. The daily quota limits reset at 12:00 PM midday UTC.
+          format: int64
+          readOnly: true
+          type: string
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/content: Manage your product listings and accounts for Google Shopping
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/content: Manage your product listings and accounts for Google Shopping
+externalDocs:
+  url: https://developers.google.com/merchant/api
+tags:
+  - name: accounts
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://merchantapi.googleapis.com/
+  batchPath: batch
+  canonicalName: Merchant
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: merchantapi:quota_v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://merchantapi.mtls.googleapis.com/
+  name: merchantapi
+  revision: '20260901'
+  rootUrl: https://merchantapi.googleapis.com/
+  servicePath: ''
+  version_module: true

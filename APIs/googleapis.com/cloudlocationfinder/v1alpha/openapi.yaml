@@ -1,0 +1,640 @@
+openapi: 3.0.3
+info:
+  title: Cloud Location Finder API
+  version: v1alpha
+  description: ''
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/cloudlocationfinder.v1alpha.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/cloudlocationfinder.v1alpha.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260930; original source SHA-256 b73ef0eb6c9bae36fd51895ee67e52383a90cc2f4fd5fe42899ecb45cb2ef59d.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://cloudlocationfinder.googleapis.com
+paths:
+  /v1alpha/projects/{projectsId}/locations/{locationsId}:
+    get:
+      operationId: cloudlocationfinder.projects.locations.get
+      description: Gets information about a location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/locations/{locationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Resource name for the location.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/locations:
+    get:
+      operationId: cloudlocationfinder.projects.locations.list
+      description: 'Lists information about the supported locations for this service. This method lists locations based on the resource scope provided in the ListLocationsRequest.name field: * **Global locations**: If `name` is empty, the method lists the public locations available to all projects. * **Project-specific locations**: If `name` follows the format `projects/{project}`, the method lists locations visible to that specific project. This includes public, private, or other project-specific locations enabled for the project. For gRPC and client library implementations, the resource name is passed as the `name` field. For direct service calls, the resource name is incorporated into the request path based on the specific service implementation and version.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource that owns the locations collection, if applicable.
+          schema:
+            type: string
+        - name: extraLocationTypes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: Optional. Do not use this field unless explicitly documented otherwise. This is primarily for internal usage.
+          style: form
+          explode: true
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of results to return. If not set, the service selects a default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
+      x-google-discovery:
+        path: v1alpha/{+name}/locations
+        flatPath: v1alpha/projects/{projectsId}/locations
+        resourceNameBindings:
+          projectsId: name
+        resourceNameParameters:
+          name:
+            description: The resource that owns the locations collection, if applicable.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/locations/{locationsId}/cloudLocations/{cloudLocationsId}:
+    get:
+      operationId: cloudlocationfinder.projects.locations.cloudLocations.get
+      description: Retrieves a resource containing information about a cloud location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource.
+          schema:
+            type: string
+        - name: cloudLocationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudLocation'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/locations/{locationsId}/cloudLocations/{cloudLocationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          cloudLocationsId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/cloudLocations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/locations/{locationsId}/cloudLocations:
+    get:
+      operationId: cloudlocationfinder.projects.locations.cloudLocations.list
+      description: Lists cloud locations under a given project and location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of cloud locations. Format: projects/{project}/locations/{location}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of cloud locations. Format: projects/{project}/locations/{location}'
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Optional. A filter expression that filters resources listed in the response. The expression is in the form of field=value. For example, 'cloud_location_type=CLOUD_LOCATION_TYPE_REGION'. Multiple filter queries are space-separated. For example, 'cloud_location_type=CLOUD_LOCATION_TYPE_REGION territory_code="US"' By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of cloud locations to return per page. The service might return fewer cloud locations than this value. If unspecified, at most 500 cloud locations will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A token identifying a page of results the server should return. Provide page token returned by a previous 'ListCloudLocations' call to retrieve the next page of results. When paginating, all other parameters provided to 'ListCloudLocations' must match the call that provided the page token.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCloudLocationsResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/cloudLocations
+        flatPath: v1alpha/projects/{projectsId}/locations/{locationsId}/cloudLocations
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent, which owns this collection of cloud locations. Format: projects/{project}/locations/{location}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/locations/{locationsId}/cloudLocations:search:
+    get:
+      operationId: cloudlocationfinder.projects.locations.cloudLocations.search
+      description: Searches for cloud locations from a given source location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of cloud locations. Format: projects/{project}/locations/{location}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of cloud locations. Format: projects/{project}/locations/{location}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of cloud locations to return. The service might return fewer cloud locations than this value. If unspecified, at most 500 cloud locations will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A token identifying a page of results the server should return. Provide Page token returned by a previous 'ListCloudLocations' call to retrieve the next page of results. When paginating, all other parameters provided to 'ListCloudLocations' must match the call that provided the page token.
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: Optional. The query string in search query syntax. While filter is used to filter the search results by attributes, query is used to specify the search requirements.
+        - name: sourceCloudLocation
+          in: query
+          schema:
+            type: string
+          description: Required. The source cloud location to search from. Example search can be searching nearby cloud locations from the source cloud location by latency.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchCloudLocationsResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/cloudLocations:search
+        flatPath: v1alpha/projects/{projectsId}/locations/{locationsId}/cloudLocations:search
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent, which owns this collection of cloud locations. Format: projects/{project}/locations/{location}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    CloudLocation:
+      description: Represents resource cloud locations.
+      x-google-discovery-id: CloudLocation
+      properties:
+        carbonFreeEnergyPercentage:
+          description: Optional. The carbon free energy percentage of the cloud location. This represents the average percentage of time customers' application will be running on carbon-free energy. See https://cloud.google.com/sustainability/region-carbon for more details. There is a difference between default value 0 and unset value. 0 means the carbon free energy percentage is 0%, while unset value means the carbon footprint data is not available.
+          format: float
+          type: number
+        cloudLocationType:
+          description: Optional. The type of the cloud location.
+          enum:
+            - CLOUD_LOCATION_TYPE_UNSPECIFIED
+            - CLOUD_LOCATION_TYPE_REGION
+            - CLOUD_LOCATION_TYPE_ZONE
+            - CLOUD_LOCATION_TYPE_GDCC_ZONE
+            - CLOUD_LOCATION_TYPE_GLOBAL
+          x-google-enum-descriptions:
+            - Unspecified type.
+            - CloudLocation type for region.
+            - CloudLocation type for zone.
+            - CloudLocation type for Google Distributed Cloud Connected Zone.
+            - CloudLocation type for global.
+          type: string
+        cloudProvider:
+          description: Optional. The provider of the cloud location. Values can be Google Cloud or third-party providers, including AWS, Azure, or Oracle Cloud Infrastructure.
+          enum:
+            - CLOUD_PROVIDER_UNSPECIFIED
+            - CLOUD_PROVIDER_GCP
+            - CLOUD_PROVIDER_AWS
+            - CLOUD_PROVIDER_AZURE
+            - CLOUD_PROVIDER_OCI
+          x-google-enum-descriptions:
+            - Unspecified type.
+            - Cloud provider type for Google Cloud.
+            - Cloud provider type for AWS.
+            - Cloud provider type for Azure.
+            - Cloud provider type for OCI.
+          type: string
+        containingCloudLocation:
+          description: Output only. The containing cloud location in the strict nesting hierarchy. For example, the containing cloud location of a zone is a region.
+          readOnly: true
+          type: string
+        displayName:
+          description: 'Optional. The human-readable name of the cloud location. Example: us-east-2, us-east1.'
+          type: string
+        gcpAttributes:
+          description: Optional. GCP-specific attributes.
+          allOf:
+            - $ref: '#/components/schemas/GcpAttributes'
+        name:
+          description: 'Identifier. Name of the cloud location. Unique name of the cloud location including project and location using the form: `projects/{project_id}/locations/{location}/cloudLocations/{cloud_location}`'
+          type: string
+        territoryCode:
+          description: 'Optional. The two-letter ISO 3166-1 alpha-2 code of the cloud location. Examples: US, JP, KR.'
+          type: string
+      type: object
+    GcpAttributes:
+      description: GCP-specific attributes.
+      x-google-discovery-id: GcpAttributes
+      properties:
+        zoneType:
+          description: Optional. The type of the cloud zone.
+          enum:
+            - GCP_ZONE_TYPE_UNSPECIFIED
+            - GENERAL_PURPOSE
+            - AI_ZONE
+          x-google-enum-descriptions:
+            - Default value. Unspecified zone type.
+            - General purpose zone type.
+            - AI zone type.
+          type: string
+      type: object
+    ListCloudLocationsResponse:
+      description: Message for response to listing cloud locations.
+      x-google-discovery-id: ListCloudLocationsResponse
+      properties:
+        cloudLocations:
+          description: Output only. List of cloud locations.
+          items:
+            $ref: '#/components/schemas/CloudLocation'
+          readOnly: true
+          type: array
+        nextPageToken:
+          description: Output only. The continuation token, used to page through large result sets. Provide this value in a subsequent request as page_token in subsequent requests to retrieve the next page. If this field is not present, there are no subsequent results.
+          readOnly: true
+          type: string
+      type: object
+    ListLocationsResponse:
+      description: The response message for Locations.ListLocations.
+      x-google-discovery-id: ListLocationsResponse
+      properties:
+        locations:
+          description: A list of locations that matches the specified filter in the request.
+          items:
+            $ref: '#/components/schemas/Location'
+          type: array
+        nextPageToken:
+          description: The standard List next-page token.
+          type: string
+      type: object
+    Location:
+      description: A resource that represents a Google Cloud location.
+      x-google-discovery-id: Location
+      properties:
+        displayName:
+          description: The friendly name for this location, typically a nearby city name. For example, "Tokyo".
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          description: 'Cross-service attributes for the location. For example {"cloud.googleapis.com/region": "us-east1"}'
+          type: object
+        locationId:
+          description: 'The canonical id for this location. For example: `"us-east1"`.'
+          type: string
+        metadata:
+          additionalProperties:
+            description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
+          description: Service-specific metadata. For example the available capacity at the given location.
+          type: object
+        name:
+          description: 'Resource name for the location, which may vary between implementations. For example: `"projects/example-project/locations/us-east1"`'
+          type: string
+      type: object
+    SearchCloudLocationsResponse:
+      description: Message for response to searching cloud locations.
+      x-google-discovery-id: SearchCloudLocationsResponse
+      properties:
+        cloudLocations:
+          description: Output only. List of cloud locations.
+          items:
+            $ref: '#/components/schemas/CloudLocation'
+          readOnly: true
+          type: array
+        nextPageToken:
+          description: Output only. The continuation token, used to page through large result sets. Provide this value in a subsequent request as page_token in subsequent requests to retrieve the next page. If this field is not present, there are no subsequent results.
+          readOnly: true
+          type: string
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
+externalDocs:
+  url: https://cloud.google.com/location-finder/docs
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://cloudlocationfinder.googleapis.com/
+  batchPath: batch
+  canonicalName: Cloud Location Finder
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: cloudlocationfinder:v1alpha
+  kind: discovery#restDescription
+  mtlsRootUrl: https://cloudlocationfinder.mtls.googleapis.com/
+  name: cloudlocationfinder
+  revision: '20260930'
+  rootUrl: https://cloudlocationfinder.googleapis.com/
+  servicePath: ''
+  version_module: true

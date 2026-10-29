@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://businessprofileperformance.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: The Business Profile Performance API allows merchants to fetch performance reports about their business profile on Google. Note - If you have a quota of 0 after enabling the API, please request for GBP API access.
+  description: 'The Business Profile Performance API allows merchants to fetch performance reports about their business profile on Google. Note: If you have a quota of 0 after enabling the API, please request GBP API access at https://developers.google.com/my-business/content/prereqs#request-access. '
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -20,31 +18,39 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://businessprofileperformance.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/businessprofileperformance.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/businessprofileperformance.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: businessprofileperformance
-externalDocs:
-  url: https://developers.google.com/my-business/
-tags:
-  - name: locations
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20261026; original source SHA-256 94bc671828d5c6b41b6ce1965b557f9414b6f6becaf0720bd4e96656fc06c069.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://businessprofileperformance.googleapis.com
 paths:
-  /v1/{location}:fetchMultiDailyMetricsTimeSeries:
+  /v1/locations/{locationsId}:fetchMultiDailyMetricsTimeSeries:
     get:
-      description: " Returns the values for each date from a given time range and optionally the sub entity type, where applicable, that are associated with the specific daily metrics. Example request: `GET https://businessprofileperformance.googleapis.com/v1/locations/12345:fetchMultiDailyMetricsTimeSeries?dailyMetrics=WEBSITE_CLICKS&dailyMetrics=CALL_CLICKS&daily_range.start_date.year=2022&daily_range.start_date.month=1&daily_range.start_date.day=1&daily_range.end_date.year=2022&daily_range.end_date.month=3&daily_range.end_date.day=31`"
       operationId: businessprofileperformance.locations.fetchMultiDailyMetricsTimeSeries
+      description: ' Returns the values for each date from a given time range that are associated with the specific daily metrics. Note: Only daily data is available. Hourly metrics are not supported. Example request: `GET https://businessprofileperformance.googleapis.com/v1/locations/12345:fetchMultiDailyMetricsTimeSeries?dailyMetrics=WEBSITE_CLICKS&dailyMetrics=CALL_CLICKS&daily_range.start_date.year=2022&daily_range.start_date.month=1&daily_range.start_date.day=1&daily_range.end_date.year=2022&daily_range.end_date.month=3&daily_range.end_date.day=31`'
       parameters:
-        - description: "Required. The location for which the time series should be fetched. Format: locations/{location_id} where location_id is an unobfuscated listing id."
+        - name: locationsId
           in: path
-          name: location
           required: true
+          description: 'Component of the original `location` resource name. Required. The location for which the time series should be fetched. Format: locations/{location_id} where location_id is an unobfuscated listing id.'
           schema:
             type: string
-        - description: Required. The metrics to retrieve time series for.
-          explode: true
+        - name: dailyMetrics
           in: query
-          name: dailyMetrics
           schema:
+            type: array
             items:
               enum:
                 - DAILY_METRIC_UNKNOWN
@@ -56,77 +62,126 @@ paths:
                 - BUSINESS_DIRECTION_REQUESTS
                 - CALL_CLICKS
                 - WEBSITE_CLICKS
+                - MESSAGING_CLICKS
                 - BUSINESS_BOOKINGS
                 - BUSINESS_FOOD_ORDERS
                 - BUSINESS_FOOD_MENU_CLICKS
+              x-google-enum-deprecated:
+                - false
+                - false
+                - false
+                - false
+                - false
+                - true
+                - false
+                - false
+                - false
+                - false
+                - false
+                - true
+                - false
+              x-google-enum-descriptions:
+                - Represents the default unknown value.
+                - Business impressions on Google Maps on Desktop devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+                - Business impressions on Google Search on Desktop devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+                - Business impressions on Google Maps on Mobile devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+                - Business impressions on Google Search on Mobile devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+                - The number of message conversations received on the business profile.
+                - The number of times a direction request was requested to the business location.
+                - The number of times the business profile call button was clicked.
+                - The number of times the business profile website was clicked.
+                - The number of times the business profile messaging (e.g. WhatsApp) button was clicked.
+                - The number of bookings made from the business profile via Reserve with Google.
+                - The number of food orders received from the business profile.
+                - The number of clicks to view or interact with the menu content on the business profile. Multiple clicks by a unique user within a single day are counted as 1.
               type: string
-            type: array
+          description: Required. The metrics to retrieve time series for.
           style: form
-        - description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+          explode: true
+        - name: dailyRange.endDate.day
           in: query
-          name: dailyRange.endDate.day
           schema:
+            format: int32
             type: integer
-        - description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: dailyRange.endDate.month
           in: query
-          name: dailyRange.endDate.month
           schema:
+            format: int32
             type: integer
-        - description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+        - name: dailyRange.endDate.year
           in: query
-          name: dailyRange.endDate.year
           schema:
+            format: int32
             type: integer
-        - description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+        - name: dailyRange.startDate.day
           in: query
-          name: dailyRange.startDate.day
           schema:
+            format: int32
             type: integer
-        - description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: dailyRange.startDate.month
           in: query
-          name: dailyRange.startDate.month
           schema:
+            format: int32
             type: integer
-        - description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+        - name: dailyRange.startDate.year
           in: query
-          name: dailyRange.startDate.year
           schema:
+            format: int32
             type: integer
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+      tags:
+        - locations
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FetchMultiDailyMetricsTimeSeriesResponse"
-          description: Successful response
-      tags:
-        - locations
+                $ref: '#/components/schemas/FetchMultiDailyMetricsTimeSeriesResponse'
+      x-google-discovery:
+        path: v1/{+location}:fetchMultiDailyMetricsTimeSeries
+        flatPath: v1/locations/{locationsId}:fetchMultiDailyMetricsTimeSeries
+        resourceNameBindings:
+          locationsId: location
+        resourceNameParameters:
+          location:
+            description: 'Required. The location for which the time series should be fetched. Format: locations/{location_id} where location_id is an unobfuscated listing id.'
+            location: path
+            pattern: ^locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - location
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{name}:getDailyMetricsTimeSeries:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/locations/{locationsId}:getDailyMetricsTimeSeries:
     get:
-      description: " Returns the values for each date from a given time range that are associated with the specific daily metric. Example request: `GET https://businessprofileperformance.googleapis.com/v1/locations/12345:getDailyMetricsTimeSeries?dailyMetric=WEBSITE_CLICKS&daily_range.start_date.year=2022&daily_range.start_date.month=1&daily_range.start_date.day=1&daily_range.end_date.year=2022&daily_range.end_date.month=3&daily_range.end_date.day=31`"
       operationId: businessprofileperformance.locations.getDailyMetricsTimeSeries
+      description: ' Returns the values for each date from a given time range that are associated with the specific daily metric. Note: Only daily data is available. Hourly metrics are not supported. Example request: `GET https://businessprofileperformance.googleapis.com/v1/locations/12345:getDailyMetricsTimeSeries?dailyMetric=WEBSITE_CLICKS&daily_range.start_date.year=2022&daily_range.start_date.month=1&daily_range.start_date.day=1&daily_range.end_date.year=2022&daily_range.end_date.month=3&daily_range.end_date.day=31`'
       parameters:
-        - description: "Required. The location for which the time series should be fetched. Format: locations/{location_id} where location_id is an unobfuscated listing id."
+        - name: locationsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Required. The location for which the time series should be fetched. Format: locations/{location_id} where location_id is an unobfuscated listing id.'
           schema:
             type: string
-        - description: Required. The metric to retrieve time series.
+        - name: dailyMetric
           in: query
-          name: dailyMetric
           schema:
             enum:
               - DAILY_METRIC_UNKNOWN
@@ -138,43 +193,78 @@ paths:
               - BUSINESS_DIRECTION_REQUESTS
               - CALL_CLICKS
               - WEBSITE_CLICKS
+              - MESSAGING_CLICKS
               - BUSINESS_BOOKINGS
               - BUSINESS_FOOD_ORDERS
               - BUSINESS_FOOD_MENU_CLICKS
+            x-google-enum-deprecated:
+              - false
+              - false
+              - false
+              - false
+              - false
+              - true
+              - false
+              - false
+              - false
+              - false
+              - false
+              - true
+              - false
+            x-google-enum-descriptions:
+              - Represents the default unknown value.
+              - Business impressions on Google Maps on Desktop devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+              - Business impressions on Google Search on Desktop devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+              - Business impressions on Google Maps on Mobile devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+              - Business impressions on Google Search on Mobile devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+              - The number of message conversations received on the business profile.
+              - The number of times a direction request was requested to the business location.
+              - The number of times the business profile call button was clicked.
+              - The number of times the business profile website was clicked.
+              - The number of times the business profile messaging (e.g. WhatsApp) button was clicked.
+              - The number of bookings made from the business profile via Reserve with Google.
+              - The number of food orders received from the business profile.
+              - The number of clicks to view or interact with the menu content on the business profile. Multiple clicks by a unique user within a single day are counted as 1.
             type: string
-        - description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+          description: Required. The metric to retrieve time series.
+        - name: dailyRange.endDate.day
           in: query
-          name: dailyRange.endDate.day
           schema:
+            format: int32
             type: integer
-        - description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: dailyRange.endDate.month
           in: query
-          name: dailyRange.endDate.month
           schema:
+            format: int32
             type: integer
-        - description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+        - name: dailyRange.endDate.year
           in: query
-          name: dailyRange.endDate.year
           schema:
+            format: int32
             type: integer
-        - description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+        - name: dailyRange.startDate.day
           in: query
-          name: dailyRange.startDate.day
           schema:
+            format: int32
             type: integer
-        - description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: dailyRange.startDate.month
           in: query
-          name: dailyRange.startDate.month
           schema:
+            format: int32
             type: integer
-        - description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+        - name: dailyRange.startDate.year
           in: query
-          name: dailyRange.startDate.year
           schema:
+            format: int32
             type: integer
-        - description: "Represents the day of the week. Eg: MONDAY. Currently supported DailyMetrics = NONE."
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+        - name: dailySubEntityType.dayOfWeek
           in: query
-          name: dailySubEntityType.dayOfWeek
           schema:
             enum:
               - DAY_OF_WEEK_UNSPECIFIED
@@ -185,198 +275,175 @@ paths:
               - FRIDAY
               - SATURDAY
               - SUNDAY
+            x-google-enum-descriptions:
+              - The day of the week is unspecified.
+              - Monday
+              - Tuesday
+              - Wednesday
+              - Thursday
+              - Friday
+              - Saturday
+              - Sunday
             type: string
-        - description: Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value "24:00:00" for scenarios like business closing time.
+          description: 'Represents the day of the week. Eg: MONDAY. Currently supported DailyMetrics = NONE.'
+        - name: dailySubEntityType.timeOfDay.hours
           in: query
-          name: dailySubEntityType.timeOfDay.hours
           schema:
+            format: int32
             type: integer
-        - description: Minutes of hour of day. Must be from 0 to 59.
+          description: Hours of a day in 24 hour format. Must be greater than or equal to 0 and typically must be less than or equal to 23. An API may choose to allow the value "24:00:00" for scenarios like business closing time.
+        - name: dailySubEntityType.timeOfDay.minutes
           in: query
-          name: dailySubEntityType.timeOfDay.minutes
           schema:
+            format: int32
             type: integer
-        - description: Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
+          description: Minutes of an hour. Must be greater than or equal to 0 and less than or equal to 59.
+        - name: dailySubEntityType.timeOfDay.nanos
           in: query
-          name: dailySubEntityType.timeOfDay.nanos
           schema:
+            format: int32
             type: integer
-        - description: Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds.
+          description: Fractions of seconds, in nanoseconds. Must be greater than or equal to 0 and less than or equal to 999,999,999.
+        - name: dailySubEntityType.timeOfDay.seconds
           in: query
-          name: dailySubEntityType.timeOfDay.seconds
           schema:
+            format: int32
             type: integer
+          description: Seconds of a minute. Must be greater than or equal to 0 and typically must be less than or equal to 59. An API may allow the value 60 if it allows leap-seconds.
+      tags:
+        - locations
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetDailyMetricsTimeSeriesResponse"
-          description: Successful response
-      tags:
-        - locations
+                $ref: '#/components/schemas/GetDailyMetricsTimeSeriesResponse'
+      x-google-discovery:
+        path: v1/{+name}:getDailyMetricsTimeSeries
+        flatPath: v1/locations/{locationsId}:getDailyMetricsTimeSeries
+        resourceNameBindings:
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The location for which the time series should be fetched. Format: locations/{location_id} where location_id is an unobfuscated listing id.'
+            location: path
+            pattern: ^locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/searchkeywords/impressions/monthly:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/locations/{locationsId}/searchkeywords/impressions/monthly:
     get:
-      description: "Returns the search keywords used to find a business in search or maps. Each search keyword is accompanied by impressions which are aggregated on a monthly basis. Example request: `GET https://businessprofileperformance.googleapis.com/v1/locations/12345/searchkeywords/impressions/monthly?monthly_range.start_month.year=2022&monthly_range.start_month.month=1&monthly_range.end_month.year=2022&monthly_range.end_month.month=3`"
       operationId: businessprofileperformance.locations.searchkeywords.impressions.monthly.list
+      description: 'Returns the search keywords used to find a business in search or maps. Each search keyword is accompanied by impressions which are aggregated on a monthly basis. Example request: `GET https://businessprofileperformance.googleapis.com/v1/locations/12345/searchkeywords/impressions/monthly?monthly_range.start_month.year=2022&monthly_range.start_month.month=1&monthly_range.end_month.year=2022&monthly_range.end_month.month=3`'
       parameters:
-        - description: "Required. The location for which the time series should be fetched. Format: locations/{location_id} where location_id is an unobfuscated listing id."
+        - name: locationsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The location for which the time series should be fetched. Format: locations/{location_id} where location_id is an unobfuscated listing id.'
           schema:
             type: string
-        - description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: monthlyRange.endMonth.day
           in: query
-          name: monthlyRange.endMonth.day
           schema:
+            format: int32
             type: integer
-        - description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: monthlyRange.endMonth.month
           in: query
-          name: monthlyRange.endMonth.month
           schema:
+            format: int32
             type: integer
-        - description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+        - name: monthlyRange.endMonth.year
           in: query
-          name: monthlyRange.endMonth.year
           schema:
+            format: int32
             type: integer
-        - description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+        - name: monthlyRange.startMonth.day
           in: query
-          name: monthlyRange.startMonth.day
           schema:
+            format: int32
             type: integer
-        - description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: monthlyRange.startMonth.month
           in: query
-          name: monthlyRange.startMonth.month
           schema:
+            format: int32
             type: integer
-        - description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+        - name: monthlyRange.startMonth.year
           in: query
-          name: monthlyRange.startMonth.year
           schema:
+            format: int32
             type: integer
-        - description: Optional. The number of results requested. The default page size is 100. Page size can be set to a maximum of 100.
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: Optional. A token indicating the next paginated result to be returned.
+          description: Optional. The number of results requested. The default page size is 100. Page size can be set to a maximum of 100.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
+            format: byte
             type: string
+          description: Optional. A token indicating the next paginated result to be returned.
+      tags:
+        - locations
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListSearchKeywordImpressionsMonthlyResponse"
-          description: Successful response
-      tags:
-        - locations
+                $ref: '#/components/schemas/ListSearchKeywordImpressionsMonthlyResponse'
+      x-google-discovery:
+        path: v1/{+parent}/searchkeywords/impressions/monthly
+        flatPath: v1/locations/{locationsId}/searchkeywords/impressions/monthly
+        resourceNameBindings:
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The location for which the time series should be fetched. Format: locations/{location_id} where location_id is an unobfuscated listing id.'
+            location: path
+            pattern: ^locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     DailyMetricTimeSeries:
       description: Represents a single datapoint, where each datapoint is a DailyMetric-DailySubEntityType-TimeSeries tuple.
+      x-google-discovery-id: DailyMetricTimeSeries
       properties:
         dailyMetric:
           description: The DailyMetric that the TimeSeries represents.
@@ -390,22 +457,54 @@ components:
             - BUSINESS_DIRECTION_REQUESTS
             - CALL_CLICKS
             - WEBSITE_CLICKS
+            - MESSAGING_CLICKS
             - BUSINESS_BOOKINGS
             - BUSINESS_FOOD_ORDERS
             - BUSINESS_FOOD_MENU_CLICKS
+          x-google-enum-deprecated:
+            - false
+            - false
+            - false
+            - false
+            - false
+            - true
+            - false
+            - false
+            - false
+            - false
+            - false
+            - true
+            - false
+          x-google-enum-descriptions:
+            - Represents the default unknown value.
+            - Business impressions on Google Maps on Desktop devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+            - Business impressions on Google Search on Desktop devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+            - Business impressions on Google Maps on Mobile devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+            - Business impressions on Google Search on Mobile devices. Multiple impressions by a unique user within a single day are counted as a single impression.
+            - The number of message conversations received on the business profile.
+            - The number of times a direction request was requested to the business location.
+            - The number of times the business profile call button was clicked.
+            - The number of times the business profile website was clicked.
+            - The number of times the business profile messaging (e.g. WhatsApp) button was clicked.
+            - The number of bookings made from the business profile via Reserve with Google.
+            - The number of food orders received from the business profile.
+            - The number of clicks to view or interact with the menu content on the business profile. Multiple clicks by a unique user within a single day are counted as 1.
           type: string
         dailySubEntityType:
-          $ref: "#/components/schemas/DailySubEntityType"
           description: The DailySubEntityType that the TimeSeries represents. Will not be present when breakdown does not exist.
+          allOf:
+            - $ref: '#/components/schemas/DailySubEntityType'
         timeSeries:
-          $ref: "#/components/schemas/TimeSeries"
           description: List of datapoints where each datapoint is a date-value pair.
+          allOf:
+            - $ref: '#/components/schemas/TimeSeries'
       type: object
     DailySubEntityType:
-      description: Represents all possible subentity types that are associated with DailyMetrics.
+      description: 'Represents all possible subentity types that are associated with DailyMetrics. Note: Currently, all metrics are returned as daily aggregates and sub-entity breakdowns are not supported.'
+      x-google-discovery-id: DailySubEntityType
       properties:
         dayOfWeek:
-          description: "Represents the day of the week. Eg: MONDAY. Currently supported DailyMetrics = NONE."
+          description: 'Represents the day of the week. Eg: MONDAY. Currently supported DailyMetrics = NONE.'
           enum:
             - DAY_OF_WEEK_UNSPECIFIED
             - MONDAY
@@ -415,13 +514,24 @@ components:
             - FRIDAY
             - SATURDAY
             - SUNDAY
+          x-google-enum-descriptions:
+            - The day of the week is unspecified.
+            - Monday
+            - Tuesday
+            - Wednesday
+            - Thursday
+            - Friday
+            - Saturday
+            - Sunday
           type: string
         timeOfDay:
-          $ref: "#/components/schemas/TimeOfDay"
-          description: "Represents the time of the day in 24 hour format. Eg: 13:34:20 Currently supported DailyMetrics = NONE."
+          description: 'Represents the time of the day in 24 hour format. Eg: 13:34:20 Currently supported DailyMetrics = NONE.'
+          allOf:
+            - $ref: '#/components/schemas/TimeOfDay'
       type: object
     Date:
-      description: "Represents a whole or partial calendar date, such as a birthday. The time of day and time zone are either specified elsewhere or are insignificant. The date is relative to the Gregorian Calendar. This can represent one of the following: * A full date, with non-zero year, month, and day values. * A month and day, with a zero year (for example, an anniversary). * A year on its own, with a zero month and a zero day. * A year and month, with a zero day (for example, a credit card expiration date). Related types: * google.type.TimeOfDay * google.type.DateTime * google.protobuf.Timestamp"
+      description: 'Represents a whole or partial calendar date, such as a birthday. The time of day and time zone are either specified elsewhere or are insignificant. The date is relative to the Gregorian Calendar. This can represent one of the following: * A full date, with non-zero year, month, and day values. * A month and day, with a zero year (for example, an anniversary). * A year on its own, with a zero month and a zero day. * A year and month, with a zero day (for example, a credit card expiration date). Related types: * google.type.TimeOfDay * google.type.DateTime * google.protobuf.Timestamp'
+      x-google-discovery-id: Date
       properties:
         day:
           description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
@@ -438,10 +548,12 @@ components:
       type: object
     DatedValue:
       description: Represents a single datapoint in the timeseries, where each datapoint is a date-value pair.
+      x-google-discovery-id: DatedValue
       properties:
         date:
-          $ref: "#/components/schemas/Date"
           description: The date that the datapoint corresponds to. This represents a month value if the day field is not set.
+          allOf:
+            - $ref: '#/components/schemas/Date'
         value:
           description: The value of the datapoint. This will not be present when the value is zero.
           format: int64
@@ -449,22 +561,26 @@ components:
       type: object
     FetchMultiDailyMetricsTimeSeriesResponse:
       description: Represents the response for FetchMultiDailyMetricsTimeSeries.
+      x-google-discovery-id: FetchMultiDailyMetricsTimeSeriesResponse
       properties:
         multiDailyMetricTimeSeries:
           description: DailyMetrics and their corresponding time series.
           items:
-            $ref: "#/components/schemas/MultiDailyMetricTimeSeries"
+            $ref: '#/components/schemas/MultiDailyMetricTimeSeries'
           type: array
       type: object
     GetDailyMetricsTimeSeriesResponse:
       description: Represents the response for GetDailyMetricsTimeSeries.
+      x-google-discovery-id: GetDailyMetricsTimeSeriesResponse
       properties:
         timeSeries:
-          $ref: "#/components/schemas/TimeSeries"
           description: The daily time series.
+          allOf:
+            - $ref: '#/components/schemas/TimeSeries'
       type: object
     InsightsValue:
       description: Represents an insights value.
+      x-google-discovery-id: InsightsValue
       properties:
         threshold:
           description: Represents the threshold below which the actual value falls.
@@ -477,6 +593,7 @@ components:
       type: object
     ListSearchKeywordImpressionsMonthlyResponse:
       description: Represents the response for ListSearchKeywordImpressionsMonthly.
+      x-google-discovery-id: ListSearchKeywordImpressionsMonthlyResponse
       properties:
         nextPageToken:
           description: A token indicating the last paginated result returned. This can be used by succeeding requests to get the next "page" of keywords. It will only be present when there are more results to be returned.
@@ -485,54 +602,164 @@ components:
         searchKeywordsCounts:
           description: Search terms which have been used to find a business.
           items:
-            $ref: "#/components/schemas/SearchKeywordCount"
+            $ref: '#/components/schemas/SearchKeywordCount'
           type: array
       type: object
     MultiDailyMetricTimeSeries:
       description: Represents a list of tuples of DailyMetric-DailySubEntityType-TimeSeries.
+      x-google-discovery-id: MultiDailyMetricTimeSeries
       properties:
         dailyMetricTimeSeries:
           description: List of DailyMetric-TimeSeries pairs.
           items:
-            $ref: "#/components/schemas/DailyMetricTimeSeries"
+            $ref: '#/components/schemas/DailyMetricTimeSeries'
           type: array
       type: object
     SearchKeywordCount:
       description: Represents a single search keyword and its value.
+      x-google-discovery-id: SearchKeywordCount
       properties:
         insightsValue:
-          $ref: "#/components/schemas/InsightsValue"
-          description: "One of either: 1) The sum of the number of unique users that used the keyword in a month, aggregated for each month requested. 2) A threshold that indicates that the actual value is below this threshold."
+          description: 'One of either: 1) The sum of the number of unique users that used the keyword in a month, aggregated for each month requested. 2) A threshold that indicates that the actual value is below this threshold.'
+          allOf:
+            - $ref: '#/components/schemas/InsightsValue'
         searchKeyword:
           description: The lower-cased string that the user entered.
           type: string
       type: object
     TimeOfDay:
       description: Represents a time of day. The date and time zone are either not significant or are specified elsewhere. An API may choose to allow leap seconds. Related types are google.type.Date and `google.protobuf.Timestamp`.
+      x-google-discovery-id: TimeOfDay
       properties:
         hours:
-          description: Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value "24:00:00" for scenarios like business closing time.
+          description: Hours of a day in 24 hour format. Must be greater than or equal to 0 and typically must be less than or equal to 23. An API may choose to allow the value "24:00:00" for scenarios like business closing time.
           format: int32
           type: integer
         minutes:
-          description: Minutes of hour of day. Must be from 0 to 59.
+          description: Minutes of an hour. Must be greater than or equal to 0 and less than or equal to 59.
           format: int32
           type: integer
         nanos:
-          description: Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
+          description: Fractions of seconds, in nanoseconds. Must be greater than or equal to 0 and less than or equal to 999,999,999.
           format: int32
           type: integer
         seconds:
-          description: Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds.
+          description: Seconds of a minute. Must be greater than or equal to 0 and typically must be less than or equal to 59. An API may allow the value 60 if it allows leap-seconds.
           format: int32
           type: integer
       type: object
     TimeSeries:
       description: Represents a timeseries.
+      x-google-discovery-id: TimeSeries
       properties:
         datedValues:
           description: List of datapoints in the timeseries, where each datapoint is a date-value pair.
           items:
-            $ref: "#/components/schemas/DatedValue"
+            $ref: '#/components/schemas/DatedValue'
           type: array
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes: {}
+externalDocs:
+  url: https://developers.google.com/my-business/
+tags:
+  - name: locations
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://businessprofileperformance.googleapis.com/
+  batchPath: batch
+  canonicalName: Business Profile Performance
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: businessprofileperformance:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://businessprofileperformance.mtls.googleapis.com/
+  name: businessprofileperformance
+  revision: '20261026'
+  rootUrl: https://businessprofileperformance.googleapis.com/
+  servicePath: ''
+  version_module: true

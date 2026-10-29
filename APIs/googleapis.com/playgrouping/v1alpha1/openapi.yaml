@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://playgrouping.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -20,197 +18,183 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://playgrouping.googleapis.com/$discovery/rest?version=v1alpha1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/playgrouping.v1alpha1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/playgrouping.v1alpha1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: playgrouping
-externalDocs:
-  url: https://cloud.google.com/playgrouping/
-tags:
-  - name: apps
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20230824; original source SHA-256 0c900fb8b5a11d4db8ebac3bb15aadc6fdba293e4229723a024412254f9a760e.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://playgrouping.googleapis.com
 paths:
-  /v1alpha1/{appPackage}/{token}/tags:createOrUpdate:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+  /v1alpha1/apps/{appsId}/tokens/{tokensId}:verify:
     post:
-      description: Create or update tags for the user and app that are represented by the given token.
-      operationId: playgrouping.apps.tokens.tags.createOrUpdate
-      parameters:
-        - description: "Required. App whose tags are being manipulated. Format: apps/{package_name}"
-          in: path
-          name: appPackage
-          required: true
-          schema:
-            type: string
-        - description: "Required. Token for which the tags are being inserted or updated. Format: tokens/{token}"
-          in: path
-          name: token
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateOrUpdateTagsRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateOrUpdateTagsResponse"
-          description: Successful response
-      tags:
-        - apps
-  /v1alpha1/{appPackage}/{token}:verify:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Verify an API token by asserting the app and persona it belongs to. The verification is a protection against client-side attacks and will fail if the contents of the token don't match the provided values. A token must be verified before it can be used to manipulate user tags.
       operationId: playgrouping.apps.tokens.verify
+      description: Verify an API token by asserting the app and persona it belongs to. The verification is a protection against client-side attacks and will fail if the contents of the token don't match the provided values. A token must be verified before it can be used to manipulate user tags.
       parameters:
-        - description: "Required. App the token belongs to. Format: apps/{package_name}"
+        - name: appsId
           in: path
-          name: appPackage
           required: true
+          description: 'Component of the original `token` resource name. Required. The token to be verified. Format: tokens/{token}'
           schema:
             type: string
-        - description: "Required. The token to be verified. Format: tokens/{token}"
+        - name: tokensId
           in: path
-          name: token
           required: true
+          description: 'Component of the original `token` resource name. Required. The token to be verified. Format: tokens/{token}'
           schema:
             type: string
+      tags:
+        - apps
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/VerifyTokenRequest"
+              $ref: '#/components/schemas/VerifyTokenRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/VerifyTokenResponse"
-          description: Successful response
+                $ref: '#/components/schemas/VerifyTokenResponse'
+      x-google-discovery:
+        path: v1alpha1/{+appPackage}/{+token}:verify
+        flatPath: v1alpha1/apps/{appsId}/tokens/{tokensId}:verify
+        resourceNameBindings:
+          appsId: token
+          tokensId: token
+        resourceNameConstants:
+          appPackage: apps
+        resourceNameParameters:
+          appPackage:
+            description: 'Required. App the token belongs to. Format: apps/{package_name}'
+            location: path
+            pattern: ^apps/[^/]+$
+            required: true
+            type: string
+          token:
+            description: 'Required. The token to be verified. Format: tokens/{token}'
+            location: path
+            pattern: ^tokens/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - appPackage
+          - token
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha1/apps/{appsId}/tokens/{tokensId}/tags:createOrUpdate:
+    post:
+      operationId: playgrouping.apps.tokens.tags.createOrUpdate
+      description: Create or update tags for the user and app that are represented by the given token.
+      parameters:
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `token` resource name. Required. Token for which the tags are being inserted or updated. Format: tokens/{token}'
+          schema:
+            type: string
+        - name: tokensId
+          in: path
+          required: true
+          description: 'Component of the original `token` resource name. Required. Token for which the tags are being inserted or updated. Format: tokens/{token}'
+          schema:
+            type: string
       tags:
         - apps
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateTagsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrUpdateTagsResponse'
+      x-google-discovery:
+        path: v1alpha1/{+appPackage}/{+token}/tags:createOrUpdate
+        flatPath: v1alpha1/apps/{appsId}/tokens/{tokensId}/tags:createOrUpdate
+        resourceNameBindings:
+          appsId: token
+          tokensId: token
+        resourceNameConstants:
+          appPackage: apps
+        resourceNameParameters:
+          appPackage:
+            description: 'Required. App whose tags are being manipulated. Format: apps/{package_name}'
+            location: path
+            pattern: ^apps/[^/]+$
+            required: true
+            type: string
+          token:
+            description: 'Required. Token for which the tags are being inserted or updated. Format: tokens/{token}'
+            location: path
+            pattern: ^tokens/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - appPackage
+          - token
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     CreateOrUpdateTagsRequest:
       description: Request message for CreateOrUpdateTags. VerifyToken.
+      x-google-discovery-id: CreateOrUpdateTagsRequest
       properties:
         tags:
           description: Tags to be inserted or updated.
           items:
-            $ref: "#/components/schemas/Tag"
+            $ref: '#/components/schemas/Tag'
           type: array
       type: object
     CreateOrUpdateTagsResponse:
       description: Response message for CreateOrUpdateTags.
+      x-google-discovery-id: CreateOrUpdateTagsResponse
       properties:
         tags:
           description: All requested tags are returned, including pre-existing ones.
           items:
-            $ref: "#/components/schemas/Tag"
+            $ref: '#/components/schemas/Tag'
           type: array
       type: object
     Tag:
       description: A tag is associated with exactly one package name and user.
+      x-google-discovery-id: Tag
       properties:
         booleanValue:
           description: A boolean value of the tag.
@@ -232,12 +216,119 @@ components:
       type: object
     VerifyTokenRequest:
       description: Request message for VerifyToken.
+      x-google-discovery-id: VerifyTokenRequest
       properties:
         persona:
-          description: "Required. Persona represented by the token. Format: personas/{persona}"
+          description: 'Required. Persona represented by the token. Format: personas/{persona}'
           type: string
       type: object
     VerifyTokenResponse:
       description: Response message for VerifyToken.
+      x-google-discovery-id: VerifyTokenResponse
       properties: {}
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes: {}
+externalDocs:
+  url: https://cloud.google.com/playgrouping/
+tags:
+  - name: apps
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://playgrouping.googleapis.com/
+  batchPath: batch
+  canonicalName: Play Grouping
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: playgrouping:v1alpha1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://playgrouping.mtls.googleapis.com/
+  name: playgrouping
+  revision: '20230824'
+  rootUrl: https://playgrouping.googleapis.com/
+  servicePath: ''
+  version_module: true

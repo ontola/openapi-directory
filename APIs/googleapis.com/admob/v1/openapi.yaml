@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://admob.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: "The AdMob API allows publishers to programmatically get information about their AdMob account. "
+  description: 'The AdMob API allows publishers to programmatically get information about their AdMob account. '
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -21,367 +19,386 @@ info:
   x-logo:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/admob.v1.json
+      version: v1
     - format: openapi
-      url: https://admob.googleapis.com/$discovery/rest?version=v1
-      version: "3.0"
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/admob.v1.json
+      version: '3.0'
   x-preferred: false
   x-providerName: googleapis.com
   x-serviceName: admob
-externalDocs:
-  url: https://developers.google.com/admob/api/
-tags:
-  - name: accounts
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20261008; original source SHA-256 f88fb1437e01e9afab50b9c1144243d747a67dd52d8c442d61518f24a5480f2a.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://admob.googleapis.com
 paths:
+  /v1/accounts/{accountsId}:
+    get:
+      operationId: admob.accounts.get
+      description: Gets information about the specified AdMob publisher account.
+      parameters:
+        - name: accountsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Resource name of the publisher account to retrieve. Example: accounts/pub-9876543210987654'
+          schema:
+            type: string
+      tags:
+        - accounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/admob.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/admob.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/admob.report
+        - Oauth2c:
+            - https://www.googleapis.com/auth/admob.report
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublisherAccount'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accounts/{accountsId}
+        resourceNameBindings:
+          accountsId: name
+        resourceNameParameters:
+          name:
+            description: 'Resource name of the publisher account to retrieve. Example: accounts/pub-9876543210987654'
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        streamingType: NONE
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1/accounts:
     get:
-      description: Lists the AdMob publisher account that was most recently signed in to from the AdMob UI. For more information, see https://support.google.com/admob/answer/10243672.
       operationId: admob.accounts.list
+      description: Lists the AdMob publisher account that was most recently signed in to from the AdMob UI. For more information, see https://support.google.com/admob/answer/10243672.
       parameters:
-        - description: Maximum number of accounts to return.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: The value returned by the last `ListPublisherAccountsResponse`; indicates that this is a continuation of a prior `ListPublisherAccounts` call, and that the system should return the next page of data.
+          description: Maximum number of accounts to return.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListPublisherAccountsResponse"
-          description: Successful response
+          description: The value returned by the last `ListPublisherAccountsResponse`; indicates that this is a continuation of a prior `ListPublisherAccounts` call, and that the system should return the next page of data.
+      tags:
+        - accounts
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/admob.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/admob.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/admob.report
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/admob.report
-      tags:
-        - accounts
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{name}:
-    get:
-      description: Gets information about the specified AdMob publisher account.
-      operationId: admob.accounts.get
-      parameters:
-        - description: "Resource name of the publisher account to retrieve. Example: accounts/pub-9876543210987654"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PublisherAccount"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/admob.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/admob.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/admob.report
-          Oauth2c:
-            - https://www.googleapis.com/auth/admob.report
-      tags:
-        - accounts
+                $ref: '#/components/schemas/ListPublisherAccountsResponse'
+      x-google-discovery:
+        path: v1/accounts
+        flatPath: v1/accounts
+        streamingType: NONE
+        parameterOrder: []
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/adUnits:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accounts/{accountsId}/adUnits:
     get:
-      description: List the ad units under the specified AdMob account.
       operationId: admob.accounts.adUnits.list
+      description: List the ad units under the specified AdMob account.
       parameters:
-        - description: "Required. Resource name of the account to list ad units for. Example: accounts/pub-9876543210987654"
+        - name: accountsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. Resource name of the account to list ad units for. Example: accounts/pub-9876543210987654'
           schema:
             type: string
-        - description: The maximum number of ad units to return. If unspecified or 0, at most 10,000 ad units will be returned. The maximum value is 20,000; values above 20,000 will be coerced to 20,000.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: The value returned by the last `ListAdUnitsResponse`; indicates that this is a continuation of a prior `ListAdUnits` call, and that the system should return the next page of data.
+          description: The maximum number of ad units to return. If unspecified or 0, at most 10,000 ad units will be returned. The maximum value is 20,000; values above 20,000 will be coerced to 20,000.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListAdUnitsResponse"
-          description: Successful response
+          description: The value returned by the last `ListAdUnitsResponse`; indicates that this is a continuation of a prior `ListAdUnits` call, and that the system should return the next page of data.
+      tags:
+        - accounts
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/admob.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/admob.readonly
-      tags:
-        - accounts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAdUnitsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/adUnits
+        flatPath: v1/accounts/{accountsId}/adUnits
+        resourceNameBindings:
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. Resource name of the account to list ad units for. Example: accounts/pub-9876543210987654'
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        streamingType: NONE
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/apps:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accounts/{accountsId}/apps:
     get:
-      description: List the apps under the specified AdMob account.
       operationId: admob.accounts.apps.list
+      description: List the apps under the specified AdMob account.
       parameters:
-        - description: "Required. Resource name of the account to list apps for. Example: accounts/pub-9876543210987654"
+        - name: accountsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. Resource name of the account to list apps for. Example: accounts/pub-9876543210987654'
           schema:
             type: string
-        - description: The maximum number of apps to return. If unspecified or 0, at most 10,000 apps will be returned. The maximum value is 20,000; values above 20,000 will be coerced to 20,000.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: The value returned by the last `ListAppsResponse`; indicates that this is a continuation of a prior `ListApps` call, and that the system should return the next page of data.
+          description: The maximum number of apps to return. If unspecified or 0, at most 10,000 apps will be returned. The maximum value is 20,000; values above 20,000 will be coerced to 20,000.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListAppsResponse"
-          description: Successful response
+          description: The value returned by the last `ListAppsResponse`; indicates that this is a continuation of a prior `ListApps` call, and that the system should return the next page of data.
+      tags:
+        - accounts
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/admob.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/admob.readonly
-      tags:
-        - accounts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAppsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/apps
+        flatPath: v1/accounts/{accountsId}/apps
+        resourceNameBindings:
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. Resource name of the account to list apps for. Example: accounts/pub-9876543210987654'
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        streamingType: NONE
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/mediationReport:generate:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accounts/{accountsId}/mediationReport:generate:
     post:
-      description: Generates an AdMob mediation report based on the provided report specification. Returns result of a server-side streaming RPC. The result is returned in a sequence of responses.
       operationId: admob.accounts.mediationReport.generate
+      description: Generates an AdMob Mediation report based on the provided report specification. Returns result of a server-side streaming RPC. The result is returned in a sequence of responses.
       parameters:
-        - description: "Resource name of the account to generate the report for. Example: accounts/pub-9876543210987654"
+        - name: accountsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Resource name of the account to generate the report for. Example: accounts/pub-9876543210987654'
           schema:
             type: string
+      tags:
+        - accounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/admob.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/admob.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/admob.report
+        - Oauth2c:
+            - https://www.googleapis.com/auth/admob.report
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GenerateMediationReportRequest"
+              $ref: '#/components/schemas/GenerateMediationReportRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenerateMediationReportResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/admob.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/admob.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/admob.report
-          Oauth2c:
-            - https://www.googleapis.com/auth/admob.report
-      tags:
-        - accounts
-  /v1/{parent}/networkReport:generate:
+                $ref: '#/components/schemas/GenerateMediationReportResponse'
+      x-google-discovery:
+        path: v1/{+parent}/mediationReport:generate
+        flatPath: v1/accounts/{accountsId}/mediationReport:generate
+        resourceNameBindings:
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Resource name of the account to generate the report for. Example: accounts/pub-9876543210987654'
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        streamingType: SERVER_SIDE
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accounts/{accountsId}/networkReport:generate:
     post:
-      description: Generates an AdMob Network report based on the provided report specification. Returns result of a server-side streaming RPC. The result is returned in a sequence of responses.
       operationId: admob.accounts.networkReport.generate
+      description: Generates an AdMob Network report based on the provided report specification. Returns result of a server-side streaming RPC. The result is returned in a sequence of responses.
       parameters:
-        - description: "Resource name of the account to generate the report for. Example: accounts/pub-9876543210987654"
+        - name: accountsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Resource name of the account to generate the report for. Example: accounts/pub-9876543210987654'
           schema:
             type: string
+      tags:
+        - accounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/admob.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/admob.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/admob.report
+        - Oauth2c:
+            - https://www.googleapis.com/auth/admob.report
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GenerateNetworkReportRequest"
+              $ref: '#/components/schemas/GenerateNetworkReportRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenerateNetworkReportResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/admob.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/admob.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/admob.report
-          Oauth2c:
-            - https://www.googleapis.com/auth/admob.report
-      tags:
-        - accounts
+                $ref: '#/components/schemas/GenerateNetworkReportResponse'
+      x-google-discovery:
+        path: v1/{+parent}/networkReport:generate
+        flatPath: v1/accounts/{accountsId}/networkReport:generate
+        resourceNameBindings:
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Resource name of the account to generate the report for. Example: accounts/pub-9876543210987654'
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        streamingType: SERVER_SIDE
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     AdUnit:
       description: Describes an AdMob ad unit.
+      x-google-discovery-id: AdUnit
       properties:
         adFormat:
           description: 'AdFormat of the ad unit. Possible values are as follows: "APP_OPEN" - App Open ad format. "BANNER" - Banner ad format. "BANNER_INTERSTITIAL" - Legacy format that can be used as either banner or interstitial. This format can no longer be created but can be targeted by mediation groups. "INTERSTITIAL" - A full screen ad. Supported ad types are "RICH_MEDIA" and "VIDEO". "NATIVE" - Native ad format. "REWARDED" - An ad that, once viewed, gets a callback verifying the view so that a reward can be given to the user. Supported ad types are "RICH_MEDIA" (interactive) and video where video can not be excluded. "REWARDED_INTERSTITIAL" - Rewarded Interstitial ad format. Only supports video ad type. See https://support.google.com/admob/answer/9884467.'
@@ -392,20 +409,21 @@ components:
             type: string
           type: array
         adUnitId:
-          description: "The externally visible ID of the ad unit which can be used to integrate with the AdMob SDK. This is a read only property. Example: ca-app-pub-9876543210987654/0123456789"
+          description: 'The externally visible ID of the ad unit which can be used to integrate with AdMob. This is a read only property. Example: ca-app-pub-9876543210987654/0123456789'
           type: string
         appId:
-          description: "The externally visible ID of the app this ad unit is associated with. Example: ca-app-pub-9876543210987654~0123456789"
+          description: 'The externally visible ID of the app this ad unit is associated with. Example: ca-app-pub-9876543210987654~0123456789'
           type: string
         displayName:
           description: The display name of the ad unit as shown in the AdMob UI, which is provided by the user. The maximum length allowed is 80 characters.
           type: string
         name:
-          description: "Resource name for this ad unit. Format is accounts/{publisher_id}/adUnits/{ad_unit_id_fragment} Example: accounts/pub-9876543210987654/adUnits/0123456789"
+          description: 'Resource name for this ad unit. Format is accounts/{publisher_id}/adUnits/{ad_unit_id_fragment} Example: accounts/pub-9876543210987654/adUnits/0123456789'
           type: string
       type: object
     App:
-      description: "Describes an AdMob app for a specific platform (For example: Android or iOS)."
+      description: 'Describes an AdMob app for a specific platform (For example: Android or iOS).'
+      x-google-discovery-id: App
       properties:
         appApprovalState:
           description: Output only. The approval state for the app. The field is read-only.
@@ -414,19 +432,26 @@ components:
             - ACTION_REQUIRED
             - IN_REVIEW
             - APPROVED
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - The app requires additional user action to be approved. Please refer to https://support.google.com/admob/answer/10564477 for details and next steps.
+            - The app is pending review.
+            - The app is approved and can serve ads.
           readOnly: true
           type: string
         appId:
-          description: "The externally visible ID of the app which can be used to integrate with the AdMob SDK. This is a read only property. Example: ca-app-pub-9876543210987654~0123456789"
+          description: 'The externally visible ID of the app which can be used to integrate with AdMob. This is a read only property. Example: ca-app-pub-9876543210987654~0123456789'
           type: string
         linkedAppInfo:
-          $ref: "#/components/schemas/AppLinkedAppInfo"
           description: Immutable. The information for an app that is linked to an app store. This field is present if and only if the app is linked to an app store.
+          allOf:
+            - $ref: '#/components/schemas/AppLinkedAppInfo'
         manualAppInfo:
-          $ref: "#/components/schemas/AppManualAppInfo"
           description: The information for an app that is not linked to any app store. After an app is linked, this information is still retrivable. If no name is provided for the app upon creation, a placeholder name will be used.
+          allOf:
+            - $ref: '#/components/schemas/AppManualAppInfo'
         name:
-          description: "Resource name for this app. Format is accounts/{publisher_id}/apps/{app_id_fragment} Example: accounts/pub-9876543210987654/apps/0123456789"
+          description: 'Resource name for this app. Format is accounts/{publisher_id}/apps/{app_id_fragment} Example: accounts/pub-9876543210987654/apps/0123456789'
           type: string
         platform:
           description: Describes the platform of the app. Limited to "IOS" and "ANDROID".
@@ -434,6 +459,7 @@ components:
       type: object
     AppLinkedAppInfo:
       description: Information from the app store if the app is linked to an app store.
+      x-google-discovery-id: AppLinkedAppInfo
       properties:
         appStoreId:
           description: 'The app store ID of the app; present if and only if the app is linked to an app store. If the app is added to the Google Play store, it will be the application ID of the app. For example: "com.example.myapp". See https://developer.android.com/studio/build/application-id. If the app is added to the Apple App Store, it will be app store ID. For example "105169111". Note that setting the app store id is considered an irreversible action. Once an app is linked, it cannot be unlinked.'
@@ -444,14 +470,16 @@ components:
           type: string
       type: object
     AppManualAppInfo:
-      description: "Information provided for manual apps which are not linked to an application store (Example: Google Play, App Store)."
+      description: 'Information provided for manual apps which are not linked to an application store (Example: Google Play, App Store).'
+      x-google-discovery-id: AppManualAppInfo
       properties:
         displayName:
           description: The display name of the app as shown in the AdMob UI, which is provided by the user. The maximum length allowed is 80 characters.
           type: string
       type: object
     Date:
-      description: "Represents a whole or partial calendar date, such as a birthday. The time of day and time zone are either specified elsewhere or are insignificant. The date is relative to the Gregorian Calendar. This can represent one of the following: * A full date, with non-zero year, month, and day values. * A month and day, with a zero year (for example, an anniversary). * A year on its own, with a zero month and a zero day. * A year and month, with a zero day (for example, a credit card expiration date). Related types: * google.type.TimeOfDay * google.type.DateTime * google.protobuf.Timestamp"
+      description: 'Represents a whole or partial calendar date, such as a birthday. The time of day and time zone are either specified elsewhere or are insignificant. The date is relative to the Gregorian Calendar. This can represent one of the following: * A full date, with non-zero year, month, and day values. * A month and day, with a zero year (for example, an anniversary). * A year on its own, with a zero month and a zero day. * A year and month, with a zero day (for example, a credit card expiration date). Related types: * google.type.TimeOfDay * google.type.DateTime * google.protobuf.Timestamp'
+      x-google-discovery-id: Date
       properties:
         day:
           description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
@@ -468,61 +496,77 @@ components:
       type: object
     DateRange:
       description: Specification of a single date range. Both dates are inclusive.
+      x-google-discovery-id: DateRange
       properties:
         endDate:
-          $ref: "#/components/schemas/Date"
           description: End date of the date range, inclusive. Must be greater than or equal to the start date.
+          allOf:
+            - $ref: '#/components/schemas/Date'
         startDate:
-          $ref: "#/components/schemas/Date"
           description: Start date of the date range, inclusive. Must be less than or equal to the end date.
+          allOf:
+            - $ref: '#/components/schemas/Date'
       type: object
     GenerateMediationReportRequest:
-      description: Request to generate an AdMob mediation report.
+      description: Request to generate an AdMob Mediation report.
+      x-google-discovery-id: GenerateMediationReportRequest
       properties:
         reportSpec:
-          $ref: "#/components/schemas/MediationReportSpec"
           description: Network report specification.
+          allOf:
+            - $ref: '#/components/schemas/MediationReportSpec'
       type: object
     GenerateMediationReportResponse:
-      description: 'The streaming response for the AdMob mediation report where the first response contains the report header, then a stream of row responses, and finally a footer as the last response message. For example: [{ "header": { "date_range": { "start_date": {"year": 2018, "month": 9, "day": 1}, "end_date": {"year": 2018, "month": 9, "day": 1} }, "localization_settings": { "currency_code": "USD", "language_code": "en-US" } } }, { "row": { "dimension_values": { "DATE": {"value": "20180918"}, "APP": { "value": "ca-app-pub-8123415297019784~1001342552", "display_label": "My app name!" } }, "metric_values": { "ESTIMATED_EARNINGS": {"decimal_value": "1324746"} } } }, { "footer": {"matching_row_count": 1} }]'
+      description: 'The streaming response for the AdMob Mediation report where the first response contains the report header, then a stream of row responses, and finally a footer as the last response message. For example: [{ "header": { "date_range": { "start_date": {"year": 2018, "month": 9, "day": 1}, "end_date": {"year": 2018, "month": 9, "day": 1} }, "localization_settings": { "currency_code": "USD", "language_code": "en-US" } } }, { "row": { "dimension_values": { "DATE": {"value": "20180918"}, "APP": { "value": "ca-app-pub-8123415297019784~1001342552", "display_label": "My app name!" } }, "metric_values": { "ESTIMATED_EARNINGS": {"decimal_value": "1324746"} } } }, { "footer": {"matching_row_count": 1} }]'
+      x-google-discovery-id: GenerateMediationReportResponse
       properties:
         footer:
-          $ref: "#/components/schemas/ReportFooter"
           description: Additional information about the generated report, such as warnings about the data.
+          allOf:
+            - $ref: '#/components/schemas/ReportFooter'
         header:
-          $ref: "#/components/schemas/ReportHeader"
           description: Report generation settings that describes the report contents, such as the report date range and localization settings.
+          allOf:
+            - $ref: '#/components/schemas/ReportHeader'
         row:
-          $ref: "#/components/schemas/ReportRow"
           description: Actual report data.
+          allOf:
+            - $ref: '#/components/schemas/ReportRow'
       type: object
     GenerateNetworkReportRequest:
       description: Request to generate an AdMob Network report.
+      x-google-discovery-id: GenerateNetworkReportRequest
       properties:
         reportSpec:
-          $ref: "#/components/schemas/NetworkReportSpec"
           description: Network report specification.
+          allOf:
+            - $ref: '#/components/schemas/NetworkReportSpec'
       type: object
     GenerateNetworkReportResponse:
       description: 'The streaming response for the AdMob Network report where the first response contains the report header, then a stream of row responses, and finally a footer as the last response message. For example: [{ "header": { "dateRange": { "startDate": {"year": 2018, "month": 9, "day": 1}, "endDate": {"year": 2018, "month": 9, "day": 1} }, "localizationSettings": { "currencyCode": "USD", "languageCode": "en-US" } } }, { "row": { "dimensionValues": { "DATE": {"value": "20180918"}, "APP": { "value": "ca-app-pub-8123415297019784~1001342552", displayLabel: "My app name!" } }, "metricValues": { "ESTIMATED_EARNINGS": {"microsValue": 6500000} } } }, { "footer": {"matchingRowCount": 1} }]'
+      x-google-discovery-id: GenerateNetworkReportResponse
       properties:
         footer:
-          $ref: "#/components/schemas/ReportFooter"
           description: Additional information about the generated report, such as warnings about the data.
+          allOf:
+            - $ref: '#/components/schemas/ReportFooter'
         header:
-          $ref: "#/components/schemas/ReportHeader"
           description: Report generation settings that describes the report contents, such as the report date range and localization settings.
+          allOf:
+            - $ref: '#/components/schemas/ReportHeader'
         row:
-          $ref: "#/components/schemas/ReportRow"
           description: Actual report data.
+          allOf:
+            - $ref: '#/components/schemas/ReportRow'
       type: object
     ListAdUnitsResponse:
       description: Response for the ad units list request.
+      x-google-discovery-id: ListAdUnitsResponse
       properties:
         adUnits:
           description: The resulting ad units for the requested account.
           items:
-            $ref: "#/components/schemas/AdUnit"
+            $ref: '#/components/schemas/AdUnit'
           type: array
         nextPageToken:
           description: If not empty, indicates that there may be more ad units for the request; this value should be passed in a new `ListAdUnitsRequest`.
@@ -530,11 +574,12 @@ components:
       type: object
     ListAppsResponse:
       description: Response for the apps list request.
+      x-google-discovery-id: ListAppsResponse
       properties:
         apps:
           description: The resulting apps for the requested account.
           items:
-            $ref: "#/components/schemas/App"
+            $ref: '#/components/schemas/App'
           type: array
         nextPageToken:
           description: If not empty, indicates that there may be more apps for the request; this value should be passed in a new `ListAppsRequest`.
@@ -542,11 +587,12 @@ components:
       type: object
     ListPublisherAccountsResponse:
       description: Response for the publisher account list request.
+      x-google-discovery-id: ListPublisherAccountsResponse
       properties:
         account:
           description: Publisher that the client credentials can access.
           items:
-            $ref: "#/components/schemas/PublisherAccount"
+            $ref: '#/components/schemas/PublisherAccount'
           type: array
         nextPageToken:
           description: If not empty, indicates that there might be more accounts for the request; you must pass this value in a new `ListPublisherAccountsRequest`.
@@ -554,6 +600,7 @@ components:
       type: object
     LocalizationSettings:
       description: Localization settings for reports, such as currency and language. It affects how metrics are calculated.
+      x-google-discovery-id: LocalizationSettings
       properties:
         currencyCode:
           description: Currency code of the earning related metrics, which is the 3-letter code defined in ISO 4217. The daily average rate is used for the currency conversion. Defaults to the account currency code if unspecified.
@@ -563,15 +610,17 @@ components:
           type: string
       type: object
     MediationReportSpec:
-      description: "The specification for generating an AdMob Mediation report. For example, the specification to get observed ECPM sliced by ad source and app for the 'US' and 'CN' countries can look like the following example: { \"date_range\": { \"start_date\": {\"year\": 2021, \"month\": 9, \"day\": 1}, \"end_date\": {\"year\": 2021, \"month\": 9, \"day\": 30} }, \"dimensions\": [\"AD_SOURCE\", \"APP\", \"COUNTRY\"], \"metrics\": [\"OBSERVED_ECPM\"], \"dimension_filters\": [ { \"dimension\": \"COUNTRY\", \"matches_any\": {\"values\": [{\"value\": \"US\", \"value\": \"CN\"}]} } ], \"sort_conditions\": [ {\"dimension\":\"APP\", order: \"ASCENDING\"} ], \"localization_settings\": { \"currency_code\": \"USD\", \"language_code\": \"en-US\" } } For a better understanding, you can treat the preceding specification like the following pseudo SQL: SELECT AD_SOURCE, APP, COUNTRY, OBSERVED_ECPM FROM MEDIATION_REPORT WHERE DATE >= '2021-09-01' AND DATE <= '2021-09-30' AND COUNTRY IN ('US', 'CN') GROUP BY AD_SOURCE, APP, COUNTRY ORDER BY APP ASC;"
+      description: 'The specification for generating an AdMob Mediation report. For example, the specification to get observed ECPM sliced by ad source and app for the ''US'' and ''CN'' countries can look like the following example: { "date_range": { "start_date": {"year": 2021, "month": 9, "day": 1}, "end_date": {"year": 2021, "month": 9, "day": 30} }, "dimensions": ["AD_SOURCE", "APP", "COUNTRY"], "metrics": ["OBSERVED_ECPM"], "dimension_filters": [ { "dimension": "COUNTRY", "matches_any": {"values": [{"value": "US", "value": "CN"}]} } ], "sort_conditions": [ {"dimension":"APP", order: "ASCENDING"} ], "localization_settings": { "currency_code": "USD", "language_code": "en-US" } } For a better understanding, you can treat the preceding specification like the following pseudo SQL: SELECT AD_SOURCE, APP, COUNTRY, OBSERVED_ECPM FROM MEDIATION_REPORT WHERE DATE >= ''2021-09-01'' AND DATE <= ''2021-09-30'' AND COUNTRY IN (''US'', ''CN'') GROUP BY AD_SOURCE, APP, COUNTRY ORDER BY APP ASC;'
+      x-google-discovery-id: MediationReportSpec
       properties:
         dateRange:
-          $ref: "#/components/schemas/DateRange"
           description: The date range for which the report is generated.
+          allOf:
+            - $ref: '#/components/schemas/DateRange'
         dimensionFilters:
           description: Describes which report rows to match based on their dimension values.
           items:
-            $ref: "#/components/schemas/MediationReportSpecDimensionFilter"
+            $ref: '#/components/schemas/MediationReportSpecDimensionFilter'
           type: array
         dimensions:
           description: List of dimensions of the report. The value combination of these dimensions determines the row of the report. If no dimensions are specified, the report returns a single row of requested metrics for the entire account.
@@ -593,11 +642,29 @@ components:
               - GMA_SDK_VERSION
               - APP_VERSION_NAME
               - SERVING_RESTRICTION
+            x-google-enum-descriptions:
+              - Default value for an unset field. Do not use.
+              - A date in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+              - A month in the YYYYMM format (for example, "202107"). Requests can specify at most one time dimension.
+              - The date of the first day of a week in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+              - The [unique ID of the ad source](/admob/api/v1/ad_sources) (for example, "5450213213286189855" and "AdMob Network" as label value).
+              - The unique ID of the ad source instance (for example, "ca-app-pub-1234:asi:5678" and "AdMob (default)" as label value).
+              - The unique ID of the ad unit (for example, "ca-app-pub-1234/8790"). If AD_UNIT dimension is specified, then APP is included automatically.
+              - The unique ID of the mobile application (for example, "ca-app-pub-1234~1234").
+              - The unique ID of the mediation group (for example, "ca-app-pub-1234:mg:1234" and "AdMob (default)" as label value).
+              - CLDR country code of the place where the ad views/clicks occur (for example, "US" or "FR"). This is a geography dimension.
+              - Format of the ad unit (for example, "banner", "native"), an ad delivery dimension.
+              - Mobile OS platform of the app (for example, "Android" or "iOS").
+              - Mobile operating system version, e.g. "iOS 13.5.1".
+              - GMA SDK version, e.g. "iOS 7.62.0".
+              - For Android, the app version name can be found in versionName in PackageInfo. For iOS, the app version name can be found in CFBundleShortVersionString.
+              - Restriction mode for ads serving (e.g. "Non-personalized ads").
             type: string
           type: array
         localizationSettings:
-          $ref: "#/components/schemas/LocalizationSettings"
           description: Localization settings of the report.
+          allOf:
+            - $ref: '#/components/schemas/LocalizationSettings'
         maxReportRows:
           description: Maximum number of report data rows to return. If the value is not set, the API returns as many rows as possible, up to 100000. Acceptable values are 1-100000, inclusive. Values larger than 100000 return an error.
           format: int32
@@ -615,12 +682,24 @@ components:
               - MATCHED_REQUESTS
               - MATCH_RATE
               - OBSERVED_ECPM
+              - AD_LOAD_LATENCY
+            x-google-enum-descriptions:
+              - Default value for an unset field. Do not use.
+              - The number of requests. The value is an integer.
+              - The number of times a user clicks an ad. The value is an integer.
+              - The estimated earnings of the AdMob publisher. The currency unit (USD, EUR, or other) of the earning metrics are determined by the localization setting for currency. The amount is in micros. For example, $6.50 would be represented as 6500000. Estimated earnings per mediation group and per ad source instance level is supported dating back to October 20, 2019. Third-party estimated earnings will show 0 for dates prior to October 20, 2019.
+              - The total number of ads shown to users. The value is an integer.
+              - The ratio of clicks over impressions. The value is a double precision (approximate) decimal value.
+              - The number of times ads are returned in response to a request. The value is an integer.
+              - The ratio of matched ad requests over the total ad requests. The value is a double precision (approximate) decimal value.
+              - The third-party ad network's estimated average eCPM. The currency unit (USD, EUR, or other) of the earning metrics are determined by the localization setting for currency. The amount is in micros. For example, $2.30 would be represented as 2300000. The estimated average eCPM per mediation group and per ad source instance level is supported dating back to October 20, 2019. Third-party estimated average eCPM will show 0 for dates prior to October 20, 2019.
+              - The ad load latency is the total time it takes for an ad to load measured in seconds. It starts when the ad is requested and ends when a response is received. See https://support.google.com/admob/answer/12571120 for additional information.
             type: string
           type: array
         sortConditions:
           description: Describes the sorting of report rows. The order of the condition in the list defines its precedence; the earlier the condition, the higher its precedence. If no sort conditions are specified, the row ordering is undefined.
           items:
-            $ref: "#/components/schemas/MediationReportSpecSortCondition"
+            $ref: '#/components/schemas/MediationReportSpecSortCondition'
           type: array
         timeZone:
           description: A report time zone. Accepts an IANA TZ name values, such as "America/Los_Angeles." If no time zone is defined, the account default takes effect. Check default value by the get account action. **Warning:** The "America/Los_Angeles" is the only supported value at the moment.
@@ -628,6 +707,7 @@ components:
       type: object
     MediationReportSpecDimensionFilter:
       description: Describes which report rows to match based on their dimension values.
+      x-google-discovery-id: MediationReportSpecDimensionFilter
       properties:
         dimension:
           description: Applies the filter criterion to the specified dimension.
@@ -648,13 +728,32 @@ components:
             - GMA_SDK_VERSION
             - APP_VERSION_NAME
             - SERVING_RESTRICTION
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - A date in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+            - A month in the YYYYMM format (for example, "202107"). Requests can specify at most one time dimension.
+            - The date of the first day of a week in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+            - The [unique ID of the ad source](/admob/api/v1/ad_sources) (for example, "5450213213286189855" and "AdMob Network" as label value).
+            - The unique ID of the ad source instance (for example, "ca-app-pub-1234:asi:5678" and "AdMob (default)" as label value).
+            - The unique ID of the ad unit (for example, "ca-app-pub-1234/8790"). If AD_UNIT dimension is specified, then APP is included automatically.
+            - The unique ID of the mobile application (for example, "ca-app-pub-1234~1234").
+            - The unique ID of the mediation group (for example, "ca-app-pub-1234:mg:1234" and "AdMob (default)" as label value).
+            - CLDR country code of the place where the ad views/clicks occur (for example, "US" or "FR"). This is a geography dimension.
+            - Format of the ad unit (for example, "banner", "native"), an ad delivery dimension.
+            - Mobile OS platform of the app (for example, "Android" or "iOS").
+            - Mobile operating system version, e.g. "iOS 13.5.1".
+            - GMA SDK version, e.g. "iOS 7.62.0".
+            - For Android, the app version name can be found in versionName in PackageInfo. For iOS, the app version name can be found in CFBundleShortVersionString.
+            - Restriction mode for ads serving (e.g. "Non-personalized ads").
           type: string
         matchesAny:
-          $ref: "#/components/schemas/StringList"
           description: Matches a row if its value for the specified dimension is in one of the values specified in this condition.
+          allOf:
+            - $ref: '#/components/schemas/StringList'
       type: object
     MediationReportSpecSortCondition:
       description: Sorting direction to be applied on a dimension or a metric.
+      x-google-discovery-id: MediationReportSpecSortCondition
       properties:
         dimension:
           description: Sort by the specified dimension.
@@ -675,6 +774,23 @@ components:
             - GMA_SDK_VERSION
             - APP_VERSION_NAME
             - SERVING_RESTRICTION
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - A date in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+            - A month in the YYYYMM format (for example, "202107"). Requests can specify at most one time dimension.
+            - The date of the first day of a week in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+            - The [unique ID of the ad source](/admob/api/v1/ad_sources) (for example, "5450213213286189855" and "AdMob Network" as label value).
+            - The unique ID of the ad source instance (for example, "ca-app-pub-1234:asi:5678" and "AdMob (default)" as label value).
+            - The unique ID of the ad unit (for example, "ca-app-pub-1234/8790"). If AD_UNIT dimension is specified, then APP is included automatically.
+            - The unique ID of the mobile application (for example, "ca-app-pub-1234~1234").
+            - The unique ID of the mediation group (for example, "ca-app-pub-1234:mg:1234" and "AdMob (default)" as label value).
+            - CLDR country code of the place where the ad views/clicks occur (for example, "US" or "FR"). This is a geography dimension.
+            - Format of the ad unit (for example, "banner", "native"), an ad delivery dimension.
+            - Mobile OS platform of the app (for example, "Android" or "iOS").
+            - Mobile operating system version, e.g. "iOS 13.5.1".
+            - GMA SDK version, e.g. "iOS 7.62.0".
+            - For Android, the app version name can be found in versionName in PackageInfo. For iOS, the app version name can be found in CFBundleShortVersionString.
+            - Restriction mode for ads serving (e.g. "Non-personalized ads").
           type: string
         metric:
           description: Sort by the specified metric.
@@ -688,6 +804,18 @@ components:
             - MATCHED_REQUESTS
             - MATCH_RATE
             - OBSERVED_ECPM
+            - AD_LOAD_LATENCY
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - The number of requests. The value is an integer.
+            - The number of times a user clicks an ad. The value is an integer.
+            - The estimated earnings of the AdMob publisher. The currency unit (USD, EUR, or other) of the earning metrics are determined by the localization setting for currency. The amount is in micros. For example, $6.50 would be represented as 6500000. Estimated earnings per mediation group and per ad source instance level is supported dating back to October 20, 2019. Third-party estimated earnings will show 0 for dates prior to October 20, 2019.
+            - The total number of ads shown to users. The value is an integer.
+            - The ratio of clicks over impressions. The value is a double precision (approximate) decimal value.
+            - The number of times ads are returned in response to a request. The value is an integer.
+            - The ratio of matched ad requests over the total ad requests. The value is a double precision (approximate) decimal value.
+            - The third-party ad network's estimated average eCPM. The currency unit (USD, EUR, or other) of the earning metrics are determined by the localization setting for currency. The amount is in micros. For example, $2.30 would be represented as 2300000. The estimated average eCPM per mediation group and per ad source instance level is supported dating back to October 20, 2019. Third-party estimated average eCPM will show 0 for dates prior to October 20, 2019.
+            - The ad load latency is the total time it takes for an ad to load measured in seconds. It starts when the ad is requested and ends when a response is received. See https://support.google.com/admob/answer/12571120 for additional information.
           type: string
         order:
           description: Sorting order of the dimension or metric.
@@ -695,18 +823,24 @@ components:
             - SORT_ORDER_UNSPECIFIED
             - ASCENDING
             - DESCENDING
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - Sort dimension value or metric value in ascending order.
+            - Sort dimension value or metric value in descending order.
           type: string
       type: object
     NetworkReportSpec:
-      description: "The specification for generating an AdMob Network report. For example, the specification to get clicks and estimated earnings for only the 'US' and 'CN' countries can look like the following example: { 'date_range': { 'start_date': {'year': 2021, 'month': 9, 'day': 1}, 'end_date': {'year': 2021, 'month': 9, 'day': 30} }, 'dimensions': ['DATE', 'APP', 'COUNTRY'], 'metrics': ['CLICKS', 'ESTIMATED_EARNINGS'], 'dimension_filters': [ { 'dimension': 'COUNTRY', 'matches_any': {'values': [{'value': 'US', 'value': 'CN'}]} } ], 'sort_conditions': [ {'dimension':'APP', order: 'ASCENDING'}, {'metric':'CLICKS', order: 'DESCENDING'} ], 'localization_settings': { 'currency_code': 'USD', 'language_code': 'en-US' } } For a better understanding, you can treat the preceding specification like the following pseudo SQL: SELECT DATE, APP, COUNTRY, CLICKS, ESTIMATED_EARNINGS FROM NETWORK_REPORT WHERE DATE >= '2021-09-01' AND DATE <= '2021-09-30' AND COUNTRY IN ('US', 'CN') GROUP BY DATE, APP, COUNTRY ORDER BY APP ASC, CLICKS DESC;"
+      description: 'The specification for generating an AdMob Network report. For example, the specification to get clicks and estimated earnings for only the ''US'' and ''CN'' countries can look like the following example: { ''date_range'': { ''start_date'': {''year'': 2021, ''month'': 9, ''day'': 1}, ''end_date'': {''year'': 2021, ''month'': 9, ''day'': 30} }, ''dimensions'': [''DATE'', ''APP'', ''COUNTRY''], ''metrics'': [''CLICKS'', ''ESTIMATED_EARNINGS''], ''dimension_filters'': [ { ''dimension'': ''COUNTRY'', ''matches_any'': {''values'': [{''value'': ''US'', ''value'': ''CN''}]} } ], ''sort_conditions'': [ {''dimension'':''APP'', order: ''ASCENDING''}, {''metric'':''CLICKS'', order: ''DESCENDING''} ], ''localization_settings'': { ''currency_code'': ''USD'', ''language_code'': ''en-US'' } } For a better understanding, you can treat the preceding specification like the following pseudo SQL: SELECT DATE, APP, COUNTRY, CLICKS, ESTIMATED_EARNINGS FROM NETWORK_REPORT WHERE DATE >= ''2021-09-01'' AND DATE <= ''2021-09-30'' AND COUNTRY IN (''US'', ''CN'') GROUP BY DATE, APP, COUNTRY ORDER BY APP ASC, CLICKS DESC;'
+      x-google-discovery-id: NetworkReportSpec
       properties:
         dateRange:
-          $ref: "#/components/schemas/DateRange"
           description: The date range for which the report is generated.
+          allOf:
+            - $ref: '#/components/schemas/DateRange'
         dimensionFilters:
           description: Describes which report rows to match based on their dimension values.
           items:
-            $ref: "#/components/schemas/NetworkReportSpecDimensionFilter"
+            $ref: '#/components/schemas/NetworkReportSpecDimensionFilter'
           type: array
         dimensions:
           description: List of dimensions of the report. The value combination of these dimensions determines the row of the report. If no dimensions are specified, the report returns a single row of requested metrics for the entire account.
@@ -726,11 +860,27 @@ components:
               - GMA_SDK_VERSION
               - APP_VERSION_NAME
               - SERVING_RESTRICTION
+            x-google-enum-descriptions:
+              - Default value for an unset field. Do not use.
+              - A date in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+              - A month in the YYYYMM format (for example, "202107"). Requests can specify at most one time dimension.
+              - The date of the first day of a week in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+              - The unique ID of the ad unit (for example, "ca-app-pub-1234/1234"). If AD_UNIT dimension is specified, then APP is included automatically.
+              - The unique ID of the mobile application (for example, "ca-app-pub-1234~1234").
+              - Type of the ad (for example, "text" or "image"), an ad delivery dimension. **Warning:** The dimension is incompatible with [AD_REQUESTS](#Metric.ENUM_VALUES.AD_REQUESTS), [MATCH_RATE](#Metric.ENUM_VALUES.MATCH_RATE) and [IMPRESSION_RPM](#Metric.ENUM_VALUES.IMPRESSION_RPM) metrics.
+              - CLDR country code of the place where the ad views/clicks occur (for example, "US" or "FR"). This is a geography dimension.
+              - Format of the ad unit (for example, "banner", "native"), an ad delivery dimension.
+              - Mobile OS platform of the app (for example, "Android" or "iOS").
+              - Mobile operating system version, e.g. "iOS 13.5.1".
+              - GMA SDK version, e.g. "iOS 7.62.0".
+              - For Android, the app version name can be found in versionName in PackageInfo. For iOS, the app version name can be found in CFBundleShortVersionString.
+              - Restriction mode for ads serving (e.g. "Non-personalized ads").
             type: string
           type: array
         localizationSettings:
-          $ref: "#/components/schemas/LocalizationSettings"
           description: Localization settings of the report.
+          allOf:
+            - $ref: '#/components/schemas/LocalizationSettings'
         maxReportRows:
           description: Maximum number of report data rows to return. If the value is not set, the API returns as many rows as possible, up to 100000. Acceptable values are 1-100000, inclusive. Values larger than 100000 return an error.
           format: int32
@@ -749,12 +899,23 @@ components:
               - MATCHED_REQUESTS
               - MATCH_RATE
               - SHOW_RATE
+            x-google-enum-descriptions:
+              - Default value for an unset field. Do not use.
+              - The number of ad requests. The value is an integer. **Warning:** The metric is incompatible with [AD_TYPE](#Dimension.ENUM_VALUES.AD_TYPE) dimension.
+              - The number of times a user clicks an ad. The value is an integer.
+              - The estimated earnings of the AdMob publisher. The currency unit (USD, EUR, or other) of the earning metrics are determined by the localization setting for currency. The amount is in micros. For example, $6.50 would be represented as 6500000.
+              - The total number of ads shown to users. The value is an integer.
+              - The ratio of clicks over impressions. The value is a double precision (approximate) decimal value.
+              - The estimated earnings per thousand ad impressions. The value is in micros. For example, $1.03 would be represented as 1030000. Equivalent to eCPM in the AdMob UI. **Warning:** The metric is incompatible with [AD_TYPE](#Dimension.ENUM_VALUES.AD_TYPE) dimension.
+              - The number of times ads are returned in response to a request. The value is an integer.
+              - The ratio of matched ad requests over the total ad requests. The value is a double precision (approximate) decimal value. **Warning:** The metric is incompatible with [AD_TYPE](#Dimension.ENUM_VALUES.AD_TYPE) dimension.
+              - The ratio of ads that are displayed over ads that are returned, defined as impressions / matched requests. The value is a double precision (approximate) decimal value.
             type: string
           type: array
         sortConditions:
           description: Describes the sorting of report rows. The order of the condition in the list defines its precedence; the earlier the condition, the higher its precedence. If no sort conditions are specified, the row ordering is undefined.
           items:
-            $ref: "#/components/schemas/NetworkReportSpecSortCondition"
+            $ref: '#/components/schemas/NetworkReportSpecSortCondition'
           type: array
         timeZone:
           description: A report time zone. Accepts an IANA TZ name values, such as "America/Los_Angeles." If no time zone is defined, the account default takes effect. Check default value by the get account action. **Warning:** The "America/Los_Angeles" is the only supported value at the moment.
@@ -762,6 +923,7 @@ components:
       type: object
     NetworkReportSpecDimensionFilter:
       description: Describes which report rows to match based on their dimension values.
+      x-google-discovery-id: NetworkReportSpecDimensionFilter
       properties:
         dimension:
           description: Applies the filter criterion to the specified dimension.
@@ -780,13 +942,30 @@ components:
             - GMA_SDK_VERSION
             - APP_VERSION_NAME
             - SERVING_RESTRICTION
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - A date in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+            - A month in the YYYYMM format (for example, "202107"). Requests can specify at most one time dimension.
+            - The date of the first day of a week in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+            - The unique ID of the ad unit (for example, "ca-app-pub-1234/1234"). If AD_UNIT dimension is specified, then APP is included automatically.
+            - The unique ID of the mobile application (for example, "ca-app-pub-1234~1234").
+            - Type of the ad (for example, "text" or "image"), an ad delivery dimension. **Warning:** The dimension is incompatible with [AD_REQUESTS](#Metric.ENUM_VALUES.AD_REQUESTS), [MATCH_RATE](#Metric.ENUM_VALUES.MATCH_RATE) and [IMPRESSION_RPM](#Metric.ENUM_VALUES.IMPRESSION_RPM) metrics.
+            - CLDR country code of the place where the ad views/clicks occur (for example, "US" or "FR"). This is a geography dimension.
+            - Format of the ad unit (for example, "banner", "native"), an ad delivery dimension.
+            - Mobile OS platform of the app (for example, "Android" or "iOS").
+            - Mobile operating system version, e.g. "iOS 13.5.1".
+            - GMA SDK version, e.g. "iOS 7.62.0".
+            - For Android, the app version name can be found in versionName in PackageInfo. For iOS, the app version name can be found in CFBundleShortVersionString.
+            - Restriction mode for ads serving (e.g. "Non-personalized ads").
           type: string
         matchesAny:
-          $ref: "#/components/schemas/StringList"
           description: Matches a row if its value for the specified dimension is in one of the values specified in this condition.
+          allOf:
+            - $ref: '#/components/schemas/StringList'
       type: object
     NetworkReportSpecSortCondition:
       description: Sorting direction to be applied on a dimension or a metric.
+      x-google-discovery-id: NetworkReportSpecSortCondition
       properties:
         dimension:
           description: Sort by the specified dimension.
@@ -805,6 +984,21 @@ components:
             - GMA_SDK_VERSION
             - APP_VERSION_NAME
             - SERVING_RESTRICTION
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - A date in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+            - A month in the YYYYMM format (for example, "202107"). Requests can specify at most one time dimension.
+            - The date of the first day of a week in the YYYYMMDD format (for example, "20210701"). Requests can specify at most one time dimension.
+            - The unique ID of the ad unit (for example, "ca-app-pub-1234/1234"). If AD_UNIT dimension is specified, then APP is included automatically.
+            - The unique ID of the mobile application (for example, "ca-app-pub-1234~1234").
+            - Type of the ad (for example, "text" or "image"), an ad delivery dimension. **Warning:** The dimension is incompatible with [AD_REQUESTS](#Metric.ENUM_VALUES.AD_REQUESTS), [MATCH_RATE](#Metric.ENUM_VALUES.MATCH_RATE) and [IMPRESSION_RPM](#Metric.ENUM_VALUES.IMPRESSION_RPM) metrics.
+            - CLDR country code of the place where the ad views/clicks occur (for example, "US" or "FR"). This is a geography dimension.
+            - Format of the ad unit (for example, "banner", "native"), an ad delivery dimension.
+            - Mobile OS platform of the app (for example, "Android" or "iOS").
+            - Mobile operating system version, e.g. "iOS 13.5.1".
+            - GMA SDK version, e.g. "iOS 7.62.0".
+            - For Android, the app version name can be found in versionName in PackageInfo. For iOS, the app version name can be found in CFBundleShortVersionString.
+            - Restriction mode for ads serving (e.g. "Non-personalized ads").
           type: string
         metric:
           description: Sort by the specified metric.
@@ -819,6 +1013,17 @@ components:
             - MATCHED_REQUESTS
             - MATCH_RATE
             - SHOW_RATE
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - The number of ad requests. The value is an integer. **Warning:** The metric is incompatible with [AD_TYPE](#Dimension.ENUM_VALUES.AD_TYPE) dimension.
+            - The number of times a user clicks an ad. The value is an integer.
+            - The estimated earnings of the AdMob publisher. The currency unit (USD, EUR, or other) of the earning metrics are determined by the localization setting for currency. The amount is in micros. For example, $6.50 would be represented as 6500000.
+            - The total number of ads shown to users. The value is an integer.
+            - The ratio of clicks over impressions. The value is a double precision (approximate) decimal value.
+            - The estimated earnings per thousand ad impressions. The value is in micros. For example, $1.03 would be represented as 1030000. Equivalent to eCPM in the AdMob UI. **Warning:** The metric is incompatible with [AD_TYPE](#Dimension.ENUM_VALUES.AD_TYPE) dimension.
+            - The number of times ads are returned in response to a request. The value is an integer.
+            - The ratio of matched ad requests over the total ad requests. The value is a double precision (approximate) decimal value. **Warning:** The metric is incompatible with [AD_TYPE](#Dimension.ENUM_VALUES.AD_TYPE) dimension.
+            - The ratio of ads that are displayed over ads that are returned, defined as impressions / matched requests. The value is a double precision (approximate) decimal value.
           type: string
         order:
           description: Sorting order of the dimension or metric.
@@ -826,10 +1031,15 @@ components:
             - SORT_ORDER_UNSPECIFIED
             - ASCENDING
             - DESCENDING
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - Sort dimension value or metric value in ascending order.
+            - Sort dimension value or metric value in descending order.
           type: string
       type: object
     PublisherAccount:
       description: A publisher account contains information relevant to the use of this API, such as the time zone used for the reports.
+      x-google-discovery-id: PublisherAccount
       properties:
         currencyCode:
           description: Currency code of the earning-related metrics, which is the 3-letter code defined in ISO 4217. The daily average rate is used for the currency conversion.
@@ -846,46 +1056,52 @@ components:
       type: object
     ReportFooter:
       description: Groups data available after report generation, for example, warnings and row counts. Always sent as the last message in the stream response.
+      x-google-discovery-id: ReportFooter
       properties:
         matchingRowCount:
-          description: "Total number of rows that matched the request. Warning: This count does NOT always match the number of rows in the response. Do not make that assumption when processing the response."
+          description: 'Total number of rows that matched the request. Warning: This count does NOT always match the number of rows in the response. Do not make that assumption when processing the response.'
           format: int64
           type: string
         warnings:
           description: Warnings associated with generation of the report.
           items:
-            $ref: "#/components/schemas/ReportWarning"
+            $ref: '#/components/schemas/ReportWarning'
           type: array
       type: object
     ReportHeader:
       description: Groups data helps to treat the generated report. Always sent as a first message in the stream response.
+      x-google-discovery-id: ReportHeader
       properties:
         dateRange:
-          $ref: "#/components/schemas/DateRange"
           description: The date range for which the report is generated. This is identical to the range specified in the report request.
+          allOf:
+            - $ref: '#/components/schemas/DateRange'
         localizationSettings:
-          $ref: "#/components/schemas/LocalizationSettings"
           description: Localization settings of the report. This is identical to the settings in the report request.
+          allOf:
+            - $ref: '#/components/schemas/LocalizationSettings'
         reportingTimeZone:
           description: The report time zone. The value is a time-zone ID as specified by the CLDR project, for example, "America/Los_Angeles".
           type: string
       type: object
     ReportRow:
       description: A row of the returning report.
+      x-google-discovery-id: ReportRow
       properties:
         dimensionValues:
           additionalProperties:
-            $ref: "#/components/schemas/ReportRowDimensionValue"
+            $ref: '#/components/schemas/ReportRowDimensionValue'
           description: Map of dimension values in a row, with keys as enum name of the dimensions.
           type: object
         metricValues:
           additionalProperties:
-            $ref: "#/components/schemas/ReportRowMetricValue"
+            $ref: '#/components/schemas/ReportRowMetricValue'
           description: Map of metric values in a row, with keys as enum name of the metrics. If a metric being requested has no value returned, the map will not include it.
           type: object
       type: object
     ReportRowDimensionValue:
       description: Representation of a dimension value.
+      x-google-discovery-id: ReportRowDimensionValue
       properties:
         displayLabel:
           description: The localized string representation of the value. If unspecified, the display label should be derived from the value.
@@ -896,6 +1112,7 @@ components:
       type: object
     ReportRowMetricValue:
       description: Representation of a metric value.
+      x-google-discovery-id: ReportRowMetricValue
       properties:
         doubleValue:
           description: Double precision (approximate) decimal values. Rates are from 0 to 1.
@@ -912,6 +1129,7 @@ components:
       type: object
     ReportWarning:
       description: Warnings associated with generation of the report.
+      x-google-discovery-id: ReportWarning
       properties:
         description:
           description: Describes the details of the warning message, in English.
@@ -924,10 +1142,17 @@ components:
             - DATA_DELAYED
             - OTHER
             - REPORT_CURRENCY_NOT_ACCOUNT_CURRENCY
+          x-google-enum-descriptions:
+            - Default value for an unset field. Do not use.
+            - Some data in this report is aggregated based on a time zone different from the requested time zone. This could happen if a local time-zone report has the start time before the last time this time zone changed. The description field will contain the date of the last time zone change.
+            - There is an unusual delay in processing the source data for the requested date range. The report results might be less up to date than usual. AdMob is aware of the issue and is actively working to resolve it.
+            - Warnings that are exposed without a specific type. Useful when new warning types are added but the API is not changed yet.
+            - The currency being requested is not the account currency. The earning metrics will be based on the requested currency, and thus not a good estimation of the final payment anymore, due to the currency rate fluctuation.
           type: string
       type: object
     StringList:
       description: List of string values.
+      x-google-discovery-id: StringList
       properties:
         values:
           description: The string values.
@@ -935,23 +1160,125 @@ components:
             type: string
           type: array
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/admob.readonly: See your AdMob data
             https://www.googleapis.com/auth/admob.report: See your AdMob data
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/admob.readonly: See your AdMob data
             https://www.googleapis.com/auth/admob.report: See your AdMob data
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/admob/api/
+tags:
+  - name: accounts
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://admob.googleapis.com/
+  batchPath: batch
+  canonicalName: AdMob
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: admob:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://admob.mtls.googleapis.com/
+  name: admob
+  revision: '20261008'
+  rootUrl: https://admob.googleapis.com/
+  servicePath: ''
+  version_module: true

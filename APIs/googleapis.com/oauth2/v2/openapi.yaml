@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://www.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -21,161 +19,129 @@ info:
   x-logo:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
-    - converter:
-        url: https://github.com/mermade/oas-kit
-        version: 7.0.4
-      format: google
-      url: https://www.googleapis.com/discovery/v1/apis/oauth2/v2/rest
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/oauth2.v2.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/oauth2.v2.json
+      version: '3.0'
   x-preferred: true
   x-providerName: googleapis.com
   x-serviceName: oauth2
-externalDocs:
-  url: https://developers.google.com/identity/protocols/oauth2/
-tags:
-  - name: userinfo
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20200213; original source SHA-256 d6330cace87bdbc615005e4b1a0d08f68258dafcd441f97f4ef492a507be3a98.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://www.googleapis.com
 paths:
   /oauth2/v2/tokeninfo:
-    parameters:
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/userIp"
     post:
       operationId: oauth2.tokeninfo
       parameters:
-        - in: query
-          name: access_token
+        - name: access_token
+          in: query
           schema:
             type: string
-        - in: query
-          name: id_token
+        - name: id_token
+          in: query
           schema:
             type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Tokeninfo"
-          description: Successful response
+                $ref: '#/components/schemas/Tokeninfo'
+      x-google-discovery:
+        path: oauth2/v2/tokeninfo
+    parameters:
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/userIp'
   /oauth2/v2/userinfo:
     get:
       operationId: oauth2.userinfo.get
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Userinfo"
-          description: Successful response
+      tags:
+        - userinfo
       security:
         - Oauth2:
             - openid
-          Oauth2c:
+        - Oauth2c:
             - openid
         - Oauth2:
             - https://www.googleapis.com/auth/userinfo.email
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/userinfo.email
         - Oauth2:
             - https://www.googleapis.com/auth/userinfo.profile
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/userinfo.profile
-      tags:
-        - userinfo
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Userinfo'
+      x-google-discovery:
+        path: oauth2/v2/userinfo
     parameters:
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/userIp"
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/userIp'
   /userinfo/v2/me:
     get:
       operationId: oauth2.userinfo.v2.me.get
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Userinfo"
-          description: Successful response
+      tags:
+        - userinfo
       security:
         - Oauth2:
             - openid
-          Oauth2c:
+        - Oauth2c:
             - openid
         - Oauth2:
             - https://www.googleapis.com/auth/userinfo.email
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/userinfo.email
         - Oauth2:
             - https://www.googleapis.com/auth/userinfo.profile
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/userinfo.profile
-      tags:
-        - userinfo
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Userinfo'
+      x-google-discovery:
+        path: userinfo/v2/me
     parameters:
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/userIp"
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/userIp'
 components:
-  parameters:
-    alt:
-      description: Data format for the response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: An opaque string that represents a user for quota purposes. Must not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    userIp:
-      description: Deprecated. Please use quotaUser instead.
-      in: query
-      name: userIp
-      schema:
-        type: string
   schemas:
     Tokeninfo:
+      x-google-discovery-id: Tokeninfo
       properties:
         audience:
           description: Who is the intended audience for this token. In general the same as issued_to.
@@ -201,6 +167,7 @@ components:
           type: boolean
       type: object
     Userinfo:
+      x-google-discovery-id: Userinfo
       properties:
         email:
           description: The user's email address.
@@ -237,25 +204,90 @@ components:
           description: Boolean flag which is true if the email address is verified. Always verified because we only return the user's primary email address.
           type: boolean
       type: object
+  parameters:
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+        type: string
+      description: Data format for the response.
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: An opaque string that represents a user for quota purposes. Must not exceed 40 characters.
+    userIp:
+      name: userIp
+      in: query
+      schema:
+        type: string
+      description: Deprecated. Please use quotaUser instead.
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/userinfo.email: See your primary Google Account email address
             https://www.googleapis.com/auth/userinfo.profile: See your personal info, including any personal info you've made publicly available
             openid: Associate you with your personal info on Google
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/userinfo.email: See your primary Google Account email address
             https://www.googleapis.com/auth/userinfo.profile: See your personal info, including any personal info you've made publicly available
             openid: Associate you with your personal info on Google
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/identity/protocols/oauth2/
+tags:
+  - name: userinfo
+x-google-discovery:
+  basePath: /
+  baseUrl: https://www.googleapis.com/
+  batchPath: batch/oauth2/v2
+  etag: '"u9GIe6H63LSGq-9_t39K2Zx_EAc/VCyF6WfWVwIuhIs_gw3LA4B3w1E"'
+  icons:
+    x16: https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png
+    x32: https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png
+  id: oauth2:v2
+  kind: discovery#restDescription
+  name: oauth2
+  revision: '20200213'
+  rootUrl: https://www.googleapis.com/
+  servicePath: ''

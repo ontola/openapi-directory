@@ -1,0 +1,3951 @@
+openapi: 3.0.3
+info:
+  title: Data Manager API
+  version: v1
+  description: A unified ingestion API for data partners, agencies and advertisers to connect first-party data across Google advertising products.
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/datamanager.v1.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/datamanager.v1.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20261007; original source SHA-256 331ee39051478e2668588d083e1c7aa5d9112cfd932bc63e25c94f9bef230bc2.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://datamanager.googleapis.com
+paths:
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/insights:retrieve:
+    post:
+      operationId: datamanager.accountTypes.accounts.insights.retrieve
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetrieveInsightsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveInsightsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/insights:retrieve
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/insights:retrieve
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/partnerLinks:
+    post:
+      operationId: datamanager.accountTypes.accounts.partnerLinks.create
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager.partnerlink
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager.partnerlink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnerLink'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerLink'
+      x-google-discovery:
+        path: v1/{+parent}/partnerLinks
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/partnerLinks
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/partnerLinks/{partnerLinksId}:
+    delete:
+      operationId: datamanager.accountTypes.accounts.partnerLinks.delete
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: partnerLinksId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager.partnerlink
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager.partnerlink
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/partnerLinks/{partnerLinksId}
+        resourceNameBindings:
+          accountTypesId: name
+          accountsId: name
+          partnerLinksId: name
+        resourceNameParameters:
+          name:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+/partnerLinks/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/partnerLinks:search:
+    get:
+      operationId: datamanager.accountTypes.accounts.partnerLinks.search
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager.partnerlink
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager.partnerlink
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchPartnerLinksResponse'
+      x-google-discovery:
+        path: v1/{+parent}/partnerLinks:search
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/partnerLinks:search
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListDirectLicenses:
+    post:
+      operationId: datamanager.accountTypes.accounts.userListDirectLicenses.create
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserListDirectLicense'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListDirectLicense'
+      x-google-discovery:
+        path: v1/{+parent}/userListDirectLicenses
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListDirectLicenses
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: datamanager.accountTypes.accounts.userListDirectLicenses.list
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUserListDirectLicensesResponse'
+      x-google-discovery:
+        path: v1/{+parent}/userListDirectLicenses
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListDirectLicenses
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListDirectLicenses/{userListDirectLicensesId}:
+    get:
+      operationId: datamanager.accountTypes.accounts.userListDirectLicenses.get
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: userListDirectLicensesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListDirectLicense'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListDirectLicenses/{userListDirectLicensesId}
+        resourceNameBindings:
+          accountTypesId: name
+          accountsId: name
+          userListDirectLicensesId: name
+        resourceNameParameters:
+          name:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+/userListDirectLicenses/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: datamanager.accountTypes.accounts.userListDirectLicenses.patch
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: userListDirectLicensesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserListDirectLicense'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListDirectLicense'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListDirectLicenses/{userListDirectLicensesId}
+        resourceNameBindings:
+          accountTypesId: name
+          accountsId: name
+          userListDirectLicensesId: name
+        resourceNameParameters:
+          name:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+/userListDirectLicenses/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListGlobalLicenses:
+    post:
+      operationId: datamanager.accountTypes.accounts.userListGlobalLicenses.create
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserListGlobalLicense'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListGlobalLicense'
+      x-google-discovery:
+        path: v1/{+parent}/userListGlobalLicenses
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListGlobalLicenses
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: datamanager.accountTypes.accounts.userListGlobalLicenses.list
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUserListGlobalLicensesResponse'
+      x-google-discovery:
+        path: v1/{+parent}/userListGlobalLicenses
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListGlobalLicenses
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListGlobalLicenses/{userListGlobalLicensesId}:
+    get:
+      operationId: datamanager.accountTypes.accounts.userListGlobalLicenses.get
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: userListGlobalLicensesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListGlobalLicense'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListGlobalLicenses/{userListGlobalLicensesId}
+        resourceNameBindings:
+          accountTypesId: name
+          accountsId: name
+          userListGlobalLicensesId: name
+        resourceNameParameters:
+          name:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+/userListGlobalLicenses/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: datamanager.accountTypes.accounts.userListGlobalLicenses.patch
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: userListGlobalLicensesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserListGlobalLicense'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListGlobalLicense'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListGlobalLicenses/{userListGlobalLicensesId}
+        resourceNameBindings:
+          accountTypesId: name
+          accountsId: name
+          userListGlobalLicensesId: name
+        resourceNameParameters:
+          name:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+/userListGlobalLicenses/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  ? /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListGlobalLicenses/{userListGlobalLicensesId}/userListGlobalLicenseCustomerInfos
+  : get:
+      operationId: datamanager.accountTypes.accounts.userListGlobalLicenses.userListGlobalLicenseCustomerInfos.list
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: userListGlobalLicensesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUserListGlobalLicenseCustomerInfosResponse'
+      x-google-discovery:
+        path: v1/{+parent}/userListGlobalLicenseCustomerInfos
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userListGlobalLicenses/{userListGlobalLicensesId}/userListGlobalLicenseCustomerInfos
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+          userListGlobalLicensesId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+/userListGlobalLicenses/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userLists:
+    post:
+      operationId: datamanager.accountTypes.accounts.userLists.create
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: validateOnly
+          in: query
+          schema:
+            type: boolean
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserList'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+      x-google-discovery:
+        path: v1/{+parent}/userLists
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userLists
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: datamanager.accountTypes.accounts.userLists.list
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUserListsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/userLists
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userLists
+        resourceNameBindings:
+          accountTypesId: parent
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userLists/{userListsId}:
+    delete:
+      operationId: datamanager.accountTypes.accounts.userLists.delete
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: userListsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: validateOnly
+          in: query
+          schema:
+            type: boolean
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userLists/{userListsId}
+        resourceNameBindings:
+          accountTypesId: name
+          accountsId: name
+          userListsId: name
+        resourceNameParameters:
+          name:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+/userLists/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: datamanager.accountTypes.accounts.userLists.get
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: userListsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userLists/{userListsId}
+        resourceNameBindings:
+          accountTypesId: name
+          accountsId: name
+          userListsId: name
+        resourceNameParameters:
+          name:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+/userLists/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: datamanager.accountTypes.accounts.userLists.patch
+      description: ''
+      parameters:
+        - name: accountTypesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: userListsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+        - name: validateOnly
+          in: query
+          schema:
+            type: boolean
+      tags:
+        - accountTypes
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserList'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accountTypes/{accountTypesId}/accounts/{accountsId}/userLists/{userListsId}
+        resourceNameBindings:
+          accountTypesId: name
+          accountsId: name
+          userListsId: name
+        resourceNameParameters:
+          name:
+            location: path
+            pattern: ^accountTypes/[^/]+/accounts/[^/]+/userLists/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/adEvents:ingest:
+    post:
+      operationId: datamanager.adEvents.ingest
+      description: ''
+      tags:
+        - adEvents
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestAdEventsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestAdEventsResponse'
+      x-google-discovery:
+        path: v1/adEvents:ingest
+        flatPath: v1/adEvents:ingest
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/audienceMembers:ingest:
+    post:
+      operationId: datamanager.audienceMembers.ingest
+      description: ''
+      tags:
+        - audienceMembers
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestAudienceMembersRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestAudienceMembersResponse'
+      x-google-discovery:
+        path: v1/audienceMembers:ingest
+        flatPath: v1/audienceMembers:ingest
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/audienceMembers:remove:
+    post:
+      operationId: datamanager.audienceMembers.remove
+      description: ''
+      tags:
+        - audienceMembers
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveAudienceMembersRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveAudienceMembersResponse'
+      x-google-discovery:
+        path: v1/audienceMembers:remove
+        flatPath: v1/audienceMembers:remove
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/audienceMembers:removeAll:
+    post:
+      operationId: datamanager.audienceMembers.removeAll
+      description: ''
+      tags:
+        - audienceMembers
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveAllAudienceMembersRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveAllAudienceMembersResponse'
+      x-google-discovery:
+        path: v1/audienceMembers:removeAll
+        flatPath: v1/audienceMembers:removeAll
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/events:ingest:
+    post:
+      operationId: datamanager.events.ingest
+      description: ''
+      tags:
+        - events
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestEventsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestEventsResponse'
+      x-google-discovery:
+        path: v1/events:ingest
+        flatPath: v1/events:ingest
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/requestStatus:retrieve:
+    get:
+      operationId: datamanager.requestStatus.retrieve
+      description: ''
+      parameters:
+        - name: requestId
+          in: query
+          schema:
+            type: string
+      tags:
+        - requestStatus
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveRequestStatusResponse'
+      x-google-discovery:
+        path: v1/requestStatus:retrieve
+        flatPath: v1/requestStatus:retrieve
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/users:ingest:
+    post:
+      operationId: datamanager.users.ingest
+      description: ''
+      tags:
+        - users
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestUsersRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestUsersResponse'
+      x-google-discovery:
+        path: v1/users:ingest
+        flatPath: v1/users:ingest
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/users:remove:
+    post:
+      operationId: datamanager.users.remove
+      description: ''
+      tags:
+        - users
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/datamanager
+        - Oauth2c:
+            - https://www.googleapis.com/auth/datamanager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveUsersRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveUsersResponse'
+      x-google-discovery:
+        path: v1/users:remove
+        flatPath: v1/users:remove
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    AdEvent:
+      x-google-discovery-id: AdEvent
+      properties:
+        adFormat:
+          enum:
+            - AD_FORMAT_UNSPECIFIED
+            - AD_FORMAT_AR
+            - AD_FORMAT_AUDIO
+            - AD_FORMAT_BANNER
+            - AD_FORMAT_BUMPER
+            - AD_FORMAT_CAROUSEL
+            - AD_FORMAT_COLLECTION
+            - AD_FORMAT_IMAGE
+            - AD_FORMAT_INTERACTIVE
+            - AD_FORMAT_INTERSTITIAL
+            - AD_FORMAT_IN_FEED
+            - AD_FORMAT_IN_STREAM
+            - AD_FORMAT_IN_STREAM_SKIPPABLE
+            - AD_FORMAT_IN_STREAM_NON_SKIPPABLE
+            - AD_FORMAT_NATIVE
+            - AD_FORMAT_SHORTS
+            - AD_FORMAT_STORY
+            - AD_FORMAT_SPONSORED
+            - AD_FORMAT_VIDEO
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        adFormatString:
+          type: string
+        adGroupId:
+          type: string
+        adHeight:
+          format: int32
+          type: integer
+        adId:
+          type: string
+        adPlacement:
+          enum:
+            - AD_PLACEMENT_UNSPECIFIED
+            - AD_PLACEMENT_DISCOVER
+            - AD_PLACEMENT_FEED
+            - AD_PLACEMENT_FOOTER
+            - AD_PLACEMENT_HEADER
+            - AD_PLACEMENT_HOME
+            - AD_PLACEMENT_IN_CONTENT
+            - AD_PLACEMENT_PROMOTED
+            - AD_PLACEMENT_SEARCH
+            - AD_PLACEMENT_STORY
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        adPlacementString:
+          type: string
+        adType:
+          enum:
+            - AD_TYPE_UNSPECIFIED
+            - AD_TYPE_DISPLAY
+            - AD_TYPE_TEXT
+            - AD_TYPE_IMAGE
+            - AD_TYPE_RICH_MEDIA
+            - AD_TYPE_HTML
+            - AD_TYPE_AUDIO
+            - AD_TYPE_VIDEO
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        adTypeString:
+          type: string
+        adWidth:
+          format: int32
+          type: integer
+        advertiserId:
+          type: string
+        attributionHint:
+          enum:
+            - ATTRIBUTION_HINT_UNSPECIFIED
+            - ATTRIBUTION_HINT_CONVERTED
+            - ATTRIBUTION_HINT_NOT_CONVERTED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        campaignId:
+          type: string
+        campaignName:
+          type: string
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+        eventId:
+          type: string
+        eventSubtype:
+          enum:
+            - EVENT_SUBTYPE_UNSPECIFIED
+            - EVENT_SUBTYPE_IMPRESSION
+            - EVENT_SUBTYPE_ENGAGED_VIEW
+            - EVENT_SUBTYPE_ONSITE_CLICK
+            - EVENT_SUBTYPE_OUTBOUND_CLICK
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        eventSubtypeString:
+          type: string
+        eventType:
+          enum:
+            - EVENT_TYPE_UNSPECIFIED
+            - EVENT_TYPE_VIEW
+            - EVENT_TYPE_CLICK
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        ipAddress:
+          type: string
+        measurementAllowed:
+          type: boolean
+        medium:
+          type: string
+        mobileDeviceId:
+          type: string
+        platform:
+          enum:
+            - PLATFORM_UNSPECIFIED
+            - PLATFORM_IOS
+            - PLATFORM_ANDROID
+            - PLATFORM_WEB
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        platformString:
+          type: string
+        platformType:
+          enum:
+            - PLATFORM_TYPE_UNSPECIFIED
+            - PLATFORM_TYPE_MOBILE
+            - PLATFORM_TYPE_DESKTOP
+            - PLATFORM_TYPE_CTV
+            - PLATFORM_TYPE_PHONE
+            - PLATFORM_TYPE_TABLET
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        platformTypeString:
+          type: string
+        regionCode:
+          type: string
+        source:
+          type: string
+        targetingType:
+          enum:
+            - TARGETING_TYPE_UNSPECIFIED
+            - TARGETING_TYPE_AUDIENCE
+            - TARGETING_TYPE_CONTEXTUAL
+            - TARGETING_TYPE_DEMOGRAPHIC
+            - TARGETING_TYPE_DEVICE
+            - TARGETING_TYPE_GEO
+            - TARGETING_TYPE_INTEREST
+            - TARGETING_TYPE_PURCHASE_INTENT
+            - TARGETING_TYPE_REMARKETING
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        targetingTypeString:
+          type: string
+        timestamp:
+          format: google-datetime
+          type: string
+        userData:
+          $ref: '#/components/schemas/UserData'
+        viewabilityInfo:
+          $ref: '#/components/schemas/ViewabilityInfo'
+      type: object
+    AdIdentifiers:
+      x-google-discovery-id: AdIdentifiers
+      properties:
+        dclid:
+          type: string
+        encryptedUserIds:
+          items:
+            $ref: '#/components/schemas/EncryptedUserId'
+          type: array
+        gbraid:
+          type: string
+        gclid:
+          type: string
+        impressionId:
+          type: string
+        landingPageDeviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+        matchId:
+          type: string
+        mobileDeviceId:
+          type: string
+        ppid:
+          type: string
+        sessionAttributes:
+          type: string
+        visitorPpid:
+          type: string
+        wbraid:
+          type: string
+      type: object
+    AddressInfo:
+      x-google-discovery-id: AddressInfo
+      properties:
+        addressLine:
+          type: string
+        administrativeArea:
+          type: string
+        city:
+          type: string
+        familyName:
+          type: string
+        givenName:
+          type: string
+        postalCode:
+          type: string
+        regionCode:
+          type: string
+      type: object
+    AudienceMember:
+      x-google-discovery-id: AudienceMember
+      properties:
+        compositeData:
+          $ref: '#/components/schemas/CompositeData'
+        consent:
+          $ref: '#/components/schemas/Consent'
+        destinationReferences:
+          items:
+            type: string
+          type: array
+        googleUserIdData:
+          $ref: '#/components/schemas/GoogleUserIdData'
+        mobileData:
+          $ref: '#/components/schemas/MobileData'
+        pairData:
+          $ref: '#/components/schemas/PairData'
+        partnerProvidedIdData:
+          $ref: '#/components/schemas/PartnerProvidedIdData'
+        ppidData:
+          $ref: '#/components/schemas/PpidData'
+        userData:
+          $ref: '#/components/schemas/UserData'
+        userIdData:
+          $ref: '#/components/schemas/UserIdData'
+      type: object
+    AwsWrappedKeyInfo:
+      x-google-discovery-id: AwsWrappedKeyInfo
+      properties:
+        encryptedDek:
+          type: string
+        kekUri:
+          type: string
+        keyType:
+          enum:
+            - KEY_TYPE_UNSPECIFIED
+            - XCHACHA20_POLY1305
+          x-google-enum-descriptions:
+            - ''
+            - ''
+          type: string
+        roleArn:
+          type: string
+      type: object
+    Baseline:
+      x-google-discovery-id: Baseline
+      properties:
+        baselineLocation:
+          $ref: '#/components/schemas/Location'
+        locationAutoDetectionEnabled:
+          type: boolean
+      type: object
+    CartData:
+      x-google-discovery-id: CartData
+      properties:
+        couponCodes:
+          items:
+            type: string
+          type: array
+        items:
+          items:
+            $ref: '#/components/schemas/Item'
+          type: array
+        merchantFeedLabel:
+          type: string
+        merchantFeedLanguageCode:
+          type: string
+        merchantId:
+          type: string
+        transactionDiscount:
+          format: double
+          type: number
+      type: object
+    CompositeData:
+      x-google-discovery-id: CompositeData
+      properties:
+        ipData:
+          items:
+            $ref: '#/components/schemas/IpData'
+          type: array
+        userData:
+          $ref: '#/components/schemas/UserData'
+      type: object
+    Consent:
+      x-google-discovery-id: Consent
+      properties:
+        adPersonalization:
+          enum:
+            - CONSENT_STATUS_UNSPECIFIED
+            - CONSENT_GRANTED
+            - CONSENT_DENIED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        adUserData:
+          enum:
+            - CONSENT_STATUS_UNSPECIFIED
+            - CONSENT_GRANTED
+            - CONSENT_DENIED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    ContactIdInfo:
+      x-google-discovery-id: ContactIdInfo
+      properties:
+        dataSourceType:
+          enum:
+            - DATA_SOURCE_TYPE_UNSPECIFIED
+            - DATA_SOURCE_TYPE_FIRST_PARTY
+            - DATA_SOURCE_TYPE_THIRD_PARTY_CREDIT_BUREAU
+            - DATA_SOURCE_TYPE_THIRD_PARTY_VOTER_FILE
+            - DATA_SOURCE_TYPE_THIRD_PARTY_PARTNER_DATA
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        matchRatePercentage:
+          format: int32
+          readOnly: true
+          type: integer
+      type: object
+    CoordinatorKeyInfo:
+      x-google-discovery-id: CoordinatorKeyInfo
+      properties:
+        keyId:
+          type: string
+      type: object
+    CustomVariable:
+      x-google-discovery-id: CustomVariable
+      properties:
+        destinationReferences:
+          items:
+            type: string
+          type: array
+        value:
+          type: string
+        variable:
+          type: string
+      type: object
+    DataTypeCount:
+      x-google-discovery-id: DataTypeCount
+      properties:
+        count:
+          format: int64
+          type: string
+        type:
+          enum:
+            - DATA_TYPE_UNSPECIFIED
+            - EMAIL
+            - PHONE_NUMBER
+            - ADDRESS
+            - IP_ADDRESS
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    Destination:
+      x-google-discovery-id: Destination
+      properties:
+        linkedAccount:
+          $ref: '#/components/schemas/ProductAccount'
+        loginAccount:
+          $ref: '#/components/schemas/ProductAccount'
+        operatingAccount:
+          $ref: '#/components/schemas/ProductAccount'
+        productDestinationId:
+          type: string
+        reference:
+          type: string
+      type: object
+    DeviceInfo:
+      x-google-discovery-id: DeviceInfo
+      properties:
+        brand:
+          type: string
+        browser:
+          type: string
+        browserVersion:
+          type: string
+        category:
+          type: string
+        ipAddress:
+          type: string
+        languageCode:
+          type: string
+        model:
+          type: string
+        operatingSystem:
+          type: string
+        operatingSystemVersion:
+          type: string
+        screenHeight:
+          format: int32
+          type: integer
+        screenWidth:
+          format: int32
+          type: integer
+        userAgent:
+          type: string
+      type: object
+    Empty:
+      x-google-discovery-id: Empty
+      properties: {}
+      type: object
+    EncryptedUserId:
+      x-google-discovery-id: EncryptedUserId
+      properties:
+        encryptedId:
+          type: string
+        entityId:
+          format: int64
+          type: string
+        entityType:
+          enum:
+            - ENCRYPTION_ENTITY_TYPE_UNSPECIFIED
+            - CAMPAIGN_MANAGER_ACCOUNT
+            - CAMPAIGN_MANAGER_ADVERTISER
+            - DISPLAY_VIDEO_PARTNER
+            - DISPLAY_VIDEO_ADVERTISER
+            - GOOGLE_ADS_CUSTOMER
+            - GOOGLE_AD_MANAGER_NETWORK_CODE
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        source:
+          enum:
+            - ENCRYPTION_SOURCE_UNSPECIFIED
+            - AD_SERVING
+            - DATA_TRANSFER
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    EncryptionInfo:
+      x-google-discovery-id: EncryptionInfo
+      properties:
+        awsWrappedKeyInfo:
+          $ref: '#/components/schemas/AwsWrappedKeyInfo'
+        coordinatorKeyInfo:
+          $ref: '#/components/schemas/CoordinatorKeyInfo'
+        gcpWrappedKeyInfo:
+          $ref: '#/components/schemas/GcpWrappedKeyInfo'
+      type: object
+    ErrorCount:
+      x-google-discovery-id: ErrorCount
+      properties:
+        reason:
+          enum:
+            - PROCESSING_ERROR_REASON_UNSPECIFIED
+            - PROCESSING_ERROR_REASON_INVALID_CUSTOM_VARIABLE
+            - PROCESSING_ERROR_REASON_CUSTOM_VARIABLE_NOT_ENABLED
+            - PROCESSING_ERROR_REASON_EVENT_TOO_OLD
+            - PROCESSING_ERROR_REASON_DENIED_CONSENT
+            - PROCESSING_ERROR_REASON_NO_CONSENT
+            - PROCESSING_ERROR_REASON_UNKNOWN_CONSENT
+            - PROCESSING_ERROR_REASON_DUPLICATE_GCLID
+            - PROCESSING_ERROR_REASON_DUPLICATE_TRANSACTION_ID
+            - PROCESSING_ERROR_REASON_INVALID_GBRAID
+            - PROCESSING_ERROR_REASON_INVALID_GCLID
+            - PROCESSING_ERROR_REASON_INVALID_MERCHANT_ID
+            - PROCESSING_ERROR_REASON_INVALID_WBRAID
+            - PROCESSING_ERROR_REASON_INTERNAL_ERROR
+            - PROCESSING_ERROR_REASON_DESTINATION_ACCOUNT_ENHANCED_CONVERSIONS_TERMS_NOT_SIGNED
+            - PROCESSING_ERROR_REASON_INVALID_EVENT
+            - PROCESSING_ERROR_REASON_INSUFFICIENT_MATCHED_TRANSACTIONS
+            - PROCESSING_ERROR_REASON_INSUFFICIENT_TRANSACTIONS
+            - PROCESSING_ERROR_REASON_INVALID_FORMAT
+            - PROCESSING_ERROR_REASON_DECRYPTION_ERROR
+            - PROCESSING_ERROR_REASON_DEK_DECRYPTION_ERROR
+            - PROCESSING_ERROR_REASON_INVALID_WIP
+            - PROCESSING_ERROR_REASON_INVALID_KEK
+            - PROCESSING_ERROR_REASON_WIP_AUTH_FAILED
+            - PROCESSING_ERROR_REASON_KEK_PERMISSION_DENIED
+            - PROCESSING_ERROR_REASON_AWS_AUTH_FAILED
+            - PROCESSING_ERROR_REASON_USER_IDENTIFIER_DECRYPTION_ERROR
+            - PROCESSING_ERROR_OPERATING_ACCOUNT_MISMATCH_FOR_AD_IDENTIFIER
+            - PROCESSING_ERROR_REASON_ONE_PER_CLICK_CONVERSION_ACTION_NOT_PERMITTED_WITH_BRAID
+            - PROCESSING_ERROR_REASON_MATCH_ID_NOT_FOUND
+            - PROCESSING_ERROR_REASON_USER_ID_NOT_FOUND_FOR_MATCH_ID
+            - PROCESSING_ERROR_REASON_USER_ID_NOT_FOUND_FOR_GCLID
+            - PROCESSING_ERROR_REASON_USER_ID_NOT_FOUND_FOR_DCLID
+            - PROCESSING_ERROR_REASON_INVALID_AD_IDENTIFIERS
+            - PROCESSING_ERROR_REASON_INVALID_MOBILE_ID_FORMAT
+            - PROCESSING_ERROR_REASON_ORIGINAL_CONVERSIONS_NOT_FOUND
+            - PROCESSING_ERROR_REASON_EVENT_ID_DECODE_ERROR
+            - PROCESSING_ERROR_REASON_USER_ID_NOT_FOUND_FOR_IMPRESSION_ID
+            - PROCESSING_ERROR_REASON_USER_ID_NOT_FOUND
+            - PROCESSING_ERROR_REASON_CONVERSION_PRECEDES_CLICK
+            - PROCESSING_ERROR_REASON_TOO_RECENT_CLICK
+            - PROCESSING_ERROR_REASON_INVALID_CLICK
+            - PROCESSING_ERROR_REASON_INVALID_OPERATING_ACCOUNT_FOR_CLICK
+            - PROCESSING_ERROR_REASON_CLICK_NOT_FOUND
+            - PROCESSING_ERROR_REASON_EXTERNAL_ATTRIBUTION_DATA_MISSING
+            - PROCESSING_ERROR_REASON_DESTINATION_TOO_RECENTLY_CREATED
+            - PROCESSING_ERROR_REASON_EXPIRED_CLICK
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    ErrorInfo:
+      x-google-discovery-id: ErrorInfo
+      properties:
+        errorCounts:
+          items:
+            $ref: '#/components/schemas/ErrorCount'
+          type: array
+      type: object
+    Event:
+      x-google-discovery-id: Event
+      properties:
+        adIdentifiers:
+          $ref: '#/components/schemas/AdIdentifiers'
+        additionalEventParameters:
+          items:
+            $ref: '#/components/schemas/EventParameter'
+          type: array
+        appInstanceId:
+          type: string
+        cartData:
+          $ref: '#/components/schemas/CartData'
+        clientId:
+          type: string
+        consent:
+          $ref: '#/components/schemas/Consent'
+        conversionCount:
+          format: double
+          type: number
+        conversionValue:
+          format: double
+          type: number
+        currency:
+          type: string
+        customVariables:
+          items:
+            $ref: '#/components/schemas/CustomVariable'
+          type: array
+        destinationReferences:
+          items:
+            type: string
+          type: array
+        eventDeviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+        eventLocation:
+          $ref: '#/components/schemas/EventLocation'
+        eventName:
+          type: string
+        eventSource:
+          enum:
+            - EVENT_SOURCE_UNSPECIFIED
+            - WEB
+            - APP
+            - IN_STORE
+            - PHONE
+            - MESSAGE
+            - OTHER
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        eventTimestamp:
+          format: google-datetime
+          type: string
+        experimentalFields:
+          items:
+            $ref: '#/components/schemas/ExperimentalField'
+          type: array
+        lastUpdatedTimestamp:
+          format: google-datetime
+          type: string
+        thirdPartyUserData:
+          $ref: '#/components/schemas/UserData'
+        transactionId:
+          type: string
+        userData:
+          $ref: '#/components/schemas/UserData'
+        userId:
+          type: string
+        userProperties:
+          $ref: '#/components/schemas/UserProperties'
+      type: object
+    EventLocation:
+      x-google-discovery-id: EventLocation
+      properties:
+        city:
+          type: string
+        continentCode:
+          type: string
+        regionCode:
+          type: string
+        storeId:
+          type: string
+        subcontinentCode:
+          type: string
+        subdivisionCode:
+          type: string
+      type: object
+    EventParameter:
+      x-google-discovery-id: EventParameter
+      properties:
+        parameterName:
+          type: string
+        value:
+          type: string
+      type: object
+    ExperimentalField:
+      x-google-discovery-id: ExperimentalField
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+      type: object
+    FieldWarning:
+      x-google-discovery-id: FieldWarning
+      properties:
+        description:
+          type: string
+        field:
+          type: string
+        reason:
+          enum:
+            - WARNING_REASON_UNSPECIFIED
+            - WARNING_REASON_CUSTOM_VARIABLE_NOT_ENABLED
+            - WARNING_REASON_CUSTOM_VARIABLE_NOT_PREDEFINED
+            - WARNING_REASON_CART_DATA_NOT_SUPPORTED_WITH_GBRAID_OR_WBRAID
+            - WARNING_REASON_CART_DATA_ITEM_MERCHANT_PRODUCT_ID_MISSING
+            - WARNING_REASON_CART_DATA_ITEM_UNIT_PRICE_MISSING
+            - WARNING_REASON_GENERIC
+            - WARNING_REASON_INVALID_CLIENT_ID
+            - WARNING_REASON_INVALID_SUBDIVISION_CODE
+            - WARNING_REASON_INVALID_REGION_CODE
+            - WARNING_REASON_INVALID_SUBCONTINENT_CODE
+            - WARNING_REASON_INVALID_CONTINENT_CODE
+            - WARNING_REASON_INVALID_DEVICE_CATEGORY
+            - WARNING_REASON_INVALID_DEVICE_SCREEN_RESOLUTION
+            - WARNING_REASON_INVALID_MERCHANT_ID
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    GcpWrappedKeyInfo:
+      x-google-discovery-id: GcpWrappedKeyInfo
+      properties:
+        encryptedDek:
+          type: string
+        kekUri:
+          type: string
+        keyType:
+          enum:
+            - KEY_TYPE_UNSPECIFIED
+            - XCHACHA20_POLY1305
+          x-google-enum-descriptions:
+            - ''
+            - ''
+          type: string
+        wipProvider:
+          type: string
+      type: object
+    GoogleUserIdData:
+      x-google-discovery-id: GoogleUserIdData
+      properties:
+        googleUserIds:
+          items:
+            type: string
+          type: array
+      type: object
+    IngestAdEventsRequest:
+      x-google-discovery-id: IngestAdEventsRequest
+      properties:
+        adEvents:
+          items:
+            $ref: '#/components/schemas/AdEvent'
+          type: array
+        encryptionInfo:
+          $ref: '#/components/schemas/EncryptionInfo'
+        validateOnly:
+          deprecated: true
+          type: boolean
+      type: object
+    IngestAdEventsResponse:
+      x-google-discovery-id: IngestAdEventsResponse
+      properties: {}
+      type: object
+    IngestAudienceMembersRequest:
+      x-google-discovery-id: IngestAudienceMembersRequest
+      properties:
+        audienceMembers:
+          items:
+            $ref: '#/components/schemas/AudienceMember'
+          type: array
+        consent:
+          $ref: '#/components/schemas/Consent'
+        destinations:
+          items:
+            $ref: '#/components/schemas/Destination'
+          type: array
+        encoding:
+          enum:
+            - ENCODING_UNSPECIFIED
+            - HEX
+            - BASE64
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        encryptionInfo:
+          $ref: '#/components/schemas/EncryptionInfo'
+        termsOfService:
+          $ref: '#/components/schemas/TermsOfService'
+        validateOnly:
+          type: boolean
+      type: object
+    IngestAudienceMembersResponse:
+      x-google-discovery-id: IngestAudienceMembersResponse
+      properties:
+        fieldWarnings:
+          items:
+            $ref: '#/components/schemas/FieldWarning'
+          type: array
+        requestId:
+          type: string
+      type: object
+    IngestAudienceMembersStatus:
+      x-google-discovery-id: IngestAudienceMembersStatus
+      properties:
+        compositeDataIngestionStatus:
+          $ref: '#/components/schemas/IngestCompositeDataStatus'
+        googleUserIdDataIngestionStatus:
+          $ref: '#/components/schemas/IngestGoogleUserIdDataStatus'
+        mobileDataIngestionStatus:
+          $ref: '#/components/schemas/IngestMobileDataStatus'
+        pairDataIngestionStatus:
+          $ref: '#/components/schemas/IngestPairDataStatus'
+        partnerProvidedIdDataIngestionStatus:
+          $ref: '#/components/schemas/IngestPartnerProvidedIdDataStatus'
+        ppidDataIngestionStatus:
+          $ref: '#/components/schemas/IngestPpidDataStatus'
+        userDataIngestionStatus:
+          $ref: '#/components/schemas/IngestUserDataStatus'
+        userIdDataIngestionStatus:
+          $ref: '#/components/schemas/IngestUserIdDataStatus'
+      type: object
+    IngestCompositeDataStatus:
+      x-google-discovery-id: IngestCompositeDataStatus
+      properties:
+        dataTypeCounts:
+          items:
+            $ref: '#/components/schemas/DataTypeCount'
+          type: array
+        recordCount:
+          format: int64
+          type: string
+        uploadMatchRateRange:
+          enum:
+            - MATCH_RATE_RANGE_UNKNOWN
+            - MATCH_RATE_RANGE_NOT_ELIGIBLE
+            - MATCH_RATE_RANGE_LESS_THAN_20
+            - MATCH_RATE_RANGE_20_TO_30
+            - MATCH_RATE_RANGE_31_TO_40
+            - MATCH_RATE_RANGE_41_TO_50
+            - MATCH_RATE_RANGE_51_TO_60
+            - MATCH_RATE_RANGE_61_TO_70
+            - MATCH_RATE_RANGE_71_TO_80
+            - MATCH_RATE_RANGE_81_TO_90
+            - MATCH_RATE_RANGE_91_TO_100
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    IngestEventsRequest:
+      x-google-discovery-id: IngestEventsRequest
+      properties:
+        consent:
+          $ref: '#/components/schemas/Consent'
+        destinations:
+          items:
+            $ref: '#/components/schemas/Destination'
+          type: array
+        encoding:
+          enum:
+            - ENCODING_UNSPECIFIED
+            - HEX
+            - BASE64
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        encryptionInfo:
+          $ref: '#/components/schemas/EncryptionInfo'
+        events:
+          items:
+            $ref: '#/components/schemas/Event'
+          type: array
+        validateOnly:
+          type: boolean
+      type: object
+    IngestEventsResponse:
+      x-google-discovery-id: IngestEventsResponse
+      properties:
+        fieldWarnings:
+          items:
+            $ref: '#/components/schemas/FieldWarning'
+          type: array
+        requestId:
+          type: string
+      type: object
+    IngestEventsStatus:
+      x-google-discovery-id: IngestEventsStatus
+      properties:
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    IngestGoogleUserIdDataStatus:
+      x-google-discovery-id: IngestGoogleUserIdDataStatus
+      properties:
+        googleUserIdCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    IngestMobileDataStatus:
+      x-google-discovery-id: IngestMobileDataStatus
+      properties:
+        mobileIdCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    IngestPairDataStatus:
+      x-google-discovery-id: IngestPairDataStatus
+      properties:
+        pairIdCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    IngestPartnerProvidedIdDataStatus:
+      x-google-discovery-id: IngestPartnerProvidedIdDataStatus
+      properties:
+        partnerProvidedIdCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    IngestPpidDataStatus:
+      x-google-discovery-id: IngestPpidDataStatus
+      properties:
+        ppidCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    IngestUserDataStatus:
+      x-google-discovery-id: IngestUserDataStatus
+      properties:
+        recordCount:
+          format: int64
+          type: string
+        uploadMatchRateRange:
+          enum:
+            - MATCH_RATE_RANGE_UNKNOWN
+            - MATCH_RATE_RANGE_NOT_ELIGIBLE
+            - MATCH_RATE_RANGE_LESS_THAN_20
+            - MATCH_RATE_RANGE_20_TO_30
+            - MATCH_RATE_RANGE_31_TO_40
+            - MATCH_RATE_RANGE_41_TO_50
+            - MATCH_RATE_RANGE_51_TO_60
+            - MATCH_RATE_RANGE_61_TO_70
+            - MATCH_RATE_RANGE_71_TO_80
+            - MATCH_RATE_RANGE_81_TO_90
+            - MATCH_RATE_RANGE_91_TO_100
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        userIdentifierCount:
+          format: int64
+          type: string
+      type: object
+    IngestUserIdDataStatus:
+      x-google-discovery-id: IngestUserIdDataStatus
+      properties:
+        recordCount:
+          format: int64
+          type: string
+        userIdCount:
+          format: int64
+          type: string
+      type: object
+    IngestUsersRequest:
+      x-google-discovery-id: IngestUsersRequest
+      properties:
+        destinations:
+          items:
+            $ref: '#/components/schemas/Destination'
+          type: array
+        encoding:
+          enum:
+            - ENCODING_UNSPECIFIED
+            - HEX
+            - BASE64
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        encryptionInfo:
+          $ref: '#/components/schemas/EncryptionInfo'
+        users:
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+        validateOnly:
+          type: boolean
+      type: object
+    IngestUsersResponse:
+      x-google-discovery-id: IngestUsersResponse
+      properties:
+        requestId:
+          type: string
+      type: object
+    IngestedUserListInfo:
+      x-google-discovery-id: IngestedUserListInfo
+      properties:
+        contactIdInfo:
+          $ref: '#/components/schemas/ContactIdInfo'
+        mobileIdInfo:
+          $ref: '#/components/schemas/MobileIdInfo'
+        pairIdInfo:
+          $ref: '#/components/schemas/PairIdInfo'
+        partnerAudienceInfo:
+          $ref: '#/components/schemas/PartnerAudienceInfo'
+        pseudonymousIdInfo:
+          $ref: '#/components/schemas/PseudonymousIdInfo'
+        uploadKeyTypes:
+          items:
+            enum:
+              - UPLOAD_KEY_TYPE_UNSPECIFIED
+              - CONTACT_ID
+              - MOBILE_ID
+              - USER_ID
+              - PAIR_ID
+              - PSEUDONYMOUS_ID
+            x-google-enum-descriptions:
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+              - ''
+            type: string
+          type: array
+        userIdInfo:
+          $ref: '#/components/schemas/UserIdInfo'
+      type: object
+    IpData:
+      x-google-discovery-id: IpData
+      properties:
+        ipAddress:
+          type: string
+        observeEndTime:
+          format: google-datetime
+          type: string
+        observeStartTime:
+          format: google-datetime
+          type: string
+      type: object
+    Item:
+      x-google-discovery-id: Item
+      properties:
+        additionalItemParameters:
+          items:
+            $ref: '#/components/schemas/ItemParameter'
+          type: array
+        conversionValue:
+          format: double
+          type: number
+        customVariables:
+          items:
+            $ref: '#/components/schemas/ItemCustomVariable'
+          type: array
+        itemId:
+          type: string
+        merchantFeedLabel:
+          type: string
+        merchantFeedLanguageCode:
+          type: string
+        merchantId:
+          type: string
+        merchantProductId:
+          type: string
+        quantity:
+          format: int64
+          type: string
+        unitPrice:
+          format: double
+          type: number
+      type: object
+    ItemCustomVariable:
+      x-google-discovery-id: ItemCustomVariable
+      properties:
+        destinationReferences:
+          items:
+            type: string
+          type: array
+        value:
+          type: string
+        variable:
+          type: string
+      type: object
+    ItemParameter:
+      x-google-discovery-id: ItemParameter
+      properties:
+        parameterName:
+          type: string
+        value:
+          type: string
+      type: object
+    ListUserListDirectLicensesResponse:
+      x-google-discovery-id: ListUserListDirectLicensesResponse
+      properties:
+        nextPageToken:
+          type: string
+        userListDirectLicenses:
+          items:
+            $ref: '#/components/schemas/UserListDirectLicense'
+          type: array
+      type: object
+    ListUserListGlobalLicenseCustomerInfosResponse:
+      x-google-discovery-id: ListUserListGlobalLicenseCustomerInfosResponse
+      properties:
+        nextPageToken:
+          type: string
+        userListGlobalLicenseCustomerInfos:
+          items:
+            $ref: '#/components/schemas/UserListGlobalLicenseCustomerInfo'
+          type: array
+      type: object
+    ListUserListGlobalLicensesResponse:
+      x-google-discovery-id: ListUserListGlobalLicensesResponse
+      properties:
+        nextPageToken:
+          type: string
+        userListGlobalLicenses:
+          items:
+            $ref: '#/components/schemas/UserListGlobalLicense'
+          type: array
+      type: object
+    ListUserListsResponse:
+      x-google-discovery-id: ListUserListsResponse
+      properties:
+        nextPageToken:
+          type: string
+        userLists:
+          items:
+            $ref: '#/components/schemas/UserList'
+          type: array
+      type: object
+    Location:
+      x-google-discovery-id: Location
+      properties:
+        regionCodes:
+          items:
+            type: string
+          type: array
+      type: object
+    MarketingDataInsight:
+      x-google-discovery-id: MarketingDataInsight
+      properties:
+        attributes:
+          items:
+            $ref: '#/components/schemas/MarketingDataInsightsAttribute'
+          type: array
+        dimension:
+          enum:
+            - AUDIENCE_INSIGHTS_DIMENSION_UNSPECIFIED
+            - AUDIENCE_INSIGHTS_DIMENSION_UNKNOWN
+            - AFFINITY_USER_INTEREST
+            - IN_MARKET_USER_INTEREST
+            - AGE_RANGE
+            - GENDER
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    MarketingDataInsightsAttribute:
+      x-google-discovery-id: MarketingDataInsightsAttribute
+      properties:
+        ageRange:
+          enum:
+            - AGE_RANGE_UNSPECIFIED
+            - AGE_RANGE_UNKNOWN
+            - AGE_RANGE_18_24
+            - AGE_RANGE_25_34
+            - AGE_RANGE_35_44
+            - AGE_RANGE_45_54
+            - AGE_RANGE_55_64
+            - AGE_RANGE_65_UP
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        gender:
+          enum:
+            - GENDER_UNSPECIFIED
+            - GENDER_UNKNOWN
+            - GENDER_MALE
+            - GENDER_FEMALE
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        lift:
+          format: float
+          type: number
+        userInterestId:
+          format: int64
+          type: string
+      type: object
+    MobileData:
+      x-google-discovery-id: MobileData
+      properties:
+        mobileIds:
+          items:
+            type: string
+          type: array
+      type: object
+    MobileIdInfo:
+      x-google-discovery-id: MobileIdInfo
+      properties:
+        appId:
+          type: string
+        dataSourceType:
+          enum:
+            - DATA_SOURCE_TYPE_UNSPECIFIED
+            - DATA_SOURCE_TYPE_FIRST_PARTY
+            - DATA_SOURCE_TYPE_THIRD_PARTY_CREDIT_BUREAU
+            - DATA_SOURCE_TYPE_THIRD_PARTY_VOTER_FILE
+            - DATA_SOURCE_TYPE_THIRD_PARTY_PARTNER_DATA
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        keySpace:
+          enum:
+            - KEY_SPACE_UNSPECIFIED
+            - IOS
+            - ANDROID
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    PairData:
+      x-google-discovery-id: PairData
+      properties:
+        pairIds:
+          items:
+            type: string
+          type: array
+      type: object
+    PairIdInfo:
+      x-google-discovery-id: PairIdInfo
+      properties:
+        advertiserIdentifierCount:
+          format: int64
+          type: string
+        cleanRoomIdentifier:
+          type: string
+        matchRatePercentage:
+          format: int32
+          type: integer
+        publisherId:
+          format: int64
+          type: string
+        publisherName:
+          type: string
+      type: object
+    PartnerAudienceInfo:
+      x-google-discovery-id: PartnerAudienceInfo
+      properties:
+        commercePartner:
+          type: string
+        partnerAudienceSource:
+          enum:
+            - PARTNER_AUDIENCE_SOURCE_UNSPECIFIED
+            - COMMERCE_AUDIENCE
+            - LINEAR_TV_AUDIENCE
+            - AGENCY_PROVIDER_AUDIENCE
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    PartnerCustomerAccount:
+      x-google-discovery-id: PartnerCustomerAccount
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        accountType:
+          type: string
+      type: object
+    PartnerLink:
+      x-google-discovery-id: PartnerLink
+      properties:
+        featureSet:
+          enum:
+            - FEATURE_SET_UNSPECIFIED
+            - FEATURE_SET_AUDIENCE_AND_EVENT_MANAGEMENT
+            - FEATURE_SET_AD_EVENT_MANAGEMENT
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        name:
+          type: string
+        owningAccount:
+          $ref: '#/components/schemas/ProductAccount'
+        partnerAccount:
+          $ref: '#/components/schemas/ProductAccount'
+        partnerCustomerAccount:
+          $ref: '#/components/schemas/PartnerCustomerAccount'
+        partnerLinkId:
+          readOnly: true
+          type: string
+        partnerLinkMetadata:
+          $ref: '#/components/schemas/PartnerLinkMetadata'
+      type: object
+    PartnerLinkMetadata:
+      x-google-discovery-id: PartnerLinkMetadata
+      properties:
+        implicitAccounts:
+          items:
+            $ref: '#/components/schemas/PartnerCustomerAccount'
+          type: array
+      type: object
+    PartnerProvidedIdData:
+      x-google-discovery-id: PartnerProvidedIdData
+      properties:
+        partnerProvidedIds:
+          items:
+            type: string
+          type: array
+      type: object
+    PpidData:
+      x-google-discovery-id: PpidData
+      properties:
+        ppids:
+          items:
+            type: string
+          type: array
+      type: object
+    ProductAccount:
+      x-google-discovery-id: ProductAccount
+      properties:
+        accountId:
+          type: string
+        accountType:
+          enum:
+            - ACCOUNT_TYPE_UNSPECIFIED
+            - GOOGLE_ADS
+            - DISPLAY_VIDEO_PARTNER
+            - DISPLAY_VIDEO_ADVERTISER
+            - DATA_PARTNER
+            - GOOGLE_ANALYTICS_PROPERTY
+            - GOOGLE_AD_MANAGER_AUDIENCE_LINK
+            - FLOODLIGHT_CONFIG
+            - GOOGLE_AD_MANAGER
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        product:
+          deprecated: true
+          enum:
+            - PRODUCT_UNSPECIFIED
+            - GOOGLE_ADS
+            - DISPLAY_VIDEO_PARTNER
+            - DISPLAY_VIDEO_ADVERTISER
+            - DATA_PARTNER
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    PseudonymousIdInfo:
+      x-google-discovery-id: PseudonymousIdInfo
+      properties:
+        billableRecordCount:
+          format: int64
+          type: string
+        syncStatus:
+          enum:
+            - SYNC_STATUS_UNSPECIFIED
+            - CREATED
+            - READY_FOR_USE
+            - FAILED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          readOnly: true
+          type: string
+      type: object
+    RemoveAllAudienceMembersRequest:
+      x-google-discovery-id: RemoveAllAudienceMembersRequest
+      properties:
+        destinations:
+          items:
+            $ref: '#/components/schemas/Destination'
+          type: array
+        removeAsOfTime:
+          format: google-datetime
+          type: string
+        validateOnly:
+          type: boolean
+      type: object
+    RemoveAllAudienceMembersResponse:
+      x-google-discovery-id: RemoveAllAudienceMembersResponse
+      properties:
+        requestId:
+          type: string
+      type: object
+    RemoveAllAudienceMembersStatus:
+      x-google-discovery-id: RemoveAllAudienceMembersStatus
+      properties: {}
+      type: object
+    RemoveAudienceMembersRequest:
+      x-google-discovery-id: RemoveAudienceMembersRequest
+      properties:
+        audienceMembers:
+          items:
+            $ref: '#/components/schemas/AudienceMember'
+          type: array
+        destinations:
+          items:
+            $ref: '#/components/schemas/Destination'
+          type: array
+        encoding:
+          enum:
+            - ENCODING_UNSPECIFIED
+            - HEX
+            - BASE64
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        encryptionInfo:
+          $ref: '#/components/schemas/EncryptionInfo'
+        validateOnly:
+          type: boolean
+      type: object
+    RemoveAudienceMembersResponse:
+      x-google-discovery-id: RemoveAudienceMembersResponse
+      properties:
+        requestId:
+          type: string
+      type: object
+    RemoveAudienceMembersStatus:
+      x-google-discovery-id: RemoveAudienceMembersStatus
+      properties:
+        compositeDataRemovalStatus:
+          $ref: '#/components/schemas/RemoveCompositeDataStatus'
+        googleUserIdDataRemovalStatus:
+          $ref: '#/components/schemas/RemoveGoogleUserIdDataStatus'
+        mobileDataRemovalStatus:
+          $ref: '#/components/schemas/RemoveMobileDataStatus'
+        pairDataRemovalStatus:
+          $ref: '#/components/schemas/RemovePairDataStatus'
+        partnerProvidedIdDataRemovalStatus:
+          $ref: '#/components/schemas/RemovePartnerProvidedIdDataStatus'
+        ppidDataRemovalStatus:
+          $ref: '#/components/schemas/RemovePpidDataStatus'
+        userDataRemovalStatus:
+          $ref: '#/components/schemas/RemoveUserDataStatus'
+        userIdDataRemovalStatus:
+          $ref: '#/components/schemas/RemoveUserIdDataStatus'
+      type: object
+    RemoveCompositeDataStatus:
+      x-google-discovery-id: RemoveCompositeDataStatus
+      properties:
+        dataTypeCounts:
+          items:
+            $ref: '#/components/schemas/DataTypeCount'
+          type: array
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    RemoveGoogleUserIdDataStatus:
+      x-google-discovery-id: RemoveGoogleUserIdDataStatus
+      properties:
+        googleUserIdCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    RemoveMobileDataStatus:
+      x-google-discovery-id: RemoveMobileDataStatus
+      properties:
+        mobileIdCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    RemovePairDataStatus:
+      x-google-discovery-id: RemovePairDataStatus
+      properties:
+        pairIdCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    RemovePartnerProvidedIdDataStatus:
+      x-google-discovery-id: RemovePartnerProvidedIdDataStatus
+      properties:
+        partnerProvidedIdCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    RemovePpidDataStatus:
+      x-google-discovery-id: RemovePpidDataStatus
+      properties:
+        ppidCount:
+          format: int64
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    RemoveUserDataStatus:
+      x-google-discovery-id: RemoveUserDataStatus
+      properties:
+        recordCount:
+          format: int64
+          type: string
+        userIdentifierCount:
+          format: int64
+          type: string
+      type: object
+    RemoveUserIdDataStatus:
+      x-google-discovery-id: RemoveUserIdDataStatus
+      properties:
+        recordCount:
+          format: int64
+          type: string
+        userIdCount:
+          format: int64
+          type: string
+      type: object
+    RemoveUsersRequest:
+      x-google-discovery-id: RemoveUsersRequest
+      properties:
+        destinations:
+          items:
+            $ref: '#/components/schemas/Destination'
+          type: array
+        encoding:
+          enum:
+            - ENCODING_UNSPECIFIED
+            - HEX
+            - BASE64
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        encryptionInfo:
+          $ref: '#/components/schemas/EncryptionInfo'
+        userData:
+          items:
+            $ref: '#/components/schemas/UserData'
+          type: array
+        validateOnly:
+          type: boolean
+      type: object
+    RemoveUsersResponse:
+      x-google-discovery-id: RemoveUsersResponse
+      properties:
+        requestId:
+          type: string
+      type: object
+    RequestStatusPerDestination:
+      x-google-discovery-id: RequestStatusPerDestination
+      properties:
+        audienceMembersIngestionStatus:
+          $ref: '#/components/schemas/IngestAudienceMembersStatus'
+        audienceMembersRemovalStatus:
+          $ref: '#/components/schemas/RemoveAudienceMembersStatus'
+        destination:
+          $ref: '#/components/schemas/Destination'
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        eventsIngestionStatus:
+          $ref: '#/components/schemas/IngestEventsStatus'
+        removeAllAudienceMembersStatus:
+          $ref: '#/components/schemas/RemoveAllAudienceMembersStatus'
+        requestStatus:
+          enum:
+            - REQUEST_STATUS_UNKNOWN
+            - SUCCESS
+            - PROCESSING
+            - FAILED
+            - PARTIAL_SUCCESS
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        warningInfo:
+          $ref: '#/components/schemas/WarningInfo'
+      type: object
+    RetrieveInsightsRequest:
+      x-google-discovery-id: RetrieveInsightsRequest
+      properties:
+        baseline:
+          $ref: '#/components/schemas/Baseline'
+        userListId:
+          type: string
+      type: object
+    RetrieveInsightsResponse:
+      x-google-discovery-id: RetrieveInsightsResponse
+      properties:
+        marketingDataInsights:
+          items:
+            $ref: '#/components/schemas/MarketingDataInsight'
+          type: array
+      type: object
+    RetrieveRequestStatusResponse:
+      x-google-discovery-id: RetrieveRequestStatusResponse
+      properties:
+        requestStatusPerDestination:
+          items:
+            $ref: '#/components/schemas/RequestStatusPerDestination'
+          type: array
+      type: object
+    SearchPartnerLinksResponse:
+      x-google-discovery-id: SearchPartnerLinksResponse
+      properties:
+        nextPageToken:
+          type: string
+        partnerLinks:
+          items:
+            $ref: '#/components/schemas/PartnerLink'
+          type: array
+      type: object
+    SizeInfo:
+      x-google-discovery-id: SizeInfo
+      properties:
+        displayNetworkMembersCount:
+          format: int64
+          readOnly: true
+          type: string
+        gmailMembersCount:
+          format: int64
+          readOnly: true
+          type: string
+        searchNetworkMembersCount:
+          format: int64
+          readOnly: true
+          type: string
+        youtubeMembersCount:
+          format: int64
+          readOnly: true
+          type: string
+      type: object
+    Status:
+      x-google-discovery-id: Status
+      properties:
+        code:
+          format: int32
+          type: integer
+        details:
+          items:
+            additionalProperties:
+              description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
+            type: object
+          type: array
+        message:
+          type: string
+      type: object
+    TargetNetworkInfo:
+      x-google-discovery-id: TargetNetworkInfo
+      properties:
+        eligibleForDisplay:
+          readOnly: true
+          type: boolean
+        eligibleForSearch:
+          type: boolean
+      type: object
+    TermsOfService:
+      x-google-discovery-id: TermsOfService
+      properties:
+        customerMatchTermsOfServiceStatus:
+          enum:
+            - TERMS_OF_SERVICE_STATUS_UNSPECIFIED
+            - ACCEPTED
+            - REJECTED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    User:
+      x-google-discovery-id: User
+      properties:
+        mobileData:
+          $ref: '#/components/schemas/MobileData'
+        userData:
+          $ref: '#/components/schemas/UserData'
+      type: object
+    UserData:
+      x-google-discovery-id: UserData
+      properties:
+        userIdentifiers:
+          items:
+            $ref: '#/components/schemas/UserIdentifier'
+          type: array
+      type: object
+    UserIdData:
+      x-google-discovery-id: UserIdData
+      properties:
+        userId:
+          type: string
+      type: object
+    UserIdInfo:
+      x-google-discovery-id: UserIdInfo
+      properties:
+        dataSourceType:
+          enum:
+            - DATA_SOURCE_TYPE_UNSPECIFIED
+            - DATA_SOURCE_TYPE_FIRST_PARTY
+            - DATA_SOURCE_TYPE_THIRD_PARTY_CREDIT_BUREAU
+            - DATA_SOURCE_TYPE_THIRD_PARTY_VOTER_FILE
+            - DATA_SOURCE_TYPE_THIRD_PARTY_PARTNER_DATA
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    UserIdentifier:
+      x-google-discovery-id: UserIdentifier
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressInfo'
+        emailAddress:
+          type: string
+        phoneNumber:
+          type: string
+      type: object
+    UserList:
+      x-google-discovery-id: UserList
+      properties:
+        accessReason:
+          enum:
+            - ACCESS_REASON_UNSPECIFIED
+            - OWNED
+            - SHARED
+            - LICENSED
+            - SUBSCRIBED
+            - AFFILIATED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          readOnly: true
+          type: string
+        accountAccessStatus:
+          enum:
+            - ACCESS_STATUS_UNSPECIFIED
+            - ENABLED
+            - DISABLED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        closingReason:
+          enum:
+            - CLOSING_REASON_UNSPECIFIED
+            - UNUSED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+          readOnly: true
+          type: string
+        description:
+          type: string
+        displayName:
+          type: string
+        id:
+          format: int64
+          readOnly: true
+          type: string
+        ingestedUserListInfo:
+          $ref: '#/components/schemas/IngestedUserListInfo'
+        integrationCode:
+          type: string
+        membershipDuration:
+          format: google-duration
+          type: string
+        membershipStatus:
+          enum:
+            - MEMBERSHIP_STATUS_UNSPECIFIED
+            - OPEN
+            - CLOSED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        name:
+          type: string
+        readOnly:
+          readOnly: true
+          type: boolean
+        sizeInfo:
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/SizeInfo'
+        targetNetworkInfo:
+          $ref: '#/components/schemas/TargetNetworkInfo'
+      type: object
+    UserListDirectLicense:
+      x-google-discovery-id: UserListDirectLicense
+      properties:
+        clientAccountDisplayName:
+          readOnly: true
+          type: string
+        clientAccountId:
+          format: int64
+          type: string
+        clientAccountType:
+          enum:
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_UNKNOWN
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_ADS
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_PARTNER
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_ADVERTISER
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_AD_MANAGER_AUDIENCE_LINK
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        historicalPricings:
+          items:
+            $ref: '#/components/schemas/UserListLicensePricing'
+          readOnly: true
+          type: array
+        metrics:
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserListLicenseMetrics'
+        name:
+          type: string
+        pricing:
+          $ref: '#/components/schemas/UserListLicensePricing'
+        status:
+          enum:
+            - USER_LIST_LICENSE_STATUS_UNSPECIFIED
+            - USER_LIST_LICENSE_STATUS_ENABLED
+            - USER_LIST_LICENSE_STATUS_DISABLED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        userListDisplayName:
+          readOnly: true
+          type: string
+        userListId:
+          format: int64
+          type: string
+      type: object
+    UserListGlobalLicense:
+      x-google-discovery-id: UserListGlobalLicense
+      properties:
+        historicalPricings:
+          items:
+            $ref: '#/components/schemas/UserListLicensePricing'
+          readOnly: true
+          type: array
+        licenseType:
+          enum:
+            - USER_LIST_GLOBAL_LICENSE_TYPE_UNSPECIFIED
+            - USER_LIST_GLOBAL_LICENSE_TYPE_RESELLER
+            - USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_SELL_SIDE
+            - USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_BUY_SIDE
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        metrics:
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserListLicenseMetrics'
+        name:
+          type: string
+        pricing:
+          $ref: '#/components/schemas/UserListLicensePricing'
+        status:
+          enum:
+            - USER_LIST_LICENSE_STATUS_UNSPECIFIED
+            - USER_LIST_LICENSE_STATUS_ENABLED
+            - USER_LIST_LICENSE_STATUS_DISABLED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        userListDisplayName:
+          readOnly: true
+          type: string
+        userListId:
+          format: int64
+          type: string
+      type: object
+    UserListGlobalLicenseCustomerInfo:
+      x-google-discovery-id: UserListGlobalLicenseCustomerInfo
+      properties:
+        clientAccountDisplayName:
+          readOnly: true
+          type: string
+        clientAccountId:
+          format: int64
+          readOnly: true
+          type: string
+        clientAccountType:
+          enum:
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_UNKNOWN
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_ADS
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_PARTNER
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_ADVERTISER
+            - USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_AD_MANAGER_AUDIENCE_LINK
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          readOnly: true
+          type: string
+        historicalPricings:
+          items:
+            $ref: '#/components/schemas/UserListLicensePricing'
+          readOnly: true
+          type: array
+        licenseType:
+          enum:
+            - USER_LIST_GLOBAL_LICENSE_TYPE_UNSPECIFIED
+            - USER_LIST_GLOBAL_LICENSE_TYPE_RESELLER
+            - USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_SELL_SIDE
+            - USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_BUY_SIDE
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          readOnly: true
+          type: string
+        metrics:
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserListLicenseMetrics'
+        name:
+          type: string
+        pricing:
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserListLicensePricing'
+        status:
+          enum:
+            - USER_LIST_LICENSE_STATUS_UNSPECIFIED
+            - USER_LIST_LICENSE_STATUS_ENABLED
+            - USER_LIST_LICENSE_STATUS_DISABLED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          readOnly: true
+          type: string
+        userListDisplayName:
+          readOnly: true
+          type: string
+        userListId:
+          format: int64
+          readOnly: true
+          type: string
+      type: object
+    UserListLicenseMetrics:
+      x-google-discovery-id: UserListLicenseMetrics
+      properties:
+        clickCount:
+          format: int64
+          readOnly: true
+          type: string
+        endDate:
+          format: int64
+          readOnly: true
+          type: string
+        impressionCount:
+          format: int64
+          readOnly: true
+          type: string
+        revenueUsdMicros:
+          format: int64
+          readOnly: true
+          type: string
+        startDate:
+          format: int64
+          readOnly: true
+          type: string
+      type: object
+    UserListLicensePricing:
+      x-google-discovery-id: UserListLicensePricing
+      properties:
+        buyerApprovalState:
+          enum:
+            - USER_LIST_PRICING_BUYER_APPROVAL_STATE_UNSPECIFIED
+            - PENDING
+            - APPROVED
+            - REJECTED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          readOnly: true
+          type: string
+        costMicros:
+          format: int64
+          type: string
+        costType:
+          enum:
+            - USER_LIST_PRICING_COST_TYPE_UNSPECIFIED
+            - CPC
+            - CPM
+            - MEDIA_SHARE
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        currencyCode:
+          type: string
+        endTime:
+          format: google-datetime
+          type: string
+        maxCostMicros:
+          format: int64
+          type: string
+        pricingActive:
+          readOnly: true
+          type: boolean
+        pricingId:
+          format: int64
+          readOnly: true
+          type: string
+        startTime:
+          format: google-datetime
+          readOnly: true
+          type: string
+      type: object
+    UserProperties:
+      x-google-discovery-id: UserProperties
+      properties:
+        additionalUserProperties:
+          items:
+            $ref: '#/components/schemas/UserProperty'
+          type: array
+        customerType:
+          enum:
+            - CUSTOMER_TYPE_UNSPECIFIED
+            - NEW
+            - RETURNING
+            - REENGAGED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        customerValueBucket:
+          enum:
+            - CUSTOMER_VALUE_BUCKET_UNSPECIFIED
+            - LOW
+            - MEDIUM
+            - HIGH
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+      type: object
+    UserProperty:
+      x-google-discovery-id: UserProperty
+      properties:
+        propertyName:
+          type: string
+        value:
+          type: string
+      type: object
+    ViewabilityInfo:
+      x-google-discovery-id: ViewabilityInfo
+      properties:
+        mediaDuration:
+          format: google-duration
+          type: string
+        mediaQuartile:
+          enum:
+            - MEDIA_QUARTILE_UNSPECIFIED
+            - MEDIA_QUARTILE_START
+            - MEDIA_QUARTILE_FIRST_QUARTILE
+            - MEDIA_QUARTILE_MIDPOINT
+            - MEDIA_QUARTILE_THIRD_QUARTILE
+            - MEDIA_QUARTILE_COMPLETE
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        mediaSkippable:
+          type: boolean
+        mediaVolumePercent:
+          format: int32
+          type: integer
+        playbackDuration:
+          format: google-duration
+          type: string
+        viewType:
+          enum:
+            - VIEW_TYPE_UNSPECIFIED
+            - VIEW_TYPE_MRC_VIEWED
+            - VIEW_TYPE_MRC_RENDERED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+          type: string
+        viewableDuration:
+          format: google-duration
+          type: string
+        viewablePercent:
+          format: int32
+          type: integer
+      type: object
+    WarningCount:
+      x-google-discovery-id: WarningCount
+      properties:
+        reason:
+          enum:
+            - PROCESSING_WARNING_REASON_UNSPECIFIED
+            - PROCESSING_WARNING_REASON_KEK_PERMISSION_DENIED
+            - PROCESSING_WARNING_REASON_DEK_DECRYPTION_ERROR
+            - PROCESSING_WARNING_REASON_DECRYPTION_ERROR
+            - PROCESSING_WARNING_REASON_WIP_AUTH_FAILED
+            - PROCESSING_WARNING_REASON_INVALID_WIP
+            - PROCESSING_WARNING_REASON_INVALID_KEK
+            - PROCESSING_WARNING_REASON_USER_IDENTIFIER_DECRYPTION_ERROR
+            - PROCESSING_WARNING_REASON_INTERNAL_ERROR
+            - PROCESSING_WARNING_REASON_AWS_AUTH_FAILED
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+          type: string
+        recordCount:
+          format: int64
+          type: string
+      type: object
+    WarningInfo:
+      x-google-discovery-id: WarningInfo
+      properties:
+        warningCounts:
+          items:
+            $ref: '#/components/schemas/WarningCount'
+          type: array
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/datamanager: See, edit, create, import, or delete your customer data in Google Ads, Google Marketing Platform (Campaign Manager 360, Search Ads 360, Display & Video 360), and Google Analytics
+            https://www.googleapis.com/auth/datamanager.partnerlink: View, create, or delete your partner links in Google Ads, Marketing Platform (Campaign Manager 360, Search Ads 360, Display & Video 360), and Analytics
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/datamanager: See, edit, create, import, or delete your customer data in Google Ads, Google Marketing Platform (Campaign Manager 360, Search Ads 360, Display & Video 360), and Google Analytics
+            https://www.googleapis.com/auth/datamanager.partnerlink: View, create, or delete your partner links in Google Ads, Marketing Platform (Campaign Manager 360, Search Ads 360, Display & Video 360), and Analytics
+externalDocs:
+  url: https://developers.google.com/data-manager
+tags:
+  - name: accountTypes
+  - name: adEvents
+  - name: audienceMembers
+  - name: events
+  - name: requestStatus
+  - name: users
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://datamanager.googleapis.com/
+  batchPath: batch
+  canonicalName: Data Manager
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: datamanager:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://datamanager.mtls.googleapis.com/
+  name: datamanager
+  revision: '20261007'
+  rootUrl: https://datamanager.googleapis.com/
+  servicePath: ''
+  version_module: true

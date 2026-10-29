@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://essentialcontacts.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: ""
+  description: ''
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -19,205 +17,40 @@ info:
   x-logo:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/essentialcontacts.v1.json
+      version: v1
     - format: openapi
-      url: https://essentialcontacts.googleapis.com/$discovery/rest?version=v1
-      version: "3.0"
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/essentialcontacts.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: essentialcontacts
-externalDocs:
-  url: https://cloud.google.com/essentialcontacts/docs/
-tags:
-  - name: folders
-  - name: organizations
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260319; original source SHA-256 83b2d0fee8669510e19597275b4449ac2137c46746881cefbbb2e3a9755e13b7.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://essentialcontacts.googleapis.com
 paths:
-  /v1/{name}:
-    delete:
-      description: Deletes a contact.
-      operationId: essentialcontacts.projects.contacts.delete
-      parameters:
-        - description: "Required. The name of the contact to delete. Format: organizations/{organization_id}/contacts/{contact_id}, folders/{folder_id}/contacts/{contact_id} or projects/{project_id}/contacts/{contact_id}"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleProtobufEmpty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+  /v1/folders/{foldersId}/contacts:compute:
     get:
-      description: Gets a single contact.
-      operationId: essentialcontacts.projects.contacts.get
-      parameters:
-        - description: "Required. The name of the contact to retrieve. Format: organizations/{organization_id}/contacts/{contact_id}, folders/{folder_id}/contacts/{contact_id} or projects/{project_id}/contacts/{contact_id}"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1Contact"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: "Updates a contact. Note: A contact's email address cannot be changed."
-      operationId: essentialcontacts.projects.contacts.patch
-      parameters:
-        - description: "Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: Optional. The update mask applied to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
-          in: query
-          name: updateMask
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1Contact"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1Contact"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/contacts:
-    get:
-      description: Lists the contacts that have been set on a resource.
-      operationId: essentialcontacts.projects.contacts.list
-      parameters:
-        - description: "Required. The parent resource name. Format: organizations/{organization_id}, folders/{folder_id} or projects/{project_id}"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of `next_page_token` in the response indicates that more results might be available. If not specified, the default page_size is 100.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: Optional. If present, retrieves the next batch of results from the preceding call to this method. `page_token` must be the value of `next_page_token` from the previous response. The values of other method parameters should be identical to those in the previous call.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1ListContactsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Adds a new contact for a resource.
-      operationId: essentialcontacts.projects.contacts.create
-      parameters:
-        - description: "Required. The resource to save this contact for. Format: organizations/{organization_id}, folders/{folder_id} or projects/{project_id}"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1Contact"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1Contact"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/contacts:compute:
-    get:
+      operationId: essentialcontacts.folders.contacts.compute
       description: Lists all contacts for the resource that are subscribed to the specified notification categories, including contacts inherited from any parent resources.
-      operationId: essentialcontacts.projects.contacts.compute
       parameters:
-        - description: "Required. The name of the resource to compute contacts for. Format: organizations/{organization_id}, folders/{folder_id} or projects/{project_id}"
+        - name: foldersId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The name of the resource to compute contacts for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
           schema:
             type: string
-        - description: The categories of notifications to compute contacts for. If ALL is included in this list, contacts subscribed to any notification category will be returned.
-          explode: true
+        - name: notificationCategories
           in: query
-          name: notificationCategories
           schema:
+            type: array
             items:
               enum:
                 - NOTIFICATION_CATEGORY_UNSPECIFIED
@@ -229,170 +62,1223 @@ paths:
                 - LEGAL
                 - PRODUCT_UPDATES
                 - TECHNICAL_INCIDENTS
+              x-google-enum-descriptions:
+                - Notification category is unrecognized or unspecified.
+                - All notifications related to the resource, including notifications pertaining to categories added in the future.
+                - Notifications related to imminent account suspension.
+                - Notifications related to security/privacy incidents, notifications, and vulnerabilities.
+                - Notifications related to technical events and issues such as outages, errors, or bugs.
+                - Notifications related to billing and payments notifications, price updates, errors, or credits.
+                - Notifications related to enforcement actions, regulatory compliance, or government notices.
+                - Notifications related to new versions, product terms updates, or deprecations.
+                - Child category of TECHNICAL. If assigned, technical incident notifications will go to these contacts instead of TECHNICAL.
               type: string
-            type: array
+          description: The categories of notifications to compute contacts for. If ALL is included in this list, contacts subscribed to any notification category will be returned.
           style: form
-        - description: Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of `next_page_token` in the response indicates that more results might be available. If not specified, the default page_size is 100.
+          explode: true
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: Optional. If present, retrieves the next batch of results from the preceding call to this method. `page_token` must be the value of `next_page_token` from the previous response. The values of other method parameters should be identical to those in the previous call.
+          description: Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of `next_page_token` in the response indicates that more results might be available. If not specified, the default page_size is 100.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1ComputeContactsResponse"
-          description: Successful response
+          description: Optional. If present, retrieves the next batch of results from the preceding call to this method. `page_token` must be the value of `next_page_token` from the previous response. The values of other method parameters should be identical to those in the previous call.
+      tags:
+        - folders
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1ComputeContactsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/contacts:compute
+        flatPath: v1/folders/{foldersId}/contacts:compute
+        resourceNameBindings:
+          foldersId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The name of the resource to compute contacts for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^folders/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{resource}/contacts:sendTestMessage:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/folders/{foldersId}/contacts:
     post:
-      description: Allows a contact admin to send a test message to contact to verify that it has been configured correctly.
-      operationId: essentialcontacts.projects.contacts.sendTestMessage
+      operationId: essentialcontacts.folders.contacts.create
+      description: Adds a new contact for a resource.
       parameters:
-        - description: "Required. The name of the resource to send the test message for. All contacts must either be set directly on this resource or inherited from another resource that is an ancestor of this one. Format: organizations/{organization_id}, folders/{folder_id} or projects/{project_id}"
+        - name: foldersId
           in: path
-          name: resource
           required: true
+          description: 'Component of the original `parent` resource name. Required. The resource to save this contact for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
           schema:
             type: string
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1SendTestMessageRequest"
+              $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleProtobufEmpty"
-          description: Successful response
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      x-google-discovery:
+        path: v1/{+parent}/contacts
+        flatPath: v1/folders/{foldersId}/contacts
+        resourceNameBindings:
+          foldersId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The resource to save this contact for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^folders/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: essentialcontacts.folders.contacts.list
+      description: Lists the contacts that have been set on a resource.
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource name. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of `next_page_token` in the response indicates that more results might be available. If not specified, the default page_size is 100.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. If present, retrieves the next batch of results from the preceding call to this method. `page_token` must be the value of `next_page_token` from the previous response. The values of other method parameters should be identical to those in the previous call.
+      tags:
+        - folders
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1ListContactsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/contacts
+        flatPath: v1/folders/{foldersId}/contacts
+        resourceNameBindings:
+          foldersId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource name. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^folders/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/folders/{foldersId}/contacts/{contactsId}:
+    delete:
+      operationId: essentialcontacts.folders.contacts.delete
+      description: Deletes a contact.
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to delete. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: contactsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to delete. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/folders/{foldersId}/contacts/{contactsId}
+        resourceNameBindings:
+          foldersId: name
+          contactsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the contact to delete. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+            location: path
+            pattern: ^folders/[^/]+/contacts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: essentialcontacts.folders.contacts.get
+      description: Gets a single contact.
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to retrieve. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: contactsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to retrieve. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/folders/{foldersId}/contacts/{contactsId}
+        resourceNameBindings:
+          foldersId: name
+          contactsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the contact to retrieve. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+            location: path
+            pattern: ^folders/[^/]+/contacts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: essentialcontacts.folders.contacts.patch
+      description: 'Updates a contact. Note: A contact''s email address cannot be changed.'
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
+          schema:
+            type: string
+        - name: contactsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The update mask applied to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/folders/{foldersId}/contacts/{contactsId}
+        resourceNameBindings:
+          foldersId: name
+          contactsId: name
+        resourceNameParameters:
+          name:
+            description: 'Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
+            location: path
+            pattern: ^folders/[^/]+/contacts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/folders/{foldersId}/contacts:sendTestMessage:
+    post:
+      operationId: essentialcontacts.folders.contacts.sendTestMessage
+      description: Allows a contact admin to send a test message to contact to verify that it has been configured correctly.
+      parameters:
+        - name: foldersId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. Required. The name of the resource to send the test message for. All contacts must either be set directly on this resource or inherited from another resource that is an ancestor of this one. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - folders
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1SendTestMessageRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1/{+resource}/contacts:sendTestMessage
+        flatPath: v1/folders/{foldersId}/contacts:sendTestMessage
+        resourceNameBindings:
+          foldersId: resource
+        resourceNameParameters:
+          resource:
+            description: 'Required. The name of the resource to send the test message for. All contacts must either be set directly on this resource or inherited from another resource that is an ancestor of this one. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^folders/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/contacts:compute:
+    get:
+      operationId: essentialcontacts.organizations.contacts.compute
+      description: Lists all contacts for the resource that are subscribed to the specified notification categories, including contacts inherited from any parent resources.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The name of the resource to compute contacts for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: notificationCategories
+          in: query
+          schema:
+            type: array
+            items:
+              enum:
+                - NOTIFICATION_CATEGORY_UNSPECIFIED
+                - ALL
+                - SUSPENSION
+                - SECURITY
+                - TECHNICAL
+                - BILLING
+                - LEGAL
+                - PRODUCT_UPDATES
+                - TECHNICAL_INCIDENTS
+              x-google-enum-descriptions:
+                - Notification category is unrecognized or unspecified.
+                - All notifications related to the resource, including notifications pertaining to categories added in the future.
+                - Notifications related to imminent account suspension.
+                - Notifications related to security/privacy incidents, notifications, and vulnerabilities.
+                - Notifications related to technical events and issues such as outages, errors, or bugs.
+                - Notifications related to billing and payments notifications, price updates, errors, or credits.
+                - Notifications related to enforcement actions, regulatory compliance, or government notices.
+                - Notifications related to new versions, product terms updates, or deprecations.
+                - Child category of TECHNICAL. If assigned, technical incident notifications will go to these contacts instead of TECHNICAL.
+              type: string
+          description: The categories of notifications to compute contacts for. If ALL is included in this list, contacts subscribed to any notification category will be returned.
+          style: form
+          explode: true
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of `next_page_token` in the response indicates that more results might be available. If not specified, the default page_size is 100.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. If present, retrieves the next batch of results from the preceding call to this method. `page_token` must be the value of `next_page_token` from the previous response. The values of other method parameters should be identical to those in the previous call.
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1ComputeContactsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/contacts:compute
+        flatPath: v1/organizations/{organizationsId}/contacts:compute
+        resourceNameBindings:
+          organizationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The name of the resource to compute contacts for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^organizations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/contacts:
+    post:
+      operationId: essentialcontacts.organizations.contacts.create
+      description: Adds a new contact for a resource.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The resource to save this contact for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      x-google-discovery:
+        path: v1/{+parent}/contacts
+        flatPath: v1/organizations/{organizationsId}/contacts
+        resourceNameBindings:
+          organizationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The resource to save this contact for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^organizations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: essentialcontacts.organizations.contacts.list
+      description: Lists the contacts that have been set on a resource.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource name. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of `next_page_token` in the response indicates that more results might be available. If not specified, the default page_size is 100.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. If present, retrieves the next batch of results from the preceding call to this method. `page_token` must be the value of `next_page_token` from the previous response. The values of other method parameters should be identical to those in the previous call.
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1ListContactsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/contacts
+        flatPath: v1/organizations/{organizationsId}/contacts
+        resourceNameBindings:
+          organizationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource name. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^organizations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/contacts/{contactsId}:
+    delete:
+      operationId: essentialcontacts.organizations.contacts.delete
+      description: Deletes a contact.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to delete. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: contactsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to delete. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/contacts/{contactsId}
+        resourceNameBindings:
+          organizationsId: name
+          contactsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the contact to delete. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+            location: path
+            pattern: ^organizations/[^/]+/contacts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: essentialcontacts.organizations.contacts.get
+      description: Gets a single contact.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to retrieve. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: contactsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to retrieve. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/contacts/{contactsId}
+        resourceNameBindings:
+          organizationsId: name
+          contactsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the contact to retrieve. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+            location: path
+            pattern: ^organizations/[^/]+/contacts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: essentialcontacts.organizations.contacts.patch
+      description: 'Updates a contact. Note: A contact''s email address cannot be changed.'
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
+          schema:
+            type: string
+        - name: contactsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The update mask applied to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/organizations/{organizationsId}/contacts/{contactsId}
+        resourceNameBindings:
+          organizationsId: name
+          contactsId: name
+        resourceNameParameters:
+          name:
+            description: 'Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
+            location: path
+            pattern: ^organizations/[^/]+/contacts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/organizations/{organizationsId}/contacts:sendTestMessage:
+    post:
+      operationId: essentialcontacts.organizations.contacts.sendTestMessage
+      description: Allows a contact admin to send a test message to contact to verify that it has been configured correctly.
+      parameters:
+        - name: organizationsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. Required. The name of the resource to send the test message for. All contacts must either be set directly on this resource or inherited from another resource that is an ancestor of this one. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - organizations
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1SendTestMessageRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1/{+resource}/contacts:sendTestMessage
+        flatPath: v1/organizations/{organizationsId}/contacts:sendTestMessage
+        resourceNameBindings:
+          organizationsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'Required. The name of the resource to send the test message for. All contacts must either be set directly on this resource or inherited from another resource that is an ancestor of this one. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^organizations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/contacts:compute:
+    get:
+      operationId: essentialcontacts.projects.contacts.compute
+      description: Lists all contacts for the resource that are subscribed to the specified notification categories, including contacts inherited from any parent resources.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The name of the resource to compute contacts for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: notificationCategories
+          in: query
+          schema:
+            type: array
+            items:
+              enum:
+                - NOTIFICATION_CATEGORY_UNSPECIFIED
+                - ALL
+                - SUSPENSION
+                - SECURITY
+                - TECHNICAL
+                - BILLING
+                - LEGAL
+                - PRODUCT_UPDATES
+                - TECHNICAL_INCIDENTS
+              x-google-enum-descriptions:
+                - Notification category is unrecognized or unspecified.
+                - All notifications related to the resource, including notifications pertaining to categories added in the future.
+                - Notifications related to imminent account suspension.
+                - Notifications related to security/privacy incidents, notifications, and vulnerabilities.
+                - Notifications related to technical events and issues such as outages, errors, or bugs.
+                - Notifications related to billing and payments notifications, price updates, errors, or credits.
+                - Notifications related to enforcement actions, regulatory compliance, or government notices.
+                - Notifications related to new versions, product terms updates, or deprecations.
+                - Child category of TECHNICAL. If assigned, technical incident notifications will go to these contacts instead of TECHNICAL.
+              type: string
+          description: The categories of notifications to compute contacts for. If ALL is included in this list, contacts subscribed to any notification category will be returned.
+          style: form
+          explode: true
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of `next_page_token` in the response indicates that more results might be available. If not specified, the default page_size is 100.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. If present, retrieves the next batch of results from the preceding call to this method. `page_token` must be the value of `next_page_token` from the previous response. The values of other method parameters should be identical to those in the previous call.
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1ComputeContactsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/contacts:compute
+        flatPath: v1/projects/{projectsId}/contacts:compute
+        resourceNameBindings:
+          projectsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The name of the resource to compute contacts for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/contacts:
+    post:
+      operationId: essentialcontacts.projects.contacts.create
+      description: Adds a new contact for a resource.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The resource to save this contact for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      x-google-discovery:
+        path: v1/{+parent}/contacts
+        flatPath: v1/projects/{projectsId}/contacts
+        resourceNameBindings:
+          projectsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The resource to save this contact for. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: essentialcontacts.projects.contacts.list
+      description: Lists the contacts that have been set on a resource.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource name. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of results to return from this request. Non-positive values are ignored. The presence of `next_page_token` in the response indicates that more results might be available. If not specified, the default page_size is 100.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. If present, retrieves the next batch of results from the preceding call to this method. `page_token` must be the value of `next_page_token` from the previous response. The values of other method parameters should be identical to those in the previous call.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1ListContactsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/contacts
+        flatPath: v1/projects/{projectsId}/contacts
+        resourceNameBindings:
+          projectsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource name. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/contacts/{contactsId}:
+    delete:
+      operationId: essentialcontacts.projects.contacts.delete
+      description: Deletes a contact.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to delete. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: contactsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to delete. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/contacts/{contactsId}
+        resourceNameBindings:
+          projectsId: name
+          contactsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the contact to delete. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+            location: path
+            pattern: ^projects/[^/]+/contacts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: essentialcontacts.projects.contacts.get
+      description: Gets a single contact.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to retrieve. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+        - name: contactsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the contact to retrieve. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/contacts/{contactsId}
+        resourceNameBindings:
+          projectsId: name
+          contactsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the contact to retrieve. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
+            location: path
+            pattern: ^projects/[^/]+/contacts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: essentialcontacts.projects.contacts.patch
+      description: 'Updates a contact. Note: A contact''s email address cannot be changed.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
+          schema:
+            type: string
+        - name: contactsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The update mask applied to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/contacts/{contactsId}
+        resourceNameBindings:
+          projectsId: name
+          contactsId: name
+        resourceNameParameters:
+          name:
+            description: 'Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
+            location: path
+            pattern: ^projects/[^/]+/contacts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/contacts:sendTestMessage:
+    post:
+      operationId: essentialcontacts.projects.contacts.sendTestMessage
+      description: Allows a contact admin to send a test message to contact to verify that it has been configured correctly.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. Required. The name of the resource to send the test message for. All contacts must either be set directly on this resource or inherited from another resource that is an ancestor of this one. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1SendTestMessageRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1/{+resource}/contacts:sendTestMessage
+        flatPath: v1/projects/{projectsId}/contacts:sendTestMessage
+        resourceNameBindings:
+          projectsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'Required. The name of the resource to send the test message for. All contacts must either be set directly on this resource or inherited from another resource that is an ancestor of this one. Format: organizations/{organization}, folders/{folder} or projects/{project} (where {project} is the project number)'
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     GoogleCloudEssentialcontactsV1ComputeContactsResponse:
       description: Response message for the ComputeContacts method.
+      x-google-discovery-id: GoogleCloudEssentialcontactsV1ComputeContactsResponse
       properties:
         contacts:
           description: All contacts for the resource that are subscribed to the specified notification categories, including contacts inherited from any parent resources.
           items:
-            $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1Contact"
+            $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
           type: array
         nextPageToken:
           description: If there are more results than those appearing in this response, then `next_page_token` is included. To get the next set of results, call this method again using the value of `next_page_token` as `page_token` and the rest of the parameters the same as the original request.
@@ -400,6 +1286,7 @@ components:
       type: object
     GoogleCloudEssentialcontactsV1Contact:
       description: A contact that will receive notifications from Google Cloud.
+      x-google-discovery-id: GoogleCloudEssentialcontactsV1Contact
       properties:
         email:
           description: Required. The email address to send notifications to. The email address does not need to be a Google Account.
@@ -408,7 +1295,7 @@ components:
           description: Required. The preferred language for notifications, as a ISO 639-1 language code. See [Supported languages](https://cloud.google.com/resource-manager/docs/managing-notification-contacts#supported-languages) for a list of supported languages.
           type: string
         name:
-          description: "Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}"
+          description: 'Output only. The identifier for the contact. Format: {resource_type}/{resource_id}/contacts/{contact_id}'
           readOnly: true
           type: string
         notificationCategorySubscriptions:
@@ -424,27 +1311,44 @@ components:
               - LEGAL
               - PRODUCT_UPDATES
               - TECHNICAL_INCIDENTS
+            x-google-enum-descriptions:
+              - Notification category is unrecognized or unspecified.
+              - All notifications related to the resource, including notifications pertaining to categories added in the future.
+              - Notifications related to imminent account suspension.
+              - Notifications related to security/privacy incidents, notifications, and vulnerabilities.
+              - Notifications related to technical events and issues such as outages, errors, or bugs.
+              - Notifications related to billing and payments notifications, price updates, errors, or credits.
+              - Notifications related to enforcement actions, regulatory compliance, or government notices.
+              - Notifications related to new versions, product terms updates, or deprecations.
+              - Child category of TECHNICAL. If assigned, technical incident notifications will go to these contacts instead of TECHNICAL.
             type: string
           type: array
         validateTime:
-          description: The last time the validation_state was updated, either manually or automatically. A contact is considered stale if its validation state was updated more than 1 year ago.
+          description: Output only. The last time the validation_state was updated, either manually or automatically. A contact is considered stale if its validation state was updated more than 1 year ago.
           format: google-datetime
+          readOnly: true
           type: string
         validationState:
-          description: The validity of the contact. A contact is considered valid if it is the correct recipient for notifications for a particular resource.
+          description: Output only. The validity of the contact. A contact is considered valid if it is the correct recipient for notifications for a particular resource.
           enum:
             - VALIDATION_STATE_UNSPECIFIED
             - VALID
             - INVALID
+          x-google-enum-descriptions:
+            - The validation state is unknown or unspecified.
+            - The contact is marked as valid. This is usually done manually by the contact admin. All new contacts begin in the valid state.
+            - The contact is considered invalid. This may become the state if the contact's email is found to be unreachable.
+          readOnly: true
           type: string
       type: object
     GoogleCloudEssentialcontactsV1ListContactsResponse:
       description: Response message for the ListContacts method.
+      x-google-discovery-id: GoogleCloudEssentialcontactsV1ListContactsResponse
       properties:
         contacts:
           description: The contacts for the specified resource.
           items:
-            $ref: "#/components/schemas/GoogleCloudEssentialcontactsV1Contact"
+            $ref: '#/components/schemas/GoogleCloudEssentialcontactsV1Contact'
           type: array
         nextPageToken:
           description: If there are more results than those appearing in this response, then `next_page_token` is included. To get the next set of results, call this method again using the value of `next_page_token` as `page_token` and the rest of the parameters the same as the original request.
@@ -452,9 +1356,10 @@ components:
       type: object
     GoogleCloudEssentialcontactsV1SendTestMessageRequest:
       description: Request message for the SendTestMessage method.
+      x-google-discovery-id: GoogleCloudEssentialcontactsV1SendTestMessageRequest
       properties:
         contacts:
-          description: "Required. The list of names of the contacts to send a test message to. Format: organizations/{organization_id}/contacts/{contact_id}, folders/{folder_id}/contacts/{contact_id} or projects/{project_id}/contacts/{contact_id}"
+          description: 'Required. The list of names of the contacts to send a test message to. Format: organizations/{organization}/contacts/{contact}, folders/{folder}/contacts/{contact} or projects/{project}/contacts/{contact} (where {project} is the project number)'
           items:
             type: string
           type: array
@@ -470,27 +1375,142 @@ components:
             - LEGAL
             - PRODUCT_UPDATES
             - TECHNICAL_INCIDENTS
+          x-google-enum-descriptions:
+            - Notification category is unrecognized or unspecified.
+            - All notifications related to the resource, including notifications pertaining to categories added in the future.
+            - Notifications related to imminent account suspension.
+            - Notifications related to security/privacy incidents, notifications, and vulnerabilities.
+            - Notifications related to technical events and issues such as outages, errors, or bugs.
+            - Notifications related to billing and payments notifications, price updates, errors, or credits.
+            - Notifications related to enforcement actions, regulatory compliance, or government notices.
+            - Notifications related to new versions, product terms updates, or deprecations.
+            - Child category of TECHNICAL. If assigned, technical incident notifications will go to these contacts instead of TECHNICAL.
           type: string
       type: object
     GoogleProtobufEmpty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: GoogleProtobufEmpty
       properties: {}
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/essentialcontacts/docs/
+tags:
+  - name: folders
+  - name: organizations
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://essentialcontacts.googleapis.com/
+  batchPath: batch
+  canonicalName: Essentialcontacts
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: essentialcontacts:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://essentialcontacts.mtls.googleapis.com/
+  name: essentialcontacts
+  revision: '20260319'
+  rootUrl: https://essentialcontacts.googleapis.com/
+  servicePath: ''
+  version_module: true

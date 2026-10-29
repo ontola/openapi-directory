@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://cloudtrace.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: "Sends application trace data to Cloud Trace for viewing. Trace data is collected for all App Engine applications by default. Trace data from other applications can be provided using this API. This library is used to interact with the Cloud Trace API directly. If you are looking to instrument your application for Cloud Trace, we recommend using OpenTelemetry. "
+  description: 'Sends application trace data to Cloud Trace for viewing. Trace data is collected for all App Engine applications by default. Trace data from other applications can be provided using this API. This library is used to interact with the Cloud Trace API directly. If you are looking to instrument your application for Cloud Trace, we recommend using OpenTelemetry. '
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -22,259 +20,220 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://cloudtrace.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/cloudtrace.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/cloudtrace.v1.json
+      version: '3.0'
   x-preferred: false
   x-providerName: googleapis.com
   x-serviceName: cloudtrace
-externalDocs:
-  url: https://cloud.google.com/trace
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260724; original source SHA-256 649d0408a74165b6b7438ab81920cb0fdf47a27f226620da11522fb9e8e1c2ff.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://cloudtrace.googleapis.com
 paths:
   /v1/projects/{projectId}/traces:
-    get:
-      description: Returns a list of traces that match the specified filter conditions.
-      operationId: cloudtrace.projects.traces.list
+    patch:
+      operationId: cloudtrace.projects.patchTraces
+      description: Sends trace spans to Cloud Trace. Spans cannot be updated. If the trace ID and span ID already exist, an additional copy of the span will be stored.
       parameters:
-        - description: Required. ID of the Cloud project where the trace data is stored.
+        - name: projectId
           in: path
-          name: projectId
+          schema:
+            type: string
+          description: Required. ID of the Cloud project where the trace data is stored.
           required: true
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/trace.append
+        - Oauth2c:
+            - https://www.googleapis.com/auth/trace.append
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Traces'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/projects/{projectId}/traces
+        flatPath: v1/projects/{projectId}/traces
+        parameterOrder:
+          - projectId
+    get:
+      operationId: cloudtrace.projects.traces.list
+      description: Returns a list of traces that match the specified filter conditions.
+      parameters:
+        - name: projectId
+          in: path
           schema:
             type: string
-        - description: End of the time interval (inclusive) during which the trace data was collected from the application.
+          description: Required. ID of the Cloud project where the trace data is stored.
+          required: true
+        - name: endTime
           in: query
-          name: endTime
+          schema:
+            format: google-datetime
+            type: string
+          description: Required. End of the time interval (inclusive) during which the trace data was collected from the application.
+        - name: filter
+          in: query
           schema:
             type: string
-        - description: "Optional. A filter against labels for the request. By default, searches use prefix matching. To specify exact match, prepend a plus symbol (`+`) to the search term. Multiple terms are ANDed. Syntax: * `root:NAME_PREFIX` or `NAME_PREFIX`: Return traces where any root span starts with `NAME_PREFIX`. * `+root:NAME` or `+NAME`: Return traces where any root span's name is exactly `NAME`. * `span:NAME_PREFIX`: Return traces where any span starts with `NAME_PREFIX`. * `+span:NAME`: Return traces where any span's name is exactly `NAME`. * `latency:DURATION`: Return traces whose overall latency is greater or equal to than `DURATION`. Accepted units are nanoseconds (`ns`), milliseconds (`ms`), and seconds (`s`). Default is `ms`. For example, `latency:24ms` returns traces whose overall latency is greater than or equal to 24 milliseconds. * `label:LABEL_KEY`: Return all traces containing the specified label key (exact match, case-sensitive) regardless of the key:value pair's value (including empty values). * `LABEL_KEY:VALUE_PREFIX`: Return all traces containing the specified label key (exact match, case-sensitive) whose value starts with `VALUE_PREFIX`. Both a key and a value must be specified. * `+LABEL_KEY:VALUE`: Return all traces containing a key:value pair exactly matching the specified text. Both a key and a value must be specified. * `method:VALUE`: Equivalent to `/http/method:VALUE`. * `url:VALUE`: Equivalent to `/http/url:VALUE`."
+          description: Optional. A filter against properties of the trace. See [filter syntax documentation](https://cloud.google.com/trace/docs/trace-filters) for details.
+        - name: orderBy
           in: query
-          name: filter
           schema:
             type: string
-        - description: "Optional. Field used to sort the returned traces. Can be one of the following: * `trace_id` * `name` (`name` field of root span in the trace) * `duration` (difference between `end_time` and `start_time` fields of the root span) * `start` (`start_time` field of the root span) Descending order can be specified by appending `desc` to the sort field (for example, `name desc`). Only one sort field is permitted."
+          description: 'Optional. Field used to sort the returned traces. Can be one of the following: * `trace_id` * `name` (`name` field of root span in the trace) * `duration` (difference between `end_time` and `start_time` fields of the root span) * `start` (`start_time` field of the root span) Descending order can be specified by appending `desc` to the sort field (for example, `name desc`). Only one sort field is permitted.'
+        - name: pageSize
           in: query
-          name: orderBy
           schema:
-            type: string
-        - description: Optional. Maximum number of traces to return. If not specified or <= 0, the implementation selects a reasonable value. The implementation may return fewer traces than the requested page size.
-          in: query
-          name: pageSize
-          schema:
+            format: int32
             type: integer
-        - description: Token identifying the page of results to return. If provided, use the value of the `next_page_token` field from a previous request.
+          description: Optional. Maximum number of traces to return. If not specified or <= 0, the implementation selects a reasonable value. The implementation may return fewer traces than the requested page size.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-        - description: Start of the time interval (inclusive) during which the trace data was collected from the application.
+          description: Optional. Token identifying the page of results to return. If provided, use the value of the `next_page_token` field from a previous request.
+        - name: startTime
           in: query
-          name: startTime
           schema:
+            format: google-datetime
             type: string
-        - description: Optional. Type of data returned for traces in the list. Default is `MINIMAL`.
+          description: Required. Start of the time interval (inclusive) during which the trace data was collected from the application.
+        - name: view
           in: query
-          name: view
           schema:
             enum:
               - VIEW_TYPE_UNSPECIFIED
               - MINIMAL
               - ROOTSPAN
               - COMPLETE
+            x-google-enum-descriptions:
+              - Default is `MINIMAL` if unspecified.
+              - Minimal view of the trace record that contains only the project and trace IDs.
+              - Root span view of the trace record that returns the root spans along with the minimal trace data.
+              - Complete view of the trace record that contains the actual trace data. This is equivalent to calling the REST `get` or RPC `GetTrace` method using the ID of each listed trace.
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListTracesResponse"
-          description: Successful response
+          description: Optional. Type of data returned for traces in the list. Default is `MINIMAL`.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/trace.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/trace.readonly
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTracesResponse'
+      x-google-discovery:
+        path: v1/projects/{projectId}/traces
+        flatPath: v1/projects/{projectId}/traces
+        parameterOrder:
+          - projectId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Sends new traces to Cloud Trace or updates existing traces. If the ID of a trace that you send matches that of an existing trace, any fields in the existing trace and its spans are overwritten by the provided values, and any new fields provided are merged with the existing trace data. If the ID does not match, a new trace is created.
-      operationId: cloudtrace.projects.patchTraces
-      parameters:
-        - description: Required. ID of the Cloud project where the trace data is stored.
-          in: path
-          name: projectId
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Traces"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/trace.append
-          Oauth2c:
-            - https://www.googleapis.com/auth/trace.append
-      tags:
-        - projects
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1/projects/{projectId}/traces/{traceId}:
     get:
-      description: Gets a single trace by its ID.
       operationId: cloudtrace.projects.traces.get
+      description: Gets a single trace by its ID.
       parameters:
-        - description: Required. ID of the Cloud project where the trace data is stored.
+        - name: projectId
           in: path
-          name: projectId
-          required: true
           schema:
             type: string
-        - description: Required. ID of the trace to return.
-          in: path
-          name: traceId
+          description: Required. ID of the Cloud project where the trace data is stored.
           required: true
+        - name: traceId
+          in: path
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Trace"
-          description: Successful response
+          description: Required. ID of the trace to return.
+          required: true
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/trace.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/trace.readonly
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trace'
+      x-google-discovery:
+        path: v1/projects/{projectId}/traces/{traceId}
+        flatPath: v1/projects/{projectId}/traces/{traceId}
+        parameterOrder:
+          - projectId
+          - traceId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     ListTracesResponse:
       description: The response message for the `ListTraces` method.
+      x-google-discovery-id: ListTracesResponse
       properties:
         nextPageToken:
           description: If defined, indicates that there are more traces that match the request and that this value should be passed to the next request to continue retrieving additional traces.
@@ -282,87 +241,329 @@ components:
         traces:
           description: List of trace records as specified by the view parameter.
           items:
-            $ref: "#/components/schemas/Trace"
+            $ref: '#/components/schemas/Trace'
           type: array
       type: object
     Trace:
       description: A trace describes how long it takes for an application to perform an operation. It consists of a set of spans, each of which represent a single timed event within the operation.
+      x-google-discovery-id: Trace
       properties:
         projectId:
-          description: Project ID of the Cloud project where the trace data is stored.
+          description: Required. Project ID of the Cloud project where the trace data is stored.
           type: string
         spans:
           description: Collection of spans in the trace.
           items:
-            $ref: "#/components/schemas/TraceSpan"
+            $ref: '#/components/schemas/TraceSpan'
           type: array
         traceId:
-          description: Globally unique identifier for the trace. This identifier is a 128-bit numeric value formatted as a 32-byte hex string. For example, `382d4f4c6b7bb2f4a972559d9085001d`. The numeric value should not be zero.
+          description: Required. Globally unique identifier for the trace. This identifier is a 128-bit numeric value formatted as a 32-byte hex string. For example, `382d4f4c6b7bb2f4a972559d9085001d`. The numeric value should not be zero.
           type: string
       type: object
     TraceSpan:
       description: A span represents a single timed event within a trace. Spans can be nested and form a trace tree. Often, a trace contains a root span that describes the end-to-end latency of an operation and, optionally, one or more subspans for its suboperations. Spans do not need to be contiguous. There may be gaps between spans in a trace.
+      x-google-discovery-id: TraceSpan
       properties:
         endTime:
-          description: End time of the span in seconds and nanoseconds from the UNIX epoch.
+          description: Required. End time of the span in seconds and nanoseconds from the UNIX epoch.
           format: google-datetime
           type: string
         kind:
-          description: Distinguishes between spans generated in a particular context. For example, two spans with the same name may be distinguished using `RPC_CLIENT` and `RPC_SERVER` to identify queueing latency associated with the span.
+          description: Optional. Distinguishes between spans generated in a particular context. For example, two spans with the same name may be distinguished using `RPC_CLIENT` and `RPC_SERVER` to identify queueing latency associated with the span.
           enum:
             - SPAN_KIND_UNSPECIFIED
             - RPC_SERVER
             - RPC_CLIENT
+          x-google-enum-descriptions:
+            - Unspecified.
+            - Indicates that the span covers server-side handling of an RPC or other remote network request.
+            - Indicates that the span covers the client-side wrapper around an RPC or other remote request.
           type: string
         labels:
           additionalProperties:
             type: string
-          description: "Collection of labels associated with the span. Label keys must be less than 128 bytes. Label values must be less than 16 kilobytes (10MB for `/stacktrace` values). Some predefined label keys exist, or you may create your own. When creating your own, we recommend the following formats: * `/category/product/key` for agents of well-known products (e.g. `/db/mongodb/read_size`). * `short_host/path/key` for domain-specific keys (e.g. `foo.com/myproduct/bar`) Predefined labels include: * `/agent` * `/component` * `/error/message` * `/error/name` * `/http/client_city` * `/http/client_country` * `/http/client_protocol` * `/http/client_region` * `/http/host` * `/http/method` * `/http/path` * `/http/redirected_url` * `/http/request/size` * `/http/response/size` * `/http/route` * `/http/status_code` * `/http/url` * `/http/user_agent` * `/pid` * `/stacktrace` * `/tid`"
+          description: Optional. Collection of labels associated with the span. Label keys must be less than 128 bytes. Label values must be less than 16 KiB. Some keys might have predefined meaning, and you can also create your own. For more information, see [Cloud Trace labels](https://cloud.google.com/trace/docs/trace-labels).
           type: object
         name:
-          description: Name of the span. Must be less than 128 bytes. The span name is sanitized and displayed in the Trace tool in the Google Cloud Platform Console. The name may be a method name or some other per-call site name. For the same executable and the same call point, a best practice is to use a consistent name, which makes it easier to correlate cross-trace spans.
+          description: Required. Name of the span. Must be less than 128 bytes. The span name is sanitized and displayed in the Trace tool in the Google Cloud Platform Console. The name may be a method name or some other per-call site name. For the same executable and the same call point, a best practice is to use a consistent name, which makes it easier to correlate cross-trace spans.
           type: string
         parentSpanId:
           description: Optional. ID of the parent span, if any.
           format: uint64
           type: string
         spanId:
-          description: Identifier for the span. Must be a 64-bit integer other than 0 and unique within a trace. For example, `2205310701640571284`.
+          description: Required. Identifier for the span. Must be a 64-bit integer other than 0 and unique within a trace. For example, `2205310701640571284`.
           format: uint64
           type: string
         startTime:
-          description: Start time of the span in seconds and nanoseconds from the UNIX epoch.
+          description: Required. Start time of the span in seconds and nanoseconds from the UNIX epoch.
           format: google-datetime
           type: string
       type: object
     Traces:
       description: List of new or updated traces.
+      x-google-discovery-id: Traces
       properties:
         traces:
           description: List of traces.
           items:
-            $ref: "#/components/schemas/Trace"
+            $ref: '#/components/schemas/Trace'
           type: array
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/trace.append: Write Trace data for a project or application
             https://www.googleapis.com/auth/trace.readonly: Read Trace data for a project or application
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/trace.append: Write Trace data for a project or application
             https://www.googleapis.com/auth/trace.readonly: Read Trace data for a project or application
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/trace
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://cloudtrace.googleapis.com/
+  batchPath: batch
+  canonicalName: Cloud Trace
+  endpoints:
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.africa-south1.rep.googleapis.com/
+      location: africa-south1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.asia-east1.rep.googleapis.com/
+      location: asia-east1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.asia-east2.rep.googleapis.com/
+      location: asia-east2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.asia-northeast1.rep.googleapis.com/
+      location: asia-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.asia-northeast2.rep.googleapis.com/
+      location: asia-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.asia-northeast3.rep.googleapis.com/
+      location: asia-northeast3
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.asia-south1.rep.googleapis.com/
+      location: asia-south1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.asia-south2.rep.googleapis.com/
+      location: asia-south2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.asia-southeast1.rep.googleapis.com/
+      location: asia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.asia-southeast2.rep.googleapis.com/
+      location: asia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.australia-southeast1.rep.googleapis.com/
+      location: australia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.australia-southeast2.rep.googleapis.com/
+      location: australia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-central2.rep.googleapis.com/
+      location: europe-central2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-north1.rep.googleapis.com/
+      location: europe-north1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-north2.rep.googleapis.com/
+      location: europe-north2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-southwest1.rep.googleapis.com/
+      location: europe-southwest1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-west1.rep.googleapis.com/
+      location: europe-west1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-west10.rep.googleapis.com/
+      location: europe-west10
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-west12.rep.googleapis.com/
+      location: europe-west12
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-west2.rep.googleapis.com/
+      location: europe-west2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-west3.rep.googleapis.com/
+      location: europe-west3
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-west4.rep.googleapis.com/
+      location: europe-west4
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-west6.rep.googleapis.com/
+      location: europe-west6
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-west8.rep.googleapis.com/
+      location: europe-west8
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.europe-west9.rep.googleapis.com/
+      location: europe-west9
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.me-central1.rep.googleapis.com/
+      location: me-central1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.me-central2.rep.googleapis.com/
+      location: me-central2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.me-west1.rep.googleapis.com/
+      location: me-west1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.northamerica-northeast1.rep.googleapis.com/
+      location: northamerica-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.northamerica-northeast2.rep.googleapis.com/
+      location: northamerica-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.northamerica-south1.rep.googleapis.com/
+      location: northamerica-south1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.southamerica-east1.rep.googleapis.com/
+      location: southamerica-east1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.southamerica-west1.rep.googleapis.com/
+      location: southamerica-west1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us-central1.rep.googleapis.com/
+      location: us-central1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us-east1.rep.googleapis.com/
+      location: us-east1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us-east4.rep.googleapis.com/
+      location: us-east4
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us-east5.rep.googleapis.com/
+      location: us-east5
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us-south1.rep.googleapis.com/
+      location: us-south1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us-west1.rep.googleapis.com/
+      location: us-west1
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us-west2.rep.googleapis.com/
+      location: us-west2
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us-west3.rep.googleapis.com/
+      location: us-west3
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us-west4.rep.googleapis.com/
+      location: us-west4
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.us.rep.googleapis.com/
+      location: us
+    - description: Regional Endpoint
+      endpointUrl: https://cloudtrace.eu.rep.googleapis.com/
+      location: eu
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: cloudtrace:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://cloudtrace.mtls.googleapis.com/
+  name: cloudtrace
+  revision: '20260724'
+  rootUrl: https://cloudtrace.googleapis.com/
+  servicePath: ''
+  version_module: true

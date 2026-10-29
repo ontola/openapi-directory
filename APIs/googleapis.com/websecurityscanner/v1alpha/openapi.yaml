@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://websecurityscanner.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -21,543 +19,869 @@ info:
   x-logo:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/websecurityscanner.v1alpha.json
+      version: v1
     - format: openapi
-      url: https://websecurityscanner.googleapis.com/$discovery/rest?version=v1alpha
-      version: "3.0"
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/websecurityscanner.v1alpha.json
+      version: '3.0'
   x-preferred: false
   x-providerName: googleapis.com
   x-serviceName: websecurityscanner
-externalDocs:
-  url: https://cloud.google.com/security-command-center/docs/concepts-web-security-scanner-overview/
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20231021; original source SHA-256 6dcdbcad50f46a64641cfbba4dd3ed16dc06d9942a25e20144c28792567cb1f8.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://websecurityscanner.googleapis.com
 paths:
-  /v1alpha/{name}:
-    delete:
-      description: Deletes an existing ScanConfig and its child resources.
-      operationId: websecurityscanner.projects.scanConfigs.delete
-      parameters:
-        - description: Required. The resource name of the ScanConfig to be deleted. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    get:
-      description: Gets a Finding.
-      operationId: websecurityscanner.projects.scanConfigs.scanRuns.findings.get
-      parameters:
-        - description: Required. The resource name of the Finding to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}/findings/{findingId}'.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Finding"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Updates a ScanConfig. This method support partial update of a ScanConfig.
-      operationId: websecurityscanner.projects.scanConfigs.patch
-      parameters:
-        - description: The resource name of the ScanConfig. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'. The ScanConfig IDs are generated by the system.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: Required. The update mask applies to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
-          in: query
-          name: updateMask
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ScanConfig"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ScanConfig"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1alpha/{name}:start:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+  /v1alpha/projects/{projectsId}/scanConfigs:
     post:
-      description: Start a ScanRun according to the given ScanConfig.
-      operationId: websecurityscanner.projects.scanConfigs.start
-      parameters:
-        - description: Required. The resource name of the ScanConfig to be used. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/StartScanRunRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ScanRun"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1alpha/{name}:stop:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Stops a ScanRun. The stopped ScanRun is returned.
-      operationId: websecurityscanner.projects.scanConfigs.scanRuns.stop
-      parameters:
-        - description: Required. The resource name of the ScanRun to be stopped. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/StopScanRunRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ScanRun"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1alpha/{parent}/crawledUrls:
-    get:
-      description: List CrawledUrls under a given ScanRun.
-      operationId: websecurityscanner.projects.scanConfigs.scanRuns.crawledUrls.list
-      parameters:
-        - description: Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: The maximum number of CrawledUrls to return, can be limited by server. If not specified or not positive, the implementation will select a reasonable value.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A token identifying a page of results to be returned. This should be a `next_page_token` value returned from a previous List request. If unspecified, the first page of results is returned.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListCrawledUrlsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1alpha/{parent}/findingTypeStats:
-    get:
-      description: List all FindingTypeStats under a given ScanRun.
-      operationId: websecurityscanner.projects.scanConfigs.scanRuns.findingTypeStats.list
-      parameters:
-        - description: Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListFindingTypeStatsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1alpha/{parent}/findings:
-    get:
-      description: List Findings under a given ScanRun.
-      operationId: websecurityscanner.projects.scanConfigs.scanRuns.findings.list
-      parameters:
-        - description: Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: "Required. The filter expression. The expression must be in the format: . Supported field: 'finding_type'. Supported operator: '='."
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: The maximum number of Findings to return, can be limited by server. If not specified or not positive, the implementation will select a reasonable value.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A token identifying a page of results to be returned. This should be a `next_page_token` value returned from a previous List request. If unspecified, the first page of results is returned.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListFindingsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1alpha/{parent}/scanConfigs:
-    get:
-      description: Lists ScanConfigs under a given project.
-      operationId: websecurityscanner.projects.scanConfigs.list
-      parameters:
-        - description: Required. The parent resource name, which should be a project resource name in the format 'projects/{projectId}'.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: The maximum number of ScanConfigs to return, can be limited by server. If not specified or not positive, the implementation will select a reasonable value.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A token identifying a page of results to be returned. This should be a `next_page_token` value returned from a previous List request. If unspecified, the first page of results is returned.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListScanConfigsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a new ScanConfig.
       operationId: websecurityscanner.projects.scanConfigs.create
+      description: Creates a new ScanConfig.
       parameters:
-        - description: Required. The parent resource name where the scan is created, which should be a project resource name in the format 'projects/{projectId}'.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name where the scan is created, which should be a project resource name in the format 'projects/{projectId}'.
           schema:
             type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ScanConfig"
+              $ref: '#/components/schemas/ScanConfig'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ScanConfig"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1alpha/{parent}/scanRuns:
+                $ref: '#/components/schemas/ScanConfig'
+      x-google-discovery:
+        path: v1alpha/{+parent}/scanConfigs
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs
+        resourceNameBindings:
+          projectsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource name where the scan is created, which should be a project resource name in the format 'projects/{projectId}'.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: Lists ScanRuns under a given ScanConfig, in descending order of ScanRun stop time.
-      operationId: websecurityscanner.projects.scanConfigs.scanRuns.list
+      operationId: websecurityscanner.projects.scanConfigs.list
+      description: Lists ScanConfigs under a given project.
       parameters:
-        - description: Required. The parent resource name, which should be a scan resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a project resource name in the format 'projects/{projectId}'.
           schema:
             type: string
-        - description: The maximum number of ScanRuns to return, can be limited by server. If not specified or not positive, the implementation will select a reasonable value.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: A token identifying a page of results to be returned. This should be a `next_page_token` value returned from a previous List request. If unspecified, the first page of results is returned.
+          description: The maximum number of ScanConfigs to return, can be limited by server. If not specified or not positive, the implementation will select a reasonable value.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListScanRunsResponse"
-          description: Successful response
+          description: A token identifying a page of results to be returned. This should be a `next_page_token` value returned from a previous List request. If unspecified, the first page of results is returned.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListScanConfigsResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/scanConfigs
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs
+        resourceNameBindings:
+          projectsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource name, which should be a project resource name in the format 'projects/{projectId}'.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}:
+    delete:
+      operationId: websecurityscanner.projects.scanConfigs.delete
+      description: Deletes an existing ScanConfig and its child resources.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanConfig to be deleted. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanConfig to be deleted. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}
+        resourceNameBindings:
+          projectsId: name
+          scanConfigsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the ScanConfig to be deleted. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: websecurityscanner.projects.scanConfigs.get
+      description: Gets a ScanConfig.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanConfig to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanConfig to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanConfig'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}
+        resourceNameBindings:
+          projectsId: name
+          scanConfigsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the ScanConfig to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: websecurityscanner.projects.scanConfigs.patch
+      description: Updates a ScanConfig. This method support partial update of a ScanConfig.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource name of the ScanConfig. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'. The ScanConfig IDs are generated by the system.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource name of the ScanConfig. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'. The ScanConfig IDs are generated by the system.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. The update mask applies to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanConfig'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanConfig'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}
+        resourceNameBindings:
+          projectsId: name
+          scanConfigsId: name
+        resourceNameParameters:
+          name:
+            description: The resource name of the ScanConfig. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'. The ScanConfig IDs are generated by the system.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}:start:
+    post:
+      operationId: websecurityscanner.projects.scanConfigs.start
+      description: Start a ScanRun according to the given ScanConfig.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanConfig to be used. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanConfig to be used. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartScanRunRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanRun'
+      x-google-discovery:
+        path: v1alpha/{+name}:start
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}:start
+        resourceNameBindings:
+          projectsId: name
+          scanConfigsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the ScanConfig to be used. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}:
+    get:
+      operationId: websecurityscanner.projects.scanConfigs.scanRuns.get
+      description: Gets a ScanRun.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanRun to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanRun to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanRunsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanRun to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanRun'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}
+        resourceNameBindings:
+          projectsId: name
+          scanConfigsId: name
+          scanRunsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the ScanRun to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+/scanRuns/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns:
+    get:
+      operationId: websecurityscanner.projects.scanConfigs.scanRuns.list
+      description: Lists ScanRuns under a given ScanConfig, in descending order of ScanRun stop time.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of ScanRuns to return, can be limited by server. If not specified or not positive, the implementation will select a reasonable value.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A token identifying a page of results to be returned. This should be a `next_page_token` value returned from a previous List request. If unspecified, the first page of results is returned.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListScanRunsResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/scanRuns
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns
+        resourceNameBindings:
+          projectsId: parent
+          scanConfigsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource name, which should be a scan resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}:stop:
+    post:
+      operationId: websecurityscanner.projects.scanConfigs.scanRuns.stop
+      description: Stops a ScanRun. The stopped ScanRun is returned.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanRun to be stopped. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanRun to be stopped. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanRunsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the ScanRun to be stopped. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopScanRunRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanRun'
+      x-google-discovery:
+        path: v1alpha/{+name}:stop
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}:stop
+        resourceNameBindings:
+          projectsId: name
+          scanConfigsId: name
+          scanRunsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the ScanRun to be stopped. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+/scanRuns/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}/crawledUrls:
+    get:
+      operationId: websecurityscanner.projects.scanConfigs.scanRuns.crawledUrls.list
+      description: List CrawledUrls under a given ScanRun.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanRunsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of CrawledUrls to return, can be limited by server. If not specified or not positive, the implementation will select a reasonable value.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A token identifying a page of results to be returned. This should be a `next_page_token` value returned from a previous List request. If unspecified, the first page of results is returned.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCrawledUrlsResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/crawledUrls
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}/crawledUrls
+        resourceNameBindings:
+          projectsId: parent
+          scanConfigsId: parent
+          scanRunsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+/scanRuns/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}/findingTypeStats:
+    get:
+      operationId: websecurityscanner.projects.scanConfigs.scanRuns.findingTypeStats.list
+      description: List all FindingTypeStats under a given ScanRun.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanRunsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFindingTypeStatsResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/findingTypeStats
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}/findingTypeStats
+        resourceNameBindings:
+          projectsId: parent
+          scanConfigsId: parent
+          scanRunsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+/scanRuns/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}/findings/{findingsId}:
+    get:
+      operationId: websecurityscanner.projects.scanConfigs.scanRuns.findings.get
+      description: Gets a Finding.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the Finding to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}/findings/{findingId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the Finding to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}/findings/{findingId}'.
+          schema:
+            type: string
+        - name: scanRunsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the Finding to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}/findings/{findingId}'.
+          schema:
+            type: string
+        - name: findingsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name of the Finding to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}/findings/{findingId}'.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Finding'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}/findings/{findingsId}
+        resourceNameBindings:
+          projectsId: name
+          scanConfigsId: name
+          scanRunsId: name
+          findingsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the Finding to be returned. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}/findings/{findingId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+/scanRuns/[^/]+/findings/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}/findings:
+    get:
+      operationId: websecurityscanner.projects.scanConfigs.scanRuns.findings.list
+      description: List Findings under a given ScanRun.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanConfigsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: scanRunsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: 'Required. The filter expression. The expression must be in the format: . Supported field: ''finding_type''. Supported operator: ''=''.'
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of Findings to return, can be limited by server. If not specified or not positive, the implementation will select a reasonable value.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A token identifying a page of results to be returned. This should be a `next_page_token` value returned from a previous List request. If unspecified, the first page of results is returned.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFindingsResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/findings
+        flatPath: v1alpha/projects/{projectsId}/scanConfigs/{scanConfigsId}/scanRuns/{scanRunsId}/findings
+        resourceNameBindings:
+          projectsId: parent
+          scanConfigsId: parent
+          scanRunsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource name, which should be a scan run resource name in the format 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
+            location: path
+            pattern: ^projects/[^/]+/scanConfigs/[^/]+/scanRuns/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Authentication:
       description: Scan authentication configuration.
+      x-google-discovery-id: Authentication
       properties:
         customAccount:
-          $ref: "#/components/schemas/CustomAccount"
           description: Authentication using a custom account.
+          allOf:
+            - $ref: '#/components/schemas/CustomAccount'
         googleAccount:
-          $ref: "#/components/schemas/GoogleAccount"
           description: Authentication using a Google account.
+          allOf:
+            - $ref: '#/components/schemas/GoogleAccount'
       type: object
     CrawledUrl:
       description: A CrawledUrl resource represents a URL that was crawled during a ScanRun. Web Security Scanner Service crawls the web applications, following all links within the scope of sites, to find the URLs to test against.
+      x-google-discovery-id: CrawledUrl
       properties:
         body:
           description: Output only. The body of the request that was used to visit the URL.
@@ -571,6 +895,7 @@ components:
       type: object
     CustomAccount:
       description: Describes authentication configuration that uses a custom account.
+      x-google-discovery-id: CustomAccount
       properties:
         loginUrl:
           description: Required. The login form URL of the website.
@@ -583,11 +908,13 @@ components:
           type: string
       type: object
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     Finding:
       description: A Finding resource represents a vulnerability instance identified during a ScanRun.
+      x-google-discovery-id: Finding
       properties:
         body:
           description: The body of the request that triggered the vulnerability.
@@ -616,6 +943,22 @@ components:
             - ACCESSIBLE_GIT_REPOSITORY
             - ACCESSIBLE_SVN_REPOSITORY
             - ACCESSIBLE_ENV_FILE
+          x-google-enum-descriptions:
+            - The invalid finding type.
+            - A page that was served over HTTPS also resources over HTTP. A man-in-the-middle attacker could tamper with the HTTP resource and gain full access to the website that loads the resource or to monitor the actions taken by the user.
+            - The version of an included library is known to contain a security issue. The scanner checks the version of library in use against a known list of vulnerable libraries. False positives are possible if the version detection fails or if the library has been manually patched.
+            - This type of vulnerability occurs when the value of a request parameter is reflected at the beginning of the response, for example, in requests using JSONP. Under certain circumstances, an attacker may be able to supply an alphanumeric-only Flash file in the vulnerable parameter causing the browser to execute the Flash file as if it originated on the vulnerable server.
+            - A cross-site scripting (XSS) bug is found via JavaScript callback. For detailed explanations on XSS, see https://www.google.com/about/appsecurity/learning/xss/.
+            - A potential cross-site scripting (XSS) bug due to JavaScript breakage. In some circumstances, the application under test might modify the test string before it is parsed by the browser. When the browser attempts to runs this modified test string, it will likely break and throw a JavaScript execution error, thus an injection issue is occurring. However, it may not be exploitable. Manual verification is needed to see if the test string modifications can be evaded and confirm that the issue is in fact an XSS vulnerability. For detailed explanations on XSS, see https://www.google.com/about/appsecurity/learning/xss/.
+            - An application appears to be transmitting a password field in clear text. An attacker can eavesdrop network traffic and sniff the password field.
+            - 'An application returns sensitive content with an invalid content type, or without an ''X-Content-Type-Options: nosniff'' header.'
+            - A cross-site scripting (XSS) vulnerability in AngularJS module that occurs when a user-provided string is interpolated by Angular.
+            - A malformed or invalid valued header.
+            - Misspelled security header name.
+            - Mismatching values in a duplicate security header.
+            - A world-readable git repository that potentially leaks source code, commit history or sensitive information such as credentials.
+            - A world-readable subversion repository that potentially leaks source code, commit history or sensitive information such as credentials.
+            - A world-readable env file that potentially leaks source code, commit history or sensitive information such as credentials.
           type: string
         frameUrl:
           description: If the vulnerability was originated from nested IFrame, the immediate parent IFrame is reported.
@@ -630,8 +973,9 @@ components:
           description: The resource name of the Finding. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}/scanruns/{scanRunId}/findings/{findingId}'. The finding IDs are generated by the system.
           type: string
         outdatedLibrary:
-          $ref: "#/components/schemas/OutdatedLibrary"
           description: An addon containing information about outdated libraries.
+          allOf:
+            - $ref: '#/components/schemas/OutdatedLibrary'
         reproductionUrl:
           description: The URL containing human-readable payload that user can leverage to reproduce the vulnerability.
           type: string
@@ -639,20 +983,25 @@ components:
           description: The tracking ID uniquely identifies a vulnerability instance across multiple ScanRuns.
           type: string
         violatingResource:
-          $ref: "#/components/schemas/ViolatingResource"
           description: An addon containing detailed information regarding any resource causing the vulnerability such as JavaScript sources, image, audio files, etc.
+          allOf:
+            - $ref: '#/components/schemas/ViolatingResource'
         vulnerableHeaders:
-          $ref: "#/components/schemas/VulnerableHeaders"
           description: An addon containing information about vulnerable or missing HTTP headers.
+          allOf:
+            - $ref: '#/components/schemas/VulnerableHeaders'
         vulnerableParameters:
-          $ref: "#/components/schemas/VulnerableParameters"
           description: An addon containing information about request parameters which were found to be vulnerable.
+          allOf:
+            - $ref: '#/components/schemas/VulnerableParameters'
         xss:
-          $ref: "#/components/schemas/Xss"
           description: An addon containing information reported for an XSS, if any.
+          allOf:
+            - $ref: '#/components/schemas/Xss'
       type: object
     FindingTypeStats:
       description: A FindingTypeStats resource represents stats regarding a specific FindingType of Findings under a given ScanRun.
+      x-google-discovery-id: FindingTypeStats
       properties:
         findingCount:
           description: The count of findings belonging to this finding type.
@@ -676,10 +1025,27 @@ components:
             - ACCESSIBLE_GIT_REPOSITORY
             - ACCESSIBLE_SVN_REPOSITORY
             - ACCESSIBLE_ENV_FILE
+          x-google-enum-descriptions:
+            - The invalid finding type.
+            - A page that was served over HTTPS also resources over HTTP. A man-in-the-middle attacker could tamper with the HTTP resource and gain full access to the website that loads the resource or to monitor the actions taken by the user.
+            - The version of an included library is known to contain a security issue. The scanner checks the version of library in use against a known list of vulnerable libraries. False positives are possible if the version detection fails or if the library has been manually patched.
+            - This type of vulnerability occurs when the value of a request parameter is reflected at the beginning of the response, for example, in requests using JSONP. Under certain circumstances, an attacker may be able to supply an alphanumeric-only Flash file in the vulnerable parameter causing the browser to execute the Flash file as if it originated on the vulnerable server.
+            - A cross-site scripting (XSS) bug is found via JavaScript callback. For detailed explanations on XSS, see https://www.google.com/about/appsecurity/learning/xss/.
+            - A potential cross-site scripting (XSS) bug due to JavaScript breakage. In some circumstances, the application under test might modify the test string before it is parsed by the browser. When the browser attempts to runs this modified test string, it will likely break and throw a JavaScript execution error, thus an injection issue is occurring. However, it may not be exploitable. Manual verification is needed to see if the test string modifications can be evaded and confirm that the issue is in fact an XSS vulnerability. For detailed explanations on XSS, see https://www.google.com/about/appsecurity/learning/xss/.
+            - An application appears to be transmitting a password field in clear text. An attacker can eavesdrop network traffic and sniff the password field.
+            - 'An application returns sensitive content with an invalid content type, or without an ''X-Content-Type-Options: nosniff'' header.'
+            - A cross-site scripting (XSS) vulnerability in AngularJS module that occurs when a user-provided string is interpolated by Angular.
+            - A malformed or invalid valued header.
+            - Misspelled security header name.
+            - Mismatching values in a duplicate security header.
+            - A world-readable git repository that potentially leaks source code, commit history or sensitive information such as credentials.
+            - A world-readable subversion repository that potentially leaks source code, commit history or sensitive information such as credentials.
+            - A world-readable env file that potentially leaks source code, commit history or sensitive information such as credentials.
           type: string
       type: object
     GoogleAccount:
       description: Describes authentication configuration that uses a Google account.
+      x-google-discovery-id: GoogleAccount
       properties:
         password:
           description: Required. Input only. The password of the Google account. The credential is stored encrypted and not returned in any response nor included in audit logs.
@@ -690,6 +1056,7 @@ components:
       type: object
     Header:
       description: Describes a HTTP Header.
+      x-google-discovery-id: Header
       properties:
         name:
           description: Header name.
@@ -700,11 +1067,12 @@ components:
       type: object
     ListCrawledUrlsResponse:
       description: Response for the `ListCrawledUrls` method.
+      x-google-discovery-id: ListCrawledUrlsResponse
       properties:
         crawledUrls:
           description: The list of CrawledUrls returned.
           items:
-            $ref: "#/components/schemas/CrawledUrl"
+            $ref: '#/components/schemas/CrawledUrl'
           type: array
         nextPageToken:
           description: Token to retrieve the next page of results, or empty if there are no more results in the list.
@@ -712,20 +1080,22 @@ components:
       type: object
     ListFindingTypeStatsResponse:
       description: Response for the `ListFindingTypeStats` method.
+      x-google-discovery-id: ListFindingTypeStatsResponse
       properties:
         findingTypeStats:
           description: The list of FindingTypeStats returned.
           items:
-            $ref: "#/components/schemas/FindingTypeStats"
+            $ref: '#/components/schemas/FindingTypeStats'
           type: array
       type: object
     ListFindingsResponse:
       description: Response for the `ListFindings` method.
+      x-google-discovery-id: ListFindingsResponse
       properties:
         findings:
           description: The list of Findings returned.
           items:
-            $ref: "#/components/schemas/Finding"
+            $ref: '#/components/schemas/Finding'
           type: array
         nextPageToken:
           description: Token to retrieve the next page of results, or empty if there are no more results in the list.
@@ -733,6 +1103,7 @@ components:
       type: object
     ListScanConfigsResponse:
       description: Response for the `ListScanConfigs` method.
+      x-google-discovery-id: ListScanConfigsResponse
       properties:
         nextPageToken:
           description: Token to retrieve the next page of results, or empty if there are no more results in the list.
@@ -740,11 +1111,12 @@ components:
         scanConfigs:
           description: The list of ScanConfigs returned.
           items:
-            $ref: "#/components/schemas/ScanConfig"
+            $ref: '#/components/schemas/ScanConfig'
           type: array
       type: object
     ListScanRunsResponse:
       description: Response for the `ListScanRuns` method.
+      x-google-discovery-id: ListScanRunsResponse
       properties:
         nextPageToken:
           description: Token to retrieve the next page of results, or empty if there are no more results in the list.
@@ -752,11 +1124,12 @@ components:
         scanRuns:
           description: The list of ScanRuns returned.
           items:
-            $ref: "#/components/schemas/ScanRun"
+            $ref: '#/components/schemas/ScanRun'
           type: array
       type: object
     OutdatedLibrary:
       description: Information reported for an outdated library.
+      x-google-discovery-id: OutdatedLibrary
       properties:
         learnMoreUrls:
           description: URLs to learn more information about the vulnerabilities in the library.
@@ -771,11 +1144,13 @@ components:
           type: string
       type: object
     ScanConfig:
-      description: "A ScanConfig resource contains the configurations to launch a scan. next id: 12"
+      description: 'A ScanConfig resource contains the configurations to launch a scan. next id: 12'
+      x-google-discovery-id: ScanConfig
       properties:
         authentication:
-          $ref: "#/components/schemas/Authentication"
           description: The authentication configuration. If specified, service will use the authentication configuration during scanning.
+          allOf:
+            - $ref: '#/components/schemas/Authentication'
         blacklistPatterns:
           description: The excluded URL patterns as described in https://cloud.google.com/security-command-center/docs/how-to-use-web-security-scanner#excluding_urls
           items:
@@ -785,8 +1160,9 @@ components:
           description: Required. The user provided display name of the ScanConfig.
           type: string
         latestRun:
-          $ref: "#/components/schemas/ScanRun"
           description: Latest ScanRun if available.
+          allOf:
+            - $ref: '#/components/schemas/ScanRun'
         maxQps:
           description: The maximum QPS during scanning. A valid value ranges from 5 to 20 inclusively. If the field is unspecified or its value is set 0, server will default to 15. Other values outside of [5, 20] range will be rejected with INVALID_ARGUMENT error.
           format: int32
@@ -795,8 +1171,9 @@ components:
           description: The resource name of the ScanConfig. The name follows the format of 'projects/{projectId}/scanConfigs/{scanConfigId}'. The ScanConfig IDs are generated by the system.
           type: string
         schedule:
-          $ref: "#/components/schemas/Schedule"
           description: The schedule of the ScanConfig.
+          allOf:
+            - $ref: '#/components/schemas/Schedule'
         startingUrls:
           description: Required. The starting URLs from which the scanner finds site pages.
           items:
@@ -811,6 +1188,12 @@ components:
               - COMPUTE
               - CLOUD_RUN
               - CLOUD_FUNCTIONS
+            x-google-enum-descriptions:
+              - The target platform is unknown. Requests with this enum value will be rejected with INVALID_ARGUMENT error.
+              - Google App Engine service.
+              - Google Compute Engine service.
+              - Google Cloud Run service.
+              - Google Cloud Function service.
             type: string
           type: array
         userAgent:
@@ -820,10 +1203,16 @@ components:
             - CHROME_LINUX
             - CHROME_ANDROID
             - SAFARI_IPHONE
+          x-google-enum-descriptions:
+            - The user agent is unknown. Service will default to CHROME_LINUX.
+            - Chrome on Linux. This is the service default if unspecified.
+            - Chrome on Android.
+            - Safari on IPhone.
           type: string
       type: object
     ScanRun:
       description: A ScanRun is a output-only resource representing an actual run of the scan.
+      x-google-discovery-id: ScanRun
       properties:
         endTime:
           description: The time at which the ScanRun reached termination state - that the ScanRun is either finished or stopped by user.
@@ -836,6 +1225,11 @@ components:
             - QUEUED
             - SCANNING
             - FINISHED
+          x-google-enum-descriptions:
+            - Represents an invalid state caused by internal server error. This value should never be returned.
+            - The scan is waiting in the queue.
+            - The scan is in progress.
+            - The scan is either finished or stopped by user.
           type: string
         hasVulnerabilities:
           description: Whether the scan run has found any vulnerabilities.
@@ -854,6 +1248,11 @@ components:
             - SUCCESS
             - ERROR
             - KILLED
+          x-google-enum-descriptions:
+            - Default value. This value is returned when the ScanRun is not yet finished.
+            - The scan finished without errors.
+            - The scan finished with errors.
+            - The scan was terminated by user.
           type: string
         startTime:
           description: The time at which the ScanRun started.
@@ -870,6 +1269,7 @@ components:
       type: object
     Schedule:
       description: Scan schedule configuration.
+      x-google-discovery-id: Schedule
       properties:
         intervalDurationDays:
           description: Required. The duration of time between executions in days.
@@ -882,14 +1282,17 @@ components:
       type: object
     StartScanRunRequest:
       description: Request for the `StartScanRun` method.
+      x-google-discovery-id: StartScanRunRequest
       properties: {}
       type: object
     StopScanRunRequest:
       description: Request for the `StopScanRun` method.
+      x-google-discovery-id: StopScanRunRequest
       properties: {}
       type: object
     ViolatingResource:
       description: Information regarding any resource causing the vulnerability such as JavaScript sources, image, audio files, etc.
+      x-google-discovery-id: ViolatingResource
       properties:
         contentType:
           description: The MIME type of this resource.
@@ -900,20 +1303,22 @@ components:
       type: object
     VulnerableHeaders:
       description: Information about vulnerable or missing HTTP Headers.
+      x-google-discovery-id: VulnerableHeaders
       properties:
         headers:
           description: List of vulnerable headers.
           items:
-            $ref: "#/components/schemas/Header"
+            $ref: '#/components/schemas/Header'
           type: array
         missingHeaders:
           description: List of missing headers.
           items:
-            $ref: "#/components/schemas/Header"
+            $ref: '#/components/schemas/Header'
           type: array
       type: object
     VulnerableParameters:
       description: Information about vulnerable request parameters.
+      x-google-discovery-id: VulnerableParameters
       properties:
         parameterNames:
           description: The vulnerable parameter names.
@@ -923,6 +1328,7 @@ components:
       type: object
     Xss:
       description: Information reported for an XSS.
+      x-google-discovery-id: Xss
       properties:
         errorMessage:
           description: An error message generated by a javascript breakage.
@@ -933,21 +1339,123 @@ components:
             type: string
           type: array
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/security-command-center/docs/concepts-web-security-scanner-overview/
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://websecurityscanner.googleapis.com/
+  batchPath: batch
+  canonicalName: WebSecurityScanner
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: websecurityscanner:v1alpha
+  kind: discovery#restDescription
+  mtlsRootUrl: https://websecurityscanner.mtls.googleapis.com/
+  name: websecurityscanner
+  revision: '20231021'
+  rootUrl: https://websecurityscanner.googleapis.com/
+  servicePath: ''
+  version_module: true

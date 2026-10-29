@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://firebasedatabase.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -11,7 +9,7 @@ info:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
   termsOfService: https://developers.google.com/terms/
-  title: Firebase Realtime Database API
+  title: Firebase Realtime Database Management API
   version: v1beta
   x-apisguru-categories:
     - analytics
@@ -20,425 +18,544 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://firebasedatabase.googleapis.com/$discovery/rest?version=v1beta
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/firebasedatabase.v1beta.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/firebasedatabase.v1beta.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: firebasedatabase
-externalDocs:
-  url: https://firebase.google.com/docs/reference/rest/database/database-management/rest/
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20241202; original source SHA-256 51833c28c67bdb838fd0aed966969eb415e177a250460708f891075d22ba7a3e.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://firebasedatabase.googleapis.com
 paths:
-  /v1beta/{name}:
-    delete:
-      description: Marks a DatabaseInstance to be deleted. The DatabaseInstance will be set to the DELETED state for 20 days, and will be purged within 30 days. The default database cannot be deleted. IDs for deleted database instances may never be recovered or re-used. The Database may only be deleted if it is already in a DISABLED state.
-      operationId: firebasedatabase.projects.locations.instances.delete
-      parameters:
-        - description: "Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DatabaseInstance"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
-      tags:
-        - projects
-    get:
-      description: Gets the DatabaseInstance identified by the specified resource name.
-      operationId: firebasedatabase.projects.locations.instances.get
-      parameters:
-        - description: "Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`. `database-id` is a globally unique identifier across all parent collections. For convenience, this method allows you to supply `-` as a wildcard character in place of specific collections under `projects` and `locations`. The resulting wildcarding form of the method is: `projects/-/locations/-/instances/{database-id}`."
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DatabaseInstance"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase.readonly
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta/{name}:disable:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+  /v1beta/projects/{projectsId}/locations/{locationsId}/instances:
     post:
-      description: Disables a DatabaseInstance. The database can be re-enabled later using ReenableDatabaseInstance. When a database is disabled, all reads and writes are denied, including view access in the Firebase console.
-      operationId: firebasedatabase.projects.locations.instances.disable
-      parameters:
-        - description: "Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/DisableDatabaseInstanceRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DatabaseInstance"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
-      tags:
-        - projects
-  /v1beta/{name}:reenable:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Enables a DatabaseInstance. The database must have been disabled previously using DisableDatabaseInstance. The state of a successfully reenabled DatabaseInstance is ACTIVE.
-      operationId: firebasedatabase.projects.locations.instances.reenable
-      parameters:
-        - description: "Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ReenableDatabaseInstanceRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DatabaseInstance"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
-      tags:
-        - projects
-  /v1beta/{name}:undelete:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Restores a DatabaseInstance that was previously marked to be deleted. After the delete method is used, DatabaseInstances are set to the DELETED state for 20 days, and will be purged within 30 days. Databases in the DELETED state can be undeleted without losing any data. This method may only be used on a DatabaseInstance in the DELETED state. Purged DatabaseInstances may not be recovered.
-      operationId: firebasedatabase.projects.locations.instances.undelete
-      parameters:
-        - description: "Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UndeleteDatabaseInstanceRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DatabaseInstance"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
-      tags:
-        - projects
-  /v1beta/{parent}/instances:
-    get:
-      description: Lists each DatabaseInstance associated with the specified parent project. The list items are returned in no particular order, but will be a consistent view of the database instances when additional requests are made with a `pageToken`. The resulting list contains instances in any STATE. The list results may be stale by a few seconds. Use GetDatabaseInstance for consistent reads.
-      operationId: firebasedatabase.projects.locations.instances.list
-      parameters:
-        - description: "Required. The parent project for which to list database instances, in the form: `projects/{project-number}/locations/{location-id}` To list across all locations, use a parent in the form: `projects/{project-number}/locations/-`"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: The maximum number of database instances to return in the response. The server may return fewer than this at its discretion. If no value is specified (or too large a value is specified), then the server will impose its own limit.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: Token returned from a previous call to `ListDatabaseInstances` indicating where in the set of database instances to resume listing.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-        - description: Indicate that DatabaseInstances in the `DELETED` state should also be returned.
-          in: query
-          name: showDeleted
-          schema:
-            type: boolean
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListDatabaseInstancesResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform.read-only
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase.readonly
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Requests that a new DatabaseInstance be created. The state of a successfully created DatabaseInstance is ACTIVE. Only available for projects on the Blaze plan. Projects can be upgraded using the Cloud Billing API https://cloud.google.com/billing/reference/rest/v1/projects/updateBillingInfo. Note that it might take a few minutes for billing enablement state to propagate to Firebase systems.
       operationId: firebasedatabase.projects.locations.instances.create
+      description: Requests that a new DatabaseInstance be created. The state of a successfully created DatabaseInstance is ACTIVE. Only available for projects on the Blaze plan. Projects can be upgraded using the Cloud Billing API https://cloud.google.com/billing/reference/rest/v1/projects/updateBillingInfo. Note that it might take a few minutes for billing enablement state to propagate to Firebase systems.
       parameters:
-        - description: "Required. The parent project for which to create a database instance, in the form: `projects/{project-number}/locations/{location-id}`."
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The parent project for which to create a database instance, in the form: `projects/{project-number}/locations/{location-id}`.'
           schema:
             type: string
-        - description: The globally unique identifier of the database instance.
-          in: query
-          name: databaseId
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent project for which to create a database instance, in the form: `projects/{project-number}/locations/{location-id}`.'
           schema:
             type: string
-        - description: When set to true, the request will be validated but not submitted.
+        - name: databaseId
           in: query
-          name: validateOnly
+          schema:
+            type: string
+          description: The globally unique identifier of the database instance.
+        - name: validateOnly
+          in: query
           schema:
             type: boolean
+          description: When set to true, the request will be validated but not submitted.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DatabaseInstance"
+              $ref: '#/components/schemas/DatabaseInstance'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DatabaseInstance"
-          description: Successful response
+                $ref: '#/components/schemas/DatabaseInstance'
+      x-google-discovery:
+        path: v1beta/{+parent}/instances
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent project for which to create a database instance, in the form: `projects/{project-number}/locations/{location-id}`.'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: firebasedatabase.projects.locations.instances.list
+      description: Lists each DatabaseInstance associated with the specified parent project. The list items are returned in no particular order, but will be a consistent view of the database instances when additional requests are made with a `pageToken`. The resulting list contains instances in any STATE. The list results may be stale by a few seconds. Use GetDatabaseInstance for consistent reads.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent project for which to list database instances, in the form: `projects/{project-number}/locations/{location-id}` To list across all locations, use a parent in the form: `projects/{project-number}/locations/-`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent project for which to list database instances, in the form: `projects/{project-number}/locations/{location-id}` To list across all locations, use a parent in the form: `projects/{project-number}/locations/-`'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of database instances to return in the response. The server may return fewer than this at its discretion. If no value is specified (or too large a value is specified), then the server will impose its own limit.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Token returned from a previous call to `ListDatabaseInstances` indicating where in the set of database instances to resume listing.
+        - name: showDeleted
+          in: query
+          schema:
+            type: boolean
+          description: Indicate that DatabaseInstances in the `DELETED` state should also be returned.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDatabaseInstancesResponse'
+      x-google-discovery:
+        path: v1beta/{+parent}/instances
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent project for which to list database instances, in the form: `projects/{project-number}/locations/{location-id}` To list across all locations, use a parent in the form: `projects/{project-number}/locations/-`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:
+    delete:
+      operationId: firebasedatabase.projects.locations.instances.delete
+      description: Marks a DatabaseInstance to be deleted. The DatabaseInstance will be set to the DELETED state for 20 days, and will be purged within 30 days. The default database cannot be deleted. IDs for deleted database instances may never be recovered or re-used. The Database may only be deleted if it is already in a DISABLED state.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/firebase
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/firebase
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseInstance'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: firebasedatabase.projects.locations.instances.get
+      description: Gets the DatabaseInstance identified by the specified resource name.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`. `database-id` is a globally unique identifier across all parent collections. For convenience, this method allows you to supply `-` as a wildcard character in place of specific collections under `projects` and `locations`. The resulting wildcarding form of the method is: `projects/-/locations/-/instances/{database-id}`.'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`. `database-id` is a globally unique identifier across all parent collections. For convenience, this method allows you to supply `-` as a wildcard character in place of specific collections under `projects` and `locations`. The resulting wildcarding form of the method is: `projects/-/locations/-/instances/{database-id}`.'
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`. `database-id` is a globally unique identifier across all parent collections. For convenience, this method allows you to supply `-` as a wildcard character in place of specific collections under `projects` and `locations`. The resulting wildcarding form of the method is: `projects/-/locations/-/instances/{database-id}`.'
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform.read-only
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseInstance'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`. `database-id` is a globally unique identifier across all parent collections. For convenience, this method allows you to supply `-` as a wildcard character in place of specific collections under `projects` and `locations`. The resulting wildcarding form of the method is: `projects/-/locations/-/instances/{database-id}`.'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:disable:
+    post:
+      operationId: firebasedatabase.projects.locations.instances.disable
+      description: Disables a DatabaseInstance. The database can be re-enabled later using ReenableDatabaseInstance. When a database is disabled, all reads and writes are denied, including view access in the Firebase console.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisableDatabaseInstanceRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseInstance'
+      x-google-discovery:
+        path: v1beta/{+name}:disable
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:disable
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:reenable:
+    post:
+      operationId: firebasedatabase.projects.locations.instances.reenable
+      description: Enables a DatabaseInstance. The database must have been disabled previously using DisableDatabaseInstance. The state of a successfully reenabled DatabaseInstance is ACTIVE.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReenableDatabaseInstanceRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseInstance'
+      x-google-discovery:
+        path: v1beta/{+name}:reenable
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:reenable
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:undelete:
+    post:
+      operationId: firebasedatabase.projects.locations.instances.undelete
+      description: Restores a DatabaseInstance that was previously marked to be deleted. After the delete method is used, DatabaseInstances are set to the DELETED state for 20 days, and will be purged within 30 days. Databases in the DELETED state can be undeleted without losing any data. This method may only be used on a DatabaseInstance in the DELETED state. Purged DatabaseInstances may not be recovered.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UndeleteDatabaseInstanceRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseInstance'
+      x-google-discovery:
+        path: v1beta/{+name}:undelete
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:undelete
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     DatabaseInstance:
-      description: "Representation of a Realtime Database instance. Details on interacting with contents of a DatabaseInstance can be found at: https://firebase.google.com/docs/database/rest/start."
+      description: 'Representation of a Realtime Database instance. Details on interacting with contents of a DatabaseInstance can be found at: https://firebase.google.com/docs/database/rest/start.'
+      x-google-discovery-id: DatabaseInstance
       properties:
         databaseUrl:
           description: Output only. Output Only. The globally unique hostname of the database.
           readOnly: true
           type: string
         name:
-          description: "The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`."
+          description: 'The fully qualified resource name of the database instance, in the form: `projects/{project-number}/locations/{location-id}/instances/{database-id}`.'
           type: string
         project:
-          description: "Output only. The resource name of the project this instance belongs to. For example: `projects/{project-number}`."
+          description: 'Output only. The resource name of the project this instance belongs to. For example: `projects/{project-number}`.'
           readOnly: true
           type: string
         state:
@@ -448,6 +565,11 @@ components:
             - ACTIVE
             - DISABLED
             - DELETED
+          x-google-enum-descriptions:
+            - Unspecified state, likely the result of an error on the backend. This is only used for distinguishing unset values.
+            - The normal and active state.
+            - The database is in a disabled state. It can be re-enabled later.
+            - The database is in a deleted state.
           readOnly: true
           type: string
         type:
@@ -456,19 +578,25 @@ components:
             - DATABASE_INSTANCE_TYPE_UNSPECIFIED
             - DEFAULT_DATABASE
             - USER_DATABASE
+          x-google-enum-descriptions:
+            - Unknown state, likely the result of an error on the backend. This is only used for distinguishing unset values.
+            - The default database that is provisioned when a project is created.
+            - A database that the user created.
           type: string
       type: object
     DisableDatabaseInstanceRequest:
       description: The request sent to the DisableDatabaseInstance method.
+      x-google-discovery-id: DisableDatabaseInstanceRequest
       properties: {}
       type: object
     ListDatabaseInstancesResponse:
       description: The response from the ListDatabaseInstances method.
+      x-google-discovery-id: ListDatabaseInstancesResponse
       properties:
         instances:
           description: List of each DatabaseInstance that is in the parent Firebase project.
           items:
-            $ref: "#/components/schemas/DatabaseInstance"
+            $ref: '#/components/schemas/DatabaseInstance'
           type: array
         nextPageToken:
           description: If the result list is too large to fit in a single response, then a token is returned. If the string is empty, then this response is the last page of results. This token can be used in a subsequent call to `ListDatabaseInstances` to find the next group of database instances. Page tokens are short-lived and should not be persisted.
@@ -476,33 +604,137 @@ components:
       type: object
     ReenableDatabaseInstanceRequest:
       description: The request sent to the ReenableDatabaseInstance method.
+      x-google-discovery-id: ReenableDatabaseInstanceRequest
       properties: {}
       type: object
     UndeleteDatabaseInstanceRequest:
       description: The request sent to UndeleteDatabaseInstance method.
+      x-google-discovery-id: UndeleteDatabaseInstanceRequest
       properties: {}
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/cloud-platform.read-only: View your data across Google Cloud services and see the email address of your Google Account
             https://www.googleapis.com/auth/firebase: View and administer all your Firebase data and settings
             https://www.googleapis.com/auth/firebase.readonly: View all your Firebase data and settings
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/cloud-platform.read-only: View your data across Google Cloud services and see the email address of your Google Account
             https://www.googleapis.com/auth/firebase: View and administer all your Firebase data and settings
             https://www.googleapis.com/auth/firebase.readonly: View all your Firebase data and settings
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://firebase.google.com/docs/reference/rest/database/database-management/rest/
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://firebasedatabase.googleapis.com/
+  batchPath: batch
+  canonicalName: Firebase Realtime Database
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: firebasedatabase:v1beta
+  kind: discovery#restDescription
+  mtlsRootUrl: https://firebasedatabase.mtls.googleapis.com/
+  name: firebasedatabase
+  revision: '20241202'
+  rootUrl: https://firebasedatabase.googleapis.com/
+  servicePath: ''
+  version_module: true

@@ -1,0 +1,740 @@
+openapi: 3.0.3
+info:
+  title: Cloud Product Registry API
+  version: v1
+  description: Cloud Product Registry API provides capabilities to access all first Google Cloud products.
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/cloudproductregistry.v1.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/cloudproductregistry.v1.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260929; original source SHA-256 69da12bdc338c400c203ed117229a253312675d162ad5ab1815a917106b1d490.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://cloudproductregistry.googleapis.com
+paths:
+  /v1/logicalProducts/{logicalProductsId}:
+    get:
+      operationId: cloudproductregistry.logicalProducts.get
+      description: Gets details of a LogicalProduct.
+      parameters:
+        - name: logicalProductsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the LogicalProduct to retrieve. Format: logicalProducts/{logical_product}'
+          schema:
+            type: string
+      tags:
+        - logicalProducts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogicalProduct'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/logicalProducts/{logicalProductsId}
+        resourceNameBindings:
+          logicalProductsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the LogicalProduct to retrieve. Format: logicalProducts/{logical_product}'
+            location: path
+            pattern: ^logicalProducts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/logicalProducts:
+    get:
+      operationId: cloudproductregistry.logicalProducts.list
+      description: Lists LogicalProducts matching given criteria.
+      parameters:
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: 'Optional. The filter expression for listing logical products. Filter syntax: https://google.aip.dev/160 Supported fields: suite_id'
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of logical products to return. The service may return fewer than this value. If unspecified, at most 100 logical products will be returned. The maximum value is 500; values above 500 will be coerced to 500.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListLogicalProducts` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListLogicalProducts` must match the call that provided the page token.
+      tags:
+        - logicalProducts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLogicalProductsResponse'
+      x-google-discovery:
+        path: v1/logicalProducts
+        flatPath: v1/logicalProducts
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/logicalProducts/{logicalProductsId}:lookupEntity:
+    get:
+      operationId: cloudproductregistry.logicalProducts.lookupEntity
+      description: Look up entities.
+      parameters:
+        - name: logicalProductsId
+          in: path
+          required: true
+          description: 'Component of the original `lookupUri` resource name. Required. Entity uri to look up. Supported Formats: logicalProducts/{logical_product} logicalProducts/{logical_product}/variants/{variant} productSuites/{product_suite}'
+          schema:
+            type: string
+      tags:
+        - logicalProducts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LookupEntityResponse'
+      x-google-discovery:
+        path: v1/{+lookupUri}:lookupEntity
+        flatPath: v1/logicalProducts/{logicalProductsId}:lookupEntity
+        resourceNameBindings:
+          logicalProductsId: lookupUri
+        resourceNameParameters:
+          lookupUri:
+            description: 'Required. Entity uri to look up. Supported Formats: logicalProducts/{logical_product} logicalProducts/{logical_product}/variants/{variant} productSuites/{product_suite}'
+            location: path
+            pattern: ^logicalProducts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - lookupUri
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/logicalProducts/{logicalProductsId}/variants/{variantsId}:
+    get:
+      operationId: cloudproductregistry.logicalProducts.variants.get
+      description: Get details of a LogicalProductVariant.
+      parameters:
+        - name: logicalProductsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the LogicalProductVariant to retrieve. Format: logicalProducts/{logical_product}/variants/{variant}'
+          schema:
+            type: string
+        - name: variantsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the LogicalProductVariant to retrieve. Format: logicalProducts/{logical_product}/variants/{variant}'
+          schema:
+            type: string
+      tags:
+        - logicalProducts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogicalProductVariant'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/logicalProducts/{logicalProductsId}/variants/{variantsId}
+        resourceNameBindings:
+          logicalProductsId: name
+          variantsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the LogicalProductVariant to retrieve. Format: logicalProducts/{logical_product}/variants/{variant}'
+            location: path
+            pattern: ^logicalProducts/[^/]+/variants/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/logicalProducts/{logicalProductsId}/variants:
+    get:
+      operationId: cloudproductregistry.logicalProducts.variants.list
+      description: Lists LogicalProductVariants matching given criteria.
+      parameters:
+        - name: logicalProductsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Parent logical product id. Format: logicalProducts/{logical_product}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of logical product variants to return. The service may return fewer than this value. If unspecified, at most 100 logical product variants will be returned. The maximum value is 500; values above 500 will be coerced to 500.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListLogicalProductVariants` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListLogicalProductVariants` must match the call that provided the page token.
+      tags:
+        - logicalProducts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLogicalProductVariantsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/variants
+        flatPath: v1/logicalProducts/{logicalProductsId}/variants
+        resourceNameBindings:
+          logicalProductsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. Parent logical product id. Format: logicalProducts/{logical_product}'
+            location: path
+            pattern: ^logicalProducts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/logicalProducts/{logicalProductsId}/variants/{variantsId}:lookupEntity:
+    get:
+      operationId: cloudproductregistry.logicalProducts.variants.lookupEntity
+      description: Look up entities.
+      parameters:
+        - name: logicalProductsId
+          in: path
+          required: true
+          description: 'Component of the original `lookupUri` resource name. Required. Entity uri to look up. Supported Formats: logicalProducts/{logical_product} logicalProducts/{logical_product}/variants/{variant} productSuites/{product_suite}'
+          schema:
+            type: string
+        - name: variantsId
+          in: path
+          required: true
+          description: 'Component of the original `lookupUri` resource name. Required. Entity uri to look up. Supported Formats: logicalProducts/{logical_product} logicalProducts/{logical_product}/variants/{variant} productSuites/{product_suite}'
+          schema:
+            type: string
+      tags:
+        - logicalProducts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LookupEntityResponse'
+      x-google-discovery:
+        path: v1/{+lookupUri}:lookupEntity
+        flatPath: v1/logicalProducts/{logicalProductsId}/variants/{variantsId}:lookupEntity
+        resourceNameBindings:
+          logicalProductsId: lookupUri
+          variantsId: lookupUri
+        resourceNameParameters:
+          lookupUri:
+            description: 'Required. Entity uri to look up. Supported Formats: logicalProducts/{logical_product} logicalProducts/{logical_product}/variants/{variant} productSuites/{product_suite}'
+            location: path
+            pattern: ^logicalProducts/[^/]+/variants/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - lookupUri
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/productSuites/{productSuitesId}:
+    get:
+      operationId: cloudproductregistry.productSuites.get
+      description: Get details of a ProductSuite.
+      parameters:
+        - name: productSuitesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the ProductSuite to retrieve. Format: productSuites/{product_suite}'
+          schema:
+            type: string
+      tags:
+        - productSuites
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductSuite'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/productSuites/{productSuitesId}
+        resourceNameBindings:
+          productSuitesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the ProductSuite to retrieve. Format: productSuites/{product_suite}'
+            location: path
+            pattern: ^productSuites/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/productSuites:
+    get:
+      operationId: cloudproductregistry.productSuites.list
+      description: Lists ProductSuites.
+      parameters:
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of suites to return. The service may return fewer than this value. If unspecified, at most 100 suites will be returned. The maximum value is 500; values above 500 will be coerced to 500.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListProductSuites` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListProductSuites` must match the call that provided the page token.
+      tags:
+        - productSuites
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProductSuitesResponse'
+      x-google-discovery:
+        path: v1/productSuites
+        flatPath: v1/productSuites
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/productSuites/{productSuitesId}:lookupEntity:
+    get:
+      operationId: cloudproductregistry.productSuites.lookupEntity
+      description: Look up entities.
+      parameters:
+        - name: productSuitesId
+          in: path
+          required: true
+          description: 'Component of the original `lookupUri` resource name. Required. Entity uri to look up. Supported Formats: logicalProducts/{logical_product} logicalProducts/{logical_product}/variants/{variant} productSuites/{product_suite}'
+          schema:
+            type: string
+      tags:
+        - productSuites
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LookupEntityResponse'
+      x-google-discovery:
+        path: v1/{+lookupUri}:lookupEntity
+        flatPath: v1/productSuites/{productSuitesId}:lookupEntity
+        resourceNameBindings:
+          productSuitesId: lookupUri
+        resourceNameParameters:
+          lookupUri:
+            description: 'Required. Entity uri to look up. Supported Formats: logicalProducts/{logical_product} logicalProducts/{logical_product}/variants/{variant} productSuites/{product_suite}'
+            location: path
+            pattern: ^productSuites/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - lookupUri
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    ListLogicalProductVariantsResponse:
+      description: Response message for ListLogicalProductVariants.
+      x-google-discovery-id: ListLogicalProductVariantsResponse
+      properties:
+        logicalProductVariants:
+          description: Matched LogicalProductVariants
+          items:
+            $ref: '#/components/schemas/LogicalProductVariant'
+          type: array
+        nextPageToken:
+          description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
+          type: string
+      type: object
+    ListLogicalProductsResponse:
+      description: Response message for ListLogicalProducts.
+      x-google-discovery-id: ListLogicalProductsResponse
+      properties:
+        logicalProducts:
+          description: Matched LogicalProducts
+          items:
+            $ref: '#/components/schemas/LogicalProduct'
+          type: array
+        nextPageToken:
+          description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
+          type: string
+      type: object
+    ListProductSuitesResponse:
+      description: Response message for ListProductSuites.
+      x-google-discovery-id: ListProductSuitesResponse
+      properties:
+        nextPageToken:
+          description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
+          type: string
+        productSuites:
+          description: Matched ProductSuites
+          items:
+            $ref: '#/components/schemas/ProductSuite'
+          type: array
+      type: object
+    LogicalProduct:
+      description: Represents an independent service offering that can be provisioned by a customer.
+      x-google-discovery-id: LogicalProduct
+      properties:
+        lifecycleState:
+          description: Output only. Current Lifecycle state of the logical product.
+          enum:
+            - LIFECYCLE_STATE_UNSPECIFIED
+            - LIFECYCLE_STATE_PUBLIC_PREVIEW
+            - LIFECYCLE_STATE_PRIVATE_GA
+            - LIFECYCLE_STATE_GA
+            - LIFECYCLE_STATE_DEPRECATED
+          x-google-enum-deprecated:
+            - false
+            - false
+            - true
+            - false
+            - false
+          x-google-enum-descriptions:
+            - The default value. This value is used if the lifecycle state is not set.
+            - The entity is in Public Preview. It is available to all customers, but may not be feature-complete or have full support guarantees.
+            - 'Deprecated: Private General Availability entities are not exposed. The entity is in Private General Availability. It is fully supported and stable, but only available to a select group of customers.'
+            - The entity is Generally Available. It is fully supported, stable, and available to all customers.
+            - The entity is deprecated. It is no longer recommended for use and may be removed in a future version.
+          readOnly: true
+          type: string
+        name:
+          description: 'Identifier. The resource name of the LogicalProduct. Format: logicalProducts/{logical_product}.'
+          type: string
+        productSuite:
+          description: 'Product suite associated with the logical product. Format: productSuites/{product_suite}.'
+          type: string
+        replaced:
+          description: Output only. Indicates whether the logical product has been replaced. If `false`, the product is active. If `true`, the product has been replaced by another type, and the `replacement` field contains the resource name of that replacement.
+          readOnly: true
+          type: boolean
+        replacement:
+          description: 'Output only. The resource name of the Logical Entity that the logical product is replaced by. This field is only populated when this logical product is replaced by some other type. Eg: logicalProducts/{logical_product}/variants/{variant}, productSuites/{product_suite}, etc.'
+          readOnly: true
+          type: string
+        title:
+          description: Display name of the LogicalProduct.
+          type: string
+        variants:
+          description: 'Output only. Child variant resource references. Format: logicalProducts/{logical_product}/variants/{variant}'
+          items:
+            type: string
+          readOnly: true
+          type: array
+      type: object
+    LogicalProductVariant:
+      description: Represents a distinct offering derived from a primary product that retains core functionalities but offers specialized features for a specific market segment.
+      x-google-discovery-id: LogicalProductVariant
+      properties:
+        lifecycleState:
+          description: Output only. Current Lifecycle state of the logical product variant.
+          enum:
+            - LIFECYCLE_STATE_UNSPECIFIED
+            - LIFECYCLE_STATE_PUBLIC_PREVIEW
+            - LIFECYCLE_STATE_PRIVATE_GA
+            - LIFECYCLE_STATE_GA
+            - LIFECYCLE_STATE_DEPRECATED
+          x-google-enum-deprecated:
+            - false
+            - false
+            - true
+            - false
+            - false
+          x-google-enum-descriptions:
+            - The default value. This value is used if the lifecycle state is not set.
+            - The entity is in Public Preview. It is available to all customers, but may not be feature-complete or have full support guarantees.
+            - 'Deprecated: Private General Availability entities are not exposed. The entity is in Private General Availability. It is fully supported and stable, but only available to a select group of customers.'
+            - The entity is Generally Available. It is fully supported, stable, and available to all customers.
+            - The entity is deprecated. It is no longer recommended for use and may be removed in a future version.
+          readOnly: true
+          type: string
+        name:
+          description: 'Identifier. The resource name of the LogicalProductVariant. Format: logicalProducts/{logical_product}/variants/{variant}'
+          type: string
+        replaced:
+          description: Output only. Indicates whether the logical product variant has been replaced. If `false`, the variant is active. If `true`, the variant has been replaced by another type, and the `replacement` field contains the resource name of that replacement.
+          readOnly: true
+          type: boolean
+        replacement:
+          description: 'Output only. The resource name of the Logical Entity that the logical product variant is replaced by. This field is only populated when this logical product variant is replaced by some other type. Eg: logicalProducts/{logical_product}, productSuites/{product_suite}, etc.'
+          readOnly: true
+          type: string
+        title:
+          description: Display name of the LogicalProductVariant.
+          type: string
+      type: object
+    LookupEntityResponse:
+      description: Response message for LookupEntity.
+      x-google-discovery-id: LookupEntityResponse
+      properties:
+        logicalProduct:
+          description: Matched LogicalProduct.
+          allOf:
+            - $ref: '#/components/schemas/LogicalProduct'
+        logicalProductVariant:
+          description: Matched LogicalProductVariant.
+          allOf:
+            - $ref: '#/components/schemas/LogicalProductVariant'
+        productSuite:
+          description: Matched ProductSuite.
+          allOf:
+            - $ref: '#/components/schemas/ProductSuite'
+      type: object
+    ProductSuite:
+      description: Represents a unified grouping of products sharing a common brand and market positioning.
+      x-google-discovery-id: ProductSuite
+      properties:
+        logicalProducts:
+          description: 'Output only. LogicalProducts under this suite. Format: logicalProducts/{logical_product}'
+          items:
+            type: string
+          readOnly: true
+          type: array
+        name:
+          description: 'Identifier. The resource name of the ProductSuite. Format: productSuites/{product_suite}'
+          type: string
+        replaced:
+          description: Output only. Indicates whether the product suite has been replaced. If `false`, the product suite is active. If `true`, the product suite has been replaced by another type, and the `replacement` field contains the resource name of that replacement.
+          readOnly: true
+          type: boolean
+        replacement:
+          description: 'Output only. The resource name of the Logical Entity that the product suite is replaced by. This field is only populated when this product suite is replaced by some other type. Eg: logicalProducts/{logical_product}, logicalProducts/{logical_product}/variants/{variant}, etc.'
+          readOnly: true
+          type: string
+        title:
+          description: Title of the ProductSuite.
+          type: string
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes: {}
+externalDocs:
+  url: https://docs.cloud.google.com/product-registry
+tags:
+  - name: logicalProducts
+  - name: productSuites
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://cloudproductregistry.googleapis.com/
+  batchPath: batch
+  canonicalName: Cloud Product Registry
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: cloudproductregistry:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://cloudproductregistry.mtls.googleapis.com/
+  name: cloudproductregistry
+  revision: '20260929'
+  rootUrl: https://cloudproductregistry.googleapis.com/
+  servicePath: ''
+  version_module: true

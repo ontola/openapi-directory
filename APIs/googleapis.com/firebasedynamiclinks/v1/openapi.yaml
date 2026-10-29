@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://firebasedynamiclinks.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -21,296 +19,252 @@ info:
   x-logo:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
-    - converter:
-        url: https://github.com/mermade/oas-kit
-        version: 7.0.4
-      format: google
-      url: https://firebasedynamiclinks.googleapis.com/$discovery/rest?version=v1
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/firebasedynamiclinks.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/firebasedynamiclinks.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: firebasedynamiclinks
-externalDocs:
-  url: https://firebase.google.com/docs/dynamic-links/
-tags:
-  - name: managedShortLinks
-  - name: shortLinks
-  - name: v1
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20241125; original source SHA-256 edefe667aca5f440a418d354e9cae019025a03a64f890e127c52148f52c2bea9.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://firebasedynamiclinks.googleapis.com
 paths:
-  /v1/installAttribution:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Get iOS strong/weak-match info for post-install attribution.
-      operationId: firebasedynamiclinks.installAttribution
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GetIosPostInstallAttributionRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GetIosPostInstallAttributionResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
-      tags:
-        - v1
   /v1/managedShortLinks:create:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
     post:
-      description: "Creates a managed short Dynamic Link given either a valid long Dynamic Link or details such as Dynamic Link domain, Android and iOS app information. The created short Dynamic Link will not expire. This differs from CreateShortDynamicLink in the following ways: - The request will also contain a name for the link (non unique name for the front end). - The response must be authenticated with an auth token (generated with the admin service account). - The link will appear in the FDL list of links in the console front end. The Dynamic Link domain in the request must be owned by requester's Firebase project."
       operationId: firebasedynamiclinks.managedShortLinks.create
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateManagedShortLinkRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateManagedShortLinkResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
+      description: 'Creates a managed short Dynamic Link given either a valid long Dynamic Link or details such as Dynamic Link domain, Android and iOS app information. The created short Dynamic Link will not expire. This differs from CreateShortDynamicLink in the following ways: - The request will also contain a name for the link (non unique name for the front end). - The response must be authenticated with an auth token (generated with the admin service account). - The link will appear in the FDL list of links in the console front end. The Dynamic Link domain in the request must be owned by requester''s Firebase project.'
       tags:
         - managedShortLinks
-  /v1/reopenAttribution:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Get iOS reopen attribution for app universal link open deeplinking.
-      operationId: firebasedynamiclinks.reopenAttribution
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GetIosReopenAttributionRequest"
+              $ref: '#/components/schemas/CreateManagedShortLinkRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetIosReopenAttributionResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
-      tags:
-        - v1
+                $ref: '#/components/schemas/CreateManagedShortLinkResponse'
+      x-google-discovery:
+        path: v1/managedShortLinks:create
+        flatPath: v1/managedShortLinks:create
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1/shortLinks:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
     post:
-      description: Creates a short Dynamic Link given either a valid long Dynamic Link or details such as Dynamic Link domain, Android and iOS app information. The created short Dynamic Link will not expire. Repeated calls with the same long Dynamic Link or Dynamic Link information will produce the same short Dynamic Link. The Dynamic Link domain in the request must be owned by requester's Firebase project.
       operationId: firebasedynamiclinks.shortLinks.create
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateShortDynamicLinkRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateShortDynamicLinkResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/firebase
-          Oauth2c:
-            - https://www.googleapis.com/auth/firebase
+      description: Creates a short Dynamic Link given either a valid long Dynamic Link or details such as Dynamic Link domain, Android and iOS app information. The created short Dynamic Link will not expire. Repeated calls with the same long Dynamic Link or Dynamic Link information will produce the same short Dynamic Link. The Dynamic Link domain in the request must be owned by requester's Firebase project.
       tags:
         - shortLinks
-  /v1/{dynamicLink}/linkStats:
-    get:
-      description: Fetches analytics stats of a short Dynamic Link for a given duration. Metrics include number of clicks, redirects, installs, app first opens, and app reopens.
-      operationId: firebasedynamiclinks.getLinkStats
-      parameters:
-        - description: Dynamic Link URL. e.g. https://abcd.app.goo.gl/wxyz
-          in: path
-          name: dynamicLink
-          required: true
-          schema:
-            type: string
-        - description: The span of time requested in days.
-          in: query
-          name: durationDays
-          schema:
-            type: string
-        - description: Google SDK version. Version takes the form "$major.$minor.$patch"
-          in: query
-          name: sdkVersion
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DynamicLinkStats"
-          description: Successful response
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/firebase
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/firebase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShortDynamicLinkRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateShortDynamicLinkResponse'
+      x-google-discovery:
+        path: v1/shortLinks
+        flatPath: v1/shortLinks
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/{dynamicLink}/linkStats:
+    get:
+      operationId: firebasedynamiclinks.getLinkStats
+      description: Fetches analytics stats of a short Dynamic Link for a given duration. Metrics include number of clicks, redirects, installs, app first opens, and app reopens.
+      parameters:
+        - name: dynamicLink
+          in: path
+          schema:
+            type: string
+          description: Dynamic Link URL. e.g. https://abcd.app.goo.gl/wxyz
+          required: true
+        - name: durationDays
+          in: query
+          schema:
+            format: int64
+            type: string
+          description: The span of time requested in days.
+        - name: sdkVersion
+          in: query
+          schema:
+            type: string
+          description: Google SDK version. Version takes the form "$major.$minor.$patch"
       tags:
         - v1
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DynamicLinkStats'
+      x-google-discovery:
+        path: v1/{dynamicLink}/linkStats
+        flatPath: v1/{dynamicLink}/linkStats
+        parameterOrder:
+          - dynamicLink
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/installAttribution:
+    post:
+      operationId: firebasedynamiclinks.installAttribution
+      description: Get iOS strong/weak-match info for post-install attribution.
+      tags:
+        - v1
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetIosPostInstallAttributionRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetIosPostInstallAttributionResponse'
+      x-google-discovery:
+        path: v1/installAttribution
+        flatPath: v1/installAttribution
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/reopenAttribution:
+    post:
+      operationId: firebasedynamiclinks.reopenAttribution
+      description: Get iOS reopen attribution for app universal link open deeplinking.
+      tags:
+        - v1
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/firebase
+        - Oauth2c:
+            - https://www.googleapis.com/auth/firebase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetIosReopenAttributionRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetIosReopenAttributionResponse'
+      x-google-discovery:
+        path: v1/reopenAttribution
+        flatPath: v1/reopenAttribution
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     AnalyticsInfo:
       description: Tracking parameters supported by Dynamic Link.
+      x-google-discovery-id: AnalyticsInfo
       properties:
         googlePlayAnalytics:
-          $ref: "#/components/schemas/GooglePlayAnalytics"
           description: Google Play Campaign Measurements.
+          allOf:
+            - $ref: '#/components/schemas/GooglePlayAnalytics'
         itunesConnectAnalytics:
-          $ref: "#/components/schemas/ITunesConnectAnalytics"
           description: iTunes Connect App Analytics.
+          allOf:
+            - $ref: '#/components/schemas/ITunesConnectAnalytics'
       type: object
     AndroidInfo:
       description: Android related attributes to the Dynamic Link.
+      x-google-discovery-id: AndroidInfo
       properties:
         androidFallbackLink:
           description: Link to open on Android if the app is not installed.
@@ -327,10 +281,12 @@ components:
       type: object
     CreateManagedShortLinkRequest:
       description: Request to create a managed Short Dynamic Link.
+      x-google-discovery-id: CreateManagedShortLinkRequest
       properties:
         dynamicLinkInfo:
-          $ref: "#/components/schemas/DynamicLinkInfo"
           description: Information about the Dynamic Link to be shortened. [Learn more](https://firebase.google.com/docs/reference/dynamic-links/link-shortener).
+          allOf:
+            - $ref: '#/components/schemas/DynamicLinkInfo'
         longDynamicLink:
           description: Full long Dynamic Link URL with desired query parameters specified. For example, "https://sample.app.goo.gl/?link=http://www.google.com&apn=com.sample", [Learn more](https://firebase.google.com/docs/reference/dynamic-links/link-shortener).
           type: string
@@ -341,30 +297,35 @@ components:
           description: Google SDK version. Version takes the form "$major.$minor.$patch"
           type: string
         suffix:
-          $ref: "#/components/schemas/Suffix"
           description: Short Dynamic Link suffix. Optional.
+          allOf:
+            - $ref: '#/components/schemas/Suffix'
       type: object
     CreateManagedShortLinkResponse:
       description: Response to create a short Dynamic Link.
+      x-google-discovery-id: CreateManagedShortLinkResponse
       properties:
         managedShortLink:
-          $ref: "#/components/schemas/ManagedShortLink"
           description: Short Dynamic Link value. e.g. https://abcd.app.goo.gl/wxyz
+          allOf:
+            - $ref: '#/components/schemas/ManagedShortLink'
         previewLink:
           description: Preview link to show the link flow chart. (debug info.)
           type: string
         warning:
           description: Information about potential warnings on link creation.
           items:
-            $ref: "#/components/schemas/DynamicLinkWarning"
+            $ref: '#/components/schemas/DynamicLinkWarning'
           type: array
       type: object
     CreateShortDynamicLinkRequest:
       description: Request to create a short Dynamic Link.
+      x-google-discovery-id: CreateShortDynamicLinkRequest
       properties:
         dynamicLinkInfo:
-          $ref: "#/components/schemas/DynamicLinkInfo"
           description: Information about the Dynamic Link to be shortened. [Learn more](https://firebase.google.com/docs/reference/dynamic-links/link-shortener).
+          allOf:
+            - $ref: '#/components/schemas/DynamicLinkInfo'
         longDynamicLink:
           description: Full long Dynamic Link URL with desired query parameters specified. For example, "https://sample.app.goo.gl/?link=http://www.google.com&apn=com.sample", [Learn more](https://firebase.google.com/docs/reference/dynamic-links/link-shortener).
           type: string
@@ -372,11 +333,13 @@ components:
           description: Google SDK version. Version takes the form "$major.$minor.$patch"
           type: string
         suffix:
-          $ref: "#/components/schemas/Suffix"
           description: Short Dynamic Link suffix. Optional.
+          allOf:
+            - $ref: '#/components/schemas/Suffix'
       type: object
     CreateShortDynamicLinkResponse:
       description: Response to create a short Dynamic Link.
+      x-google-discovery-id: CreateShortDynamicLinkResponse
       properties:
         previewLink:
           description: Preview link to show the link flow chart. (debug info.)
@@ -387,11 +350,12 @@ components:
         warning:
           description: Information about potential warnings on link creation.
           items:
-            $ref: "#/components/schemas/DynamicLinkWarning"
+            $ref: '#/components/schemas/DynamicLinkWarning'
           type: array
       type: object
     DesktopInfo:
       description: Desktop related attributes to the Dynamic Link.
+      x-google-discovery-id: DesktopInfo
       properties:
         desktopFallbackLink:
           description: Link to open on desktop.
@@ -399,6 +363,7 @@ components:
       type: object
     DeviceInfo:
       description: Signals associated with the device making the request.
+      x-google-discovery-id: DeviceInfo
       properties:
         deviceModelName:
           description: Device model name.
@@ -428,6 +393,7 @@ components:
       type: object
     DynamicLinkEventStat:
       description: Dynamic Link event stat.
+      x-google-discovery-id: DynamicLinkEventStat
       properties:
         count:
           description: The number of times this event occurred.
@@ -442,6 +408,13 @@ components:
             - APP_INSTALL
             - APP_FIRST_OPEN
             - APP_RE_OPEN
+          x-google-enum-descriptions:
+            - Unspecified type.
+            - Indicates that an FDL is clicked by users.
+            - Indicates that an FDL redirects users to fallback link.
+            - Indicates that an FDL triggers an app install from Play store, currently it's impossible to get stats from App store.
+            - Indicates that the app is opened for the first time after an install triggered by FDLs
+            - Indicates that the app is opened via an FDL for non-first time.
           type: string
         platform:
           description: Requested platform.
@@ -451,26 +424,36 @@ components:
             - IOS
             - DESKTOP
             - OTHER
-          type: string
-          x-enumDeprecated:
+          x-google-enum-deprecated:
             - false
             - false
             - false
             - true
             - false
+          x-google-enum-descriptions:
+            - Unspecified platform.
+            - Represents Android platform. All apps and browsers on Android are classfied in this category.
+            - Represents iOS platform. All apps and browsers on iOS are classfied in this category.
+            - Represents desktop.
+            - Platforms are not categorized as Android/iOS/Destop fall into here.
+          type: string
       type: object
     DynamicLinkInfo:
       description: Information about a Dynamic Link.
+      x-google-discovery-id: DynamicLinkInfo
       properties:
         analyticsInfo:
-          $ref: "#/components/schemas/AnalyticsInfo"
           description: Parameters used for tracking. See all tracking parameters in the [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
+          allOf:
+            - $ref: '#/components/schemas/AnalyticsInfo'
         androidInfo:
-          $ref: "#/components/schemas/AndroidInfo"
           description: Android related information. See Android related parameters in the [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
+          allOf:
+            - $ref: '#/components/schemas/AndroidInfo'
         desktopInfo:
-          $ref: "#/components/schemas/DesktopInfo"
           description: Desktop related information. See desktop related parameters in the [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
+          allOf:
+            - $ref: '#/components/schemas/DesktopInfo'
         domainUriPrefix:
           description: E.g. https://maps.app.goo.gl, https://maps.page.link, https://g.co/maps More examples can be found in description of getNormalizedUriPrefix in j/c/g/firebase/dynamiclinks/uri/DdlDomain.java Will fallback to dynamic_link_domain is this field is missing
           type: string
@@ -479,29 +462,39 @@ components:
           description: Dynamic Links domain that the project owns, e.g. abcd.app.goo.gl [Learn more](https://firebase.google.com/docs/dynamic-links/android/receive) on how to set up Dynamic Link domain associated with your Firebase project. Required if missing domain_uri_prefix.
           type: string
         iosInfo:
-          $ref: "#/components/schemas/IosInfo"
           description: iOS related information. See iOS related parameters in the [documentation](https://firebase.google.com/docs/dynamic-links/create-manually).
+          allOf:
+            - $ref: '#/components/schemas/IosInfo'
         link:
           description: The link your app will open, You can specify any URL your app can handle. This link must be a well-formatted URL, be properly URL-encoded, and use the HTTP or HTTPS scheme. See 'link' parameters in the [documentation](https://firebase.google.com/docs/dynamic-links/create-manually). Required.
           type: string
         navigationInfo:
-          $ref: "#/components/schemas/NavigationInfo"
           description: Information of navigation behavior of a Firebase Dynamic Links.
+          allOf:
+            - $ref: '#/components/schemas/NavigationInfo'
         socialMetaTagInfo:
-          $ref: "#/components/schemas/SocialMetaTagInfo"
           description: Parameters for social meta tag params. Used to set meta tag data for link previews on social sites.
+          allOf:
+            - $ref: '#/components/schemas/SocialMetaTagInfo'
       type: object
     DynamicLinkStats:
       description: Analytics stats of a Dynamic Link for a given timeframe.
+      x-google-discovery-id: DynamicLinkStats
       properties:
         linkEventStats:
           description: Dynamic Link event stats.
           items:
-            $ref: "#/components/schemas/DynamicLinkEventStat"
+            $ref: '#/components/schemas/DynamicLinkEventStat'
+          type: array
+        warnings:
+          description: Optional warnings associated this API request.
+          items:
+            $ref: '#/components/schemas/DynamicLinkWarning'
           type: array
       type: object
     DynamicLinkWarning:
       description: Dynamic Links warning messages.
+      x-google-discovery-id: DynamicLinkWarning
       properties:
         warningCode:
           description: The warning code.
@@ -535,6 +528,38 @@ components:
             - LINK_LENGTH_TOO_LONG
             - LINK_WITH_FRAGMENTS
             - NOT_MATCHING_IOS_BUNDLE_ID_AND_STORE_ID
+            - API_DEPRECATED
+          x-google-enum-descriptions:
+            - Unknown code.
+            - The Android package does not match any in developer's DevConsole project.
+            - The Android minimum version code has to be a valid integer.
+            - Android package min version param is not needed, e.g. when 'apn' is missing.
+            - Android link is not a valid URI.
+            - Android link param is not needed, e.g. when param 'al' and 'link' have the same value..
+            - Android fallback link is not a valid URI.
+            - Android fallback link has an invalid (non http/https) URI scheme.
+            - The iOS bundle ID does not match any in developer's DevConsole project.
+            - The iPad bundle ID does not match any in developer's DevConsole project.
+            - iOS URL scheme is not needed, e.g. when 'ibi' are 'ipbi' are all missing.
+            - iOS app store ID format is incorrect, e.g. not numeric.
+            - iOS app store ID is not needed.
+            - iOS fallback link is not a valid URI.
+            - iOS fallback link has an invalid (non http/https) URI scheme.
+            - iPad fallback link is not a valid URI.
+            - iPad fallback link has an invalid (non http/https) URI scheme.
+            - Debug param format is incorrect.
+            - isAd param format is incorrect.
+            - Indicates a certain param is deprecated.
+            - Indicates certain parameter is not recognized.
+            - Indicates certain parameter is too long.
+            - Social meta tag image link is not a valid URI.
+            - Social meta tag image link has an invalid (non http/https) URI scheme.
+            - ''
+            - ''
+            - Dynamic Link URL length is too long.
+            - Dynamic Link URL contains fragments.
+            - The iOS bundle ID does not match with the given iOS store ID.
+            - The API is deprecated.
           type: string
         warningDocumentLink:
           description: The document describing the warning, and helps resolve.
@@ -545,6 +570,7 @@ components:
       type: object
     GetIosPostInstallAttributionRequest:
       description: Request for iSDK to execute strong match flow for post-install attribution. This is meant for iOS requests only. Requests from other platforms will not be honored.
+      x-google-discovery-id: GetIosPostInstallAttributionRequest
       properties:
         appInstallationTime:
           description: App installation epoch time (https://en.wikipedia.org/wiki/Unix_time). This is a client signal for a more accurate weak match.
@@ -554,8 +580,9 @@ components:
           description: APP bundle ID.
           type: string
         device:
-          $ref: "#/components/schemas/DeviceInfo"
           description: Device information.
+          allOf:
+            - $ref: '#/components/schemas/DeviceInfo'
         iosVersion:
           description: 'iOS version, ie: 9.3.5. Consider adding "build".'
           type: string
@@ -566,6 +593,11 @@ components:
             - IMPLICIT_WEAK_MATCH
             - EXPLICIT_WEAK_MATCH
             - EXPLICIT_STRONG_AFTER_WEAK_MATCH
+          x-google-enum-descriptions:
+            - Unknown method.
+            - iSDK performs a server lookup by device heuristics in the background when app is first-opened; no API called by developer.
+            - iSDK performs a server lookup by device heuristics upon a dev API call.
+            - iSDK performs a strong match only if weak match is found upon a dev API call.
           type: string
         sdkVersion:
           description: Google SDK version. Version takes the form "$major.$minor.$patch"
@@ -579,10 +611,15 @@ components:
             - UNKNOWN_VISUAL_STYLE
             - DEFAULT_STYLE
             - CUSTOM_STYLE
+          x-google-enum-descriptions:
+            - Unknown style.
+            - Default style.
+            - Custom style.
           type: string
       type: object
     GetIosPostInstallAttributionResponse:
       description: Response for iSDK to execute strong match flow for post-install attribution. Information of the resolved FDL link.
+      x-google-discovery-id: GetIosPostInstallAttributionResponse
       properties:
         appMinimumVersion:
           description: The minimum version for app, specified by dev through ?imv= parameter. Return to iSDK to allow app to evaluate if current version meets this.
@@ -594,15 +631,20 @@ components:
             - WEAK
             - DEFAULT
             - UNIQUE
+          x-google-enum-descriptions:
+            - Unset.
+            - Weak confidence, more than one matching link found or link suspected to be false positive.
+            - Default confidence, match based on device heuristics.
+            - Unique confidence, match based on "unique match link to check" or other means.
           type: string
         deepLink:
           description: The deep-link attributed post-install via one of several techniques (device heuristics, copy unique).
           type: string
         externalBrowserDestinationLink:
-          description: "User-agent specific custom-scheme URIs for iSDK to open. This will be set according to the user-agent tha the click was originally made in. There is no Safari-equivalent custom-scheme open URLs. ie: googlechrome://www.example.com ie: firefox://open-url?url=http://www.example.com ie: opera-http://example.com"
+          description: 'User-agent specific custom-scheme URIs for iSDK to open. This will be set according to the user-agent tha the click was originally made in. There is no Safari-equivalent custom-scheme open URLs. ie: googlechrome://www.example.com ie: firefox://open-url?url=http://www.example.com ie: opera-http://example.com'
           type: string
         fallbackLink:
-          description: "The link to navigate to update the app if min version is not met. This is either (in order): 1) fallback link (from ?ifl= parameter, if specified by developer) or 2) AppStore URL (from ?isi= parameter, if specified), or 3) the payload link (from required link= parameter)."
+          description: 'The link to navigate to update the app if min version is not met. This is either (in order): 1) fallback link (from ?ifl= parameter, if specified by developer) or 2) AppStore URL (from ?isi= parameter, if specified), or 3) the payload link (from required link= parameter).'
           type: string
         invitationId:
           description: Invitation ID attributed post-install via one of several techniques (device heuristics, copy unique).
@@ -619,12 +661,16 @@ components:
             - UNKNOWN_IP_VERSION
             - IP_V4
             - IP_V6
+          x-google-enum-descriptions:
+            - Unset.
+            - Request made from an IPv4 IP address.
+            - Request made from an IPv6 IP address.
           type: string
         requestedLink:
           description: Entire FDL (short or long) attributed post-install via one of several techniques (device heuristics, copy unique).
           type: string
         resolvedLink:
-          description: "The entire FDL, expanded from a short link. It is the same as the requested_link, if it is long. Parameters from this should not be used directly (ie: server can default utm_[campaign|medium|source] to a value when requested_link lack them, server determine the best fallback_link when requested_link specifies >1 fallback links)."
+          description: 'The entire FDL, expanded from a short link. It is the same as the requested_link, if it is long. Parameters from this should not be used directly (ie: server can default utm_[campaign|medium|source] to a value when requested_link lack them, server determine the best fallback_link when requested_link specifies >1 fallback links).'
           type: string
         utmCampaign:
           description: Scion campaign value to be propagated by iSDK to Scion at post-install.
@@ -644,12 +690,13 @@ components:
       type: object
     GetIosReopenAttributionRequest:
       description: Request for iSDK to get reopen attribution for app universal link open deeplinking. This endpoint is meant for only iOS requests.
+      x-google-discovery-id: GetIosReopenAttributionRequest
       properties:
         bundleId:
           description: APP bundle ID.
           type: string
         requestedLink:
-          description: "FDL link to be verified from an app universal link open. The FDL link can be one of: 1) short FDL. e.g. .page.link/, or 2) long FDL. e.g. .page.link/?{query params}, or 3) Invite FDL. e.g. .page.link/i/"
+          description: 'FDL link to be verified from an app universal link open. The FDL link can be one of: 1) short FDL. e.g. .page.link/, or 2) long FDL. e.g. .page.link/?{query params}, or 3) Invite FDL. e.g. .page.link/i/'
           type: string
         sdkVersion:
           description: Google SDK version. Version takes the form "$major.$minor.$patch"
@@ -657,6 +704,7 @@ components:
       type: object
     GetIosReopenAttributionResponse:
       description: Response for iSDK to get reopen attribution for app universal link open deeplinking. This endpoint is meant for only iOS requests.
+      x-google-discovery-id: GetIosReopenAttributionResponse
       properties:
         deepLink:
           description: The deep-link attributed the app universal link open. For both regular FDL links and invite FDL links.
@@ -685,9 +733,15 @@ components:
         utmTerm:
           description: Scion term value to be propagated by iSDK to Scion at app-reopen.
           type: string
+        warning:
+          description: Optional warnings associated this API request.
+          items:
+            $ref: '#/components/schemas/DynamicLinkWarning'
+          type: array
       type: object
     GooglePlayAnalytics:
       description: Parameters for Google Play Campaign Measurements. [Learn more](https://developers.google.com/analytics/devguides/collection/android/v4/campaigns#campaign-params)
+      x-google-discovery-id: GooglePlayAnalytics
       properties:
         gclid:
           deprecated: true
@@ -711,6 +765,7 @@ components:
       type: object
     ITunesConnectAnalytics:
       description: Parameters for iTunes Connect App Analytics.
+      x-google-discovery-id: ITunesConnectAnalytics
       properties:
         at:
           description: Affiliate token used to create affiliate-coded links.
@@ -727,6 +782,7 @@ components:
       type: object
     IosInfo:
       description: iOS related attributes to the Dynamic Link..
+      x-google-discovery-id: IosInfo
       properties:
         iosAppStoreId:
           description: iOS App Store ID.
@@ -752,6 +808,7 @@ components:
       type: object
     ManagedShortLink:
       description: Managed Short Link.
+      x-google-discovery-id: ManagedShortLink
       properties:
         creationTime:
           description: Creation timestamp of the short link.
@@ -763,11 +820,15 @@ components:
             enum:
               - UNSPECIFIED_ATTRIBUTE
               - SPAM
+            x-google-enum-descriptions:
+              - Indicates that no attributes were found for this short url.
+              - Indicates that short url has been flagged as spam.
             type: string
           type: array
         info:
-          $ref: "#/components/schemas/DynamicLinkInfo"
           description: Full Dyamic Link info
+          allOf:
+            - $ref: '#/components/schemas/DynamicLinkInfo'
         link:
           description: Short durable link url, for example, "https://sample.app.goo.gl/xyz123". Required.
           type: string
@@ -781,10 +842,16 @@ components:
             - UNARCHIVED
             - ARCHIVED
             - NEVER_SHOWN
+          x-google-enum-descriptions:
+            - Visibility of the link is not specified.
+            - Link created in console and should be shown in console.
+            - Link created in console and should not be shown in console (but can be shown in the console again if it is unarchived).
+            - Link created outside of console and should never be shown in console.
           type: string
       type: object
     NavigationInfo:
       description: Information of navigation behavior.
+      x-google-discovery-id: NavigationInfo
       properties:
         enableForcedRedirect:
           description: If this option is on, FDL click will be forced to redirect rather than show an interstitial page.
@@ -792,6 +859,7 @@ components:
       type: object
     SocialMetaTagInfo:
       description: Parameters for social meta tag params. Used to set meta tag data for link previews on social sites.
+      x-google-discovery-id: SocialMetaTagInfo
       properties:
         socialDescription:
           description: A short description of the link. Optional.
@@ -805,6 +873,7 @@ components:
       type: object
     Suffix:
       description: Short Dynamic Link suffix.
+      x-google-discovery-id: Suffix
       properties:
         customSuffix:
           description: Only applies to Option.CUSTOM.
@@ -816,23 +885,132 @@ components:
             - UNGUESSABLE
             - SHORT
             - CUSTOM
+          x-google-enum-descriptions:
+            - The suffix option is not specified, performs as UNGUESSABLE .
+            - Short Dynamic Link suffix is a base62 [0-9A-Za-z] encoded string of a random generated 96 bit random number, which has a length of 17 chars. For example, "nlAR8U4SlKRZw1cb2". It prevents other people from guessing and crawling short Dynamic Links that contain personal identifiable information.
+            - Short Dynamic Link suffix is a base62 [0-9A-Za-z] string starting with a length of 4 chars. the length will increase when all the space is occupied.
+            - 'Custom DDL suffix is a client specified string, for example, "buy2get1free". NOTE: custom suffix should only be available to managed short link creation'
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/firebase: View and administer all your Firebase data and settings
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/firebase: View and administer all your Firebase data and settings
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://firebase.google.com/docs/dynamic-links/
+tags:
+  - name: managedShortLinks
+  - name: shortLinks
+  - name: v1
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://firebasedynamiclinks.googleapis.com/
+  batchPath: batch
+  canonicalName: Firebase Dynamic Links
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: firebasedynamiclinks:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://firebasedynamiclinks.mtls.googleapis.com/
+  name: firebasedynamiclinks
+  revision: '20241125'
+  rootUrl: https://firebasedynamiclinks.googleapis.com/
+  servicePath: ''
+  version_module: true

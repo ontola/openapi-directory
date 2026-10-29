@@ -1,17 +1,15 @@
-openapi: 3.0.0
-servers:
-  - url: https://biglake.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: The BigLake API provides access to BigLake Metastore, a serverless, fully managed, and highly available metastore for open-source data that can be used for querying Apache Iceberg tables in BigQuery.
+  description: The Lakehouse API (formerly BigLake API) provides access to a serverless, fully managed, and highly available metastore that provides a single source of truth for your data lakehouse. It lets multiple engines—including Apache Spark, Google Managed Spark, Apache Flink, Trino and BigQuery—share tables and metadata for key open formats (Apache Iceberg, Apache Hive), and query the same copy of data. Plus, through the Lakehouse runtime catalog federation seamlessly unite your lakehouse ecosystem, letting Iceberg compatible engines on Google Cloud (BigQuery, Google Managed Spark) discover and analyze enterprise data across Snowflake, Databricks, and AWS Glue.
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
   termsOfService: https://developers.google.com/terms/
-  title: BigLake API
+  title: Lakehouse API
   version: v1
   x-apisguru-categories:
     - analytics
@@ -20,522 +18,2106 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://biglake.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/biglake.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/biglake.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: biglake
-externalDocs:
-  url: https://cloud.google.com/bigquery/
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20261007; original source SHA-256 aca4a7eb33253fb19d4d4e792b449e466e734a852d3399fde5b1706ec4ea613b.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://biglake.googleapis.com
 paths:
-  /v1/{name}:
-    delete:
-      description: Deletes an existing table specified by the table ID.
-      operationId: biglake.projects.locations.catalogs.databases.tables.delete
-      parameters:
-        - description: "Required. The name of the table to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Table"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
-            - https://www.googleapis.com/auth/bigquery
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+  /v1/projects/{projectsId}/catalogs/{catalogsId}:getIamPolicy:
     get:
-      description: Gets the table specified by the resource name.
-      operationId: biglake.projects.locations.catalogs.databases.tables.get
+      operationId: biglake.projects.catalogs.getIamPolicy
+      description: Gets the IAM policy for the specified Catalog.
       parameters:
-        - description: "Required. The name of the table to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}"
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Table"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
-            - https://www.googleapis.com/auth/bigquery
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Updates an existing table specified by the table ID.
-      operationId: biglake.projects.locations.catalogs.databases.tables.patch
-      parameters:
-        - description: "Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}"
+        - name: catalogsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
           schema:
             type: string
-        - description: The list of fields to update. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask If not set, defaults to all of the fields that are allowed to update.
+        - name: options.requestedPolicyVersion
           in: query
-          name: updateMask
           schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Table"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Table"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
-            - https://www.googleapis.com/auth/bigquery
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{name}:rename:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Renames an existing table specified by the table ID.
-      operationId: biglake.projects.locations.catalogs.databases.tables.rename
-      parameters:
-        - description: "Required. The table's `name` field is used to identify the table to rename. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RenameTableRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Table"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
-            - https://www.googleapis.com/auth/bigquery
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/catalogs:
-    get:
-      description: List all catalogs in a specified project.
-      operationId: biglake.projects.locations.catalogs.list
-      parameters:
-        - description: "Required. The parent, which owns this collection of catalogs. Format: projects/{project_id_or_number}/locations/{location_id}"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: The maximum number of catalogs to return. The service may return fewer than this value. If unspecified, at most 50 catalogs will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
-          in: query
-          name: pageSize
-          schema:
+            format: int32
             type: integer
-        - description: A page token, received from a previous `ListCatalogs` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListCatalogs` must match the call that provided the page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListCatalogsResponse"
-          description: Successful response
+          description: Optional. The maximum policy version that will be used to format the policy. Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected. Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset. The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/bigquery
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1/{+resource}:getIamPolicy
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}:getIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}:setIamPolicy:
+    post:
+      operationId: biglake.projects.catalogs.setIamPolicy
+      description: Sets the IAM policy for the specified catalog.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetIamPolicyRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1/{+resource}:setIamPolicy
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}:setIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}:testIamPermissions:
     post:
-      description: Creates a new catalog.
+      operationId: biglake.projects.catalogs.testIamPermissions
+      description: Tests the IAM permissions for the specified catalog.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestIamPermissionsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestIamPermissionsResponse'
+      x-google-discovery:
+        path: v1/{+resource}:testIamPermissions
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}:testIamPermissions
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}:getIamPolicy:
+    get:
+      operationId: biglake.projects.catalogs.namespaces.getIamPolicy
+      description: Gets the IAM policy for the specified Catalog.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: namespacesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: options.requestedPolicyVersion
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum policy version that will be used to format the policy. Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected. Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset. The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1/{+resource}:getIamPolicy
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}:getIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+          namespacesId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+/namespaces/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}:setIamPolicy:
+    post:
+      operationId: biglake.projects.catalogs.namespaces.setIamPolicy
+      description: Sets the IAM policy for the specified catalog.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: namespacesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetIamPolicyRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1/{+resource}:setIamPolicy
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}:setIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+          namespacesId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+/namespaces/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}:testIamPermissions:
+    post:
+      operationId: biglake.projects.catalogs.namespaces.testIamPermissions
+      description: Tests the IAM permissions for the specified namespace.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: namespacesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestIamPermissionsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestIamPermissionsResponse'
+      x-google-discovery:
+        path: v1/{+resource}:testIamPermissions
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}:testIamPermissions
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+          namespacesId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+/namespaces/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/tables/{tablesId}:getIamPolicy:
+    get:
+      operationId: biglake.projects.catalogs.namespaces.tables.getIamPolicy
+      description: Gets the IAM policy for the specified Catalog.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: namespacesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: tablesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: options.requestedPolicyVersion
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum policy version that will be used to format the policy. Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected. Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset. The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1/{+resource}:getIamPolicy
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/tables/{tablesId}:getIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+          namespacesId: resource
+          tablesId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+/namespaces/[^/]+/tables/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/tables/{tablesId}:setIamPolicy:
+    post:
+      operationId: biglake.projects.catalogs.namespaces.tables.setIamPolicy
+      description: Sets the IAM policy for the specified catalog.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: namespacesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: tablesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetIamPolicyRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1/{+resource}:setIamPolicy
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/tables/{tablesId}:setIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+          namespacesId: resource
+          tablesId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+/namespaces/[^/]+/tables/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/tables/{tablesId}:testIamPermissions:
+    post:
+      operationId: biglake.projects.catalogs.namespaces.tables.testIamPermissions
+      description: Tests the IAM permissions for the specified table.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: namespacesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: tablesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestIamPermissionsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestIamPermissionsResponse'
+      x-google-discovery:
+        path: v1/{+resource}:testIamPermissions
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/tables/{tablesId}:testIamPermissions
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+          namespacesId: resource
+          tablesId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+/namespaces/[^/]+/tables/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/views/{viewsId}:getIamPolicy:
+    get:
+      operationId: biglake.projects.catalogs.namespaces.views.getIamPolicy
+      description: Gets the IAM policy for the specified View.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: namespacesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: viewsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: options.requestedPolicyVersion
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum policy version that will be used to format the policy. Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected. Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset. The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1/{+resource}:getIamPolicy
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/views/{viewsId}:getIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+          namespacesId: resource
+          viewsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+/namespaces/[^/]+/views/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/views/{viewsId}:setIamPolicy:
+    post:
+      operationId: biglake.projects.catalogs.namespaces.views.setIamPolicy
+      description: Sets the IAM policy for the specified view.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: namespacesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: viewsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetIamPolicyRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1/{+resource}:setIamPolicy
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/views/{viewsId}:setIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+          namespacesId: resource
+          viewsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+/namespaces/[^/]+/views/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/views/{viewsId}:testIamPermissions:
+    post:
+      operationId: biglake.projects.catalogs.namespaces.views.testIamPermissions
+      description: Tests the IAM permissions for the specified view.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: namespacesId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: viewsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestIamPermissionsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestIamPermissionsResponse'
+      x-google-discovery:
+        path: v1/{+resource}:testIamPermissions
+        flatPath: v1/projects/{projectsId}/catalogs/{catalogsId}/namespaces/{namespacesId}/views/{viewsId}:testIamPermissions
+        resourceNameBindings:
+          projectsId: resource
+          catalogsId: resource
+          namespacesId: resource
+          viewsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/catalogs/[^/]+/namespaces/[^/]+/views/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/catalogs:
+    post:
       operationId: biglake.projects.locations.catalogs.create
+      description: Creates a new catalog.
       parameters:
-        - description: "Required. The parent resource where this catalog will be created. Format: projects/{project_id_or_number}/locations/{location_id}"
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this catalog will be created. Format: projects/{project_id_or_number}/locations/{location_id}'
           schema:
             type: string
-        - description: Required. The ID to use for the catalog, which will become the final component of the catalog's resource name.
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this catalog will be created. Format: projects/{project_id_or_number}/locations/{location_id}'
+          schema:
+            type: string
+        - name: catalogId
           in: query
-          name: catalogId
           schema:
             type: string
+          description: Required. The ID to use for the catalog, which will become the final component of the catalog's resource name.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Catalog"
+              $ref: '#/components/schemas/Catalog'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Catalog"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
-            - https://www.googleapis.com/auth/bigquery
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/databases:
+                $ref: '#/components/schemas/Catalog'
+      x-google-discovery:
+        path: v1/{+parent}/catalogs
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource where this catalog will be created. Format: projects/{project_id_or_number}/locations/{location_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: List all databases in a specified catalog.
-      operationId: biglake.projects.locations.catalogs.databases.list
+      operationId: biglake.projects.locations.catalogs.list
+      description: List all catalogs in a specified project.
       parameters:
-        - description: "Required. The parent, which owns this collection of databases. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}"
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of catalogs. Format: projects/{project_id_or_number}/locations/{location_id}'
           schema:
             type: string
-        - description: The maximum number of databases to return. The service may return fewer than this value. If unspecified, at most 50 databases will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
-          in: query
-          name: pageSize
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of catalogs. Format: projects/{project_id_or_number}/locations/{location_id}'
           schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: A page token, received from a previous `ListDatabases` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListDatabases` must match the call that provided the page token.
+          description: The maximum number of catalogs to return. The service may return fewer than this value. If unspecified, at most 50 catalogs will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListDatabasesResponse"
-          description: Successful response
+          description: A page token, received from a previous `ListCatalogs` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListCatalogs` must match the call that provided the page token.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/bigquery
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCatalogsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/catalogs
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent, which owns this collection of catalogs. Format: projects/{project_id_or_number}/locations/{location_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a new database.
-      operationId: biglake.projects.locations.catalogs.databases.create
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}:
+    delete:
+      operationId: biglake.projects.locations.catalogs.delete
+      description: Deletes an existing catalog specified by the catalog ID.
       parameters:
-        - description: "Required. The parent resource where this database will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}"
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `name` resource name. Required. The name of the catalog to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
           schema:
             type: string
-        - description: Required. The ID to use for the database, which will become the final component of the database's resource name.
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the catalog to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the catalog to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catalog'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          catalogsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the catalog to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: biglake.projects.locations.catalogs.get
+      description: Gets the catalog specified by the resource name.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the catalog to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the catalog to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the catalog to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catalog'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          catalogsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the catalog to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases:
+    post:
+      operationId: biglake.projects.locations.catalogs.databases.create
+      description: Creates a new database.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this database will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this database will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this database will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+        - name: databaseId
           in: query
-          name: databaseId
           schema:
             type: string
+          description: Required. The ID to use for the database, which will become the final component of the database's resource name.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Database"
+              $ref: '#/components/schemas/Database'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Database"
-          description: Successful response
+                $ref: '#/components/schemas/Database'
+      x-google-discovery:
+        path: v1/{+parent}/databases
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          catalogsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource where this database will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: biglake.projects.locations.catalogs.databases.list
+      description: List all databases in a specified catalog.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of databases. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of databases. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of databases. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of databases to return. The service may return fewer than this value. If unspecified, at most 50 databases will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token, received from a previous `ListDatabases` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListDatabases` must match the call that provided the page token.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/bigquery
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDatabasesResponse'
+      x-google-discovery:
+        path: v1/{+parent}/databases
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          catalogsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent, which owns this collection of databases. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}:
+    delete:
+      operationId: biglake.projects.locations.catalogs.databases.delete
+      description: Deletes an existing database specified by the database ID.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the database to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the database to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the database to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the database to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
       tags:
         - projects
-  /v1/{parent}/tables:
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Database'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          catalogsId: name
+          databasesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the database to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+/databases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     get:
-      description: List all tables in a specified database.
-      operationId: biglake.projects.locations.catalogs.databases.tables.list
+      operationId: biglake.projects.locations.catalogs.databases.get
+      description: Gets the database specified by the resource name.
       parameters:
-        - description: "Required. The parent, which owns this collection of tables. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}"
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `name` resource name. Required. The name of the database to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
           schema:
             type: string
-        - description: The maximum number of tables to return. The service may return fewer than this value. If unspecified, at most 50 tables will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
-          in: query
-          name: pageSize
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the database to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
           schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the database to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the database to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Database'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          catalogsId: name
+          databasesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the database to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+/databases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: biglake.projects.locations.catalogs.databases.patch
+      description: Updates an existing database specified by the database ID.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: The list of fields to update. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask If not set, defaults to all of the fields that are allowed to update.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Database'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Database'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          catalogsId: name
+          databasesId: name
+        resourceNameParameters:
+          name:
+            description: 'Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+/databases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}/tables:
+    post:
+      operationId: biglake.projects.locations.catalogs.databases.tables.create
+      description: Creates a new table.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this table will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this table will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this table will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this table will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: tableId
+          in: query
+          schema:
+            type: string
+          description: Required. The ID to use for the table, which will become the final component of the table's resource name.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Table'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+      x-google-discovery:
+        path: v1/{+parent}/tables
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}/tables
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          catalogsId: parent
+          databasesId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource where this table will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+/databases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: biglake.projects.locations.catalogs.databases.tables.list
+      description: List all tables in a specified database.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of tables. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of tables. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of tables. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of tables. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: A page token, received from a previous `ListTables` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListTables` must match the call that provided the page token.
+          description: The maximum number of tables to return. The service may return fewer than this value. If unspecified, at most 50 tables will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-        - description: The view for the returned tables.
+          description: A page token, received from a previous `ListTables` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListTables` must match the call that provided the page token.
+        - name: view
           in: query
-          name: view
           schema:
             enum:
               - TABLE_VIEW_UNSPECIFIED
               - BASIC
               - FULL
+            x-google-enum-descriptions:
+              - Default value. The API will default to the BASIC view.
+              - Include only table names. This is the default value.
+              - Include everything.
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListTablesResponse"
-          description: Successful response
+          description: The view for the returned tables.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/bigquery
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTablesResponse'
+      x-google-discovery:
+        path: v1/{+parent}/tables
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}/tables
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          catalogsId: parent
+          databasesId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent, which owns this collection of tables. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+/databases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}/tables/{tablesId}:
+    delete:
+      operationId: biglake.projects.locations.catalogs.databases.tables.delete
+      description: Deletes an existing table specified by the table ID.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: tablesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
       tags:
         - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a new table.
-      operationId: biglake.projects.locations.catalogs.databases.tables.create
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}/tables/{tablesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          catalogsId: name
+          databasesId: name
+          tablesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the table to delete. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+/databases/[^/]+/tables/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: biglake.projects.locations.catalogs.databases.tables.get
+      description: Gets the table specified by the resource name.
       parameters:
-        - description: "Required. The parent resource where this table will be created. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}"
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
           schema:
             type: string
-        - description: Required. The ID to use for the table, which will become the final component of the table's resource name.
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: tablesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the table to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}/tables/{tablesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          catalogsId: name
+          databasesId: name
+          tablesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the table to retrieve. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+/databases/[^/]+/tables/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: biglake.projects.locations.catalogs.databases.tables.patch
+      description: Updates an existing table specified by the table ID.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: tablesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: updateMask
           in: query
-          name: tableId
           schema:
+            format: google-fieldmask
             type: string
+          description: The list of fields to update. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask If not set, defaults to all of the fields that are allowed to update.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2c:
+            - https://www.googleapis.com/auth/bigquery
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Table"
+              $ref: '#/components/schemas/Table'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Table"
-          description: Successful response
+                $ref: '#/components/schemas/Table'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}/tables/{tablesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          catalogsId: name
+          databasesId: name
+          tablesId: name
+        resourceNameParameters:
+          name:
+            description: 'Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+/databases/[^/]+/tables/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}/tables/{tablesId}:rename:
+    post:
+      operationId: biglake.projects.locations.catalogs.databases.tables.rename
+      description: Renames an existing table specified by the table ID.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The table''s `name` field is used to identify the table to rename. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The table''s `name` field is used to identify the table to rename. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: catalogsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The table''s `name` field is used to identify the table to rename. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: databasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The table''s `name` field is used to identify the table to rename. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+        - name: tablesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The table''s `name` field is used to identify the table to rename. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/bigquery
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/bigquery
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RenameTableRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+      x-google-discovery:
+        path: v1/{+name}:rename
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/catalogs/{catalogsId}/databases/{databasesId}/tables/{tablesId}:rename
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          catalogsId: name
+          databasesId: name
+          tablesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The table''s `name` field is used to identify the table to rename. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/catalogs/[^/]+/databases/[^/]+/tables/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
+    AuditConfig:
+      description: 'Specifies the audit configuration for a service. The configuration determines which permission types are logged, and what identities, if any, are exempted from logging. An AuditConfig must have one or more AuditLogConfigs. If there are AuditConfigs for both `allServices` and a specific service, the union of the two AuditConfigs is used for that service: the log_types specified in each AuditConfig are enabled, and the exempted_members in each AuditLogConfig are exempted. Example Policy with multiple AuditConfigs: { "audit_configs": [ { "service": "allServices", "audit_log_configs": [ { "log_type": "DATA_READ", "exempted_members": [ "user:jose@example.com" ] }, { "log_type": "DATA_WRITE" }, { "log_type": "ADMIN_READ" } ] }, { "service": "sampleservice.googleapis.com", "audit_log_configs": [ { "log_type": "DATA_READ" }, { "log_type": "DATA_WRITE", "exempted_members": [ "user:aliya@example.com" ] } ] } ] } For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ logging. It also exempts `jose@example.com` from DATA_READ logging, and `aliya@example.com` from DATA_WRITE logging.'
+      x-google-discovery-id: AuditConfig
+      properties:
+        auditLogConfigs:
+          description: The configuration for logging of each type of permission.
+          items:
+            $ref: '#/components/schemas/AuditLogConfig'
+          type: array
+        service:
+          description: Specifies a service that will be enabled for audit logging. For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. `allServices` is a special value that covers all services.
+          type: string
+      type: object
+    AuditLogConfig:
+      description: 'Provides the configuration for logging a type of permissions. Example: { "audit_log_configs": [ { "log_type": "DATA_READ", "exempted_members": [ "user:jose@example.com" ] }, { "log_type": "DATA_WRITE" } ] } This enables ''DATA_READ'' and ''DATA_WRITE'' logging, while exempting jose@example.com from DATA_READ logging.'
+      x-google-discovery-id: AuditLogConfig
+      properties:
+        exemptedMembers:
+          description: Specifies the identities that do not cause logging for this type of permission. Follows the same format of Binding.members.
+          items:
+            type: string
+          type: array
+        logType:
+          description: The log type that this config enables.
+          enum:
+            - LOG_TYPE_UNSPECIFIED
+            - ADMIN_READ
+            - DATA_WRITE
+            - DATA_READ
+          x-google-enum-descriptions:
+            - Default case. Should never be this.
+            - 'Admin reads. Example: CloudIAM getIamPolicy'
+            - 'Data writes. Example: CloudSQL Users create'
+            - 'Data reads. Example: CloudSQL Users list'
+          type: string
+      type: object
+    Binding:
+      description: Associates `members`, or principals, with a `role`.
+      x-google-discovery-id: Binding
+      properties:
+        condition:
+          description: The condition that is associated with this binding. If the condition evaluates to `true`, then this binding applies to the current request. If the condition evaluates to `false`, then this binding does not apply to the current request. However, a different role binding might grant the same role to one or more of the principals in this binding. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+          allOf:
+            - $ref: '#/components/schemas/Expr'
+        members:
+          description: 'Specifies the principals requesting access for a Google Cloud resource. `members` can have the following values: * `allUsers`: A special identifier that represents anyone who is on the internet; with or without a Google account. * `allAuthenticatedUsers`: A special identifier that represents anyone who is authenticated with a Google account or a service account. Does not include identities that come from external identity providers (IdPs) through identity federation. * `user:{emailid}`: An email address that represents a specific Google account. For example, `alice@example.com` . * `serviceAccount:{emailid}`: An email address that represents a Google service account. For example, `my-other-app@appspot.gserviceaccount.com`. * `serviceAccount:{projectid}.svc.id.goog[{namespace}/{kubernetes-sa}]`: An identifier for a [Kubernetes service account](https://cloud.google.com/kubernetes-engine/docs/how-to/kubernetes-service-accounts). For example, `my-project.svc.id.goog[my-namespace/my-kubernetes-sa]`. * `group:{emailid}`: An email address that represents a Google group. For example, `admins@example.com`. * `domain:{domain}`: The G Suite domain (primary) that represents all the users of that domain. For example, `google.com` or `example.com`. * `principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`: A single identity in a workforce identity pool. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/group/{group_id}`: All workforce identities in a group. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/attribute.{attribute_name}/{attribute_value}`: All workforce identities with a specific attribute value. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/*`: All identities in a workforce identity pool. * `principal://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/subject/{subject_attribute_value}`: A single identity in a workload identity pool. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/group/{group_id}`: A workload identity pool group. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/attribute.{attribute_name}/{attribute_value}`: All identities in a workload identity pool with a certain attribute. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/*`: All identities in a workload identity pool. * `deleted:user:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a user that has been recently deleted. For example, `alice@example.com?uid=123456789012345678901`. If the user is recovered, this value reverts to `user:{emailid}` and the recovered user retains the role in the binding. * `deleted:serviceAccount:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a service account that has been recently deleted. For example, `my-other-app@appspot.gserviceaccount.com?uid=123456789012345678901`. If the service account is undeleted, this value reverts to `serviceAccount:{emailid}` and the undeleted service account retains the role in the binding. * `deleted:group:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a Google group that has been recently deleted. For example, `admins@example.com?uid=123456789012345678901`. If the group is recovered, this value reverts to `group:{emailid}` and the recovered group retains the role in the binding. * `deleted:principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`: Deleted single identity in a workforce identity pool. For example, `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`.'
+          items:
+            type: string
+          type: array
+        role:
+          description: Role that is assigned to the list of `members`, or principals. For example, `roles/viewer`, `roles/editor`, or `roles/owner`. For an overview of the IAM roles and permissions, see the [IAM documentation](https://cloud.google.com/iam/docs/roles-overview). For a list of the available pre-defined roles, see [here](https://cloud.google.com/iam/docs/understanding-roles).
+          type: string
+      type: object
     Catalog:
       description: Catalog is the container of databases.
+      x-google-discovery-id: Catalog
       properties:
         createTime:
           description: Output only. The creation time of the catalog.
@@ -553,7 +2135,7 @@ components:
           readOnly: true
           type: string
         name:
-          description: "Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}"
+          description: 'Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}'
           readOnly: true
           type: string
         updateTime:
@@ -564,6 +2146,7 @@ components:
       type: object
     Database:
       description: Database is the container of tables.
+      x-google-discovery-id: Database
       properties:
         createTime:
           description: Output only. The creation time of the database.
@@ -581,10 +2164,11 @@ components:
           readOnly: true
           type: string
         hiveOptions:
-          $ref: "#/components/schemas/HiveDatabaseOptions"
           description: Options of a Hive database.
+          allOf:
+            - $ref: '#/components/schemas/HiveDatabaseOptions'
         name:
-          description: "Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}"
+          description: 'Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}'
           readOnly: true
           type: string
         type:
@@ -592,6 +2176,9 @@ components:
           enum:
             - TYPE_UNSPECIFIED
             - HIVE
+          x-google-enum-descriptions:
+            - The type is not specified.
+            - Represents a database storing tables compatible with Hive Metastore tables.
           type: string
         updateTime:
           description: Output only. The last modification time of the database.
@@ -599,8 +2186,26 @@ components:
           readOnly: true
           type: string
       type: object
+    Expr:
+      description: 'Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language. The syntax and semantics of CEL are documented at https://github.com/google/cel-spec. Example (Comparison): title: "Summary size limit" description: "Determines if a summary is less than 100 chars" expression: "document.summary.size() < 100" Example (Equality): title: "Requestor is owner" description: "Determines if requestor is the document owner" expression: "document.owner == request.auth.claims.email" Example (Logic): title: "Public documents" description: "Determine whether the document should be publicly visible" expression: "document.type != ''private'' && document.type != ''internal''" Example (Data Manipulation): title: "Notification string" description: "Create a notification string with a timestamp." expression: "''New message received at '' + string(document.create_time)" The exact variables and functions that may be referenced within an expression are determined by the service that evaluates it. See the service documentation for additional information.'
+      x-google-discovery-id: Expr
+      properties:
+        description:
+          description: Optional. Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
+          type: string
+        expression:
+          description: Textual representation of an expression in Common Expression Language syntax.
+          type: string
+        location:
+          description: Optional. String indicating the location of the expression for error reporting, e.g. a file name and a position in the file.
+          type: string
+        title:
+          description: Optional. Title for the expression, i.e. a short string describing its purpose. This can be used e.g. in UIs which allow to enter the expression.
+          type: string
+      type: object
     HiveDatabaseOptions:
       description: Options of a Hive database.
+      x-google-discovery-id: HiveDatabaseOptions
       properties:
         locationUri:
           description: Cloud Storage folder URI where the database data is stored, starting with "gs://".
@@ -613,6 +2218,7 @@ components:
       type: object
     HiveTableOptions:
       description: Options of a Hive table.
+      x-google-discovery-id: HiveTableOptions
       properties:
         parameters:
           additionalProperties:
@@ -620,19 +2226,21 @@ components:
           description: Stores user supplied Hive table parameters.
           type: object
         storageDescriptor:
-          $ref: "#/components/schemas/StorageDescriptor"
           description: Stores physical storage information of the data.
+          allOf:
+            - $ref: '#/components/schemas/StorageDescriptor'
         tableType:
           description: Hive table type. For example, MANAGED_TABLE, EXTERNAL_TABLE.
           type: string
       type: object
     ListCatalogsResponse:
       description: Response message for the ListCatalogs method.
+      x-google-discovery-id: ListCatalogsResponse
       properties:
         catalogs:
           description: The catalogs from the specified project.
           items:
-            $ref: "#/components/schemas/Catalog"
+            $ref: '#/components/schemas/Catalog'
           type: array
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -640,11 +2248,12 @@ components:
       type: object
     ListDatabasesResponse:
       description: Response message for the ListDatabases method.
+      x-google-discovery-id: ListDatabasesResponse
       properties:
         databases:
           description: The databases from the specified catalog.
           items:
-            $ref: "#/components/schemas/Database"
+            $ref: '#/components/schemas/Database'
           type: array
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -652,6 +2261,7 @@ components:
       type: object
     ListTablesResponse:
       description: Response message for the ListTables method.
+      x-google-discovery-id: ListTablesResponse
       properties:
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -659,25 +2269,64 @@ components:
         tables:
           description: The tables from the specified database.
           items:
-            $ref: "#/components/schemas/Table"
+            $ref: '#/components/schemas/Table'
           type: array
+      type: object
+    Policy:
+      description: 'An Identity and Access Management (IAM) policy, which specifies access controls for Google Cloud resources. A `Policy` is a collection of `bindings`. A `binding` binds one or more `members`, or principals, to a single `role`. Principals can be user accounts, service accounts, Google groups, and domains (such as G Suite). A `role` is a named list of permissions; each `role` can be an IAM predefined role or a user-created custom role. For some types of Google Cloud resources, a `binding` can also specify a `condition`, which is a logical expression that allows access to a resource only if the expression evaluates to `true`. A condition can add constraints based on attributes of the request, the resource, or both. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies). **JSON example:** ``` { "bindings": [ { "role": "roles/resourcemanager.organizationAdmin", "members": [ "user:mike@example.com", "group:admins@example.com", "domain:google.com", "serviceAccount:my-project-id@appspot.gserviceaccount.com" ] }, { "role": "roles/resourcemanager.organizationViewer", "members": [ "user:eve@example.com" ], "condition": { "title": "expirable access", "description": "Does not grant access after Sep 2020", "expression": "request.time < timestamp(''2020-10-01T00:00:00.000Z'')", } } ], "etag": "BwWWja0YfJA=", "version": 3 } ``` **YAML example:** ``` bindings: - members: - user:mike@example.com - group:admins@example.com - domain:google.com - serviceAccount:my-project-id@appspot.gserviceaccount.com role: roles/resourcemanager.organizationAdmin - members: - user:eve@example.com role: roles/resourcemanager.organizationViewer condition: title: expirable access description: Does not grant access after Sep 2020 expression: request.time < timestamp(''2020-10-01T00:00:00.000Z'') etag: BwWWja0YfJA= version: 3 ``` For a description of IAM and its features, see the [IAM documentation](https://cloud.google.com/iam/docs/).'
+      x-google-discovery-id: Policy
+      properties:
+        auditConfigs:
+          description: Specifies cloud audit logging configuration for this policy.
+          items:
+            $ref: '#/components/schemas/AuditConfig'
+          type: array
+        bindings:
+          description: Associates a list of `members`, or principals, with a `role`. Optionally, may specify a `condition` that determines how and when the `bindings` are applied. Each of the `bindings` must contain at least one principal. The `bindings` in a `Policy` can refer to up to 1,500 principals; up to 250 of these principals can be Google groups. Each occurrence of a principal counts towards these limits. For example, if the `bindings` grant 50 different roles to `user:alice@example.com`, and not to any other principal, then you can add another 1,450 principals to the `bindings` in the `Policy`.
+          items:
+            $ref: '#/components/schemas/Binding'
+          type: array
+        etag:
+          description: '`etag` is used for optimistic concurrency control as a way to help prevent simultaneous updates of a policy from overwriting each other. It is strongly suggested that systems make use of the `etag` in the read-modify-write cycle to perform policy updates in order to avoid race conditions: An `etag` is returned in the response to `getIamPolicy`, and systems are expected to put that etag in the request to `setIamPolicy` to ensure that their change will be applied to the same version of the policy. **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost.'
+          format: byte
+          type: string
+        version:
+          description: 'Specifies the format of the policy. Valid values are `0`, `1`, and `3`. Requests that specify an invalid value are rejected. Any operation that affects conditional role bindings must specify version `3`. This requirement applies to the following operations: * Getting a policy that includes a conditional role binding * Adding a conditional role binding to a policy * Changing a conditional role binding in a policy * Removing any role binding, with or without a condition, from a policy that includes conditions **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost. If a policy does not include any conditions, operations on that policy may specify any valid version or leave the field unset. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).'
+          format: int32
+          type: integer
       type: object
     RenameTableRequest:
       description: Request message for the RenameTable method in MetastoreService
+      x-google-discovery-id: RenameTableRequest
       properties:
         newName:
-          description: "Required. The new `name` for the specified table, must be in the same database. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}"
+          description: 'Required. The new `name` for the specified table, must be in the same database. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
           type: string
       type: object
     SerDeInfo:
       description: Serializer and deserializer information.
+      x-google-discovery-id: SerDeInfo
       properties:
         serializationLib:
           description: The fully qualified Java class name of the serialization library.
           type: string
       type: object
+    SetIamPolicyRequest:
+      description: Request message for `SetIamPolicy` method.
+      x-google-discovery-id: SetIamPolicyRequest
+      properties:
+        policy:
+          description: 'REQUIRED: The complete policy to be applied to the `resource`. The size of the policy is limited to a few 10s of KB. An empty policy is a valid policy but certain Google Cloud services (such as Projects) might reject them.'
+          allOf:
+            - $ref: '#/components/schemas/Policy'
+        updateMask:
+          description: 'OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only the fields in the mask will be modified. If no mask is provided, the following default mask is used: `paths: "bindings, etag"`'
+          format: google-fieldmask
+          type: string
+      type: object
     StorageDescriptor:
       description: Stores physical storage information of the data.
+      x-google-discovery-id: StorageDescriptor
       properties:
         inputFormat:
           description: The fully qualified Java class name of the input format.
@@ -689,11 +2338,13 @@ components:
           description: The fully qualified Java class name of the output format.
           type: string
         serdeInfo:
-          $ref: "#/components/schemas/SerDeInfo"
           description: Serializer and deserializer information.
+          allOf:
+            - $ref: '#/components/schemas/SerDeInfo'
       type: object
     Table:
       description: Represents a table.
+      x-google-discovery-id: Table
       properties:
         createTime:
           description: Output only. The creation time of the table.
@@ -714,10 +2365,11 @@ components:
           readOnly: true
           type: string
         hiveOptions:
-          $ref: "#/components/schemas/HiveTableOptions"
           description: Options of a Hive table.
+          allOf:
+            - $ref: '#/components/schemas/HiveTableOptions'
         name:
-          description: "Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}"
+          description: 'Output only. The resource name. Format: projects/{project_id_or_number}/locations/{location_id}/catalogs/{catalog_id}/databases/{database_id}/tables/{table_id}'
           readOnly: true
           type: string
         type:
@@ -725,6 +2377,9 @@ components:
           enum:
             - TYPE_UNSPECIFIED
             - HIVE
+          x-google-enum-descriptions:
+            - The type is not specified.
+            - Represents a table compatible with Hive Metastore tables.
           type: string
         updateTime:
           description: Output only. The last modification time of the table.
@@ -732,23 +2387,218 @@ components:
           readOnly: true
           type: string
       type: object
+    TestIamPermissionsRequest:
+      description: Request message for `TestIamPermissions` method.
+      x-google-discovery-id: TestIamPermissionsRequest
+      properties:
+        permissions:
+          description: The set of permissions to check for the `resource`. Permissions with wildcards (such as `*` or `storage.*`) are not allowed. For more information see [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
+          items:
+            type: string
+          type: array
+      type: object
+    TestIamPermissionsResponse:
+      description: Response message for `TestIamPermissions` method.
+      x-google-discovery-id: TestIamPermissionsResponse
+      properties:
+        permissions:
+          description: A subset of `TestPermissionsRequest.permissions` that the caller is allowed.
+          items:
+            type: string
+          type: array
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/bigquery: View and manage your data in Google BigQuery and see the email address for your Google Account
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/bigquery: View and manage your data in Google BigQuery and see the email address for your Google Account
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/bigquery/
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://biglake.googleapis.com/
+  batchPath: batch
+  canonicalName: BigLake Service
+  endpoints:
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.asia-south1.rep.googleapis.com/
+      location: asia-south1
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.asia-south2.rep.googleapis.com/
+      location: asia-south2
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.europe-west1.rep.googleapis.com/
+      location: europe-west1
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.europe-west10.rep.googleapis.com/
+      location: europe-west10
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.europe-west2.rep.googleapis.com/
+      location: europe-west2
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.europe-west3.rep.googleapis.com/
+      location: europe-west3
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.europe-west4.rep.googleapis.com/
+      location: europe-west4
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.europe-west6.rep.googleapis.com/
+      location: europe-west6
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.europe-west8.rep.googleapis.com/
+      location: europe-west8
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.europe-west9.rep.googleapis.com/
+      location: europe-west9
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.me-central2.rep.googleapis.com/
+      location: me-central2
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.northamerica-northeast1.rep.googleapis.com/
+      location: northamerica-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.northamerica-northeast2.rep.googleapis.com/
+      location: northamerica-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-central1.rep.googleapis.com/
+      location: us-central1
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-central2.rep.googleapis.com/
+      location: us-central2
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-east1.rep.googleapis.com/
+      location: us-east1
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-east4.rep.googleapis.com/
+      location: us-east4
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-east5.rep.googleapis.com/
+      location: us-east5
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-east7.rep.googleapis.com/
+      location: us-east7
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-south1.rep.googleapis.com/
+      location: us-south1
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-west1.rep.googleapis.com/
+      location: us-west1
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-west2.rep.googleapis.com/
+      location: us-west2
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-west3.rep.googleapis.com/
+      location: us-west3
+    - description: Regional Endpoint
+      endpointUrl: https://biglake.us-west4.rep.googleapis.com/
+      location: us-west4
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: biglake:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://biglake.mtls.googleapis.com/
+  name: biglake
+  revision: '20261007'
+  rootUrl: https://biglake.googleapis.com/
+  servicePath: ''
+  version_module: true

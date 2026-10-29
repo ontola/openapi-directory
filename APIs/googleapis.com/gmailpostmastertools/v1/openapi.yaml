@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://gmailpostmastertools.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -19,250 +17,284 @@ info:
   x-logo:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/gmailpostmastertools.v1.json
+      version: v1
     - format: openapi
-      url: https://gmailpostmastertools.googleapis.com/$discovery/rest?version=v1
-      version: "3.0"
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/gmailpostmastertools.v1.json
+      version: '3.0'
   x-preferred: false
   x-providerName: googleapis.com
   x-serviceName: gmailpostmastertools
-externalDocs:
-  url: https://developers.google.com/gmail/postmaster
-tags:
-  - name: domains
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20250529; original source SHA-256 cfd96c63fb4737c2f1296039cf7c91616f1a6455586e0402689439811109c301.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://gmailpostmastertools.googleapis.com
 paths:
+  /v1/domains/{domainsId}:
+    get:
+      operationId: gmailpostmastertools.domains.get
+      description: Gets a specific domain registered by the client. Returns NOT_FOUND if the domain does not exist.
+      parameters:
+        - name: domainsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource name of the domain. It should have the form `domains/{domain_name}`, where domain_name is the fully qualified domain name.
+          schema:
+            type: string
+      tags:
+        - domains
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/postmaster.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/postmaster.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Domain'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/domains/{domainsId}
+        resourceNameBindings:
+          domainsId: name
+        resourceNameParameters:
+          name:
+            description: The resource name of the domain. It should have the form `domains/{domain_name}`, where domain_name is the fully qualified domain name.
+            location: path
+            pattern: ^domains/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1/domains:
     get:
-      description: Lists the domains that have been registered by the client. The order of domains in the response is unspecified and non-deterministic. Newly created domains will not necessarily be added to the end of this list.
       operationId: gmailpostmastertools.domains.list
+      description: Lists the domains that have been registered by the client. The order of domains in the response is unspecified and non-deterministic. Newly created domains will not necessarily be added to the end of this list.
       parameters:
-        - description: Requested page size. Server may return fewer domains than requested. If unspecified, server will pick an appropriate default.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: The next_page_token value returned from a previous List request, if any. This is the value of ListDomainsResponse.next_page_token returned from the previous call to `ListDomains` method.
+          description: Requested page size. Server may return fewer domains than requested. If unspecified, server will pick an appropriate default.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListDomainsResponse"
-          description: Successful response
+          description: The next_page_token value returned from a previous List request, if any. This is the value of ListDomainsResponse.next_page_token returned from the previous call to `ListDomains` method.
+      tags:
+        - domains
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/postmaster.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/postmaster.readonly
-      tags:
-        - domains
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDomainsResponse'
+      x-google-discovery:
+        path: v1/domains
+        flatPath: v1/domains
+        parameterOrder: []
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{name}:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/domains/{domainsId}/trafficStats/{trafficStatsId}:
     get:
-      description: Get traffic statistics for a domain on a specific date. Returns PERMISSION_DENIED if user does not have permission to access TrafficStats for the domain.
       operationId: gmailpostmastertools.domains.trafficStats.get
+      description: Get traffic statistics for a domain on a specific date. Returns PERMISSION_DENIED if user does not have permission to access TrafficStats for the domain.
       parameters:
-        - description: The resource name of the traffic statistics to get. E.g., domains/mymail.mydomain.com/trafficStats/20160807.
+        - name: domainsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. The resource name of the traffic statistics to get. E.g., domains/mymail.mydomain.com/trafficStats/20160807.
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TrafficStats"
-          description: Successful response
+        - name: trafficStatsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource name of the traffic statistics to get. E.g., domains/mymail.mydomain.com/trafficStats/20160807.
+          schema:
+            type: string
+      tags:
+        - domains
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/postmaster.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/postmaster.readonly
-      tags:
-        - domains
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficStats'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/domains/{domainsId}/trafficStats/{trafficStatsId}
+        resourceNameBindings:
+          domainsId: name
+          trafficStatsId: name
+        resourceNameParameters:
+          name:
+            description: The resource name of the traffic statistics to get. E.g., domains/mymail.mydomain.com/trafficStats/20160807.
+            location: path
+            pattern: ^domains/[^/]+/trafficStats/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/trafficStats:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/domains/{domainsId}/trafficStats:
     get:
-      description: List traffic statistics for all available days. Returns PERMISSION_DENIED if user does not have permission to access TrafficStats for the domain.
       operationId: gmailpostmastertools.domains.trafficStats.list
+      description: List traffic statistics for all available days. Returns PERMISSION_DENIED if user does not have permission to access TrafficStats for the domain.
       parameters:
-        - description: The resource name of the domain whose traffic statistics we'd like to list. It should have the form `domains/{domain_name}`, where domain_name is the fully qualified domain name.
+        - name: domainsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. The resource name of the domain whose traffic statistics we'd like to list. It should have the form `domains/{domain_name}`, where domain_name is the fully qualified domain name.
           schema:
             type: string
-        - description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: endDate.day
           in: query
-          name: endDate.day
           schema:
+            format: int32
             type: integer
-        - description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: endDate.month
           in: query
-          name: endDate.month
           schema:
+            format: int32
             type: integer
-        - description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+        - name: endDate.year
           in: query
-          name: endDate.year
           schema:
+            format: int32
             type: integer
-        - description: Requested page size. Server may return fewer TrafficStats than requested. If unspecified, server will pick an appropriate default.
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: The next_page_token value returned from a previous List request, if any. This is the value of ListTrafficStatsResponse.next_page_token returned from the previous call to `ListTrafficStats` method.
+          description: Requested page size. Server may return fewer TrafficStats than requested. If unspecified, server will pick an appropriate default.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-        - description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+          description: The next_page_token value returned from a previous List request, if any. This is the value of ListTrafficStatsResponse.next_page_token returned from the previous call to `ListTrafficStats` method.
+        - name: startDate.day
           in: query
-          name: startDate.day
           schema:
+            format: int32
             type: integer
-        - description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+        - name: startDate.month
           in: query
-          name: startDate.month
           schema:
+            format: int32
             type: integer
-        - description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+        - name: startDate.year
           in: query
-          name: startDate.year
           schema:
+            format: int32
             type: integer
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListTrafficStatsResponse"
-          description: Successful response
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+      tags:
+        - domains
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/postmaster.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/postmaster.readonly
-      tags:
-        - domains
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTrafficStatsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/trafficStats
+        flatPath: v1/domains/{domainsId}/trafficStats
+        resourceNameBindings:
+          domainsId: parent
+        resourceNameParameters:
+          parent:
+            description: The resource name of the domain whose traffic statistics we'd like to list. It should have the form `domains/{domain_name}`, where domain_name is the fully qualified domain name.
+            location: path
+            pattern: ^domains/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     DeliveryError:
       description: Metric on a particular delivery error type.
+      x-google-discovery-id: DeliveryError
       properties:
         errorClass:
           description: The class of delivery error.
@@ -270,6 +302,10 @@ components:
             - DELIVERY_ERROR_CLASS_UNSPECIFIED
             - PERMANENT_ERROR
             - TEMPORARY_ERROR
+          x-google-enum-descriptions:
+            - The default value which should never be used explicitly.
+            - Delivery of message has been rejected.
+            - Temporary failure of message delivery to the recipient.
           type: string
         errorRatio:
           description: The ratio of messages where the error occurred vs all authenticated traffic.
@@ -289,10 +325,23 @@ components:
             - IP_IN_RBL
             - DOMAIN_IN_RBL
             - BAD_PTR_RECORD
+          x-google-enum-descriptions:
+            - The default value which should never be used explicitly.
+            - The Domain or IP is sending traffic at a suspiciously high rate, due to which temporary rate limits have been imposed. The limit will be lifted when Gmail is confident enough of the nature of the traffic.
+            - The traffic is suspected to be spam, by Gmail, for various reasons.
+            - The traffic is suspected to be spammy, specific to the content.
+            - Traffic contains attachments not supported by Gmail.
+            - The sender domain has set up a DMARC rejection policy.
+            - The IP reputation of the sending IP is very low.
+            - The Domain reputation of the sending domain is very low.
+            - The IP is listed in one or more public [Real-time Blackhole Lists](http://en.wikipedia.org/wiki/DNSBL). Work with the RBL to get your IP delisted.
+            - The Domain is listed in one or more public [Real-time Blackhole Lists](http://en.wikipedia.org/wiki/DNSBL). Work with the RBL to get your domain delisted.
+            - The sending IP is missing a [PTR record](https://support.google.com/domains/answer/3251147#ptr).
           type: string
       type: object
     Domain:
       description: A registered domain resource in the Postmaster API.
+      x-google-discovery-id: Domain
       properties:
         createTime:
           description: Timestamp when the user registered this domain. Assigned by the server.
@@ -308,10 +357,16 @@ components:
             - OWNER
             - READER
             - NONE
+          x-google-enum-descriptions:
+            - The default value and should never be used explicitly.
+            - User has read access to the domain and can share access with others.
+            - User has read access to the domain.
+            - User doesn't have permission to access information about the domain. User did not verify ownership of domain nor was access granted by other domain owners.
           type: string
       type: object
     FeedbackLoop:
-      description: "[Feedback loop](https://support.google.com/mail/answer/6254652) identifier information."
+      description: '[Feedback loop](https://support.google.com/mail/answer/6254652) identifier information.'
+      x-google-discovery-id: FeedbackLoop
       properties:
         id:
           description: Feedback loop identifier that uniquely identifies individual campaigns.
@@ -323,6 +378,7 @@ components:
       type: object
     IpReputation:
       description: IP Reputation information for a set of IPs in a specific reputation category.
+      x-google-discovery-id: IpReputation
       properties:
         ipCount:
           description: Total number of unique IPs in this reputation category. This metric only pertains to traffic that passed [SPF](http://www.openspf.org/) or [DKIM](http://www.dkim.org/).
@@ -336,6 +392,12 @@ components:
             - MEDIUM
             - LOW
             - BAD
+          x-google-enum-descriptions:
+            - The default value which should never be used explicitly. This represents the state where no reputation information is available.
+            - Has a good track record of a very low spam rate, and complies with Gmail's sender guidelines. Mail will rarely be marked by the spam filter.
+            - Known to send good mail, but is prone to sending a low volume of spam intermittently. Most of the email from this entity will have a fair deliverability rate, except when there is a notable increase in spam levels.
+            - Known to send a considerable volume of spam regularly, and mail from this sender will likely be marked as spam.
+            - History of sending an enormously high volume of spam. Mail coming from this entity will almost always be rejected at SMTP level or marked as spam.
           type: string
         sampleIps:
           description: A sample of IPs in this reputation category.
@@ -345,11 +407,12 @@ components:
       type: object
     ListDomainsResponse:
       description: Response message for ListDomains.
+      x-google-discovery-id: ListDomainsResponse
       properties:
         domains:
           description: The list of domains.
           items:
-            $ref: "#/components/schemas/Domain"
+            $ref: '#/components/schemas/Domain'
           type: array
         nextPageToken:
           description: Token to retrieve the next page of results, or empty if there are no more results in the list.
@@ -357,6 +420,7 @@ components:
       type: object
     ListTrafficStatsResponse:
       description: Response message for ListTrafficStats.
+      x-google-discovery-id: ListTrafficStatsResponse
       properties:
         nextPageToken:
           description: Token to retrieve the next page of results, or empty if there are no more results in the list.
@@ -364,16 +428,17 @@ components:
         trafficStats:
           description: The list of TrafficStats.
           items:
-            $ref: "#/components/schemas/TrafficStats"
+            $ref: '#/components/schemas/TrafficStats'
           type: array
       type: object
     TrafficStats:
       description: Email traffic statistics pertaining to a specific date.
+      x-google-discovery-id: TrafficStats
       properties:
         deliveryErrors:
           description: Delivery errors for the domain. This metric only pertains to traffic that passed [SPF](http://www.openspf.org/) or [DKIM](http://www.dkim.org/).
           items:
-            $ref: "#/components/schemas/DeliveryError"
+            $ref: '#/components/schemas/DeliveryError'
           type: array
         dkimSuccessRatio:
           description: The ratio of mail that successfully authenticated with DKIM vs. all mail that attempted to authenticate with [DKIM](http://www.dkim.org/). Spoofed mail is excluded.
@@ -391,6 +456,12 @@ components:
             - MEDIUM
             - LOW
             - BAD
+          x-google-enum-descriptions:
+            - The default value which should never be used explicitly. This represents the state where no reputation information is available.
+            - Has a good track record of a very low spam rate, and complies with Gmail's sender guidelines. Mail will rarely be marked by the spam filter.
+            - Known to send good mail, but is prone to sending a low volume of spam intermittently. Most of the email from this entity will have a fair deliverability rate, except when there is a notable increase in spam levels.
+            - Known to send a considerable volume of spam regularly, and mail from this sender will likely be marked as spam.
+            - History of sending an enormously high volume of spam. Mail coming from this entity will almost always be rejected at SMTP level or marked as spam.
           type: string
         inboundEncryptionRatio:
           description: The ratio of incoming mail (to Gmail), that passed secure transport (TLS) vs all mail received from that domain. This metric only pertains to traffic that passed [SPF](http://www.openspf.org/) or [DKIM](http://www.dkim.org/).
@@ -399,10 +470,10 @@ components:
         ipReputations:
           description: Reputation information pertaining to the IP addresses of the email servers for the domain. There is exactly one entry for each reputation category except REPUTATION_CATEGORY_UNSPECIFIED.
           items:
-            $ref: "#/components/schemas/IpReputation"
+            $ref: '#/components/schemas/IpReputation'
           type: array
         name:
-          description: "The resource name of the traffic statistics. Traffic statistic names have the form `domains/{domain}/trafficStats/{date}`, where domain_name is the fully qualified domain name (i.e., mymail.mydomain.com) of the domain this traffic statistics pertains to and date is the date in yyyymmdd format that these statistics corresponds to. For example: domains/mymail.mydomain.com/trafficStats/20160807"
+          description: 'The resource name of the traffic statistics. Traffic statistic names have the form `domains/{domain}/trafficStats/{date}`, where domain_name is the fully qualified domain name (i.e., mymail.mydomain.com) of the domain this traffic statistics pertains to and date is the date in yyyymmdd format that these statistics corresponds to. For example: domains/mymail.mydomain.com/trafficStats/20160807'
           type: string
         outboundEncryptionRatio:
           description: The ratio of outgoing mail (from Gmail) that was accepted over secure transport (TLS).
@@ -411,7 +482,7 @@ components:
         spammyFeedbackLoops:
           description: Spammy [Feedback loop identifiers] (https://support.google.com/mail/answer/6254652) with their individual spam rates. This metric only pertains to traffic that is authenticated by [DKIM](http://www.dkim.org/).
           items:
-            $ref: "#/components/schemas/FeedbackLoop"
+            $ref: '#/components/schemas/FeedbackLoop'
           type: array
         spfSuccessRatio:
           description: The ratio of mail that successfully authenticated with SPF vs. all mail that attempted to authenticate with [SPF](http://www.openspf.org/). Spoofed mail is excluded.
@@ -430,21 +501,123 @@ components:
           format: double
           type: number
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/postmaster.readonly: See email traffic metrics for the domains you have registered in Gmail Postmaster Tools
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/postmaster.readonly: See email traffic metrics for the domains you have registered in Gmail Postmaster Tools
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/gmail/postmaster
+tags:
+  - name: domains
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://gmailpostmastertools.googleapis.com/
+  batchPath: batch
+  canonicalName: Postmaster Tools
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: gmailpostmastertools:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://gmailpostmastertools.mtls.googleapis.com/
+  name: gmailpostmastertools
+  revision: '20250529'
+  rootUrl: https://gmailpostmastertools.googleapis.com/
+  servicePath: ''
+  version_module: true
