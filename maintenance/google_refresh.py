@@ -54,10 +54,26 @@ def preserve_curation(old, converted):
         return result
     result["info"] = {**copy.deepcopy(old["info"]), **result["info"]}
     result["info"]["contact"] = {**copy.deepcopy(old["info"].get("contact", {})), **result["info"].get("contact", {})}
-    for key in ("externalDocs", "tags"):
+    for key in ("externalDocs", "tags", "x-hasEquivalentPaths"):
         if key in old:
             result[key] = copy.deepcopy(old[key])
     return result
+
+
+def check_curation(old, document):
+    """Verify curation separately from the merge that is meant to retain it."""
+    if not old:
+        return
+    for key in ("externalDocs", "tags", "x-hasEquivalentPaths"):
+        if key in old and (key not in document or not typed_equal(old[key], document[key])):
+            raise ValueError("Existing root curation changed: " + key)
+    for key, value in old.get("info", {}).items():
+        if key.startswith("x-") and key not in {"x-origin", "x-conversion"}:
+            if key not in document["info"] or not typed_equal(value, document["info"][key]):
+                raise ValueError("Existing info curation changed: " + key)
+    for key, value in old.get("info", {}).get("contact", {}).items():
+        if key.startswith("x-") and not typed_equal(value, document["info"].get("contact", {}).get(key)):
+            raise ValueError("Existing contact curation changed: " + key)
 
 
 def revision_of(document):
@@ -112,6 +128,7 @@ def candidate(task):
             "Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.",
         ]
         converted["info"]["x-conversion"].extend(compatibility)
+        check_curation(old, converted)
         validate(converted)
         text = yaml.dump(converted, Dumper=Dumper, sort_keys=False, allow_unicode=True, width=100000)
         parsed = yaml.load(text, Loader=LOADER)

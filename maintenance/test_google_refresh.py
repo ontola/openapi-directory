@@ -16,7 +16,8 @@ class GoogleRefreshTests(unittest.TestCase):
         converted = google.convert(source())
         old = {"info": {"title": "Old title", "x-logo": {"url": "https://invented.example/logo.svg"},
                         "x-preferred": True, "contact": {"x-twitter": "invented"}},
-               "externalDocs": {"url": "https://invented.example/docs"}, "tags": [{"name": "curated"}]}
+               "externalDocs": {"url": "https://invented.example/docs"}, "tags": [{"name": "curated"}],
+               "x-hasEquivalentPaths": True}
         before = copy.deepcopy(old)
         result = refresh.preserve_curation(old, converted)
         self.assertEqual(result["info"]["title"], converted["info"]["title"])
@@ -25,8 +26,24 @@ class GoogleRefreshTests(unittest.TestCase):
         self.assertEqual(result["info"]["contact"]["x-twitter"], "invented")
         self.assertEqual(result["tags"], old["tags"])
         self.assertEqual(result["externalDocs"], old["externalDocs"])
+        self.assertIs(result["x-hasEquivalentPaths"], True)
+        refresh.check_curation(old, result)
         self.assertEqual(old, before)
         self.assertNotIn("x-logo", refresh.preserve_curation(None, converted)["info"])
+
+    def test_independent_curation_check_catches_missing_or_changed_root_flags(self):
+        old = {"info": {"x-logo": {"url": "https://invented.example/logo.svg"}}, "x-hasEquivalentPaths": True}
+        document = refresh.preserve_curation(old, google.convert(source()))
+        del document["x-hasEquivalentPaths"]
+        with self.assertRaisesRegex(ValueError, "root curation changed"):
+            refresh.check_curation(old, document)
+        document["x-hasEquivalentPaths"] = False
+        with self.assertRaisesRegex(ValueError, "root curation changed"):
+            refresh.check_curation(old, document)
+        document["x-hasEquivalentPaths"] = True
+        del document["info"]["x-logo"]
+        with self.assertRaisesRegex(ValueError, "info curation changed"):
+            refresh.check_curation(old, document)
 
     def test_typed_roundtrip_check_distinguishes_bool_int_and_float(self):
         self.assertFalse(refresh.typed_equal({"v": True}, {"v": 1}))
