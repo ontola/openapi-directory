@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://webfonts.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -22,45 +20,64 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://webfonts.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/webfonts.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/webfonts.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: webfonts
-externalDocs:
-  url: https://developers.google.com/fonts/docs/developer_api
-tags:
-  - name: webfonts
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20250917; original source SHA-256 62e1cd4c089f25c58ec5cee28b9310c473f2aa3dc3d7977e0026e8242fe029fc.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://webfonts.googleapis.com
 paths:
   /v1/webfonts:
     get:
-      description: Retrieves the list of fonts currently served by the Google Fonts Developer API.
       operationId: webfonts.webfonts.list
+      description: Retrieves the list of fonts currently served by the Google Fonts Developer API.
       parameters:
-        - description: Controls the font urls in `Webfont.files`, by default, static ttf fonts are sent.
-          explode: true
+        - name: capability
           in: query
-          name: capability
           schema:
+            type: array
             items:
               enum:
                 - CAPABILITY_UNSPECIFIED
                 - WOFF2
                 - VF
+                - FAMILY_TAGS
+              x-google-enum-descriptions:
+                - Default means static ttf fonts.
+                - Use WOFF2(Compressed)instead of ttf.
+                - Prefer variable font files instead of static fonts instantiated at standard weights.
+                - Include tags that apply to the entire family in the response.
               type: string
-            type: array
+          description: Controls the font urls in `Webfont.files`, by default, static ttf fonts are sent.
           style: form
-        - description: Filters by Webfont.family, using literal match. If not set, returns all families
           explode: true
+        - name: category
           in: query
-          name: family
           schema:
+            type: string
+          description: Filters by Webfont.category, if category is found in Webfont.categories. If not set, returns all families.
+        - name: family
+          in: query
+          schema:
+            type: array
             items:
               type: string
-            type: array
+          description: Filters by Webfont.family, using literal match. If not set, returns all families
           style: form
-        - description: Enables sorting of the list.
+          explode: true
+        - name: sort
           in: query
-          name: sort
           schema:
             enum:
               - SORT_UNDEFINED
@@ -69,111 +86,50 @@ paths:
               - POPULARITY
               - STYLE
               - TRENDING
+            x-google-enum-descriptions:
+              - No sorting specified, use the default sorting method.
+              - Sort alphabetically
+              - Sort by date added
+              - Sort by popularity
+              - Sort by number of styles
+              - Sort by trending
             type: string
-        - description: Filters by Webfont.subset, if subset is found in Webfont.subsets. If not set, returns all families.
+          description: Enables sorting of the list.
+        - name: subset
           in: query
-          name: subset
           schema:
             type: string
+          description: Filters by Webfont.subset, if subset is found in Webfont.subsets. If not set, returns all families.
+      tags:
+        - webfonts
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WebfontList"
-          description: Successful response
-      tags:
-        - webfonts
+                $ref: '#/components/schemas/WebfontList'
+      x-google-discovery:
+        path: v1/webfonts
+        flatPath: v1/webfonts
+        parameterOrder: []
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Axis:
       description: Metadata for a variable font axis.
+      x-google-discovery-id: Axis
       properties:
         end:
           description: maximum value
@@ -187,24 +143,42 @@ components:
           description: tag name.
           type: string
       type: object
+    Tag:
+      description: Metadata for a tag.
+      x-google-discovery-id: Tag
+      properties:
+        name:
+          description: The name of the tag.
+          type: string
+        weight:
+          description: The weight of the tag.
+          format: float
+          type: number
+      type: object
     Webfont:
       description: Metadata describing a family of fonts.
+      x-google-discovery-id: Webfont
       properties:
         axes:
           description: Axis for variable fonts.
           items:
-            $ref: "#/components/schemas/Axis"
+            $ref: '#/components/schemas/Axis'
           type: array
         category:
           description: The category of the font.
           type: string
+        colorCapabilities:
+          description: The color format(s) available for this family.
+          items:
+            type: string
+          type: array
         family:
           description: The name of the font.
           type: string
         files:
           additionalProperties:
             type: string
-          description: "The font files (with all supported scripts) for each one of the available variants, as a key : value map."
+          description: 'The font files (with all supported scripts) for each one of the available variants, as a key : value map.'
           type: object
         kind:
           description: This kind represents a webfont object in the webfonts service.
@@ -220,6 +194,11 @@ components:
           items:
             type: string
           type: array
+        tags:
+          description: The tags that apply to this family.
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
         variants:
           description: The available variants for the font.
           items:
@@ -231,13 +210,117 @@ components:
       type: object
     WebfontList:
       description: Response containing the list of fonts currently served by the Google Fonts API.
+      x-google-discovery-id: WebfontList
       properties:
         items:
           description: The list of fonts currently served by the Google Fonts API.
           items:
-            $ref: "#/components/schemas/Webfont"
+            $ref: '#/components/schemas/Webfont'
           type: array
         kind:
           description: This kind represents a list of webfont objects in the webfonts service.
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes: {}
+externalDocs:
+  url: https://developers.google.com/fonts/docs/developer_api
+tags:
+  - name: webfonts
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://webfonts.googleapis.com/
+  batchPath: batch
+  canonicalName: Webfonts
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: webfonts:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://webfonts.mtls.googleapis.com/
+  name: webfonts
+  revision: '20250917'
+  rootUrl: https://webfonts.googleapis.com/
+  servicePath: ''

@@ -1,0 +1,319 @@
+openapi: 3.0.3
+info:
+  title: Google Workspace Marketplace API
+  version: v2
+  description: 'Lets your Google Workspace Marketplace applications integrate with Google''s installtion and licensing services. '
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/appsmarket.v2.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/appsmarket.v2.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260209; original source SHA-256 4893ddb7a8fa2bf2744a9366c9c58fa65073d593b992f0c4e4298568ad986f2d.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://appsmarket.googleapis.com
+paths:
+  /appsmarket/v2/customerLicense/{applicationId}/{customerId}:
+    get:
+      operationId: appsmarket.customerLicense.get
+      description: Gets the customer's licensing status to determine if they have access to a given app. For more information, see [Getting app installation and licensing details](https://developers.google.com/workspace/marketplace/example-calls-marketplace-api).
+      parameters:
+        - name: applicationId
+          in: path
+          schema:
+            type: string
+          description: The ID of the application.
+          required: true
+        - name: customerId
+          in: path
+          schema:
+            type: string
+          description: The ID of the customer.
+          required: true
+      tags:
+        - customerLicense
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/appsmarketplace.license
+        - Oauth2c:
+            - https://www.googleapis.com/auth/appsmarketplace.license
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerLicense'
+      x-google-discovery:
+        path: appsmarket/v2/customerLicense/{applicationId}/{customerId}
+        flatPath: appsmarket/v2/customerLicense/{applicationId}/{customerId}
+        parameterOrder:
+          - applicationId
+          - customerId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /appsmarket/v2/userLicense/{applicationId}/{userId}:
+    get:
+      operationId: appsmarket.userLicense.get
+      description: Gets the user's licensing status to determine if they have permission to use a given app. For more information, see [Getting app installation and licensing details](https://developers.google.com/workspace/marketplace/example-calls-marketplace-api).
+      parameters:
+        - name: applicationId
+          in: path
+          schema:
+            type: string
+          description: The ID of the application.
+          required: true
+        - name: userId
+          in: path
+          schema:
+            type: string
+          description: The ID of the user.
+          required: true
+      tags:
+        - userLicense
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/appsmarketplace.license
+        - Oauth2c:
+            - https://www.googleapis.com/auth/appsmarketplace.license
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLicense'
+      x-google-discovery:
+        path: appsmarket/v2/userLicense/{applicationId}/{userId}
+        flatPath: appsmarket/v2/userLicense/{applicationId}/{userId}
+        parameterOrder:
+          - applicationId
+          - userId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    CustomerLicense:
+      x-google-discovery-id: CustomerLicense
+      properties:
+        applicationId:
+          description: The ID of the application corresponding to this license query.
+          type: string
+        customerId:
+          description: The domain name of the customer.
+          type: string
+        editions:
+          deprecated: true
+          description: (Deprecated)
+          items:
+            $ref: '#/components/schemas/Editions'
+          type: array
+        id:
+          description: The ID of the customer license.
+          type: string
+        kind:
+          description: The type of API resource. This is always `appsmarket#customerLicense`.
+          type: string
+        state:
+          description: 'The customer''s license status. One of: - `ACTIVE`: The customer has a valid license. - `UNLICENSED`: There is no license. Either this customer has never installed your application or has deleted it.'
+          type: string
+      type: object
+    Editions:
+      x-google-discovery-id: Editions
+      properties:
+        assignedSeats:
+          deprecated: true
+          description: (Deprecated)
+          format: int32
+          type: integer
+        editionId:
+          deprecated: true
+          description: (Deprecated)
+          type: string
+        seatCount:
+          deprecated: true
+          description: (Deprecated)
+          format: int32
+          type: integer
+      type: object
+    UserLicense:
+      x-google-discovery-id: UserLicense
+      properties:
+        applicationId:
+          description: The ID of the application corresponding to the license query.
+          type: string
+        customerId:
+          description: The domain name of the user.
+          type: string
+        editionId:
+          deprecated: true
+          description: (Deprecated)
+          type: string
+        enabled:
+          description: The domain administrator has activated the application for this domain.
+          type: boolean
+        id:
+          description: The ID of the user license.
+          type: string
+        kind:
+          description: The type of API resource. This is always `appsmarket#userLicense`.
+          type: string
+        state:
+          description: 'The user''s licensing status. One of: - `ACTIVE`: The user has a valid license and should be permitted to use the application. - `UNLICENSED`: The administrator of this user''s domain never assigned a seat for the application to this user. - `EXPIRED`: The administrator assigned a seat to this user, but the license is expired.'
+          type: string
+        userId:
+          description: The email address of the user.
+          type: string
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/appsmarketplace.license: View your installed application's licensing information
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/appsmarketplace.license: View your installed application's licensing information
+externalDocs:
+  url: https://developers.google.com/workspace/marketplace
+tags:
+  - name: customerLicense
+  - name: userLicense
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://appsmarket.googleapis.com/
+  batchPath: batch
+  canonicalName: G Suite Marketplace API
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: appsmarket:v2
+  kind: discovery#restDescription
+  mtlsRootUrl: https://appsmarket.mtls.googleapis.com/
+  name: appsmarket
+  revision: '20260209'
+  rootUrl: https://appsmarket.googleapis.com/
+  servicePath: ''
+  version_module: true

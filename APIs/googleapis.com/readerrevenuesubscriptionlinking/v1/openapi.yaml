@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://readerrevenuesubscriptionlinking.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -20,188 +18,242 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://readerrevenuesubscriptionlinking.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/readerrevenuesubscriptionlinking.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/readerrevenuesubscriptionlinking.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: readerrevenuesubscriptionlinking
-externalDocs:
-  url: https://developers.google.com/news/subscribe/subscription-linking/overview
-tags:
-  - name: publications
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20261011; original source SHA-256 328813f17f884288c04e527aaaa68b0f1ecf7d330fe0dc8a41b816dd5be781cb.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://readerrevenuesubscriptionlinking.googleapis.com
 paths:
-  /v1/{name}:
+  /v1/publications/{publicationsId}/readers/{readersId}:
     delete:
-      description: Removes a publication reader, effectively severing the association with a Google user. If `force` is set to true, any entitlements for this reader will also be deleted. (Otherwise, the request will only work if the reader has no entitlements.) - If the reader does not exist, return NOT_FOUND. - Return FAILED_PRECONDITION if the force field is false (or unset) and entitlements are present.
       operationId: readerrevenuesubscriptionlinking.publications.readers.delete
+      description: Removes a publication reader, effectively severing the association with a Google user. If `force` is set to true, any entitlements for this reader will also be deleted. (Otherwise, the request will only work if the reader has no entitlements.) - If the reader does not exist, return NOT_FOUND. - Return FAILED_PRECONDITION if the force field is false (or unset) and entitlements are present.
       parameters:
-        - description: "Required. The resource name of the reader. Format: publications/{publication_id}/readers/{ppid}"
+        - name: publicationsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the reader. Format: publications/{publication_id}/readers/{ppid}'
           schema:
             type: string
-        - description: If set to true, any entitlements under the reader will also be purged.
+        - name: readersId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the reader. Format: publications/{publication_id}/readers/{ppid}'
+          schema:
+            type: string
+        - name: force
           in: query
-          name: force
           schema:
             type: boolean
+          description: If set to true, any entitlements under the reader will also be purged.
+      tags:
+        - publications
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DeleteReaderResponse"
-          description: Successful response
-      tags:
-        - publications
+                $ref: '#/components/schemas/DeleteReaderResponse'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/publications/{publicationsId}/readers/{readersId}
+        resourceNameBindings:
+          publicationsId: name
+          readersId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The resource name of the reader. Format: publications/{publication_id}/readers/{ppid}'
+            location: path
+            pattern: ^publications/[^/]+/readers/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     get:
-      description: Gets the reader entitlements for a publication reader. - Returns PERMISSION_DENIED if the caller does not have access. - Returns NOT_FOUND if the reader does not exist.
-      operationId: readerrevenuesubscriptionlinking.publications.readers.getEntitlements
+      operationId: readerrevenuesubscriptionlinking.publications.readers.get
+      description: Gets a reader of a publication. Returns NOT_FOUND if the reader does not exist.
       parameters:
-        - description: "Required. The name of the reader entitlements to retrieve. Format: publications/{publication_id}/readers/{reader_id}/entitlements"
+        - name: publicationsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the reader. Format: publications/{publication_id}/readers/{ppid}'
           schema:
             type: string
+        - name: readersId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the reader. Format: publications/{publication_id}/readers/{ppid}'
+          schema:
+            type: string
+      tags:
+        - publications
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ReaderEntitlements"
-          description: Successful response
+                $ref: '#/components/schemas/Reader'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/publications/{publicationsId}/readers/{readersId}
+        resourceNameBindings:
+          publicationsId: name
+          readersId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The resource name of the reader. Format: publications/{publication_id}/readers/{ppid}'
+            location: path
+            pattern: ^publications/[^/]+/readers/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/publications/{publicationsId}/readers/{readersId}/entitlements:
+    get:
+      operationId: readerrevenuesubscriptionlinking.publications.readers.getEntitlements
+      description: Gets the reader entitlements for a publication reader. - Returns PERMISSION_DENIED if the caller does not have access. - Returns NOT_FOUND if the reader does not exist.
+      parameters:
+        - name: publicationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reader entitlements to retrieve. Format: publications/{publication_id}/readers/{reader_id}/entitlements'
+          schema:
+            type: string
+        - name: readersId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reader entitlements to retrieve. Format: publications/{publication_id}/readers/{reader_id}/entitlements'
+          schema:
+            type: string
       tags:
         - publications
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReaderEntitlements'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/publications/{publicationsId}/readers/{readersId}/entitlements
+        resourceNameBindings:
+          publicationsId: name
+          readersId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the reader entitlements to retrieve. Format: publications/{publication_id}/readers/{reader_id}/entitlements'
+            location: path
+            pattern: ^publications/[^/]+/readers/[^/]+/entitlements$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     patch:
-      description: Updates the reader entitlements for a publication reader. The entire reader entitlements will be overwritten by the new reader entitlements in the payload, like a PUT. - Returns PERMISSION_DENIED if the caller does not have access. - Returns NOT_FOUND if the reader does not exist.
       operationId: readerrevenuesubscriptionlinking.publications.readers.updateEntitlements
+      description: Updates the reader entitlements for a publication reader. The entire reader entitlements will be overwritten by the new reader entitlements in the payload, like a PUT. - Returns PERMISSION_DENIED if the caller does not have access. - Returns NOT_FOUND if the reader does not exist.
       parameters:
-        - description: Output only. The resource name of the singleton.
+        - name: publicationsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Output only. The resource name of the singleton.
           schema:
             type: string
-        - description: Optional. The list of fields to update. Defaults to all fields.
+        - name: readersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Output only. The resource name of the singleton.
+          schema:
+            type: string
+        - name: updateMask
           in: query
-          name: updateMask
           schema:
+            format: google-fieldmask
             type: string
+          description: Optional. The list of fields to update. Defaults to all fields.
+      tags:
+        - publications
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReaderEntitlements"
+              $ref: '#/components/schemas/ReaderEntitlements'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ReaderEntitlements"
-          description: Successful response
-      tags:
-        - publications
+                $ref: '#/components/schemas/ReaderEntitlements'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/publications/{publicationsId}/readers/{readersId}/entitlements
+        resourceNameBindings:
+          publicationsId: name
+          readersId: name
+        resourceNameParameters:
+          name:
+            description: Output only. The resource name of the singleton.
+            location: path
+            pattern: ^publications/[^/]+/readers/[^/]+/entitlements$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     DeleteReaderResponse:
       description: Response to deleting a reader of a publication.
+      x-google-discovery-id: DeleteReaderResponse
       properties: {}
       type: object
     Entitlement:
       description: A single entitlement for a publication reader
+      x-google-discovery-id: Entitlement
       properties:
         detail:
           description: The detail field can carry a description of the SKU that corresponds to what the user has been granted access to. This description, which is opaque to Google, can be displayed in the Google user subscription console for users who linked the subscription to a Google Account. Max 80 character limit.
           type: string
         expireTime:
-          description: Required. Expiration time of the entitlement. Entitlements that have expired over 30 days will be purged. Required. LINT.IfChange(expire_time) The max expire_time is 398 days from now(). LINT.ThenChange(//depot/google3/java/com/google/subscribewithgoogle/accountlinking/subscriptionlink/service/config/protoconf.pi:max_expiry_age)
+          description: 'Optional. Expiration time of the entitlement. If unset, the entitlement does not expire (indefinite entitlement). We need to support indefinite entitlements for platform publishers. dd: go/rrm-sl-notedotcom Entitlements that have expired over 30 days will be purged.'
           format: google-datetime
           type: string
         productId:
@@ -213,6 +265,7 @@ components:
       type: object
     Reader:
       description: A reader of a publication.
+      x-google-discovery-id: Reader
       properties:
         createTime:
           description: Output only. Time the publication reader was created and associated with a Google user.
@@ -223,17 +276,135 @@ components:
           description: Output only. The resource name of the reader. The last part of ppid in the resource name is the publisher provided id.
           readOnly: true
           type: string
+        originatingPublicationId:
+          description: Output only. The SwG publication id that the reader's subscription linking was originating from.
+          readOnly: true
+          type: string
+        ppid:
+          description: Output only. The publisher provided id of the reader.
+          readOnly: true
+          type: string
+        publicationId:
+          description: Output only. The SwG publication id that the reader has linked their subscription to.
+          readOnly: true
+          type: string
       type: object
     ReaderEntitlements:
       description: A singleton containing all of a reader's entitlements for a publication.
+      x-google-discovery-id: ReaderEntitlements
       properties:
         entitlements:
           description: All of the entitlements for a publication reader.
           items:
-            $ref: "#/components/schemas/Entitlement"
+            $ref: '#/components/schemas/Entitlement'
           type: array
         name:
           description: Output only. The resource name of the singleton.
           readOnly: true
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes: {}
+externalDocs:
+  url: https://developers.google.com/news/subscribe/subscription-linking/overview
+tags:
+  - name: publications
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://readerrevenuesubscriptionlinking.googleapis.com/
+  batchPath: batch
+  canonicalName: Subscription Linking
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: readerrevenuesubscriptionlinking:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://readerrevenuesubscriptionlinking.mtls.googleapis.com/
+  name: readerrevenuesubscriptionlinking
+  revision: '20261011'
+  rootUrl: https://readerrevenuesubscriptionlinking.googleapis.com/
+  servicePath: ''
+  version_module: true

@@ -1,0 +1,1431 @@
+openapi: 3.0.3
+info:
+  title: Agencies and Brands API
+  version: v1
+  description: Agencies and brands API is an externally available HTTP API for ad agencies and brands to programmatically manage their deals and spending with Google Ad Manager publishers.
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/agenciesandbrands.v1.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/agenciesandbrands.v1.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260901; original source SHA-256 70f75a5f2b99dc92c454b1e058f80b85e8094f29d87bca373fd592a7d87847c5.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://agenciesandbrands.googleapis.com
+paths:
+  /v1/agencies/{agenciesId}/reports:
+    post:
+      operationId: agenciesandbrands.agencies.reports.create
+      description: Creates a `Report` object.
+      parameters:
+        - name: agenciesId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this `Report` will be created. Format: `agencies/{account_id}`'
+          schema:
+            type: string
+      tags:
+        - agencies
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/agencies-and-brands
+        - Oauth2c:
+            - https://www.googleapis.com/auth/agencies-and-brands
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Report'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+      x-google-discovery:
+        path: v1/{+parent}/reports
+        flatPath: v1/agencies/{agenciesId}/reports
+        resourceNameBindings:
+          agenciesId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource where this `Report` will be created. Format: `agencies/{account_id}`'
+            location: path
+            pattern: ^agencies/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: agenciesandbrands.agencies.reports.list
+      description: Lists `Report` objects.
+      parameters:
+        - name: agenciesId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of reports. Format: `agencies/{account_id}`'
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Optional. Expression to filter the response. See syntax details at https://developers.google.com/ad-manager/api/beta/filters
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: Optional. Expression to specify sorting order. See syntax details at https://developers.google.com/ad-manager/api/beta/filters#order
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of `Reports` to return. The service may return fewer than this value. If unspecified, at most 50 `Reports` will be returned. The maximum value is 1000; values greater than 1000 will be coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListReports` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListReports` must match the call that provided the page token.
+        - name: skip
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. Number of individual resources to skip while paginating.
+      tags:
+        - agencies
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/agencies-and-brands
+        - Oauth2c:
+            - https://www.googleapis.com/auth/agencies-and-brands
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListReportsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/reports
+        flatPath: v1/agencies/{agenciesId}/reports
+        resourceNameBindings:
+          agenciesId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent, which owns this collection of reports. Format: `agencies/{account_id}`'
+            location: path
+            pattern: ^agencies/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/agencies/{agenciesId}/reports/{reportsId}:
+    delete:
+      operationId: agenciesandbrands.agencies.reports.delete
+      description: Deletes a `Report` object.
+      parameters:
+        - name: agenciesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Resource name of the report to delete. Format: `agencies/{account_id}/reports/{report_id}`'
+          schema:
+            type: string
+        - name: reportsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Resource name of the report to delete. Format: `agencies/{account_id}/reports/{report_id}`'
+          schema:
+            type: string
+      tags:
+        - agencies
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/agencies-and-brands
+        - Oauth2c:
+            - https://www.googleapis.com/auth/agencies-and-brands
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/agencies/{agenciesId}/reports/{reportsId}
+        resourceNameBindings:
+          agenciesId: name
+          reportsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Resource name of the report to delete. Format: `agencies/{account_id}/reports/{report_id}`'
+            location: path
+            pattern: ^agencies/[^/]+/reports/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: agenciesandbrands.agencies.reports.get
+      description: Retrieves a `Report` object.
+      parameters:
+        - name: agenciesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the report. Format: `agencies/{account_id}/reports/{report_id}`'
+          schema:
+            type: string
+        - name: reportsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The resource name of the report. Format: `agencies/{account_id}/reports/{report_id}`'
+          schema:
+            type: string
+      tags:
+        - agencies
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/agencies-and-brands
+        - Oauth2c:
+            - https://www.googleapis.com/auth/agencies-and-brands
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/agencies/{agenciesId}/reports/{reportsId}
+        resourceNameBindings:
+          agenciesId: name
+          reportsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The resource name of the report. Format: `agencies/{account_id}/reports/{report_id}`'
+            location: path
+            pattern: ^agencies/[^/]+/reports/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: agenciesandbrands.agencies.reports.patch
+      description: Updates a `Report` object.
+      parameters:
+        - name: agenciesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the report. Report resource name have the form: `agencies/{account_id}/reports/{report_id}`'
+          schema:
+            type: string
+        - name: reportsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The resource name of the report. Report resource name have the form: `agencies/{account_id}/reports/{report_id}`'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Optional. The list of fields to update.
+      tags:
+        - agencies
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/agencies-and-brands
+        - Oauth2c:
+            - https://www.googleapis.com/auth/agencies-and-brands
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Report'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/agencies/{agenciesId}/reports/{reportsId}
+        resourceNameBindings:
+          agenciesId: name
+          reportsId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. The resource name of the report. Report resource name have the form: `agencies/{account_id}/reports/{report_id}`'
+            location: path
+            pattern: ^agencies/[^/]+/reports/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/agencies/{agenciesId}/reports/{reportsId}:run:
+    post:
+      operationId: agenciesandbrands.agencies.reports.run
+      description: Initiates the execution of an existing report asynchronously. Users can get the report by polling this operation using `OperationsService.GetOperation`. Poll every 5 seconds initially, with an exponential backoff. Once a report is complete, the operation will contain a `RunReportResponse` in its response field containing a report_result that can be passed to the `FetchReportResultRows` method to retrieve the report data.
+      parameters:
+        - name: agenciesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The report to run. Format: `agencies/{account_id}/reports/{report_id}`'
+          schema:
+            type: string
+        - name: reportsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The report to run. Format: `agencies/{account_id}/reports/{report_id}`'
+          schema:
+            type: string
+      tags:
+        - agencies
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/agencies-and-brands
+        - Oauth2c:
+            - https://www.googleapis.com/auth/agencies-and-brands
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunReportRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}:run
+        flatPath: v1/agencies/{agenciesId}/reports/{reportsId}:run
+        resourceNameBindings:
+          agenciesId: name
+          reportsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The report to run. Format: `agencies/{account_id}/reports/{report_id}`'
+            location: path
+            pattern: ^agencies/[^/]+/reports/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/agencies/{agenciesId}/reports/{reportsId}/operations/{operationsId}:
+    get:
+      operationId: agenciesandbrands.agencies.reports.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: agenciesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: reportsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - agencies
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/agencies-and-brands
+        - Oauth2c:
+            - https://www.googleapis.com/auth/agencies-and-brands
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/agencies/{agenciesId}/reports/{reportsId}/operations/{operationsId}
+        resourceNameBindings:
+          agenciesId: name
+          reportsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^agencies/[^/]+/reports/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/agencies/{agenciesId}/reports/{reportsId}/results/{resultsId}:fetchRows:
+    get:
+      operationId: agenciesandbrands.agencies.reports.results.fetchRows
+      description: Returns the result rows from a completed report. The caller must have previously called `RunReport` and waited for that operation to complete. The rows will be returned according to the order specified by the `sorts` member of the report definition.
+      parameters:
+        - name: agenciesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The report result being fetched. Format: `agencies/{account_id}/reports/{report_id}/results/{report_result_id}`'
+          schema:
+            type: string
+        - name: reportsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The report result being fetched. Format: `agencies/{account_id}/reports/{report_id}/results/{report_result_id}`'
+          schema:
+            type: string
+        - name: resultsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The report result being fetched. Format: `agencies/{account_id}/reports/{report_id}/results/{report_result_id}`'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of rows to return. The service may return fewer than this value. If unspecified, at most 1,000 rows will be returned. The maximum value is 10,000; values greater than 10,000 will be reduced to 10,000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `FetchReportResultRows` call. Provide this to retrieve the second and subsequent batches of rows.
+      tags:
+        - agencies
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/agencies-and-brands
+        - Oauth2c:
+            - https://www.googleapis.com/auth/agencies-and-brands
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FetchReportResultRowsResponse'
+      x-google-discovery:
+        path: v1/{+name}:fetchRows
+        flatPath: v1/agencies/{agenciesId}/reports/{reportsId}/results/{resultsId}:fetchRows
+        resourceNameBindings:
+          agenciesId: name
+          reportsId: name
+          resultsId: name
+        resourceNameParameters:
+          name:
+            description: 'The report result being fetched. Format: `agencies/{account_id}/reports/{report_id}/results/{report_result_id}`'
+            location: path
+            pattern: ^agencies/[^/]+/reports/[^/]+/results/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    Date:
+      description: 'Represents a whole or partial calendar date, such as a birthday. The time of day and time zone are either specified elsewhere or are insignificant. The date is relative to the Gregorian Calendar. This can represent one of the following: * A full date, with non-zero year, month, and day values. * A month and day, with a zero year (for example, an anniversary). * A year on its own, with a zero month and a zero day. * A year and month, with a zero day (for example, a credit card expiration date). Related types: * google.type.TimeOfDay * google.type.DateTime * google.protobuf.Timestamp'
+      x-google-discovery-id: Date
+      properties:
+        day:
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+          format: int32
+          type: integer
+        month:
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          format: int32
+          type: integer
+        year:
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          format: int32
+          type: integer
+      type: object
+    DateRange:
+      description: A date range for a report.
+      x-google-discovery-id: DateRange
+      properties:
+        fixed:
+          description: A fixed date range.
+          allOf:
+            - $ref: '#/components/schemas/FixedDateRange'
+        relative:
+          description: A relative date range.
+          enum:
+            - RELATIVE_DATE_RANGE_UNSPECIFIED
+            - TODAY
+            - YESTERDAY
+            - THIS_WEEK_TO_DATE
+            - THIS_WEEK_TO_YESTERDAY
+            - THIS_MONTH_TO_DATE
+            - THIS_MONTH_TO_YESTERDAY
+            - THIS_QUARTER_TO_DATE
+            - THIS_QUARTER_TO_YESTERDAY
+            - THIS_YEAR_TO_DATE
+            - THIS_YEAR_TO_YESTERDAY
+            - LAST_WEEK
+            - LAST_WEEK_STARTING_SUNDAY
+            - LAST_MONTH
+            - LAST_QUARTER
+            - LAST_YEAR
+            - LAST_7_DAYS
+            - LAST_30_DAYS
+            - LAST_60_DAYS
+            - LAST_90_DAYS
+            - LAST_93_DAYS
+            - LAST_180_DAYS
+            - LAST_360_DAYS
+            - LAST_365_DAYS
+            - LAST_3_MONTHS
+            - LAST_6_MONTHS
+            - LAST_12_MONTHS
+            - ALL_AVAILABLE
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - The date the report is run.
+            - The date a day before the date that the report is run.
+            - From the beginning of the calendar week in which the up to and including the day the report is run.
+            - From the beginning of the calendar week in which the report is run, up to and including the day before the report is run.
+            - From the beginning of the calendar month in which the report is run, to up to and including the day the report is run.
+            - From the beginning of the calendar month in which the report is run, up to and including the day before the report is run.
+            - From the beginning of the calendar quarter in which the report is run, up to and including the day the report is run.
+            - From the beginning of the calendar quarter in which the report is run, up to and including the day before the report is run.
+            - From the beginning of the calendar year in which the report is run, to up to and including the day the report is run.
+            - From the beginning of the calendar year in which the report is run, to up to and including the day before the report is run.
+            - The entire previous calendar week, Monday to Sunday (inclusive), preceding the calendar week the report is run.
+            - The entire previous calendar week, Sunday to Saturday (inclusive), preceding the calendar week the report is run.
+            - The entire previous calendar month preceding the calendar month the report is run.
+            - The entire previous calendar quarter preceding the calendar quarter the report is run.
+            - The entire previous calendar year preceding the calendar year the report is run.
+            - The 7 days preceding the day the report is run.
+            - The 30 days preceding the day the report is run.
+            - The 60 days preceding the day the report is run.
+            - The 90 days preceding the day the report is run.
+            - The 93 days preceding the day the report is run.
+            - The 180 days preceding the day the report is run.
+            - The 360 days preceding the day the report is run.
+            - The 365 days preceding the day the report is run.
+            - The entire previous 3 calendar months preceding the calendar month the report is run.
+            - The entire previous 6 calendar months preceding the calendar month the report is run.
+            - The entire previous 12 calendar months preceding the calendar month the report is run.
+            - From 3 years before the report is run, to the day before the report is run, inclusive.
+          type: string
+      type: object
+    DoubleList:
+      description: A list of double values.
+      x-google-discovery-id: DoubleList
+      properties:
+        values:
+          description: The values
+          items:
+            format: double
+            type: number
+          type: array
+      type: object
+    Empty:
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
+      properties: {}
+      type: object
+    FetchReportResultRowsResponse:
+      description: The response message for the fetch report result rows endpoint.
+      x-google-discovery-id: FetchReportResultRowsResponse
+      properties:
+        dateRanges:
+          description: The computed fixed date ranges this report includes. Only returned with the first page of results (when page_token is not included in the request).
+          items:
+            $ref: '#/components/schemas/FixedDateRange'
+          type: array
+        nextPageToken:
+          description: A token that can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
+          type: string
+        rows:
+          description: Up to `page_size` rows of report data.
+          items:
+            $ref: '#/components/schemas/Row'
+          type: array
+        runTime:
+          description: The time at which the report was scheduled to run. For non-scheduled reports, this is the time at which the report was requested to be run.
+          format: google-datetime
+          type: string
+        totalRowCount:
+          description: The total number of rows available from this report. Useful for pagination. Only returned with the first page of results (when page_token is not included in the request).
+          format: int32
+          type: integer
+      type: object
+    Field:
+      description: A dimension or a metric in a report.
+      x-google-discovery-id: Field
+      properties:
+        dimension:
+          description: The dimension this field represents.
+          enum:
+            - DIMENSION_UNSPECIFIED
+            - ADVERTISER_DOMAIN
+            - AGENCY_ACCOUNT_ID
+            - AGENCY_ACCOUNT_NAME
+            - BID_FILTERING_REASON
+            - BID_FILTERING_REASON_NAME
+            - BUYER_SDK
+            - CAMPAIGN_ID
+            - CAMPAIGN_NAME
+            - COUNTRY
+            - CREATIVE_FORMAT
+            - CREATIVE_ID
+            - CREATIVE_POLICIES
+            - CREATIVE_POLICIES_NAME
+            - CREATIVE_SIZE
+            - CURATION_DATA_SEGMENT_ID
+            - CURATION_PARTNER_NAME
+            - CURATOR_FEE_TYPE
+            - DATE
+            - DEAL_ID
+            - DEAL_NAME
+            - DETECTED_ADVERTISER_NAME
+            - DSP_NAME
+            - DSP_SEAT_ID
+            - ENVIRONMENT
+            - ENVIRONMENT_NAME
+            - GMA_SDK
+            - HOUR
+            - MOBILE_APP_ID
+            - MOBILE_APP_NAME
+            - MOBILE_OS
+            - MONTH
+            - PACKAGE_FEE_VISIBILITY
+            - PLACEMENT_ID
+            - PLATFORM
+            - PUBLISHER_DOMAIN
+            - PUBLISHER_ID
+            - PUBLISHER_NAME
+            - PUBLISHER_PROTECTIONS
+            - PUBLISHER_PROTECTIONS_NAME
+            - SELLER_AUTHORIZATION
+            - SELLER_AUTHORIZATION_NAME
+            - SUPPLY_PATH_TYPE
+            - SUPPLY_PATH_TYPE_NAME
+            - TRANSACTION_TYPE
+            - VAST_ERROR_CODE
+            - WEEK
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - The domain of the advertiser.
+            - Agency account ID.
+            - Agency account name.
+            - Reason that a Real-time Bidding bid was filtered from the auction.
+            - The short description of the reason that a Real-time Bidding bid was filtered from the auction.
+            - A boolean indicating whether the impression was rendered by a buyer SDK. If set to true, the impression was rendered by a buyer SDK.
+            - The ID of the agency campaign.
+            - The display name of the agency campaign.
+            - Display name of a country.
+            - Creative format, "Display" vs. "Video".
+            - Creative ID.
+            - Applied creative policies.
+            - The localized display name of applied creative policies.
+            - Creative size.
+            - The ID of the data segment created by a curator.
+            - The display name of the curation partner.
+            - The type of curation service (e.g. packaging or data segment).
+            - Date.
+            - Deal ID.
+            - Deal name.
+            - Display name of the detected advertiser.
+            - Display name of the DSP.
+            - DSP Seat ID.
+            - The user device and container environment where the impression originates. Supported values are "app" and "web".
+            - The localized display name of the user device and container environment where the impression originates. Supported values are "app" and "web".
+            - A boolean indicating whether the impression was rendered by the Google Mobile Ads SDK. If set to true, the impression was rendered by the Google Mobile Ads SDK.
+            - Hour.
+            - Mobile App ID.
+            - Mobile App Name.
+            - Mobile operating system.
+            - Month.
+            - The visibility of the package fee (e.g. disclosed or non-disclosed).
+            - Placement ID.
+            - Platform, e.g. "desktop" vs. "mobile".
+            - Publisher domain.
+            - Publisher identifier.
+            - Publisher name.
+            - Whether publisher protections are applied.
+            - The localized display name indicating whether publisher protections are applied.
+            - Seller authorization.
+            - The localized display name of seller authorization.
+            - The supply path type of the deal for Agency Direct.
+            - The localized display name of the supply path type of the deal for Agency Direct.
+            - The transaction type of the deal.
+            - VAST error code.
+            - Week.
+          type: string
+        metric:
+          description: The metric this field represents.
+          enum:
+            - METRIC_UNSPECIFIED
+            - ACTIVE_VIEW_MEASURABILITY_RATE
+            - ACTIVE_VIEW_MEASURABLE
+            - ACTIVE_VIEW_VIEWABILITY_RATE
+            - ACTIVE_VIEW_VIEWABLE
+            - AUCTIONS_WON
+            - BIDS
+            - BIDS_IN_AUCTION
+            - CLICKS
+            - CPC
+            - CPM
+            - CURATION_PARTNER_FEE
+            - DISCOUNT_AMOUNT
+            - EFFECTIVE_DISCOUNT_RATE
+            - ENGAGED_VIEWS
+            - IMPRESSIONS
+            - PRE_DISCOUNT_SPEND
+            - PRE_DISCOUNT_SPEND_WITHOUT_CURATION_PARTNER_FEE
+            - REACHED_QUERIES
+            - SPEND
+            - SPEND_WITHOUT_CURATION_PARTNER_FEE
+            - VAST_ERROR_COUNT
+            - VIDEO_COMPLETE
+            - VIDEO_FIRST_QUARTILE
+            - VIDEO_MIDPOINT
+            - VIDEO_START
+            - VIDEO_THIRD_QUARTILE
+            - VIDEO_VTR
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - Active View measurability rate.
+            - Active View measurable.
+            - Active view viewability rate.
+            - Active View viewable imps.
+            - Auctions won.
+            - Bids.
+            - Bids in auction.
+            - Clicks.
+            - CPC.
+            - CPM.
+            - Curator fee. This will be redacted to 0.00 if the package's visibility is set to non-disclosed. Use the PACKAGE_FEE_VISIBILITY dimension to check if the package's fee is disclosed.
+            - Discount amount in media planner currency.
+            - Discount rate in media planner currency.
+            - Engaged views.
+            - Impressions.
+            - Discount spend in media planner currency.
+            - Gross media cost in media planner currency.
+            - Queries that are reached in the mediation chain.
+            - Spend in reporting currency specified in the request. Defaults to USD.
+            - Net media cost in media planner currency.
+            - Number of video impressions failed to render due to VAST errors.
+            - Number of video impressions played to completion.
+            - Number of video impressions played to the first quartile.
+            - Number of video impressions played to the midpoint.
+            - Number of video impressions played.
+            - Number of video impressions played to the third quartile.
+            - The rate in which video impressions were watched to completion.
+          type: string
+      type: object
+    FieldFilter:
+      description: A filter on a specific field.
+      x-google-discovery-id: FieldFilter
+      properties:
+        field:
+          description: Required. The field to filter on.
+          allOf:
+            - $ref: '#/components/schemas/Field'
+        operation:
+          description: Required. The operation of this filter.
+          enum:
+            - IN
+            - NOT_IN
+            - CONTAINS
+            - NOT_CONTAINS
+            - LESS_THAN
+            - LESS_THAN_EQUALS
+            - GREATER_THAN
+            - GREATER_THAN_EQUALS
+            - BETWEEN
+            - MATCHES
+            - NOT_MATCHES
+          x-google-enum-descriptions:
+            - For scalar operands, checks if the operand is in the set of provided filter values. For list operands, checks if any element in the operand is in the set of provided filter values. Default value.
+            - For scalar operands, checks that the operand is not in the set of provided filter values. For list operands, checks that none of the elements in the operand is in the set of provided filter values.
+            - For scalar string operands, checks if the operand contains any of the provided filter substrings. For string list operands, checks if any string in the operand contains any of the provided filter substrings.
+            - For scalar string operands, checks that the operand contains none of the provided filter substrings. For string list operands, checks that none of the strings in the operand contain none of the provided filter substrings.
+            - Operand is less than the provided filter value.
+            - Operand is less than or equal to provided filter value.
+            - Operand is greater than provided filter value.
+            - Operand is greater than or equal to provided filter value.
+            - Operand is between provided filter values.
+            - Operand matches against a regular expression or set of regular expressions (one must match).
+            - Operand negative matches against a regular expression or set of regular expressions (none must match).
+          type: string
+        values:
+          description: Required. Values to filter to.
+          items:
+            $ref: '#/components/schemas/ReportValue'
+          type: array
+      type: object
+    Filter:
+      description: A filter over one or more fields.
+      x-google-discovery-id: Filter
+      properties:
+        andFilter:
+          description: A list of filters whose results are AND-ed.
+          allOf:
+            - $ref: '#/components/schemas/FilterList'
+        fieldFilter:
+          description: A filter on a single field.
+          allOf:
+            - $ref: '#/components/schemas/FieldFilter'
+        notFilter:
+          description: A filter whose result is negated.
+          allOf:
+            - $ref: '#/components/schemas/Filter'
+        orFilter:
+          description: A list of filters whose results are OR-ed.
+          allOf:
+            - $ref: '#/components/schemas/FilterList'
+      type: object
+    FilterList:
+      description: A list of filters.
+      x-google-discovery-id: FilterList
+      properties:
+        filters:
+          description: Required. A list of filters.
+          items:
+            $ref: '#/components/schemas/Filter'
+          type: array
+      type: object
+    FixedDateRange:
+      description: A date range between two fixed dates (inclusive of end date).
+      x-google-discovery-id: FixedDateRange
+      properties:
+        endDate:
+          description: Required. The end date (inclusive) of this date range.
+          allOf:
+            - $ref: '#/components/schemas/Date'
+        startDate:
+          description: Required. The start date of this date range.
+          allOf:
+            - $ref: '#/components/schemas/Date'
+      type: object
+    IntList:
+      description: A list of integer values.
+      x-google-discovery-id: IntList
+      properties:
+        values:
+          description: The values
+          items:
+            format: int64
+            type: string
+          type: array
+      type: object
+    ListReportsResponse:
+      description: Response object for `ListReportsResponse` containing matching `Report` objects.
+      x-google-discovery-id: ListReportsResponse
+      properties:
+        nextPageToken:
+          description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
+          type: string
+        reports:
+          description: The `Report` objects from the specified network.
+          items:
+            $ref: '#/components/schemas/Report'
+          type: array
+        totalSize:
+          description: Total number of `Report` objects. If a filter was included in the request, this reflects the total number after the filtering is applied. `total_size` won't be calculated in the response unless it has been included in a response field mask. The response field mask can be provided to the method by using the URL parameter `$fields` or `fields`, or by using the HTTP/gRPC header `X-Goog-FieldMask`. For more information, see https://developers.google.com/ad-manager/api/beta/field-masks
+          format: int32
+          type: integer
+      type: object
+    MetricValueGroup:
+      description: Contains all metric values requested for a single date range and set of column dimension values (returned in the columns field of the response). The order of the metrics in each field corresponds to the order of the metrics specified in the request.
+      x-google-discovery-id: MetricValueGroup
+      properties:
+        primaryValues:
+          description: Data for the PRIMARY MetricValueType.
+          items:
+            $ref: '#/components/schemas/ReportValue'
+          type: array
+      type: object
+    Operation:
+      description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
+      properties:
+        done:
+          description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
+          type: boolean
+        error:
+          description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
+        metadata:
+          additionalProperties:
+            description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
+          description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
+          type: object
+        name:
+          description: The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should be a resource name ending with `operations/{unique_id}`.
+          type: string
+        response:
+          additionalProperties:
+            description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
+          description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
+          type: object
+      type: object
+    Report:
+      description: The `Report` resource.
+      x-google-discovery-id: Report
+      properties:
+        createTime:
+          description: Output only. The instant this report was created.
+          format: google-datetime
+          readOnly: true
+          type: string
+        displayName:
+          description: Optional. Display name for the report.
+          type: string
+        locale:
+          description: Output only. The locale of this report. Locale is set from the user's locale at the time of the request. Locale can't be modified.
+          readOnly: true
+          type: string
+        name:
+          description: 'Identifier. The resource name of the report. Report resource name have the form: `agencies/{account_id}/reports/{report_id}`'
+          type: string
+        reportDefinition:
+          description: Required. The report definition of the report.
+          allOf:
+            - $ref: '#/components/schemas/ReportDefinition'
+        reportId:
+          description: Output only. Report ID.
+          format: int64
+          readOnly: true
+          type: string
+        updateTime:
+          description: Output only. The instant this report was last modified.
+          format: google-datetime
+          readOnly: true
+          type: string
+      type: object
+    ReportDefinition:
+      description: The definition of how a report should be run.
+      x-google-discovery-id: ReportDefinition
+      properties:
+        currencyCode:
+          description: Optional. The ISO 4217 currency code for this report. Defaults to account currency code if not specified.
+          type: string
+        dateRange:
+          description: Required. The primary date range of this report.
+          allOf:
+            - $ref: '#/components/schemas/DateRange'
+        dimensions:
+          description: Required. The list of dimensions to report on. If empty, the report will have no dimensions, and any metrics will be totals.
+          items:
+            enum:
+              - DIMENSION_UNSPECIFIED
+              - ADVERTISER_DOMAIN
+              - AGENCY_ACCOUNT_ID
+              - AGENCY_ACCOUNT_NAME
+              - BID_FILTERING_REASON
+              - BID_FILTERING_REASON_NAME
+              - BUYER_SDK
+              - CAMPAIGN_ID
+              - CAMPAIGN_NAME
+              - COUNTRY
+              - CREATIVE_FORMAT
+              - CREATIVE_ID
+              - CREATIVE_POLICIES
+              - CREATIVE_POLICIES_NAME
+              - CREATIVE_SIZE
+              - CURATION_DATA_SEGMENT_ID
+              - CURATION_PARTNER_NAME
+              - CURATOR_FEE_TYPE
+              - DATE
+              - DEAL_ID
+              - DEAL_NAME
+              - DETECTED_ADVERTISER_NAME
+              - DSP_NAME
+              - DSP_SEAT_ID
+              - ENVIRONMENT
+              - ENVIRONMENT_NAME
+              - GMA_SDK
+              - HOUR
+              - MOBILE_APP_ID
+              - MOBILE_APP_NAME
+              - MOBILE_OS
+              - MONTH
+              - PACKAGE_FEE_VISIBILITY
+              - PLACEMENT_ID
+              - PLATFORM
+              - PUBLISHER_DOMAIN
+              - PUBLISHER_ID
+              - PUBLISHER_NAME
+              - PUBLISHER_PROTECTIONS
+              - PUBLISHER_PROTECTIONS_NAME
+              - SELLER_AUTHORIZATION
+              - SELLER_AUTHORIZATION_NAME
+              - SUPPLY_PATH_TYPE
+              - SUPPLY_PATH_TYPE_NAME
+              - TRANSACTION_TYPE
+              - VAST_ERROR_CODE
+              - WEEK
+            x-google-enum-descriptions:
+              - Default value. This value is unused.
+              - The domain of the advertiser.
+              - Agency account ID.
+              - Agency account name.
+              - Reason that a Real-time Bidding bid was filtered from the auction.
+              - The short description of the reason that a Real-time Bidding bid was filtered from the auction.
+              - A boolean indicating whether the impression was rendered by a buyer SDK. If set to true, the impression was rendered by a buyer SDK.
+              - The ID of the agency campaign.
+              - The display name of the agency campaign.
+              - Display name of a country.
+              - Creative format, "Display" vs. "Video".
+              - Creative ID.
+              - Applied creative policies.
+              - The localized display name of applied creative policies.
+              - Creative size.
+              - The ID of the data segment created by a curator.
+              - The display name of the curation partner.
+              - The type of curation service (e.g. packaging or data segment).
+              - Date.
+              - Deal ID.
+              - Deal name.
+              - Display name of the detected advertiser.
+              - Display name of the DSP.
+              - DSP Seat ID.
+              - The user device and container environment where the impression originates. Supported values are "app" and "web".
+              - The localized display name of the user device and container environment where the impression originates. Supported values are "app" and "web".
+              - A boolean indicating whether the impression was rendered by the Google Mobile Ads SDK. If set to true, the impression was rendered by the Google Mobile Ads SDK.
+              - Hour.
+              - Mobile App ID.
+              - Mobile App Name.
+              - Mobile operating system.
+              - Month.
+              - The visibility of the package fee (e.g. disclosed or non-disclosed).
+              - Placement ID.
+              - Platform, e.g. "desktop" vs. "mobile".
+              - Publisher domain.
+              - Publisher identifier.
+              - Publisher name.
+              - Whether publisher protections are applied.
+              - The localized display name indicating whether publisher protections are applied.
+              - Seller authorization.
+              - The localized display name of seller authorization.
+              - The supply path type of the deal for Agency Direct.
+              - The localized display name of the supply path type of the deal for Agency Direct.
+              - The transaction type of the deal.
+              - VAST error code.
+              - Week.
+            type: string
+          type: array
+        filters:
+          description: Optional. The filters for this report.
+          items:
+            $ref: '#/components/schemas/Filter'
+          type: array
+        metrics:
+          description: Required. The list of metrics to report on. If empty, the report will have no metrics.
+          items:
+            enum:
+              - METRIC_UNSPECIFIED
+              - ACTIVE_VIEW_MEASURABILITY_RATE
+              - ACTIVE_VIEW_MEASURABLE
+              - ACTIVE_VIEW_VIEWABILITY_RATE
+              - ACTIVE_VIEW_VIEWABLE
+              - AUCTIONS_WON
+              - BIDS
+              - BIDS_IN_AUCTION
+              - CLICKS
+              - CPC
+              - CPM
+              - CURATION_PARTNER_FEE
+              - DISCOUNT_AMOUNT
+              - EFFECTIVE_DISCOUNT_RATE
+              - ENGAGED_VIEWS
+              - IMPRESSIONS
+              - PRE_DISCOUNT_SPEND
+              - PRE_DISCOUNT_SPEND_WITHOUT_CURATION_PARTNER_FEE
+              - REACHED_QUERIES
+              - SPEND
+              - SPEND_WITHOUT_CURATION_PARTNER_FEE
+              - VAST_ERROR_COUNT
+              - VIDEO_COMPLETE
+              - VIDEO_FIRST_QUARTILE
+              - VIDEO_MIDPOINT
+              - VIDEO_START
+              - VIDEO_THIRD_QUARTILE
+              - VIDEO_VTR
+            x-google-enum-descriptions:
+              - Default value. This value is unused.
+              - Active View measurability rate.
+              - Active View measurable.
+              - Active view viewability rate.
+              - Active View viewable imps.
+              - Auctions won.
+              - Bids.
+              - Bids in auction.
+              - Clicks.
+              - CPC.
+              - CPM.
+              - Curator fee. This will be redacted to 0.00 if the package's visibility is set to non-disclosed. Use the PACKAGE_FEE_VISIBILITY dimension to check if the package's fee is disclosed.
+              - Discount amount in media planner currency.
+              - Discount rate in media planner currency.
+              - Engaged views.
+              - Impressions.
+              - Discount spend in media planner currency.
+              - Gross media cost in media planner currency.
+              - Queries that are reached in the mediation chain.
+              - Spend in reporting currency specified in the request. Defaults to USD.
+              - Net media cost in media planner currency.
+              - Number of video impressions failed to render due to VAST errors.
+              - Number of video impressions played to completion.
+              - Number of video impressions played to the first quartile.
+              - Number of video impressions played to the midpoint.
+              - Number of video impressions played.
+              - Number of video impressions played to the third quartile.
+              - The rate in which video impressions were watched to completion.
+            type: string
+          type: array
+        sorts:
+          description: Optional. Default sorts to apply to this report.
+          items:
+            $ref: '#/components/schemas/Sort'
+          type: array
+        timeZone:
+          description: Optional. If time_zone_source is PROVIDED, this is the time zone to use for this report. Leave empty for any other time zone source. Time zone in IANA format. For example, "America/New_York".
+          type: string
+        timeZoneSource:
+          description: Optional. Where to get the time zone for this report. Defaults to using the Pacific time zone (PT). If source is PROVIDED, the time_zone field in the report definition must also set a time zone.
+          enum:
+            - TIME_ZONE_SOURCE_UNSPECIFIED
+            - AD_EXCHANGE
+            - UTC
+            - PROVIDED
+            - AGENCY
+          x-google-enum-descriptions:
+            - Unspecified default value.
+            - Use the Pacific time zone(PT).
+            - Use UTC time zone.
+            - Use the time zone provided in the ReportDefinition.time_zone field. Reports may take longer to run since the dates are dynamically calculated at request time.
+            - Use the time zone from the agency's account settings.
+          type: string
+      type: object
+    ReportValue:
+      description: Represents a single value in a report.
+      x-google-discovery-id: ReportValue
+      properties:
+        boolValue:
+          description: For boolean values.
+          type: boolean
+        bytesValue:
+          description: For bytes values.
+          format: byte
+          type: string
+        doubleListValue:
+          description: For lists of double values.
+          allOf:
+            - $ref: '#/components/schemas/DoubleList'
+        doubleValue:
+          description: For double values.
+          format: double
+          type: number
+        intListValue:
+          description: For lists of integer values.
+          allOf:
+            - $ref: '#/components/schemas/IntList'
+        intValue:
+          description: For integer values.
+          format: int64
+          type: string
+        stringListValue:
+          description: For lists of string values.
+          allOf:
+            - $ref: '#/components/schemas/StringList'
+        stringValue:
+          description: For string values.
+          type: string
+      type: object
+    Row:
+      description: A row of report data.
+      x-google-discovery-id: Row
+      properties:
+        dimensionValues:
+          description: The order of the dimension values is the same as the order of the dimensions specified in the request.
+          items:
+            $ref: '#/components/schemas/ReportValue'
+          type: array
+        metricValueGroups:
+          description: ' The length of the metric_value_groups field will be equal to the length of the date_ranges field in the fetch response. The metric_value_groups field is ordered such that each index corresponds to the date_range at the same index. For example, given date_ranges [x, y], metric_value_groups will have a length of two. The first entry in metric_value_groups represents the metrics for date x and the second entry in metric_value_groups represents the metrics for date y.'
+          items:
+            $ref: '#/components/schemas/MetricValueGroup'
+          type: array
+      type: object
+    RunReportMetadata:
+      description: '`RunReport` operation metadata.'
+      x-google-discovery-id: RunReportMetadata
+      properties:
+        percentComplete:
+          description: An estimate of how close this report is to being completed. Will always be 100 for failed and completed reports.
+          format: int32
+          type: integer
+        report:
+          description: The result's parent report.
+          type: string
+      type: object
+    RunReportRequest:
+      description: Request message for a running a report.
+      x-google-discovery-id: RunReportRequest
+      properties: {}
+      type: object
+    RunReportResponse:
+      description: Response message for a completed `RunReport` operation.
+      x-google-discovery-id: RunReportResponse
+      properties:
+        reportResult:
+          description: The unique name of the generated result. Use with `FetchReportResultRows` to retrieve data.
+          type: string
+      type: object
+    Sort:
+      description: Represents a sorting in a report.
+      x-google-discovery-id: Sort
+      properties:
+        descending:
+          description: Optional. The sort order. If true the sort will be descending.
+          type: boolean
+        field:
+          description: Required. A field (dimension or metric) to sort by.
+          allOf:
+            - $ref: '#/components/schemas/Field'
+      type: object
+    Status:
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
+      properties:
+        code:
+          description: The status code, which should be an enum value of google.rpc.Code.
+          format: int32
+          type: integer
+        details:
+          description: A list of messages that carry the error details. There is a common set of message types for APIs to use.
+          items:
+            additionalProperties:
+              description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
+            type: object
+          type: array
+        message:
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
+          type: string
+      type: object
+    StringList:
+      description: A list of string values.
+      x-google-discovery-id: StringList
+      properties:
+        values:
+          description: The values
+          items:
+            type: string
+          type: array
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/agencies-and-brands: View, create, edit, and delete data entities in your Agency account.
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/agencies-and-brands: View, create, edit, and delete data entities in your Agency account.
+externalDocs:
+  url: https://developers.google.com/authorized-buyers/agencies-and-brands/get-started/start
+tags:
+  - name: agencies
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://agenciesandbrands.googleapis.com/
+  batchPath: batch
+  canonicalName: AgenciesAndBrands
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: agenciesandbrands:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://agenciesandbrands.mtls.googleapis.com/
+  name: agenciesandbrands
+  revision: '20260901'
+  rootUrl: https://agenciesandbrands.googleapis.com/
+  servicePath: ''
+  version_module: true

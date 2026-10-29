@@ -1,0 +1,1421 @@
+openapi: 3.0.3
+info:
+  title: Parallelstore API
+  version: v1beta
+  description: ''
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/parallelstore.v1beta.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/parallelstore.v1beta.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20251022; original source SHA-256 6cb484b0d3b8dcf6863240370098f71634ebe6f048e1628feaa1899efa5e2b73.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://parallelstore.googleapis.com
+paths:
+  /v1beta/projects/{projectsId}/locations/{locationsId}:
+    get:
+      operationId: parallelstore.projects.locations.get
+      description: Gets information about a location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Resource name for the location.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations:
+    get:
+      operationId: parallelstore.projects.locations.list
+      description: Lists information about the supported locations for this service.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource that owns the locations collection, if applicable.
+          schema:
+            type: string
+        - name: extraLocationTypes
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: Optional. Do not use this field. It is unsupported and is ignored unless explicitly documented otherwise. This is primarily for internal usage.
+          style: form
+          explode: true
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of results to return. If not set, the service selects a default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
+      x-google-discovery:
+        path: v1beta/{+name}/locations
+        flatPath: v1beta/projects/{projectsId}/locations
+        resourceNameBindings:
+          projectsId: name
+        resourceNameParameters:
+          name:
+            description: The resource that owns the locations collection, if applicable.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/instances:
+    post:
+      operationId: parallelstore.projects.locations.instances.create
+      description: Creates a Parallelstore instance in a given project and location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The instance's project and location, in the format `projects/{project}/locations/{location}`. Locations map to Google Cloud zones; for example, `us-west1-b`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The instance's project and location, in the format `projects/{project}/locations/{location}`. Locations map to Google Cloud zones; for example, `us-west1-b`.
+          schema:
+            type: string
+        - name: instanceId
+          in: query
+          schema:
+            type: string
+          description: Required. The name of the Parallelstore instance. * Must contain only lowercase letters, numbers, and hyphens. * Must start with a letter. * Must be between 1-63 characters. * Must end with a number or a letter. * Must be unique within the customer project / location
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes since the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Instance'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta/{+parent}/instances
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The instance's project and location, in the format `projects/{project}/locations/{location}`. Locations map to Google Cloud zones; for example, `us-west1-b`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: parallelstore.projects.locations.instances.list
+      description: Lists all instances in a given project and location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location for which to retrieve instance information, in the format `projects/{project_id}/locations/{location}`. To retrieve instance information for all locations, use "-" as the value of `{location}`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location for which to retrieve instance information, in the format `projects/{project_id}/locations/{location}`. To retrieve instance information for all locations, use "-" as the value of `{location}`.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Optional. Filtering results.
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: Optional. Hint for how to order the results.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. Requested page size. Server may return fewer items than requested. If unspecified, the server will pick an appropriate default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A token identifying a page of results the server should return.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListInstancesResponse'
+      x-google-discovery:
+        path: v1beta/{+parent}/instances
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project and location for which to retrieve instance information, in the format `projects/{project_id}/locations/{location}`. To retrieve instance information for all locations, use "-" as the value of `{location}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:
+    delete:
+      operationId: parallelstore.projects.locations.instances.delete
+      description: Deletes a single instance.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource
+          schema:
+            type: string
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes after the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the resource
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: parallelstore.projects.locations.instances.get
+      description: Gets details of a single instance.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The instance resource name, in the format `projects/{project_id}/locations/{location}/instances/{instance_id}`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The instance resource name, in the format `projects/{project_id}/locations/{location}/instances/{instance_id}`.
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The instance resource name, in the format `projects/{project_id}/locations/{location}/instances/{instance_id}`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: Required. The instance resource name, in the format `projects/{project_id}/locations/{location}/instances/{instance_id}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: parallelstore.projects.locations.instances.patch
+      description: Updates the parameters of a single instance.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. The resource name of the instance, in the format `projects/{project}/locations/{location}/instances/{instance_id}`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. The resource name of the instance, in the format `projects/{project}/locations/{location}/instances/{instance_id}`.
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. The resource name of the instance, in the format `projects/{project}/locations/{location}/instances/{instance_id}`.
+          schema:
+            type: string
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes since the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. Mask of fields to update. Field mask is used to specify the fields to be overwritten in the Instance resource by the update. At least one path must be supplied in this field. The fields specified in the update_mask are relative to the resource, not the full request.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Instance'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. The resource name of the instance, in the format `projects/{project}/locations/{location}/instances/{instance_id}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:exportData:
+    post:
+      operationId: parallelstore.projects.locations.instances.exportData
+      description: Copies data from Parallelstore to Cloud Storage.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource.
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportDataRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta/{+name}:exportData
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:exportData
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:importData:
+    post:
+      operationId: parallelstore.projects.locations.instances.importData
+      description: Copies data from Cloud Storage to Parallelstore.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource.
+          schema:
+            type: string
+        - name: instancesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportDataRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta/{+name}:importData
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/instances/{instancesId}:importData
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          instancesId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/instances/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel:
+    post:
+      operationId: parallelstore.projects.locations.operations.cancel
+      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1beta/{+name}:cancel
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be cancelled.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:
+    delete:
+      operationId: parallelstore.projects.locations.operations.delete
+      description: Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be deleted.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: parallelstore.projects.locations.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/projects/{projectsId}/locations/{locationsId}/operations:
+    get:
+      operationId: parallelstore.projects.locations.operations.list
+      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The standard list filter.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The standard list page size.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The standard list page token.
+        - name: returnPartialSuccess
+          in: query
+          schema:
+            type: boolean
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the [ListOperationsResponse.unreachable] field. This can only be `true` when reading across collections e.g. when `parent` is set to `"projects/example/locations/-"`. This field is not by default supported and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1beta/{+name}/operations
+        flatPath: v1beta/projects/{projectsId}/locations/{locationsId}/operations
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation's parent resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    DestinationGcsBucket:
+      description: Cloud Storage as the destination of a data transfer.
+      x-google-discovery-id: DestinationGcsBucket
+      properties:
+        uri:
+          description: 'Required. URI to a Cloud Storage bucket in the format: `gs:///`. The path inside the bucket is optional.'
+          type: string
+      type: object
+    DestinationParallelstore:
+      description: Parallelstore as the destination of a data transfer.
+      x-google-discovery-id: DestinationParallelstore
+      properties:
+        path:
+          description: Optional. Root directory path to the Paralellstore filesystem, starting with `/`. Defaults to `/` if unset.
+          type: string
+      type: object
+    ExportDataRequest:
+      description: Export data from Parallelstore to Cloud Storage.
+      x-google-discovery-id: ExportDataRequest
+      properties:
+        destinationGcsBucket:
+          description: Cloud Storage destination.
+          allOf:
+            - $ref: '#/components/schemas/DestinationGcsBucket'
+        metadataOptions:
+          description: Optional. The metadata options for the export data.
+          allOf:
+            - $ref: '#/components/schemas/TransferMetadataOptions'
+        requestId:
+          description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes since the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+          type: string
+        serviceAccount:
+          description: 'Optional. User-specified Service Account (SA) credentials to be used when performing the transfer. Use one of the following formats: * `{EMAIL_ADDRESS_OR_UNIQUE_ID}` * `projects/{PROJECT_ID_OR_NUMBER}/serviceAccounts/{EMAIL_ADDRESS_OR_UNIQUE_ID}` * `projects/-/serviceAccounts/{EMAIL_ADDRESS_OR_UNIQUE_ID}` If unspecified, the Parallelstore service agent is used: `service-@gcp-sa-parallelstore.iam.gserviceaccount.com`'
+          type: string
+        sourceParallelstore:
+          description: Parallelstore source.
+          allOf:
+            - $ref: '#/components/schemas/SourceParallelstore'
+      type: object
+    GoogleProtobufEmpty:
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: GoogleProtobufEmpty
+      properties: {}
+      type: object
+    ImportDataRequest:
+      description: Import data from Cloud Storage into a Parallelstore instance.
+      x-google-discovery-id: ImportDataRequest
+      properties:
+        destinationParallelstore:
+          description: Parallelstore destination.
+          allOf:
+            - $ref: '#/components/schemas/DestinationParallelstore'
+        metadataOptions:
+          description: Optional. The transfer metadata options for the import data.
+          allOf:
+            - $ref: '#/components/schemas/TransferMetadataOptions'
+        requestId:
+          description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes since the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+          type: string
+        serviceAccount:
+          description: 'Optional. User-specified service account credentials to be used when performing the transfer. Use one of the following formats: * `{EMAIL_ADDRESS_OR_UNIQUE_ID}` * `projects/{PROJECT_ID_OR_NUMBER}/serviceAccounts/{EMAIL_ADDRESS_OR_UNIQUE_ID}` * `projects/-/serviceAccounts/{EMAIL_ADDRESS_OR_UNIQUE_ID}` If unspecified, the Parallelstore service agent is used: `service-@gcp-sa-parallelstore.iam.gserviceaccount.com`'
+          type: string
+        sourceGcsBucket:
+          description: The Cloud Storage source bucket and, optionally, path inside the bucket.
+          allOf:
+            - $ref: '#/components/schemas/SourceGcsBucket'
+      type: object
+    Instance:
+      description: A Parallelstore instance.
+      x-google-discovery-id: Instance
+      properties:
+        accessPoints:
+          description: Output only. A list of IPv4 addresses used for client side configuration.
+          items:
+            type: string
+          readOnly: true
+          type: array
+        capacityGib:
+          description: Required. Immutable. The instance's storage capacity in Gibibytes (GiB). Allowed values are between 12000 and 100000, in multiples of 4000; e.g., 12000, 16000, 20000, ...
+          format: int64
+          type: string
+        createTime:
+          description: Output only. The time when the instance was created.
+          format: google-datetime
+          readOnly: true
+          type: string
+        daosVersion:
+          deprecated: true
+          description: 'Output only. Deprecated: The version of DAOS software running in the instance.'
+          readOnly: true
+          type: string
+        deploymentType:
+          description: 'Optional. Immutable. The deployment type of the instance. Allowed values are: * `SCRATCH`: the instance is a scratch instance. * `PERSISTENT`: the instance is a persistent instance.'
+          enum:
+            - DEPLOYMENT_TYPE_UNSPECIFIED
+            - SCRATCH
+            - PERSISTENT
+          x-google-enum-descriptions:
+            - Default Deployment Type It is equivalent to SCRATCH
+            - Scratch
+            - Persistent
+          type: string
+        description:
+          description: Optional. The description of the instance. 2048 characters or less.
+          type: string
+        directoryStripeLevel:
+          description: 'Optional. Immutable. Stripe level for directories. Allowed values are: * `DIRECTORY_STRIPE_LEVEL_MIN`: recommended when directories contain a small number of files. * `DIRECTORY_STRIPE_LEVEL_BALANCED`: balances performance for workloads involving a mix of small and large directories. * `DIRECTORY_STRIPE_LEVEL_MAX`: recommended for directories with a large number of files.'
+          enum:
+            - DIRECTORY_STRIPE_LEVEL_UNSPECIFIED
+            - DIRECTORY_STRIPE_LEVEL_MIN
+            - DIRECTORY_STRIPE_LEVEL_BALANCED
+            - DIRECTORY_STRIPE_LEVEL_MAX
+          x-google-enum-descriptions:
+            - If not set, DirectoryStripeLevel will default to DIRECTORY_STRIPE_LEVEL_MAX
+            - Minimum directory striping
+            - Medium directory striping
+            - Maximum directory striping
+          type: string
+        effectiveReservedIpRange:
+          description: Output only. Immutable. The ID of the IP address range being used by the instance's VPC network. This field is populated by the service and contains the value currently used by the service.
+          readOnly: true
+          type: string
+        fileStripeLevel:
+          description: 'Optional. Immutable. Stripe level for files. Allowed values are: * `FILE_STRIPE_LEVEL_MIN`: offers the best performance for small size files. * `FILE_STRIPE_LEVEL_BALANCED`: balances performance for workloads involving a mix of small and large files. * `FILE_STRIPE_LEVEL_MAX`: higher throughput performance for larger files.'
+          enum:
+            - FILE_STRIPE_LEVEL_UNSPECIFIED
+            - FILE_STRIPE_LEVEL_MIN
+            - FILE_STRIPE_LEVEL_BALANCED
+            - FILE_STRIPE_LEVEL_MAX
+          x-google-enum-descriptions:
+            - If not set, FileStripeLevel will default to FILE_STRIPE_LEVEL_BALANCED
+            - Minimum file striping
+            - Medium file striping
+            - Maximum file striping
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          description: Optional. Cloud Labels are a flexible and lightweight mechanism for organizing cloud resources into groups that reflect a customer's organizational needs and deployment strategies. See https://cloud.google.com/resource-manager/docs/labels-overview for details.
+          type: object
+        name:
+          description: Identifier. The resource name of the instance, in the format `projects/{project}/locations/{location}/instances/{instance_id}`.
+          type: string
+        network:
+          description: Optional. Immutable. The name of the Compute Engine [VPC network](https://cloud.google.com/vpc/docs/vpc) to which the instance is connected.
+          type: string
+        reservedIpRange:
+          description: Optional. Immutable. The ID of the IP address range being used by the instance's VPC network. See [Configure a VPC network](https://cloud.google.com/parallelstore/docs/vpc#create_and_configure_the_vpc). If no ID is provided, all ranges are considered.
+          type: string
+        state:
+          description: Output only. The instance state.
+          enum:
+            - STATE_UNSPECIFIED
+            - CREATING
+            - ACTIVE
+            - DELETING
+            - FAILED
+            - UPGRADING
+            - REPAIRING
+          x-google-enum-descriptions:
+            - Not set.
+            - The instance is being created.
+            - The instance is available for use.
+            - The instance is being deleted.
+            - The instance is not usable.
+            - The instance is being upgraded.
+            - The instance is being repaired. This should only be used by instances using the `PERSISTENT` deployment type.
+          readOnly: true
+          type: string
+        updateTime:
+          description: Output only. The time when the instance was updated.
+          format: google-datetime
+          readOnly: true
+          type: string
+      type: object
+    ListInstancesResponse:
+      description: Response from ListInstances.
+      x-google-discovery-id: ListInstancesResponse
+      properties:
+        instances:
+          description: The list of Parallelstore instances.
+          items:
+            $ref: '#/components/schemas/Instance'
+          type: array
+        nextPageToken:
+          description: A token identifying a page of results the server should return.
+          type: string
+        unreachable:
+          description: Locations that could not be reached.
+          items:
+            type: string
+          type: array
+      type: object
+    ListLocationsResponse:
+      description: The response message for Locations.ListLocations.
+      x-google-discovery-id: ListLocationsResponse
+      properties:
+        locations:
+          description: A list of locations that matches the specified filter in the request.
+          items:
+            $ref: '#/components/schemas/Location'
+          type: array
+        nextPageToken:
+          description: The standard List next-page token.
+          type: string
+      type: object
+    ListOperationsResponse:
+      description: The response message for Operations.ListOperations.
+      x-google-discovery-id: ListOperationsResponse
+      properties:
+        nextPageToken:
+          description: The standard List next-page token.
+          type: string
+        operations:
+          description: A list of operations that matches the specified filter in the request.
+          items:
+            $ref: '#/components/schemas/Operation'
+          type: array
+        unreachable:
+          description: Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections e.g. when attempting to list all resources across all supported locations.
+          items:
+            type: string
+          type: array
+      type: object
+    Location:
+      description: A resource that represents a Google Cloud location.
+      x-google-discovery-id: Location
+      properties:
+        displayName:
+          description: The friendly name for this location, typically a nearby city name. For example, "Tokyo".
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          description: 'Cross-service attributes for the location. For example {"cloud.googleapis.com/region": "us-east1"}'
+          type: object
+        locationId:
+          description: 'The canonical id for this location. For example: `"us-east1"`.'
+          type: string
+        metadata:
+          additionalProperties:
+            description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
+          description: Service-specific metadata. For example the available capacity at the given location.
+          type: object
+        name:
+          description: 'Resource name for the location, which may vary between implementations. For example: `"projects/example-project/locations/us-east1"`'
+          type: string
+      type: object
+    Operation:
+      description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
+      properties:
+        done:
+          description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
+          type: boolean
+        error:
+          description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
+        metadata:
+          additionalProperties:
+            description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
+          description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
+          type: object
+        name:
+          description: The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should be a resource name ending with `operations/{unique_id}`.
+          type: string
+        response:
+          additionalProperties:
+            description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
+          description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
+          type: object
+      type: object
+    OperationMetadata:
+      description: Long-running operation metadata.
+      x-google-discovery-id: OperationMetadata
+      properties:
+        apiVersion:
+          description: Output only. API version used to start the operation.
+          readOnly: true
+          type: string
+        createTime:
+          description: Output only. The time the operation was created.
+          format: google-datetime
+          readOnly: true
+          type: string
+        endTime:
+          description: Output only. The time the operation finished running.
+          format: google-datetime
+          readOnly: true
+          type: string
+        requestedCancellation:
+          description: Output only. Identifies whether the user has requested cancellation of the operation. Operations that have been cancelled successfully have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
+          readOnly: true
+          type: boolean
+        statusMessage:
+          description: Output only. Human-readable status of the operation, if any.
+          readOnly: true
+          type: string
+        target:
+          description: Output only. Server-defined resource path for the target of the operation.
+          readOnly: true
+          type: string
+        verb:
+          description: Output only. Name of the verb executed by the operation.
+          readOnly: true
+          type: string
+      type: object
+    ReconciliationOperationMetadata:
+      description: Operation metadata returned by the CLH during resource state reconciliation.
+      x-google-discovery-id: ReconciliationOperationMetadata
+      properties:
+        deleteResource:
+          deprecated: true
+          description: DEPRECATED. Use exclusive_action instead.
+          type: boolean
+        exclusiveAction:
+          description: Excluisive action returned by the CLH.
+          enum:
+            - UNKNOWN_REPAIR_ACTION
+            - DELETE
+            - RETRY
+          x-google-enum-deprecated:
+            - false
+            - true
+            - false
+          x-google-enum-descriptions:
+            - Unknown repair action.
+            - The resource has to be deleted. When using this bit, the CLH should fail the operation. DEPRECATED. Instead use DELETE_RESOURCE OperationSignal in SideChannel.
+            - This resource could not be repaired but the repair should be tried again at a later time. This can happen if there is a dependency that needs to be resolved first- e.g. if a parent resource must be repaired before a child resource.
+          type: string
+      type: object
+    SourceGcsBucket:
+      description: Cloud Storage as the source of a data transfer.
+      x-google-discovery-id: SourceGcsBucket
+      properties:
+        uri:
+          description: 'Required. URI to a Cloud Storage bucket in the format: `gs:///`. The path inside the bucket is optional.'
+          type: string
+      type: object
+    SourceParallelstore:
+      description: Parallelstore as the source of a data transfer.
+      x-google-discovery-id: SourceParallelstore
+      properties:
+        path:
+          description: Optional. Root directory path to the Paralellstore filesystem, starting with `/`. Defaults to `/` if unset.
+          type: string
+      type: object
+    Status:
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
+      properties:
+        code:
+          description: The status code, which should be an enum value of google.rpc.Code.
+          format: int32
+          type: integer
+        details:
+          description: A list of messages that carry the error details. There is a common set of message types for APIs to use.
+          items:
+            additionalProperties:
+              description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
+            type: object
+          type: array
+        message:
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
+          type: string
+      type: object
+    TransferMetadataOptions:
+      description: Transfer metadata options for the instance.
+      x-google-discovery-id: TransferMetadataOptions
+      properties:
+        gid:
+          description: Optional. The GID preservation behavior.
+          enum:
+            - GID_UNSPECIFIED
+            - GID_SKIP
+            - GID_NUMBER_PRESERVE
+          x-google-enum-descriptions:
+            - default is GID_NUMBER_PRESERVE.
+            - Do not preserve GID during a transfer job.
+            - Preserve GID that is in number format during a transfer job.
+          type: string
+        mode:
+          description: Optional. The mode preservation behavior.
+          enum:
+            - MODE_UNSPECIFIED
+            - MODE_SKIP
+            - MODE_PRESERVE
+          x-google-enum-descriptions:
+            - default is MODE_PRESERVE.
+            - Do not preserve mode during a transfer job.
+            - Preserve mode during a transfer job.
+          type: string
+        uid:
+          description: Optional. The UID preservation behavior.
+          enum:
+            - UID_UNSPECIFIED
+            - UID_SKIP
+            - UID_NUMBER_PRESERVE
+          x-google-enum-descriptions:
+            - default is UID_NUMBER_PRESERVE.
+            - Do not preserve UID during a transfer job.
+            - Preserve UID that is in number format during a transfer job.
+          type: string
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
+externalDocs:
+  url: https://cloud.google.com/parallelstore
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://parallelstore.googleapis.com/
+  batchPath: batch
+  canonicalName: Parallelstore
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: parallelstore:v1beta
+  kind: discovery#restDescription
+  mtlsRootUrl: https://parallelstore.mtls.googleapis.com/
+  name: parallelstore
+  revision: '20251022'
+  rootUrl: https://parallelstore.googleapis.com/
+  servicePath: ''
+  version_module: true

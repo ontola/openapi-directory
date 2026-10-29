@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://certificatemanager.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: ""
+  description: ''
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -20,892 +18,2374 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://certificatemanager.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/certificatemanager.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/certificatemanager.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: certificatemanager
-externalDocs:
-  url: https://cloud.google.com/certificate-manager
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260629; original source SHA-256 743e046012131f2b8e1377ed322fdbe3491492938585685a8c16a3cf15cc72bf.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://certificatemanager.googleapis.com
 paths:
-  /v1/{name}:
-    delete:
-      description: Deletes a single TrustConfig.
-      operationId: certificatemanager.projects.locations.trustConfigs.delete
-      parameters:
-        - description: Required. A name of the TrustConfig to delete. Must be in the format `projects/*/locations/*/trustConfigs/*`.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: The current etag of the TrustConfig. If an etag is provided and does not match the current etag of the resource, deletion will be blocked and an ABORTED error will be returned.
-          in: query
-          name: etag
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+  /v1/projects/{projectsId}/locations/{locationsId}:
     get:
-      description: Gets details of a single TrustConfig.
-      operationId: certificatemanager.projects.locations.trustConfigs.get
+      operationId: certificatemanager.projects.locations.get
+      description: Gets information about a location.
       parameters:
-        - description: Required. A name of the TrustConfig to describe. Must be in the format `projects/*/locations/*/trustConfigs/*`.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Resource name for the location.
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TrustConfig"
-          description: Successful response
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Resource name for the location.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Updates a TrustConfig.
-      operationId: certificatemanager.projects.locations.trustConfigs.patch
-      parameters:
-        - description: A user-defined name of the trust config. TrustConfig names must be unique globally and match pattern `projects/*/locations/*/trustConfigs/*`.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: Required. The update mask applies to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask.
-          in: query
-          name: updateMask
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/TrustConfig"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{name}/locations:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations:
     get:
-      description: Lists information about the supported locations for this service.
       operationId: certificatemanager.projects.locations.list
+      description: 'Lists information about the supported locations for this service. This method lists locations based on the resource scope provided in the ListLocationsRequest.name field: * **Global locations**: If `name` is empty, the method lists the public locations available to all projects. * **Project-specific locations**: If `name` follows the format `projects/{project}`, the method lists locations visible to that specific project. This includes public, private, or other project-specific locations enabled for the project. For gRPC and client library implementations, the resource name is passed as the `name` field. For direct service calls, the resource name is incorporated into the request path based on the specific service implementation and version.'
       parameters:
-        - description: The resource that owns the locations collection, if applicable.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. The resource that owns the locations collection, if applicable.
           schema:
             type: string
-        - description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: extraLocationTypes
           in: query
-          name: filter
+          schema:
+            type: array
+            items:
+              type: string
+          description: Optional. Do not use this field unless explicitly documented otherwise. This is primarily for internal usage.
+          style: form
+          explode: true
+        - name: filter
+          in: query
           schema:
             type: string
-        - description: The maximum number of results to return. If not set, the service selects a default.
+          description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+          description: The maximum number of results to return. If not set, the service selects a default.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListLocationsResponse"
-          description: Successful response
+          description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{name}/operations:
-    get:
-      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
-      operationId: certificatemanager.projects.locations.operations.list
-      parameters:
-        - description: The name of the operation's parent resource.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: The standard list filter.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: The standard list page size.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The standard list page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListOperationsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+                $ref: '#/components/schemas/ListLocationsResponse'
+      x-google-discovery:
+        path: v1/{+name}/locations
+        flatPath: v1/projects/{projectsId}/locations
+        resourceNameBindings:
+          projectsId: name
+        resourceNameParameters:
+          name:
+            description: The resource that owns the locations collection, if applicable.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{name}:cancel:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/certificateIssuanceConfigs:
     post:
-      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
-      operationId: certificatemanager.projects.locations.operations.cancel
-      parameters:
-        - description: The name of the operation resource to be cancelled.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CancelOperationRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/certificateIssuanceConfigs:
-    get:
-      description: Lists CertificateIssuanceConfigs in a given project and location.
-      operationId: certificatemanager.projects.locations.certificateIssuanceConfigs.list
-      parameters:
-        - description: Required. The project and location from which the certificate should be listed, specified in the format `projects/*/locations/*`.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Filter expression to restrict the Certificates Configs returned.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: A list of Certificate Config field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix " desc".
-          in: query
-          name: orderBy
-          schema:
-            type: string
-        - description: Maximum number of certificate configs to return per call.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The value returned by the last `ListCertificateIssuanceConfigsResponse`. Indicates that this is a continuation of a prior `ListCertificateIssuanceConfigs` call, and that the system should return the next page of data.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListCertificateIssuanceConfigsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a new CertificateIssuanceConfig in a given project and location.
       operationId: certificatemanager.projects.locations.certificateIssuanceConfigs.create
+      description: Creates a new CertificateIssuanceConfig in a given project and location.
       parameters:
-        - description: Required. The parent resource of the certificate issuance config. Must be in the format `projects/*/locations/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the certificate issuance config. Must be in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: Required. A user-provided name of the certificate config.
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the certificate issuance config. Must be in the format `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: certificateIssuanceConfigId
           in: query
-          name: certificateIssuanceConfigId
           schema:
             type: string
+          description: Required. A user-provided name of the certificate config.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CertificateIssuanceConfig"
+              $ref: '#/components/schemas/CertificateIssuanceConfig'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/certificateMapEntries:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+parent}/certificateIssuanceConfigs
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateIssuanceConfigs
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource of the certificate issuance config. Must be in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: Lists CertificateMapEntries in a given project and location.
-      operationId: certificatemanager.projects.locations.certificateMaps.certificateMapEntries.list
+      operationId: certificatemanager.projects.locations.certificateIssuanceConfigs.list
+      description: Lists CertificateIssuanceConfigs in a given project and location.
       parameters:
-        - description: Required. The project, location and certificate map from which the certificate map entries should be listed, specified in the format `projects/*/locations/*/certificateMaps/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the certificate should be listed, specified in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: Filter expression to restrict the returned Certificate Map Entries.
-          in: query
-          name: filter
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the certificate should be listed, specified in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: A list of Certificate Map Entry field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix " desc".
+        - name: filter
           in: query
-          name: orderBy
           schema:
             type: string
-        - description: Maximum number of certificate map entries to return. The service may return fewer than this value. If unspecified, at most 50 certificate map entries will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
+          description: Optional. Filter expression to restrict the Certificates Configs returned.
+        - name: orderBy
           in: query
-          name: pageSize
           schema:
+            type: string
+          description: Optional. A list of Certificate Config field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix `" desc"`.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: The value returned by the last `ListCertificateMapEntriesResponse`. Indicates that this is a continuation of a prior `ListCertificateMapEntries` call, and that the system should return the next page of data.
+          description: Optional. Maximum number of certificate configs to return per call.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListCertificateMapEntriesResponse"
-          description: Successful response
+          description: Optional. The value returned by the last `ListCertificateIssuanceConfigsResponse`. Indicates that this is a continuation of a prior `ListCertificateIssuanceConfigs` call, and that the system should return the next page of data.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCertificateIssuanceConfigsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/certificateIssuanceConfigs
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateIssuanceConfigs
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project and location from which the certificate should be listed, specified in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/certificateIssuanceConfigs/{certificateIssuanceConfigsId}:
+    delete:
+      operationId: certificatemanager.projects.locations.certificateIssuanceConfigs.delete
+      description: Deletes a single CertificateIssuanceConfig.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate issuance config to delete. Must be in the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate issuance config to delete. Must be in the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
+          schema:
+            type: string
+        - name: certificateIssuanceConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate issuance config to delete. Must be in the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
+          schema:
+            type: string
       tags:
         - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a new CertificateMapEntry in a given project and location.
-      operationId: certificatemanager.projects.locations.certificateMaps.certificateMapEntries.create
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateIssuanceConfigs/{certificateIssuanceConfigsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificateIssuanceConfigsId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the certificate issuance config to delete. Must be in the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateIssuanceConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: certificatemanager.projects.locations.certificateIssuanceConfigs.get
+      description: Gets details of a single CertificateIssuanceConfig.
       parameters:
-        - description: Required. The parent resource of the certificate map entry. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate issuance config to describe. Must be in the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
           schema:
             type: string
-        - description: Required. A user-provided name of the certificate map entry.
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate issuance config to describe. Must be in the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
+          schema:
+            type: string
+        - name: certificateIssuanceConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate issuance config to describe. Must be in the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateIssuanceConfig'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateIssuanceConfigs/{certificateIssuanceConfigsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificateIssuanceConfigsId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the certificate issuance config to describe. Must be in the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateIssuanceConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: certificatemanager.projects.locations.certificateIssuanceConfigs.patch
+      description: Updates a CertificateIssuanceConfig.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the certificate issuance config. CertificateIssuanceConfig names must be unique globally and match pattern `projects/*/locations/*/certificateIssuanceConfigs/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the certificate issuance config. CertificateIssuanceConfig names must be unique globally and match pattern `projects/*/locations/*/certificateIssuanceConfigs/*`.
+          schema:
+            type: string
+        - name: certificateIssuanceConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the certificate issuance config. CertificateIssuanceConfig names must be unique globally and match pattern `projects/*/locations/*/certificateIssuanceConfigs/*`.
+          schema:
+            type: string
+        - name: updateMask
           in: query
-          name: certificateMapEntryId
           schema:
+            format: google-fieldmask
             type: string
+          description: Required. The update mask applies to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CertificateMapEntry"
+              $ref: '#/components/schemas/CertificateIssuanceConfig'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/certificateMaps:
-    get:
-      description: Lists CertificateMaps in a given project and location.
-      operationId: certificatemanager.projects.locations.certificateMaps.list
-      parameters:
-        - description: Required. The project and location from which the certificate maps should be listed, specified in the format `projects/*/locations/*`.
-          in: path
-          name: parent
-          required: true
-          schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateIssuanceConfigs/{certificateIssuanceConfigsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificateIssuanceConfigsId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. A user-defined name of the certificate issuance config. CertificateIssuanceConfig names must be unique globally and match pattern `projects/*/locations/*/certificateIssuanceConfigs/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateIssuanceConfigs/[^/]+$
+            required: true
             type: string
-        - description: Filter expression to restrict the Certificates Maps returned.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: A list of Certificate Map field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix " desc".
-          in: query
-          name: orderBy
-          schema:
-            type: string
-        - description: Maximum number of certificate maps to return per call.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The value returned by the last `ListCertificateMapsResponse`. Indicates that this is a continuation of a prior `ListCertificateMaps` call, and that the system should return the next page of data.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListCertificateMapsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/certificateMaps:
     post:
-      description: Creates a new CertificateMap in a given project and location.
       operationId: certificatemanager.projects.locations.certificateMaps.create
+      description: Creates a new CertificateMap in a given project and location.
       parameters:
-        - description: Required. The parent resource of the certificate map. Must be in the format `projects/*/locations/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the certificate map. Must be in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: Required. A user-provided name of the certificate map.
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the certificate map. Must be in the format `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: certificateMapId
           in: query
-          name: certificateMapId
           schema:
             type: string
+          description: Required. A user-provided name of the certificate map.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CertificateMap"
+              $ref: '#/components/schemas/CertificateMap'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/certificates:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+parent}/certificateMaps
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource of the certificate map. Must be in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: Lists Certificates in a given project and location.
-      operationId: certificatemanager.projects.locations.certificates.list
+      operationId: certificatemanager.projects.locations.certificateMaps.list
+      description: Lists CertificateMaps in a given project and location.
       parameters:
-        - description: Required. The project and location from which the certificate should be listed, specified in the format `projects/*/locations/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the certificate maps should be listed, specified in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: Filter expression to restrict the Certificates returned.
-          in: query
-          name: filter
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the certificate maps should be listed, specified in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: A list of Certificate field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix " desc".
+        - name: filter
           in: query
-          name: orderBy
           schema:
             type: string
-        - description: Maximum number of certificates to return per call.
+          description: Optional. Filter expression to restrict the Certificates Maps returned.
+        - name: orderBy
           in: query
-          name: pageSize
           schema:
+            type: string
+          description: Optional. A list of Certificate Map field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix `" desc"`.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: The value returned by the last `ListCertificatesResponse`. Indicates that this is a continuation of a prior `ListCertificates` call, and that the system should return the next page of data.
+          description: Optional. Maximum number of certificate maps to return per call.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListCertificatesResponse"
-          description: Successful response
+          description: Optional. The value returned by the last `ListCertificateMapsResponse`. Indicates that this is a continuation of a prior `ListCertificateMaps` call, and that the system should return the next page of data.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCertificateMapsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/certificateMaps
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project and location from which the certificate maps should be listed, specified in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}:
+    delete:
+      operationId: certificatemanager.projects.locations.certificateMaps.delete
+      description: Deletes a single CertificateMap. A Certificate Map can't be deleted if it contains Certificate Map Entries. Remove all the entries from the map before calling this method.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map to delete. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map to delete. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: certificateMapsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map to delete. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificateMapsId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the certificate map to delete. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateMaps/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: certificatemanager.projects.locations.certificateMaps.get
+      description: Gets details of a single CertificateMap.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map to describe. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map to describe. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: certificateMapsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map to describe. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateMap'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificateMapsId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the certificate map to describe. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateMaps/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: certificatemanager.projects.locations.certificateMaps.patch
+      description: Updates a CertificateMap.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the Certificate Map. Certificate Map names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the Certificate Map. Certificate Map names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: certificateMapsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the Certificate Map. Certificate Map names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. The update mask applies to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertificateMap'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificateMapsId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. A user-defined name of the Certificate Map. Certificate Map names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateMaps/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}/certificateMapEntries:
     post:
-      description: Creates a new Certificate in a given project and location.
+      operationId: certificatemanager.projects.locations.certificateMaps.certificateMapEntries.create
+      description: Creates a new CertificateMapEntry in a given project and location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the certificate map entry. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the certificate map entry. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: certificateMapsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the certificate map entry. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: certificateMapEntryId
+          in: query
+          schema:
+            type: string
+          description: Required. A user-provided name of the certificate map entry.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertificateMapEntry'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+parent}/certificateMapEntries
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}/certificateMapEntries
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          certificateMapsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource of the certificate map entry. Must be in the format `projects/*/locations/*/certificateMaps/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateMaps/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: certificatemanager.projects.locations.certificateMaps.certificateMapEntries.list
+      description: Lists CertificateMapEntries in a given project and location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project, location and certificate map from which the certificate map entries should be listed, specified in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project, location and certificate map from which the certificate map entries should be listed, specified in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: certificateMapsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project, location and certificate map from which the certificate map entries should be listed, specified in the format `projects/*/locations/*/certificateMaps/*`.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Optional. Filter expression to restrict the returned Certificate Map Entries.
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: Optional. A list of Certificate Map Entry field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix `" desc"`.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. Maximum number of certificate map entries to return. The service may return fewer than this value. If unspecified, at most 50 certificate map entries will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. The value returned by the last `ListCertificateMapEntriesResponse`. Indicates that this is a continuation of a prior `ListCertificateMapEntries` call, and that the system should return the next page of data.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCertificateMapEntriesResponse'
+      x-google-discovery:
+        path: v1/{+parent}/certificateMapEntries
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}/certificateMapEntries
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          certificateMapsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project, location and certificate map from which the certificate map entries should be listed, specified in the format `projects/*/locations/*/certificateMaps/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateMaps/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  ? /v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}/certificateMapEntries/{certificateMapEntriesId}
+  : delete:
+      operationId: certificatemanager.projects.locations.certificateMaps.certificateMapEntries.delete
+      description: Deletes a single CertificateMapEntry.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map entry to delete. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map entry to delete. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: certificateMapsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map entry to delete. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: certificateMapEntriesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map entry to delete. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}/certificateMapEntries/{certificateMapEntriesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificateMapsId: name
+          certificateMapEntriesId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the certificate map entry to delete. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateMaps/[^/]+/certificateMapEntries/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: certificatemanager.projects.locations.certificateMaps.certificateMapEntries.get
+      description: Gets details of a single CertificateMapEntry.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map entry to describe. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map entry to describe. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: certificateMapsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map entry to describe. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: certificateMapEntriesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate map entry to describe. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateMapEntry'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}/certificateMapEntries/{certificateMapEntriesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificateMapsId: name
+          certificateMapEntriesId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the certificate map entry to describe. Must be in the format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateMaps/[^/]+/certificateMapEntries/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: certificatemanager.projects.locations.certificateMaps.certificateMapEntries.patch
+      description: Updates a CertificateMapEntry.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the Certificate Map Entry. Certificate Map Entry names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the Certificate Map Entry. Certificate Map Entry names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: certificateMapsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the Certificate Map Entry. Certificate Map Entry names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: certificateMapEntriesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the Certificate Map Entry. Certificate Map Entry names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. The update mask applies to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertificateMapEntry'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificateMaps/{certificateMapsId}/certificateMapEntries/{certificateMapEntriesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificateMapsId: name
+          certificateMapEntriesId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. A user-defined name of the Certificate Map Entry. Certificate Map Entry names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificateMaps/[^/]+/certificateMapEntries/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/certificates:
+    post:
       operationId: certificatemanager.projects.locations.certificates.create
+      description: Creates a new Certificate in a given project and location.
       parameters:
-        - description: Required. The parent resource of the certificate. Must be in the format `projects/*/locations/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the certificate. Must be in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: Required. A user-provided name of the certificate.
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the certificate. Must be in the format `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: certificateId
           in: query
-          name: certificateId
           schema:
             type: string
+          description: Required. A user-provided name of the certificate.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Certificate"
+              $ref: '#/components/schemas/Certificate'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/dnsAuthorizations:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+parent}/certificates
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificates
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource of the certificate. Must be in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: Lists DnsAuthorizations in a given project and location.
-      operationId: certificatemanager.projects.locations.dnsAuthorizations.list
+      operationId: certificatemanager.projects.locations.certificates.list
+      description: Lists Certificates in a given project and location.
       parameters:
-        - description: Required. The project and location from which the dns authorizations should be listed, specified in the format `projects/*/locations/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the certificate should be listed, specified in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: Filter expression to restrict the Dns Authorizations returned.
-          in: query
-          name: filter
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the certificate should be listed, specified in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: A list of Dns Authorization field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix " desc".
+        - name: filter
           in: query
-          name: orderBy
           schema:
             type: string
-        - description: Maximum number of dns authorizations to return per call.
+          description: Optional. Filter expression to restrict the Certificates returned.
+        - name: orderBy
           in: query
-          name: pageSize
           schema:
+            type: string
+          description: Optional. A list of Certificate field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix `" desc"`.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: The value returned by the last `ListDnsAuthorizationsResponse`. Indicates that this is a continuation of a prior `ListDnsAuthorizations` call, and that the system should return the next page of data.
+          description: Optional. Maximum number of certificates to return per call.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListDnsAuthorizationsResponse"
-          description: Successful response
+          description: Optional. The value returned by the last `ListCertificatesResponse`. Indicates that this is a continuation of a prior `ListCertificates` call, and that the system should return the next page of data.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCertificatesResponse'
+      x-google-discovery:
+        path: v1/{+parent}/certificates
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificates
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project and location from which the certificate should be listed, specified in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/certificates/{certificatesId}:
+    delete:
+      operationId: certificatemanager.projects.locations.certificates.delete
+      description: Deletes a single Certificate.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate to delete. Must be in the format `projects/*/locations/*/certificates/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate to delete. Must be in the format `projects/*/locations/*/certificates/*`.
+          schema:
+            type: string
+        - name: certificatesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate to delete. Must be in the format `projects/*/locations/*/certificates/*`.
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificates/{certificatesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificatesId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the certificate to delete. Must be in the format `projects/*/locations/*/certificates/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificates/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: certificatemanager.projects.locations.certificates.get
+      description: Gets details of a single Certificate.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate to describe. Must be in the format `projects/*/locations/*/certificates/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate to describe. Must be in the format `projects/*/locations/*/certificates/*`.
+          schema:
+            type: string
+        - name: certificatesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the certificate to describe. Must be in the format `projects/*/locations/*/certificates/*`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificates/{certificatesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificatesId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the certificate to describe. Must be in the format `projects/*/locations/*/certificates/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificates/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: certificatemanager.projects.locations.certificates.patch
+      description: Updates a Certificate.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the certificate. Certificate names must be unique globally and match pattern `projects/*/locations/*/certificates/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the certificate. Certificate names must be unique globally and match pattern `projects/*/locations/*/certificates/*`.
+          schema:
+            type: string
+        - name: certificatesId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the certificate. Certificate names must be unique globally and match pattern `projects/*/locations/*/certificates/*`.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. The update mask applies to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Certificate'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/certificates/{certificatesId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          certificatesId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. A user-defined name of the certificate. Certificate names must be unique globally and match pattern `projects/*/locations/*/certificates/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/certificates/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/dnsAuthorizations:
     post:
-      description: Creates a new DnsAuthorization in a given project and location.
       operationId: certificatemanager.projects.locations.dnsAuthorizations.create
+      description: Creates a new DnsAuthorization in a given project and location.
       parameters:
-        - description: Required. The parent resource of the dns authorization. Must be in the format `projects/*/locations/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the dns authorization. Must be in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: Required. A user-provided name of the dns authorization.
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the dns authorization. Must be in the format `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: dnsAuthorizationId
           in: query
-          name: dnsAuthorizationId
           schema:
             type: string
+          description: Required. A user-provided name of the dns authorization.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DnsAuthorization"
+              $ref: '#/components/schemas/DnsAuthorization'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1/{parent}/trustConfigs:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+parent}/dnsAuthorizations
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/dnsAuthorizations
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource of the dns authorization. Must be in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: Lists TrustConfigs in a given project and location.
-      operationId: certificatemanager.projects.locations.trustConfigs.list
+      operationId: certificatemanager.projects.locations.dnsAuthorizations.list
+      description: Lists DnsAuthorizations in a given project and location.
       parameters:
-        - description: Required. The project and location from which the TrustConfigs should be listed, specified in the format `projects/*/locations/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the dns authorizations should be listed, specified in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: Filter expression to restrict the TrustConfigs returned.
-          in: query
-          name: filter
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the dns authorizations should be listed, specified in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: A list of TrustConfig field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix " desc".
+        - name: filter
           in: query
-          name: orderBy
           schema:
             type: string
-        - description: Maximum number of TrustConfigs to return per call.
+          description: Optional. Filter expression to restrict the Dns Authorizations returned.
+        - name: orderBy
           in: query
-          name: pageSize
           schema:
+            type: string
+          description: Optional. A list of Dns Authorization field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix `" desc"`.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: The value returned by the last `ListTrustConfigsResponse`. Indicates that this is a continuation of a prior `ListTrustConfigs` call, and that the system should return the next page of data.
+          description: Optional. Maximum number of dns authorizations to return per call.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListTrustConfigsResponse"
-          description: Successful response
+          description: Optional. The value returned by the last `ListDnsAuthorizationsResponse`. Indicates that this is a continuation of a prior `ListDnsAuthorizations` call, and that the system should return the next page of data.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDnsAuthorizationsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/dnsAuthorizations
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/dnsAuthorizations
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project and location from which the dns authorizations should be listed, specified in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/dnsAuthorizations/{dnsAuthorizationsId}:
+    delete:
+      operationId: certificatemanager.projects.locations.dnsAuthorizations.delete
+      description: Deletes a single DnsAuthorization.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the dns authorization to delete. Must be in the format `projects/*/locations/*/dnsAuthorizations/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the dns authorization to delete. Must be in the format `projects/*/locations/*/dnsAuthorizations/*`.
+          schema:
+            type: string
+        - name: dnsAuthorizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the dns authorization to delete. Must be in the format `projects/*/locations/*/dnsAuthorizations/*`.
+          schema:
+            type: string
       tags:
         - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a new TrustConfig in a given project and location.
-      operationId: certificatemanager.projects.locations.trustConfigs.create
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/dnsAuthorizations/{dnsAuthorizationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          dnsAuthorizationsId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the dns authorization to delete. Must be in the format `projects/*/locations/*/dnsAuthorizations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/dnsAuthorizations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: certificatemanager.projects.locations.dnsAuthorizations.get
+      description: Gets details of a single DnsAuthorization.
       parameters:
-        - description: Required. The parent resource of the TrustConfig. Must be in the format `projects/*/locations/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `name` resource name. Required. A name of the dns authorization to describe. Must be in the format `projects/*/locations/*/dnsAuthorizations/*`.
           schema:
             type: string
-        - description: Required. A user-provided name of the TrustConfig. Must match the regexp `[a-z0-9-]{1,63}`.
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the dns authorization to describe. Must be in the format `projects/*/locations/*/dnsAuthorizations/*`.
+          schema:
+            type: string
+        - name: dnsAuthorizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the dns authorization to describe. Must be in the format `projects/*/locations/*/dnsAuthorizations/*`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DnsAuthorization'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/dnsAuthorizations/{dnsAuthorizationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          dnsAuthorizationsId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the dns authorization to describe. Must be in the format `projects/*/locations/*/dnsAuthorizations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/dnsAuthorizations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: certificatemanager.projects.locations.dnsAuthorizations.patch
+      description: Updates a DnsAuthorization.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the dns authorization. DnsAuthorization names must be unique globally and match pattern `projects/*/locations/*/dnsAuthorizations/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the dns authorization. DnsAuthorization names must be unique globally and match pattern `projects/*/locations/*/dnsAuthorizations/*`.
+          schema:
+            type: string
+        - name: dnsAuthorizationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the dns authorization. DnsAuthorization names must be unique globally and match pattern `projects/*/locations/*/dnsAuthorizations/*`.
+          schema:
+            type: string
+        - name: updateMask
           in: query
-          name: trustConfigId
           schema:
+            format: google-fieldmask
             type: string
+          description: Required. The update mask applies to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TrustConfig"
+              $ref: '#/components/schemas/DnsAuthorization'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/dnsAuthorizations/{dnsAuthorizationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          dnsAuthorizationsId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. A user-defined name of the dns authorization. DnsAuthorization names must be unique globally and match pattern `projects/*/locations/*/dnsAuthorizations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/dnsAuthorizations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel:
+    post:
+      operationId: certificatemanager.projects.locations.operations.cancel
+      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelOperationRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}:cancel
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be cancelled.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:
+    delete:
+      operationId: certificatemanager.projects.locations.operations.delete
+      description: Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be deleted.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: certificatemanager.projects.locations.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/operations:
+    get:
+      operationId: certificatemanager.projects.locations.operations.list
+      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The standard list filter.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The standard list page size.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The standard list page token.
+        - name: returnPartialSuccess
+          in: query
+          schema:
+            type: boolean
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the ListOperationsResponse.unreachable field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"`. This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1/{+name}/operations
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/operations
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation's parent resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/trustConfigs:
+    post:
+      operationId: certificatemanager.projects.locations.trustConfigs.create
+      description: Creates a new TrustConfig in a given project and location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the TrustConfig. Must be in the format `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent resource of the TrustConfig. Must be in the format `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: trustConfigId
+          in: query
+          schema:
+            type: string
+          description: Required. A user-provided name of the TrustConfig. Must match the regexp `[a-z0-9-]{1,63}`.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrustConfig'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+parent}/trustConfigs
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/trustConfigs
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent resource of the TrustConfig. Must be in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: certificatemanager.projects.locations.trustConfigs.list
+      description: Lists TrustConfigs in a given project and location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the TrustConfigs should be listed, specified in the format `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the TrustConfigs should be listed, specified in the format `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Optional. Filter expression to restrict the TrustConfigs returned.
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: Optional. A list of TrustConfig field names used to specify the order of the returned results. The default sorting order is ascending. To specify descending order for a field, add a suffix `" desc"`.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. Maximum number of TrustConfigs to return per call.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. The value returned by the last `ListTrustConfigsResponse`. Indicates that this is a continuation of a prior `ListTrustConfigs` call, and that the system should return the next page of data.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTrustConfigsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/trustConfigs
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/trustConfigs
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project and location from which the TrustConfigs should be listed, specified in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/trustConfigs/{trustConfigsId}:
+    delete:
+      operationId: certificatemanager.projects.locations.trustConfigs.delete
+      description: Deletes a single TrustConfig.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the TrustConfig to delete. Must be in the format `projects/*/locations/*/trustConfigs/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the TrustConfig to delete. Must be in the format `projects/*/locations/*/trustConfigs/*`.
+          schema:
+            type: string
+        - name: trustConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the TrustConfig to delete. Must be in the format `projects/*/locations/*/trustConfigs/*`.
+          schema:
+            type: string
+        - name: etag
+          in: query
+          schema:
+            type: string
+          description: Optional. The current etag of the TrustConfig. If an etag is provided and does not match the current etag of the resource, deletion will be blocked and an ABORTED error will be returned.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/trustConfigs/{trustConfigsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          trustConfigsId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the TrustConfig to delete. Must be in the format `projects/*/locations/*/trustConfigs/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/trustConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: certificatemanager.projects.locations.trustConfigs.get
+      description: Gets details of a single TrustConfig.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the TrustConfig to describe. Must be in the format `projects/*/locations/*/trustConfigs/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the TrustConfig to describe. Must be in the format `projects/*/locations/*/trustConfigs/*`.
+          schema:
+            type: string
+        - name: trustConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. A name of the TrustConfig to describe. Must be in the format `projects/*/locations/*/trustConfigs/*`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrustConfig'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/trustConfigs/{trustConfigsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          trustConfigsId: name
+        resourceNameParameters:
+          name:
+            description: Required. A name of the TrustConfig to describe. Must be in the format `projects/*/locations/*/trustConfigs/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/trustConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: certificatemanager.projects.locations.trustConfigs.patch
+      description: Updates a TrustConfig.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the trust config. TrustConfig names must be unique globally and match pattern `projects/*/locations/*/trustConfigs/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the trust config. TrustConfig names must be unique globally and match pattern `projects/*/locations/*/trustConfigs/*`.
+          schema:
+            type: string
+        - name: trustConfigsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Identifier. A user-defined name of the trust config. TrustConfig names must be unique globally and match pattern `projects/*/locations/*/trustConfigs/*`.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. The update mask applies to the resource. For the `FieldMask` definition, see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrustConfig'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/trustConfigs/{trustConfigsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          trustConfigsId: name
+        resourceNameParameters:
+          name:
+            description: Identifier. A user-defined name of the trust config. TrustConfig names must be unique globally and match pattern `projects/*/locations/*/trustConfigs/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/trustConfigs/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
+    AllowlistedCertificate:
+      description: Defines an allowlisted certificate.
+      x-google-discovery-id: AllowlistedCertificate
+      properties:
+        pemCertificate:
+          description: Required. PEM certificate that is allowlisted. The certificate can be up to 5k bytes, and must be a parseable X.509 certificate.
+          type: string
+      type: object
     AuthorizationAttemptInfo:
       description: State of the latest attempt to authorize a domain for certificate issuance.
+      x-google-discovery-id: AuthorizationAttemptInfo
       properties:
+        attemptTime:
+          description: Output only. The timestamp, when the authorization attempt was made.
+          format: google-datetime
+          readOnly: true
+          type: string
         details:
           description: Output only. Human readable explanation for reaching the state. Provided to help address the configuration issues. Not guaranteed to be stable. For programmatic access use FailureReason enum.
           readOnly: true
           type: string
         domain:
-          description: Domain name of the authorization attempt.
+          description: Output only. Domain name of the authorization attempt.
+          readOnly: true
           type: string
         failureReason:
           description: Output only. Reason for failure of the authorization attempt for the domain.
@@ -914,6 +2394,11 @@ components:
             - CONFIG
             - CAA
             - RATE_LIMITED
+          x-google-enum-descriptions:
+            - FailureReason is unspecified.
+            - There was a problem with the user's DNS or load balancer configuration for this domain.
+            - Certificate issuance forbidden by an explicit CAA record for the domain or a failure to check CAA records for the domain.
+            - Reached a CA or internal rate-limit for the domain, e.g. for certificates per top-level private domain.
           readOnly: true
           type: string
         state:
@@ -923,15 +2408,46 @@ components:
             - AUTHORIZING
             - AUTHORIZED
             - FAILED
+          x-google-enum-descriptions:
+            - State is unspecified.
+            - Certificate provisioning for this domain is under way. Google Cloud will attempt to authorize the domain.
+            - A managed certificate can be provisioned, no issues for this domain.
+            - Attempt to authorize the domain failed. This prevents the Managed Certificate from being issued. See `failure_reason` and `details` fields for more information.
           readOnly: true
           type: string
+        troubleshooting:
+          description: Output only. Troubleshooting information for the authorization attempt. This field is only populated if the authorization attempt failed.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/Troubleshooting'
+      type: object
+    CNAME:
+      description: CNAME troubleshooting information.
+      x-google-discovery-id: CNAME
+      properties:
+        expectedData:
+          description: Output only. The expected value of the CNAME record for the domain, equals to `dns_resource_record.data` in the corresponding `DnsAuthorization`.
+          readOnly: true
+          type: string
+        name:
+          description: Output only. The name of the CNAME record for the domain, equals to `dns_resource_record.name` in the corresponding `DnsAuthorization`.
+          readOnly: true
+          type: string
+        resolvedData:
+          description: Output only. The resolved CNAME chain. Empty list if the CNAME record for `CNAME.name` is not found. Otherwise the first item is the value of the CNAME record for `CNAME.name`. If the CNAME chain is longer, the second item is the value of the CNAME record for the first item, and so on.
+          items:
+            type: string
+          readOnly: true
+          type: array
       type: object
     CancelOperationRequest:
       description: The request message for Operations.CancelOperation.
+      x-google-discovery-id: CancelOperationRequest
       properties: {}
       type: object
     Certificate:
       description: Defines TLS certificate.
+      x-google-discovery-id: Certificate
       properties:
         createTime:
           description: Output only. The creation timestamp of a Certificate.
@@ -939,7 +2455,7 @@ components:
           readOnly: true
           type: string
         description:
-          description: One or more paragraphs of text description of a certificate.
+          description: Optional. One or more paragraphs of text description of a certificate.
           type: string
         expireTime:
           description: Output only. The expiry timestamp of a Certificate.
@@ -949,13 +2465,18 @@ components:
         labels:
           additionalProperties:
             type: string
-          description: Set of labels associated with a Certificate.
+          description: Optional. Set of labels associated with a Certificate.
           type: object
         managed:
-          $ref: "#/components/schemas/ManagedCertificate"
           description: If set, contains configuration and state of a managed certificate.
+          allOf:
+            - $ref: '#/components/schemas/ManagedCertificate'
+        managedIdentity:
+          description: If set, contains configuration and state of a managed identity certificate.
+          allOf:
+            - $ref: '#/components/schemas/ManagedIdentityCertificate'
         name:
-          description: A user-defined name of the certificate. Certificate names must be unique globally and match pattern `projects/*/locations/*/certificates/*`.
+          description: Identifier. A user-defined name of the certificate. Certificate names must be unique globally and match pattern `projects/*/locations/*/certificates/*`.
           type: string
         pemCertificate:
           description: Output only. The PEM-encoded certificate chain.
@@ -968,30 +2489,51 @@ components:
           readOnly: true
           type: array
         scope:
-          description: Immutable. The scope of the certificate.
+          description: Optional. Immutable. The scope of the certificate.
           enum:
             - DEFAULT
             - EDGE_CACHE
             - ALL_REGIONS
+            - CLIENT_AUTH
+          x-google-enum-descriptions:
+            - Use the DEFAULT scope if you plan to use the certificate with global external Application Load Balancer, global external proxy Network Load Balancer, or any of the regional Google Cloud services.
+            - Use the EDGE_CACHE scope if you plan to use the certificate with Media CDN. The certificates are served from Edge Points of Presence. See https://cloud.google.com/vpc/docs/edge-locations.
+            - Use the ALL_REGIONS scope if you plan to use the certificate with cross-region internal Application Load Balancer. The certificates are served from all Google Cloud regions. See https://cloud.google.com/compute/docs/regions-zones.
+            - Associated with certificates used as client certificates in Backend mTLS.
           type: string
         selfManaged:
-          $ref: "#/components/schemas/SelfManagedCertificate"
           description: If set, defines data of a self-managed certificate.
+          allOf:
+            - $ref: '#/components/schemas/SelfManagedCertificate'
+        tags:
+          additionalProperties:
+            type: string
+          description: 'Optional. Input only. Immutable. Tag keys/values directly bound to this resource. For example: "123/environment": "production", "123/costCenter": "marketing"'
+          type: object
         updateTime:
           description: Output only. The last update timestamp of a Certificate.
           format: google-datetime
           readOnly: true
           type: string
+        usedBy:
+          description: Output only. The list of resources that use this Certificate.
+          items:
+            $ref: '#/components/schemas/UsedBy'
+          readOnly: true
+          type: array
       type: object
     CertificateAuthorityConfig:
       description: The CA that issues the workload certificate. It includes CA address, type, authentication to CA service, etc.
+      x-google-discovery-id: CertificateAuthorityConfig
       properties:
         certificateAuthorityServiceConfig:
-          $ref: "#/components/schemas/CertificateAuthorityServiceConfig"
           description: Defines a CertificateAuthorityServiceConfig.
+          allOf:
+            - $ref: '#/components/schemas/CertificateAuthorityServiceConfig'
       type: object
     CertificateAuthorityServiceConfig:
       description: Contains information required to contact CA service.
+      x-google-discovery-id: CertificateAuthorityServiceConfig
       properties:
         caPool:
           description: Required. A CA pool resource used to issue a certificate. The CA pool string has a relative resource path following the form "projects/{project}/locations/{location}/caPools/{ca_pool}".
@@ -999,17 +2541,19 @@ components:
       type: object
     CertificateIssuanceConfig:
       description: CertificateIssuanceConfig specifies how to issue and manage a certificate.
+      x-google-discovery-id: CertificateIssuanceConfig
       properties:
         certificateAuthorityConfig:
-          $ref: "#/components/schemas/CertificateAuthorityConfig"
           description: Required. The CA that issues the workload certificate. It includes the CA address, type, authentication to CA service, etc.
+          allOf:
+            - $ref: '#/components/schemas/CertificateAuthorityConfig'
         createTime:
           description: Output only. The creation timestamp of a CertificateIssuanceConfig.
           format: google-datetime
           readOnly: true
           type: string
         description:
-          description: One or more paragraphs of text description of a CertificateIssuanceConfig.
+          description: Optional. One or more paragraphs of text description of a CertificateIssuanceConfig.
           type: string
         keyAlgorithm:
           description: Required. The key algorithm to use when generating the private key.
@@ -1017,23 +2561,32 @@ components:
             - KEY_ALGORITHM_UNSPECIFIED
             - RSA_2048
             - ECDSA_P256
+          x-google-enum-descriptions:
+            - Unspecified key algorithm.
+            - Specifies RSA with a 2048-bit modulus.
+            - Specifies ECDSA with curve P256.
           type: string
         labels:
           additionalProperties:
             type: string
-          description: Set of labels associated with a CertificateIssuanceConfig.
+          description: Optional. Set of labels associated with a CertificateIssuanceConfig.
           type: object
         lifetime:
           description: Required. Workload certificate lifetime requested.
           format: google-duration
           type: string
         name:
-          description: A user-defined name of the certificate issuance config. CertificateIssuanceConfig names must be unique globally and match pattern `projects/*/locations/*/certificateIssuanceConfigs/*`.
+          description: Identifier. A user-defined name of the certificate issuance config. CertificateIssuanceConfig names must be unique globally and match pattern `projects/*/locations/*/certificateIssuanceConfigs/*`.
           type: string
         rotationWindowPercentage:
           description: Required. Specifies the percentage of elapsed time of the certificate lifetime to wait before renewing the certificate. Must be a number between 1-99, inclusive.
           format: int32
           type: integer
+        tags:
+          additionalProperties:
+            type: string
+          description: 'Optional. Input only. Immutable. Tag keys/values directly bound to this resource. For example: "123/environment": "production", "123/costCenter": "marketing"'
+          type: object
         updateTime:
           description: Output only. The last update timestamp of a CertificateIssuanceConfig.
           format: google-datetime
@@ -1042,6 +2595,7 @@ components:
       type: object
     CertificateMap:
       description: Defines a collection of certificate configurations.
+      x-google-discovery-id: CertificateMap
       properties:
         createTime:
           description: Output only. The creation timestamp of a Certificate Map.
@@ -1049,22 +2603,27 @@ components:
           readOnly: true
           type: string
         description:
-          description: One or more paragraphs of text description of a certificate map.
+          description: Optional. One or more paragraphs of text description of a certificate map.
           type: string
         gclbTargets:
           description: Output only. A list of GCLB targets that use this Certificate Map. A Target Proxy is only present on this list if it's attached to a Forwarding Rule.
           items:
-            $ref: "#/components/schemas/GclbTarget"
+            $ref: '#/components/schemas/GclbTarget'
           readOnly: true
           type: array
         labels:
           additionalProperties:
             type: string
-          description: Set of labels associated with a Certificate Map.
+          description: Optional. Set of labels associated with a Certificate Map.
           type: object
         name:
-          description: A user-defined name of the Certificate Map. Certificate Map names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*`.
+          description: Identifier. A user-defined name of the Certificate Map. Certificate Map names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*`.
           type: string
+        tags:
+          additionalProperties:
+            type: string
+          description: 'Optional. Input only. Immutable. Tag keys/values directly bound to this resource. For example: "123/environment": "production", "123/costCenter": "marketing"'
+          type: object
         updateTime:
           description: Output only. The update timestamp of a Certificate Map.
           format: google-datetime
@@ -1073,9 +2632,10 @@ components:
       type: object
     CertificateMapEntry:
       description: Defines a certificate map entry.
+      x-google-discovery-id: CertificateMapEntry
       properties:
         certificates:
-          description: A set of Certificates defines for the given `hostname`. There can be defined up to four certificates in each Certificate Map Entry. Each certificate must match pattern `projects/*/locations/*/certificates/*`.
+          description: Optional. A set of Certificates defines for the given `hostname`. There can be defined up to four certificates in each Certificate Map Entry. Each certificate must match pattern `projects/*/locations/*/certificates/*`.
           items:
             type: string
           type: array
@@ -1085,7 +2645,7 @@ components:
           readOnly: true
           type: string
         description:
-          description: One or more paragraphs of text description of a certificate map entry.
+          description: Optional. One or more paragraphs of text description of a certificate map entry.
           type: string
         hostname:
           description: A Hostname (FQDN, e.g. `example.com`) or a wildcard hostname expression (`*.example.com`) for a set of hostnames with common suffix. Used as Server Name Indication (SNI) for selecting a proper certificate.
@@ -1093,16 +2653,19 @@ components:
         labels:
           additionalProperties:
             type: string
-          description: Set of labels associated with a Certificate Map Entry.
+          description: Optional. Set of labels associated with a Certificate Map Entry.
           type: object
         matcher:
           description: A predefined matcher for particular cases, other than SNI selection.
           enum:
             - MATCHER_UNSPECIFIED
             - PRIMARY
+          x-google-enum-descriptions:
+            - A matcher has't been recognized.
+            - A primary certificate that is served when SNI wasn't specified in the request or SNI couldn't be found in the map.
           type: string
         name:
-          description: A user-defined name of the Certificate Map Entry. Certificate Map Entry names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
+          description: Identifier. A user-defined name of the Certificate Map Entry. Certificate Map Entry names must be unique globally and match pattern `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
           type: string
         state:
           description: Output only. A serving state of this Certificate Map Entry.
@@ -1110,6 +2673,10 @@ components:
             - SERVING_STATE_UNSPECIFIED
             - ACTIVE
             - PENDING
+          x-google-enum-descriptions:
+            - The status is undefined.
+            - The configuration is serving.
+            - Update is in progress. Some frontends may serve this configuration.
           readOnly: true
           type: string
         updateTime:
@@ -1120,6 +2687,7 @@ components:
       type: object
     DnsAuthorization:
       description: A DnsAuthorization resource describes a way to perform domain authorization for certificate issuance.
+      x-google-discovery-id: DnsAuthorization
       properties:
         createTime:
           description: Output only. The creation timestamp of a DnsAuthorization.
@@ -1127,29 +2695,39 @@ components:
           readOnly: true
           type: string
         description:
-          description: One or more paragraphs of text description of a DnsAuthorization.
+          description: Optional. One or more paragraphs of text description of a DnsAuthorization.
           type: string
         dnsResourceRecord:
-          $ref: "#/components/schemas/DnsResourceRecord"
           description: Output only. DNS Resource Record that needs to be added to DNS configuration.
           readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/DnsResourceRecord'
         domain:
           description: Required. Immutable. A domain that is being authorized. A DnsAuthorization resource covers a single domain and its wildcard, e.g. authorization for `example.com` can be used to issue certificates for `example.com` and `*.example.com`.
           type: string
         labels:
           additionalProperties:
             type: string
-          description: Set of labels associated with a DnsAuthorization.
+          description: Optional. Set of labels associated with a DnsAuthorization.
           type: object
         name:
-          description: A user-defined name of the dns authorization. DnsAuthorization names must be unique globally and match pattern `projects/*/locations/*/dnsAuthorizations/*`.
+          description: Identifier. A user-defined name of the dns authorization. DnsAuthorization names must be unique globally and match pattern `projects/*/locations/*/dnsAuthorizations/*`.
           type: string
+        tags:
+          additionalProperties:
+            type: string
+          description: 'Optional. Input only. Immutable. Tag keys/values directly bound to this resource. For example: "123/environment": "production", "123/costCenter": "marketing"'
+          type: object
         type:
-          description: "Immutable. Type of DnsAuthorization. If unset during resource creation the following default will be used: - in location global: FIXED_RECORD."
+          description: 'Optional. Immutable. Type of DnsAuthorization. If unset during resource creation the following default will be used: - in location `global`: FIXED_RECORD, - in other locations: PER_PROJECT_RECORD.'
           enum:
             - TYPE_UNSPECIFIED
             - FIXED_RECORD
             - PER_PROJECT_RECORD
+          x-google-enum-descriptions:
+            - Type is unspecified.
+            - FIXED_RECORD DNS authorization uses DNS-01 validation method.
+            - PER_PROJECT_RECORD DNS authorization allows for independent management of Google-managed certificates with DNS authorization across multiple projects.
           type: string
         updateTime:
           description: Output only. The last update timestamp of a DnsAuthorization.
@@ -1159,6 +2737,7 @@ components:
       type: object
     DnsResourceRecord:
       description: The structure describing the DNS Resource Record that needs to be added to DNS configuration for the authorization to be usable by certificate.
+      x-google-discovery-id: DnsResourceRecord
       properties:
         data:
           description: Output only. Data of the DNS Resource Record.
@@ -1174,29 +2753,55 @@ components:
           type: string
       type: object
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     GclbTarget:
       description: Describes a Target Proxy that uses this Certificate Map.
+      x-google-discovery-id: GclbTarget
       properties:
         ipConfigs:
           description: Output only. IP configurations for this Target Proxy where the Certificate Map is serving.
           items:
-            $ref: "#/components/schemas/IpConfig"
+            $ref: '#/components/schemas/IpConfig'
           readOnly: true
           type: array
         targetHttpsProxy:
-          description: "Output only. This field returns the resource name in the following format: `//compute.googleapis.com/projects/*/global/targetHttpsProxies/*`."
+          description: 'Output only. This field returns the resource name in the following format: `//compute.googleapis.com/projects/*/global/targetHttpsProxies/*`.'
           readOnly: true
           type: string
         targetSslProxy:
-          description: "Output only. This field returns the resource name in the following format: `//compute.googleapis.com/projects/*/global/targetSslProxies/*`."
+          description: 'Output only. This field returns the resource name in the following format: `//compute.googleapis.com/projects/*/global/targetSslProxies/*`.'
           readOnly: true
           type: string
       type: object
+    IPs:
+      description: IPs troubleshooting information.
+      x-google-discovery-id: IPs
+      properties:
+        resolved:
+          description: Output only. The list of IP addresses resolved from the domain's A/AAAA records. Can contain both ipv4 and ipv6 addresses.
+          items:
+            type: string
+          readOnly: true
+          type: array
+        serving:
+          description: Output only. The list of IP addresses, where the certificate is attached and port 443 is open.
+          items:
+            type: string
+          readOnly: true
+          type: array
+        servingOnAltPorts:
+          description: Output only. The list of IP addresses, where the certificate is attached, but port 443 is not open.
+          items:
+            type: string
+          readOnly: true
+          type: array
+      type: object
     IntermediateCA:
       description: Defines an intermediate CA.
+      x-google-discovery-id: IntermediateCA
       properties:
         pemCertificate:
           description: PEM intermediate certificate used for building up paths for validation. Each certificate provided in PEM format may occupy up to 5kB.
@@ -1204,6 +2809,7 @@ components:
       type: object
     IpConfig:
       description: Defines IP configuration where this Certificate Map is serving.
+      x-google-discovery-id: IpConfig
       properties:
         ipAddress:
           description: Output only. An external IP address.
@@ -1219,11 +2825,12 @@ components:
       type: object
     ListCertificateIssuanceConfigsResponse:
       description: Response for the `ListCertificateIssuanceConfigs` method.
+      x-google-discovery-id: ListCertificateIssuanceConfigsResponse
       properties:
         certificateIssuanceConfigs:
           description: A list of certificate configs for the parent resource.
           items:
-            $ref: "#/components/schemas/CertificateIssuanceConfig"
+            $ref: '#/components/schemas/CertificateIssuanceConfig'
           type: array
         nextPageToken:
           description: If there might be more results than those appearing in this response, then `next_page_token` is included. To get the next set of results, call this method again using the value of `next_page_token` as `page_token`.
@@ -1236,11 +2843,12 @@ components:
       type: object
     ListCertificateMapEntriesResponse:
       description: Response for the `ListCertificateMapEntries` method.
+      x-google-discovery-id: ListCertificateMapEntriesResponse
       properties:
         certificateMapEntries:
           description: A list of certificate map entries for the parent resource.
           items:
-            $ref: "#/components/schemas/CertificateMapEntry"
+            $ref: '#/components/schemas/CertificateMapEntry'
           type: array
         nextPageToken:
           description: If there might be more results than those appearing in this response, then `next_page_token` is included. To get the next set of results, call this method again using the value of `next_page_token` as `page_token`.
@@ -1253,11 +2861,12 @@ components:
       type: object
     ListCertificateMapsResponse:
       description: Response for the `ListCertificateMaps` method.
+      x-google-discovery-id: ListCertificateMapsResponse
       properties:
         certificateMaps:
           description: A list of certificate maps for the parent resource.
           items:
-            $ref: "#/components/schemas/CertificateMap"
+            $ref: '#/components/schemas/CertificateMap'
           type: array
         nextPageToken:
           description: If there might be more results than those appearing in this response, then `next_page_token` is included. To get the next set of results, call this method again using the value of `next_page_token` as `page_token`.
@@ -1270,11 +2879,12 @@ components:
       type: object
     ListCertificatesResponse:
       description: Response for the `ListCertificates` method.
+      x-google-discovery-id: ListCertificatesResponse
       properties:
         certificates:
           description: A list of certificates for the parent resource.
           items:
-            $ref: "#/components/schemas/Certificate"
+            $ref: '#/components/schemas/Certificate'
           type: array
         nextPageToken:
           description: If there might be more results than those appearing in this response, then `next_page_token` is included. To get the next set of results, call this method again using the value of `next_page_token` as `page_token`.
@@ -1287,11 +2897,12 @@ components:
       type: object
     ListDnsAuthorizationsResponse:
       description: Response for the `ListDnsAuthorizations` method.
+      x-google-discovery-id: ListDnsAuthorizationsResponse
       properties:
         dnsAuthorizations:
           description: A list of dns authorizations for the parent resource.
           items:
-            $ref: "#/components/schemas/DnsAuthorization"
+            $ref: '#/components/schemas/DnsAuthorization'
           type: array
         nextPageToken:
           description: If there might be more results than those appearing in this response, then `next_page_token` is included. To get the next set of results, call this method again using the value of `next_page_token` as `page_token`.
@@ -1304,11 +2915,12 @@ components:
       type: object
     ListLocationsResponse:
       description: The response message for Locations.ListLocations.
+      x-google-discovery-id: ListLocationsResponse
       properties:
         locations:
           description: A list of locations that matches the specified filter in the request.
           items:
-            $ref: "#/components/schemas/Location"
+            $ref: '#/components/schemas/Location'
           type: array
         nextPageToken:
           description: The standard List next-page token.
@@ -1316,6 +2928,7 @@ components:
       type: object
     ListOperationsResponse:
       description: The response message for Operations.ListOperations.
+      x-google-discovery-id: ListOperationsResponse
       properties:
         nextPageToken:
           description: The standard List next-page token.
@@ -1323,11 +2936,17 @@ components:
         operations:
           description: A list of operations that matches the specified filter in the request.
           items:
-            $ref: "#/components/schemas/Operation"
+            $ref: '#/components/schemas/Operation'
+          type: array
+        unreachable:
+          description: Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections. For example, when attempting to list all resources across all supported locations.
+          items:
+            type: string
           type: array
       type: object
     ListTrustConfigsResponse:
       description: Response for the `ListTrustConfigs` method.
+      x-google-discovery-id: ListTrustConfigsResponse
       properties:
         nextPageToken:
           description: If there might be more results than those appearing in this response, then `next_page_token` is included. To get the next set of results, call this method again using the value of `next_page_token` as `page_token`.
@@ -1335,7 +2954,7 @@ components:
         trustConfigs:
           description: A list of TrustConfigs for the parent resource.
           items:
-            $ref: "#/components/schemas/TrustConfig"
+            $ref: '#/components/schemas/TrustConfig'
           type: array
         unreachable:
           description: Locations that could not be reached.
@@ -1345,6 +2964,7 @@ components:
       type: object
     Location:
       description: A resource that represents a Google Cloud location.
+      x-google-discovery-id: Location
       properties:
         displayName:
           description: The friendly name for this location, typically a nearby city name. For example, "Tokyo".
@@ -1360,6 +2980,7 @@ components:
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata. For example the available capacity at the given location.
           type: object
         name:
@@ -1368,30 +2989,32 @@ components:
       type: object
     ManagedCertificate:
       description: Configuration and state of a Managed Certificate. Certificate Manager provisions and renews Managed Certificates automatically, for as long as it's authorized to do so.
+      x-google-discovery-id: ManagedCertificate
       properties:
         authorizationAttemptInfo:
           description: Output only. Detailed state of the latest authorization attempt for each domain specified for managed certificate resource.
           items:
-            $ref: "#/components/schemas/AuthorizationAttemptInfo"
+            $ref: '#/components/schemas/AuthorizationAttemptInfo'
           readOnly: true
           type: array
         dnsAuthorizations:
-          description: Immutable. Authorizations that will be used for performing domain authorization.
+          description: Optional. Immutable. Authorizations that will be used for performing domain authorization.
           items:
             type: string
           type: array
         domains:
-          description: Immutable. The domains for which a managed SSL certificate will be generated. Wildcard domains are only supported with DNS challenge resolution.
+          description: Optional. Immutable. The domains for which a managed SSL certificate will be generated. Wildcard domains are only supported with DNS challenge resolution.
           items:
             type: string
           type: array
         issuanceConfig:
-          description: Immutable. The resource name for a CertificateIssuanceConfig used to configure private PKI certificates in the format `projects/*/locations/*/certificateIssuanceConfigs/*`. If this field is not set, the certificates will instead be publicly signed as documented at https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#caa.
+          description: Optional. Immutable. The resource name for a CertificateIssuanceConfig used to configure private PKI certificates in the format `projects/*/locations/*/certificateIssuanceConfigs/*`. If this field is not set, the certificates will instead be publicly signed as documented at https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#caa.
           type: string
         provisioningIssue:
-          $ref: "#/components/schemas/ProvisioningIssue"
           description: Output only. Information about issues with provisioning a Managed Certificate.
           readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/ProvisioningIssue'
         state:
           description: Output only. State of the managed certificate resource.
           enum:
@@ -1399,21 +3022,56 @@ components:
             - PROVISIONING
             - FAILED
             - ACTIVE
+          x-google-enum-descriptions:
+            - State is unspecified.
+            - Certificate Manager attempts to provision or renew the certificate. If the process takes longer than expected, consult the `provisioning_issue` field.
+            - Multiple certificate provisioning attempts failed and Certificate Manager gave up. To try again, delete and create a new managed Certificate resource. For details see the `provisioning_issue` field.
+            - The certificate management is working, and a certificate has been provisioned.
+          readOnly: true
+          type: string
+      type: object
+    ManagedIdentityCertificate:
+      description: Configuration and state of a Managed Identity Certificate. Certificate Manager provisions and renews Managed Identity Certificates automatically, for as long as it's authorized to do so.
+      x-google-discovery-id: ManagedIdentityCertificate
+      properties:
+        identity:
+          description: Required. Immutable. SPIFFE ID of the Managed Identity used for this certificate.
+          type: string
+        provisioningIssue:
+          description: Output only. Information about issues with provisioning a managed certificate.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/ProvisioningIssue'
+        state:
+          description: Output only. State of the managed certificate resource.
+          enum:
+            - STATE_UNSPECIFIED
+            - PROVISIONING
+            - FAILED
+            - ACTIVE
+          x-google-enum-descriptions:
+            - State is unspecified.
+            - Certificate Manager attempts to provision or renew the certificate. If the process takes longer than expected, consult the `provisioning_issue` field.
+            - Multiple certificate provisioning attempts failed and Certificate Manager gave up. To try again, delete and create a new managed Certificate resource. For details see the `provisioning_issue` field.
+            - The certificate management is working, and a certificate has been provisioned.
           readOnly: true
           type: string
       type: object
     Operation:
       description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
       properties:
         done:
           description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
           type: boolean
         error:
-          $ref: "#/components/schemas/Status"
           description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
           type: object
         name:
@@ -1422,11 +3080,13 @@ components:
         response:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
           type: object
       type: object
     OperationMetadata:
       description: Represents the metadata of the long-running operation. Output only.
+      x-google-discovery-id: OperationMetadata
       properties:
         apiVersion:
           description: API version used to start the operation.
@@ -1440,7 +3100,7 @@ components:
           format: google-datetime
           type: string
         requestedCancellation:
-          description: Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
+          description: Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have google.longrunning.Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
           type: boolean
         statusMessage:
           description: Human-readable status of the operation, if any.
@@ -1454,6 +3114,7 @@ components:
       type: object
     ProvisioningIssue:
       description: Information about issues with provisioning a Managed Certificate.
+      x-google-discovery-id: ProvisioningIssue
       properties:
         details:
           description: Output only. Human readable explanation about the issue. Provided to help address the configuration issues. Not guaranteed to be stable. For programmatic access use Reason enum.
@@ -1465,21 +3126,27 @@ components:
             - REASON_UNSPECIFIED
             - AUTHORIZATION_ISSUE
             - RATE_LIMITED
+          x-google-enum-descriptions:
+            - Reason is unspecified.
+            - Certificate provisioning failed due to an issue with one or more of the domains on the certificate. For details of which domains failed, consult the `authorization_attempt_info` field.
+            - Exceeded Certificate Authority quotas or internal rate limits of the system. Provisioning may take longer to complete.
           readOnly: true
           type: string
       type: object
     SelfManagedCertificate:
       description: Certificate data for a SelfManaged Certificate. SelfManaged Certificates are uploaded by the user. Updating such certificates before they expire remains the user's responsibility.
+      x-google-discovery-id: SelfManagedCertificate
       properties:
         pemCertificate:
-          description: Input only. The PEM-encoded certificate chain. Leaf certificate comes first, followed by intermediate ones if any.
+          description: Optional. Input only. The PEM-encoded certificate chain. Leaf certificate comes first, followed by intermediate ones if any.
           type: string
         pemPrivateKey:
-          description: Input only. The PEM-encoded private key of the leaf certificate.
+          description: Optional. Input only. The PEM-encoded private key of the leaf certificate.
           type: string
       type: object
     Status:
-      description: "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors)."
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
       properties:
         code:
           description: The status code, which should be an enum value of google.rpc.Code.
@@ -1490,14 +3157,51 @@ components:
           items:
             additionalProperties:
               description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
             type: object
           type: array
         message:
           description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
           type: string
       type: object
+    Troubleshooting:
+      description: Troubleshooting information for the authorization attempt.
+      x-google-discovery-id: Troubleshooting
+      properties:
+        cname:
+          description: Output only. CNAME troubleshooting information.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/CNAME'
+        ips:
+          description: Output only. IPs troubleshooting information.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/IPs'
+        issues:
+          description: Output only. The list of issues discovered during the authorization attempt.
+          items:
+            enum:
+              - ISSUE_UNSPECIFIED
+              - CNAME_MISMATCH
+              - RESOLVED_TO_NOT_SERVING
+              - RESOLVED_TO_SERVING_ON_ALT_PORTS
+              - NO_RESOLVED_IPS
+              - CERTIFICATE_NOT_ATTACHED
+            x-google-enum-descriptions:
+              - Issue is unspecified.
+              - The resolved CNAME value doesn't match the expected CNAME.
+              - Domain has A/AAAA records that point to IPs, where the certificate is not attached.
+              - Domain has A/AAAA records that point to IPs, where the certificate is attached, but port 443 is not open.
+              - Domain doesn't have any A/AAAA records.
+              - Certificate is not configured to be served from any IPs (e.g. Certificate is not attached to any load balancer).
+            type: string
+          readOnly: true
+          type: array
+      type: object
     TrustAnchor:
       description: Defines a trust anchor.
+      x-google-discovery-id: TrustAnchor
       properties:
         pemCertificate:
           description: PEM root certificate of the PKI used for validation. Each certificate provided in PEM format may occupy up to 5kB.
@@ -1505,14 +3209,20 @@ components:
       type: object
     TrustConfig:
       description: Defines a trust config.
+      x-google-discovery-id: TrustConfig
       properties:
+        allowlistedCertificates:
+          description: Optional. A certificate matching an allowlisted certificate is always considered valid as long as the certificate is parseable, proof of private key possession is established, and constraints on the certificate's SAN field are met.
+          items:
+            $ref: '#/components/schemas/AllowlistedCertificate'
+          type: array
         createTime:
           description: Output only. The creation timestamp of a TrustConfig.
           format: google-datetime
           readOnly: true
           type: string
         description:
-          description: One or more paragraphs of text description of a TrustConfig.
+          description: Optional. One or more paragraphs of text description of a TrustConfig.
           type: string
         etag:
           description: This checksum is computed by the server based on the value of other fields, and may be sent on update and delete requests to ensure the client has an up-to-date value before proceeding.
@@ -1520,15 +3230,25 @@ components:
         labels:
           additionalProperties:
             type: string
-          description: Set of labels associated with a TrustConfig.
+          description: Optional. Set of labels associated with a TrustConfig.
           type: object
         name:
-          description: A user-defined name of the trust config. TrustConfig names must be unique globally and match pattern `projects/*/locations/*/trustConfigs/*`.
+          description: Identifier. A user-defined name of the trust config. TrustConfig names must be unique globally and match pattern `projects/*/locations/*/trustConfigs/*`.
           type: string
+        spiffeTrustStores:
+          additionalProperties:
+            $ref: '#/components/schemas/TrustStore'
+          description: Optional. Defines a mapping from a trust domain to a TrustStore. This is used for SPIFFE certificate validation.
+          type: object
+        tags:
+          additionalProperties:
+            type: string
+          description: 'Optional. Input only. Immutable. Tag keys/values directly bound to this resource. For example: "123/environment": "production", "123/costCenter": "marketing"'
+          type: object
         trustStores:
-          description: Set of trust stores to perform validation against. This field is supported when TrustConfig is configured with Load Balancers, currently not supported for SPIFFE certificate validation. Only one TrustStore specified is currently allowed.
+          description: Optional. Set of trust stores to perform validation against. This field is supported when TrustConfig is configured with Load Balancers, currently not supported for SPIFFE certificate validation. Only one TrustStore specified is currently allowed.
           items:
-            $ref: "#/components/schemas/TrustStore"
+            $ref: '#/components/schemas/TrustStore'
           type: array
         updateTime:
           description: Output only. The last update timestamp of a TrustConfig.
@@ -1538,33 +3258,145 @@ components:
       type: object
     TrustStore:
       description: Defines a trust store.
+      x-google-discovery-id: TrustStore
       properties:
         intermediateCas:
-          description: Set of intermediate CA certificates used for the path building phase of chain validation. The field is currently not supported if TrustConfig is used for the workload certificate feature.
+          description: Optional. Set of intermediate CA certificates used for the path building phase of chain validation. The field is currently not supported if TrustConfig is used for the workload certificate feature.
           items:
-            $ref: "#/components/schemas/IntermediateCA"
+            $ref: '#/components/schemas/IntermediateCA'
           type: array
         trustAnchors:
-          description: List of Trust Anchors to be used while performing validation against a given TrustStore.
+          description: Optional. List of Trust Anchors to be used while performing validation against a given TrustStore.
           items:
-            $ref: "#/components/schemas/TrustAnchor"
+            $ref: '#/components/schemas/TrustAnchor'
           type: array
       type: object
+    UsedBy:
+      description: Defines a resource that uses the certificate.
+      x-google-discovery-id: UsedBy
+      properties:
+        name:
+          description: Output only. Full name of the resource https://google.aip.dev/122#full-resource-names, e.g. `//certificatemanager.googleapis.com/projects/*/locations/*/certificateMaps/*/certificateMapEntries/*` or `//compute.googleapis.com/projects/*/locations/*/targetHttpsProxies/*`.
+          readOnly: true
+          type: string
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/certificate-manager
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://certificatemanager.googleapis.com/
+  batchPath: batch
+  canonicalName: Certificate Manager
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: certificatemanager:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://certificatemanager.mtls.googleapis.com/
+  name: certificatemanager
+  revision: '20260629'
+  rootUrl: https://certificatemanager.googleapis.com/
+  servicePath: ''
+  version_module: true

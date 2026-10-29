@@ -1,0 +1,431 @@
+openapi: 3.0.3
+info:
+  title: Chrome Web Store API
+  version: v1.1
+  description: The Chrome Web Store API provides access to data about apps and extensions, as well as developer tools for managing them.
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/chromewebstore.v1.1.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/chromewebstore.v1.1.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20251015; original source SHA-256 706db98e71febf4be6be90f9543d4a85e7e58a6125c4b689280be5ffb1233971.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://chromewebstore.googleapis.com
+paths:
+  /chromewebstore/v1.1/items/{itemId}:
+    get:
+      operationId: chromewebstore.items.get
+      description: Gets your own Chrome Web Store item.
+      parameters:
+        - name: itemId
+          in: path
+          schema:
+            type: string
+          description: Unique identifier representing the Chrome App, Chrome Extension, or the Chrome Theme.
+          required: true
+        - name: projection
+          in: query
+          schema:
+            enum:
+              - DRAFT
+              - PUBLISHED
+            x-google-enum-descriptions:
+              - Return information extracted from the current draft.
+              - Return information extracted from the published item draft.
+            type: string
+          description: Determines which subset of the item information to return.
+      tags:
+        - items
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+      x-google-discovery:
+        path: chromewebstore/v1.1/items/{itemId}
+        flatPath: chromewebstore/v1.1/items/{itemId}
+        parameterOrder:
+          - itemId
+    put:
+      operationId: chromewebstore.items.update
+      description: Updates an existing item.
+      parameters:
+        - name: itemId
+          in: path
+          schema:
+            type: string
+          description: The ID of the item to upload.
+          required: true
+      tags:
+        - items
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+      x-google-discovery:
+        path: chromewebstore/v1.1/items/{itemId}
+        flatPath: chromewebstore/v1.1/items/{itemId}
+        mediaUpload:
+          accept:
+            - '*/*'
+          maxSize: '2147483648'
+          protocols:
+            simple:
+              multipart: true
+              path: /upload/chromewebstore/v1.1/items/{itemId}
+        supportsMediaUpload: true
+        parameterOrder:
+          - itemId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /chromewebstore/v1.1/items:
+    post:
+      operationId: chromewebstore.items.insert
+      description: Inserts a new item.
+      parameters:
+        - name: publisherEmail
+          in: query
+          schema:
+            type: string
+          description: The email of the publisher who owns the items. Defaults to the caller's email address.
+      tags:
+        - items
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+      x-google-discovery:
+        path: chromewebstore/v1.1/items
+        flatPath: chromewebstore/v1.1/items
+        mediaUpload:
+          accept:
+            - '*/*'
+          maxSize: '2147483648'
+          protocols:
+            simple:
+              multipart: true
+              path: /upload/chromewebstore/v1.1/items
+        supportsMediaUpload: true
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /chromewebstore/v1.1/items/{itemId}/publish:
+    post:
+      operationId: chromewebstore.items.publish
+      description: Publishes an item.
+      parameters:
+        - name: itemId
+          in: path
+          schema:
+            type: string
+          description: The ID of the item to publish.
+          required: true
+        - name: deployPercentage
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The deploy percentage you want to set for your item. Valid values are [0, 100]. If set to any number less than 100, only that many percentage of users will be allowed to get the update.
+        - name: publishTarget
+          in: query
+          schema:
+            type: string
+          description: 'Provide defined publishTarget in URL (case sensitive): publishTarget="trustedTesters" or publishTarget="default". Defaults to publishTarget="default".'
+        - name: reviewExemption
+          in: query
+          schema:
+            type: boolean
+          description: Optional. The caller request to exempt the review and directly publish because the update is within the list that we can automatically validate. The API will check if the exemption can be granted using real time data.
+      tags:
+        - items
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item2'
+      x-google-discovery:
+        path: chromewebstore/v1.1/items/{itemId}/publish
+        flatPath: chromewebstore/v1.1/items/{itemId}/publish
+        parameterOrder:
+          - itemId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    Item:
+      x-google-discovery-id: Item
+      properties:
+        crxVersion:
+          description: The CRX version of the item. If the projection is draft, then it is the draft's CRX version.
+          type: string
+        id:
+          description: Unique ID of the item.
+          type: string
+        itemError:
+          description: Detail human-readable status of the operation, in English only. Same error messages are displayed when you upload your app to the Chrome Web Store.
+          items:
+            $ref: '#/components/schemas/ItemError'
+          type: array
+        kind:
+          description: 'Identifies this resource as an Item. Value: the fixed string "chromewebstore#item".'
+          type: string
+        publicKey:
+          description: Public key of this item.
+          type: string
+        uploadState:
+          description: 'Status of the operation. Possible values are: - \"FAILURE\" - \"IN_PROGRESS\" - \"NOT_FOUND\" - \"SUCCESS\" '
+          type: string
+      type: object
+    Item2:
+      x-google-discovery-id: Item2
+      properties:
+        item_id:
+          description: The ID of this item.
+          type: string
+        kind:
+          description: Static string value is always "chromewebstore#item".
+          type: string
+        status:
+          description: 'The status code of this publish operation. It may contain multiple elements from the following list: NOT_AUTHORIZED, INVALID_DEVELOPER, DEVELOPER_NO_OWNERSHIP, DEVELOPER_SUSPENDED, ITEM_NOT_FOUND, ITEM_PENDING_REVIEW, ITEM_TAKEN_DOWN, PUBLISHER_SUSPENDED.'
+          items:
+            type: string
+          type: array
+        statusDetail:
+          description: Detailed human-comprehensible explanation of the status code above.
+          items:
+            type: string
+          type: array
+      type: object
+    ItemError:
+      description: Error of the item
+      x-google-discovery-id: ItemError
+      properties:
+        error_code:
+          description: The error code.
+          type: string
+        error_detail:
+          description: The human-readable detail message of the error.
+          type: string
+      type: object
+    PublishRequest:
+      x-google-discovery-id: PublishRequest
+      properties:
+        deployPercentage:
+          description: The target deploy percentage of the item. It's only useful for items with big user base.
+          format: int32
+          type: integer
+        reviewExemption:
+          description: Optional. The caller request to exempt the review and directly publish because the update is within the list that we can automatically validate. The API will check if the exemption can be granted using real time data.
+          type: boolean
+        target:
+          description: The publish target of this publish operation. This is the same as using publishTarget as a URL query parameter. The string value can either be target="trustedTesters" or target="default". The default value, if none is supplied, is target="default". Recommended usage is to use the URL query parameter to specificy the value.
+          type: string
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/chromewebstore: See, edit, update, or publish your Chrome Web Store extensions, themes, apps, and licences you have access to
+            https://www.googleapis.com/auth/chromewebstore.readonly: See and download your Chrome Web Store extensions and apps, and see licenses you have access to
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/chromewebstore: See, edit, update, or publish your Chrome Web Store extensions, themes, apps, and licences you have access to
+            https://www.googleapis.com/auth/chromewebstore.readonly: See and download your Chrome Web Store extensions and apps, and see licenses you have access to
+externalDocs:
+  url: https://developer.chrome.com/docs/webstore/api
+tags:
+  - name: items
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://chromewebstore.googleapis.com/
+  batchPath: batch
+  canonicalName: Chromewebstore
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: chromewebstore:v1.1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://chromewebstore.mtls.googleapis.com/
+  name: chromewebstore
+  revision: '20251015'
+  rootUrl: https://chromewebstore.googleapis.com/
+  servicePath: ''
+  version_module: true

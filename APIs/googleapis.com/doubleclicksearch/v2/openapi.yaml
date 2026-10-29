@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://doubleclicksearch.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -21,637 +19,683 @@ info:
   x-logo:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/doubleclicksearch.v2.json
+      version: v1
     - format: openapi
-      url: https://doubleclicksearch.googleapis.com/$discovery/rest?version=v2
-      version: "3.0"
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/doubleclicksearch.v2.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: doubleclicksearch
-externalDocs:
-  url: https://developers.google.com/search-ads
-tags:
-  - name: conversion
-  - name: reports
-  - name: savedColumns
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20250430; original source SHA-256 501c4761f0e53102c76679e34b3d6556c89210b77ac97d4eef60485b0de29359.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://doubleclicksearch.googleapis.com
 paths:
   /doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/engine/{engineAccountId}/conversion:
     get:
-      description: Retrieves a list of conversions from a DoubleClick Search engine account.
       operationId: doubleclicksearch.conversion.get
+      description: Retrieves a list of conversions from a DoubleClick Search engine account.
       parameters:
-        - description: Numeric ID of the agency.
+        - name: agencyId
           in: path
-          name: agencyId
-          required: true
           schema:
+            format: int64
             type: string
-        - description: Numeric ID of the advertiser.
+          description: Numeric ID of the agency.
+          required: true
+        - name: advertiserId
           in: path
-          name: advertiserId
-          required: true
           schema:
+            format: int64
             type: string
-        - description: Numeric ID of the engine account.
+          description: Numeric ID of the advertiser.
+          required: true
+        - name: engineAccountId
           in: path
-          name: engineAccountId
-          required: true
           schema:
+            format: int64
             type: string
-        - description: Last date (inclusive) on which to retrieve conversions. Format is yyyymmdd.
+          description: Numeric ID of the engine account.
+          required: true
+        - name: adGroupId
           in: query
-          name: endDate
-          required: true
           schema:
+            format: int64
+            type: string
+          description: Numeric ID of the ad group.
+        - name: adId
+          in: query
+          schema:
+            format: int64
+            type: string
+          description: Numeric ID of the ad.
+        - name: campaignId
+          in: query
+          schema:
+            format: int64
+            type: string
+          description: Numeric ID of the campaign.
+        - name: criterionId
+          in: query
+          schema:
+            format: int64
+            type: string
+          description: Numeric ID of the criterion.
+        - name: customerId
+          in: query
+          schema:
+            type: string
+          description: Customer ID of a client account in the new Search Ads 360 experience.
+        - name: endDate
+          in: query
+          schema:
+            format: int32
             maximum: 99991231
             minimum: 20091101
             type: integer
-        - description: The number of conversions to return per call.
-          in: query
-          name: rowCount
+          description: Last date (inclusive) on which to retrieve conversions. Format is yyyymmdd.
           required: true
+        - name: rowCount
+          in: query
           schema:
+            format: int32
             maximum: 1000
             minimum: 1
             type: integer
-        - description: First date (inclusive) on which to retrieve conversions. Format is yyyymmdd.
-          in: query
-          name: startDate
+          description: The number of conversions to return per call.
           required: true
+        - name: startDate
+          in: query
           schema:
+            format: int32
             maximum: 99991231
             minimum: 20091101
             type: integer
-        - description: The 0-based starting index for retrieving conversions results.
-          in: query
-          name: startRow
+          description: First date (inclusive) on which to retrieve conversions. Format is yyyymmdd.
           required: true
+        - name: startRow
+          in: query
           schema:
+            format: uint32
             type: integer
-        - description: Numeric ID of the ad group.
-          in: query
-          name: adGroupId
-          schema:
-            type: string
-        - description: Numeric ID of the ad.
-          in: query
-          name: adId
-          schema:
-            type: string
-        - description: Numeric ID of the campaign.
-          in: query
-          name: campaignId
-          schema:
-            type: string
-        - description: Numeric ID of the criterion.
-          in: query
-          name: criterionId
-          schema:
-            type: string
-        - description: Customer ID of a client account in the new Search Ads 360 experience.
-          in: query
-          name: customerId
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ConversionList"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
-            - https://www.googleapis.com/auth/doubleclicksearch
+          description: The 0-based starting index for retrieving conversions results.
+          required: true
       tags:
         - conversion
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/idmapping:
-    get:
-      description: Downloads a csv file(encoded in UTF-8) that contains ID mappings between legacy SA360 and new SA360. The file includes all children entities of the given advertiser(e.g. engine accounts, campaigns, ad groups, etc.) that exist in both legacy SA360 and new SA360.
-      operationId: doubleclicksearch.reports.getIdMappingFile
-      parameters:
-        - description: Legacy SA360 agency ID.
-          in: path
-          name: agencyId
-          required: true
-          schema:
-            type: string
-        - description: Legacy SA360 advertiser ID.
-          in: path
-          name: advertiserId
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/IdMappingFile"
-          description: Successful response
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/doubleclicksearch
-      tags:
-        - reports
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/savedcolumns:
-    get:
-      description: Retrieve the list of saved columns for a specified advertiser.
-      operationId: doubleclicksearch.savedColumns.list
-      parameters:
-        - description: DS ID of the agency.
-          in: path
-          name: agencyId
-          required: true
-          schema:
-            type: string
-        - description: DS ID of the advertiser.
-          in: path
-          name: advertiserId
-          required: true
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SavedColumnList"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
-            - https://www.googleapis.com/auth/doubleclicksearch
-      tags:
-        - savedColumns
+                $ref: '#/components/schemas/ConversionList'
+      x-google-discovery:
+        path: doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/engine/{engineAccountId}/conversion
+        flatPath: doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/engine/{engineAccountId}/conversion
+        parameterOrder:
+          - agencyId
+          - advertiserId
+          - engineAccountId
+          - endDate
+          - rowCount
+          - startDate
+          - startRow
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /doubleclicksearch/v2/conversion:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Inserts a batch of new conversions into DoubleClick Search.
-      operationId: doubleclicksearch.conversion.insert
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ConversionList"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ConversionList"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
-            - https://www.googleapis.com/auth/doubleclicksearch
-      tags:
-        - conversion
-    put:
-      description: Updates a batch of conversions in DoubleClick Search.
-      operationId: doubleclicksearch.conversion.update
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ConversionList"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ConversionList"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
-            - https://www.googleapis.com/auth/doubleclicksearch
-      tags:
-        - conversion
-  /doubleclicksearch/v2/conversion/updateAvailability:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Updates the availabilities of a batch of floodlight activities in DoubleClick Search.
-      operationId: doubleclicksearch.conversion.updateAvailability
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateAvailabilityRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UpdateAvailabilityResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
-            - https://www.googleapis.com/auth/doubleclicksearch
-      tags:
-        - conversion
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /doubleclicksearch/v2/customer/{customerId}/conversion:
     get:
-      description: Retrieves a list of conversions from a DoubleClick Search engine account.
       operationId: doubleclicksearch.conversion.getByCustomerId
+      description: Retrieves a list of conversions from a DoubleClick Search engine account.
       parameters:
-        - description: Customer ID of a client account in the new Search Ads 360 experience.
+        - name: customerId
           in: path
-          name: customerId
-          required: true
           schema:
             type: string
-        - description: Last date (inclusive) on which to retrieve conversions. Format is yyyymmdd.
-          in: query
-          name: endDate
+          description: Customer ID of a client account in the new Search Ads 360 experience.
           required: true
+        - name: adGroupId
+          in: query
           schema:
+            format: int64
+            type: string
+          description: Numeric ID of the ad group.
+        - name: adId
+          in: query
+          schema:
+            format: int64
+            type: string
+          description: Numeric ID of the ad.
+        - name: advertiserId
+          in: query
+          schema:
+            format: int64
+            type: string
+          description: Numeric ID of the advertiser.
+        - name: agencyId
+          in: query
+          schema:
+            format: int64
+            type: string
+          description: Numeric ID of the agency.
+        - name: campaignId
+          in: query
+          schema:
+            format: int64
+            type: string
+          description: Numeric ID of the campaign.
+        - name: criterionId
+          in: query
+          schema:
+            format: int64
+            type: string
+          description: Numeric ID of the criterion.
+        - name: endDate
+          in: query
+          schema:
+            format: int32
             maximum: 99991231
             minimum: 20091101
             type: integer
-        - description: The number of conversions to return per call.
-          in: query
-          name: rowCount
+          description: Last date (inclusive) on which to retrieve conversions. Format is yyyymmdd.
           required: true
+        - name: engineAccountId
+          in: query
           schema:
+            format: int64
+            type: string
+          description: Numeric ID of the engine account.
+        - name: rowCount
+          in: query
+          schema:
+            format: int32
             maximum: 1000
             minimum: 1
             type: integer
-        - description: First date (inclusive) on which to retrieve conversions. Format is yyyymmdd.
-          in: query
-          name: startDate
+          description: The number of conversions to return per call.
           required: true
+        - name: startDate
+          in: query
           schema:
+            format: int32
             maximum: 99991231
             minimum: 20091101
             type: integer
-        - description: The 0-based starting index for retrieving conversions results.
-          in: query
-          name: startRow
+          description: First date (inclusive) on which to retrieve conversions. Format is yyyymmdd.
           required: true
+        - name: startRow
+          in: query
           schema:
+            format: uint32
             type: integer
-        - description: Numeric ID of the ad group.
-          in: query
-          name: adGroupId
-          schema:
-            type: string
-        - description: Numeric ID of the ad.
-          in: query
-          name: adId
-          schema:
-            type: string
-        - description: Numeric ID of the advertiser.
-          in: query
-          name: advertiserId
-          schema:
-            type: string
-        - description: Numeric ID of the agency.
-          in: query
-          name: agencyId
-          schema:
-            type: string
-        - description: Numeric ID of the campaign.
-          in: query
-          name: campaignId
-          schema:
-            type: string
-        - description: Numeric ID of the criterion.
-          in: query
-          name: criterionId
-          schema:
-            type: string
-        - description: Numeric ID of the engine account.
-          in: query
-          name: engineAccountId
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ConversionList"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
-            - https://www.googleapis.com/auth/doubleclicksearch
+          description: The 0-based starting index for retrieving conversions results.
+          required: true
       tags:
         - conversion
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/doubleclicksearch
+        - Oauth2c:
+            - https://www.googleapis.com/auth/doubleclicksearch
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionList'
+      x-google-discovery:
+        path: doubleclicksearch/v2/customer/{customerId}/conversion
+        flatPath: doubleclicksearch/v2/customer/{customerId}/conversion
+        parameterOrder:
+          - customerId
+          - endDate
+          - rowCount
+          - startDate
+          - startRow
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /doubleclicksearch/v2/reports:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /doubleclicksearch/v2/conversion:
     post:
-      description: Inserts a report request into the reporting system.
-      operationId: doubleclicksearch.reports.request
+      operationId: doubleclicksearch.conversion.insert
+      description: Inserts a batch of new conversions into DoubleClick Search.
+      tags:
+        - conversion
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/doubleclicksearch
+        - Oauth2c:
+            - https://www.googleapis.com/auth/doubleclicksearch
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReportRequest"
+              $ref: '#/components/schemas/ConversionList'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Report"
-          description: Successful response
+                $ref: '#/components/schemas/ConversionList'
+      x-google-discovery:
+        path: doubleclicksearch/v2/conversion
+        flatPath: doubleclicksearch/v2/conversion
+        parameterOrder: []
+    put:
+      operationId: doubleclicksearch.conversion.update
+      description: Updates a batch of conversions in DoubleClick Search.
+      tags:
+        - conversion
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/doubleclicksearch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversionList'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionList'
+      x-google-discovery:
+        path: doubleclicksearch/v2/conversion
+        flatPath: doubleclicksearch/v2/conversion
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /doubleclicksearch/v2/conversion/updateAvailability:
+    post:
+      operationId: doubleclicksearch.conversion.updateAvailability
+      description: Updates the availabilities of a batch of floodlight activities in DoubleClick Search.
       tags:
-        - reports
+        - conversion
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/doubleclicksearch
+        - Oauth2c:
+            - https://www.googleapis.com/auth/doubleclicksearch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAvailabilityRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAvailabilityResponse'
+      x-google-discovery:
+        path: doubleclicksearch/v2/conversion/updateAvailability
+        flatPath: doubleclicksearch/v2/conversion/updateAvailability
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /doubleclicksearch/v2/reports/generate:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
     post:
-      description: Generates and returns a report immediately.
       operationId: doubleclicksearch.reports.generate
+      description: Generates and returns a report immediately.
+      tags:
+        - reports
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/doubleclicksearch
+        - Oauth2c:
+            - https://www.googleapis.com/auth/doubleclicksearch
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReportRequest"
+              $ref: '#/components/schemas/ReportRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Report"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
-            - https://www.googleapis.com/auth/doubleclicksearch
-      tags:
-        - reports
+                $ref: '#/components/schemas/Report'
+      x-google-discovery:
+        path: doubleclicksearch/v2/reports/generate
+        flatPath: doubleclicksearch/v2/reports/generate
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /doubleclicksearch/v2/reports/{reportId}:
     get:
-      description: Polls for the status of a report request.
       operationId: doubleclicksearch.reports.get
+      description: Polls for the status of a report request.
       parameters:
-        - description: ID of the report request being polled.
+        - name: reportId
           in: path
-          name: reportId
-          required: true
           schema:
             type: string
+          description: ID of the report request being polled.
+          required: true
+      tags:
+        - reports
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/doubleclicksearch
+        - Oauth2c:
+            - https://www.googleapis.com/auth/doubleclicksearch
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Report"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
-            - https://www.googleapis.com/auth/doubleclicksearch
-      tags:
-        - reports
+                $ref: '#/components/schemas/Report'
+      x-google-discovery:
+        path: doubleclicksearch/v2/reports/{reportId}
+        flatPath: doubleclicksearch/v2/reports/{reportId}
+        parameterOrder:
+          - reportId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /doubleclicksearch/v2/reports/{reportId}/files/{reportFragment}:
     get:
-      description: Downloads a report file encoded in UTF-8.
       operationId: doubleclicksearch.reports.getFile
+      description: Downloads a report file encoded in UTF-8.
       parameters:
-        - description: ID of the report.
+        - name: reportId
           in: path
-          name: reportId
-          required: true
           schema:
             type: string
-        - description: The index of the report fragment to download.
-          in: path
-          name: reportFragment
+          description: ID of the report.
           required: true
+        - name: reportFragment
+          in: path
           schema:
+            format: int32
             minimum: 0
             type: integer
-      responses:
-        "200":
-          description: Successful response
+          description: The index of the report fragment to download.
+          required: true
+      tags:
+        - reports
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/doubleclicksearch
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/doubleclicksearch
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+      x-google-discovery:
+        path: doubleclicksearch/v2/reports/{reportId}/files/{reportFragment}
+        flatPath: doubleclicksearch/v2/reports/{reportId}/files/{reportFragment}
+        supportsMediaDownload: true
+        useMediaDownloadService: true
+        parameterOrder:
+          - reportId
+          - reportFragment
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/idmapping:
+    get:
+      operationId: doubleclicksearch.reports.getIdMappingFile
+      description: Downloads a csv file(encoded in UTF-8) that contains ID mappings between legacy SA360 and new SA360. The file includes all children entities of the given advertiser(e.g. engine accounts, campaigns, ad groups, etc.) that exist in both legacy SA360 and new SA360.
+      parameters:
+        - name: agencyId
+          in: path
+          schema:
+            format: int64
+            type: string
+          description: Legacy SA360 agency ID.
+          required: true
+        - name: advertiserId
+          in: path
+          schema:
+            format: int64
+            type: string
+          description: Legacy SA360 advertiser ID.
+          required: true
       tags:
         - reports
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/doubleclicksearch
+        - Oauth2c:
+            - https://www.googleapis.com/auth/doubleclicksearch
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdMappingFile'
+            '*/*':
+              schema:
+                type: string
+                format: binary
+      x-google-discovery:
+        path: doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/idmapping
+        flatPath: doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/idmapping
+        supportsMediaDownload: true
+        useMediaDownloadService: true
+        parameterOrder:
+          - agencyId
+          - advertiserId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /doubleclicksearch/v2/reports:
+    post:
+      operationId: doubleclicksearch.reports.request
+      description: Inserts a report request into the reporting system.
+      tags:
+        - reports
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/doubleclicksearch
+        - Oauth2c:
+            - https://www.googleapis.com/auth/doubleclicksearch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+      x-google-discovery:
+        path: doubleclicksearch/v2/reports
+        flatPath: doubleclicksearch/v2/reports
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/savedcolumns:
+    get:
+      operationId: doubleclicksearch.savedColumns.list
+      description: Retrieve the list of saved columns for a specified advertiser.
+      parameters:
+        - name: agencyId
+          in: path
+          schema:
+            format: int64
+            type: string
+          description: DS ID of the agency.
+          required: true
+        - name: advertiserId
+          in: path
+          schema:
+            format: int64
+            type: string
+          description: DS ID of the advertiser.
+          required: true
+      tags:
+        - savedColumns
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/doubleclicksearch
+        - Oauth2c:
+            - https://www.googleapis.com/auth/doubleclicksearch
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedColumnList'
+      x-google-discovery:
+        path: doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/savedcolumns
+        flatPath: doubleclicksearch/v2/agency/{agencyId}/advertiser/{advertiserId}/savedcolumns
+        parameterOrder:
+          - agencyId
+          - advertiserId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Availability:
       description: A message containing availability data relevant to DoubleClick Search.
+      x-google-discovery-id: Availability
       properties:
         advertiserId:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.conversion.updateAvailability
           description: DS advertiser ID.
           format: int64
           type: string
         agencyId:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.conversion.updateAvailability
           description: DS agency ID.
           format: int64
           type: string
         availabilityTimestamp:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.conversion.updateAvailability
           description: The time by which all conversions have been uploaded, in epoch millis UTC.
           format: int64
           type: string
@@ -666,11 +710,15 @@ components:
           description: The friendly segmentation identifier (for example, DoubleClick Search Floodlight activity name).
           type: string
         segmentationType:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.conversion.updateAvailability
           description: The segmentation type that this availability is for (its default value is `FLOODLIGHT`).
           type: string
       type: object
     Conversion:
-      description: A conversion containing data relevant to DoubleClick Search.
+      description: 'A conversion containing data relevant to DoubleClick Search. Common DS3 API conversion fields: Id Range [1 - 2800]. Next Id to use: 33'
+      x-google-discovery-id: Conversion
       properties:
         adGroupId:
           description: DS ad group ID.
@@ -681,11 +729,15 @@ components:
           format: int64
           type: string
         adUserDataConsent:
-          description: "Represents consent for core platform services (CPS) preferences in settings. No default value. Acceptable values are: GRANTED: The desired consent status is to grant. Read the CPS preferences from GTE settings. DENIED: The desired consent status is to deny; CPS list is empty."
+          description: 'Represents consent for core platform services (CPS) preferences in settings. No default value. Acceptable values are: GRANTED: The desired consent status is to grant. Read the CPS preferences from GTE settings. DENIED: The desired consent status is to deny; CPS list is empty.'
           enum:
             - UNKNOWN
             - GRANTED
             - DENIED
+          x-google-enum-descriptions:
+            - Not specified.
+            - Granted.
+            - Denied.
           type: string
         advertiserId:
           description: DS advertiser ID.
@@ -709,6 +761,9 @@ components:
           description: DS click ID for the conversion.
           type: string
         conversionId:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.conversion.insert
           description: For offline conversions, advertisers provide this ID. Advertisers can specify any ID that is meaningful to them. Each conversion in a request must specify a unique ID, and the combination of ID and timestamp must be unique amongst all conversions within the advertiser. For online conversions, DS copies the `dsConversionId` or `floodlightOrderId` into this property depending on the advertiser's Floodlight instructions.
           type: string
         conversionModifiedTimestamp:
@@ -716,6 +771,9 @@ components:
           format: int64
           type: string
         conversionTimestamp:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.conversion.insert
           description: The time at which the conversion took place, in epoch millis UTC.
           type: string
         countMillis:
@@ -732,12 +790,12 @@ components:
         customDimension:
           description: Custom dimensions for the conversion, which can be used to filter data in a report.
           items:
-            $ref: "#/components/schemas/CustomDimension"
+            $ref: '#/components/schemas/CustomDimension'
           type: array
         customMetric:
           description: Custom metrics for the conversion.
           items:
-            $ref: "#/components/schemas/CustomMetric"
+            $ref: '#/components/schemas/CustomMetric'
           type: array
         customerId:
           description: Customer ID of a client account in the new Search Ads 360 experience.
@@ -788,10 +846,13 @@ components:
           description: The friendly segmentation identifier (for example, DoubleClick Search Floodlight activity name).
           type: string
         segmentationType:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.conversion.insert
           description: The segmentation type of this conversion (for example, `FLOODLIGHT`).
           type: string
         state:
-          description: "The state of the conversion, that is, either `ACTIVE` or `REMOVED`. Note: state DELETED is deprecated."
+          description: 'The state of the conversion, that is, either `ACTIVE` or `REMOVED`. Note: state DELETED is deprecated.'
           type: string
         storeId:
           description: The ID of the local store for which the product was advertised. Applicable only when the channel is "`local`".
@@ -802,18 +863,20 @@ components:
       type: object
     ConversionList:
       description: A list of conversions.
+      x-google-discovery-id: ConversionList
       properties:
         conversion:
           description: The conversions being requested.
           items:
-            $ref: "#/components/schemas/Conversion"
+            $ref: '#/components/schemas/Conversion'
           type: array
         kind:
-          description: "Identifies this as a ConversionList resource. Value: the fixed string doubleclicksearch#conversionList."
+          description: 'Identifies this as a ConversionList resource. Value: the fixed string doubleclicksearch#conversionList.'
           type: string
       type: object
     CustomDimension:
       description: A message containing the custom dimension.
+      x-google-discovery-id: CustomDimension
       properties:
         name:
           description: Custom dimension name.
@@ -824,6 +887,7 @@ components:
       type: object
     CustomMetric:
       description: A message containing the custom metric.
+      x-google-discovery-id: CustomMetric
       properties:
         name:
           description: Custom metric name.
@@ -835,10 +899,12 @@ components:
       type: object
     IdMappingFile:
       description: File returned to https://developers.google.com/search-ads/v2/reference/reports/getIdMappingFile.
+      x-google-discovery-id: IdMappingFile
       properties: {}
       type: object
     Report:
       description: A DoubleClick Search report. This object contains the report request, some report metadata such as currency code, and the generated report rows or report files.
+      x-google-discovery-id: Report
       properties:
         files:
           description: Asynchronous report only. Contains a list of generated report files once the report has successfully completed.
@@ -860,11 +926,12 @@ components:
           description: Asynchronous report only. True if and only if the report has completed successfully and the report files are ready to be downloaded.
           type: boolean
         kind:
-          description: "Identifies this as a Report resource. Value: the fixed string `doubleclicksearch#report`."
+          description: 'Identifies this as a Report resource. Value: the fixed string `doubleclicksearch#report`.'
           type: string
         request:
-          $ref: "#/components/schemas/ReportRequest"
           description: The request that created the report. Optional fields not specified in the original request are filled with default values.
+          allOf:
+            - $ref: '#/components/schemas/ReportRequest'
         rowCount:
           description: The number of report rows generated by the report, not including headers.
           format: int32
@@ -872,7 +939,7 @@ components:
         rows:
           description: Synchronous report only. Generated report rows.
           items:
-            $ref: "#/components/schemas/ReportRow"
+            $ref: '#/components/schemas/ReportRow'
           type: array
         statisticsCurrencyCode:
           description: The currency code of all monetary values produced in the report, including values that are set by users (e.g., keyword bid settings) and metrics (e.g., cost and revenue). The currency code of a report is determined by the `statisticsCurrency` field of the report request.
@@ -883,6 +950,7 @@ components:
       type: object
     ReportApiColumnSpec:
       description: A request object used to create a DoubleClick Search report.
+      x-google-discovery-id: ReportApiColumnSpec
       properties:
         columnName:
           description: Name of a DoubleClick Search column to include in the report.
@@ -917,13 +985,17 @@ components:
       type: object
     ReportRequest:
       description: A request object used to create a DoubleClick Search report.
+      x-google-discovery-id: ReportRequest
       properties:
         columns:
           description: The columns to include in the report. This includes both DoubleClick Search columns and saved columns. For DoubleClick Search columns, only the `columnName` parameter is required. For saved columns only the `savedColumnName` parameter is required. Both `columnName` and `savedColumnName` cannot be set in the same stanza.\ The maximum number of columns per request is 300.
           items:
-            $ref: "#/components/schemas/ReportApiColumnSpec"
+            $ref: '#/components/schemas/ReportApiColumnSpec'
           type: array
         downloadFormat:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.reports.request
           description: Format that the report should be returned in. Currently `csv` or `tsv` is supported.
           type: string
         filters:
@@ -931,14 +1003,16 @@ components:
           items:
             properties:
               column:
-                $ref: "#/components/schemas/ReportApiColumnSpec"
                 description: Column to perform the filter on. This can be a DoubleClick Search column or a saved column.
+                allOf:
+                  - $ref: '#/components/schemas/ReportApiColumnSpec'
               operator:
                 description: Operator to use in the filter. See the filter reference for a list of available operators.
                 type: string
               values:
                 description: A list of values to filter the column value against.\ The maximum number of filter values per request is 300.
-                items: {}
+                items:
+                  x-google-discovery-type: any
                 type: array
             type: object
           type: array
@@ -949,6 +1023,9 @@ components:
           description: Determines if removed entities should be included in the report. Defaults to `false`.
           type: boolean
         maxRowsPerFile:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.reports.request
           description: Asynchronous report only. The maximum number of rows per report file. A large report is split into many files based on this field. Acceptable values are `1000000` to `100000000`, inclusive.
           format: int32
           type: integer
@@ -957,8 +1034,9 @@ components:
           items:
             properties:
               column:
-                $ref: "#/components/schemas/ReportApiColumnSpec"
                 description: Column to perform the sort on. This can be a DoubleClick Search-defined column or a saved column.
+                allOf:
+                  - $ref: '#/components/schemas/ReportApiColumnSpec'
               sortOrder:
                 description: The sort direction, which is either `ascending` or `descending`.
                 type: string
@@ -997,18 +1075,32 @@ components:
               type: string
           type: object
         reportType:
-          description: "Determines the type of rows that are returned in the report. For example, if you specify `reportType: keyword`, each row in the report will contain data about a keyword. See the [Types of Reports](/search-ads/v2/report-types/) reference for the columns that are available for each type."
+          x-google-annotations:
+            required:
+              - doubleclicksearch.reports.generate
+              - doubleclicksearch.reports.request
+          description: 'Determines the type of rows that are returned in the report. For example, if you specify `reportType: keyword`, each row in the report will contain data about a keyword. See the [Types of Reports](/search-ads/v2/report-types/) reference for the columns that are available for each type.'
           type: string
         rowCount:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.reports.generate
           description: Synchronous report only. The maximum number of rows to return; additional rows are dropped. Acceptable values are `0` to `10000`, inclusive. Defaults to `10000`.
           format: int32
           type: integer
         startRow:
+          x-google-annotations:
+            required:
+              - doubleclicksearch.reports.generate
           description: Synchronous report only. Zero-based index of the first row to return. Acceptable values are `0` to `50000`, inclusive. Defaults to `0`.
           format: int32
           type: integer
         statisticsCurrency:
-          description: "Specifies the currency in which monetary will be returned. Possible values are: `usd`, `agency` (valid if the report is scoped to agency or lower), `advertiser` (valid if the report is scoped to * advertiser or lower), or `account` (valid if the report is scoped to engine account or lower)."
+          x-google-annotations:
+            required:
+              - doubleclicksearch.reports.generate
+              - doubleclicksearch.reports.request
+          description: 'Specifies the currency in which monetary will be returned. Possible values are: `usd`, `agency` (valid if the report is scoped to agency or lower), `advertiser` (valid if the report is scoped to * advertiser or lower), or `account` (valid if the report is scoped to engine account or lower).'
           type: string
         timeRange:
           description: If metrics are requested in a report, this argument will be used to restrict the metrics to a specific time range.
@@ -1033,13 +1125,16 @@ components:
     ReportRow:
       additionalProperties:
         description: Indicates the columns that are represented in this row. That is, each key corresponds to a column with a non-empty cell in this row.
+        x-google-discovery-type: any
       description: A row in a DoubleClick Search report.
+      x-google-discovery-id: ReportRow
       type: object
     SavedColumn:
       description: A saved column
+      x-google-discovery-id: SavedColumn
       properties:
         kind:
-          description: "Identifies this as a SavedColumn resource. Value: the fixed string doubleclicksearch#savedColumn."
+          description: 'Identifies this as a SavedColumn resource. Value: the fixed string doubleclicksearch#savedColumn.'
           type: string
         savedColumnName:
           description: The name of the saved column.
@@ -1050,49 +1145,154 @@ components:
       type: object
     SavedColumnList:
       description: A list of saved columns. Advertisers create saved columns to report on Floodlight activities, Google Analytics goals, or custom KPIs. To request reports with saved columns, you'll need the saved column names that are available from this list.
+      x-google-discovery-id: SavedColumnList
       properties:
         items:
           description: The saved columns being requested.
           items:
-            $ref: "#/components/schemas/SavedColumn"
+            $ref: '#/components/schemas/SavedColumn'
           type: array
         kind:
-          description: "Identifies this as a SavedColumnList resource. Value: the fixed string doubleclicksearch#savedColumnList."
+          description: 'Identifies this as a SavedColumnList resource. Value: the fixed string doubleclicksearch#savedColumnList.'
           type: string
       type: object
     UpdateAvailabilityRequest:
       description: The request to update availability.
+      x-google-discovery-id: UpdateAvailabilityRequest
       properties:
         availabilities:
           description: The availabilities being requested.
           items:
-            $ref: "#/components/schemas/Availability"
+            $ref: '#/components/schemas/Availability'
           type: array
       type: object
     UpdateAvailabilityResponse:
       description: The response to a update availability request.
+      x-google-discovery-id: UpdateAvailabilityResponse
       properties:
         availabilities:
           description: The availabilities being returned.
           items:
-            $ref: "#/components/schemas/Availability"
+            $ref: '#/components/schemas/Availability'
           type: array
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/doubleclicksearch: View and manage your advertising data in DoubleClick Search
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/doubleclicksearch: View and manage your advertising data in DoubleClick Search
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/search-ads
+tags:
+  - name: conversion
+  - name: reports
+  - name: savedColumns
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://doubleclicksearch.googleapis.com/
+  batchPath: batch
+  canonicalName: Doubleclicksearch
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: doubleclicksearch:v2
+  kind: discovery#restDescription
+  mtlsRootUrl: https://doubleclicksearch.mtls.googleapis.com/
+  name: doubleclicksearch
+  revision: '20250430'
+  rootUrl: https://doubleclicksearch.googleapis.com/
+  servicePath: ''

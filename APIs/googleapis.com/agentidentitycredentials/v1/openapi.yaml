@@ -1,0 +1,395 @@
+openapi: 3.0.3
+info:
+  title: Agent Identity Credentials API
+  version: v1
+  description: The Agent Identity Credentials API retrieves and finalizes authorization credentials for auth providers.
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/agentidentitycredentials.v1.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/agentidentitycredentials.v1.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260813; original source SHA-256 ae393f34b099a78e48ab54b8fc218401dd52d3eac053300d3ef54547def35545.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://agentidentitycredentials.googleapis.com
+paths:
+  /v1/projects/{projectsId}/locations/{locationsId}/authProviders/{authProvidersId}/credentials:finalize:
+    post:
+      operationId: agentidentitycredentials.projects.locations.authProviders.credentials.finalize
+      description: Finalizes the credentials after a successful consent flow.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `authProvider` resource name. Required. The resource name of the auth provider. Format: `projects/{project}/locations/{location}/authProviders/{auth_provider}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `authProvider` resource name. Required. The resource name of the auth provider. Format: `projects/{project}/locations/{location}/authProviders/{auth_provider}`'
+          schema:
+            type: string
+        - name: authProvidersId
+          in: path
+          required: true
+          description: 'Component of the original `authProvider` resource name. Required. The resource name of the auth provider. Format: `projects/{project}/locations/{location}/authProviders/{auth_provider}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudAgentidentitycredentialsV1_FinalizeCredentialsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudAgentidentitycredentialsV1_FinalizeCredentialsResponse'
+      x-google-discovery:
+        path: v1/{+authProvider}/credentials:finalize
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/authProviders/{authProvidersId}/credentials:finalize
+        resourceNameBindings:
+          projectsId: authProvider
+          locationsId: authProvider
+          authProvidersId: authProvider
+        resourceNameParameters:
+          authProvider:
+            description: 'Required. The resource name of the auth provider. Format: `projects/{project}/locations/{location}/authProviders/{auth_provider}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/authProviders/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - authProvider
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/projects/{projectsId}/locations/{locationsId}/authProviders/{authProvidersId}/credentials:retrieve:
+    post:
+      operationId: agentidentitycredentials.projects.locations.authProviders.credentials.retrieve
+      description: Retrieves authorization credentials for an auth provider, or indicates what action needs to be taken to obtain credentials. If the `token` field in the response is populated, credential retrieval was successful. If one of the fields in the `result` oneof is populated, further action is required to obtain credentials, such as redirecting the user for consent. View comments on `RetrieveCredentialsResponse` for more information.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `authProvider` resource name. Required. The resource name of the auth provider. Format: `projects/{project}/locations/{location}/authProviders/{auth_provider}`'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `authProvider` resource name. Required. The resource name of the auth provider. Format: `projects/{project}/locations/{location}/authProviders/{auth_provider}`'
+          schema:
+            type: string
+        - name: authProvidersId
+          in: path
+          required: true
+          description: 'Component of the original `authProvider` resource name. Required. The resource name of the auth provider. Format: `projects/{project}/locations/{location}/authProviders/{auth_provider}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleCloudAgentidentitycredentialsV1_RetrieveCredentialsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudAgentidentitycredentialsV1_RetrieveCredentialsResponse'
+      x-google-discovery:
+        path: v1/{+authProvider}/credentials:retrieve
+        flatPath: v1/projects/{projectsId}/locations/{locationsId}/authProviders/{authProvidersId}/credentials:retrieve
+        resourceNameBindings:
+          projectsId: authProvider
+          locationsId: authProvider
+          authProvidersId: authProvider
+        resourceNameParameters:
+          authProvider:
+            description: 'Required. The resource name of the auth provider. Format: `projects/{project}/locations/{location}/authProviders/{auth_provider}`'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/authProviders/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - authProvider
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    GoogleCloudAgentidentitycredentialsV1_ConsentRejected:
+      description: Indicates the user has rejected the permission delegation or canceled the request.
+      x-google-discovery-id: GoogleCloudAgentidentitycredentialsV1_ConsentRejected
+      properties: {}
+      type: object
+    GoogleCloudAgentidentitycredentialsV1_FinalizeCredentialsRequest:
+      description: Request message for `FinalizeCredentials`.
+      x-google-discovery-id: GoogleCloudAgentidentitycredentialsV1_FinalizeCredentialsRequest
+      properties:
+        consentNonce:
+          description: Required. The same `consent_nonce` value that was provided during retrieval in the [UriConsentRequired](https://cloud.google.com/iam/docs/reference/agentidentitycredentials/rest/v1/projects.locations.authProviders.credentials/retrieve#UriConsentRequired) metadata.
+          type: string
+        userId:
+          description: Required. The identity of the end user.
+          type: string
+        userIdValidationState:
+          description: Required. The encrypted state passed back from the consent flow.
+          format: byte
+          type: string
+      type: object
+    GoogleCloudAgentidentitycredentialsV1_FinalizeCredentialsResponse:
+      description: Response message for `FinalizeCredentials`. Intentionally empty.
+      x-google-discovery-id: GoogleCloudAgentidentitycredentialsV1_FinalizeCredentialsResponse
+      properties: {}
+      type: object
+    GoogleCloudAgentidentitycredentialsV1_Pending:
+      description: Indicates that the credential retrieval is pending. The caller should retry the `RetrieveCredentials` request after some time.
+      x-google-discovery-id: GoogleCloudAgentidentitycredentialsV1_Pending
+      properties: {}
+      type: object
+    GoogleCloudAgentidentitycredentialsV1_RetrieveCredentialsRequest:
+      description: Request message for `RetrieveCredentials`.
+      x-google-discovery-id: GoogleCloudAgentidentitycredentialsV1_RetrieveCredentialsRequest
+      properties:
+        continueUri:
+          description: Optional. The URI to redirect the user to after consent is completed. This field is required for auth providers using the 3-legged OAuth flow. For other auth provider types, this field is unused but not rejected.
+          type: string
+        forceRefreshToken:
+          description: Optional. Input only. Set this field only if the previous token was expired or invalid. This value must be the full, previously returned token string. Setting this field triggers a refresh of the access token with a stored refresh token, if possible, or a new consent flow.
+          type: string
+        scopes:
+          description: Optional. The OAuth scopes required for this access.
+          items:
+            type: string
+          type: array
+        userId:
+          description: Required. The identity of the end user.
+          type: string
+      type: object
+    GoogleCloudAgentidentitycredentialsV1_RetrieveCredentialsResponse:
+      description: Response message for `RetrieveCredentials`. Contains the access tokens and related artifacts.
+      x-google-discovery-id: GoogleCloudAgentidentitycredentialsV1_RetrieveCredentialsResponse
+      properties:
+        consentRejected:
+          description: Message indicating consent was rejected.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudAgentidentitycredentialsV1_ConsentRejected'
+        pending:
+          description: Message indicating credential retrieval is pending.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudAgentidentitycredentialsV1_Pending'
+        success:
+          description: Message indicating credentials were successfully retrieved.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudAgentidentitycredentialsV1_Success'
+        uriConsentRequired:
+          description: Message indicating URI-based consent is required.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudAgentidentitycredentialsV1_UriConsentRequired'
+      type: object
+    GoogleCloudAgentidentitycredentialsV1_Success:
+      description: Message indicating successful retrieval of credentials.
+      x-google-discovery-id: GoogleCloudAgentidentitycredentialsV1_Success
+      properties:
+        expireTime:
+          description: The expiration time of the token. This does not guarantee that the token will be valid until this time, since the token could be revoked earlier. There could also be clock skew between the auth provider and the client so it may expire slightly earlier. If not set, the token might be permanent or it may be that the service does not (or cannot) know when it will expire.
+          format: google-datetime
+          type: string
+        header:
+          description: The HTTP header name where the token should be placed.
+          type: string
+        scopes:
+          description: The scopes actually associated with the retrieved token. End users may have rejected some requested scopes, or the third-party authorization servers can return a different set of scopes than what was asked for. Callers should verify that all required scopes for their intended use are included in this list.
+          items:
+            type: string
+          type: array
+        token:
+          description: The retrieved access token or credential for the end user. On an MCP tool call, for an invalid token the OAuth spec states that this should return `401` or `403`, but MCP servers may implement this differently. If you get any flavor of `PERMISSION_DENIED`, retry your original request to `RetrieveCredentials` with force_refresh_token set to the expired/invalid token string, which will fetch a new token or initiate a new consent flow.
+          type: string
+      type: object
+    GoogleCloudAgentidentitycredentialsV1_UriConsentRequired:
+      description: Indicates that the user must visit the provided URI to consent to delegate permission to the agent to act on their behalf. The caller can either poll the `RetrieveCredentials` method, or await the /ValidateUserId callback.
+      x-google-discovery-id: GoogleCloudAgentidentitycredentialsV1_UriConsentRequired
+      properties:
+        authorizationUri:
+          description: Output only. The URL where the user should be redirected to grant consent. This will always be present.
+          readOnly: true
+          type: string
+        consentNonce:
+          description: Output only. A one-time, randomly generated value that validates the entire consent flow is handled by a single user, avoiding CSRF attacks. It must be submitted with the `FinalizeCredentials` request to complete the OAuth exchange. This will always be present. Implemented per [RFC 6819 Section 5.3.5](https://www.rfc-editor.org/rfc/rfc6819#section-5.3.5).
+          readOnly: true
+          type: string
+        uid:
+          description: Output only. The unique ID of the credentials retrieval operation.
+          readOnly: true
+          type: string
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
+externalDocs:
+  url: https://cloud.google.com/iam/docs/
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://agentidentitycredentials.googleapis.com/
+  batchPath: batch
+  canonicalName: Agent Identity Credentials
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: agentidentitycredentials:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://agentidentitycredentials.mtls.googleapis.com/
+  name: agentidentitycredentials
+  revision: '20260813'
+  rootUrl: https://agentidentitycredentials.googleapis.com/
+  servicePath: ''
+  version_module: true

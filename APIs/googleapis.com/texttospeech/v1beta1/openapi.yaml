@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://texttospeech.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -22,298 +20,335 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://texttospeech.googleapis.com/$discovery/rest?version=v1beta1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/texttospeech.v1beta1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/texttospeech.v1beta1.json
+      version: '3.0'
   x-preferred: true
   x-providerName: googleapis.com
   x-serviceName: texttospeech
-externalDocs:
-  url: https://cloud.google.com/text-to-speech/
-tags:
-  - name: projects
-  - name: text
-  - name: voices
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260320; original source SHA-256 c66bb8b0da48e51244139bda72078591914d69cceea55ce6f25c2c01b2c8b4b6.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://texttospeech.googleapis.com
 paths:
-  /v1beta1/text:synthesize:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+  /v1beta1/projects/{projectsId}/locations/{locationsId}:synthesizeLongAudio:
     post:
-      description: "Synthesizes speech synchronously: receive results after all text input has been processed."
-      operationId: texttospeech.text.synthesize
+      operationId: texttospeech.projects.locations.synthesizeLongAudio
+      description: Synthesizes long form text asynchronously.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. The resource states of the request in the form of `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. The resource states of the request in the form of `projects/*/locations/*`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SynthesizeSpeechRequest"
+              $ref: '#/components/schemas/SynthesizeLongAudioRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SynthesizeSpeechResponse"
-          description: Successful response
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta1/{+parent}:synthesizeLongAudio
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}:synthesizeLongAudio
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: The resource states of the request in the form of `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:
+    get:
+      operationId: texttospeech.projects.locations.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta1/{+name}
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta1/projects/{projectsId}/locations/{locationsId}/operations:
+    get:
+      operationId: texttospeech.projects.locations.operations.list
+      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The standard list filter.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The standard list page size.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The standard list page token.
+        - name: returnPartialSuccess
+          in: query
+          schema:
+            type: boolean
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the ListOperationsResponse.unreachable field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"`. This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1beta1/{+name}/operations
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}/operations
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation's parent resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta1/text:synthesize:
+    post:
+      operationId: texttospeech.text.synthesize
+      description: 'Synthesizes speech synchronously: receive results after all text input has been processed.'
       tags:
         - text
-  /v1beta1/voices:
-    get:
-      description: Returns a list of Voice supported for synthesis.
-      operationId: texttospeech.voices.list
-      parameters:
-        - description: Optional. Recommended. [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag. If not specified, the API will return all supported voices. If specified, the ListVoices call will only return voices that can be used to synthesize this language_code. For example, if you specify `"en-NZ"`, all `"en-NZ"` voices will be returned. If you specify `"no"`, both `"no-\*"` (Norwegian) and `"nb-\*"` (Norwegian Bokmal) voices will be returned.
-          in: query
-          name: languageCode
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListVoicesResponse"
-          description: Successful response
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - voices
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta1/{name}:
-    get:
-      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
-      operationId: texttospeech.projects.locations.operations.get
-      parameters:
-        - description: The name of the operation resource.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta1/{name}/operations:
-    get:
-      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
-      operationId: texttospeech.projects.locations.operations.list
-      parameters:
-        - description: The name of the operation's parent resource.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: The standard list filter.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: The standard list page size.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The standard list page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListOperationsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta1/{parent}:synthesizeLongAudio:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Synthesizes long form text asynchronously.
-      operationId: texttospeech.projects.locations.synthesizeLongAudio
-      parameters:
-        - description: The resource states of the request in the form of `projects/*/locations/*`.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SynthesizeLongAudioRequest"
+              $ref: '#/components/schemas/SynthesizeSpeechRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
+                $ref: '#/components/schemas/SynthesizeSpeechResponse'
+      x-google-discovery:
+        path: v1beta1/text:synthesize
+        flatPath: v1beta1/text:synthesize
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta1/voices:
+    get:
+      operationId: texttospeech.voices.list
+      description: Returns a list of Voice supported for synthesis.
+      parameters:
+        - name: languageCode
+          in: query
+          schema:
+            type: string
+          description: Optional. Recommended. [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag. If not specified, the API will return all supported voices. If specified, the ListVoices call will only return voices that can be used to synthesize this language_code. For example, if you specify `"en-NZ"`, all `"en-NZ"` voices will be returned. If you specify `"no"`, both `"no-\*"` (Norwegian) and `"nb-\*"` (Norwegian Bokmal) voices will be returned.
+      tags:
+        - voices
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVoicesResponse'
+      x-google-discovery:
+        path: v1beta1/voices
+        flatPath: v1beta1/voices
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
+    AdvancedVoiceOptions:
+      description: Used for advanced voice options.
+      x-google-discovery-id: AdvancedVoiceOptions
+      properties:
+        enableTextnorm:
+          description: Optional. If true, textnorm will be applied to text input. This feature is enabled by default. Only applies for Gemini TTS.
+          type: boolean
+        lowLatencyJourneySynthesis:
+          description: Only for Journey voices. If false, the synthesis is context aware and has a higher latency.
+          type: boolean
+        relaxSafetyFilters:
+          deprecated: true
+          description: Optional. Input only. Deprecated, use safety_settings instead. If true, relaxes safety filters for Gemini TTS.
+          type: boolean
+        safetySettings:
+          description: Optional. Input only. This applies to Gemini TTS only. If set, the category specified in the safety setting will be blocked if the harm probability is above the threshold. Otherwise, the safety filter will be disabled by default.
+          allOf:
+            - $ref: '#/components/schemas/SafetySettings'
+      type: object
     AudioConfig:
       description: Description of audio data to be synthesized.
+      x-google-discovery-id: AudioConfig
       properties:
         audioEncoding:
           description: Required. The format of the audio byte stream.
@@ -325,6 +360,18 @@ components:
             - OGG_OPUS
             - MULAW
             - ALAW
+            - PCM
+            - M4A
+          x-google-enum-descriptions:
+            - Not specified. Only used by GenerateVoiceCloningKey. Otherwise, will return result google.rpc.Code.INVALID_ARGUMENT.
+            - Uncompressed 16-bit signed little-endian samples (Linear PCM). Audio content returned as LINEAR16 also contains a WAV header.
+            - MP3 audio at 32kbps.
+            - MP3 at 64kbps.
+            - Opus encoded audio wrapped in an ogg container. The result is a file which can be played natively on Android, and in browsers (at least Chrome and Firefox). The quality of the encoding is considerably higher than MP3 while using approximately the same bitrate.
+            - 8-bit samples that compand 14-bit audio samples using G.711 PCMU/mu-law. Audio content returned as MULAW also contains a WAV header.
+            - 8-bit samples that compand 14-bit audio samples using G.711 PCMU/A-law. Audio content returned as ALAW also contains a WAV header.
+            - Uncompressed 16-bit signed little-endian samples (Linear PCM). Note that as opposed to LINEAR16, audio won't be wrapped in a WAV (or any other) header.
+            - M4A audio.
           type: string
         effectsProfileId:
           description: Optional. Input only. An identifier which selects 'audio effects' profiles that are applied on (post synthesized) text to speech. Effects are applied on top of each other in the order they are given. See [audio profiles](https://cloud.google.com/text-to-speech/docs/audio-profiles) for current supported profile ids.
@@ -340,7 +387,7 @@ components:
           format: int32
           type: integer
         speakingRate:
-          description: Optional. Input only. Speaking rate/speed, in the range [0.25, 4.0]. 1.0 is the normal native speed supported by the specific voice. 2.0 is twice as fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0 speed. Any other values < 0.25 or > 4.0 will return an error.
+          description: Optional. Input only. Speaking rate/speed, in the range [0.25, 2.0]. 1.0 is the normal native speed supported by the specific voice. 2.0 is twice as fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0 speed. Any other values < 0.25 or > 2.0 will return an error.
           format: double
           type: number
         volumeGainDb:
@@ -348,8 +395,45 @@ components:
           format: double
           type: number
       type: object
+    CustomPronunciationParams:
+      description: Pronunciation customization for a phrase.
+      x-google-discovery-id: CustomPronunciationParams
+      properties:
+        phoneticEncoding:
+          description: The phonetic encoding of the phrase.
+          enum:
+            - PHONETIC_ENCODING_UNSPECIFIED
+            - PHONETIC_ENCODING_IPA
+            - PHONETIC_ENCODING_X_SAMPA
+            - PHONETIC_ENCODING_JAPANESE_YOMIGANA
+            - PHONETIC_ENCODING_PINYIN
+          x-google-enum-descriptions:
+            - Not specified.
+            - IPA, such as apple -> ˈæpəl. https://en.wikipedia.org/wiki/International_Phonetic_Alphabet
+            - X-SAMPA, such as apple -> "{p@l". https://en.wikipedia.org/wiki/X-SAMPA
+            - 'For reading-to-pron conversion to work well, the `pronunciation` field should only contain Kanji, Hiragana, and Katakana. The pronunciation can also contain pitch accents. The start of a pitch phrase is specified with `^` and the down-pitch position is specified with `!`, for example: phrase:端 pronunciation:^はし phrase:箸 pronunciation:^は!し phrase:橋 pronunciation:^はし! We currently only support the Tokyo dialect, which allows at most one down-pitch per phrase (i.e. at most one `!` between `^`).'
+            - 'Used to specify pronunciations for Mandarin words. See https://en.wikipedia.org/wiki/Pinyin. For example: 朝阳, the pronunciation is "chao2 yang2". The number represents the tone, and there is a space between syllables. Neutral tones are represented by 5, for example 孩子 "hai2 zi5".'
+          type: string
+        phrase:
+          description: The phrase to which the customization is applied. The phrase can be multiple words, such as proper nouns, but shouldn't span the length of the sentence.
+          type: string
+        pronunciation:
+          description: The pronunciation of the phrase. This must be in the phonetic encoding specified above.
+          type: string
+      type: object
+    CustomPronunciations:
+      description: A collection of pronunciation customizations.
+      x-google-discovery-id: CustomPronunciations
+      properties:
+        pronunciations:
+          description: The pronunciation customizations are applied.
+          items:
+            $ref: '#/components/schemas/CustomPronunciationParams'
+          type: array
+      type: object
     CustomVoiceParams:
       description: Description of the custom voice to be synthesized.
+      x-google-discovery-id: CustomVoiceParams
       properties:
         model:
           description: Required. The name of the AutoML model that synthesizes the custom voice.
@@ -361,10 +445,15 @@ components:
             - REPORTED_USAGE_UNSPECIFIED
             - REALTIME
             - OFFLINE
+          x-google-enum-descriptions:
+            - Request with reported usage unspecified will be rejected.
+            - For scenarios where the synthesized audio is not downloadable and can only be used once. For example, real-time request in IVR system.
+            - For scenarios where the synthesized audio is downloadable and can be reused. For example, the synthesized audio is downloaded, stored in customer service system and played repeatedly.
           type: string
       type: object
     GoogleCloudTexttospeechV1beta1SynthesizeLongAudioMetadata:
       description: Metadata for response returned by the `SynthesizeLongAudio` method.
+      x-google-discovery-id: GoogleCloudTexttospeechV1beta1SynthesizeLongAudioMetadata
       properties:
         lastUpdateTime:
           deprecated: true
@@ -382,6 +471,7 @@ components:
       type: object
     ListOperationsResponse:
       description: The response message for Operations.ListOperations.
+      x-google-discovery-id: ListOperationsResponse
       properties:
         nextPageToken:
           description: The standard List next-page token.
@@ -389,30 +479,70 @@ components:
         operations:
           description: A list of operations that matches the specified filter in the request.
           items:
-            $ref: "#/components/schemas/Operation"
+            $ref: '#/components/schemas/Operation'
+          type: array
+        unreachable:
+          description: Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections. For example, when attempting to list all resources across all supported locations.
+          items:
+            type: string
           type: array
       type: object
     ListVoicesResponse:
       description: The message returned to the client by the `ListVoices` method.
+      x-google-discovery-id: ListVoicesResponse
       properties:
         voices:
           description: The list of voices.
           items:
-            $ref: "#/components/schemas/Voice"
+            $ref: '#/components/schemas/Voice'
           type: array
+      type: object
+    MultiSpeakerMarkup:
+      description: A collection of turns for multi-speaker synthesis.
+      x-google-discovery-id: MultiSpeakerMarkup
+      properties:
+        turns:
+          description: Required. Speaker turns.
+          items:
+            $ref: '#/components/schemas/Turn'
+          type: array
+      type: object
+    MultiSpeakerVoiceConfig:
+      description: Configuration for a multi-speaker text-to-speech setup. Enables the use of up to two distinct voices in a single synthesis request.
+      x-google-discovery-id: MultiSpeakerVoiceConfig
+      properties:
+        speakerVoiceConfigs:
+          description: Required. A list of configurations for the voices of the speakers. Exactly two speaker voice configurations must be provided.
+          items:
+            $ref: '#/components/schemas/MultispeakerPrebuiltVoice'
+          type: array
+      type: object
+    MultispeakerPrebuiltVoice:
+      description: Configuration for a single speaker in a Gemini TTS multi-speaker setup. Enables dialogue between two speakers.
+      x-google-discovery-id: MultispeakerPrebuiltVoice
+      properties:
+        speakerAlias:
+          description: Required. The speaker alias of the voice. This is the user-chosen speaker name that is used in the multispeaker text input, such as "Speaker1".
+          type: string
+        speakerId:
+          description: Required. The speaker ID of the voice. See https://cloud.google.com/text-to-speech/docs/gemini-tts#voice_options for available values.
+          type: string
       type: object
     Operation:
       description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
       properties:
         done:
           description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
           type: boolean
         error:
-          $ref: "#/components/schemas/Status"
           description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
           type: object
         name:
@@ -421,11 +551,60 @@ components:
         response:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
           type: object
       type: object
+    SafetySetting:
+      description: Safety setting for a single harm category.
+      x-google-discovery-id: SafetySetting
+      properties:
+        category:
+          description: The harm category to apply the safety setting to.
+          enum:
+            - HARM_CATEGORY_UNSPECIFIED
+            - HARM_CATEGORY_HATE_SPEECH
+            - HARM_CATEGORY_DANGEROUS_CONTENT
+            - HARM_CATEGORY_HARASSMENT
+            - HARM_CATEGORY_SEXUALLY_EXPLICIT
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - Content that promotes violence or incites hatred against individuals or groups based on certain attributes.
+            - Content that promotes, facilitates, or enables dangerous activities.
+            - Abusive, threatening, or content intended to bully, torment, or ridicule.
+            - Content that contains sexually explicit material.
+          type: string
+        threshold:
+          description: The harm block threshold for the safety setting.
+          enum:
+            - HARM_BLOCK_THRESHOLD_UNSPECIFIED
+            - BLOCK_LOW_AND_ABOVE
+            - BLOCK_MEDIUM_AND_ABOVE
+            - BLOCK_ONLY_HIGH
+            - BLOCK_NONE
+            - 'OFF'
+          x-google-enum-descriptions:
+            - The harm block threshold is unspecified.
+            - Block content with a low harm probability or higher.
+            - Block content with a medium harm probability or higher.
+            - Block content with a high harm probability.
+            - Do not block any content, regardless of its harm probability.
+            - Turn off the safety filter entirely.
+          type: string
+      type: object
+    SafetySettings:
+      description: Safety settings for the request.
+      x-google-discovery-id: SafetySettings
+      properties:
+        settings:
+          description: The safety settings for the request.
+          items:
+            $ref: '#/components/schemas/SafetySetting'
+          type: array
+      type: object
     Status:
-      description: "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors)."
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
       properties:
         code:
           description: The status code, which should be an enum value of google.rpc.Code.
@@ -436,6 +615,7 @@ components:
           items:
             additionalProperties:
               description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
             type: object
           type: array
         message:
@@ -444,7 +624,22 @@ components:
       type: object
     SynthesisInput:
       description: Contains text input to be synthesized. Either `text` or `ssml` must be supplied. Supplying both or neither returns google.rpc.Code.INVALID_ARGUMENT. The input size is limited to 5000 bytes.
+      x-google-discovery-id: SynthesisInput
       properties:
+        customPronunciations:
+          description: Optional. The pronunciation customizations are applied to the input. If this is set, the input is synthesized using the given pronunciation customizations. The initial support is for en-us, with plans to expand to other locales in the future. Instant Clone voices aren't supported. In order to customize the pronunciation of a phrase, there must be an exact match of the phrase in the input types. If using SSML, the phrase must not be inside a phoneme tag.
+          allOf:
+            - $ref: '#/components/schemas/CustomPronunciations'
+        markup:
+          description: 'Markup for Chirp 3: HD voices specifically. This field may not be used with any other voices.'
+          type: string
+        multiSpeakerMarkup:
+          description: The multi-speaker input to be synthesized. Only applicable for multi-speaker synthesis.
+          allOf:
+            - $ref: '#/components/schemas/MultiSpeakerMarkup'
+        prompt:
+          description: This system instruction is supported only for controllable/promptable voice models. If this system instruction is used, we pass the unedited text to Gemini-TTS. Otherwise, a default system instruction is used. AI Studio calls this system instruction, Style Instructions.
+          type: string
         ssml:
           description: The SSML document to be synthesized. The SSML document must be valid and well-formed. Otherwise the RPC will fail and return google.rpc.Code.INVALID_ARGUMENT. For more information, see [SSML](https://cloud.google.com/text-to-speech/docs/ssml).
           type: string
@@ -454,6 +649,7 @@ components:
       type: object
     SynthesizeLongAudioMetadata:
       description: Metadata for response returned by the `SynthesizeLongAudio` method.
+      x-google-discovery-id: SynthesizeLongAudioMetadata
       properties:
         lastUpdateTime:
           deprecated: true
@@ -471,59 +667,77 @@ components:
       type: object
     SynthesizeLongAudioRequest:
       description: The top-level message sent by the client for the `SynthesizeLongAudio` method.
+      x-google-discovery-id: SynthesizeLongAudioRequest
       properties:
         audioConfig:
-          $ref: "#/components/schemas/AudioConfig"
           description: Required. The configuration of the synthesized audio.
+          allOf:
+            - $ref: '#/components/schemas/AudioConfig'
         input:
-          $ref: "#/components/schemas/SynthesisInput"
-          description: Required. The Synthesizer requires either plain text or SSML as input. While Long Audio is in preview, SSML is temporarily unsupported.
+          description: Required. The Synthesizer requires either plain text or SSML as input.
+          allOf:
+            - $ref: '#/components/schemas/SynthesisInput'
         outputGcsUri:
-          description: "Required. Specifies a Cloud Storage URI for the synthesis results. Must be specified in the format: `gs://bucket_name/object_name`, and the bucket must already exist."
+          description: 'Required. Specifies a Cloud Storage URI for the synthesis results. Must be specified in the format: `gs://bucket_name/object_name`, and the bucket must already exist.'
           type: string
         voice:
-          $ref: "#/components/schemas/VoiceSelectionParams"
           description: Required. The desired voice of the synthesized audio.
+          allOf:
+            - $ref: '#/components/schemas/VoiceSelectionParams'
       type: object
     SynthesizeSpeechRequest:
       description: The top-level message sent by the client for the `SynthesizeSpeech` method.
+      x-google-discovery-id: SynthesizeSpeechRequest
       properties:
+        advancedVoiceOptions:
+          description: Optional. Advanced voice options.
+          allOf:
+            - $ref: '#/components/schemas/AdvancedVoiceOptions'
         audioConfig:
-          $ref: "#/components/schemas/AudioConfig"
           description: Required. The configuration of the synthesized audio.
+          allOf:
+            - $ref: '#/components/schemas/AudioConfig'
         enableTimePointing:
           description: Whether and what timepoints are returned in the response.
           items:
             enum:
               - TIMEPOINT_TYPE_UNSPECIFIED
               - SSML_MARK
+            x-google-enum-descriptions:
+              - Not specified. No timepoint information will be returned.
+              - Timepoint information of `` tags in SSML input will be returned.
             type: string
           type: array
         input:
-          $ref: "#/components/schemas/SynthesisInput"
           description: Required. The Synthesizer requires either plain text or SSML as input.
+          allOf:
+            - $ref: '#/components/schemas/SynthesisInput'
         voice:
-          $ref: "#/components/schemas/VoiceSelectionParams"
           description: Required. The desired voice of the synthesized audio.
+          allOf:
+            - $ref: '#/components/schemas/VoiceSelectionParams'
       type: object
     SynthesizeSpeechResponse:
       description: The message returned to the client by the `SynthesizeSpeech` method.
+      x-google-discovery-id: SynthesizeSpeechResponse
       properties:
         audioConfig:
-          $ref: "#/components/schemas/AudioConfig"
           description: The audio metadata of `audio_content`.
+          allOf:
+            - $ref: '#/components/schemas/AudioConfig'
         audioContent:
-          description: "The audio data bytes encoded as specified in the request, including the header for encodings that are wrapped in containers (e.g. MP3, OGG_OPUS). For LINEAR16 audio, we include the WAV header. Note: as with all bytes fields, protobuffers use a pure binary representation, whereas JSON representations use base64."
+          description: 'The audio data bytes encoded as specified in the request, including the header for encodings that are wrapped in containers (e.g. MP3, OGG_OPUS). For LINEAR16 audio, we include the WAV header. Note: as with all bytes fields, protobuffers use a pure binary representation, whereas JSON representations use base64.'
           format: byte
           type: string
         timepoints:
           description: A link between a position in the original request input and a corresponding time in the output audio. It's only supported via `` of SSML input.
           items:
-            $ref: "#/components/schemas/Timepoint"
+            $ref: '#/components/schemas/Timepoint'
           type: array
       type: object
     Timepoint:
       description: This contains a mapping between a certain point in the input text and a corresponding time in the output audio.
+      x-google-discovery-id: Timepoint
       properties:
         markName:
           description: Timepoint name as received from the client within `` tag.
@@ -533,8 +747,20 @@ components:
           format: double
           type: number
       type: object
+    Turn:
+      description: A multi-speaker turn.
+      x-google-discovery-id: Turn
+      properties:
+        speaker:
+          description: Required. The speaker of the turn, for example, 'O' or 'Q'. Please refer to documentation for available speakers.
+          type: string
+        text:
+          description: Required. The text to speak.
+          type: string
+      type: object
     Voice:
       description: Description of a voice supported by the TTS service.
+      x-google-discovery-id: Voice
       properties:
         languageCodes:
           description: The languages that this voice supports, expressed as [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tags (e.g. "en-US", "es-419", "cmn-tw").
@@ -555,19 +781,41 @@ components:
             - MALE
             - FEMALE
             - NEUTRAL
+          x-google-enum-descriptions:
+            - An unspecified gender. In VoiceSelectionParams, this means that the client doesn't care which gender the selected voice will have. In the Voice field of ListVoicesResponse, this may mean that the voice doesn't fit any of the other categories in this enum, or that the gender of the voice isn't known.
+            - A male voice.
+            - A female voice.
+            - A gender-neutral voice. This voice is not yet supported.
+          type: string
+      type: object
+    VoiceCloneParams:
+      description: The configuration of Voice Clone feature.
+      x-google-discovery-id: VoiceCloneParams
+      properties:
+        voiceCloningKey:
+          description: Required. Created by GenerateVoiceCloningKey.
           type: string
       type: object
     VoiceSelectionParams:
       description: Description of which voice to use for a synthesis request.
+      x-google-discovery-id: VoiceSelectionParams
       properties:
         customVoice:
-          $ref: "#/components/schemas/CustomVoiceParams"
           description: The configuration for a custom voice. If [CustomVoiceParams.model] is set, the service will choose the custom voice matching the specified configuration.
+          allOf:
+            - $ref: '#/components/schemas/CustomVoiceParams'
         languageCode:
           description: Required. The language (and potentially also the region) of the voice expressed as a [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag, e.g. "en-US". This should not include a script tag (e.g. use "cmn-cn" rather than "cmn-Hant-cn"), because the script will be inferred from the input provided in the SynthesisInput. The TTS service will use this parameter to help choose an appropriate voice. Note that the TTS service may choose a voice with a slightly different language code than the one selected; it may substitute a different region (e.g. using en-US rather than en-CA if there isn't a Canadian voice available), or even a different language, e.g. using "nb" (Norwegian Bokmal) instead of "no" (Norwegian)".
           type: string
+        modelName:
+          description: Optional. The name of the model. If set, the service will choose the model matching the specified configuration.
+          type: string
+        multiSpeakerVoiceConfig:
+          description: Optional. The configuration for a Gemini multi-speaker text-to-speech setup. Enables the use of two distinct voices in a single synthesis request.
+          allOf:
+            - $ref: '#/components/schemas/MultiSpeakerVoiceConfig'
         name:
-          description: The name of the voice. If not set, the service will choose a voice based on the other parameters such as language_code and gender.
+          description: The name of the voice. If both the name and the gender are not set, the service will choose a voice based on the other parameters such as language_code.
           type: string
         ssmlGender:
           description: The preferred gender of the voice. If not set, the service will choose a voice based on the other parameters such as language_code and name. Note that this is only a preference, not requirement; if a voice of the appropriate gender is not available, the synthesizer should substitute a voice with a different gender rather than failing the request.
@@ -576,23 +824,136 @@ components:
             - MALE
             - FEMALE
             - NEUTRAL
+          x-google-enum-descriptions:
+            - An unspecified gender. In VoiceSelectionParams, this means that the client doesn't care which gender the selected voice will have. In the Voice field of ListVoicesResponse, this may mean that the voice doesn't fit any of the other categories in this enum, or that the gender of the voice isn't known.
+            - A male voice.
+            - A female voice.
+            - A gender-neutral voice. This voice is not yet supported.
           type: string
+        voiceClone:
+          description: Optional. The configuration for a voice clone. If [VoiceCloneParams.voice_clone_key] is set, the service chooses the voice clone matching the specified configuration.
+          allOf:
+            - $ref: '#/components/schemas/VoiceCloneParams'
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/text-to-speech/
+tags:
+  - name: projects
+  - name: text
+  - name: voices
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://texttospeech.googleapis.com/
+  batchPath: batch
+  canonicalName: Texttospeech
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: texttospeech:v1beta1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://texttospeech.mtls.googleapis.com/
+  name: texttospeech
+  revision: '20260320'
+  rootUrl: https://texttospeech.googleapis.com/
+  servicePath: ''
+  version_module: true

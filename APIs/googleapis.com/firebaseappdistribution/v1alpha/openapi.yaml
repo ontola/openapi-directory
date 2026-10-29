@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://firebaseappdistribution.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: ""
+  description: ''
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -20,623 +18,1459 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://firebaseappdistribution.googleapis.com/$discovery/rest?version=v1alpha
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/firebaseappdistribution.v1alpha.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/firebaseappdistribution.v1alpha.json
+      version: '3.0'
   x-preferred: true
   x-providerName: googleapis.com
   x-serviceName: firebaseappdistribution
-externalDocs:
-  url: https://firebase.google.com/products/app-distribution
-tags:
-  - name: apps
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260803; original source SHA-256 eae8466446adc8ad3cc586c1c93d1b2a6eef395932c9cc5ca25d077afbe14a27.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://firebaseappdistribution.googleapis.com
 paths:
   /v1alpha/apps/{mobilesdkAppId}:
     get:
-      description: Get the app, if it exists
       operationId: firebaseappdistribution.apps.get
+      description: Get the app, if it exists
       parameters:
-        - description: "Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289"
+        - name: mobilesdkAppId
           in: path
-          name: mobilesdkAppId
-          required: true
           schema:
             type: string
-        - description: App view. When unset or set to BASIC, returns an App with everything set except for aab_state. When set to FULL, returns an App with aab_state set.
+          description: 'Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289'
+          required: true
+        - name: appView
           in: query
-          name: appView
           schema:
             enum:
               - APP_VIEW_UNSPECIFIED
               - BASIC
               - FULL
+            x-google-enum-descriptions:
+              - The default / unset value. The API will default to the BASIC view.
+              - Include everything except aab_state.
+              - Include everything.
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaApp"
-          description: Successful response
+          description: App view. When unset or set to BASIC, returns an App with everything set except for aab_state. When set to FULL, returns an App with aab_state set.
+      tags:
+        - apps
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - apps
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaApp'
+      x-google-discovery:
+        path: v1alpha/apps/{mobilesdkAppId}
+        flatPath: v1alpha/apps/{mobilesdkAppId}
+        parameterOrder:
+          - mobilesdkAppId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Provision app distribution for an existing Firebase app, enabling it to subsequently be used by appdistro.
-      operationId: firebaseappdistribution.apps.provisionApp
-      parameters:
-        - description: "Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289"
-          in: path
-          name: mobilesdkAppId
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaProvisionAppResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - apps
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1alpha/apps/{mobilesdkAppId}/jwt:
     get:
-      description: Get a JWT token
       operationId: firebaseappdistribution.apps.getJwt
+      description: Get a JWT token
       parameters:
-        - description: "Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289"
+        - name: mobilesdkAppId
           in: path
-          name: mobilesdkAppId
-          required: true
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaJwt"
-          description: Successful response
+          description: 'Required. Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289'
+          required: true
+      tags:
+        - apps
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - apps
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaJwt'
+      x-google-discovery:
+        path: v1alpha/apps/{mobilesdkAppId}/jwt
+        flatPath: v1alpha/apps/{mobilesdkAppId}/jwt
+        parameterOrder:
+          - mobilesdkAppId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1alpha/apps/{mobilesdkAppId}/release_by_hash/{uploadHash}:
     get:
-      description: GET Release by binary upload hash
       operationId: firebaseappdistribution.apps.release_by_hash.get
+      description: GET Release by binary upload hash
       parameters:
-        - description: "Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289"
+        - name: mobilesdkAppId
           in: path
-          name: mobilesdkAppId
-          required: true
           schema:
             type: string
-        - description: The hash for the upload
-          in: path
-          name: uploadHash
+          description: 'Required. Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289'
           required: true
+        - name: uploadHash
+          in: path
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaGetReleaseByUploadHashResponse"
-          description: Successful response
+          description: Required. The hash for the upload
+          required: true
+      tags:
+        - apps
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - apps
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaGetReleaseByUploadHashResponse'
+      x-google-discovery:
+        path: v1alpha/apps/{mobilesdkAppId}/release_by_hash/{uploadHash}
+        flatPath: v1alpha/apps/{mobilesdkAppId}/release_by_hash/{uploadHash}
+        parameterOrder:
+          - mobilesdkAppId
+          - uploadHash
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1alpha/apps/{mobilesdkAppId}/releases/{releaseId}/enable_access:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
     post:
-      description: Enable access on a release for testers.
       operationId: firebaseappdistribution.apps.releases.enable_access
+      description: Enable access on a release for testers.
       parameters:
-        - description: "Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289"
+        - name: mobilesdkAppId
           in: path
-          name: mobilesdkAppId
-          required: true
           schema:
             type: string
-        - description: Release identifier
-          in: path
-          name: releaseId
+          description: 'Required. Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289'
           required: true
+        - name: releaseId
+          in: path
           schema:
             type: string
+          description: Required. Release identifier
+          required: true
+      tags:
+        - apps
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseRequest"
+              $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - apps
-  /v1alpha/apps/{mobilesdkAppId}/releases/{releaseId}/notes:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseResponse'
+      x-google-discovery:
+        path: v1alpha/apps/{mobilesdkAppId}/releases/{releaseId}/enable_access
+        flatPath: v1alpha/apps/{mobilesdkAppId}/releases/{releaseId}/enable_access
+        parameterOrder:
+          - mobilesdkAppId
+          - releaseId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/apps/{mobilesdkAppId}/releases/{releaseId}/notes:
     post:
-      description: Create release notes on a release.
       operationId: firebaseappdistribution.apps.releases.notes.create
+      description: Create release notes on a release.
       parameters:
-        - description: "Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289"
+        - name: mobilesdkAppId
           in: path
-          name: mobilesdkAppId
-          required: true
           schema:
             type: string
-        - description: Release identifier
-          in: path
-          name: releaseId
+          description: 'Required. Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289'
           required: true
+        - name: releaseId
+          in: path
           schema:
             type: string
+          description: Required. Release identifier
+          required: true
+      tags:
+        - apps
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaCreateReleaseNotesRequest"
+              $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaCreateReleaseNotesRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaCreateReleaseNotesResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - apps
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaCreateReleaseNotesResponse'
+      x-google-discovery:
+        path: v1alpha/apps/{mobilesdkAppId}/releases/{releaseId}/notes
+        flatPath: v1alpha/apps/{mobilesdkAppId}/releases/{releaseId}/notes
+        parameterOrder:
+          - mobilesdkAppId
+          - releaseId
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1alpha/apps/{mobilesdkAppId}/testers:getTesterUdids:
     get:
-      description: Get UDIDs of tester iOS devices in a project
       operationId: firebaseappdistribution.apps.testers.getTesterUdids
+      description: Get UDIDs of tester iOS devices in a project
       parameters:
-        - description: "Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289"
+        - name: mobilesdkAppId
           in: path
-          name: mobilesdkAppId
+          schema:
+            type: string
+          description: 'Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289'
           required: true
-          schema:
-            type: string
-        - description: "The name of the project, which is the parent of testers Format: `projects/{project_number}`"
+        - name: project
           in: query
-          name: project
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaGetTesterUdidsResponse"
-          description: Successful response
+          description: 'The name of the project, which is the parent of testers Format: `projects/{project_number}`'
+      tags:
+        - apps
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - apps
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaGetTesterUdidsResponse'
+      x-google-discovery:
+        path: v1alpha/apps/{mobilesdkAppId}/testers:getTesterUdids
+        flatPath: v1alpha/apps/{mobilesdkAppId}/testers:getTesterUdids
+        parameterOrder:
+          - mobilesdkAppId
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1alpha/apps/{mobilesdkAppId}/upload_status/{uploadToken}:
     get:
-      description: GET Binary upload status by token
       operationId: firebaseappdistribution.apps.upload_status.get
+      description: GET Binary upload status by token
       parameters:
-        - description: "Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289"
+        - name: mobilesdkAppId
           in: path
-          name: mobilesdkAppId
-          required: true
           schema:
             type: string
-        - description: The token for the upload
-          in: path
-          name: uploadToken
+          description: 'Required. Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289'
           required: true
+        - name: uploadToken
+          in: path
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaGetUploadStatusResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
+          description: Required. The token for the upload
+          required: true
       tags:
         - apps
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1alpha/{name}:
-    get:
-      description: Get results for automated test run on release.
-      operationId: firebaseappdistribution.projects.apps.releases.tests.get
-      parameters:
-        - description: "Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app_id}/releases/{release_id}/tests/{test_id}`"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseTest"
-          description: Successful response
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaGetUploadStatusResponse'
+      x-google-discovery:
+        path: v1alpha/apps/{mobilesdkAppId}/upload_status/{uploadToken}
+        flatPath: v1alpha/apps/{mobilesdkAppId}/upload_status/{uploadToken}
+        parameterOrder:
+          - mobilesdkAppId
+          - uploadToken
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/testQuota:
+    get:
+      operationId: firebaseappdistribution.projects.getTestQuota
+      description: Get information about the quota for `ReleaseTests`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the `TestQuota` resource to retrieve. Format: `projects/{project_number}/testQuota`'
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestQuota'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/testQuota
+        resourceNameBindings:
+          projectsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the `TestQuota` resource to retrieve. Format: `projects/{project_number}/testQuota`'
+            location: path
+            pattern: ^projects/[^/]+/testQuota$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/apps/{appsId}/testConfig:
+    get:
+      operationId: firebaseappdistribution.projects.apps.getTestConfig
+      description: Gets configuration for automated tests.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the `TestConfig` resource to retrieve. Format: `projects/{project_number}/apps/{app}/testConfig`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the `TestConfig` resource to retrieve. Format: `projects/{project_number}/apps/{app}/testConfig`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestConfig'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testConfig
+        resourceNameBindings:
+          projectsId: name
+          appsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the `TestConfig` resource to retrieve. Format: `projects/{project_number}/apps/{app}/testConfig`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/testConfig$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     patch:
-      description: Updates a release.
       operationId: firebaseappdistribution.projects.apps.updateTestConfig
+      description: Updates automated test configuration.
       parameters:
-        - description: "Identifier. The name of the test configuration resource. Format: `projects/{project_number}/apps/{app_id}/testConfig`"
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Identifier. The name of the test configuration resource. Format: `projects/{project_number}/apps/{app}/testConfig`'
           schema:
             type: string
-        - description: Optional. The list of fields to update.
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The name of the test configuration resource. Format: `projects/{project_number}/apps/{app}/testConfig`'
+          schema:
+            type: string
+        - name: updateMask
           in: query
-          name: updateMask
           schema:
+            format: google-fieldmask
             type: string
+          description: Optional. The list of fields to update.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaTestConfig"
+              $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestConfig'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaTestConfig"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1alpha/{parent}/tests:
-    get:
-      description: List results for automated tests run on release.
-      operationId: firebaseappdistribution.projects.apps.releases.tests.list
-      parameters:
-        - description: "Required. The name of the release resource, which is the parent of the tests Format: `projects/{project_number}/apps/{app_id}/releases/{release_id}`"
-          in: path
-          name: parent
-          required: true
-          schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestConfig'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testConfig
+        resourceNameBindings:
+          projectsId: name
+          appsId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. The name of the test configuration resource. Format: `projects/{project_number}/apps/{app}/testConfig`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/testConfig$
+            required: true
             type: string
-        - description: Optional. The maximum number of tests to return. The service may return fewer than this value.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: Optional. A page token, received from a previous `ListReleaseTests` call. Provide this to retrieve the subsequent page.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaListReleaseTestsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/apps/{appsId}/releases/{releasesId}/tests/{testsId}:cancel:
+    get:
+      operationId: firebaseappdistribution.projects.apps.releases.tests.cancel
+      description: Abort automated test run on release.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+          schema:
+            type: string
+        - name: releasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+          schema:
+            type: string
+        - name: testsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaCancelReleaseTestResponse'
+      x-google-discovery:
+        path: v1alpha/{+name}:cancel
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/releases/{releasesId}/tests/{testsId}:cancel
+        resourceNameBindings:
+          projectsId: name
+          appsId: name
+          releasesId: name
+          testsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/releases/[^/]+/tests/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/apps/{appsId}/releases/{releasesId}/tests:
     post:
-      description: Run automated test(s) on release.
       operationId: firebaseappdistribution.projects.apps.releases.tests.create
+      description: Run automated test(s) on release.
       parameters:
-        - description: "Required. The name of the release resource, which is the parent of the test Format: `projects/{project_number}/apps/{app_id}/releases/{release_id}`"
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The name of the release resource, which is the parent of the test Format: `projects/{project_number}/apps/{app}/releases/{release}`'
           schema:
             type: string
-        - description: Optional. The ID to use for the test, which will become the final component of the tests's resource name. This value should be 4-63 characters, and valid characters are /a-z-/. If it is not provided one will be automatically generated.
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The name of the release resource, which is the parent of the test Format: `projects/{project_number}/apps/{app}/releases/{release}`'
+          schema:
+            type: string
+        - name: releasesId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The name of the release resource, which is the parent of the test Format: `projects/{project_number}/apps/{app}/releases/{release}`'
+          schema:
+            type: string
+        - name: releaseTestId
           in: query
-          name: releaseTestId
           schema:
             type: string
+          description: Optional. The ID to use for the test, which will become the final component of the test's resource name. This value should be 4-63 characters, and valid characters are /a-z-/. If it is not provided one will be automatically generated.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseTest"
+              $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseTest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseTest"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1alpha/{project}/testers:udids:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseTest'
+      x-google-discovery:
+        path: v1alpha/{+parent}/tests
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/releases/{releasesId}/tests
+        resourceNameBindings:
+          projectsId: parent
+          appsId: parent
+          releasesId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The name of the release resource, which is the parent of the test Format: `projects/{project_number}/apps/{app}/releases/{release}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/releases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: Get UDIDs of tester iOS devices in a project
-      operationId: firebaseappdistribution.projects.testers.getUdids
+      operationId: firebaseappdistribution.projects.apps.releases.tests.list
+      description: List results for automated tests run on release.
       parameters:
-        - description: "The name of the project, which is the parent of testers Format: `projects/{project_number}`"
+        - name: projectsId
           in: path
-          name: project
           required: true
+          description: 'Component of the original `parent` resource name. Required. The name of the release resource, which is the parent of the tests Format: `projects/{project_number}/apps/{app}/releases/{release}`'
           schema:
             type: string
-        - description: "Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289"
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The name of the release resource, which is the parent of the tests Format: `projects/{project_number}/apps/{app}/releases/{release}`'
+          schema:
+            type: string
+        - name: releasesId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The name of the release resource, which is the parent of the tests Format: `projects/{project_number}/apps/{app}/releases/{release}`'
+          schema:
+            type: string
+        - name: pageSize
           in: query
-          name: mobilesdkAppId
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of tests to return. The service may return fewer than this value.
+        - name: pageToken
+          in: query
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaGetTesterUdidsResponse"
-          description: Successful response
+          description: Optional. A page token, received from a previous `ListReleaseTests` call. Provide this to retrieve the subsequent page.
+        - name: view
+          in: query
+          schema:
+            enum:
+              - RELEASE_TEST_VIEW_UNSPECIFIED
+              - RELEASE_TEST_VIEW_BASIC
+              - RELEASE_TEST_VIEW_FULL
+            x-google-enum-descriptions:
+              - The default / unset value. The default view depends on the RPC.
+              - Include basic metadata about the release test and its status, but not the full result details. This is the default value for ListReleaseTests.
+              - Include everything.
+            type: string
+          description: Optional. The requested view on the returned ReleaseTests. Defaults to the basic view.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaListReleaseTestsResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/tests
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/releases/{releasesId}/tests
+        resourceNameBindings:
+          projectsId: parent
+          appsId: parent
+          releasesId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The name of the release resource, which is the parent of the tests Format: `projects/{project_number}/apps/{app}/releases/{release}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/releases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/apps/{appsId}/releases/{releasesId}/tests/{testsId}:
+    get:
+      operationId: firebaseappdistribution.projects.apps.releases.tests.get
+      description: Get results for automated test run on release.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+          schema:
+            type: string
+        - name: releasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+          schema:
+            type: string
+        - name: testsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseTest'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/releases/{releasesId}/tests/{testsId}
+        resourceNameBindings:
+          projectsId: name
+          appsId: name
+          releasesId: name
+          testsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/releases/[^/]+/tests/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/apps/{appsId}/testCases:batchDelete:
+    post:
+      operationId: firebaseappdistribution.projects.apps.testCases.batchDelete
+      description: Deletes multiple test cases.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource of the test cases being deleted. Format: `projects/{project_number}/apps/{app}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource of the test cases being deleted. Format: `projects/{project_number}/apps/{app}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaBatchDeleteTestCasesRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1alpha/{+parent}/testCases:batchDelete
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testCases:batchDelete
+        resourceNameBindings:
+          projectsId: parent
+          appsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource of the test cases being deleted. Format: `projects/{project_number}/apps/{app}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/apps/{appsId}/testCases:batchUpdate:
+    post:
+      operationId: firebaseappdistribution.projects.apps.testCases.batchUpdate
+      description: Updates multiple test cases.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource of the test cases being updated. Format: `projects/{project_number}/apps/{app}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource of the test cases being updated. Format: `projects/{project_number}/apps/{app}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaBatchUpdateTestCasesRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaBatchUpdateTestCasesResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/testCases:batchUpdate
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testCases:batchUpdate
+        resourceNameBindings:
+          projectsId: parent
+          appsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource of the test cases being updated. Format: `projects/{project_number}/apps/{app}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/apps/{appsId}/testCases/{testCasesId}:clearTestCaseCache:
+    post:
+      operationId: firebaseappdistribution.projects.apps.testCases.clearTestCaseCache
+      description: Clears cached test runs for a specific test case and device(s).
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `testCase` resource name. Required. The name of the test case resource for which to clear the cache. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `testCase` resource name. Required. The name of the test case resource for which to clear the cache. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+        - name: testCasesId
+          in: path
+          required: true
+          description: 'Component of the original `testCase` resource name. Required. The name of the test case resource for which to clear the cache. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaClearTestCaseCacheRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaClearTestCaseCacheResponse'
+      x-google-discovery:
+        path: v1alpha/{+testCase}:clearTestCaseCache
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testCases/{testCasesId}:clearTestCaseCache
+        resourceNameBindings:
+          projectsId: testCase
+          appsId: testCase
+          testCasesId: testCase
+        resourceNameParameters:
+          testCase:
+            description: 'Required. The name of the test case resource for which to clear the cache. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/testCases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - testCase
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/apps/{appsId}/testCases:
+    post:
+      operationId: firebaseappdistribution.projects.apps.testCases.create
+      description: Create a new test case.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this test case will be created. Format: `projects/{project_number}/apps/{app}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource where this test case will be created. Format: `projects/{project_number}/apps/{app}`'
+          schema:
+            type: string
+        - name: testCaseId
+          in: query
+          schema:
+            type: string
+          description: Optional. The ID to use for the test case, which will become the final component of the test case's resource name. This value should be 4-63 characters, and valid characters are /a-z-/.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestCase'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestCase'
+      x-google-discovery:
+        path: v1alpha/{+parent}/testCases
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testCases
+        resourceNameBindings:
+          projectsId: parent
+          appsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource where this test case will be created. Format: `projects/{project_number}/apps/{app}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: firebaseappdistribution.projects.apps.testCases.list
+      description: List test cases.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource from which to list test cases. Format: `projects/{project_number}/apps/{app}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent resource from which to list test cases. Format: `projects/{project_number}/apps/{app}`'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum number of test cases to return. The service may return fewer than this value. If unspecified, at most 50 test cases will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListTestCases` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListTestCases` must match the call that provided the page token.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaListTestCasesResponse'
+      x-google-discovery:
+        path: v1alpha/{+parent}/testCases
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testCases
+        resourceNameBindings:
+          projectsId: parent
+          appsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent resource from which to list test cases. Format: `projects/{project_number}/apps/{app}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/apps/{appsId}/testCases/{testCasesId}:
+    delete:
+      operationId: firebaseappdistribution.projects.apps.testCases.delete
+      description: Delete a test case.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the test case resource to delete. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the test case resource to delete. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+        - name: testCasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the test case resource to delete. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleProtobufEmpty'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testCases/{testCasesId}
+        resourceNameBindings:
+          projectsId: name
+          appsId: name
+          testCasesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the test case resource to delete. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/testCases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: firebaseappdistribution.projects.apps.testCases.get
+      description: Get a test case.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the test case resource to retrieve. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the test case resource to retrieve. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+        - name: testCasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the test case resource to retrieve. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestCase'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testCases/{testCasesId}
+        resourceNameBindings:
+          projectsId: name
+          appsId: name
+          testCasesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the test case resource to retrieve. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/testCases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: firebaseappdistribution.projects.apps.testCases.patch
+      description: Update a test case.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The name of the test case resource. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+        - name: appsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The name of the test case resource. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+        - name: testCasesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Identifier. The name of the test case resource. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          schema:
+            type: string
+        - name: allowMissing
+          in: query
+          schema:
+            type: boolean
+          description: Optional. If set to true, and the test case is not found, a new test case will be created.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestCase'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestCase'
+      x-google-discovery:
+        path: v1alpha/{+name}
+        flatPath: v1alpha/projects/{projectsId}/apps/{appsId}/testCases/{testCasesId}
+        resourceNameBindings:
+          projectsId: name
+          appsId: name
+          testCasesId: name
+        resourceNameParameters:
+          name:
+            description: 'Identifier. The name of the test case resource. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+            location: path
+            pattern: ^projects/[^/]+/apps/[^/]+/testCases/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha/projects/{projectsId}/testers:udids:
+    get:
+      operationId: firebaseappdistribution.projects.testers.getUdids
+      description: Get UDIDs of tester iOS devices in a project
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `project` resource name. The name of the project, which is the parent of testers Format: `projects/{project_number}`'
+          schema:
+            type: string
+        - name: mobilesdkAppId
+          in: query
+          schema:
+            type: string
+          description: 'Unique id for a Firebase app of the format: {version}:{project_number}:{platform}:{hash(bundle_id)} Example: 1:581234567376:android:aa0a3c7b135e90289'
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaGetTesterUdidsResponse'
+      x-google-discovery:
+        path: v1alpha/{+project}/testers:udids
+        flatPath: v1alpha/projects/{projectsId}/testers:udids
+        resourceNameBindings:
+          projectsId: project
+        resourceNameParameters:
+          project:
+            description: 'The name of the project, which is the parent of testers Format: `projects/{project_number}`'
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - project
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
+    AndroidxCrawlerOutputPoint:
+      description: Point for describing bounding boxes tap locations Top left is 0,0
+      x-google-discovery-id: AndroidxCrawlerOutputPoint
+      properties:
+        xCoordinate:
+          format: int32
+          type: integer
+        yCoordinate:
+          format: int32
+          type: integer
+      type: object
+    AndroidxCrawlerOutputRectangle:
+      description: Rectangle for describing bounding boxes
+      x-google-discovery-id: AndroidxCrawlerOutputRectangle
+      properties:
+        bottom:
+          format: int32
+          type: integer
+        left:
+          format: int32
+          type: integer
+        right:
+          format: int32
+          type: integer
+        top:
+          format: int32
+          type: integer
+      type: object
     GoogleFirebaseAppdistroV1Release:
       description: A release of a Firebase app.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1Release
       properties:
+        acceptedInvitationCount:
+          description: Output only. Number of testers with accepted invitations.
+          format: int32
+          readOnly: true
+          type: integer
+        androidPackageRegistrationState:
+          description: Output only. Registration state of the Android package (BinaryType.APK).
+          enum:
+            - ANDROID_PACKAGE_REGISTRATION_STATE_UNSPECIFIED
+            - REGISTERED
+            - NOT_REGISTERED
+            - REGISTERED_WITH_ANOTHER_CERTIFICATE_FINGERPRINT
+          x-google-enum-descriptions:
+            - Default value.
+            - Package is registered with the release binary's certificate fingerprint.
+            - Package is not registered with any public certificate.
+            - Package is registered with another public certificate fingerprint.
+          readOnly: true
+          type: string
         binaryDownloadUri:
           description: Output only. A signed link (which expires in one hour) to directly download the app binary (IPA/APK/AAB) file.
+          readOnly: true
+          type: string
+        binaryType:
+          description: Output only. Type of binary.
+          enum:
+            - BINARY_TYPE_UNSPECIFIED
+            - IPA
+            - APK
+            - AAB
+          x-google-enum-descriptions:
+            - unspecified binary type
+            - iOS App Store package
+            - Android Application package
+            - Android App Bundle
           readOnly: true
           type: string
         buildVersion:
@@ -652,23 +1486,68 @@ components:
           description: Output only. Display version of the release. For an Android release, the display version is the `versionName`. For an iOS release, the display version is the `CFBundleShortVersionString`.
           readOnly: true
           type: string
+        expireTime:
+          description: Output only. The time the release will expire.
+          format: google-datetime
+          readOnly: true
+          type: string
+        feedbackCount:
+          description: Output only. Number of feedback reports left by testers.
+          format: int32
+          readOnly: true
+          type: integer
         firebaseConsoleUri:
           description: Output only. A link to the Firebase console displaying a single release.
           readOnly: true
           type: string
+        installationCount:
+          description: Output only. Number of testers who have downloaded this release.
+          format: int32
+          readOnly: true
+          type: integer
         name:
-          description: "The name of the release resource. Format: `projects/{project_number}/apps/{app_id}/releases/{release_id}`"
+          description: 'The name of the release resource. Format: `projects/{project_number}/apps/{app}/releases/{release}`'
           type: string
+        openInvitationCount:
+          description: Output only. Number of testers who were invited (incl. expired invitations), but did not (yet) accept the invitation.
+          format: int32
+          readOnly: true
+          type: integer
         releaseNotes:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1ReleaseNotes"
-          description: Notes of the release.
+          description: Notes about the release.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1ReleaseNotes'
+        testState:
+          description: Output only. The overall state of tests run on this release
+          enum:
+            - TEST_STATE_UNSPECIFIED
+            - NO_TESTS_REQUESTED
+            - IN_PROGRESS
+            - PASSED
+            - FAILED
+            - INCONCLUSIVE
+          x-google-enum-descriptions:
+            - No test state specified
+            - No tests have been requested for this release
+            - One or more device executions are in progress
+            - All device executions passed during the most recent test
+            - Some device executions failed during the most recent test
+            - Some device executions were inconclusive, but none failed, during the most recent test
+          readOnly: true
+          type: string
         testingUri:
           description: Output only. A link to the release in the tester web clip or Android app that lets testers (which were granted access to the app) view release notes and install the app onto their devices.
+          readOnly: true
+          type: string
+        updateTime:
+          description: Output only. The time the release was last updated.
+          format: google-datetime
           readOnly: true
           type: string
       type: object
     GoogleFirebaseAppdistroV1ReleaseNotes:
       description: Notes that belong to a release.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1ReleaseNotes
       properties:
         text:
           description: The text of the release notes.
@@ -676,14 +1555,17 @@ components:
       type: object
     GoogleFirebaseAppdistroV1UploadReleaseMetadata:
       description: Operation metadata for `UploadRelease`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1UploadReleaseMetadata
       properties: {}
       type: object
     GoogleFirebaseAppdistroV1UploadReleaseResponse:
       description: Response message for `UploadRelease`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1UploadReleaseResponse
       properties:
         release:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1Release"
           description: Release associated with the uploaded binary.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1Release'
         result:
           description: Result of upload release.
           enum:
@@ -691,10 +1573,16 @@ components:
             - RELEASE_CREATED
             - RELEASE_UPDATED
             - RELEASE_UNMODIFIED
+          x-google-enum-descriptions:
+            - Upload binary result unspecified
+            - Upload binary resulted in a new release
+            - Upload binary updated an existing release
+            - Upload binary resulted in a no-op. A release with the exact same binary already exists.
           type: string
       type: object
     GoogleFirebaseAppdistroV1alphaAabCertificate:
       description: App bundle test certificate
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaAabCertificate
       properties:
         certificateHashMd5:
           description: MD5 hash of the certificate used to resign the AAB
@@ -706,11 +1594,81 @@ components:
           description: SHA256 hash of the certificate used to resign the AAB
           type: string
       type: object
+    GoogleFirebaseAppdistroV1alphaAiInstructions:
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaAiInstructions
+      properties:
+        steps:
+          description: Required. Steps to be accomplished by the AI
+          items:
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaAiStep'
+          type: array
+      type: object
+    GoogleFirebaseAppdistroV1alphaAiStep:
+      description: A step to be accomplished by the AI
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaAiStep
+      properties:
+        assertion:
+          description: An assertion to be checked by the AI
+          type: string
+        goal:
+          description: A goal to be accomplished by the AI
+          type: string
+        hint:
+          description: Optional. Hint text containing suggestions to help the agent accomplish the goal
+          type: string
+        successCriteria:
+          description: Optional. A visual description of the screen's expected state after the step has been successfully completed. This is referred to as the "final screen assertion" in the Firebase console and CLI tools. This field must be provided for the last step in a test case, and is optional for all other steps.
+          type: string
+        testCase:
+          description: 'Output only. The test case that contained this step. Note: The test case may have changed or been deleted since this step was created. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          readOnly: true
+          type: string
+      type: object
+    GoogleFirebaseAppdistroV1alphaAiStepResult:
+      description: Captures the results of an AiStep
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaAiStepResult
+      properties:
+        assertionDetails:
+          description: Output only. Details for an assertion step.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaAssertionDetails'
+        goalDetails:
+          description: Output only. Details for a goal step.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaGoalDetails'
+        state:
+          description: Output only. The current state of the step
+          enum:
+            - STEP_STATE_UNSPECIFIED
+            - IN_PROGRESS
+            - PASSED
+            - FAILED
+            - TIMED_OUT
+            - GOAL_ACTION_LIMIT_REACHED
+          x-google-enum-descriptions:
+            - Step state unspecified
+            - The step is in progress
+            - The step has completed successfully
+            - The step has failed
+            - The test timed out during this step
+            - The number of actions needed to reach the goal exceeded its limit
+          readOnly: true
+          type: string
+        step:
+          description: Required. The step performed by the AI
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaAiStep'
+      type: object
     GoogleFirebaseAppdistroV1alphaApp:
+      description: An app.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaApp
       properties:
         aabCertificate:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaAabCertificate"
           description: App bundle test certificate generated for the app.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaAabCertificate'
         aabState:
           description: App bundle state. Only valid for android apps. The app_view field in the request must be set to FULL in order for this to be populated.
           enum:
@@ -721,6 +1679,14 @@ components:
             - APP_NOT_PUBLISHED
             - AAB_STATE_UNAVAILABLE
             - PLAY_IAS_TERMS_NOT_ACCEPTED
+          x-google-enum-descriptions:
+            - Aab state unspecified
+            - App can receive app bundle uploads
+            - Firebase project is not linked to a Play developer account
+            - There is no app in linked Play developer account with the same bundle id
+            - The app in Play developer account is not in a published state
+            - Play App status is unavailable
+            - Play IAS terms not accepted
           type: string
         appId:
           description: Firebase gmp app id
@@ -740,6 +1706,7 @@ components:
       type: object
     GoogleFirebaseAppdistroV1alphaAppCrash:
       description: An app crash that occurred during an automated test.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaAppCrash
       properties:
         message:
           description: Output only. The message associated with the crash.
@@ -750,29 +1717,142 @@ components:
           readOnly: true
           type: string
       type: object
+    GoogleFirebaseAppdistroV1alphaAssertionDetails:
+      description: Details for an assertion step.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaAssertionDetails
+      properties:
+        explanation:
+          description: Output only. An explanation justifying the assertion result.
+          readOnly: true
+          type: string
+        result:
+          description: Output only. The result of the assertion.
+          readOnly: true
+          type: boolean
+        screenshot:
+          description: Output only. The screenshot used in the context of this assertion.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaScreenshot'
+      type: object
+    GoogleFirebaseAppdistroV1alphaBatchDeleteTestCasesRequest:
+      description: The request message for `BatchDeleteTestCase`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaBatchDeleteTestCasesRequest
+      properties:
+        names:
+          description: 'Required. The name of the test cases to delete. A maximum number of 1000 test cases can be deleted in one batch Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          items:
+            type: string
+          type: array
+      type: object
+    GoogleFirebaseAppdistroV1alphaBatchUpdateTestCasesRequest:
+      description: The request message for `BatchUpdateTestCase`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaBatchUpdateTestCasesRequest
+      properties:
+        requests:
+          description: Required. The update requests. A maximum number of 1000 test cases can be updated in one batch
+          items:
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaUpdateTestCaseRequest'
+          type: array
+      type: object
+    GoogleFirebaseAppdistroV1alphaBatchUpdateTestCasesResponse:
+      description: The response message for `BatchUpdateTestCase`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaBatchUpdateTestCasesResponse
+      properties:
+        testCases:
+          description: The updated test cases.
+          items:
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestCase'
+          type: array
+      type: object
+    GoogleFirebaseAppdistroV1alphaCancelReleaseTestResponse:
+      description: The (empty) response message for `CancelReleaseTest`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaCancelReleaseTestResponse
+      properties: {}
+      type: object
+    GoogleFirebaseAppdistroV1alphaClearTestCaseCacheRequest:
+      description: Request message for `ClearTestCaseCache`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaClearTestCaseCacheRequest
+      properties:
+        testDevices:
+          description: Optional. The list of devices for which to clear the cache. If not present, clear all of them.
+          items:
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestDevice'
+          type: array
+      type: object
+    GoogleFirebaseAppdistroV1alphaClearTestCaseCacheResponse:
+      description: Response empty (google.protobuf.Empty) message for `ClearTestCaseCache`
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaClearTestCaseCacheResponse
+      properties: {}
+      type: object
     GoogleFirebaseAppdistroV1alphaCreateReleaseNotesRequest:
+      description: The request message for `CreateReleaseNotes`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaCreateReleaseNotesRequest
       properties:
         releaseNotes:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseNotes"
           description: The actual release notes body from the user
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseNotes'
       type: object
     GoogleFirebaseAppdistroV1alphaCreateReleaseNotesResponse:
+      description: The response message for `CreateReleaseNotes`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaCreateReleaseNotesResponse
       properties: {}
+      type: object
+    GoogleFirebaseAppdistroV1alphaDeviceAction:
+      description: A high level action taken by the AI on the device, potentially involving multiple taps, text entries, waits, etc.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaDeviceAction
+      properties:
+        description:
+          description: Output only. A short description of the high level action taken by the AI agent.
+          readOnly: true
+          type: string
+        deviceInteractions:
+          description: Output only. The interactions made with the device as part of this higher level action taken by the agent, such as taps, text entries, waits, etc.
+          items:
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaDeviceInteraction'
+          readOnly: true
+          type: array
       type: object
     GoogleFirebaseAppdistroV1alphaDeviceExecution:
       description: The results of running an automated test on a particular device.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaDeviceExecution
       properties:
+        aiStepResults:
+          description: Output only. Results of the AI steps if passed in
+          items:
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaAiStepResult'
+          readOnly: true
+          type: array
         appCrash:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaAppCrash"
           description: Output only. An app crash, if any occurred during the test.
           readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaAppCrash'
         crawlGraphUri:
           description: Output only. A URI to an image of the Robo crawl graph.
           readOnly: true
           type: string
         device:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaTestDevice"
           description: Required. The device that the test was run on.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestDevice'
+        executionType:
+          description: Output only. The type of execution for the test.
+          enum:
+            - EXECUTION_TYPE_UNSPECIFIED
+            - AI
+            - ACTION_BASED_REPLAY
+            - AI_REPLAY
+            - RANDOM_CRAWL
+          x-google-enum-descriptions:
+            - Execution type unspecified.
+            - An AI-driven test.
+            - A replay of a previous test run.
+            - A failed replay that was rerun using the AI agent.
+            - A random Robo test.
+          readOnly: true
+          type: string
         failedReason:
           description: Output only. The reason why the test failed.
           enum:
@@ -781,8 +1861,22 @@ components:
             - NOT_INSTALLED
             - UNABLE_TO_CRAWL
             - DEVICE_OUT_OF_MEMORY
+            - FAILED_AI_STEP
+            - TIMED_OUT
+          x-google-enum-descriptions:
+            - Reason unspecified.
+            - The app crashed during the test.
+            - If an app is not installed and thus no test can be run with the app. This might be caused by trying to run a test on an unsupported platform.
+            - If the app could not be crawled (possibly because the app did not start).
+            - If the device ran out of memory during the test.
+            - At least one AI step failed.
+            - The crawl reached the time limit before the test could be completed.
           readOnly: true
           type: string
+        finalAiAssertionMissing:
+          description: Output only. Indicates that the test replayed saved actions and concluded without a final AI assertion.
+          readOnly: true
+          type: boolean
         inconclusiveReason:
           description: Output only. The reason why the test was inconclusive.
           enum:
@@ -796,6 +1890,24 @@ components:
             - DEVICE_ADMIN_RECEIVER
             - NO_CODE_APK
             - INVALID_APK_PREVIEW_SDK
+          x-google-enum-descriptions:
+            - Reason unspecified.
+            - Not enough quota remained to run the test.
+            - The outcome of the test could not be determined because of a failure in the test running infrastructure.
+            - A required cloud service api is not activated (Google Cloud Testing API or Cloud Tool Results API).
+            - The app was not signed.
+            - A main launcher activity could not be found.
+            - The app declares one or more permissions that are not allowed.
+            - Device administrator applications are not allowed.
+            - APK contains no code. See also https://developer.android.com/guide/topics/manifest/application-element.html#code
+            - APK is built for a preview SDK which is unsupported.
+          readOnly: true
+          type: string
+        name:
+          description: 'Identifier. The name of the device execution resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}/deviceExecutions/{device_execution}`'
+          type: string
+        originDeviceExecution:
+          description: 'Output only. The device execution from which cached steps were used during this execution. Note: This field is only populated for ACTION_BASED_REPLAY executions. If the original device execution no longer exists, this field will be empty. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}/deviceExecutions/{device_execution}`'
           readOnly: true
           type: string
         resultsStoragePath:
@@ -803,9 +1915,10 @@ components:
           readOnly: true
           type: string
         roboStats:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaRoboStats"
           description: Output only. The statistics collected during the Robo test.
           readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaRoboStats'
         screenshotUris:
           description: Output only. A list of screenshot image URIs taken from the Robo crawl. The file names are numbered by the order in which they were taken.
           items:
@@ -820,6 +1933,17 @@ components:
             - PASSED
             - FAILED
             - INCONCLUSIVE
+          x-google-enum-descriptions:
+            - Test state unspecified.
+            - The test is in progress.
+            - The test has passed.
+            - The test has failed.
+            - The test was inconclusive.
+          readOnly: true
+          type: string
+        videoStartTime:
+          description: Output only. The time at which the video started recording.
+          format: google-datetime
           readOnly: true
           type: string
         videoUri:
@@ -827,7 +1951,137 @@ components:
           readOnly: true
           type: string
       type: object
+    GoogleFirebaseAppdistroV1alphaDeviceInteraction:
+      description: An interaction with the device, such as a tap, text entry, wait, etc.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaDeviceInteraction
+      properties:
+        backAction:
+          description: Output only. A back action.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaDeviceInteractionBack'
+        dragAndDrop:
+          description: Output only. A drag and drop action.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaDeviceInteractionDragAndDrop'
+        enterText:
+          description: Output only. A text entry action, that enters text into a particular text field, clearing any existing text in the field. Unlike `text_input` this action does not require any other actions such as a tap to be performed before it can enter the text.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaDeviceInteractionEnterText'
+        keyCode:
+          description: Output only. Key code for a key event action.
+          readOnly: true
+          type: string
+        longPress:
+          description: Output only. A long press (tap and hold) action.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/AndroidxCrawlerOutputPoint'
+        screenshot:
+          description: Output only. The screenshot used in the context of this action. The screen may have changed before the action was actually taken.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaScreenshot'
+        swipe:
+          description: Output only. A swipe action.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaDeviceInteractionSwipe'
+        tap:
+          description: Output only. A tap action.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/AndroidxCrawlerOutputPoint'
+        targetFoldedState:
+          description: Output only. The target folded state of the device in a set folded state action. The valid string values are device-dependent, and can be found using `adb shell cmd device_state print-states`.
+          readOnly: true
+          type: string
+        targetOrientation:
+          description: Output only. The target orientation of the device in a set orientation action.
+          enum:
+            - ORIENTATION_UNSPECIFIED
+            - PORTRAIT
+            - LANDSCAPE
+          x-google-enum-descriptions:
+            - Orientation unspecified.
+            - Portrait orientation.
+            - Landscape orientation.
+          readOnly: true
+          type: string
+        textInput:
+          description: Output only. A text input action, that types some text into whatever field is currently focused, if any. Unlike `enter_text` this action requires that the field be brought into focus first, for example by emitting a tap action before this one.
+          readOnly: true
+          type: string
+        wait:
+          description: Output only. A wait action.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaDeviceInteractionWait'
+      type: object
+    GoogleFirebaseAppdistroV1alphaDeviceInteractionBack:
+      description: A back action.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaDeviceInteractionBack
+      properties: {}
+      type: object
+    GoogleFirebaseAppdistroV1alphaDeviceInteractionDragAndDrop:
+      description: A drag and drop action.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaDeviceInteractionDragAndDrop
+      properties:
+        end:
+          description: Output only. The end point of the drag and drop.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/AndroidxCrawlerOutputPoint'
+        start:
+          description: Output only. The start point of the drag and drop.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/AndroidxCrawlerOutputPoint'
+      type: object
+    GoogleFirebaseAppdistroV1alphaDeviceInteractionEnterText:
+      description: A text entry action, that enters text into a particular text field, clearing any existing text in the field.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaDeviceInteractionEnterText
+      properties:
+        elementBounds:
+          description: Output only. The visible bounds of the element to enter text into.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/AndroidxCrawlerOutputRectangle'
+        text:
+          description: Output only. The text to enter.
+          readOnly: true
+          type: string
+      type: object
+    GoogleFirebaseAppdistroV1alphaDeviceInteractionSwipe:
+      description: A swipe action.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaDeviceInteractionSwipe
+      properties:
+        end:
+          description: Output only. The end point of the swipe.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/AndroidxCrawlerOutputPoint'
+        start:
+          description: Output only. The start point of the swipe.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/AndroidxCrawlerOutputPoint'
+      type: object
+    GoogleFirebaseAppdistroV1alphaDeviceInteractionWait:
+      description: A wait action.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaDeviceInteractionWait
+      properties:
+        duration:
+          description: Output only. The duration of the wait.
+          format: google-duration
+          readOnly: true
+          type: string
+      type: object
     GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseRequest:
+      description: The request message for `EnableAccessOnRelease`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseRequest
       properties:
         buildVersion:
           deprecated: true
@@ -843,31 +2097,38 @@ components:
             type: string
           type: array
         groupIds:
-          description: "Optional. A repeated list of group aliases to enable access to a release for Note: This field is misnamed, but can't be changed because we need to maintain compatibility with old build tools"
+          description: 'Optional. A repeated list of group aliases to enable access to a release for Note: This field is misnamed, but can''t be changed because we need to maintain compatibility with old build tools'
           items:
             type: string
           type: array
       type: object
     GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseResponse:
+      description: The response message for `EnableAccessOnRelease`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaEnableAccessOnReleaseResponse
       properties: {}
       type: object
     GoogleFirebaseAppdistroV1alphaGetReleaseByUploadHashResponse:
       description: Response object to get the release given a upload hash
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaGetReleaseByUploadHashResponse
       properties:
         release:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaRelease"
           description: Release object
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaRelease'
       type: object
     GoogleFirebaseAppdistroV1alphaGetTesterUdidsResponse:
       description: Response containing the UDIDs of tester iOS devices in a project
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaGetTesterUdidsResponse
       properties:
         testerUdids:
           description: The UDIDs of tester iOS devices in a project
           items:
-            $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaTesterUdid"
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTesterUdid'
           type: array
       type: object
     GoogleFirebaseAppdistroV1alphaGetUploadStatusResponse:
+      description: The response message for `GetUploadStatus`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaGetUploadStatusResponse
       properties:
         errorCode:
           description: The error code associated with (only set on "FAILURE")
@@ -894,13 +2155,45 @@ components:
             - AAB_DEVELOPER_ACCOUNT_NOT_LINKED
             - AAB_NO_APP_WITH_GIVEN_PACKAGE_NAME_IN_ACCOUNT
             - AAB_UPLOAD_ERROR
+            - APP_NOT_FOUND
+            - AAB_ADHOC_SHARING_KEY_NOT_REGISTERED
+            - AAB_ANDROID_DEVELOPER_CONSOLE_ACCOUNT_NOT_FOUND
+            - AAB_ANDROID_DEVELOPER_CONSOLE_PACKAGE_NOT_FOUND
+          x-google-enum-descriptions:
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - ''
+            - Happens if the Firebase app no longer exists by the time of extraction
+            - ''
+            - A corresponding Android Developer Console account for this app's Play Console account was not found.
+            - The package was not found in the Android Developer Console.
           type: string
         message:
           description: Any additional context for the given upload status (e.g. error message) Meant to be displayed to the client
           type: string
         release:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaRelease"
           description: The release that was created from the upload (only set on "SUCCESS")
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaRelease'
         status:
           description: The status of the upload
           enum:
@@ -909,15 +2202,92 @@ components:
             - ALREADY_UPLOADED
             - SUCCESS
             - ERROR
+          x-google-enum-descriptions:
+            - Status unspecified.
+            - The upload is in progress.
+            - The binary has already been uploaded.
+            - The upload was successful.
+            - The upload failed.
           type: string
       type: object
+    GoogleFirebaseAppdistroV1alphaGoalAction:
+      description: An action taken by the AI agent while attempting to accomplish a goal.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaGoalAction
+      properties:
+        cachingType:
+          description: Output only. The type of caching used to determine the action.
+          enum:
+            - CACHING_TYPE_UNSPECIFIED
+            - NO_CACHING
+            - CACHE_AND_MODEL
+            - CACHE_ONLY
+          x-google-enum-descriptions:
+            - Caching type unspecified.
+            - The model alone was used to determine the action with no caching.
+            - The model used information from a previous successful run to determine the action.
+            - The action was replayed from a previous successful run without model input.
+          readOnly: true
+          type: string
+        debugInfo:
+          description: Output only. Debug information explaining why the agent to the specific action.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaGoalActionDebugInfo'
+        deviceAction:
+          description: Output only. A high level action taken by the AI on the device.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaDeviceAction'
+        explanation:
+          description: Output only. An explanation justifying why the action was taken.
+          readOnly: true
+          type: string
+        startTime:
+          description: Output only. The time at which the action started.
+          format: google-datetime
+          readOnly: true
+          type: string
+        terminalAction:
+          description: Output only. An action taken by the AI to end the goal.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTerminalAction'
+      type: object
+    GoogleFirebaseAppdistroV1alphaGoalActionDebugInfo:
+      description: Information to help the customer understand why the agent took this action.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaGoalActionDebugInfo
+      properties:
+        annotatedScreenshotUri:
+          description: Output only. URI of the screenshot with elements labeled which was used by the agent.
+          readOnly: true
+          type: string
+        jsonUri:
+          description: Output only. Structured data explaining the agent's choice.
+          readOnly: true
+          type: string
+      type: object
+    GoogleFirebaseAppdistroV1alphaGoalDetails:
+      description: Details for a goal step.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaGoalDetails
+      properties:
+        goalActions:
+          description: Output only. The actions taken by the AI while attempting to accomplish the goal.
+          items:
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaGoalAction'
+          readOnly: true
+          type: array
+      type: object
     GoogleFirebaseAppdistroV1alphaJwt:
+      description: A JWT token.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaJwt
       properties:
         token:
+          description: The JWT token (three Base64URL-encoded strings joined by dots).
           type: string
       type: object
     GoogleFirebaseAppdistroV1alphaListReleaseTestsResponse:
       description: The response message for `ListReleaseTests`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaListReleaseTestsResponse
       properties:
         nextPageToken:
           description: A short-lived token, which can be sent as `pageToken` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -925,15 +2295,30 @@ components:
         releaseTests:
           description: The tests listed.
           items:
-            $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseTest"
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaReleaseTest'
+          type: array
+      type: object
+    GoogleFirebaseAppdistroV1alphaListTestCasesResponse:
+      description: The response message for `ListTestCases`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaListTestCasesResponse
+      properties:
+        nextPageToken:
+          description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
+          type: string
+        testCases:
+          description: The test cases from the specified app.
+          items:
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestCase'
           type: array
       type: object
     GoogleFirebaseAppdistroV1alphaLoginCredential:
       description: Login credential for automated tests
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaLoginCredential
       properties:
         fieldHints:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaLoginCredentialFieldHints"
           description: Optional. Hints to the crawler for identifying input fields
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaLoginCredentialFieldHints'
         google:
           description: Optional. Are these credentials for Google?
           type: boolean
@@ -946,6 +2331,7 @@ components:
       type: object
     GoogleFirebaseAppdistroV1alphaLoginCredentialFieldHints:
       description: Hints to the crawler for identifying input fields
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaLoginCredentialFieldHints
       properties:
         passwordResourceName:
           description: 'Required. The Android resource name of the password UI element. For example, in Java: R.string.foo in xml: @string/foo Only the "foo" part is needed. Reference doc: https://developer.android.com/guide/topics/resources/accessing-resources.html'
@@ -954,11 +2340,9 @@ components:
           description: 'Required. The Android resource name of the username UI element. For example, in Java: R.string.foo in xml: @string/foo Only the "foo" part is needed. Reference doc: https://developer.android.com/guide/topics/resources/accessing-resources.html'
           type: string
       type: object
-    GoogleFirebaseAppdistroV1alphaProvisionAppResponse:
-      properties: {}
-      type: object
     GoogleFirebaseAppdistroV1alphaRelease:
       description: Proto defining a release object
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaRelease
       properties:
         buildVersion:
           description: Release build version
@@ -986,7 +2370,7 @@ components:
           type: integer
         receivedAt:
           deprecated: true
-          description: "unused. "
+          description: 'unused. '
           format: google-datetime
           type: string
         releaseNotesSummary:
@@ -1002,13 +2386,21 @@ components:
           type: integer
       type: object
     GoogleFirebaseAppdistroV1alphaReleaseNotes:
+      description: Release notes for a release.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaReleaseNotes
       properties:
         releaseNotes:
+          description: The actual release notes text from the user.
           type: string
       type: object
     GoogleFirebaseAppdistroV1alphaReleaseTest:
-      description: The results of running an automated test on a release.
+      description: Instance of an automated test for a release.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaReleaseTest
       properties:
+        aiInstructions:
+          description: Optional. Instructions for AI driven test.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaAiInstructions'
         createTime:
           description: Output only. Timestamp when the test was run.
           format: google-datetime
@@ -1017,24 +2409,57 @@ components:
         deviceExecutions:
           description: Required. The results of the test on each device.
           items:
-            $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaDeviceExecution"
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaDeviceExecution'
           type: array
+        displayName:
+          description: Optional. Display name of the release test. Required if the release test is created with multiple goals.
+          type: string
         loginCredential:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaLoginCredential"
           description: Optional. Input only. Login credentials for the test. Input only.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaLoginCredential'
         name:
-          description: "The name of the release test resource. Format: `projects/{project_number}/apps/{app_id}/releases/{release_id}/tests/{test_id}`"
+          description: 'The name of the release test resource. Format: `projects/{project_number}/apps/{app}/releases/{release}/tests/{test}`'
+          type: string
+        resultsBucket:
+          description: 'Optional. Input only. The custom Cloud Storage bucket where test results are stored. Format: `projects/{project_number}/buckets/{bucket}` If not provided, the default test lab bucket is used.'
+          type: string
+        testCase:
+          description: 'Optional. The test case that was used to generate this release test. Note: The test case may have changed or been deleted since the release test was created. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          type: string
+        testState:
+          description: Output only. The state of the release test.
+          enum:
+            - TEST_STATE_UNSPECIFIED
+            - IN_PROGRESS
+            - PASSED
+            - FAILED
+            - INCONCLUSIVE
+          x-google-enum-descriptions:
+            - Test state unspecified.
+            - The test is in progress.
+            - The test has passed.
+            - The test has failed.
+            - The test was inconclusive.
+          readOnly: true
           type: string
       type: object
     GoogleFirebaseAppdistroV1alphaRoboCrawler:
       description: Configuration for Robo crawler
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaRoboCrawler
       properties:
+        aiInstructions:
+          description: Optional. Instructions for AI driven test
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaAiInstructions'
         loginCredential:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaLoginCredential"
           description: Optional. Login credential for automated tests
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaLoginCredential'
       type: object
     GoogleFirebaseAppdistroV1alphaRoboStats:
       description: Statistics collected during a Robo test.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaRoboStats
       properties:
         actionsPerformed:
           description: Output only. Number of actions that crawler performed.
@@ -1056,23 +2481,102 @@ components:
           readOnly: true
           type: boolean
       type: object
+    GoogleFirebaseAppdistroV1alphaScreenshot:
+      description: A device screenshot taken during a test.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaScreenshot
+      properties:
+        height:
+          description: Output only. The height of the screenshot, in pixels.
+          format: int32
+          readOnly: true
+          type: integer
+        uri:
+          description: Output only. The URI of the screenshot.
+          readOnly: true
+          type: string
+        width:
+          description: Output only. The width of the screenshot, in pixels.
+          format: int32
+          readOnly: true
+          type: integer
+      type: object
+    GoogleFirebaseAppdistroV1alphaTerminalAction:
+      description: An action taken by the AI to end the goal.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaTerminalAction
+      properties:
+        reason:
+          description: Output only. The reason why this goal was ended.
+          enum:
+            - REASON_UNSPECIFIED
+            - GOAL_IMPOSSIBLE
+            - GOAL_COMPLETE
+          x-google-enum-descriptions:
+            - Reason unspecified.
+            - The goal failed to be completed. Note that "impossible" is a legacy term and the goal is reported to the customer as having "failed".
+            - The goal was completed successfully.
+          readOnly: true
+          type: string
+        screenshot:
+          description: Output only. The screenshot used in the context of this terminal action.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaScreenshot'
+      type: object
+    GoogleFirebaseAppdistroV1alphaTestCase:
+      description: AI test cases
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaTestCase
+      properties:
+        aiInstructions:
+          description: Optional. Instructions for AI driven test.
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaAiInstructions'
+        createTime:
+          description: Output only. Timestamp when the test case was created
+          format: google-datetime
+          readOnly: true
+          type: string
+        dependentTestCases:
+          description: Output only. Other test cases that depend on this test case as a prerequisite.
+          items:
+            type: string
+          readOnly: true
+          type: array
+        displayName:
+          description: Required. Display name of the test case.
+          type: string
+        name:
+          description: 'Identifier. The name of the test case resource. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          type: string
+        prerequisiteTestCase:
+          description: Optional. Test case that must be run before this test case.
+          type: string
+      type: object
     GoogleFirebaseAppdistroV1alphaTestConfig:
       description: Configuration for automated tests
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaTestConfig
       properties:
+        displayName:
+          description: Optional. Display name of the AI driven test. Required if the release test is created with multiple goals.
+          type: string
         name:
-          description: "Identifier. The name of the test configuration resource. Format: `projects/{project_number}/apps/{app_id}/testConfig`"
+          description: 'Identifier. The name of the test configuration resource. Format: `projects/{project_number}/apps/{app}/testConfig`'
+          type: string
+        resultsBucket:
+          description: 'Optional. The custom Cloud Storage bucket where test results are stored. Format: `projects/{project_number}/buckets/{bucket}` If not provided, the default test lab bucket is used.'
           type: string
         roboCrawler:
-          $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaRoboCrawler"
           description: Optional. Configuration for Robo crawler
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaRoboCrawler'
         testDevices:
           description: Optional. Tests will be run on this list of devices
           items:
-            $ref: "#/components/schemas/GoogleFirebaseAppdistroV1alphaTestDevice"
+            $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestDevice'
           type: array
       type: object
     GoogleFirebaseAppdistroV1alphaTestDevice:
       description: A device on which automated tests can be run.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaTestDevice
       properties:
         locale:
           description: Optional. The locale of the device (e.g. "en_US" for US English) during the test.
@@ -1087,8 +2591,27 @@ components:
           description: Required. The version of the device (API level on Android).
           type: string
       type: object
+    GoogleFirebaseAppdistroV1alphaTestQuota:
+      description: 'Customer quota information for `ReleaseTests`. Note: This quota only applies to tests with `AiInstructions` and is separate from the quota which might apply to the device time used by any tests.'
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaTestQuota
+      properties:
+        limit:
+          description: Output only. Maximum number of `ReleaseTests` allotted for the current month.
+          format: int64
+          readOnly: true
+          type: string
+        name:
+          description: 'Identifier. The name of the `TestQuota` resource. Format: `projects/{project_number}/testQuota`'
+          type: string
+        usage:
+          description: Output only. Number of `ReleaseTests` run in the current month
+          format: int64
+          readOnly: true
+          type: string
+      type: object
     GoogleFirebaseAppdistroV1alphaTesterUdid:
       description: The UDIDs of a tester's iOS device
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaTesterUdid
       properties:
         name:
           description: The name of the tester's device
@@ -1100,21 +2623,141 @@ components:
           description: The UDID of the tester's device
           type: string
       type: object
+    GoogleFirebaseAppdistroV1alphaUpdateTestCaseRequest:
+      description: The request message for `UpdateTestCase`.
+      x-google-discovery-id: GoogleFirebaseAppdistroV1alphaUpdateTestCaseRequest
+      properties:
+        allowMissing:
+          description: Optional. If set to true, and the test case is not found, a new test case will be created.
+          type: boolean
+        testCase:
+          description: 'Required. The test case to update. The test case''s `name` field is used to identify the test case to update. Format: `projects/{project_number}/apps/{app}/testCases/{test_case}`'
+          allOf:
+            - $ref: '#/components/schemas/GoogleFirebaseAppdistroV1alphaTestCase'
+      type: object
+    GoogleProtobufEmpty:
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: GoogleProtobufEmpty
+      properties: {}
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://firebase.google.com/products/app-distribution
+tags:
+  - name: apps
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://firebaseappdistribution.googleapis.com/
+  batchPath: batch
+  canonicalName: Firebase App Distribution
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: firebaseappdistribution:v1alpha
+  kind: discovery#restDescription
+  mtlsRootUrl: https://firebaseappdistribution.mtls.googleapis.com/
+  name: firebaseappdistribution
+  revision: '20260803'
+  rootUrl: https://firebaseappdistribution.googleapis.com/
+  servicePath: ''
+  version_module: true

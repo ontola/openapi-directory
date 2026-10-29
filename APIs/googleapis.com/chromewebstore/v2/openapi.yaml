@@ -1,0 +1,716 @@
+openapi: 3.0.3
+info:
+  title: Chrome Web Store API
+  version: v2
+  description: The Chrome Web Store API provides access to data about apps and extensions, as well as developer tools for managing them.
+  contact:
+    name: Google
+    url: https://google.com
+  x-origin:
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/chromewebstore.v2.json
+      version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/chromewebstore.v2.json
+      version: '3.0'
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260924; original source SHA-256 ac5632753cdadc07520c93f8a00fa3f100e77195b0516191955361d1f7b1edef.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://chromewebstore.googleapis.com
+paths:
+  /v2/publishers/{publishersId}/items/{itemsId}:upload:
+    post:
+      operationId: chromewebstore.media.upload
+      description: Upload a new package to an existing item.
+      parameters:
+        - name: publishersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item to upload the new package to in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+        - name: itemsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item to upload the new package to in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+      tags:
+        - media
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadItemPackageRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadItemPackageResponse'
+      x-google-discovery:
+        path: v2/{+name}:upload
+        flatPath: v2/publishers/{publishersId}/items/{itemsId}:upload
+        resourceNameBindings:
+          publishersId: name
+          itemsId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the item to upload the new package to in the form `publishers/{publisherId}/items/{itemId}`
+            location: path
+            pattern: ^publishers/[^/]+/items/[^/]+$
+            required: true
+            type: string
+        mediaUpload:
+          accept:
+            - '*/*'
+          maxSize: '2147483648'
+          protocols:
+            simple:
+              multipart: true
+              path: /upload/v2/{+name}:upload
+        supportsMediaUpload: true
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v2/publishers/{publishersId}/items/{itemsId}:cancelSubmission:
+    post:
+      operationId: chromewebstore.publishers.items.cancelSubmission
+      description: Cancel the current active submission of an item if present. This can be used to cancel the review of a pending submission.
+      parameters:
+        - name: publishersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item to cancel the submission of in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+        - name: itemsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item to cancel the submission of in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+      tags:
+        - publishers
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelSubmissionRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelSubmissionResponse'
+      x-google-discovery:
+        path: v2/{+name}:cancelSubmission
+        flatPath: v2/publishers/{publishersId}/items/{itemsId}:cancelSubmission
+        resourceNameBindings:
+          publishersId: name
+          itemsId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the item to cancel the submission of in the form `publishers/{publisherId}/items/{itemId}`
+            location: path
+            pattern: ^publishers/[^/]+/items/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v2/publishers/{publishersId}/items/{itemsId}:fetchStatus:
+    get:
+      operationId: chromewebstore.publishers.items.fetchStatus
+      description: Fetch the status of an item.
+      parameters:
+        - name: publishersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item to retrieve the status of in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+        - name: itemsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item to retrieve the status of in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+      tags:
+        - publishers
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore.readonly
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FetchItemStatusResponse'
+      x-google-discovery:
+        path: v2/{+name}:fetchStatus
+        flatPath: v2/publishers/{publishersId}/items/{itemsId}:fetchStatus
+        resourceNameBindings:
+          publishersId: name
+          itemsId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the item to retrieve the status of in the form `publishers/{publisherId}/items/{itemId}`
+            location: path
+            pattern: ^publishers/[^/]+/items/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v2/publishers/{publishersId}/items/{itemsId}:publish:
+    post:
+      operationId: chromewebstore.publishers.items.publish
+      description: Submit the item to be published in the store. The item will be submitted for review unless `skip_review` is set to true, or the item is staged from a previous submission with `publish_type` set to `STAGED_PUBLISH`.
+      parameters:
+        - name: publishersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+        - name: itemsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+      tags:
+        - publishers
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishItemRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishItemResponse'
+      x-google-discovery:
+        path: v2/{+name}:publish
+        flatPath: v2/publishers/{publishersId}/items/{itemsId}:publish
+        resourceNameBindings:
+          publishersId: name
+          itemsId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the item in the form `publishers/{publisherId}/items/{itemId}`
+            location: path
+            pattern: ^publishers/[^/]+/items/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v2/publishers/{publishersId}/items/{itemsId}:setPublishedDeployPercentage:
+    post:
+      operationId: chromewebstore.publishers.items.setPublishedDeployPercentage
+      description: Set a higher target deploy percentage for the item's published revision. This will be updated without the item being submitted for review. This is only available to items with over 10,000 seven-day active users.
+      parameters:
+        - name: publishersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item to update the published revision of in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+        - name: itemsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the item to update the published revision of in the form `publishers/{publisherId}/items/{itemId}`
+          schema:
+            type: string
+      tags:
+        - publishers
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/chromewebstore
+        - Oauth2c:
+            - https://www.googleapis.com/auth/chromewebstore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetPublishedDeployPercentageRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetPublishedDeployPercentageResponse'
+      x-google-discovery:
+        path: v2/{+name}:setPublishedDeployPercentage
+        flatPath: v2/publishers/{publishersId}/items/{itemsId}:setPublishedDeployPercentage
+        resourceNameBindings:
+          publishersId: name
+          itemsId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the item to update the published revision of in the form `publishers/{publisherId}/items/{itemId}`
+            location: path
+            pattern: ^publishers/[^/]+/items/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+components:
+  schemas:
+    CancelSubmissionRequest:
+      description: Request message for CancelSubmission.
+      x-google-discovery-id: CancelSubmissionRequest
+      properties: {}
+      type: object
+    CancelSubmissionResponse:
+      description: Response message for `CancelSubmission`.
+      x-google-discovery-id: CancelSubmissionResponse
+      properties: {}
+      type: object
+    DeployInfo:
+      description: Deployment information for a specific release channel. Used in requests to update deployment parameters.
+      x-google-discovery-id: DeployInfo
+      properties:
+        deployPercentage:
+          description: Required. The current deploy percentage for the release channel (nonnegative number between 0 and 100).
+          format: int32
+          type: integer
+      type: object
+    DistributionChannel:
+      description: Deployment information for a specific release channel
+      x-google-discovery-id: DistributionChannel
+      properties:
+        crxVersion:
+          description: The extension version provided in the manifest of the uploaded package.
+          type: string
+        deployPercentage:
+          description: The current deploy percentage for the release channel (nonnegative number between 0 and 100).
+          format: int32
+          type: integer
+      type: object
+    FetchItemStatusResponse:
+      description: Response message for `FetchItemStatus`.
+      x-google-discovery-id: FetchItemStatusResponse
+      properties:
+        itemId:
+          description: Output only. The ID of the item.
+          readOnly: true
+          type: string
+        lastAsyncUploadState:
+          description: Output only. The state of the last async upload for an item. Only set when there has been an async upload for the item in the past 24 hours.
+          enum:
+            - UPLOAD_STATE_UNSPECIFIED
+            - SUCCEEDED
+            - IN_PROGRESS
+            - FAILED
+            - NOT_FOUND
+          x-google-enum-descriptions:
+            - The default value.
+            - The upload succeeded.
+            - The upload is currently being processed.
+            - The upload failed.
+            - Used as the value of `lastAsyncUploadState` in a `fetchStatus` response indicating that an upload attempt was not found.
+          readOnly: true
+          type: string
+        name:
+          description: The name of the requested item.
+          type: string
+        publicKey:
+          description: The public key of the item, which may be generated by the store.
+          type: string
+        publishedItemRevisionStatus:
+          description: Output only. Status of the current published revision of the item. Will be unset if the item is not published.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/ItemRevisionStatus'
+        submittedItemRevisionStatus:
+          description: Status of the item revision submitted to be published. Will be unset if the item has not been submitted for publishing since the last successful publish.
+          allOf:
+            - $ref: '#/components/schemas/ItemRevisionStatus'
+        takenDown:
+          description: If true, the item has been taken down for a policy violation. Check the developer dashboard for details.
+          type: boolean
+        warned:
+          description: If true, the item has been warned for a policy violation and will be taken down if not resolved. Check the developer dashboard for details.
+          type: boolean
+      type: object
+    ItemRevisionStatus:
+      description: Details on the status of an item revision.
+      x-google-discovery-id: ItemRevisionStatus
+      properties:
+        distributionChannels:
+          description: Details on the package of the item
+          items:
+            $ref: '#/components/schemas/DistributionChannel'
+          type: array
+        state:
+          description: Output only. Current state of the item
+          enum:
+            - ITEM_STATE_UNSPECIFIED
+            - PENDING_REVIEW
+            - STAGED
+            - PUBLISHED
+            - PUBLISHED_TO_TESTERS
+            - REJECTED
+            - CANCELLED
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - The item is pending review.
+            - The item has been approved and is ready to be published.
+            - The item is published publicly.
+            - The item is published to trusted testers.
+            - The item has been rejected for publishing.
+            - The item submission has been cancelled.
+          readOnly: true
+          type: string
+      type: object
+    PublishItemRequest:
+      description: Request message for PublishItem.
+      x-google-discovery-id: PublishItemRequest
+      properties:
+        blockOnWarnings:
+          description: Optional. When set to true the request will fail if there are any warnings during validation and the details will be included in the `error.details`. Otherwise warnings are treated as non-blocking and will be ignored for validation but will be included in the response for inspection. Defaults to `false` if unset.
+          type: boolean
+        deployInfos:
+          description: Optional. Additional deploy information including the desired initial percentage rollout. Defaults to the current value saved in the developer dashboard if unset.
+          items:
+            $ref: '#/components/schemas/DeployInfo'
+          type: array
+        publishType:
+          description: Optional. Use this to control if the item is published immediately on approval or staged for publishing in the future. Defaults to `DEFAULT_PUBLISH` if unset.
+          enum:
+            - PUBLISH_TYPE_UNSPECIFIED
+            - DEFAULT_PUBLISH
+            - STAGED_PUBLISH
+          x-google-enum-descriptions:
+            - Default value. This is the same as DEFAULT_PUBLISH.
+            - The submission will be published immediately after being approved.
+            - After approval the submission will be staged and can then be published by the developer.
+          type: string
+        skipReview:
+          description: Optional. Whether to attempt to skip item review. The API will validate if the item qualifies and return a validation error if the item requires review. Defaults to `false` if unset.
+          type: boolean
+      type: object
+    PublishItemResponse:
+      description: Response message for `PublishItem`.
+      x-google-discovery-id: PublishItemResponse
+      properties:
+        itemId:
+          description: Output only. The ID of the item.
+          readOnly: true
+          type: string
+        name:
+          description: The name of the item that was submitted
+          type: string
+        state:
+          description: Output only. The current state of the submission.
+          enum:
+            - ITEM_STATE_UNSPECIFIED
+            - PENDING_REVIEW
+            - STAGED
+            - PUBLISHED
+            - PUBLISHED_TO_TESTERS
+            - REJECTED
+            - CANCELLED
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - The item is pending review.
+            - The item has been approved and is ready to be published.
+            - The item is published publicly.
+            - The item is published to trusted testers.
+            - The item has been rejected for publishing.
+            - The item submission has been cancelled.
+          readOnly: true
+          type: string
+        warningInfo:
+          description: Output only. Non-blocking warnings encountered during the request.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/WarningsInfo'
+      type: object
+    SetPublishedDeployPercentageRequest:
+      description: Request message for SetPublishedDeployPercentage.
+      x-google-discovery-id: SetPublishedDeployPercentageRequest
+      properties:
+        deployPercentage:
+          description: Required. Unscaled percentage value for the publised revision (nonnegative number between 0 and 100). It must be larger than the existing target percentage.
+          format: int32
+          type: integer
+      type: object
+    SetPublishedDeployPercentageResponse:
+      description: Response message for `SetPublishedDeployPercentage`.
+      x-google-discovery-id: SetPublishedDeployPercentageResponse
+      properties: {}
+      type: object
+    UploadItemPackageRequest:
+      description: Request message for UploadItemPackage.
+      x-google-discovery-id: UploadItemPackageRequest
+      properties: {}
+      type: object
+    UploadItemPackageResponse:
+      description: Response message for `UploadItemPackage`.
+      x-google-discovery-id: UploadItemPackageResponse
+      properties:
+        crxVersion:
+          description: The extension version provided in the manifest of the uploaded package. This will not be set if the upload is still in progress (`upload_state` is `UPLOAD_IN_PROGRESS`).
+          type: string
+        itemId:
+          description: Output only. The ID of the item the package was uploaded to.
+          readOnly: true
+          type: string
+        name:
+          description: The name of the item the package was uploaded to.
+          type: string
+        uploadState:
+          description: Output only. The state of the upload. If `upload_state` is `UPLOAD_IN_PROGRESS`, you can poll for updates using the fetchStatus method.
+          enum:
+            - UPLOAD_STATE_UNSPECIFIED
+            - SUCCEEDED
+            - IN_PROGRESS
+            - FAILED
+            - NOT_FOUND
+          x-google-enum-descriptions:
+            - The default value.
+            - The upload succeeded.
+            - The upload is currently being processed.
+            - The upload failed.
+            - Used as the value of `lastAsyncUploadState` in a `fetchStatus` response indicating that an upload attempt was not found.
+          readOnly: true
+          type: string
+      type: object
+    Warning:
+      description: Represents a single warning encountered during the request.
+      x-google-discovery-id: Warning
+      properties:
+        description:
+          description: A description of the warning. Developers should use this message to understand the warning and take appropriate action to resolve the issue.
+          type: string
+        reason:
+          description: The reason for the warning. This is a constant value that identifies the proximate cause of the warning.
+          type: string
+      type: object
+    WarningsInfo:
+      description: Message containing details on warnings encountered during PublishItem.
+      x-google-discovery-id: WarningsInfo
+      properties:
+        warnings:
+          description: All warnings encountered during the request.
+          items:
+            $ref: '#/components/schemas/Warning'
+          type: array
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          scopes:
+            https://www.googleapis.com/auth/chromewebstore: See, edit, update, or publish your Chrome Web Store extensions, themes, apps, and licences you have access to
+            https://www.googleapis.com/auth/chromewebstore.readonly: See and download your Chrome Web Store extensions and apps, and see licenses you have access to
+    Oauth2c:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/chromewebstore: See, edit, update, or publish your Chrome Web Store extensions, themes, apps, and licences you have access to
+            https://www.googleapis.com/auth/chromewebstore.readonly: See and download your Chrome Web Store extensions and apps, and see licenses you have access to
+externalDocs:
+  url: https://developer.chrome.com/docs/webstore/api
+tags:
+  - name: media
+  - name: publishers
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://chromewebstore.googleapis.com/
+  batchPath: batch
+  canonicalName: Chromewebstore
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: chromewebstore:v2
+  kind: discovery#restDescription
+  mtlsRootUrl: https://chromewebstore.mtls.googleapis.com/
+  name: chromewebstore
+  revision: '20260924'
+  rootUrl: https://chromewebstore.googleapis.com/
+  servicePath: ''
+  version_module: true

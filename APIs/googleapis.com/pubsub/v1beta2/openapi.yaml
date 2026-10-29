@@ -1,13 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://pubsub.googleapis.com/
-x-hasEquivalentPaths: true
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: "Provides reliable, many-to-many, asynchronous messaging between applications. "
+  description: 'Provides reliable, many-to-many, asynchronous messaging between applications. '
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -23,799 +20,1304 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://pubsub.googleapis.com/$discovery/rest?version=v1beta2
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/pubsub.v1beta2.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/pubsub.v1beta2.json
+      version: '3.0'
   x-preferred: true
   x-providerName: googleapis.com
   x-serviceName: pubsub
-externalDocs:
-  url: https://cloud.google.com/pubsub/docs
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260915; original source SHA-256 fa06bfe80ae04c69b0f1530c8f7d3dcf0774fa35853916a8c33ebfb30c55eef9.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://pubsub.googleapis.com
 paths:
-  /v1beta2/{name}:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    put:
-      description: Creates the given topic with the given name.
-      operationId: pubsub.projects.topics.create
-      parameters:
-        - description: The name of the topic. It must have the format `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter, and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters in length, and it must not start with `"goog"`.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Topic"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Topic"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-  /v1beta2/{project}/subscriptions:
-    get:
-      description: Lists matching subscriptions.
-      operationId: pubsub.projects.subscriptions.list
-      parameters:
-        - description: The name of the cloud project that subscriptions belong to.
-          in: path
-          name: project
-          required: true
-          schema:
-            type: string
-        - description: Maximum number of subscriptions to return.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The value returned by the last `ListSubscriptionsResponse`; indicates that this is a continuation of a prior `ListSubscriptions` call, and that the system should return the next page of data.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListSubscriptionsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta2/{project}/topics:
-    get:
-      description: Lists matching topics.
-      operationId: pubsub.projects.topics.list
-      parameters:
-        - description: The name of the cloud project that topics belong to.
-          in: path
-          name: project
-          required: true
-          schema:
-            type: string
-        - description: Maximum number of topics to return.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The value returned by the last `ListTopicsResponse`; indicates that this is a continuation of a prior `ListTopics` call, and that the system should return the next page of data.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListTopicsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta2/{resource}:getIamPolicy:
-    get:
-      description: Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.
-      operationId: pubsub.projects.topics.getIamPolicy
-      parameters:
-        - description: "REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field."
-          in: path
-          name: resource
-          required: true
-          schema:
-            type: string
-        - description: Optional. The maximum policy version that will be used to format the policy. Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected. Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset. The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-          in: query
-          name: options.requestedPolicyVersion
-          schema:
-            type: integer
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Policy"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta2/{resource}:setIamPolicy:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+  /v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:acknowledge:
     post:
-      description: Sets the access control policy on the specified resource. Replaces any existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
-      operationId: pubsub.projects.topics.setIamPolicy
-      parameters:
-        - description: "REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field."
-          in: path
-          name: resource
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SetIamPolicyRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Policy"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-  /v1beta2/{resource}:testIamPermissions:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: 'Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may "fail open" without warning.'
-      operationId: pubsub.projects.topics.testIamPermissions
-      parameters:
-        - description: "REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field."
-          in: path
-          name: resource
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/TestIamPermissionsRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TestIamPermissionsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-  /v1beta2/{subscription}:
-    delete:
-      description: Deletes an existing subscription. All pending messages in the subscription are immediately dropped. Calls to `Pull` after deletion will return `NOT_FOUND`. After a subscription is deleted, a new one may be created with the same name, but the new one has no association with the old subscription, or its topic unless the same topic is specified.
-      operationId: pubsub.projects.subscriptions.delete
-      parameters:
-        - description: The subscription to delete.
-          in: path
-          name: subscription
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-    get:
-      description: Gets the configuration details of a subscription.
-      operationId: pubsub.projects.subscriptions.get
-      parameters:
-        - description: The name of the subscription to get.
-          in: path
-          name: subscription
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Subscription"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta2/{subscription}:acknowledge:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Acknowledges the messages associated with the `ack_ids` in the `AcknowledgeRequest`. The Pub/Sub system can remove the relevant messages from the subscription. Acknowledging a message whose ack deadline has expired may succeed, but such a message may be redelivered later. Acknowledging a message more than once will not result in an error.
       operationId: pubsub.projects.subscriptions.acknowledge
+      description: Acknowledges the messages associated with the `ack_ids` in the `AcknowledgeRequest`. The Pub/Sub system can remove the relevant messages from the subscription. Acknowledging a message whose ack deadline has expired may succeed, but such a message may be redelivered later. Acknowledging a message more than once will not result in an error.
       parameters:
-        - description: The subscription whose message is being acknowledged.
+        - name: projectsId
           in: path
-          name: subscription
           required: true
+          description: Component of the original `subscription` resource name. The subscription whose message is being acknowledged.
           schema:
             type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The subscription whose message is being acknowledged.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AcknowledgeRequest"
+              $ref: '#/components/schemas/AcknowledgeRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-  /v1beta2/{subscription}:modifyAckDeadline:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1beta2/{+subscription}:acknowledge
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:acknowledge
+        resourceNameBindings:
+          projectsId: subscription
+          subscriptionsId: subscription
+        resourceNameParameters:
+          subscription:
+            description: The subscription whose message is being acknowledged.
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - subscription
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Modifies the ack deadline for a specific message. This method is useful to indicate that more time is needed to process a message by the subscriber, or to make the message available for redelivery if the processing was interrupted. Note that this does not modify the subscription-level `ackDeadlineSeconds` used for subsequent messages.
-      operationId: pubsub.projects.subscriptions.modifyAckDeadline
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:
+    put:
+      operationId: pubsub.projects.subscriptions.create
+      description: Creates a subscription to a given topic. If the subscription already exists, returns `ALREADY_EXISTS`. If the corresponding topic doesn't exist, returns `NOT_FOUND`. If the name is not provided in the request, the server will assign a random name for this subscription on the same project as the topic. Note that for REST API requests, you must specify a name.
       parameters:
-        - description: The name of the subscription.
+        - name: projectsId
           in: path
-          name: subscription
           required: true
+          description: Component of the original `name` resource name. The name of the subscription. It must have the format `"projects/{project}/subscriptions/{subscription}"`. `{subscription}` must start with a letter, and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters in length, and it must not start with `"goog"`.
           schema:
             type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the subscription. It must have the format `"projects/{project}/subscriptions/{subscription}"`. `{subscription}` must start with a letter, and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters in length, and it must not start with `"goog"`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModifyAckDeadlineRequest"
+              $ref: '#/components/schemas/Subscription'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-  /v1beta2/{subscription}:modifyPushConfig:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Modifies the `PushConfig` for a specified subscription. This may be used to change a push subscription to a pull one (signified by an empty `PushConfig`) or vice versa, or change the endpoint URL and other attributes of a push subscription. Messages will accumulate for delivery continuously through the call regardless of changes to the `PushConfig`.
-      operationId: pubsub.projects.subscriptions.modifyPushConfig
-      parameters:
-        - description: The name of the subscription.
-          in: path
-          name: subscription
-          required: true
-          schema:
+                $ref: '#/components/schemas/Subscription'
+      x-google-discovery:
+        path: v1beta2/{+name}
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}
+        resourceNameBindings:
+          projectsId: name
+          subscriptionsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the subscription. It must have the format `"projects/{project}/subscriptions/{subscription}"`. `{subscription}` must start with a letter, and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters in length, and it must not start with `"goog"`.
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
             type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ModifyPushConfigRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-  /v1beta2/{subscription}:pull:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Pulls messages from the server. Returns an empty list if there are no messages available in the backlog. The server may return `UNAVAILABLE` if there are too many concurrent pull requests pending for the given subscription.
-      operationId: pubsub.projects.subscriptions.pull
-      parameters:
-        - description: The subscription from which messages should be pulled.
-          in: path
-          name: subscription
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/PullRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PullResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-        - Oauth2:
-            - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
-            - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
-  /v1beta2/{topic}:
+        parameterOrder:
+          - name
     delete:
-      description: Deletes the topic with the given name. Returns `NOT_FOUND` if the topic does not exist. After a topic is deleted, a new topic may be created with the same name; this is an entirely new topic with none of the old configuration or subscriptions. Existing subscriptions to this topic are not deleted, but their `topic` field is set to `_deleted-topic_`.
-      operationId: pubsub.projects.topics.delete
+      operationId: pubsub.projects.subscriptions.delete
+      description: Deletes an existing subscription. All pending messages in the subscription are immediately dropped. Calls to `Pull` after deletion will return `NOT_FOUND`. After a subscription is deleted, a new one may be created with the same name, but the new one has no association with the old subscription, or its topic unless the same topic is specified.
       parameters:
-        - description: Name of the topic to delete.
+        - name: projectsId
           in: path
-          name: topic
           required: true
+          description: Component of the original `subscription` resource name. The subscription to delete.
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The subscription to delete.
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1beta2/{+subscription}
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}
+        resourceNameBindings:
+          projectsId: subscription
+          subscriptionsId: subscription
+        resourceNameParameters:
+          subscription:
+            description: The subscription to delete.
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - subscription
     get:
-      description: Gets the configuration of a topic.
-      operationId: pubsub.projects.topics.get
+      operationId: pubsub.projects.subscriptions.get
+      description: Gets the configuration details of a subscription.
       parameters:
-        - description: The name of the topic to get.
+        - name: projectsId
           in: path
-          name: topic
           required: true
+          description: Component of the original `subscription` resource name. The name of the subscription to get.
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Topic"
-          description: Successful response
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The name of the subscription to get.
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+      x-google-discovery:
+        path: v1beta2/{+subscription}
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}
+        resourceNameBindings:
+          projectsId: subscription
+          subscriptionsId: subscription
+        resourceNameParameters:
+          subscription:
+            description: The name of the subscription to get.
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - subscription
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta2/{topic}/subscriptions:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:getIamPolicy:
     get:
-      description: Lists the name of the subscriptions for this topic.
-      operationId: pubsub.projects.topics.subscriptions.list
+      operationId: pubsub.projects.subscriptions.getIamPolicy
+      description: Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.
       parameters:
-        - description: The name of the topic that subscriptions are attached to.
+        - name: projectsId
           in: path
-          name: topic
           required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
           schema:
             type: string
-        - description: Maximum number of subscription names to return.
-          in: query
-          name: pageSize
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
           schema:
+            type: string
+        - name: options.requestedPolicyVersion
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: The value returned by the last `ListTopicSubscriptionsResponse`; indicates that this is a continuation of a prior `ListTopicSubscriptions` call, and that the system should return the next page of data.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListTopicSubscriptionsResponse"
-          description: Successful response
+          description: Optional. The maximum policy version that will be used to format the policy. Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected. Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset. The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/pubsub
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1beta2/{+resource}:getIamPolicy
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:getIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          subscriptionsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta2/{topic}:publish:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic does not exist. The message payload must not be empty; it must contain either a non-empty data field, or at least one attribute.
-      operationId: pubsub.projects.topics.publish
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/subscriptions:
+    get:
+      operationId: pubsub.projects.subscriptions.list
+      description: Lists matching subscriptions.
       parameters:
-        - description: The messages in the request will be published on this topic.
+        - name: projectsId
           in: path
-          name: topic
           required: true
+          description: Component of the original `project` resource name. The name of the cloud project that subscriptions belong to.
           schema:
             type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Maximum number of subscriptions to return.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The value returned by the last `ListSubscriptionsResponse`; indicates that this is a continuation of a prior `ListSubscriptions` call, and that the system should return the next page of data.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSubscriptionsResponse'
+      x-google-discovery:
+        path: v1beta2/{+project}/subscriptions
+        flatPath: v1beta2/projects/{projectsId}/subscriptions
+        resourceNameBindings:
+          projectsId: project
+        resourceNameParameters:
+          project:
+            description: The name of the cloud project that subscriptions belong to.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - project
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:modifyAckDeadline:
+    post:
+      operationId: pubsub.projects.subscriptions.modifyAckDeadline
+      description: Modifies the ack deadline for a specific message. This method is useful to indicate that more time is needed to process a message by the subscriber, or to make the message available for redelivery if the processing was interrupted. Note that this does not modify the subscription-level `ackDeadlineSeconds` used for subsequent messages.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The name of the subscription.
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The name of the subscription.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PublishRequest"
+              $ref: '#/components/schemas/ModifyAckDeadlineRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PublishResponse"
-          description: Successful response
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1beta2/{+subscription}:modifyAckDeadline
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:modifyAckDeadline
+        resourceNameBindings:
+          projectsId: subscription
+          subscriptionsId: subscription
+        resourceNameParameters:
+          subscription:
+            description: The name of the subscription.
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - subscription
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:modifyPushConfig:
+    post:
+      operationId: pubsub.projects.subscriptions.modifyPushConfig
+      description: Modifies the `PushConfig` for a specified subscription. This may be used to change a push subscription to a pull one (signified by an empty `PushConfig`) or vice versa, or change the endpoint URL and other attributes of a push subscription. Messages will accumulate for delivery continuously through the call regardless of changes to the `PushConfig`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The name of the subscription.
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The name of the subscription.
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
         - Oauth2:
             - https://www.googleapis.com/auth/pubsub
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/pubsub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyPushConfigRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1beta2/{+subscription}:modifyPushConfig
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:modifyPushConfig
+        resourceNameBindings:
+          projectsId: subscription
+          subscriptionsId: subscription
+        resourceNameParameters:
+          subscription:
+            description: The name of the subscription.
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - subscription
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:pull:
+    post:
+      operationId: pubsub.projects.subscriptions.pull
+      description: Pulls messages from the server. Returns an empty list if there are no messages available in the backlog. The server may return `UNAVAILABLE` if there are too many concurrent pull requests pending for the given subscription.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The subscription from which messages should be pulled.
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The subscription from which messages should be pulled.
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PullRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PullResponse'
+      x-google-discovery:
+        path: v1beta2/{+subscription}:pull
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:pull
+        resourceNameBindings:
+          projectsId: subscription
+          subscriptionsId: subscription
+        resourceNameParameters:
+          subscription:
+            description: The subscription from which messages should be pulled.
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - subscription
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:setIamPolicy:
+    post:
+      operationId: pubsub.projects.subscriptions.setIamPolicy
+      description: Sets the access control policy on the specified resource. Replaces any existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetIamPolicyRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1beta2/{+resource}:setIamPolicy
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:setIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          subscriptionsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:testIamPermissions:
+    post:
+      operationId: pubsub.projects.subscriptions.testIamPermissions
+      description: 'Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may "fail open" without warning.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestIamPermissionsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestIamPermissionsResponse'
+      x-google-discovery:
+        path: v1beta2/{+resource}:testIamPermissions
+        flatPath: v1beta2/projects/{projectsId}/subscriptions/{subscriptionsId}:testIamPermissions
+        resourceNameBindings:
+          projectsId: resource
+          subscriptionsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/topics/{topicsId}:
+    put:
+      operationId: pubsub.projects.topics.create
+      description: Creates the given topic with the given name.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the topic. It must have the format `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter, and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters in length, and it must not start with `"goog"`.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the topic. It must have the format `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter, and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters in length, and it must not start with `"goog"`.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Topic'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+      x-google-discovery:
+        path: v1beta2/{+name}
+        flatPath: v1beta2/projects/{projectsId}/topics/{topicsId}
+        resourceNameBindings:
+          projectsId: name
+          topicsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the topic. It must have the format `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter, and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters in length, and it must not start with `"goog"`.
+            location: path
+            pattern: ^projects/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    delete:
+      operationId: pubsub.projects.topics.delete
+      description: Deletes the topic with the given name. Returns `NOT_FOUND` if the topic does not exist. After a topic is deleted, a new topic may be created with the same name; this is an entirely new topic with none of the old configuration or subscriptions. Existing subscriptions to this topic are not deleted, but their `topic` field is set to `_deleted-topic_`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. Name of the topic to delete.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. Name of the topic to delete.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1beta2/{+topic}
+        flatPath: v1beta2/projects/{projectsId}/topics/{topicsId}
+        resourceNameBindings:
+          projectsId: topic
+          topicsId: topic
+        resourceNameParameters:
+          topic:
+            description: Name of the topic to delete.
+            location: path
+            pattern: ^projects/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - topic
+    get:
+      operationId: pubsub.projects.topics.get
+      description: Gets the configuration of a topic.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. The name of the topic to get.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. The name of the topic to get.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+      x-google-discovery:
+        path: v1beta2/{+topic}
+        flatPath: v1beta2/projects/{projectsId}/topics/{topicsId}
+        resourceNameBindings:
+          projectsId: topic
+          topicsId: topic
+        resourceNameParameters:
+          topic:
+            description: The name of the topic to get.
+            location: path
+            pattern: ^projects/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - topic
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/topics/{topicsId}:getIamPolicy:
+    get:
+      operationId: pubsub.projects.topics.getIamPolicy
+      description: Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: options.requestedPolicyVersion
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. The maximum policy version that will be used to format the policy. Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected. Requests for policies with any conditional role bindings must specify version 3. Policies with no conditional role bindings may specify any valid value or leave the field unset. The policy in the response might use the policy version that you specified, or it might use a lower policy version. For example, if you specify version 3, but the policy has no conditional role bindings, the response uses version 1. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1beta2/{+resource}:getIamPolicy
+        flatPath: v1beta2/projects/{projectsId}/topics/{topicsId}:getIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          topicsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/topics:
+    get:
+      operationId: pubsub.projects.topics.list
+      description: Lists matching topics.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `project` resource name. The name of the cloud project that topics belong to.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Maximum number of topics to return.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The value returned by the last `ListTopicsResponse`; indicates that this is a continuation of a prior `ListTopics` call, and that the system should return the next page of data.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTopicsResponse'
+      x-google-discovery:
+        path: v1beta2/{+project}/topics
+        flatPath: v1beta2/projects/{projectsId}/topics
+        resourceNameBindings:
+          projectsId: project
+        resourceNameParameters:
+          project:
+            description: The name of the cloud project that topics belong to.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - project
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/topics/{topicsId}:publish:
+    post:
+      operationId: pubsub.projects.topics.publish
+      description: Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic does not exist. The message payload must not be empty; it must contain either a non-empty data field, or at least one attribute.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. The messages in the request will be published on this topic.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. The messages in the request will be published on this topic.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishResponse'
+      x-google-discovery:
+        path: v1beta2/{+topic}:publish
+        flatPath: v1beta2/projects/{projectsId}/topics/{topicsId}:publish
+        resourceNameBindings:
+          projectsId: topic
+          topicsId: topic
+        resourceNameParameters:
+          topic:
+            description: The messages in the request will be published on this topic.
+            location: path
+            pattern: ^projects/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - topic
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/topics/{topicsId}:setIamPolicy:
+    post:
+      operationId: pubsub.projects.topics.setIamPolicy
+      description: Sets the access control policy on the specified resource. Replaces any existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetIamPolicyRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+      x-google-discovery:
+        path: v1beta2/{+resource}:setIamPolicy
+        flatPath: v1beta2/projects/{projectsId}/topics/{topicsId}:setIamPolicy
+        resourceNameBindings:
+          projectsId: resource
+          topicsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy is being specified. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/topics/{topicsId}:testIamPermissions:
+    post:
+      operationId: pubsub.projects.topics.testIamPermissions
+      description: 'Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may "fail open" without warning.'
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: 'Component of the original `resource` resource name. REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestIamPermissionsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestIamPermissionsResponse'
+      x-google-discovery:
+        path: v1beta2/{+resource}:testIamPermissions
+        flatPath: v1beta2/projects/{projectsId}/topics/{topicsId}:testIamPermissions
+        resourceNameBindings:
+          projectsId: resource
+          topicsId: resource
+        resourceNameParameters:
+          resource:
+            description: 'REQUIRED: The resource for which the policy detail is being requested. See [Resource names](https://cloud.google.com/apis/design/resource_names) for the appropriate value for this field.'
+            location: path
+            pattern: ^projects/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - resource
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta2/projects/{projectsId}/topics/{topicsId}/subscriptions:
+    get:
+      operationId: pubsub.projects.topics.subscriptions.list
+      description: Lists the name of the subscriptions for this topic.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. The name of the topic that subscriptions are attached to.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. The name of the topic that subscriptions are attached to.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Maximum number of subscription names to return.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The value returned by the last `ListTopicSubscriptionsResponse`; indicates that this is a continuation of a prior `ListTopicSubscriptions` call, and that the system should return the next page of data.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2:
+            - https://www.googleapis.com/auth/pubsub
+        - Oauth2c:
+            - https://www.googleapis.com/auth/pubsub
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTopicSubscriptionsResponse'
+      x-google-discovery:
+        path: v1beta2/{+topic}/subscriptions
+        flatPath: v1beta2/projects/{projectsId}/topics/{topicsId}/subscriptions
+        resourceNameBindings:
+          projectsId: topic
+          topicsId: topic
+        resourceNameParameters:
+          topic:
+            description: The name of the topic that subscriptions are attached to.
+            location: path
+            pattern: ^projects/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - topic
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     AcknowledgeRequest:
       description: Request for the Acknowledge method.
+      x-google-discovery-id: AcknowledgeRequest
       properties:
         ackIds:
           description: The acknowledgment ID for the messages being acknowledged that was returned by the Pub/Sub system in the `Pull` response. Must not be empty.
@@ -825,12 +1327,14 @@ components:
       type: object
     Binding:
       description: Associates `members`, or principals, with a `role`.
+      x-google-discovery-id: Binding
       properties:
         condition:
-          $ref: "#/components/schemas/Expr"
           description: The condition that is associated with this binding. If the condition evaluates to `true`, then this binding applies to the current request. If the condition evaluates to `false`, then this binding does not apply to the current request. However, a different role binding might grant the same role to one or more of the principals in this binding. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+          allOf:
+            - $ref: '#/components/schemas/Expr'
         members:
-          description: "Specifies the principals requesting access for a Google Cloud resource. `members` can have the following values: * `allUsers`: A special identifier that represents anyone who is on the internet; with or without a Google account. * `allAuthenticatedUsers`: A special identifier that represents anyone who is authenticated with a Google account or a service account. Does not include identities that come from external identity providers (IdPs) through identity federation. * `user:{emailid}`: An email address that represents a specific Google account. For example, `alice@example.com` . * `serviceAccount:{emailid}`: An email address that represents a Google service account. For example, `my-other-app@appspot.gserviceaccount.com`. * `serviceAccount:{projectid}.svc.id.goog[{namespace}/{kubernetes-sa}]`: An identifier for a [Kubernetes service account](https://cloud.google.com/kubernetes-engine/docs/how-to/kubernetes-service-accounts). For example, `my-project.svc.id.goog[my-namespace/my-kubernetes-sa]`. * `group:{emailid}`: An email address that represents a Google group. For example, `admins@example.com`. * `domain:{domain}`: The G Suite domain (primary) that represents all the users of that domain. For example, `google.com` or `example.com`. * `principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`: A single identity in a workforce identity pool. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/group/{group_id}`: All workforce identities in a group. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/attribute.{attribute_name}/{attribute_value}`: All workforce identities with a specific attribute value. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/*`: All identities in a workforce identity pool. * `principal://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/subject/{subject_attribute_value}`: A single identity in a workload identity pool. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/group/{group_id}`: A workload identity pool group. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/attribute.{attribute_name}/{attribute_value}`: All identities in a workload identity pool with a certain attribute. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/*`: All identities in a workload identity pool. * `deleted:user:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a user that has been recently deleted. For example, `alice@example.com?uid=123456789012345678901`. If the user is recovered, this value reverts to `user:{emailid}` and the recovered user retains the role in the binding. * `deleted:serviceAccount:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a service account that has been recently deleted. For example, `my-other-app@appspot.gserviceaccount.com?uid=123456789012345678901`. If the service account is undeleted, this value reverts to `serviceAccount:{emailid}` and the undeleted service account retains the role in the binding. * `deleted:group:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a Google group that has been recently deleted. For example, `admins@example.com?uid=123456789012345678901`. If the group is recovered, this value reverts to `group:{emailid}` and the recovered group retains the role in the binding. * `deleted:principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`: Deleted single identity in a workforce identity pool. For example, `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`."
+          description: 'Specifies the principals requesting access for a Google Cloud resource. `members` can have the following values: * `allUsers`: A special identifier that represents anyone who is on the internet; with or without a Google account. * `allAuthenticatedUsers`: A special identifier that represents anyone who is authenticated with a Google account or a service account. Does not include identities that come from external identity providers (IdPs) through identity federation. * `user:{emailid}`: An email address that represents a specific Google account. For example, `alice@example.com` . * `serviceAccount:{emailid}`: An email address that represents a Google service account. For example, `my-other-app@appspot.gserviceaccount.com`. * `serviceAccount:{projectid}.svc.id.goog[{namespace}/{kubernetes-sa}]`: An identifier for a [Kubernetes service account](https://cloud.google.com/kubernetes-engine/docs/how-to/kubernetes-service-accounts). For example, `my-project.svc.id.goog[my-namespace/my-kubernetes-sa]`. * `group:{emailid}`: An email address that represents a Google group. For example, `admins@example.com`. * `domain:{domain}`: The G Suite domain (primary) that represents all the users of that domain. For example, `google.com` or `example.com`. * `principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`: A single identity in a workforce identity pool. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/group/{group_id}`: All workforce identities in a group. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/attribute.{attribute_name}/{attribute_value}`: All workforce identities with a specific attribute value. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/*`: All identities in a workforce identity pool. * `principal://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/subject/{subject_attribute_value}`: A single identity in a workload identity pool. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/group/{group_id}`: A workload identity pool group. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/attribute.{attribute_name}/{attribute_value}`: All identities in a workload identity pool with a certain attribute. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/*`: All identities in a workload identity pool. * `deleted:user:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a user that has been recently deleted. For example, `alice@example.com?uid=123456789012345678901`. If the user is recovered, this value reverts to `user:{emailid}` and the recovered user retains the role in the binding. * `deleted:serviceAccount:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a service account that has been recently deleted. For example, `my-other-app@appspot.gserviceaccount.com?uid=123456789012345678901`. If the service account is undeleted, this value reverts to `serviceAccount:{emailid}` and the undeleted service account retains the role in the binding. * `deleted:group:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a Google group that has been recently deleted. For example, `admins@example.com?uid=123456789012345678901`. If the group is recovered, this value reverts to `group:{emailid}` and the recovered group retains the role in the binding. * `deleted:principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`: Deleted single identity in a workforce identity pool. For example, `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`.'
           items:
             type: string
           type: array
@@ -839,11 +1343,13 @@ components:
           type: string
       type: object
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     Expr:
-      description: "Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language. The syntax and semantics of CEL are documented at https://github.com/google/cel-spec. Example (Comparison): title: \"Summary size limit\" description: \"Determines if a summary is less than 100 chars\" expression: \"document.summary.size() < 100\" Example (Equality): title: \"Requestor is owner\" description: \"Determines if requestor is the document owner\" expression: \"document.owner == request.auth.claims.email\" Example (Logic): title: \"Public documents\" description: \"Determine whether the document should be publicly visible\" expression: \"document.type != 'private' && document.type != 'internal'\" Example (Data Manipulation): title: \"Notification string\" description: \"Create a notification string with a timestamp.\" expression: \"'New message received at ' + string(document.create_time)\" The exact variables and functions that may be referenced within an expression are determined by the service that evaluates it. See the service documentation for additional information."
+      description: 'Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language. The syntax and semantics of CEL are documented at https://github.com/google/cel-spec. Example (Comparison): title: "Summary size limit" description: "Determines if a summary is less than 100 chars" expression: "document.summary.size() < 100" Example (Equality): title: "Requestor is owner" description: "Determines if requestor is the document owner" expression: "document.owner == request.auth.claims.email" Example (Logic): title: "Public documents" description: "Determine whether the document should be publicly visible" expression: "document.type != ''private'' && document.type != ''internal''" Example (Data Manipulation): title: "Notification string" description: "Create a notification string with a timestamp." expression: "''New message received at '' + string(document.create_time)" The exact variables and functions that may be referenced within an expression are determined by the service that evaluates it. See the service documentation for additional information.'
+      x-google-discovery-id: Expr
       properties:
         description:
           description: Optional. Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
@@ -860,6 +1366,7 @@ components:
       type: object
     ListSubscriptionsResponse:
       description: Response for the `ListSubscriptions` method.
+      x-google-discovery-id: ListSubscriptionsResponse
       properties:
         nextPageToken:
           description: If not empty, indicates that there may be more subscriptions that match the request; this value should be passed in a new `ListSubscriptionsRequest` to get more subscriptions.
@@ -867,11 +1374,12 @@ components:
         subscriptions:
           description: The subscriptions that match the request.
           items:
-            $ref: "#/components/schemas/Subscription"
+            $ref: '#/components/schemas/Subscription'
           type: array
       type: object
     ListTopicSubscriptionsResponse:
       description: Response for the `ListTopicSubscriptions` method.
+      x-google-discovery-id: ListTopicSubscriptionsResponse
       properties:
         nextPageToken:
           description: If not empty, indicates that there may be more subscriptions that match the request; this value should be passed in a new `ListTopicSubscriptionsRequest` to get more subscriptions.
@@ -884,6 +1392,7 @@ components:
       type: object
     ListTopicsResponse:
       description: Response for the `ListTopics` method.
+      x-google-discovery-id: ListTopicsResponse
       properties:
         nextPageToken:
           description: If not empty, indicates that there may be more topics that match the request; this value should be passed in a new `ListTopicsRequest`.
@@ -891,11 +1400,12 @@ components:
         topics:
           description: The resulting topics.
           items:
-            $ref: "#/components/schemas/Topic"
+            $ref: '#/components/schemas/Topic'
           type: array
       type: object
     ModifyAckDeadlineRequest:
       description: Request for the ModifyAckDeadline method.
+      x-google-discovery-id: ModifyAckDeadlineRequest
       properties:
         ackDeadlineSeconds:
           description: The new ack deadline with respect to the time this request was sent to the Pub/Sub system. Must be >= 0. For example, if the value is 10, the new ack deadline will expire 10 seconds after the `ModifyAckDeadline` call was made. Specifying zero may immediately make the message available for another pull request.
@@ -912,49 +1422,68 @@ components:
       type: object
     ModifyPushConfigRequest:
       description: Request for the ModifyPushConfig method.
+      x-google-discovery-id: ModifyPushConfigRequest
       properties:
         pushConfig:
-          $ref: "#/components/schemas/PushConfig"
           description: The push configuration for future deliveries. An empty `pushConfig` indicates that the Pub/Sub system should stop pushing messages from the given subscription and allow messages to be pulled and acknowledged - effectively pausing the subscription if `Pull` is not called.
+          allOf:
+            - $ref: '#/components/schemas/PushConfig'
       type: object
     OidcToken:
       description: Contains information needed for generating an [OpenID Connect token](https://developers.google.com/identity/protocols/OpenIDConnect).
+      x-google-discovery-id: OidcToken
       properties:
         audience:
-          description: "Audience to be used when generating OIDC token. The audience claim identifies the recipients that the JWT is intended for. The audience value is a single case-sensitive string. Having multiple values (array) for the audience field is not supported. More info about the OIDC JWT token audience here: https://tools.ietf.org/html/rfc7519#section-4.1.3 Note: if not specified, the Push endpoint URL will be used."
+          description: 'Audience to be used when generating OIDC token. The audience claim identifies the recipients that the JWT is intended for. The audience value is a single case-sensitive string. Having multiple values (array) for the audience field is not supported. More info about the OIDC JWT token audience here: https://tools.ietf.org/html/rfc7519#section-4.1.3 Note: if not specified, the Push endpoint URL will be used.'
           type: string
         serviceAccountEmail:
-          description: "[Service account email](https://cloud.google.com/iam/docs/service-accounts) to be used for generating the OIDC token. The caller (for CreateSubscription, UpdateSubscription, and ModifyPushConfig RPCs) must have the iam.serviceAccounts.actAs permission for the service account."
+          description: '[Service account email](https://cloud.google.com/iam/docs/service-accounts) to be used for generating the OIDC token. The caller (for CreateSubscription, UpdateSubscription, and ModifyPushConfig RPCs) must have the iam.serviceAccounts.actAs permission for the service account.'
           type: string
       type: object
     Policy:
-      description: "An Identity and Access Management (IAM) policy, which specifies access controls for Google Cloud resources. A `Policy` is a collection of `bindings`. A `binding` binds one or more `members`, or principals, to a single `role`. Principals can be user accounts, service accounts, Google groups, and domains (such as G Suite). A `role` is a named list of permissions; each `role` can be an IAM predefined role or a user-created custom role. For some types of Google Cloud resources, a `binding` can also specify a `condition`, which is a logical expression that allows access to a resource only if the expression evaluates to `true`. A condition can add constraints based on attributes of the request, the resource, or both. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies). **JSON example:** ``` { \"bindings\": [ { \"role\": \"roles/resourcemanager.organizationAdmin\", \"members\": [ \"user:mike@example.com\", \"group:admins@example.com\", \"domain:google.com\", \"serviceAccount:my-project-id@appspot.gserviceaccount.com\" ] }, { \"role\": \"roles/resourcemanager.organizationViewer\", \"members\": [ \"user:eve@example.com\" ], \"condition\": { \"title\": \"expirable access\", \"description\": \"Does not grant access after Sep 2020\", \"expression\": \"request.time < timestamp('2020-10-01T00:00:00.000Z')\", } } ], \"etag\": \"BwWWja0YfJA=\", \"version\": 3 } ``` **YAML example:** ``` bindings: - members: - user:mike@example.com - group:admins@example.com - domain:google.com - serviceAccount:my-project-id@appspot.gserviceaccount.com role: roles/resourcemanager.organizationAdmin - members: - user:eve@example.com role: roles/resourcemanager.organizationViewer condition: title: expirable access description: Does not grant access after Sep 2020 expression: request.time < timestamp('2020-10-01T00:00:00.000Z') etag: BwWWja0YfJA= version: 3 ``` For a description of IAM and its features, see the [IAM documentation](https://cloud.google.com/iam/docs/)."
+      description: 'An Identity and Access Management (IAM) policy, which specifies access controls for Google Cloud resources. A `Policy` is a collection of `bindings`. A `binding` binds one or more `members`, or principals, to a single `role`. Principals can be user accounts, service accounts, Google groups, and domains (such as G Suite). A `role` is a named list of permissions; each `role` can be an IAM predefined role or a user-created custom role. For some types of Google Cloud resources, a `binding` can also specify a `condition`, which is a logical expression that allows access to a resource only if the expression evaluates to `true`. A condition can add constraints based on attributes of the request, the resource, or both. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies). **JSON example:** ``` { "bindings": [ { "role": "roles/resourcemanager.organizationAdmin", "members": [ "user:mike@example.com", "group:admins@example.com", "domain:google.com", "serviceAccount:my-project-id@appspot.gserviceaccount.com" ] }, { "role": "roles/resourcemanager.organizationViewer", "members": [ "user:eve@example.com" ], "condition": { "title": "expirable access", "description": "Does not grant access after Sep 2020", "expression": "request.time < timestamp(''2020-10-01T00:00:00.000Z'')", } } ], "etag": "BwWWja0YfJA=", "version": 3 } ``` **YAML example:** ``` bindings: - members: - user:mike@example.com - group:admins@example.com - domain:google.com - serviceAccount:my-project-id@appspot.gserviceaccount.com role: roles/resourcemanager.organizationAdmin - members: - user:eve@example.com role: roles/resourcemanager.organizationViewer condition: title: expirable access description: Does not grant access after Sep 2020 expression: request.time < timestamp(''2020-10-01T00:00:00.000Z'') etag: BwWWja0YfJA= version: 3 ``` For a description of IAM and its features, see the [IAM documentation](https://cloud.google.com/iam/docs/).'
+      x-google-discovery-id: Policy
       properties:
         bindings:
           description: Associates a list of `members`, or principals, with a `role`. Optionally, may specify a `condition` that determines how and when the `bindings` are applied. Each of the `bindings` must contain at least one principal. The `bindings` in a `Policy` can refer to up to 1,500 principals; up to 250 of these principals can be Google groups. Each occurrence of a principal counts towards these limits. For example, if the `bindings` grant 50 different roles to `user:alice@example.com`, and not to any other principal, then you can add another 1,450 principals to the `bindings` in the `Policy`.
           items:
-            $ref: "#/components/schemas/Binding"
+            $ref: '#/components/schemas/Binding'
           type: array
         etag:
-          description: "`etag` is used for optimistic concurrency control as a way to help prevent simultaneous updates of a policy from overwriting each other. It is strongly suggested that systems make use of the `etag` in the read-modify-write cycle to perform policy updates in order to avoid race conditions: An `etag` is returned in the response to `getIamPolicy`, and systems are expected to put that etag in the request to `setIamPolicy` to ensure that their change will be applied to the same version of the policy. **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost."
+          description: '`etag` is used for optimistic concurrency control as a way to help prevent simultaneous updates of a policy from overwriting each other. It is strongly suggested that systems make use of the `etag` in the read-modify-write cycle to perform policy updates in order to avoid race conditions: An `etag` is returned in the response to `getIamPolicy`, and systems are expected to put that etag in the request to `setIamPolicy` to ensure that their change will be applied to the same version of the policy. **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost.'
           format: byte
           type: string
         version:
-          description: "Specifies the format of the policy. Valid values are `0`, `1`, and `3`. Requests that specify an invalid value are rejected. Any operation that affects conditional role bindings must specify version `3`. This requirement applies to the following operations: * Getting a policy that includes a conditional role binding * Adding a conditional role binding to a policy * Changing a conditional role binding in a policy * Removing any role binding, with or without a condition, from a policy that includes conditions **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost. If a policy does not include any conditions, operations on that policy may specify any valid version or leave the field unset. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies)."
+          description: 'Specifies the format of the policy. Valid values are `0`, `1`, and `3`. Requests that specify an invalid value are rejected. Any operation that affects conditional role bindings must specify version `3`. This requirement applies to the following operations: * Getting a policy that includes a conditional role binding * Adding a conditional role binding to a policy * Changing a conditional role binding in a policy * Removing any role binding, with or without a condition, from a policy that includes conditions **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost. If a policy does not include any conditions, operations on that policy may specify any valid version or leave the field unset. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).'
           format: int32
           type: integer
       type: object
+    PublishOperation:
+      description: Telemetry about a `Publish` operation which may or may not be common across individual RPCs.
+      x-google-discovery-id: PublishOperation
+      properties:
+        hedgedAttemptCount:
+          description: Optional. If the publisher client is using publish hedging, provides the attempt count for the hedge (starting at 1). A value of 0 indicates that the request was not hedged.
+          format: int32
+          type: integer
+        publishStartTime:
+          description: Optional. Time at which the `publish()` call was initiated in the client library, meaning across all RPC retry attempts, see [grpc retries](https://grpc.io/docs/guides/retry/). Provides a sense of the end-to-end publish duration from the client perspective, across retries.
+          format: google-datetime
+          type: string
+      type: object
     PublishRequest:
       description: Request for the Publish method.
+      x-google-discovery-id: PublishRequest
       properties:
         messages:
           description: The messages to publish.
           items:
-            $ref: "#/components/schemas/PubsubMessage"
+            $ref: '#/components/schemas/PubsubMessage'
           type: array
       type: object
     PublishResponse:
       description: Response for the `Publish` method.
+      x-google-discovery-id: PublishResponse
       properties:
         messageIds:
           description: The server-assigned ID of each published message, in the same order as the messages in the request. IDs are guaranteed to be unique within the topic.
@@ -962,8 +1491,18 @@ components:
             type: string
           type: array
       type: object
+    PubsubClientTelemetry:
+      description: Client-side telemetry about Pub/Sub requests, useful for debugging purposes. If the client opts to provide this information, it will be passed as a serialized proto in the `x-goog-pubsub-client-telemetry` header.
+      x-google-discovery-id: PubsubClientTelemetry
+      properties:
+        publishOperation:
+          description: Optional. Telemetry about a `Publish` operation.
+          allOf:
+            - $ref: '#/components/schemas/PublishOperation'
+      type: object
     PubsubMessage:
       description: A message data and its attributes. The message payload must not be empty; it must contain either a non-empty data field, or at least one attribute.
+      x-google-discovery-id: PubsubMessage
       properties:
         attributes:
           additionalProperties:
@@ -984,6 +1523,7 @@ components:
       type: object
     PullRequest:
       description: Request for the `Pull` method.
+      x-google-discovery-id: PullRequest
       properties:
         maxMessages:
           description: The maximum number of messages returned for this request. The Pub/Sub system may return fewer than the number specified.
@@ -991,52 +1531,60 @@ components:
           type: integer
         returnImmediately:
           deprecated: true
-          description: "Optional. If this is specified as true the system will respond immediately even if it is not able to return a message in the `Pull` response. Otherwise the system is allowed to wait until at least one message is available rather than returning no messages. The client may cancel the request if it does not wish to wait any longer for the response. Warning: setting this field to `true` is discouraged because it adversely impacts the performance of `Pull` operations. We recommend that users do not set this field."
+          description: 'Optional. If this is specified as true the system will respond immediately even if it is not able to return a message in the `Pull` response. Otherwise the system is allowed to wait until at least one message is available rather than returning no messages. The client may cancel the request if it does not wish to wait any longer for the response. Warning: setting this field to `true` is discouraged because it adversely impacts the performance of `Pull` operations. We recommend that users do not set this field.'
           type: boolean
       type: object
     PullResponse:
       description: Response for the `Pull` method.
+      x-google-discovery-id: PullResponse
       properties:
         receivedMessages:
           description: Received Pub/Sub messages. The Pub/Sub system will return zero messages if there are no more available in the backlog. The Pub/Sub system may return fewer than the `maxMessages` requested even if there are more messages available in the backlog.
           items:
-            $ref: "#/components/schemas/ReceivedMessage"
+            $ref: '#/components/schemas/ReceivedMessage'
           type: array
       type: object
     PushConfig:
       description: Configuration for a push delivery endpoint.
+      x-google-discovery-id: PushConfig
       properties:
         attributes:
           additionalProperties:
             type: string
-          description: "Endpoint configuration attributes. Every endpoint has a set of API supported attributes that can be used to control different aspects of the message delivery. The currently supported attribute is `x-goog-version`, which you can use to change the format of the push message. This attribute indicates the version of the data expected by the endpoint. This controls the shape of the envelope (i.e. its fields and metadata). The endpoint version is based on the version of the Pub/Sub API. If not present during the `CreateSubscription` call, it will default to the version of the API used to make such call. If not present during a `ModifyPushConfig` call, its value will not be changed. `GetSubscription` calls will always return a valid version, even if the subscription was created without this attribute. The possible values for this attribute are: * `v1beta1`: uses the push format defined in the v1beta1 Pub/Sub API. * `v1` or `v1beta2`: uses the push format defined in the v1 Pub/Sub API."
+          description: 'Endpoint configuration attributes. Every endpoint has a set of API supported attributes that can be used to control different aspects of the message delivery. The currently supported attribute is `x-goog-version`, which you can use to change the format of the push message. This attribute indicates the version of the data expected by the endpoint. This controls the shape of the envelope (i.e. its fields and metadata). The endpoint version is based on the version of the Pub/Sub API. If not present during the `CreateSubscription` call, it will default to the version of the API used to make such call. If not present during a `ModifyPushConfig` call, its value will not be changed. `GetSubscription` calls will always return a valid version, even if the subscription was created without this attribute. The possible values for this attribute are: * `v1beta1`: uses the push format defined in the v1beta1 Pub/Sub API. * `v1` or `v1beta2`: uses the push format defined in the v1 Pub/Sub API.'
           type: object
         oidcToken:
-          $ref: "#/components/schemas/OidcToken"
           description: If specified, Pub/Sub will generate and attach an OIDC JWT token as an `Authorization` header in the HTTP request for every pushed message.
+          allOf:
+            - $ref: '#/components/schemas/OidcToken'
         pushEndpoint:
           description: A URL locating the endpoint to which messages should be pushed. For example, a Webhook endpoint might use "https://example.com/push".
           type: string
       type: object
     ReceivedMessage:
       description: A message and its corresponding acknowledgment ID.
+      x-google-discovery-id: ReceivedMessage
       properties:
         ackId:
           description: This ID can be used to acknowledge the received message.
           type: string
         message:
-          $ref: "#/components/schemas/PubsubMessage"
           description: The message.
+          allOf:
+            - $ref: '#/components/schemas/PubsubMessage'
       type: object
     SetIamPolicyRequest:
       description: Request message for `SetIamPolicy` method.
+      x-google-discovery-id: SetIamPolicyRequest
       properties:
         policy:
-          $ref: "#/components/schemas/Policy"
-          description: "REQUIRED: The complete policy to be applied to the `resource`. The size of the policy is limited to a few 10s of KB. An empty policy is a valid policy but certain Google Cloud services (such as Projects) might reject them."
+          description: 'REQUIRED: The complete policy to be applied to the `resource`. The size of the policy is limited to a few 10s of KB. An empty policy is a valid policy but certain Google Cloud services (such as Projects) might reject them.'
+          allOf:
+            - $ref: '#/components/schemas/Policy'
       type: object
     Subscription:
       description: A subscription resource.
+      x-google-discovery-id: Subscription
       properties:
         ackDeadlineSeconds:
           description: This value is the maximum time after a subscriber receives a message before the subscriber should acknowledge the message. After message delivery but before the ack deadline expires and before the message is acknowledged, it is an outstanding message and will not be delivered again during that time (on a best-effort basis). For pull subscriptions, this value is used as the initial value for the ack deadline. To override this value for a given message, call `ModifyAckDeadline` with the corresponding `ack_id` if using pull. The maximum custom deadline you can specify is 600 seconds (10 minutes). For push delivery, this value is also used to set the request timeout for the call to the push endpoint. If the subscriber never acknowledges the message, the Pub/Sub system will eventually redeliver the message. If this parameter is 0, a default value of 10 seconds is used.
@@ -1046,14 +1594,16 @@ components:
           description: The name of the subscription. It must have the format `"projects/{project}/subscriptions/{subscription}"`. `{subscription}` must start with a letter, and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters in length, and it must not start with `"goog"`.
           type: string
         pushConfig:
-          $ref: "#/components/schemas/PushConfig"
           description: If push delivery is used with this subscription, this field is used to configure it. An empty `pushConfig` signifies that the subscriber will pull and ack messages using API methods.
+          allOf:
+            - $ref: '#/components/schemas/PushConfig'
         topic:
           description: The name of the topic from which this subscription is receiving messages. The value of this field will be `_deleted-topic_` if the topic has been deleted.
           type: string
       type: object
     TestIamPermissionsRequest:
       description: Request message for `TestIamPermissions` method.
+      x-google-discovery-id: TestIamPermissionsRequest
       properties:
         permissions:
           description: The set of permissions to check for the `resource`. Permissions with wildcards (such as `*` or `storage.*`) are not allowed. For more information see [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
@@ -1063,6 +1613,7 @@ components:
       type: object
     TestIamPermissionsResponse:
       description: Response message for `TestIamPermissions` method.
+      x-google-discovery-id: TestIamPermissionsResponse
       properties:
         permissions:
           description: A subset of `TestPermissionsRequest.permissions` that the caller is allowed.
@@ -1072,28 +1623,268 @@ components:
       type: object
     Topic:
       description: A topic resource.
+      x-google-discovery-id: Topic
       properties:
         name:
           description: The name of the topic. It must have the format `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter, and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters in length, and it must not start with `"goog"`.
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/pubsub: View and manage Pub/Sub topics and subscriptions
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
             https://www.googleapis.com/auth/pubsub: View and manage Pub/Sub topics and subscriptions
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/pubsub/docs
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://pubsub.googleapis.com/
+  batchPath: batch
+  canonicalName: Pubsub
+  endpoints:
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.africa-south1.rep.googleapis.com/
+      location: africa-south1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-east1.rep.googleapis.com/
+      location: asia-east1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-east2.rep.googleapis.com/
+      location: asia-east2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-northeast1.rep.googleapis.com/
+      location: asia-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-northeast2.rep.googleapis.com/
+      location: asia-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-northeast3.rep.googleapis.com/
+      location: asia-northeast3
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-south1.rep.googleapis.com/
+      location: asia-south1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-south2.rep.googleapis.com/
+      location: asia-south2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-southeast1.rep.googleapis.com/
+      location: asia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-southeast2.rep.googleapis.com/
+      location: asia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.asia-southeast3.rep.googleapis.com/
+      location: asia-southeast3
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.australia-southeast1.rep.googleapis.com/
+      location: australia-southeast1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.australia-southeast2.rep.googleapis.com/
+      location: australia-southeast2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-central2.rep.googleapis.com/
+      location: europe-central2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-north1.rep.googleapis.com/
+      location: europe-north1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-north2.rep.googleapis.com/
+      location: europe-north2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-southwest1.rep.googleapis.com/
+      location: europe-southwest1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-west1.rep.googleapis.com/
+      location: europe-west1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-west2.rep.googleapis.com/
+      location: europe-west2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-west3.rep.googleapis.com/
+      location: europe-west3
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-west4.rep.googleapis.com/
+      location: europe-west4
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-west6.rep.googleapis.com/
+      location: europe-west6
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-west8.rep.googleapis.com/
+      location: europe-west8
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-west9.rep.googleapis.com/
+      location: europe-west9
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-west10.rep.googleapis.com/
+      location: europe-west10
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.europe-west12.rep.googleapis.com/
+      location: europe-west12
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.me-central1.rep.googleapis.com/
+      location: me-central1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.me-central2.rep.googleapis.com/
+      location: me-central2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.me-west1.rep.googleapis.com/
+      location: me-west1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.northamerica-northeast1.rep.googleapis.com/
+      location: northamerica-northeast1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.northamerica-northeast2.rep.googleapis.com/
+      location: northamerica-northeast2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.northamerica-south1.rep.googleapis.com/
+      location: northamerica-south1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.southamerica-east1.rep.googleapis.com/
+      location: southamerica-east1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.southamerica-west1.rep.googleapis.com/
+      location: southamerica-west1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-central1.rep.googleapis.com/
+      location: us-central1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-central2.rep.googleapis.com/
+      location: us-central2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-east1.rep.googleapis.com/
+      location: us-east1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-east4.rep.googleapis.com/
+      location: us-east4
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-east5.rep.googleapis.com/
+      location: us-east5
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-east7.rep.googleapis.com/
+      location: us-east7
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-south1.rep.googleapis.com/
+      location: us-south1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-west1.rep.googleapis.com/
+      location: us-west1
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-west2.rep.googleapis.com/
+      location: us-west2
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-west3.rep.googleapis.com/
+      location: us-west3
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-west4.rep.googleapis.com/
+      location: us-west4
+    - description: Regional Endpoint
+      endpointUrl: https://pubsub.us-west8.rep.googleapis.com/
+      location: us-west8
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: pubsub:v1beta2
+  kind: discovery#restDescription
+  mtlsRootUrl: https://pubsub.mtls.googleapis.com/
+  name: pubsub
+  revision: '20260915'
+  rootUrl: https://pubsub.googleapis.com/
+  servicePath: ''

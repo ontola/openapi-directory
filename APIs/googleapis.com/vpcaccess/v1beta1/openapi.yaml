@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://vpcaccess.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -20,374 +18,554 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://vpcaccess.googleapis.com/$discovery/rest?version=v1beta1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/vpcaccess.v1beta1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/vpcaccess.v1beta1.json
+      version: '3.0'
   x-preferred: false
   x-providerName: googleapis.com
   x-serviceName: vpcaccess
-externalDocs:
-  url: https://cloud.google.com/vpc/docs/configure-serverless-vpc-access
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260503; original source SHA-256 9835130b75960caa446a09535f7754a5d46787b58a7d166ad00021c96d84284f.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://vpcaccess.googleapis.com
 paths:
-  /v1beta1/{name}:
-    delete:
-      description: Deletes a Serverless VPC Access connector. Returns NOT_FOUND if the resource does not exist.
-      operationId: vpcaccess.projects.locations.connectors.delete
-      parameters:
-        - description: Required. Name of a Serverless VPC Access connector to delete.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+  /v1beta1/projects/{projectsId}/locations:
     get:
-      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
-      operationId: vpcaccess.projects.locations.operations.get
-      parameters:
-        - description: The name of the operation resource.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Updates a Serverless VPC Access connector, returns an operation.
-      operationId: vpcaccess.projects.locations.connectors.patch
-      parameters:
-        - description: The resource name in the format `projects/*/locations/*/connectors/*`.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: The fields to update on the entry group. If absent or empty, all modifiable fields are updated.
-          in: query
-          name: updateMask
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Connector"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1beta1/{name}/locations:
-    get:
-      description: Lists information about the supported locations for this service.
       operationId: vpcaccess.projects.locations.list
+      description: 'Lists information about the supported locations for this service. This method lists locations based on the resource scope provided in the ListLocationsRequest.name field: * **Global locations**: If `name` is empty, the method lists the public locations available to all projects. * **Project-specific locations**: If `name` follows the format `projects/{project}`, the method lists locations visible to that specific project. This includes public, private, or other project-specific locations enabled for the project. For gRPC and client library implementations, the resource name is passed as the `name` field. For direct service calls, the resource name is incorporated into the request path based on the specific service implementation and version.'
       parameters:
-        - description: The resource that owns the locations collection, if applicable.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. The resource that owns the locations collection, if applicable.
           schema:
             type: string
-        - description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: extraLocationTypes
           in: query
-          name: filter
+          schema:
+            type: array
+            items:
+              type: string
+          description: Optional. Do not use this field unless explicitly documented otherwise. This is primarily for internal usage.
+          style: form
+          explode: true
+        - name: filter
+          in: query
           schema:
             type: string
-        - description: The maximum number of results to return. If not set, the service selects a default.
+          description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+          description: The maximum number of results to return. If not set, the service selects a default.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListLocationsResponse"
-          description: Successful response
+          description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta1/{name}/operations:
-    get:
-      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
-      operationId: vpcaccess.projects.locations.operations.list
-      parameters:
-        - description: The name of the operation's parent resource.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: The standard list filter.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: The standard list page size.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The standard list page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListOperationsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta1/{parent}/connectors:
-    get:
-      description: Lists Serverless VPC Access connectors.
-      operationId: vpcaccess.projects.locations.connectors.list
-      parameters:
-        - description: Required. The project and location from which the routes should be listed.
-          in: path
-          name: parent
-          required: true
-          schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
+      x-google-discovery:
+        path: v1beta1/{+name}/locations
+        flatPath: v1beta1/projects/{projectsId}/locations
+        resourceNameBindings:
+          projectsId: name
+        resourceNameParameters:
+          name:
+            description: The resource that owns the locations collection, if applicable.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
             type: string
-        - description: Maximum number of functions to return per call.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: Continuation token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListConnectorsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta1/projects/{projectsId}/locations/{locationsId}/connectors:
     post:
-      description: Creates a Serverless VPC Access connector, returns an operation.
       operationId: vpcaccess.projects.locations.connectors.create
+      description: Creates a Serverless VPC Access connector, returns an operation.
       parameters:
-        - description: Required. The project ID and location in which the configuration should be created, specified in the format `projects/*/locations/*`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The project ID and location in which the configuration should be created, specified in the format `projects/*/locations/*`.
           schema:
             type: string
-        - description: Required. The ID to use for this connector.
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project ID and location in which the configuration should be created, specified in the format `projects/*/locations/*`.
+          schema:
+            type: string
+        - name: connectorId
           in: query
-          name: connectorId
           schema:
             type: string
+          description: Required. The ID to use for this connector.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Connector"
+              $ref: '#/components/schemas/Connector'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta1/{+parent}/connectors
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}/connectors
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project ID and location in which the configuration should be created, specified in the format `projects/*/locations/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: vpcaccess.projects.locations.connectors.list
+      description: Lists Serverless VPC Access connectors.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the routes should be listed.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The project and location from which the routes should be listed.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Maximum number of functions to return per call.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Continuation token.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListConnectorsResponse'
+      x-google-discovery:
+        path: v1beta1/{+parent}/connectors
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}/connectors
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The project and location from which the routes should be listed.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta1/projects/{projectsId}/locations/{locationsId}/connectors/{connectorsId}:
+    delete:
+      operationId: vpcaccess.projects.locations.connectors.delete
+      description: Deletes a Serverless VPC Access connector. Returns NOT_FOUND if the resource does not exist.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of a Serverless VPC Access connector to delete.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of a Serverless VPC Access connector to delete.
+          schema:
+            type: string
+        - name: connectorsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of a Serverless VPC Access connector to delete.
+          schema:
+            type: string
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta1/{+name}
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}/connectors/{connectorsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          connectorsId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of a Serverless VPC Access connector to delete.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/connectors/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: vpcaccess.projects.locations.connectors.get
+      description: Gets a Serverless VPC Access connector. Returns NOT_FOUND if the resource does not exist.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of a Serverless VPC Access connector to get.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of a Serverless VPC Access connector to get.
+          schema:
+            type: string
+        - name: connectorsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of a Serverless VPC Access connector to get.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connector'
+      x-google-discovery:
+        path: v1beta1/{+name}
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}/connectors/{connectorsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          connectorsId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of a Serverless VPC Access connector to get.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/connectors/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: vpcaccess.projects.locations.connectors.patch
+      description: Updates a Serverless VPC Access connector, returns an operation.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource name in the format `projects/*/locations/*/connectors/*`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource name in the format `projects/*/locations/*/connectors/*`.
+          schema:
+            type: string
+        - name: connectorsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The resource name in the format `projects/*/locations/*/connectors/*`.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: The fields to update on the entry group. If absent or empty, all modifiable fields are updated.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Connector'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta1/{+name}
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}/connectors/{connectorsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          connectorsId: name
+        resourceNameParameters:
+          name:
+            description: The resource name in the format `projects/*/locations/*/connectors/*`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/connectors/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:
+    get:
+      operationId: vpcaccess.projects.locations.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1beta1/{+name}
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta1/projects/{projectsId}/locations/{locationsId}/operations:
+    get:
+      operationId: vpcaccess.projects.locations.operations.list
+      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The standard list filter.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The standard list page size.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The standard list page token.
+        - name: returnPartialSuccess
+          in: query
+          schema:
+            type: boolean
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the ListOperationsResponse.unreachable field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"`. This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1beta1/{+name}/operations
+        flatPath: v1beta1/projects/{projectsId}/locations/{locationsId}/operations
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation's parent resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Connector:
       description: Definition of a Serverless VPC Access connector.
+      x-google-discovery-id: Connector
       properties:
         connectedProjects:
           description: Output only. List of projects using the connector.
@@ -401,7 +579,7 @@ components:
           readOnly: true
           type: string
         ipCidrRange:
-          description: "The range of internal addresses that follows RFC 4632 notation. Example: `10.132.0.0/28`."
+          description: 'Optional. The range of internal addresses that follows RFC 4632 notation. Example: `10.132.0.0/28`.'
           type: string
         lastRestartTime:
           description: Output only. The last restart time of the connector.
@@ -416,6 +594,7 @@ components:
           format: int32
           type: integer
         maxThroughput:
+          deprecated: true
           description: Maximum throughput of the connector in Mbps. Refers to the expected throughput when using an `e2-micro` machine type. Value must be a multiple of 100 from 300 through 1000. Must be higher than the value specified by --min-throughput. If both max-throughput and max-instances are provided, max-instances takes precedence over max-throughput. The use of `max-throughput` is discouraged in favor of `max-instances`.
           format: int32
           type: integer
@@ -424,6 +603,7 @@ components:
           format: int32
           type: integer
         minThroughput:
+          deprecated: true
           description: Minimum throughput of the connector in Mbps. Refers to the expected throughput when using an `e2-micro` machine type. Value must be a multiple of 100 from 200 through 900. Must be lower than the value specified by --max-throughput. If both min-throughput and min-instances are provided, min-instances takes precedence over min-throughput. The use of `min-throughput` is discouraged in favor of `min-instances`.
           format: int32
           type: integer
@@ -431,7 +611,7 @@ components:
           description: The resource name in the format `projects/*/locations/*/connectors/*`.
           type: string
         network:
-          description: Name of a VPC network.
+          description: Optional. Name of a VPC network.
           type: string
         state:
           description: Output only. State of the VPC access connector.
@@ -442,19 +622,28 @@ components:
             - DELETING
             - ERROR
             - UPDATING
+          x-google-enum-descriptions:
+            - Invalid state.
+            - Connector is deployed and ready to receive traffic.
+            - An Insert operation is in progress. Transient condition.
+            - A Delete operation is in progress. Transient condition.
+            - Connector is in a bad state, manual deletion recommended.
+            - The connector is being updated.
           readOnly: true
           type: string
         subnet:
-          $ref: "#/components/schemas/Subnet"
-          description: The subnet in which to house the VPC Access Connector.
+          description: Optional. The subnet in which to house the VPC Access Connector.
+          allOf:
+            - $ref: '#/components/schemas/Subnet'
       type: object
     ListConnectorsResponse:
       description: Response for listing Serverless VPC Access connectors.
+      x-google-discovery-id: ListConnectorsResponse
       properties:
         connectors:
           description: List of Serverless VPC Access connectors.
           items:
-            $ref: "#/components/schemas/Connector"
+            $ref: '#/components/schemas/Connector'
           type: array
         nextPageToken:
           description: Continuation token.
@@ -462,11 +651,12 @@ components:
       type: object
     ListLocationsResponse:
       description: The response message for Locations.ListLocations.
+      x-google-discovery-id: ListLocationsResponse
       properties:
         locations:
           description: A list of locations that matches the specified filter in the request.
           items:
-            $ref: "#/components/schemas/Location"
+            $ref: '#/components/schemas/Location'
           type: array
         nextPageToken:
           description: The standard List next-page token.
@@ -474,6 +664,7 @@ components:
       type: object
     ListOperationsResponse:
       description: The response message for Operations.ListOperations.
+      x-google-discovery-id: ListOperationsResponse
       properties:
         nextPageToken:
           description: The standard List next-page token.
@@ -481,11 +672,17 @@ components:
         operations:
           description: A list of operations that matches the specified filter in the request.
           items:
-            $ref: "#/components/schemas/Operation"
+            $ref: '#/components/schemas/Operation'
+          type: array
+        unreachable:
+          description: Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections. For example, when attempting to list all resources across all supported locations.
+          items:
+            type: string
           type: array
       type: object
     Location:
       description: A resource that represents a Google Cloud location.
+      x-google-discovery-id: Location
       properties:
         displayName:
           description: The friendly name for this location, typically a nearby city name. For example, "Tokyo".
@@ -501,6 +698,7 @@ components:
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata. For example the available capacity at the given location.
           type: object
         name:
@@ -509,16 +707,19 @@ components:
       type: object
     Operation:
       description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
       properties:
         done:
           description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
           type: boolean
         error:
-          $ref: "#/components/schemas/Status"
           description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
           type: object
         name:
@@ -527,11 +728,13 @@ components:
         response:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
           type: object
       type: object
     OperationMetadata:
       description: Metadata for google.longrunning.Operation.
+      x-google-discovery-id: OperationMetadata
       properties:
         createTime:
           description: Output only. Time when the operation was created.
@@ -554,6 +757,7 @@ components:
       type: object
     OperationMetadataV1Alpha1:
       description: Metadata for google.longrunning.Operation.
+      x-google-discovery-id: OperationMetadataV1Alpha1
       properties:
         endTime:
           description: Output only. Time when the operation completed.
@@ -576,6 +780,7 @@ components:
       type: object
     OperationMetadataV1Beta1:
       description: Metadata for google.longrunning.Operation.
+      x-google-discovery-id: OperationMetadataV1Beta1
       properties:
         createTime:
           description: Output only. Time when the operation was created.
@@ -597,7 +802,8 @@ components:
           type: string
       type: object
     Status:
-      description: "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors)."
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
       properties:
         code:
           description: The status code, which should be an enum value of google.rpc.Code.
@@ -608,6 +814,7 @@ components:
           items:
             additionalProperties:
               description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
             type: object
           type: array
         message:
@@ -616,29 +823,132 @@ components:
       type: object
     Subnet:
       description: The subnet in which to house the connector
+      x-google-discovery-id: Subnet
       properties:
         name:
-          description: Subnet name (relative, not fully qualified). E.g. if the full subnet selfLink is https://compute.googleapis.com/compute/v1/projects/{project}/regions/{region}/subnetworks/{subnetName} the correct input for this field would be {subnetName}
+          description: Optional. Subnet name (relative, not fully qualified). E.g. if the full subnet selfLink is https://compute.googleapis.com/compute/v1/projects/{project}/regions/{region}/subnetworks/{subnetName} the correct input for this field would be {subnetName}
           type: string
         projectId:
-          description: Project in which the subnet exists. If not set, this project is assumed to be the project for which the connector create request was issued.
+          description: Optional. Project in which the subnet exists. If not set, this project is assumed to be the project for which the connector create request was issued.
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/vpc/docs/configure-serverless-vpc-access
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://vpcaccess.googleapis.com/
+  batchPath: batch
+  canonicalName: Serverless VPC Access
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: vpcaccess:v1beta1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://vpcaccess.mtls.googleapis.com/
+  name: vpcaccess
+  revision: '20260503'
+  rootUrl: https://vpcaccess.googleapis.com/
+  servicePath: ''
+  version_module: true

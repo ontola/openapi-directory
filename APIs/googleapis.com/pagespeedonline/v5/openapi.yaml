@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://pagespeedonline.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: "The PageSpeed Insights API lets you analyze the performance of your website with a simple API. It offers tailored suggestions for how you can optimize your site, and lets you easily integrate PageSpeed Insights analysis into your development tools and workflow. "
+  description: 'The PageSpeed Insights API lets you analyze the performance of your website with a simple API. It offers tailored suggestions for how you can optimize your site, and lets you easily integrate PageSpeed Insights analysis into your development tools and workflow. '
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -22,37 +20,40 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://pagespeedonline.googleapis.com/$discovery/rest?version=v5
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/pagespeedonline.v5.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/pagespeedonline.v5.json
+      version: '3.0'
   x-preferred: true
   x-providerName: googleapis.com
   x-serviceName: pagespeedonline
-externalDocs:
-  url: https://developers.google.com/speed/docs/insights/v5/about
-tags:
-  - name: pagespeedapi
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260629; original source SHA-256 1a5e729edd44842344fe8e91c74e873ef46e5396dafcc3d6f9cbc17234d01008.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+    - Converted the exact PageSpeed URL RE2 (?i) pattern to an equivalent ECMA-262 pattern with explicit case-fold classes, including U+017F long s, and a non-LF dot class. Preserved the original as x-google-re2-pattern. Native RE2, ECMA-262 and Unicode case-fold witnesses are checked; no constraint was removed.
+servers:
+  - url: https://pagespeedonline.googleapis.com
 paths:
   /pagespeedonline/v5/runPagespeed:
     get:
-      description: Runs PageSpeed analysis on the page at the specified URL, and returns PageSpeed scores, a list of suggestions to make that page faster, and other information.
       operationId: pagespeedonline.pagespeedapi.runpagespeed
+      description: Runs PageSpeed analysis on the page at the specified URL, and returns PageSpeed scores, a list of suggestions to make that page faster, and other information.
       parameters:
-        - description: Required. The URL to fetch and analyze
+        - name: captchaToken
           in: query
-          name: url
-          required: true
           schema:
             type: string
-        - description: The captcha token passed when filling out a captcha.
+          description: The captcha token passed when filling out a captcha.
+        - name: category
           in: query
-          name: captchaToken
           schema:
-            type: string
-        - description: A Lighthouse category to run; if none are given, only Performance category will be run
-          explode: true
-          in: query
-          name: category
-          schema:
+            type: array
             items:
               enum:
                 - CATEGORY_UNSPECIFIED
@@ -61,137 +62,100 @@ paths:
                 - PERFORMANCE
                 - PWA
                 - SEO
+                - AGENTIC_BROWSING
+              x-google-enum-deprecated:
+                - false
+                - false
+                - false
+                - false
+                - true
+                - false
+                - false
+              x-google-enum-descriptions:
+                - Default UNDEFINED category.
+                - Accessibility (a11y), category pertaining to a website's capacity to be accessible to all users.
+                - Best Practices, category pertaining to a website's conformance to web best practice.
+                - Performance, category pertaining to a website's performance.
+                - Progressive Web App (PWA), category pertaining to a website's ability to be run as a PWA. This is deprecated in Lighthouse's 12.0 release.
+                - Search Engine Optimization (SEO), category pertaining to a website's ability to be indexed by search engines.
+                - Agentic Browsing, category pertaining to a website's ability to be rendered by an agentic browsing system.
               type: string
-            type: array
+          description: A Lighthouse category to run; if none are given, only Performance category will be run
           style: form
-        - description: The locale used to localize formatted results
+          explode: true
+        - name: locale
           in: query
-          name: locale
           schema:
+            pattern: '[a-zA-Z]+((_|-)[a-zA-Z]+)?'
             type: string
-        - description: The analysis strategy (desktop or mobile) to use, and desktop is the default
+          description: The locale used to localize formatted results
+        - name: strategy
           in: query
-          name: strategy
           schema:
             enum:
               - STRATEGY_UNSPECIFIED
               - DESKTOP
               - MOBILE
+            x-google-enum-descriptions:
+              - UNDEFINED.
+              - Fetch and analyze the URL for desktop browsers.
+              - Fetch and analyze the URL for mobile devices.
             type: string
-        - description: Campaign name for analytics.
+          description: The analysis strategy (desktop or mobile) to use, and desktop is the default
+        - name: url
           in: query
-          name: utm_campaign
+          schema:
+            pattern: ([uU][rR][lL]:|[oO][rR][iI][gG][iI][nN]:)?[hH][tT][tT][pP]([sSſ])?://[^\n]*
+            type: string
+            x-google-re2-pattern: (?i)(url:|origin:)?http(s)?://.*
+          description: Required. The URL to fetch and analyze
+          required: true
+        - name: utm_campaign
+          in: query
           schema:
             type: string
-        - description: Campaign source for analytics.
+          description: Campaign name for analytics.
+        - name: utm_source
           in: query
-          name: utm_source
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PagespeedApiPagespeedResponseV5"
-          description: Successful response
+          description: Campaign source for analytics.
+      tags:
+        - pagespeedapi
       security:
         - Oauth2:
             - openid
-          Oauth2c:
+        - Oauth2c:
             - openid
-      tags:
-        - pagespeedapi
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagespeedApiPagespeedResponseV5'
+      x-google-discovery:
+        path: pagespeedonline/v5/runPagespeed
+        flatPath: pagespeedonline/v5/runPagespeed
+        parameterOrder:
+          - url
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     AuditRefs:
       description: A light reference to an audit by id, used to group and weight audits in a given category.
+      x-google-discovery-id: AuditRefs
       properties:
         acronym:
           description: The conventional acronym for the audit/metric.
@@ -214,6 +178,7 @@ components:
       type: object
     Bucket:
       description: A proportion of data in the total distribution, bucketed by a min/max percentage. Each bucket's range is bounded by min <= x < max, In millisecond.
+      x-google-discovery-id: Bucket
       properties:
         max:
           description: Upper bound for a bucket's range.
@@ -230,25 +195,37 @@ components:
       type: object
     Categories:
       description: The categories in a Lighthouse run.
+      x-google-discovery-id: Categories
       properties:
         accessibility:
-          $ref: "#/components/schemas/LighthouseCategoryV5"
           description: The accessibility category, containing all accessibility related audits.
+          allOf:
+            - $ref: '#/components/schemas/LighthouseCategoryV5'
+        agentic-browsing:
+          description: The agentic browsing category, containing all agentic browsing related audits.
+          allOf:
+            - $ref: '#/components/schemas/LighthouseCategoryV5'
         best-practices:
-          $ref: "#/components/schemas/LighthouseCategoryV5"
           description: The best practices category, containing all best practices related audits.
+          allOf:
+            - $ref: '#/components/schemas/LighthouseCategoryV5'
         performance:
-          $ref: "#/components/schemas/LighthouseCategoryV5"
           description: The performance category, containing all performance related audits.
+          allOf:
+            - $ref: '#/components/schemas/LighthouseCategoryV5'
         pwa:
-          $ref: "#/components/schemas/LighthouseCategoryV5"
-          description: The Progressive-Web-App (PWA) category, containing all pwa related audits.
+          deprecated: true
+          description: The Progressive-Web-App (PWA) category, containing all pwa related audits. This is deprecated in Lighthouse's 12.0 release.
+          allOf:
+            - $ref: '#/components/schemas/LighthouseCategoryV5'
         seo:
-          $ref: "#/components/schemas/LighthouseCategoryV5"
           description: The Search-Engine-Optimization (SEO) category, containing all seo related audits.
+          allOf:
+            - $ref: '#/components/schemas/LighthouseCategoryV5'
       type: object
     CategoryGroupV5:
       description: Message containing a category
+      x-google-discovery-id: CategoryGroupV5
       properties:
         description:
           description: The description of what the category is grouping
@@ -259,6 +236,7 @@ components:
       type: object
     ConfigSettings:
       description: Message containing the configuration settings for the Lighthouse run.
+      x-google-discovery-id: ConfigSettings
       properties:
         channel:
           description: How Lighthouse was run, e.g. from the Chrome extension or from the npm module.
@@ -275,9 +253,11 @@ components:
           type: string
         onlyCategories:
           description: List of categories of audits the run should conduct.
+          x-google-discovery-type: any
       type: object
     Environment:
       description: Message containing environment configuration for a Lighthouse run.
+      x-google-discovery-id: Environment
       properties:
         benchmarkIndex:
           description: The benchmark index number that indicates rough device class.
@@ -286,7 +266,7 @@ components:
         credits:
           additionalProperties:
             type: string
-          description: "The version of libraries with which these results were generated. Ex: axe-core."
+          description: 'The version of libraries with which these results were generated. Ex: axe-core.'
           type: object
         hostUserAgent:
           description: The user agent string of the version of Chrome used.
@@ -297,13 +277,16 @@ components:
       type: object
     I18n:
       description: Message containing the i18n data for the LHR - Version 1.
+      x-google-discovery-id: I18n
       properties:
         rendererFormattedStrings:
-          $ref: "#/components/schemas/RendererFormattedStrings"
           description: Internationalized strings that are formatted to the locale in configSettings.
+          allOf:
+            - $ref: '#/components/schemas/RendererFormattedStrings'
       type: object
     LhrEntity:
       description: Message containing an Entity.
+      x-google-discovery-id: LhrEntity
       properties:
         category:
           description: Optional. An optional category name for the entity.
@@ -328,6 +311,7 @@ components:
       type: object
     LighthouseAuditResultV5:
       description: An audit's result object in a Lighthouse result.
+      x-google-discovery-id: LighthouseAuditResultV5
       properties:
         description:
           description: The description of the audit.
@@ -335,6 +319,7 @@ components:
         details:
           additionalProperties:
             description: Properties of the object.
+            x-google-discovery-type: any
           description: Freeform details section of the audit.
           type: object
         displayValue:
@@ -349,6 +334,10 @@ components:
         id:
           description: The audit's id.
           type: string
+        metricSavings:
+          description: The metric savings of the audit.
+          allOf:
+            - $ref: '#/components/schemas/MetricSavings'
         numericUnit:
           description: The unit of the numeric_value field. Used to format the numeric value for display.
           type: string
@@ -358,6 +347,7 @@ components:
           type: number
         score:
           description: The score of the audit, can be null.
+          x-google-discovery-type: any
         scoreDisplayMode:
           description: The enumerated score display mode.
           type: string
@@ -366,15 +356,28 @@ components:
           type: string
         warnings:
           description: Possible warnings that occurred in the audit, can be null.
+          x-google-discovery-type: any
       type: object
     LighthouseCategoryV5:
       description: A Lighthouse category.
+      x-google-discovery-id: LighthouseCategoryV5
       properties:
         auditRefs:
           description: An array of references to all the audit members of this category.
           items:
-            $ref: "#/components/schemas/AuditRefs"
+            $ref: '#/components/schemas/AuditRefs'
           type: array
+        categoryScoreDisplayMode:
+          description: Optional. How the category score should be displayed (e.g. as a fraction).
+          enum:
+            - CATEGORY_SCORE_DISPLAY_MODE_UNSPECIFIED
+            - GAUGE
+            - FRACTION
+          x-google-enum-descriptions:
+            - Default UNDEFINED category.
+            - Display the score as a standard circular gauge (default)
+            - Display the score as a fraction, e.g. "3/5"
+          type: string
         description:
           description: A more detailed description of the category and its importance.
           type: string
@@ -386,37 +389,42 @@ components:
           type: string
         score:
           description: The overall score of the category, the weighted average of all its audits. (The category's score, can be null.)
+          x-google-discovery-type: any
         title:
           description: The human-friendly name of the category.
           type: string
       type: object
     LighthouseResultV5:
       description: The Lighthouse result object.
+      x-google-discovery-id: LighthouseResultV5
       properties:
         audits:
           additionalProperties:
-            $ref: "#/components/schemas/LighthouseAuditResultV5"
+            $ref: '#/components/schemas/LighthouseAuditResultV5'
           description: Map of audits in the LHR.
           type: object
         categories:
-          $ref: "#/components/schemas/Categories"
           description: Map of categories in the LHR.
+          allOf:
+            - $ref: '#/components/schemas/Categories'
         categoryGroups:
           additionalProperties:
-            $ref: "#/components/schemas/CategoryGroupV5"
+            $ref: '#/components/schemas/CategoryGroupV5'
           description: Map of category groups in the LHR.
           type: object
         configSettings:
-          $ref: "#/components/schemas/ConfigSettings"
           description: The configuration settings for this LHR.
+          allOf:
+            - $ref: '#/components/schemas/ConfigSettings'
         entities:
           description: Entity classification data.
           items:
-            $ref: "#/components/schemas/LhrEntity"
+            $ref: '#/components/schemas/LhrEntity'
           type: array
         environment:
-          $ref: "#/components/schemas/Environment"
           description: Environment settings that were used when making this LHR.
+          allOf:
+            - $ref: '#/components/schemas/Environment'
         fetchTime:
           description: The time that this run was fetched.
           type: string
@@ -428,9 +436,11 @@ components:
           type: string
         fullPageScreenshot:
           description: Screenshot data of the full page, along with node rects relevant to the audit results.
+          x-google-discovery-type: any
         i18n:
-          $ref: "#/components/schemas/I18n"
           description: The internationalization strings that are required to render the LHR.
+          allOf:
+            - $ref: '#/components/schemas/I18n'
         lighthouseVersion:
           description: The lighthouse version that was used to generate this LHR.
           type: string
@@ -442,25 +452,54 @@ components:
           type: string
         runWarnings:
           description: List of all run warnings in the LHR. Will always output to at least `[]`.
-          items: {}
+          items:
+            x-google-discovery-type: any
           type: array
         runtimeError:
-          $ref: "#/components/schemas/RuntimeError"
           description: A top-level error message that, if present, indicates a serious enough problem that this Lighthouse result may need to be discarded.
+          allOf:
+            - $ref: '#/components/schemas/RuntimeError'
         stackPacks:
           description: The Stack Pack advice strings.
           items:
-            $ref: "#/components/schemas/StackPack"
+            $ref: '#/components/schemas/StackPack'
           type: array
         timing:
-          $ref: "#/components/schemas/Timing"
           description: Timing information for this LHR.
+          allOf:
+            - $ref: '#/components/schemas/Timing'
         userAgent:
           description: The user agent that was used to run this LHR.
           type: string
       type: object
+    MetricSavings:
+      description: The metric savings of the audit.
+      x-google-discovery-id: MetricSavings
+      properties:
+        CLS:
+          description: Optional. Optional numeric value representing the audit's savings for the CLS metric.
+          format: double
+          type: number
+        FCP:
+          description: Optional. Optional numeric value representing the audit's savings for the FCP metric.
+          format: double
+          type: number
+        INP:
+          description: Optional. Optional numeric value representing the audit's savings for the INP metric.
+          format: double
+          type: number
+        LCP:
+          description: Optional. Optional numeric value representing the audit's savings for the LCP metric.
+          format: double
+          type: number
+        TBT:
+          description: Optional. Optional numeric value representing the audit's savings for the TBT metric.
+          format: double
+          type: number
+      type: object
     PagespeedApiLoadingExperienceV5:
       description: The CrUX loading experience object that contains CrUX data breakdowns.
+      x-google-discovery-id: PagespeedApiLoadingExperienceV5
       properties:
         id:
           description: The url, pattern or origin which the metrics are on.
@@ -470,7 +509,7 @@ components:
           type: string
         metrics:
           additionalProperties:
-            $ref: "#/components/schemas/UserPageLoadMetricV5"
+            $ref: '#/components/schemas/UserPageLoadMetricV5'
           description: The map of .
           type: object
         origin_fallback:
@@ -482,6 +521,7 @@ components:
       type: object
     PagespeedApiPagespeedResponseV5:
       description: The Pagespeed API response object.
+      x-google-discovery-id: PagespeedApiPagespeedResponseV5
       properties:
         analysisUTCTimestamp:
           description: The UTC timestamp of this analysis.
@@ -496,20 +536,25 @@ components:
           description: Kind of result.
           type: string
         lighthouseResult:
-          $ref: "#/components/schemas/LighthouseResultV5"
           description: Lighthouse response for the audit url as an object.
+          allOf:
+            - $ref: '#/components/schemas/LighthouseResultV5'
         loadingExperience:
-          $ref: "#/components/schemas/PagespeedApiLoadingExperienceV5"
           description: Metrics of end users' page loading experience.
+          allOf:
+            - $ref: '#/components/schemas/PagespeedApiLoadingExperienceV5'
         originLoadingExperience:
-          $ref: "#/components/schemas/PagespeedApiLoadingExperienceV5"
           description: Metrics of the aggregated page loading experience of the origin
+          allOf:
+            - $ref: '#/components/schemas/PagespeedApiLoadingExperienceV5'
         version:
-          $ref: "#/components/schemas/PagespeedVersion"
           description: The version of PageSpeed used to generate these results.
+          allOf:
+            - $ref: '#/components/schemas/PagespeedVersion'
       type: object
     PagespeedVersion:
       description: The Pagespeed Version object.
+      x-google-discovery-id: PagespeedVersion
       properties:
         major:
           description: The major version number of PageSpeed used to generate these results.
@@ -520,6 +565,7 @@ components:
       type: object
     RendererFormattedStrings:
       description: Message holding the formatted strings used in the renderer.
+      x-google-discovery-id: RendererFormattedStrings
       properties:
         auditGroupExpandTooltip:
           description: The tooltip text on an expandable chevron icon.
@@ -600,7 +646,7 @@ components:
           description: Label for a row in a table that shows the version of the Axe library used
           type: string
         runtimeSettingsBenchmark:
-          description: "Label for a row in a table that shows the estimated CPU power of the machine running Lighthouse. Example row values: 532, 1492, 783."
+          description: 'Label for a row in a table that shows the estimated CPU power of the machine running Lighthouse. Example row values: 532, 1492, 783.'
           type: string
         runtimeSettingsCPUThrottling:
           description: Label for a row in a table that describes the CPU throttling conditions that were used during a Lighthouse run, if any.
@@ -609,7 +655,7 @@ components:
           description: Label for a row in a table that shows in what tool Lighthouse is being run (e.g. The lighthouse CLI, Chrome DevTools, Lightrider, WebPageTest, etc).
           type: string
         runtimeSettingsDevice:
-          description: "Label for a row in a table that describes the kind of device that was emulated for the Lighthouse run. Example values for row elements: 'No Emulation', 'Emulated Desktop', etc."
+          description: 'Label for a row in a table that describes the kind of device that was emulated for the Lighthouse run. Example values for row elements: ''No Emulation'', ''Emulated Desktop'', etc.'
           type: string
         runtimeSettingsFetchTime:
           description: Label for a row in a table that shows the time at which a Lighthouse run was conducted; formatted as a timestamp, e.g. Jan 1, 1970 12:00 AM UTC.
@@ -668,6 +714,7 @@ components:
       type: object
     RuntimeError:
       description: Message containing a runtime error config.
+      x-google-discovery-id: RuntimeError
       properties:
         code:
           description: The enumerated Lighthouse Error code.
@@ -678,6 +725,7 @@ components:
       type: object
     StackPack:
       description: Message containing Stack Pack information.
+      x-google-discovery-id: StackPack
       properties:
         descriptions:
           additionalProperties:
@@ -696,6 +744,7 @@ components:
       type: object
     Timing:
       description: Message containing the performance timing data for the Lighthouse run.
+      x-google-discovery-id: Timing
       properties:
         total:
           description: The total duration of Lighthouse's run.
@@ -704,6 +753,7 @@ components:
       type: object
     UserPageLoadMetricV5:
       description: A CrUX metric object for a single metric and form factor.
+      x-google-discovery-id: UserPageLoadMetricV5
       properties:
         category:
           description: The category of the specific time metric.
@@ -711,7 +761,7 @@ components:
         distributions:
           description: Metric distributions. Proportions should sum up to 1.
           items:
-            $ref: "#/components/schemas/Bucket"
+            $ref: '#/components/schemas/Bucket'
           type: array
         formFactor:
           description: Identifies the form factor of the metric being collected.
@@ -728,21 +778,123 @@ components:
           format: int32
           type: integer
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             openid: Associate you with your personal info on Google
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             openid: Associate you with your personal info on Google
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/speed/docs/insights/v5/about
+tags:
+  - name: pagespeedapi
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://pagespeedonline.googleapis.com/
+  batchPath: batch
+  canonicalName: Pagespeed Insights
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: pagespeedonline:v5
+  kind: discovery#restDescription
+  mtlsRootUrl: https://pagespeedonline.mtls.googleapis.com/
+  name: pagespeedonline
+  revision: '20260629'
+  rootUrl: https://pagespeedonline.googleapis.com/
+  servicePath: ''
+  version_module: true

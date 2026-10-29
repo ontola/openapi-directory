@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://cloudbilling.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -22,861 +20,1379 @@ info:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
     - format: google
-      url: https://cloudbilling.googleapis.com/$discovery/rest?version=v1beta
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/cloudbilling.v1beta.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/cloudbilling.v1beta.json
+      version: '3.0'
   x-preferred: true
   x-providerName: googleapis.com
   x-serviceName: cloudbilling
-externalDocs:
-  url: https://cloud.google.com/billing/docs/apis
-tags:
-  - name: billingAccounts
-  - name: skuGroups
-  - name: skus
-  - name: v1beta
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260320; original source SHA-256 8216ca431d2d467cc08bfc0d7273e8c4421dc891b71fc97e8a147217254e0901.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://cloudbilling.googleapis.com
 paths:
+  /v1beta/billingAccounts/{billingAccountsId}/services/{servicesId}:
+    get:
+      operationId: cloudbilling.billingAccounts.services.get
+      description: Gets a Google Cloud service visible to a billing account.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the billing account service to retrieve. Format: billingAccounts/{billing_account}/services/{service}'
+          schema:
+            type: string
+        - name: servicesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the billing account service to retrieve. Format: billingAccounts/{billing_account}/services/{service}'
+          schema:
+            type: string
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountservicesV1betaBillingAccountService'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/services/{servicesId}
+        resourceNameBindings:
+          billingAccountsId: name
+          servicesId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the billing account service to retrieve. Format: billingAccounts/{billing_account}/services/{service}'
+            location: path
+            pattern: ^billingAccounts/[^/]+/services/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/billingAccounts/{billingAccountsId}/services:
+    get:
+      operationId: cloudbilling.billingAccounts.services.list
+      description: Lists services visible to a billing account.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The billing account to list billing account service from. Format: billingAccounts/{billing_account}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Maximum number of billing account service to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Page token received from a previous ListBillingAccountServices call to retrieve the next page of results. If this field is empty, the first page is returned.
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountservicesV1betaListBillingAccountServicesResponse'
+      x-google-discovery:
+        path: v1beta/{+parent}/services
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/services
+        resourceNameBindings:
+          billingAccountsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The billing account to list billing account service from. Format: billingAccounts/{billing_account}'
+            location: path
+            pattern: ^billingAccounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/billingAccounts/{billingAccountsId}/skuGroups/{skuGroupsId}:
+    get:
+      operationId: cloudbilling.billingAccounts.skuGroups.get
+      description: Gets a SKU group visible to a billing account.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the BillingAccountSkuGroup to retrieve. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}'
+          schema:
+            type: string
+        - name: skuGroupsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the BillingAccountSkuGroup to retrieve. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}'
+          schema:
+            type: string
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupsV1betaBillingAccountSkuGroup'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/skuGroups/{skuGroupsId}
+        resourceNameBindings:
+          billingAccountsId: name
+          skuGroupsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the BillingAccountSkuGroup to retrieve. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}'
+            location: path
+            pattern: ^billingAccounts/[^/]+/skuGroups/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/billingAccounts/{billingAccountsId}/skuGroups:
+    get:
+      operationId: cloudbilling.billingAccounts.skuGroups.list
+      description: Lists SKU groups visible to a billing account.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The billing account to list billing account SKU groups from. Format: billingAccounts/{billing_account}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Maximum number of billing account SKU groups to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Page token received from a previous ListBillingAccountSkuGroups call to retrieve the next page of results. If this field is empty, the first page is returned.
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupsV1betaListBillingAccountSkuGroupsResponse'
+      x-google-discovery:
+        path: v1beta/{+parent}/skuGroups
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/skuGroups
+        resourceNameBindings:
+          billingAccountsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The billing account to list billing account SKU groups from. Format: billingAccounts/{billing_account}'
+            location: path
+            pattern: ^billingAccounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/billingAccounts/{billingAccountsId}/skuGroups/{skuGroupsId}/skus/{skusId}:
+    get:
+      operationId: cloudbilling.billingAccounts.skuGroups.skus.get
+      description: Gets a SKU that is part of a billing account SKU group.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the billing account SKU group SKU to retrieve. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}/skus/{sku}'
+          schema:
+            type: string
+        - name: skuGroupsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the billing account SKU group SKU to retrieve. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}/skus/{sku}'
+          schema:
+            type: string
+        - name: skusId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the billing account SKU group SKU to retrieve. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}/skus/{sku}'
+          schema:
+            type: string
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaBillingAccountSkuGroupSku'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/skuGroups/{skuGroupsId}/skus/{skusId}
+        resourceNameBindings:
+          billingAccountsId: name
+          skuGroupsId: name
+          skusId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the billing account SKU group SKU to retrieve. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}/skus/{sku}'
+            location: path
+            pattern: ^billingAccounts/[^/]+/skuGroups/[^/]+/skus/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/billingAccounts/{billingAccountsId}/skuGroups/{skuGroupsId}/skus:
+    get:
+      operationId: cloudbilling.billingAccounts.skuGroups.skus.list
+      description: Lists SKUs that is part of billing account SKU groups.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The billing account SKU group to list billing account SKU group SKUs from. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}'
+          schema:
+            type: string
+        - name: skuGroupsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The billing account SKU group to list billing account SKU group SKUs from. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Maximum number of billing account SKU group SKUs to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Page token received from a previous ListBillingAccountSkuGroupSkus call to retrieve the next page of results. If this field is empty, the first page is returned.
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaListBillingAccountSkuGroupSkusResponse'
+      x-google-discovery:
+        path: v1beta/{+parent}/skus
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/skuGroups/{skuGroupsId}/skus
+        resourceNameBindings:
+          billingAccountsId: parent
+          skuGroupsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The billing account SKU group to list billing account SKU group SKUs from. Format: billingAccounts/{billing_account}/skuGroups/{sku_group}'
+            location: path
+            pattern: ^billingAccounts/[^/]+/skuGroups/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/billingAccounts/{billingAccountsId}/skus/{skusId}:
+    get:
+      operationId: cloudbilling.billingAccounts.skus.get
+      description: Gets a SKU visible to a billing account.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the billing account SKU to retrieve. Format: billingAccounts/{billing_account}/skus/{sku}'
+          schema:
+            type: string
+        - name: skusId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the billing account SKU to retrieve. Format: billingAccounts/{billing_account}/skus/{sku}'
+          schema:
+            type: string
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaBillingAccountSku'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/skus/{skusId}
+        resourceNameBindings:
+          billingAccountsId: name
+          skusId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the billing account SKU to retrieve. Format: billingAccounts/{billing_account}/skus/{sku}'
+            location: path
+            pattern: ^billingAccounts/[^/]+/skus/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/billingAccounts/{billingAccountsId}/skus:
+    get:
+      operationId: cloudbilling.billingAccounts.skus.list
+      description: Lists SKUs visible to a billing account.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The billing account to list billing account SKU from. Format: billingAccounts/{billing_account}'
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: 'Options for how to filter the billing account SKUs. Currently, only filter on `billing_account_service` is supported. Only !=, = operators are supported. Examples: - billing_account_service = "billingAccounts/012345-567890-ABCDEF/services/DA34-426B-A397"'
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Maximum number of billing account SKUs to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Page token received from a previous ListBillingAccountSkus call to retrieve the next page of results. If this field is empty, the first page is returned.
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaListBillingAccountSkusResponse'
+      x-google-discovery:
+        path: v1beta/{+parent}/skus
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/skus
+        resourceNameBindings:
+          billingAccountsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The billing account to list billing account SKU from. Format: billingAccounts/{billing_account}'
+            location: path
+            pattern: ^billingAccounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/billingAccounts/{billingAccountsId}/skus/{skusId}/price:
+    get:
+      operationId: cloudbilling.billingAccounts.skus.price.get
+      description: Gets the latest price for SKUs available to your Cloud Billing account.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the billing account price to retrieve. Format: billingAccounts/{billing_account}/skus/{sku}/price'
+          schema:
+            type: string
+        - name: skusId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the billing account price to retrieve. Format: billingAccounts/{billing_account}/skus/{sku}/price'
+          schema:
+            type: string
+        - name: currencyCode
+          in: query
+          schema:
+            type: string
+          description: Optional. ISO-4217 currency code for the price. If not specified, the currency of the billing account is used.
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaBillingAccountPrice'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/skus/{skusId}/price
+        resourceNameBindings:
+          billingAccountsId: name
+          skusId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the billing account price to retrieve. Format: billingAccounts/{billing_account}/skus/{sku}/price'
+            location: path
+            pattern: ^billingAccounts/[^/]+/skus/[^/]+/price$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/billingAccounts/{billingAccountsId}/skus/{skusId}/prices:
+    get:
+      operationId: cloudbilling.billingAccounts.skus.prices.list
+      description: Lists the latest prices for SKUs available to your Cloud Billing account.
+      parameters:
+        - name: billingAccountsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. To list all Billing Account SKUs, use `-` as the SKU ID. Format: `billingAccounts/{billing_account}/skus/-` Note: Specifying an actual SKU resource id will return a collection of one Billing Account Price.'
+          schema:
+            type: string
+        - name: skusId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. To list all Billing Account SKUs, use `-` as the SKU ID. Format: `billingAccounts/{billing_account}/skus/-` Note: Specifying an actual SKU resource id will return a collection of one Billing Account Price.'
+          schema:
+            type: string
+        - name: currencyCode
+          in: query
+          schema:
+            type: string
+          description: Optional. ISO-4217 currency code for the price. If not specified, currency of billing account will be used.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. Maximum number of billing account price to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. Page token received from a previous ListBillingAccountPrices call to retrieve the next page of results. If this field is empty, the first page is returned.
+      tags:
+        - billingAccounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaListBillingAccountPricesResponse'
+      x-google-discovery:
+        path: v1beta/{+parent}/prices
+        flatPath: v1beta/billingAccounts/{billingAccountsId}/skus/{skusId}/prices
+        resourceNameBindings:
+          billingAccountsId: parent
+          skusId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. To list all Billing Account SKUs, use `-` as the SKU ID. Format: `billingAccounts/{billing_account}/skus/-` Note: Specifying an actual SKU resource id will return a collection of one Billing Account Price.'
+            location: path
+            pattern: ^billingAccounts/[^/]+/skus/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/skuGroups/{skuGroupsId}:
+    get:
+      operationId: cloudbilling.skuGroups.get
+      description: Gets a publicly listed SKU group.
+      parameters:
+        - name: skuGroupsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the SKU group to retrieve. Format: skuGroups/{sku_group}'
+          schema:
+            type: string
+      tags:
+        - skuGroups
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingSkugroupsV1betaSkuGroup'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/skuGroups/{skuGroupsId}
+        resourceNameBindings:
+          skuGroupsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the SKU group to retrieve. Format: skuGroups/{sku_group}'
+            location: path
+            pattern: ^skuGroups/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
   /v1beta/skuGroups:
     get:
-      description: Lists all publicly listed SKU groups.
       operationId: cloudbilling.skuGroups.list
+      description: Lists all publicly listed SKU groups.
       parameters:
-        - description: Maximum number of SKU groups to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: Page token received from a previous ListSkuGroups call to retrieve the next page of results. If this field is empty, the first page is returned.
+          description: Maximum number of SKU groups to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudBillingSkugroupsV1betaListSkuGroupsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
+          description: Page token received from a previous ListSkuGroups call to retrieve the next page of results. If this field is empty, the first page is returned.
       tags:
         - skuGroups
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta/{billingAccount}:estimateCostScenario:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Use custom pricing in the estimate, using a `CostScenario` with a defined `billingAccount`.
-      operationId: cloudbilling.billingAccounts.estimateCostScenario
-      parameters:
-        - description: Resource name of the billing account for the cost estimate. The resource name has the form `billingAccounts/{billing_account_id}`. For example, `billingAccounts/012345-567890-ABCDEF` is the resource name for billing account `012345-567890-ABCDEF`. Must be specified.
-          in: path
-          name: billingAccount
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/EstimateCostScenarioForBillingAccountRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/EstimateCostScenarioForBillingAccountResponse"
-          description: Successful response
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-billing
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-billing
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-billing.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-billing.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - billingAccounts
-  /v1beta/{name}:
-    get:
-      description: Gets the latest price for the given SKU.
-      operationId: cloudbilling.skus.price.get
-      parameters:
-        - description: "Required. Name of the latest price to retrieve. Format: skus/{sku}/price"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: Optional. ISO-4217 currency code for the price. If not specified, USD will be used.
-          in: query
-          name: currencyCode
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleCloudBillingPricesV1betaPrice"
-          description: Successful response
+                $ref: '#/components/schemas/GoogleCloudBillingSkugroupsV1betaListSkuGroupsResponse'
+      x-google-discovery:
+        path: v1beta/skuGroups
+        flatPath: v1beta/skuGroups
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/skuGroups/{skuGroupsId}/skus/{skusId}:
+    get:
+      operationId: cloudbilling.skuGroups.skus.get
+      description: Gets a publicly listed SKU that is part of a publicly listed SKU group.
+      parameters:
+        - name: skuGroupsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the SKU group SKU to retrieve. Format: skuGroups/{sku_group}/skus/{sku}'
+          schema:
+            type: string
+        - name: skusId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the SKU group SKU to retrieve. Format: skuGroups/{sku_group}/skus/{sku}'
+          schema:
+            type: string
+      tags:
+        - skuGroups
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-billing
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-billing
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-billing.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-billing.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - skus
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta/{parent}/prices:
-    get:
-      description: Lists the latest prices for all SKUs.
-      operationId: cloudbilling.skus.prices.list
-      parameters:
-        - description: "Required. To list the prices for all SKUs, use `-` as the SKU ID. Format: `skus/-` Specifying a specific SKU ID returns a collection with one Price object for the SKU."
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Optional. ISO-4217 currency code for the price. If not specified, USD will be used.
-          in: query
-          name: currencyCode
-          schema:
-            type: string
-        - description: Optional. Maximum number of prices to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: Optional. Page token received from a previous ListPrices call to retrieve the next page of results. If this field is empty, the first page is returned.
-          in: query
-          name: pageToken
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GoogleCloudBillingPricesV1betaListPricesResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - skus
+                $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaSkuGroupSku'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/skuGroups/{skuGroupsId}/skus/{skusId}
+        resourceNameBindings:
+          skuGroupsId: name
+          skusId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the SKU group SKU to retrieve. Format: skuGroups/{sku_group}/skus/{sku}'
+            location: path
+            pattern: ^skuGroups/[^/]+/skus/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta/{parent}/services:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/skuGroups/{skuGroupsId}/skus:
     get:
-      description: Lists services visible to a billing account.
-      operationId: cloudbilling.billingAccounts.services.list
-      parameters:
-        - description: "Required. The billing account to list billing account service from. Format: billingAccounts/{billing_account}"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Maximum number of billing account service to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: Page token received from a previous ListBillingAccountServices call to retrieve the next page of results. If this field is empty, the first page is returned.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudBillingBillingaccountservicesV1betaListBillingAccountServicesResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - billingAccounts
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta/{parent}/skuGroups:
-    get:
-      description: Lists SKU groups visible to a billing account.
-      operationId: cloudbilling.billingAccounts.skuGroups.list
-      parameters:
-        - description: "Required. The billing account to list billing account SKU groups from. Format: billingAccounts/{billing_account}"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Maximum number of billing account SKU groups to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: Page token received from a previous ListBillingAccountSkuGroups call to retrieve the next page of results. If this field is empty, the first page is returned.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupsV1betaListBillingAccountSkuGroupsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - billingAccounts
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta/{parent}/skus:
-    get:
-      description: Lists all publicly listed SKUs contained by a publicly listed SKU group.
       operationId: cloudbilling.skuGroups.skus.list
+      description: Lists all publicly listed SKUs contained by a publicly listed SKU group.
       parameters:
-        - description: "Required. The SkuGroup to list SkuGroupSku from. Format: skuGroups/{sku_group}"
+        - name: skuGroupsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The SkuGroup to list SkuGroupSku from. Format: skuGroups/{sku_group}'
           schema:
             type: string
-        - description: Maximum number of SKU group SKUs to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: Page token received from a previous ListSkuGroupSkus call to retrieve the next page of results. If this field is empty, the first page is returned.
+          description: Maximum number of SKU group SKUs to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaListSkuGroupSkusResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-billing.readonly
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
+          description: Page token received from a previous ListSkuGroupSkus call to retrieve the next page of results. If this field is empty, the first page is returned.
       tags:
         - skuGroups
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1beta:estimateCostScenario:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Estimate list prices using a `CostScenario` without a defined `billingAccount`.
-      operationId: cloudbilling.estimateCostScenario
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/EstimateCostScenarioWithListPriceRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/EstimateCostScenarioWithListPriceResponse"
-          description: Successful response
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-billing
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-billing
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-billing.readonly
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-billing.readonly
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaListSkuGroupSkusResponse'
+      x-google-discovery:
+        path: v1beta/{+parent}/skus
+        flatPath: v1beta/skuGroups/{skuGroupsId}/skus
+        resourceNameBindings:
+          skuGroupsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The SkuGroup to list SkuGroupSku from. Format: skuGroups/{sku_group}'
+            location: path
+            pattern: ^skuGroups/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/skus/{skusId}/price:
+    get:
+      operationId: cloudbilling.skus.price.get
+      description: Gets the latest price for the given SKU.
+      parameters:
+        - name: skusId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. Name of the latest price to retrieve. Format: skus/{sku}/price'
+          schema:
+            type: string
+        - name: currencyCode
+          in: query
+          schema:
+            type: string
+          description: Optional. ISO-4217 currency code for the price. If not specified, USD will be used.
+      tags:
+        - skus
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingPricesV1betaPrice'
+      x-google-discovery:
+        path: v1beta/{+name}
+        flatPath: v1beta/skus/{skusId}/price
+        resourceNameBindings:
+          skusId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. Name of the latest price to retrieve. Format: skus/{sku}/price'
+            location: path
+            pattern: ^skus/[^/]+/price$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta/skus/{skusId}/prices:
+    get:
+      operationId: cloudbilling.skus.prices.list
+      description: Lists the latest prices for all SKUs.
+      parameters:
+        - name: skusId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. To list the prices for all SKUs, use `-` as the SKU ID. Format: `skus/-` Specifying a specific SKU ID returns a collection with one Price object for the SKU.'
+          schema:
+            type: string
+        - name: currencyCode
+          in: query
+          schema:
+            type: string
+          description: Optional. ISO-4217 currency code for the price. If not specified, USD will be used.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. Maximum number of prices to return. Results may return fewer than this value. Default value is 50 and maximum value is 5000.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. Page token received from a previous ListPrices call to retrieve the next page of results. If this field is empty, the first page is returned.
+      tags:
+        - skus
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleCloudBillingPricesV1betaListPricesResponse'
+      x-google-discovery:
+        path: v1beta/{+parent}/prices
+        flatPath: v1beta/skus/{skusId}/prices
+        resourceNameBindings:
+          skusId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. To list the prices for all SKUs, use `-` as the SKU ID. Format: `skus/-` Specifying a specific SKU ID returns a collection with one Price object for the SKU.'
+            location: path
+            pattern: ^skus/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1beta:generateInsights:
+    post:
+      operationId: cloudbilling.generateInsights
+      description: Analyzes cost data for a billing account and/or specific projects. Returns a natural language summary and supporting datasets.
       tags:
         - v1beta
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-billing.readonly
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateInsightsRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateInsightsResponse'
+      x-google-discovery:
+        path: v1beta:generateInsights
+        flatPath: v1beta:generateInsights
+        parameterOrder: []
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
-    CacheFillRegions:
-      description: Specifies the regions for Cache Fill.
+    AgenticQueryInfo:
+      description: A local representation of the query used to fetch the data. This is used instead of the raw QueryBillingDataRequest to avoid pulling in Cloud Policy Enforcement (CPE) resource_type annotations into the response payload, which causes ESF validation failures.
+      x-google-discovery-id: AgenticQueryInfo
       properties:
-        destinationRegion:
-          description: The destination region for cache fill.
-          enum:
-            - CACHE_FILL_DESTINATION_REGION_UNSPECIFIED
-            - CACHE_FILL_DESTINATION_REGION_ASIA_PACIFIC
-            - CACHE_FILL_DESTINATION_REGION_EUROPE
-            - CACHE_FILL_DESTINATION_REGION_NORTH_AMERICA
-            - CACHE_FILL_DESTINATION_REGION_OCEANIA
-            - CACHE_FILL_DESTINATION_REGION_SOUTH_AMERICA
-            - CACHE_FILL_DESTINATION_REGION_CHINA
-            - CACHE_FILL_DESTINATION_REGION_OTHERS
+        columns:
+          description: The columns queried.
           type: string
-        sourceRegion:
-          description: The source region for cache fill.
-          enum:
-            - CACHE_FILL_SOURCE_REGION_UNSPECIFIED
-            - CACHE_FILL_REGION_ASIA_PACIFIC
-            - CACHE_FILL_SOURCE_REGION_EUROPE
-            - CACHE_FILL_SOURCE_REGION_NORTH_AMERICA
-            - CACHE_FILL_SOURCE_REGION_OCEANIA
-            - CACHE_FILL_SOURCE_REGION_SOUTH_AMERICA
+        filter:
+          description: The filter applied to the query.
           type: string
-      type: object
-    CloudCdnEgressWorkload:
-      description: Specifies usage for Cloud CDN Data Transfer.
-      properties:
-        cacheEgressDestination:
-          description: The destination for the cache data transfer.
-          enum:
-            - CACHE_EGRESS_DESTINATION_UNSPECIFIED
-            - CACHE_EGRESS_DESTINATION_ASIA_PACIFIC
-            - CACHE_EGRESS_DESTINATION_CHINA
-            - CACHE_EGRESS_DESTINATION_EUROPE
-            - CACHE_EGRESS_DESTINATION_NORTH_AMERICA
-            - CACHE_EGRESS_DESTINATION_OCEANIA
-            - CACHE_EGRESS_DESTINATION_LATIN_AMERICA
-            - CACHE_EGRESS_DESTINATION_OTHER_DESTINATIONS
+        groupBy:
+          description: The group-by clause applied to the query.
           type: string
-        cacheEgressRate:
-          $ref: "#/components/schemas/Usage"
-          description: Cache data transfer usage. The rate of data cache transferred to the destination. Use units such as GiBy/s or TiBy/mo, based on [The Unified Code for Units of Measure](https://ucum.org/ucum.html) standard.
-      type: object
-    CloudCdnWorkload:
-      description: Specifies usage for Cloud CDN resources.
-      properties:
-        cacheFillOriginService:
-          description: The source service for the cache fill.
-          enum:
-            - CACHE_FILL_ORIGIN_SERVICE_UNSPECIFIED
-            - CACHE_FILL_ORIGIN_SERVICE_GOOGLE_CLOUD_STORAGE_BUCKET
-            - CACHE_FILL_ORIGIN_SERVICE_BACKEND_SERVICE
+        limit:
+          description: The row limit applied to the query.
+          format: int32
+          type: integer
+        orderBy:
+          description: The order-by clause applied to the query.
           type: string
-        cacheFillRate:
-          $ref: "#/components/schemas/Usage"
-          description: 'Cache fill usage. The rate of data transferred between cache fill regions. For example: units such as "GiBy/s" or "TBy/mo".'
-        cacheFillRegions:
-          $ref: "#/components/schemas/CacheFillRegions"
-          description: The regions where data is transferred from Google data locations into Google global cache servers. The SKU prices for cache fill across services are the same.
-        cacheLookUpRate:
-          $ref: "#/components/schemas/Usage"
-          description: 'Cache look up requests. This is specified to indicate the number of requests. For example: units such as "1/s".'
-      type: object
-    CloudInterconnectEgressWorkload:
-      description: Includes the estimate for Interconnect Data Transfer only. To specify usage for data transfer between VMs and internet end-points, use the Standard Tier Internet Data Transfer interface.
-      properties:
-        egressRate:
-          $ref: "#/components/schemas/Usage"
-          description: Outbound data transfer usage. This usage applies when you move or copy data from one Google Cloud service to another service. The units are GiBy/s, By/s, and so on, based on [The Unified Code for Units of Measure](https://ucum.org/ucum.html) standard.
-        interconnectConnectionLocation:
-          description: Locations in the [Interconnect connection location table](https://cloud.google.com/vpc/network-pricing#interconnect-pricing). These are the Interconnect Data Transfer charges.
-          enum:
-            - INTERCONNECT_CONNECTION_LOCATION_UNSPECIFIED
-            - INTERCONNECT_CONNECTION_LOCATION_ASIA
-            - INTERCONNECT_CONNECTION_LOCATION_EUROPE
-            - INTERCONNECT_CONNECTION_LOCATION_NORTH_AMERICA
-            - INTERCONNECT_CONNECTION_LOCATION_SOUTH_AMERICA
-            - INTERCONNECT_CONNECTION_LOCATION_AUSTRALIA
-          type: string
-      type: object
-    CloudInterconnectWorkload:
-      description: Specifies usage for Cloud Interconnect resources.
-      properties:
-        interconnectAttachments:
-          description: VLAN attachment used for interconnect.
-          items:
-            $ref: "#/components/schemas/VlanAttachment"
-          type: array
-        interconnectType:
-          description: VLAN attachment type
-          enum:
-            - INTERCONNECT_TYPE_UNSPECIFIED
-            - INTERCONNECT_TYPE_DEDICATED
-            - INTERCONNECT_TYPE_PARTNER
-          type: string
-        linkType:
-          description: Interconnect circuit link type.
-          enum:
-            - LINK_TYPE_UNSPECIFIED
-            - LINK_TYPE_ETHERNET_10G_LR
-            - LINK_TYPE_ETHERNET_100G_LR
-          type: string
-        provisionedLinkCount:
-          $ref: "#/components/schemas/Usage"
-          description: Interconnect usage. This is specified as a unitless quantity which indicates the number of circuit provisioned in interconnect.
-      type: object
-    CloudStorageEgressWorkload:
-      description: Specification of a network type. Network data transfer within Google Cloud applies when you move or copy data from one Cloud Storage bucket to another or when another Google Cloud service accesses data in your Cloud Storage bucket.This includes the network data transfer within Google Cloud and the general network usage.
-      properties:
-        destinationContinent:
-          description: Where the data is sent to.
-          enum:
-            - DESTINATION_CONTINENT_UNSPECIFIED
-            - DESTINATION_CONTINENT_ASIA_PACIFIC
-            - DESTINATION_CONTINENT_AUTRALIA
-            - DESTINATION_CONTINENT_EUROPE
-            - DESTINATION_CONTINENT_NORTH_AMERICA
-            - DESTINATION_CONTINENT_SOUTH_AMERICA
-          type: string
-        egressRate:
-          $ref: "#/components/schemas/Usage"
-          description: Data transfer usage rate. This usage applies when you move or copy data from one Cloud Storage bucket to another or when another Google Cloud service accesses data in your Cloud Storage bucket. The expected units are GiBy/s, By/s, and so on, based on [The Unified Code for Units of Measure](https://ucum.org/ucum.html) standard.
-        sourceContinent:
-          description: Where the data comes from.
-          enum:
-            - SOURCE_CONTINENT_UNSPECIFIED
-            - SOURCE_CONTINENT_ASIA_PACIFIC
-            - SOURCE_CONTINENT_AUSTRALIA
-            - SOURCE_CONTINENT_EUROPE
-            - SOURCE_CONTINENT_NORTH_AMERICA
-            - SOURCE_CONTINENT_SOUTH_AMERICA
-          type: string
-      type: object
-    CloudStorageWorkload:
-      description: Specifies usage of Cloud Storage resources.
-      properties:
-        dataRetrieval:
-          $ref: "#/components/schemas/Usage"
-          description: 'Data retrieval usage. A retrieval cost applies when data or metadata is read, copied, or rewritten . For example: units such as "GiB/s" or "B/s".'
-        dataStored:
-          $ref: "#/components/schemas/Usage"
-          description: "Data storage usage. The amount of data stored in buckets. For example: units such as GiBy/s or TiBy/mo, based on [The Unified Code for Units of Measure](https://ucum.org/ucum.html) standard."
-        dualRegion:
-          $ref: "#/components/schemas/DualRegional"
-          description: Specify dual regions.
-        multiRegion:
-          $ref: "#/components/schemas/MultiRegional"
-          description: Specify multi regions.
-        operationA:
-          $ref: "#/components/schemas/Usage"
-          description: 'Class A operation usage in Cloud Storage, such as listing the objects in buckets. See the [operations pricing](https://cloud.google.com/storage/pricing#operations-pricing) tables for a list of which operations fall into each class. For example: units such as "1/s".'
-        operationB:
-          $ref: "#/components/schemas/Usage"
-          description: 'Class B operation usage in Cloud Storage, such as `getIamPolicy`. See the [operations pricing](https://cloud.google.com/storage/pricing#operations-pricing) tables for a list of which operations fall into each class. For example: units such as "1/s".'
-        region:
-          $ref: "#/components/schemas/Regional"
-          description: Specify a single region.
-        storageClass:
-          description: 'The [storage class](https://cloud.google.com/storage/docs/storage-classes#classes) of the data and operation. For example: "standard" and "nearline".'
-          type: string
-      type: object
-    Commitment:
-      description: Commitments give you the ability to pay a recurring fee in exchange for a benefit, such as a discount for your use. For example, this object might contain details of a [spend-based committed use discount (CUD)](https://cloud.google.com/docs/cuds#spend_based_commitments). Within a CostScenario, adding a commitment includes the cost of the commitment and any discounts.
-      properties:
-        name:
-          description: Required. A name for this commitment. All commitments in a CostScenario must have unique names. Each name may be at most 128 characters long.
-          type: string
-        vmResourceBasedCud:
-          $ref: "#/components/schemas/VmResourceBasedCud"
-          description: A resource-based committed use discount (CUD).
-      type: object
-    CommitmentCostEstimate:
-      description: Estimated cost for a commitment.
-      properties:
-        commitmentTotalCostEstimate:
-          $ref: "#/components/schemas/CostEstimate"
-          description: Total estimated costs for the commitment.
-        name:
-          description: The name of the commitment, as specified in the `CostScenario`.
-          type: string
-        skuCostEstimates:
-          description: Estimated costs for each SKU in the commitment.
-          items:
-            $ref: "#/components/schemas/SkuCostEstimate"
-          type: array
-      type: object
-    ComputeVmWorkload:
-      description: Specificies usage of a set of identical compute VM instances.
-      properties:
-        enableConfidentialCompute:
-          description: Defines whether each instance has confidential compute enabled.
-          type: boolean
-        guestAccelerator:
-          $ref: "#/components/schemas/GuestAccelerator"
-          description: Guest accelerators attached to each machine.
-        instancesRunning:
-          $ref: "#/components/schemas/Usage"
-          description: VM usage. This is specified as a unitless quantity which indicates the number of instances running.
-        licenses:
-          description: Premium image licenses used by each instance.
+        parents:
+          description: The parents (e.g. projects, billing accounts) queried.
           items:
             type: string
           type: array
-        machineType:
-          $ref: "#/components/schemas/MachineType"
-          description: The machine type.
-        persistentDisks:
-          description: Persistent disks attached to each instance. Must include a boot disk.
-          items:
-            $ref: "#/components/schemas/PersistentDisk"
-          type: array
-        preemptible:
-          description: Defines whether each instance is preemptible.
-          type: boolean
-        region:
-          description: 'The [region](https://cloud.google.com/compute/docs/regions-zones) where the VMs run. For example: "us-central1".'
+        view:
+          description: The view queried.
           type: string
       type: object
-    CostEstimate:
-      description: An estimated cost.
+    Array:
+      description: An ordered collection of elements of arbitrary count.
+      x-google-discovery-id: Array
       properties:
-        creditEstimates:
-          description: The estimated credits applied.
+        element:
+          description: The elements of the array.
           items:
-            $ref: "#/components/schemas/CreditEstimate"
-          type: array
-        netCostEstimate:
-          $ref: "#/components/schemas/Money"
-          description: The estimated net cost after applying credits.
-        preCreditCostEstimate:
-          $ref: "#/components/schemas/Money"
-          description: The estimated cost prior to applying credits.
-      type: object
-    CostEstimationResult:
-      description: The result of a estimating the costs of a `CostScenario`.
-      properties:
-        currencyCode:
-          description: Required. The ISO 4217 currency code for the cost estimate.
-          type: string
-        segmentCostEstimates:
-          description: Required. Estimated costs for each idealized month of a `CostScenario`.
-          items:
-            $ref: "#/components/schemas/SegmentCostEstimate"
-          type: array
-        skus:
-          description: Required. Information about SKUs used in the estimate.
-          items:
-            $ref: "#/components/schemas/Sku"
+            $ref: '#/components/schemas/ValueProto'
           type: array
       type: object
-    CostScenario:
-      description: Encapsulates all the information needed to perform a cost estimate. It includes a specification of the Google Cloud usage whose costs are estimated, and configuration options.
+    BillingData:
+      description: Encapsulates billing data.
+      x-google-discovery-id: BillingData
       properties:
-        commitments:
-          description: New commitments to estimate the costs for. The cost of the commitments will be included in the estimate result and discounts the commitment entitles will be included in the workload cost estimates. A maximum of 100 workloads can be provided.
+        columnInfo:
+          description: Information about columns.
           items:
-            $ref: "#/components/schemas/Commitment"
+            $ref: '#/components/schemas/ColumnInfo'
           type: array
-        scenarioConfig:
-          $ref: "#/components/schemas/ScenarioConfig"
-          description: Configuration for the scenario.
-        workloads:
-          description: The Google Cloud usage whose costs are estimated. A maximum of 100 workloads can be provided.
+        rows:
+          description: Rows.
           items:
-            $ref: "#/components/schemas/Workload"
+            $ref: '#/components/schemas/Row'
           type: array
       type: object
-    CreditEstimate:
-      description: An estimated credit applied to the costs on a SKU.
+    BillingDataResource:
+      description: Specifies a Billing data resource that can be used for authorization to access billing data.
+      x-google-discovery-id: BillingDataResource
       properties:
-        creditAmount:
-          $ref: "#/components/schemas/Money"
-          description: The estimated credit amount.
-        creditDescription:
-          description: The credit description.
+        billingAccount:
+          description: Optional. If not provided the billing account currently associated with the resource will be used.
           type: string
-        creditType:
-          description: The credit type.
+        resource:
+          description: Required. Resource name for an entitity that can be used for authorization to access billing data such as `projects/{project}` or `billingAccounts/{billing_account}`
           type: string
       type: object
-    CustomMachineType:
-      description: Specification of a custom machine type.
+    ColumnInfo:
+      description: Represents a column header.
+      x-google-discovery-id: ColumnInfo
       properties:
-        machineSeries:
-          description: 'Required. The machine series. Only certain [machine series](https://cloud.google.com/compute/docs/general-purpose-machines#custom_machine_types) support custom configurations. For example: "n1".'
+        column:
+          description: Name of the column.
           type: string
-        memorySizeGb:
-          description: Required. Memory size of the VM in GB (2^30 bytes). Must be an increment of 0.25 (256 MB). Each [machine series](https://cloud.google.com/compute/docs/machine-types#machine_type_comparison) has limitations on allowed values for the ratio of memory-to-vCPU count.
-          format: double
-          type: number
-        virtualCpuCount:
-          description: Required. The number of vCPUs. The allowed values depend on the [machine series](https://cloud.google.com/compute/docs/machine-types#machine_type_comparison).
+      type: object
+    DataSet:
+      description: A dataset used to support an insight, suitable for UI rendering (tables/charts).
+      x-google-discovery-id: DataSet
+      properties:
+        billingData:
+          description: Output only. Actual billing data returned from the Data Mart. Uses the formal message from the Billing Data Service.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/BillingData'
+        queryInfo:
+          description: Output only. The query used to fetch this data.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/AgenticQueryInfo'
+        suggestedChart:
+          description: Output only. A suggested chart for the data set, used for UI rendering.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/SuggestedChart'
+      type: object
+    Datetime:
+      description: A datetime value.
+      x-google-discovery-id: Datetime
+      properties:
+        bitFieldDatetimeSeconds:
+          description: Represents bit field encoding of year/month/day/hour/minute/second. See class DatetimeValue in civil_time.h for details of encoding.
           format: int64
           type: string
+        nanos:
+          description: Non-negative fractions of a second at nanosecond resolution.
+          format: int32
+          type: integer
       type: object
     Decimal:
-      description: "A representation of a decimal value, such as 2.5. Clients may convert values into language-native decimal formats, such as Java's BigDecimal or Python's decimal.Decimal. [BigDecimal]: https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html [decimal.Decimal]: https://docs.python.org/3/library/decimal.html"
+      description: A representation of a decimal value, such as 2.5. Clients may convert values into language-native decimal formats, such as Java's [BigDecimal](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html) or Python's [decimal.Decimal](https://docs.python.org/3/library/decimal.html).
+      x-google-discovery-id: Decimal
       properties:
         value:
-          description: "The decimal value, as a string. The string representation consists of an optional sign, `+` (`U+002B`) or `-` (`U+002D`), followed by a sequence of zero or more decimal digits (\"the integer\"), optionally followed by a fraction, optionally followed by an exponent. An empty string **should** be interpreted as `0`. The fraction consists of a decimal point followed by zero or more decimal digits. The string must contain at least one digit in either the integer or the fraction. The number formed by the sign, the integer and the fraction is referred to as the significand. The exponent consists of the character `e` (`U+0065`) or `E` (`U+0045`) followed by one or more decimal digits. Services **should** normalize decimal values before storing them by: - Removing an explicitly-provided `+` sign (`+2.5` -> `2.5`). - Replacing a zero-length integer value with `0` (`.5` -> `0.5`). - Coercing the exponent character to upper-case, with explicit sign (`2.5e8` -> `2.5E+8`). - Removing an explicitly-provided zero exponent (`2.5E0` -> `2.5`). Services **may** perform additional normalization based on its own needs and the internal decimal implementation selected, such as shifting the decimal point and exponent value together (example: `2.5E-1` <-> `0.25`). Additionally, services **may** preserve trailing zeroes in the fraction to indicate increased precision, but are not required to do so. Note that only the `.` character is supported to divide the integer and the fraction; `,` **should not** be supported regardless of locale. Additionally, thousand separators **should not** be supported. If a service does support them, values **must** be normalized. The ENBF grammar is: DecimalString = '' | [Sign] Significand [Exponent]; Sign = '+' | '-'; Significand = Digits '.' | [Digits] '.' Digits; Exponent = ('e' | 'E') [Sign] Digits; Digits = { '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' }; Services **should** clearly document the range of supported values, the maximum supported precision (total number of digits), and, if applicable, the scale (number of digits after the decimal point), as well as how it behaves when receiving out-of-bounds values. Services **may** choose to accept values passed as input even when the value has a higher precision or scale than the service supports, and **should** round the value to fit the supported scale. Alternatively, the service **may** error with `400 Bad Request` (`INVALID_ARGUMENT` in gRPC) if precision would be lost. Services **should** error with `400 Bad Request` (`INVALID_ARGUMENT` in gRPC) if the service receives a value outside of the supported range."
+          description: 'The decimal value, as a string. The string representation consists of an optional sign, `+` (`U+002B`) or `-` (`U+002D`), followed by a sequence of zero or more decimal digits ("the integer"), optionally followed by a fraction, optionally followed by an exponent. An empty string **should** be interpreted as `0`. The fraction consists of a decimal point followed by zero or more decimal digits. The string must contain at least one digit in either the integer or the fraction. The number formed by the sign, the integer and the fraction is referred to as the significand. The exponent consists of the character `e` (`U+0065`) or `E` (`U+0045`) followed by one or more decimal digits. Services **should** normalize decimal values before storing them by: - Removing an explicitly-provided `+` sign (`+2.5` -> `2.5`). - Replacing a zero-length integer value with `0` (`.5` -> `0.5`). - Coercing the exponent character to upper-case, with explicit sign (`2.5e8` -> `2.5E+8`). - Removing an explicitly-provided zero exponent (`2.5E0` -> `2.5`). Services **may** perform additional normalization based on its own needs and the internal decimal implementation selected, such as shifting the decimal point and exponent value together (example: `2.5E-1` <-> `0.25`). Additionally, services **may** preserve trailing zeroes in the fraction to indicate increased precision, but are not required to do so. Note that only the `.` character is supported to divide the integer and the fraction; `,` **should not** be supported regardless of locale. Additionally, thousand separators **should not** be supported. If a service does support them, values **must** be normalized. The ENBF grammar is: DecimalString = '''' | [Sign] Significand [Exponent]; Sign = ''+'' | ''-''; Significand = Digits ''.'' | [Digits] ''.'' Digits; Exponent = (''e'' | ''E'') [Sign] Digits; Digits = { ''0'' | ''1'' | ''2'' | ''3'' | ''4'' | ''5'' | ''6'' | ''7'' | ''8'' | ''9'' }; Services **should** clearly document the range of supported values, the maximum supported precision (total number of digits), and, if applicable, the scale (number of digits after the decimal point), as well as how it behaves when receiving out-of-bounds values. Services **may** choose to accept values passed as input even when the value has a higher precision or scale than the service supports, and **should** round the value to fit the supported scale. Alternatively, the service **may** error with `400 Bad Request` (`INVALID_ARGUMENT` in gRPC) if precision would be lost. Services **should** error with `400 Bad Request` (`INVALID_ARGUMENT` in gRPC) if the service receives a value outside of the supported range.'
           type: string
       type: object
-    DualRegional:
-      description: Area contains dual locations.
+    FinalResult:
+      description: Encapsulates all structured data and the completed summary.
+      x-google-discovery-id: FinalResult
       properties:
-        name:
-          description: 'The [location name](https://cloud.google.com/storage/docs/locations#available-locations) where the data is stored. For example: "asia1" for dual region.'
+        dataSets:
+          description: Output only. Data sets used to support the insights, suitable for UI rendering (tables/charts).
+          items:
+            $ref: '#/components/schemas/DataSet'
+          readOnly: true
+          type: array
+        fullAnalysis:
+          description: Output only. Contains the full natural language analysis, including thoughts, reasoning, and references.
+          readOnly: true
+          type: string
+        insights:
+          description: Output only. A list of discrete insights gleaned from the data.
+          items:
+            $ref: '#/components/schemas/Insight'
+          readOnly: true
+          type: array
+        interopLinks:
+          description: Output only. Links to interoperable tools (e.g., pre-filtered Cost Reports or BQE queries).
+          items:
+            $ref: '#/components/schemas/InteropLink'
+          readOnly: true
+          type: array
+        suggestedQueries:
+          description: Output only. A list of suggested follow-up queries for the user.
+          items:
+            $ref: '#/components/schemas/SuggestedQuery'
+          readOnly: true
+          type: array
+        summary:
+          description: Output only. The full natural language summary (re-sent for consistency).
+          readOnly: true
           type: string
       type: object
-    EstimateCostScenarioForBillingAccountRequest:
-      description: Request for EstimateCostScenarioForBillingAccount.
+    GenerateInsightsRequest:
+      description: Request for GenerateInsights.
+      x-google-discovery-id: GenerateInsightsRequest
       properties:
-        costScenario:
-          $ref: "#/components/schemas/CostScenario"
-          description: The scenario to estimate costs for.
+        filter:
+          description: 'Optional. Filters cost data by service id. Follows https://google.aip.dev/160 for the filter syntax. eg. filter: "service = ''C7E2-9256-1C43''"'
+          type: string
+        overriddenMaxIterationCounts:
+          description: Optional. Overrides the maximum iterations for any selected strategy.
+          format: int32
+          type: integer
+        parents:
+          description: Optional. The billing account or projects to analyze.
+          items:
+            $ref: '#/components/schemas/BillingDataResource'
+          type: array
+        prompt:
+          description: Required. The natural language prompt from the user.
+          type: string
+        userContext:
+          description: Optional. Additional context for personalization (e.g., user persona, role).
+          allOf:
+            - $ref: '#/components/schemas/UserContext'
       type: object
-    EstimateCostScenarioForBillingAccountResponse:
-      description: Response for EstimateCostScenarioForBillingAccount
+    GenerateInsightsResponse:
+      description: Response for GenerateInsights.
+      x-google-discovery-id: GenerateInsightsResponse
       properties:
-        costEstimationResult:
-          $ref: "#/components/schemas/CostEstimationResult"
-          description: The result of the cost estimation.
-      type: object
-    EstimateCostScenarioWithListPriceRequest:
-      description: Request for EstimateCostScenarioWithListPrice.
-      properties:
-        costScenario:
-          $ref: "#/components/schemas/CostScenario"
-          description: The scenario to estimate costs for.
-      type: object
-    EstimateCostScenarioWithListPriceResponse:
-      description: Response for EstimateCostScenarioWithListPrice
-      properties:
-        costEstimationResult:
-          $ref: "#/components/schemas/CostEstimationResult"
-          description: The result of the cost estimation.
-      type: object
-    EstimationTimePoint:
-      description: Represents a point in time.
-      properties:
-        estimationTimeFrameOffset:
-          description: The point in time, relative to the start of the time frame covered by the cost estimate.
-          format: google-duration
+        finalResult:
+          description: Output only. The final structured results and metadata. Usually sent as the final message in the stream.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/FinalResult'
+        rejection:
+          description: Output only. The request was rejected (e.g. out of scope).
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/Rejection'
+        summaryChunk:
+          description: Output only. A chunk of the natural language summary (customer-facing). The UI can append these chunks to provide a real-time "typing" effect.
+          readOnly: true
+          type: string
+        thoughtChunk:
+          description: Output only. A chunk of the agent's internal reasoning process. The UI can use this to render a "Thinking..." log or status.
+          readOnly: true
           type: string
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaAggregationInfo:
       description: Encapsulates the aggregation information such as aggregation level and interval for a billing account price.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaAggregationInfo
       properties:
         interval:
           description: 'Interval at which usage is aggregated to compute cost. Example: "MONTHLY" interval indicates that usage is aggregated every month.'
@@ -884,6 +1400,10 @@ components:
             - INTERVAL_UNSPECIFIED
             - INTERVAL_MONTHLY
             - INTERVAL_DAILY
+          x-google-enum-descriptions:
+            - Default unspecified value.
+            - Usage is aggregated every month.
+            - Usage is aggregated every day.
           type: string
         level:
           description: 'Level at which usage is aggregated to compute cost. Example: "ACCOUNT" level indicates that usage is aggregated across all projects in a single account.'
@@ -891,10 +1411,15 @@ components:
             - LEVEL_UNSPECIFIED
             - LEVEL_ACCOUNT
             - LEVEL_PROJECT
+          x-google-enum-descriptions:
+            - Default unspecified value.
+            - Usage is aggregated at an account level.
+            - Usage is aggregated at a project level.
           type: string
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaBillingAccountPrice:
       description: Encapsulates the latest price for a billing account SKU.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaBillingAccountPrice
       properties:
         currencyCode:
           description: ISO-4217 currency code for the price.
@@ -903,25 +1428,30 @@ components:
           description: Resource name for the latest billing account price.
           type: string
         priceReason:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaPriceReason"
           description: Background information on the origin of the price.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaPriceReason'
         rate:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaRate"
           description: Rate price metadata. Billing account SKUs with `Rate` price are offered by pricing tiers. The price can have 1 or more rate pricing tiers.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaRate'
         valueType:
           description: 'Type of the price. The possible values are: ["unspecified", "rate"].'
           type: string
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaDefaultPrice:
       description: Encapsulates a default price which is the current list price.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaDefaultPrice
       properties: {}
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaFixedDiscount:
       description: Encapsulates a discount off the list price, anchored to the list price as of a fixed time.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaFixedDiscount
       properties:
         discountPercent:
-          $ref: "#/components/schemas/Decimal"
           description: Percentage of the fixed discount.
+          allOf:
+            - $ref: '#/components/schemas/Decimal'
         discountScopeType:
           description: Type of the fixed discount scope which indicates the source of the discount. It can have values such as 'unspecified' and 'sku-group'.
           type: string
@@ -935,14 +1465,17 @@ components:
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaFixedPrice:
       description: Encapsulates a set fixed price applicable during the terms of a contract agreement.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaFixedPrice
       properties: {}
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaFloatingDiscount:
       description: Encapsulates a discount off the current list price, not anchored to any list price as of a fixed time.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaFloatingDiscount
       properties:
         discountPercent:
-          $ref: "#/components/schemas/Decimal"
           description: Percentage of the floating discount.
+          allOf:
+            - $ref: '#/components/schemas/Decimal'
         discountScopeType:
           description: Type of the floating discount scope which indicates the source of the discount. It can have values such as 'unspecified' and 'sku-group'.
           type: string
@@ -952,11 +1485,12 @@ components:
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaListBillingAccountPricesResponse:
       description: Response message for ListBillingAccountPrices.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaListBillingAccountPricesResponse
       properties:
         billingAccountPrices:
           description: The returned billing account prices.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaBillingAccountPrice"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaBillingAccountPrice'
           type: array
         nextPageToken:
           description: Token that can be sent as `page_token` in the subsequent request to retrieve the next page. If this field is empty, there are no subsequent pages.
@@ -964,93 +1498,115 @@ components:
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaListPriceAsCeiling:
       description: Encapsulates a contract feature that the list price (DefaultPrice) will be used for the price if the current list price drops lower than the custom fixed price. Available to new contracts after March 21, 2022. Applies to all fixed price SKUs in the contract, including FixedPrice, FixedDiscount, MigratedPrice, and MergedPrice.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaListPriceAsCeiling
       properties: {}
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaMergedPrice:
       description: Encapsulates a price after merging from multiple sources. With merged tiers, each individual tier can be from a different source with different discount types.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaMergedPrice
       properties: {}
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaMigratedPrice:
       description: Encapsulates a price migrated from other SKUs.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaMigratedPrice
       properties:
         sourceSku:
-          description: "Source SKU where the discount is migrated from. Format: billingAccounts/{billing_account}/skus/{sku}"
+          description: 'Source SKU where the discount is migrated from. Format: billingAccounts/{billing_account}/skus/{sku}'
           type: string
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaPriceReason:
       description: Encapsulates a price reason which contains background information about the origin of the price.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaPriceReason
       properties:
         defaultPrice:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaDefaultPrice"
           description: Default price which is the current list price.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaDefaultPrice'
         fixedDiscount:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaFixedDiscount"
           description: Discount off the list price, anchored to the list price as of a fixed time.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaFixedDiscount'
         fixedPrice:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaFixedPrice"
           description: Fixed price applicable during the terms of a contract agreement.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaFixedPrice'
         floatingDiscount:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaFloatingDiscount"
           description: Discount off the current list price, not anchored to any list price as of a fixed time.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaFloatingDiscount'
         listPriceAsCeiling:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaListPriceAsCeiling"
           description: Contract feature that the list price (DefaultPrice) will be used for the price if the current list price drops lower than the custom fixed price. Available to new contracts after March 21, 2022. Applies to all fixed price SKUs in the contract, including FixedPrice, FixedDiscount, MigratedPrice, and MergedPrice.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaListPriceAsCeiling'
         mergedPrice:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaMergedPrice"
           description: Price after merging from multiple sources.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaMergedPrice'
         migratedPrice:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaMigratedPrice"
           description: Price migrated from other SKUs.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaMigratedPrice'
         type:
           description: Type of the price reason. It can have values such as 'unspecified', 'default-price', 'fixed-price', 'fixed-discount', 'floating-discount', 'migrated-price', 'merged-price', 'list-price-as-ceiling'.
           type: string
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaRate:
       description: Encapsulates a `Rate` price. Billing account SKUs with `Rate` price are offered by pricing tiers. The price have 1 or more rate pricing tiers.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaRate
       properties:
         aggregationInfo:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaAggregationInfo"
           description: Aggregation info for tiers such as aggregation level and interval.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaAggregationInfo'
         tiers:
           description: All tiers associated with the `Rate` price.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaRateTier"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaRateTier'
           type: array
         unitInfo:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaUnitInfo"
           description: Unit info such as name and quantity.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountpricesV1betaUnitInfo'
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaRateTier:
       description: Encapsulates a rate price tier.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaRateTier
       properties:
         contractPrice:
-          $ref: "#/components/schemas/Money"
           description: Negotiated contract price specific for a billing account.
+          allOf:
+            - $ref: '#/components/schemas/Money'
         effectiveDiscountPercent:
-          $ref: "#/components/schemas/Decimal"
-          description: "Percentage of effective discount calculated using the current list price per pricing tier. Formula used: effective_discount_percent = (list_price - contract_price) / list_price × 100 If list_price and contract_price are zero, this field is the same as `discount_percent` of FixedDiscount and FloatingDiscount. If your contract does NOT have the feature LIST_PRICE_AS_CEILING enabled, the effective_discount_percent can be negative if the SKU has a FixedDiscount and the current list price is lower than the list price on the date of the contract agreement. See the `FixedDiscount.fix_time` on when the discount was set. If you have questions regarding pricing per SKU, contact your Account team for more details."
+          description: 'Percentage of effective discount calculated using the current list price per pricing tier. Formula used: effective_discount_percent = (list_price - contract_price) / list_price × 100 If list_price and contract_price are zero, this field is the same as `discount_percent` of FixedDiscount and FloatingDiscount. If your contract does NOT have the feature LIST_PRICE_AS_CEILING enabled, the effective_discount_percent can be negative if the SKU has a FixedDiscount and the current list price is lower than the list price on the date of the contract agreement. See the `FixedDiscount.fix_time` on when the discount was set. If you have questions regarding pricing per SKU, contact your Account team for more details.'
+          allOf:
+            - $ref: '#/components/schemas/Decimal'
         listPrice:
-          $ref: "#/components/schemas/Money"
           description: List price of one tier.
+          allOf:
+            - $ref: '#/components/schemas/Money'
         startAmount:
-          $ref: "#/components/schemas/Decimal"
           description: Lower bound amount for a tier. Tiers 0-100, 100-200 will be represented with two tiers with `start_amount` 0 and 100.
+          allOf:
+            - $ref: '#/components/schemas/Decimal'
       type: object
     GoogleCloudBillingBillingaccountpricesV1betaUnitInfo:
       description: Encapsulates the unit information for a Rate
+      x-google-discovery-id: GoogleCloudBillingBillingaccountpricesV1betaUnitInfo
       properties:
         unit:
-          description: "Shorthand for the unit. Example: GiBy.mo."
+          description: 'Shorthand for the unit. Example: GiBy.mo.'
           type: string
         unitDescription:
-          description: "Human-readable description of the unit. Example: gibibyte month."
+          description: 'Human-readable description of the unit. Example: gibibyte month.'
           type: string
         unitQuantity:
-          $ref: "#/components/schemas/Decimal"
-          description: "Unit quantity for the tier. Example: if the RateTier price is $1 per 1000000 Bytes, then `unit_quantity` is set to 1000000."
+          description: 'Unit quantity for the tier. Example: if the RateTier price is $1 per 1000000 Bytes, then `unit_quantity` is set to 1000000.'
+          allOf:
+            - $ref: '#/components/schemas/Decimal'
       type: object
     GoogleCloudBillingBillingaccountservicesV1betaBillingAccountService:
       description: Encapsulates a Google Cloud service visible to a billing account.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountservicesV1betaBillingAccountService
       properties:
         displayName:
           description: 'Description of the BillingAccountService. Example: "BigQuery", "Compute Engine".'
@@ -1064,11 +1620,12 @@ components:
       type: object
     GoogleCloudBillingBillingaccountservicesV1betaListBillingAccountServicesResponse:
       description: Response message for ListBillingAccountServices.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountservicesV1betaListBillingAccountServicesResponse
       properties:
         billingAccountServices:
           description: The returned billing account services.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountservicesV1betaBillingAccountService"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountservicesV1betaBillingAccountService'
           type: array
         nextPageToken:
           description: Token that can be sent as `page_token` in the subsequent request to retrieve the next page. If this field is empty, there are no subsequent pages.
@@ -1076,6 +1633,7 @@ components:
       type: object
     GoogleCloudBillingBillingaccountskugroupsV1betaBillingAccountSkuGroup:
       description: Encapsulates a stock keeping (SKU) group visible to a billing account. A SKU group represents a collection of SKUs that are related to each other. For example, the `AI Platform APIs` SKU group includes SKUs from the Cloud Dialogflow API, the Cloud Text-to-Speech API, and additional related APIs.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupsV1betaBillingAccountSkuGroup
       properties:
         displayName:
           description: 'Description of the BillingAccountSkuGroup. Example: "A2 VMs (1 Year CUD)".'
@@ -1086,11 +1644,12 @@ components:
       type: object
     GoogleCloudBillingBillingaccountskugroupsV1betaListBillingAccountSkuGroupsResponse:
       description: Response message for ListBillingAccountSkuGroups.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupsV1betaListBillingAccountSkuGroupsResponse
       properties:
         billingAccountSkuGroups:
           description: The returned publicly listed billing account SKU groups.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupsV1betaBillingAccountSkuGroup"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupsV1betaBillingAccountSkuGroup'
           type: array
         nextPageToken:
           description: Token that can be sent as `page_token` in the subsequent request to retrieve the next page. If this field is empty, there are no subsequent pages.
@@ -1098,6 +1657,7 @@ components:
       type: object
     GoogleCloudBillingBillingaccountskugroupskusV1betaBillingAccountSkuGroupSku:
       description: Encapsulates a SKU that is part of a billing account SKU group.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupskusV1betaBillingAccountSkuGroupSku
       properties:
         billingAccountService:
           description: BillingAccountService that the BillingAccountSkuGroupSku belongs to.
@@ -1106,30 +1666,36 @@ components:
           description: 'Description of the BillingAccountSkuGroupSku. Example: "A2 Instance Core running in Hong Kong".'
           type: string
         geoTaxonomy:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomy"
           description: Geographic metadata that applies to the BillingAccountSkuGroupSku.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomy'
         name:
           description: 'Resource name for the BillingAccountSkuGroupSku. Example: "billingAccounts/012345-567890-ABCDEF/skuGroups/0e6403d1-4694-44d2-a696-7a78b1a69301/skus/AA95-CD31-42FE".'
           type: string
         productTaxonomy:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaProductTaxonomy"
           description: List of product categories that apply to the BillingAccountSkuGroupSku.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaProductTaxonomy'
         skuId:
           description: 'Unique identifier for the SKU. It is the string after the collection identifier "skus/" Example: "AA95-CD31-42FE".'
           type: string
       type: object
     GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomy:
       description: Encapsulates geographic metadata, such as regions and multi-regions like `us-east4` or `European Union`.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomy
       properties:
         globalMetadata:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyGlobal"
           description: Global geographic metadata with no regions.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyGlobal'
         multiRegionalMetadata:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyMultiRegional"
           description: Multi-regional geographic metadata with 2 or more regions.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyMultiRegional'
         regionalMetadata:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegional"
           description: Regional geographic metadata with 1 region.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegional'
         type:
           description: Type of geographic taxonomy associated with the billing account SKU group SKU.
           enum:
@@ -1137,23 +1703,31 @@ components:
             - TYPE_GLOBAL
             - TYPE_REGIONAL
             - TYPE_MULTI_REGIONAL
+          x-google-enum-descriptions:
+            - Default value. Unspecified type.
+            - Global geographic taxonomy with no regions.
+            - Regional geographic taxonomy with 1 region.
+            - Multi-regional geographic taxonomy with 2 or more regions.
           type: string
       type: object
     GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyGlobal:
       description: Encapsulates a global geographic taxonomy.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyGlobal
       properties: {}
       type: object
     GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyMultiRegional:
       description: Encapsulates a multi-regional geographic taxonomy.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyMultiRegional
       properties:
         regions:
           description: Google Cloud regions associated with the multi-regional geographic taxonomy.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegion"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegion'
           type: array
       type: object
     GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegion:
       description: Encapsulates a Google Cloud region.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegion
       properties:
         region:
           description: 'Description of a Google Cloud region. Example: "us-west2".'
@@ -1161,18 +1735,21 @@ components:
       type: object
     GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegional:
       description: Encapsulates a regional geographic taxonomy.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegional
       properties:
         region:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegion"
           description: Google Cloud region associated with the regional geographic taxonomy.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaGeoTaxonomyRegion'
       type: object
     GoogleCloudBillingBillingaccountskugroupskusV1betaListBillingAccountSkuGroupSkusResponse:
       description: Response message for ListBillingAccountSkuGroupSkus.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupskusV1betaListBillingAccountSkuGroupSkusResponse
       properties:
         billingAccountSkuGroupSkus:
           description: The returned billing account SKU group SKUs.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaBillingAccountSkuGroupSku"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaBillingAccountSkuGroupSku'
           type: array
         nextPageToken:
           description: Token that can be sent as `page_token` in the subsequent request to retrieve the next page. If this field is empty, there are no subsequent pages.
@@ -1180,22 +1757,25 @@ components:
       type: object
     GoogleCloudBillingBillingaccountskugroupskusV1betaProductTaxonomy:
       description: Encapsulates product categories, such as `Serverless`, `Cloud Run`, `TaskQueue`, and others.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupskusV1betaProductTaxonomy
       properties:
         taxonomyCategories:
           description: All product categories that the billing account SKU group SKU belong to.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaTaxonomyCategory"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskugroupskusV1betaTaxonomyCategory'
           type: array
       type: object
     GoogleCloudBillingBillingaccountskugroupskusV1betaTaxonomyCategory:
       description: Encapsulates a product category.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskugroupskusV1betaTaxonomyCategory
       properties:
         category:
           description: Name of the product category.
           type: string
       type: object
     GoogleCloudBillingBillingaccountskusV1betaBillingAccountSku:
-      description: Encapsulates a stock keeping unit (SKU) visible to a billing account. A SKU distinctly identifies a resource that you can purchase, such as `Nvidia Tesla K80 GPU attached to Spot Preemptible VMs running in Warsaw`.
+      description: Encapsulates a stock keeping unit (SKU) visible to a billing account. A SKU distinctly identifies a resource that you can purchase. For a list of available SKUs, see [SKUs](https://cloud.google.com/skus).
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskusV1betaBillingAccountSku
       properties:
         billingAccountService:
           description: BillingAccountService that the BillingAccountSku belongs to.
@@ -1204,30 +1784,36 @@ components:
           description: 'Description of the BillingAccountSku. Example: "A2 Instance Core running in Hong Kong".'
           type: string
         geoTaxonomy:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomy"
           description: Geographic metadata that applies to the BillingAccountSku.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomy'
         name:
           description: 'Resource name for the BillingAccountSku. Example: "billingAccounts/012345-567890-ABCDEF/skus/AA95-CD31-42FE".'
           type: string
         productTaxonomy:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaProductTaxonomy"
           description: List of product categories that apply to the BillingAccountSku.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaProductTaxonomy'
         skuId:
           description: 'Unique identifier for the SKU. It is the string after the collection identifier "skus/" Example: "AA95-CD31-42FE".'
           type: string
       type: object
     GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomy:
       description: Encapsulates geographic metadata, such as regions and multi-regions like `us-east4` or `European Union`.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomy
       properties:
         globalMetadata:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyGlobal"
           description: Global geographic metadata with no regions.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyGlobal'
         multiRegionalMetadata:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyMultiRegional"
           description: Multi-regional geographic metadata with 2 or more regions.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyMultiRegional'
         regionalMetadata:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegional"
           description: Regional geographic metadata with 1 region.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegional'
         type:
           description: Type of geographic taxonomy associated with the billing account SKU.
           enum:
@@ -1235,23 +1821,31 @@ components:
             - TYPE_GLOBAL
             - TYPE_REGIONAL
             - TYPE_MULTI_REGIONAL
+          x-google-enum-descriptions:
+            - Default value. Unspecified type.
+            - Global geographic taxonomy with no regions.
+            - Regional geographic taxonomy with 1 region.
+            - Multi-regional geographic taxonomy with 2 or more regions.
           type: string
       type: object
     GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyGlobal:
       description: Encapsulates a global geographic taxonomy.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyGlobal
       properties: {}
       type: object
     GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyMultiRegional:
       description: Encapsulates a multi-regional geographic taxonomy.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyMultiRegional
       properties:
         regions:
           description: Google Cloud regions associated with the multi-regional geographic taxonomy.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegion"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegion'
           type: array
       type: object
     GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegion:
       description: Encapsulates a Google Cloud region.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegion
       properties:
         region:
           description: 'Description of a Google Cloud region. Example: "us-west2".'
@@ -1259,18 +1853,21 @@ components:
       type: object
     GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegional:
       description: Encapsulates a regional geographic taxonomy.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegional
       properties:
         region:
-          $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegion"
           description: Google Cloud region associated with the regional geographic taxonomy.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaGeoTaxonomyRegion'
       type: object
     GoogleCloudBillingBillingaccountskusV1betaListBillingAccountSkusResponse:
       description: Response message for ListBillingAccountSkus.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskusV1betaListBillingAccountSkusResponse
       properties:
         billingAccountSkus:
           description: The returned billing account SKUs.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaBillingAccountSku"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaBillingAccountSku'
           type: array
         nextPageToken:
           description: Token that can be sent as `page_token` in the subsequent request to retrieve the next page. If this field is empty, there are no subsequent pages.
@@ -1278,15 +1875,17 @@ components:
       type: object
     GoogleCloudBillingBillingaccountskusV1betaProductTaxonomy:
       description: Encapsulates product categories, such as `Serverless`, `Cloud Run`, `TaskQueue`, and others.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskusV1betaProductTaxonomy
       properties:
         taxonomyCategories:
           description: All product categories that the billing account SKU belong to.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaTaxonomyCategory"
+            $ref: '#/components/schemas/GoogleCloudBillingBillingaccountskusV1betaTaxonomyCategory'
           type: array
       type: object
     GoogleCloudBillingBillingaccountskusV1betaTaxonomyCategory:
       description: Encapsulates a product category.
+      x-google-discovery-id: GoogleCloudBillingBillingaccountskusV1betaTaxonomyCategory
       properties:
         category:
           description: Name of the product category.
@@ -1294,6 +1893,7 @@ components:
       type: object
     GoogleCloudBillingPricesV1betaAggregationInfo:
       description: Encapsulates the aggregation information such as aggregation level and interval for a price.
+      x-google-discovery-id: GoogleCloudBillingPricesV1betaAggregationInfo
       properties:
         interval:
           description: 'Interval at which usage is aggregated to compute cost. Example: "MONTHLY" interval indicates that usage is aggregated every month.'
@@ -1301,6 +1901,10 @@ components:
             - INTERVAL_UNSPECIFIED
             - INTERVAL_MONTHLY
             - INTERVAL_DAILY
+          x-google-enum-descriptions:
+            - Default unspecified value.
+            - Usage is aggregated every month.
+            - Usage is aggregated every day.
           type: string
         level:
           description: 'Level at which usage is aggregated to compute cost. Example: "ACCOUNT" level indicates that usage is aggregated across all projects in a single account.'
@@ -1308,10 +1912,15 @@ components:
             - LEVEL_UNSPECIFIED
             - LEVEL_ACCOUNT
             - LEVEL_PROJECT
+          x-google-enum-descriptions:
+            - Default unspecified value.
+            - Usage is aggregated at an account level.
+            - Usage is aggregated at a project level.
           type: string
       type: object
     GoogleCloudBillingPricesV1betaListPricesResponse:
       description: Response message for ListPrices.
+      x-google-discovery-id: GoogleCloudBillingPricesV1betaListPricesResponse
       properties:
         nextPageToken:
           description: Token that can be sent as `page_token` in the subsequent request to retrieve the next page. If this field is empty, there are no subsequent pages.
@@ -1319,11 +1928,12 @@ components:
         prices:
           description: The returned publicly listed prices.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingPricesV1betaPrice"
+            $ref: '#/components/schemas/GoogleCloudBillingPricesV1betaPrice'
           type: array
       type: object
     GoogleCloudBillingPricesV1betaPrice:
       description: Encapsulates the latest price for a SKU.
+      x-google-discovery-id: GoogleCloudBillingPricesV1betaPrice
       properties:
         currencyCode:
           description: ISO-4217 currency code for the price.
@@ -1332,52 +1942,62 @@ components:
           description: Resource name for the latest price.
           type: string
         rate:
-          $ref: "#/components/schemas/GoogleCloudBillingPricesV1betaRate"
           description: Rate price metadata. SKUs with `Rate` price are offered by pricing tiers. The price can have 1 or more rate pricing tiers.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingPricesV1betaRate'
         valueType:
           description: 'Type of the price. It can have values: ["unspecified", "rate"].'
           type: string
       type: object
     GoogleCloudBillingPricesV1betaRate:
       description: Encapsulates a `Rate` price. SKUs with `Rate` price are offered by pricing tiers. The price have 1 or more rate pricing tiers.
+      x-google-discovery-id: GoogleCloudBillingPricesV1betaRate
       properties:
         aggregationInfo:
-          $ref: "#/components/schemas/GoogleCloudBillingPricesV1betaAggregationInfo"
           description: Aggregation info for tiers such as aggregation level and interval.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingPricesV1betaAggregationInfo'
         tiers:
           description: All tiers associated with the `Rate` price.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingPricesV1betaRateTier"
+            $ref: '#/components/schemas/GoogleCloudBillingPricesV1betaRateTier'
           type: array
         unitInfo:
-          $ref: "#/components/schemas/GoogleCloudBillingPricesV1betaUnitInfo"
           description: Unit info such as name and quantity.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingPricesV1betaUnitInfo'
       type: object
     GoogleCloudBillingPricesV1betaRateTier:
       description: Encapsulates a rate price tier.
+      x-google-discovery-id: GoogleCloudBillingPricesV1betaRateTier
       properties:
         listPrice:
-          $ref: "#/components/schemas/Money"
           description: List price of one tier.
+          allOf:
+            - $ref: '#/components/schemas/Money'
         startAmount:
-          $ref: "#/components/schemas/Decimal"
           description: Lower bound amount for a tier. Tiers 0-100, 100-200 will be represented with two tiers with `start_amount` 0 and 100.
+          allOf:
+            - $ref: '#/components/schemas/Decimal'
       type: object
     GoogleCloudBillingPricesV1betaUnitInfo:
       description: Encapsulates the unit information for a Rate
+      x-google-discovery-id: GoogleCloudBillingPricesV1betaUnitInfo
       properties:
         unit:
-          description: "Shorthand for the unit. Example: GiBy.mo."
+          description: 'Shorthand for the unit. Example: GiBy.mo.'
           type: string
         unitDescription:
-          description: "Human-readable description of the unit. Example: gibibyte month."
+          description: 'Human-readable description of the unit. Example: gibibyte month.'
           type: string
         unitQuantity:
-          $ref: "#/components/schemas/Decimal"
-          description: "Unit quantity for the tier. Example: if the RateTier price is $1 per 1000000 Bytes, then `unit_quantity` is set to 1000000."
+          description: 'Unit quantity for the tier. Example: if the RateTier price is $1 per 1000000 Bytes, then `unit_quantity` is set to 1000000.'
+          allOf:
+            - $ref: '#/components/schemas/Decimal'
       type: object
     GoogleCloudBillingSkugroupsV1betaListSkuGroupsResponse:
       description: Response message for ListSkuGroups.
+      x-google-discovery-id: GoogleCloudBillingSkugroupsV1betaListSkuGroupsResponse
       properties:
         nextPageToken:
           description: Token that can be sent as `page_token` in the subsequent request to retrieve the next page. If this field is empty, there are no subsequent pages.
@@ -1385,11 +2005,12 @@ components:
         skuGroups:
           description: The returned publicly listed SKU groups.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingSkugroupsV1betaSkuGroup"
+            $ref: '#/components/schemas/GoogleCloudBillingSkugroupsV1betaSkuGroup'
           type: array
       type: object
     GoogleCloudBillingSkugroupsV1betaSkuGroup:
       description: Encapsulates a publicly listed stock keeping unit (SKU) group. A SKU group represents a collection of SKUs that are related to each other. For example, the `AI Platform APIs` SKU group includes SKUs from the Cloud Dialogflow API, the Cloud Text-to-Speech API, and additional related APIs.
+      x-google-discovery-id: GoogleCloudBillingSkugroupsV1betaSkuGroup
       properties:
         displayName:
           description: 'Description of the SKU group. Example: "A2 VMs (1 Year CUD)".'
@@ -1400,16 +2021,20 @@ components:
       type: object
     GoogleCloudBillingSkugroupskusV1betaGeoTaxonomy:
       description: Encapsulates geographic metadata, such as regions and multi-regions like `us-east4` or `European Union`.
+      x-google-discovery-id: GoogleCloudBillingSkugroupskusV1betaGeoTaxonomy
       properties:
         globalMetadata:
-          $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyGlobal"
           description: Global geographic metadata with no regions.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyGlobal'
         multiRegionalMetadata:
-          $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyMultiRegional"
           description: Multi-regional geographic metadata with 2 or more regions.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyMultiRegional'
         regionalMetadata:
-          $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegional"
           description: Regional geographic metadata with 1 region.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegional'
         type:
           description: Type of geographic taxonomy associated with the SKU group SKU.
           enum:
@@ -1417,23 +2042,31 @@ components:
             - TYPE_GLOBAL
             - TYPE_REGIONAL
             - TYPE_MULTI_REGIONAL
+          x-google-enum-descriptions:
+            - Default value. Unspecified type.
+            - Global geographic taxonomy with no regions.
+            - Regional geographic taxonomy with 1 region.
+            - Multi-regional geographic taxonomy with 2 or more regions.
           type: string
       type: object
     GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyGlobal:
       description: Encapsulates a global geographic taxonomy.
+      x-google-discovery-id: GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyGlobal
       properties: {}
       type: object
     GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyMultiRegional:
       description: Encapsulates a multi-regional geographic taxonomy.
+      x-google-discovery-id: GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyMultiRegional
       properties:
         regions:
           description: Google Cloud regions associated with the multi-regional geographic taxonomy.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegion"
+            $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegion'
           type: array
       type: object
     GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegion:
       description: Encapsulates a Google Cloud region.
+      x-google-discovery-id: GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegion
       properties:
         region:
           description: 'Description of a Google Cloud region. Example: "us-west2".'
@@ -1441,13 +2074,16 @@ components:
       type: object
     GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegional:
       description: Encapsulates a regional geographic taxonomy.
+      x-google-discovery-id: GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegional
       properties:
         region:
-          $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegion"
           description: Google Cloud region associated with the regional geographic taxonomy.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomyRegion'
       type: object
     GoogleCloudBillingSkugroupskusV1betaListSkuGroupSkusResponse:
       description: Response message for ListSkuGroupSkus.
+      x-google-discovery-id: GoogleCloudBillingSkugroupskusV1betaListSkuGroupSkusResponse
       properties:
         nextPageToken:
           description: Token that can be sent as `page_token` in the subsequent request to retrieve the next page. If this field is empty, there are no subsequent pages.
@@ -1455,33 +2091,37 @@ components:
         skuGroupSkus:
           description: The returned SKU group SKUs.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaSkuGroupSku"
+            $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaSkuGroupSku'
           type: array
       type: object
     GoogleCloudBillingSkugroupskusV1betaProductTaxonomy:
       description: Encapsulates product categories, such as `Serverless`, `Cloud Run`, `TaskQueue`, and others.
+      x-google-discovery-id: GoogleCloudBillingSkugroupskusV1betaProductTaxonomy
       properties:
         taxonomyCategories:
           description: All product categories that the SKU group SKU belongs to.
           items:
-            $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaTaxonomyCategory"
+            $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaTaxonomyCategory'
           type: array
       type: object
     GoogleCloudBillingSkugroupskusV1betaSkuGroupSku:
       description: Encapsulates a publicly listed stock keeping unit (SKU) that is part of a publicly listed SKU group. A SKU group represents a collection of SKUs that are related to each other. For example, the `AI Platform APIs` SKU group includes SKUs from the Cloud Dialogflow API, the Cloud Text-to-Speech API, and additional related APIs.
+      x-google-discovery-id: GoogleCloudBillingSkugroupskusV1betaSkuGroupSku
       properties:
         displayName:
           description: 'Description of the SkuGroupSku. Example: "A2 Instance Core running in Hong Kong".'
           type: string
         geoTaxonomy:
-          $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomy"
           description: Geographic metadata that applies to the SkuGroupSku.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaGeoTaxonomy'
         name:
           description: 'Resource name for the SkuGroupSku. Example: "skuGroups/0e6403d1-4694-44d2-a696-7a78b1a69301/skus/AA95-CD31-42FE".'
           type: string
         productTaxonomy:
-          $ref: "#/components/schemas/GoogleCloudBillingSkugroupskusV1betaProductTaxonomy"
           description: List of product categories that apply to the SkuGroupSku.
+          allOf:
+            - $ref: '#/components/schemas/GoogleCloudBillingSkugroupskusV1betaProductTaxonomy'
         service:
           description: Service that the SkuGroupSku belongs to.
           type: string
@@ -1491,52 +2131,92 @@ components:
       type: object
     GoogleCloudBillingSkugroupskusV1betaTaxonomyCategory:
       description: Encapsulates a product category.
+      x-google-discovery-id: GoogleCloudBillingSkugroupskusV1betaTaxonomyCategory
       properties:
         category:
           description: Name of the product category.
           type: string
       type: object
-    GuestAccelerator:
-      description: Specification of a set of guest accelerators attached to a machine.
+    Insight:
+      description: 'e.g. insight: title: "Cost Increase (The Explanation)" description: "Your cost increase was driven by Vertex AI Online Prediction in us-central1..." severity: INFO'
+      x-google-discovery-id: Insight
       properties:
-        acceleratorCount:
-          description: The number of the guest accelerator cards exposed to each instance.
-          format: int64
+        description:
+          description: Output only. The description of the insight.
+          readOnly: true
           type: string
-        acceleratorType:
-          description: 'The type of the guest accelerator cards. For example: "nvidia-tesla-t4".'
+        severity:
+          description: Output only. The severity of the insight, used for UI rendering (e.g., color-coding).
+          enum:
+            - SEVERITY_UNSPECIFIED
+            - INFO
+            - WARNING
+            - CRITICAL
+          x-google-enum-descriptions:
+            - Default value. Should not be used.
+            - The insight is useful, but no action is required.
+            - The insight is useful, and some action may be required.
+            - The insight is useful, and immediate action is required.
+          readOnly: true
+          type: string
+        title:
+          description: Output only. The title of the insight.
+          readOnly: true
           type: string
       type: object
-    InterRegionEgress:
-      description: Data transfer between two regions.
+    InteropLink:
+      description: A link to interoperable tools (e.g., pre-filtered Cost Reports, BQE queries).
+      x-google-discovery-id: InteropLink
       properties:
-        destinationRegion:
-          description: Which [region](https://cloud.google.com/compute/docs/regions-zones) the data is transferred to.
+        label:
+          description: Output only. The label of the link, suitable for UI rendering.
+          readOnly: true
           type: string
-        egressRate:
-          $ref: "#/components/schemas/Usage"
-          description: VM to VM data transfer usage. The expected units such are GiBy/s, By/s, and so on.
-        sourceRegion:
-          description: Which [region](https://cloud.google.com/compute/docs/regions-zones) the data is transferred from.
+        linkType:
+          description: Output only. The type of the interop link, e.g., "COST_REPORT", "BQE_QUERY", etc.
+          enum:
+            - LINK_TYPE_UNSPECIFIED
+            - COST_REPORT
+            - BQE_QUERY
+            - FINOPS_HUB
+          x-google-enum-descriptions:
+            - Default value. Should not be used.
+            - A link to a Cost Report in Google Cloud Console.
+            - A link to a BigQuery Export query.
+            - A link to a FinOps Hub page.
+          readOnly: true
+          type: string
+        url:
+          description: Output only. The URL of the link.
+          readOnly: true
           type: string
       type: object
-    IntraRegionEgress:
-      description: Data transfer within the same region. When the source region and destination region are in the same zone, using internal IP addresses, there isn't any charge for data transfer.
+    Map:
+      description: An unordered mapping from key to value, represented as a collection of map entries.
+      x-google-discovery-id: Map
       properties:
-        egressRate:
-          $ref: "#/components/schemas/Usage"
-          description: VM to VM data transfer usage. The expected are GiBy/s, By/s, and so on.
+        entry:
+          description: Represents the map entries in the map.
+          items:
+            $ref: '#/components/schemas/MapEntry'
+          type: array
       type: object
-    MachineType:
-      description: Specification of machine series, memory, and number of vCPUs.
+    MapEntry:
+      description: A single entry in a Map, representing the mapping between `key` and `value`.
+      x-google-discovery-id: MapEntry
       properties:
-        customMachineType:
-          $ref: "#/components/schemas/CustomMachineType"
-        predefinedMachineType:
-          $ref: "#/components/schemas/PredefinedMachineType"
+        key:
+          description: Represents the serialized map key for the entry.
+          allOf:
+            - $ref: '#/components/schemas/ValueProto'
+        value:
+          description: Represents the serialized map value of the entry.
+          allOf:
+            - $ref: '#/components/schemas/ValueProto'
       type: object
     Money:
       description: Represents an amount of money with its currency type.
+      x-google-discovery-id: Money
       properties:
         currencyCode:
           description: The three-letter currency code defined in ISO 4217.
@@ -1550,345 +2230,360 @@ components:
           format: int64
           type: string
       type: object
-    MultiRegional:
-      description: Area contains multiple locations.
+    Range:
+      description: A range of values, bounded by the values 'start' (inclusive) and 'end' (exclusive). A range has an element type, and values must be of this element type. A range is contiguous, ie it contains all values of the given element type starting at 'start' and ending before 'end'. A "null" value on start or end represents an unbounded start or end value respectively. Start and end values must always be present.
+      x-google-discovery-id: Range
       properties:
-        name:
-          description: 'The [location name](https://cloud.google.com/storage/docs/locations#available-locations) where the data is stored. For example: "us" for multi-region.'
-          type: string
+        end:
+          description: Represents the end of the range.
+          allOf:
+            - $ref: '#/components/schemas/ValueProto'
+        start:
+          description: Represents the start of the range.
+          allOf:
+            - $ref: '#/components/schemas/ValueProto'
       type: object
-    PersistentDisk:
-      description: Specification of a persistent disk attached to a VM.
+    Rejection:
+      description: Encapsulates details about why a request was rejected.
+      x-google-discovery-id: Rejection
       properties:
-        diskSize:
-          $ref: "#/components/schemas/Usage"
-          description: Specifies the size of disk. Must be at least 10 GB.
-        diskType:
-          description: 'The [disk type](https://cloud.google.com/compute/docs/disks#disk-types). For example: "pd-standard".'
+        displayMessage:
+          description: Output only. A user-facing message explaining the rejection.
+          readOnly: true
           type: string
-        provisionedIops:
-          $ref: "#/components/schemas/Usage"
-          description: Indicates how many IOPS to provision for the disk for extreme persistent disks. This sets the number of I/O operations per second that the disk can handle. Values must be between 10,000 and 120,000.
-        scope:
-          description: The geographic scope of the disk. Defaults to `SCOPE_ZONAL` if not specified.
+        reason:
+          description: Output only. The reason for the rejection.
           enum:
-            - SCOPE_UNSPECIFIED
-            - SCOPE_ZONAL
-            - SCOPE_REGIONAL
+            - REASON_UNSPECIFIED
+            - EXPLICIT_OUT_OF_SCOPE
+          x-google-enum-descriptions:
+            - Default value. Should not be used.
+            - The user explicitly asked about a service that is not Gemini or Vertex AI.
+          readOnly: true
           type: string
       type: object
-    PredefinedMachineType:
-      description: Specification of a predefined machine type.
+    Row:
+      description: Represents a row in the query result.
+      x-google-discovery-id: Row
       properties:
-        machineType:
-          description: 'The [machine type](https://cloud.google.com/compute/docs/machine-types). For example: "n1-standard1".'
-          type: string
+        values:
+          description: Values for a row in the column order.
+          items:
+            $ref: '#/components/schemas/ValueProto'
+          type: array
       type: object
-    PremiumTierEgressWorkload:
-      description: Specify a Premium Tier Internet Data Transfer networking workload.
+    Struct:
+      description: A collection of fields. The count, order, and type of the fields is determined by the type associated with this value.
+      x-google-discovery-id: Struct
       properties:
-        destinationContinent:
-          description: Where the data is sent to.
+        field:
+          description: The fields in the struct
+          items:
+            $ref: '#/components/schemas/ValueProto'
+          type: array
+      type: object
+    SuggestedChart:
+      description: A suggested chart for the data set, used for UI rendering.
+      x-google-discovery-id: SuggestedChart
+      properties:
+        chartTitle:
+          description: The title of the chart.
+          type: string
+        chartType:
+          description: The type of the chart.
           enum:
-            - DESTINATION_CONTINENT_UNSPECIFIED
-            - DESTINATION_CONTINENT_ASIA_PACIFIC
-            - DESTINATION_CONTINENT_AFRICA
-            - DESTINATION_CONTINENT_NORTH_AMERICA
-            - DESTINATION_CONTINENT_AUTRALIA
-            - DESTINATION_CONTINENT_CENTRAL_AMERICA
-            - DESTINATION_CONTINENT_CHINA
-            - DESTINATION_CONTINENT_EASTERN_EUROPE
-            - DESTINATION_CONTINENT_WESTERN_EUROPE
-            - DESTINATION_CONTINENT_EMEA
-            - DESTINATION_CONTINENT_INDIA
-            - DESTINATION_CONTINENT_MIDDLE_EAST
-            - DESTINATION_CONTINENT_SOUTH_AMERICA
+            - CHART_TYPE_UNSPECIFIED
+            - BAR_CHART
+            - UNCHARTABLE
+            - LINE_CHART
+            - AREA_CHART
+          x-google-enum-descriptions:
+            - Default value. Should not be used.
+            - Represents a bar chart.
+            - The data set cannot be rendered as a chart.
+            - Represents a line chart. Suitable for quantitative and temporal data on the x-axis.
+            - Represents an area chart.
           type: string
-        egressRate:
-          $ref: "#/components/schemas/Usage"
-          description: Premium Tier Data Transfer usage. The expected units are GiBy/s, By/s, and so on, based on [The Unified Code for Units of Measure](https://ucum.org/ucum.html) standard.
-        sourceRegion:
-          description: Which [region](https://cloud.google.com/compute/docs/regions-zones) the data comes from.
+        seriesField:
+          description: The field used for the series (e.g., color-coding). Optional, but recommended for time-series data.
           type: string
-      type: object
-    Price:
-      description: The price of a SKU at a point int time.
-      properties:
-        effectiveTime:
-          $ref: "#/components/schemas/EstimationTimePoint"
-          description: The timestamp within the estimation time frame when the price was set.
-        priceType:
-          description: 'The type of price. Possible values: "RATE"'
+        xAxisField:
+          description: The field used for the x-axis.
           type: string
-        rate:
-          $ref: "#/components/schemas/Rate"
-          description: A set of tiered rates.
-      type: object
-    Rate:
-      description: A SKU price consisting of tiered rates.
-      properties:
-        tiers:
-          description: The service tiers.
-          items:
-            $ref: "#/components/schemas/RateTier"
-          type: array
-        unit:
-          description: The SKU's pricing unit. For example, if the tier price is $1 per 1000000 Bytes, then this field will show 'By'. The `start_amount` field in each tier will be in this unit.
+        xAxisLabel:
+          description: The label of the x-axis.
           type: string
-        unitCount:
-          description: The SKU's count for the pricing unit. For example, if the tier price is $1 per 1000000 Bytes, then this column will show 1000000.
-          format: double
-          type: number
-      type: object
-    RateTier:
-      description: Pricing details for a service tier.
-      properties:
-        price:
-          $ref: "#/components/schemas/Money"
-          description: The price for this tier.
-        startAmount:
-          description: 'The magnitude of usage in which the tier interval begins. Example: "From 100 GiBi the price is $1 per byte" implies `start_amount` = 100'
-          format: double
-          type: number
-      type: object
-    Regional:
-      description: Area contains only one location.
-      properties:
-        name:
-          description: 'The [location name](https://cloud.google.com/storage/docs/locations#available-locations). For example: "us-central1" for region.'
+        yAxisField:
+          description: The field used for the y-axis.
+          type: string
+        yAxisLabel:
+          description: The label of the y-axis.
           type: string
       type: object
-    ScenarioConfig:
-      description: Configuration for a CostScenario. Specifies how costs are calculated.
+    SuggestedQuery:
+      description: A suggested follow-up query for the user.
+      x-google-discovery-id: SuggestedQuery
       properties:
-        estimateDuration:
-          description: Time frame for the estimate. Workloads must specify usage for this duration. Duration must be at least 1 hour (3,600 seconds) and at most 10 years (315,360,000 seconds). The calculations for years and months are based on a 730-hour (2,628,000-second) month. For durations longer than one month (2,628,000 seconds), the duration is rounded up to the next month, so the estimate shows you the costs for full months. For example, a duration of 3,232,800 seconds (roughly 5 weeks) is rounded up to 2 months.
-          format: google-duration
+        query:
+          description: The natural language query.
           type: string
       type: object
-    SegmentCostEstimate:
-      description: Workload cost estimates for a single time segment.
+    UserContext:
+      description: Additional context for personalization (e.g., user persona, role).
+      x-google-discovery-id: UserContext
       properties:
-        commitmentCostEstimates:
-          description: Estimated costs for each commitment.
-          items:
-            $ref: "#/components/schemas/CommitmentCostEstimate"
-          type: array
-        segmentStartTime:
-          $ref: "#/components/schemas/EstimationTimePoint"
-          description: Timestamp for the start of the segment.
-        segmentTotalCostEstimate:
-          $ref: "#/components/schemas/CostEstimate"
-          description: Total estimated costs for the time segment.
-        workloadCostEstimates:
-          description: Estimated costs for each workload.
-          items:
-            $ref: "#/components/schemas/WorkloadCostEstimate"
-          type: array
-      type: object
-    Sku:
-      description: Information about SKUs appearing in the cost estimate.
-      properties:
-        displayName:
-          description: "The display name for the SKU. Example: A2 Instance Core running in Americas"
-          type: string
-        prices:
-          description: "A timeline of prices for a SKU in chronological order. Note: The API currently only supports using a constant price for the entire estimation time frame so this list will contain a single value."
-          items:
-            $ref: "#/components/schemas/Price"
-          type: array
-        sku:
-          description: 'The resource name for the SKU. Example: "services/DA34-426B-A397/skus/AA95-CD31-42FE"'
-          type: string
-      type: object
-    SkuCostEstimate:
-      description: Estimated cost for usage on a SKU.
-      properties:
-        costEstimate:
-          $ref: "#/components/schemas/CostEstimate"
-          description: The estimated cost for the usage on this SKU.
-        sku:
-          description: 'The resource name for the SKU. Example: "services/DA34-426B-A397/skus/AA95-CD31-42FE" More information about the SKU can be found in the `skus` field of the `CostEstimationResult`.'
-          type: string
-        usageAmount:
-          description: The amount of usage on this SKU.
-          format: double
-          type: number
-        usageUnit:
-          description: The unit for the usage on this SKU.
-          type: string
-      type: object
-    StandardTierEgressWorkload:
-      description: Specify Standard Tier Internet Data Transfer.
-      properties:
-        egressRate:
-          $ref: "#/components/schemas/Usage"
-          description: Standard Tier Data Transfer usage. The expected units are GiBy/s, By/s, and so on, based on the [The Unified Code for Units of Measure](https://ucum.org/ucum.html) standard.
-        sourceRegion:
-          description: Which [region](https://cloud.google.com/compute/docs/regions-zones) the data is transferred from.
-          type: string
-      type: object
-    Usage:
-      description: An amount of usage over a time frame.
-      properties:
-        usageRateTimeline:
-          $ref: "#/components/schemas/UsageRateTimeline"
-          description: A timeline of usage rates over the estimate interval.
-      type: object
-    UsageRateTimeline:
-      description: A timeline of usage rates. Consists of a series of entries, each of which specifies a constant rate of usage during a time interval. Each entry contains an effective time. The usage rate is in effect from that time until the effective time of the subsequent entry, or, for the last entry, for the remaining portion of estimation time frame. Effective times are specified as an offset into the estimation time frame. Usage is considered to be zero until the `effective_time` of the first entry. All subsequent entries must have an effective time greater than the previous entry and less than the estimate time frame. The effective time on all entries must be an integer number of hours.
-      properties:
-        unit:
-          description: 'The unit for the usage rate in each timeline entry. If you provide an incorrect unit for an instance, the correct unit is provided in the error message. The supported units are a subset of [The Unified Code for Units of Measure](https://ucum.org/ucum.html) standard: * **Time units (TIME-UNIT)** * `s` second * `min` minute * `h` hour * `d` day * `wk` week * `mo` month * `yr` year * `ms` millisecond * `us` microsecond * `ns` nanosecond * **Basic storage units (BASIC-STORAGE-UNIT)** * `bit` bit * `By` byte * **Count units (COUNT-UNIT)** * `count` count * **Prefixes (PREFIX)** * `k` kilo (10^3) * `M` mega (10^6) * `G` giga (10^9) * `T` tera (10^12) * `P` peta (10^15) * `Ki` kibi (2^10) * `Mi` mebi (2^20) * `Gi` gibi (2^30) * `Ti` tebi (2^40) * `Pi` pebi (2^50) **Grammar** The grammar also includes these connectors: * `/` division or ratio (as an infix operator). For example: `kBy/{email}` or `MiBy/10ms`. * `.` multiplication or composition (as an infix operator). For example: `GBy.d` or `k{watt}.h`. The grammar for a unit is as follows: ``` Expression = Component { "." Component } { "/" Component } ; Component = ( [ PREFIX ] UNIT | "%" ) [ Annotation ] | Annotation | "1" ; UNIT = TIME-UNIT | STORAGE-UNIT | DATA-UNIT | COUNT-UNIT Annotation = "{" NAME "}" ; ``` Examples: * Request per second: `1/s` or `{requests}/s` * GibiBytes: `GiBy` * GibiBytes * seconds: `GiBy.s`'
-          type: string
-        usageRateTimelineEntries:
-          description: The timeline entries. Each entry has a start time and usage rate. The start time specifies the effective time of the usage rate. The entries must be sorted by start time in an increasing order.
-          items:
-            $ref: "#/components/schemas/UsageRateTimelineEntry"
-          type: array
-      type: object
-    UsageRateTimelineEntry:
-      description: A usage rate timeline entry. Each entry specifies a constant usage rate during a time interval.
-      properties:
-        effectiveTime:
-          $ref: "#/components/schemas/EstimationTimePoint"
-          description: The effective time for this entry. The usage rate is in effect starting at this time until the effective time of the subsequent entry in the timeline. The last entry defines the usage rate until the end of the `Usage` time frame. Must correspond to an integer number of hours.
-        usageRate:
-          description: The usage rate.
-          format: double
-          type: number
-      type: object
-    VlanAttachment:
-      description: VLAN attachment for Cloud Interconnect.
-      properties:
-        bandwidth:
-          description: "Capacities in the [pricing table](https://cloud.google.com/vpc/network-pricing#interconnect-pricing) Examples of capacity are: 50/100/200/300/400/500-Mbps, 1/2/5/10/20/50-Gbps."
+        persona:
+          description: Optional. The user's persona (e.g., FinOps Manager, Developer).
           enum:
-            - BANDWIDTH_UNSPECIFIED
-            - BANDWIDTH_BPS_50M
-            - BANDWIDTH_BPS_100M
-            - BANDWIDTH_BPS_200M
-            - BANDWIDTH_BPS_300M
-            - BANDWIDTH_BPS_400M
-            - BANDWIDTH_BPS_500M
-            - BANDWIDTH_BPS_1G
-            - BANDWIDTH_BPS_2G
-            - BANDWIDTH_BPS_5G
-            - BANDWIDTH_BPS_10G
-            - BANDWIDTH_BPS_20G
-            - BANDWIDTH_BPS_50G
+            - PERSONA_UNSPECIFIED
+            - FINOPS_MANAGER
+            - DEVELOPER
+          x-google-enum-descriptions:
+            - Default value. Should not be used.
+            - The user is a FinOps Manager.
+            - The user is a Developer.
           type: string
-        vlanCount:
-          $ref: "#/components/schemas/Usage"
-          description: VLAN usage. This is specified as a unitless quantity which indicates the number of VLAN attachment used in interconnect.
+        role:
+          description: Optional. The user's role (e.g., Billing Admin, Project Owner, etc.).
+          type: string
       type: object
-    VmResourceBasedCud:
-      description: Specifies a resource-based committed use discount (CUD).
+    ValueProto:
+      description: This is a copy of storage/googlesql/public/value.proto. ValueProto represents the serialized form of the googlesql::Value. The intention is to support multiple languages including Java and C++, so we must be sensitive to the distinction between Java Strings and byte arrays or ByteStrings. We also want to support use-cases which do not want to serialize a copy of the GoogleSQL type for every instance (which might be very repetitive). Therefore, unlike googlesql::Value, ValueProto does not carry full type information with every instance, and can only be fully interpreted with an associated TypeProto.
+      x-google-discovery-id: ValueProto
       properties:
-        guestAccelerator:
-          $ref: "#/components/schemas/GuestAccelerator"
-          description: Guest accelerator, known as GPU.
-        machineSeries:
-          description: "The machine series for CUD. For example: \"n1\" for general purpose N1 machine type commitments. \"n2\" for general purpose N2 machine type commitments. \"e2\" for general purpose E2 machine type commitments. \"n2d\" for general purpose N2D machine type commitments. \"t2d\" for general purpose T2D machine type commitments. \"c2\"/\"c2d\" for compute-optimized commitments. \"m1\"/\"m2\" for the memory-optimized commitments. \"a2' for the accelerator-optimized commitments."
+        ValueProtoSwitchMustHaveADefault:
+          description: User code that switches on this oneoff enum must have a default case so builds won't break when new fields are added.
+          type: boolean
+        arrayValue:
+          description: An array of value
+          allOf:
+            - $ref: '#/components/schemas/Array'
+        bignumericValue:
+          description: Encoded bignumeric value. For the encoding format see documentation for BigNumericValue::SerializeAsProtoBytes().
+          format: byte
           type: string
-        memorySizeGb:
-          description: Memory size of the VM in GB (2^30 bytes). Must be an increment of 0.25 (256 MB).
+        boolValue:
+          description: Primitive for bool.
+          type: boolean
+        bytesValue:
+          description: Primitive for bytes.
+          format: byte
+          type: string
+        dateValue:
+          description: Primitive for date.
+          format: int32
+          type: integer
+        datetimeValue:
+          description: primitive for datetime
+          allOf:
+            - $ref: '#/components/schemas/Datetime'
+        doubleValue:
+          description: Primitive for double.
           format: double
           type: number
-        plan:
-          description: Commitment usage plan.
-          enum:
-            - COMMITMENT_PLAN_UNSPECIFIED
-            - TWELVE_MONTH
-            - THIRTY_SIX_MONTH
+        enumValue:
+          description: Tag 11 was used for specifying micros timestamps as int64, now obsolete.
+          format: int32
+          type: integer
+        floatValue:
+          description: Primitive for float.
+          format: float
+          type: number
+        geographyValue:
+          description: Geography encoded using ::stlib::STGeographyEncoder
+          format: byte
           type: string
-        region:
-          description: 'The region where the VM runs. For example: "us-central1"'
-          type: string
-        virtualCpuCount:
-          description: The number of vCPUs. The number of vCPUs must be an integer of 0 or more and can be even or odd.
+        int32Value:
+          description: Primitive value for int32.
+          format: int32
+          type: integer
+        int64Value:
+          description: Primitive for int64.
           format: int64
           type: string
-      type: object
-    VmToVmEgressWorkload:
-      description: Specify VM to VM data transfer.
-      properties:
-        interRegionEgress:
-          $ref: "#/components/schemas/InterRegionEgress"
-        intraRegionEgress:
-          $ref: "#/components/schemas/IntraRegionEgress"
-      type: object
-    Workload:
-      description: Specifies usage on a single Google Cloud product over a time frame. Each Google Cloud product has its own message, containing specific product configuration parameters of the product usage amounts along each dimension in which the product is billed.
-      properties:
-        cloudCdnEgressWorkload:
-          $ref: "#/components/schemas/CloudCdnEgressWorkload"
-          description: Usage on Google Cloud CDN Data Transfer.
-        cloudCdnWorkload:
-          $ref: "#/components/schemas/CloudCdnWorkload"
-          description: Usage on Google Cloud CDN.
-        cloudInterconnectEgressWorkload:
-          $ref: "#/components/schemas/CloudInterconnectEgressWorkload"
-          description: Usage on Google Cloud Interconnect Data Transfer.
-        cloudInterconnectWorkload:
-          $ref: "#/components/schemas/CloudInterconnectWorkload"
-          description: Usage on Google Cloud Interconnect.
-        cloudStorageEgressWorkload:
-          $ref: "#/components/schemas/CloudStorageEgressWorkload"
-          description: Usage on Cloud Storage Data Transfer.
-        cloudStorageWorkload:
-          $ref: "#/components/schemas/CloudStorageWorkload"
-          description: Usage on Google Cloud Storage.
-        computeVmWorkload:
-          $ref: "#/components/schemas/ComputeVmWorkload"
-          description: Usage of a Google Compute Engine Virtual Machine.
-        name:
-          description: Required. A name for this workload. All workloads in a `CostScenario` must have a unique `name`. Each `name` may be at most 128 characters long.
+        intervalValue:
+          description: Encoded interval value. For the encoding format see documentation for IntervalValue::SerializeAsBytes().
+          format: byte
           type: string
-        premiumTierEgressWorkload:
-          $ref: "#/components/schemas/PremiumTierEgressWorkload"
-          description: Usage on Premium Tier Internet Data Transfer.
-        standardTierEgressWorkload:
-          $ref: "#/components/schemas/StandardTierEgressWorkload"
-          description: Usage on Standard Tier Internet Data Transfer.
-        vmToVmEgressWorkload:
-          $ref: "#/components/schemas/VmToVmEgressWorkload"
-          description: Usage on VM to VM Data Transfer.
-      type: object
-    WorkloadCostEstimate:
-      description: Estimated cost for a workload.
-      properties:
-        name:
-          description: The name of the workload, as specified in the `CostScenario`.
+        jsonValue:
+          description: Tag 22 was used for json value as bytes, now obsolete. Json value represented as a string document.
           type: string
-        skuCostEstimates:
-          description: Estimated costs for each SKU in the workload.
-          items:
-            $ref: "#/components/schemas/SkuCostEstimate"
-          type: array
-        workloadTotalCostEstimate:
-          $ref: "#/components/schemas/CostEstimate"
-          description: Total estimated costs for the workload.
+        mapValue:
+          description: Encoded map value. See go/googlesql_map.
+          allOf:
+            - $ref: '#/components/schemas/Map'
+        numericValue:
+          description: Encoded numeric value. For the encoding format see documentation for NumericValue::SerializeAsProtoBytes().
+          format: byte
+          type: string
+        protoValue:
+          description: Stores a serialized protocol message.
+          format: byte
+          type: string
+        rangeValue:
+          description: Encoded range value. See go/googlesql_range.
+          allOf:
+            - $ref: '#/components/schemas/Range'
+        stringValue:
+          description: Primitive for string.
+          type: string
+        structValue:
+          description: A struct of values
+          allOf:
+            - $ref: '#/components/schemas/Struct'
+        timeValue:
+          description: Bit field encoding of hour/minute/second/nanos. See TimeValue class for details.
+          format: int64
+          type: string
+        timestampPicoValue:
+          description: Encoded timestamp_pico value. For the encoding format see documentation for googlesql::TimestampPico::SerializeAsBytes().
+          format: byte
+          type: string
+        timestampValue:
+          description: primitive for timestamp
+          format: google-datetime
+          type: string
+        tokenlistValue:
+          description: Encoded tokenlist value. copybara:strip_begin(internal-comment) See //search/tokens:token_list. copybara:strip_end
+          format: byte
+          type: string
+        uint32Value:
+          description: Primitive for uint32.
+          format: uint32
+          type: integer
+        uint64Value:
+          description: Primitive for uint64.
+          format: uint64
+          type: string
+        uuidValue:
+          description: Encoded uuid value. For the encoding format see documentation for UuidValue::SerializeAsBytes().
+          format: byte
+          type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-billing: View and manage your Google Cloud Platform billing accounts
             https://www.googleapis.com/auth/cloud-billing.readonly: View your Google Cloud Platform billing accounts
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-billing: View and manage your Google Cloud Platform billing accounts
             https://www.googleapis.com/auth/cloud-billing.readonly: View your Google Cloud Platform billing accounts
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/billing/docs/apis
+tags:
+  - name: billingAccounts
+  - name: skuGroups
+  - name: skus
+  - name: v1beta
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://cloudbilling.googleapis.com/
+  batchPath: batch
+  canonicalName: Cloudbilling
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: cloudbilling:v1beta
+  kind: discovery#restDescription
+  mtlsRootUrl: https://cloudbilling.mtls.googleapis.com/
+  name: cloudbilling
+  revision: '20260320'
+  rootUrl: https://cloudbilling.googleapis.com/
+  servicePath: ''
+  version_module: true

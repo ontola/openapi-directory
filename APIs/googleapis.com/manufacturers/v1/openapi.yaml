@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://manufacturers.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -21,427 +19,558 @@ info:
   x-logo:
     url: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
   x-origin:
-    - converter:
-        url: https://github.com/mermade/oas-kit
-        version: 7.0.4
-      format: google
-      url: https://manufacturers.googleapis.com/$discovery/rest?version=v1
+    - format: google
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/manufacturers.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/manufacturers.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: manufacturers
-externalDocs:
-  url: https://developers.google.com/manufacturers/
-tags:
-  - name: accounts
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20250815; original source SHA-256 399347f058db739dd58ec4e92dd972fc088e9ce543eabf2c48bdeea808ae141f.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://manufacturers.googleapis.com
 paths:
-  /v1/{name}:
+  /v1/accounts/{accountsId}/languages/{languagesId}/productCertifications/{productCertificationsId}:
     delete:
-      description: Deletes a product certification by its name. This method can only be called by certification bodies.
       operationId: manufacturers.accounts.languages.productCertifications.delete
+      description: Deletes a product certification by its name. This method can only be called by certification bodies.
       parameters:
-        - description: "Required. The name of the product certification to delete. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}"
+        - name: accountsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Required. The name of the product certification to delete. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}'
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
+        - name: languagesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the product certification to delete. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}'
+          schema:
+            type: string
+        - name: productCertificationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the product certification to delete. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}'
+          schema:
+            type: string
+      tags:
+        - accounts
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/manufacturercenter
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/manufacturercenter
-      tags:
-        - accounts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accounts/{accountsId}/languages/{languagesId}/productCertifications/{productCertificationsId}
+        resourceNameBindings:
+          accountsId: name
+          languagesId: name
+          productCertificationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the product certification to delete. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}'
+            location: path
+            pattern: ^accounts/[^/]+/languages/[^/]+/productCertifications/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     get:
-      description: Gets a product certification by its name. This method can only be called by certification bodies.
       operationId: manufacturers.accounts.languages.productCertifications.get
+      description: Gets a product certification by its name. This method can only be called by certification bodies.
       parameters:
-        - description: "Required. The name of the product certification to get. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}"
+        - name: accountsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Required. The name of the product certification to get. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}'
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ProductCertification"
-          description: Successful response
+        - name: languagesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the product certification to get. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}'
+          schema:
+            type: string
+        - name: productCertificationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the product certification to get. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}'
+          schema:
+            type: string
+      tags:
+        - accounts
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/manufacturercenter
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/manufacturercenter
-      tags:
-        - accounts
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCertification'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accounts/{accountsId}/languages/{languagesId}/productCertifications/{productCertificationsId}
+        resourceNameBindings:
+          accountsId: name
+          languagesId: name
+          productCertificationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the product certification to get. Format: accounts/{account}/languages/{language_code}/productCertifications/{id}'
+            location: path
+            pattern: ^accounts/[^/]+/languages/[^/]+/productCertifications/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     patch:
-      description: Updates (or creates if allow_missing = true) a product certification which links certifications with products. This method can only be called by certification bodies.
       operationId: manufacturers.accounts.languages.productCertifications.patch
+      description: Updates (or creates if allow_missing = true) a product certification which links certifications with products. This method can only be called by certification bodies.
       parameters:
-        - description: "Required. The unique name identifier of a product certification Format: accounts/{account}/languages/{language_code}/productCertifications/{id} Where `id` is a some unique identifier and `language_code` is a 2-letter ISO 639-1 code of a Shopping supported language according to https://support.google.com/merchants/answer/160637."
+        - name: accountsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `name` resource name. Required. The unique name identifier of a product certification Format: accounts/{account}/languages/{language_code}/productCertifications/{id} Where `id` is a some unique identifier and `language_code` is a 2-letter ISO 639-1 code of a Shopping supported language according to https://support.google.com/merchants/answer/160637.'
           schema:
             type: string
-        - description: Optional. The list of fields to update according to aip.dev/134. However, only full update is supported as of right now. Therefore, it can be either ignored or set to "*". Setting any other values will returns UNIMPLEMENTED error.
+        - name: languagesId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The unique name identifier of a product certification Format: accounts/{account}/languages/{language_code}/productCertifications/{id} Where `id` is a some unique identifier and `language_code` is a 2-letter ISO 639-1 code of a Shopping supported language according to https://support.google.com/merchants/answer/160637.'
+          schema:
+            type: string
+        - name: productCertificationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The unique name identifier of a product certification Format: accounts/{account}/languages/{language_code}/productCertifications/{id} Where `id` is a some unique identifier and `language_code` is a 2-letter ISO 639-1 code of a Shopping supported language according to https://support.google.com/merchants/answer/160637.'
+          schema:
+            type: string
+        - name: updateMask
           in: query
-          name: updateMask
           schema:
+            format: google-fieldmask
             type: string
+          description: Optional. The list of fields to update according to aip.dev/134. However, only full update is supported as of right now. Therefore, it can be either ignored or set to "*". Setting any other values will returns UNIMPLEMENTED error.
+      tags:
+        - accounts
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/manufacturercenter
+        - Oauth2c:
+            - https://www.googleapis.com/auth/manufacturercenter
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProductCertification"
+              $ref: '#/components/schemas/ProductCertification'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductCertification"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/manufacturercenter
-          Oauth2c:
-            - https://www.googleapis.com/auth/manufacturercenter
-      tags:
-        - accounts
-  /v1/{parent}/productCertifications:
+                $ref: '#/components/schemas/ProductCertification'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accounts/{accountsId}/languages/{languagesId}/productCertifications/{productCertificationsId}
+        resourceNameBindings:
+          accountsId: name
+          languagesId: name
+          productCertificationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The unique name identifier of a product certification Format: accounts/{account}/languages/{language_code}/productCertifications/{id} Where `id` is a some unique identifier and `language_code` is a 2-letter ISO 639-1 code of a Shopping supported language according to https://support.google.com/merchants/answer/160637.'
+            location: path
+            pattern: ^accounts/[^/]+/languages/[^/]+/productCertifications/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accounts/{accountsId}/languages/{languagesId}/productCertifications:
     get:
-      description: Lists product certifications from a specified certification body. This method can only be called by certification bodies.
       operationId: manufacturers.accounts.languages.productCertifications.list
+      description: Lists product certifications from a specified certification body. This method can only be called by certification bodies.
       parameters:
-        - description: "Required. The parent, which owns this collection of product certifications. Format: accounts/{account}/languages/{language_code}"
+        - name: accountsId
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of product certifications. Format: accounts/{account}/languages/{language_code}'
           schema:
             type: string
-        - description: Optional. The maximum number of product certifications to return. The service may return fewer than this value. If unspecified, at most 50 product certifications will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
-          in: query
-          name: pageSize
+        - name: languagesId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The parent, which owns this collection of product certifications. Format: accounts/{account}/languages/{language_code}'
           schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: Optional. A page token, received from a previous `ListProductCertifications` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListProductCertifications` must match the call that provided the page token. Required if requesting the second or higher page.
+          description: Optional. The maximum number of product certifications to return. The service may return fewer than this value. If unspecified, at most 50 product certifications will be returned. The maximum value is 1000; values above 1000 will be coerced to 1000.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListProductCertificationsResponse"
-          description: Successful response
+          description: Optional. A page token, received from a previous `ListProductCertifications` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListProductCertifications` must match the call that provided the page token. Required if requesting the second or higher page.
+      tags:
+        - accounts
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/manufacturercenter
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/manufacturercenter
-      tags:
-        - accounts
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/products:
-    get:
-      description: Lists all the products in a Manufacturer Center account.
-      operationId: manufacturers.accounts.products.list
-      parameters:
-        - description: Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: The information to be included in the response. Only sections listed here will be returned.
-          explode: true
-          in: query
-          name: include
-          schema:
-            items:
-              enum:
-                - UNKNOWN
-                - ATTRIBUTES
-                - ISSUES
-                - DESTINATION_STATUSES
-              type: string
-            type: array
-          style: form
-        - description: Maximum number of product statuses to return in the response, used for paging.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The token returned by the previous request.
-          in: query
-          name: pageToken
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListProductsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/manufacturercenter
-          Oauth2c:
-            - https://www.googleapis.com/auth/manufacturercenter
-      tags:
-        - accounts
+                $ref: '#/components/schemas/ListProductCertificationsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/productCertifications
+        flatPath: v1/accounts/{accountsId}/languages/{languagesId}/productCertifications
+        resourceNameBindings:
+          accountsId: parent
+          languagesId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The parent, which owns this collection of product certifications. Format: accounts/{account}/languages/{language_code}'
+            location: path
+            pattern: ^accounts/[^/]+/languages/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/products/{name}:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accounts/{accountsId}/products/{productsId}:
     delete:
-      description: Deletes the product from a Manufacturer Center account.
       operationId: manufacturers.accounts.products.delete
+      description: Deletes the product from a Manufacturer Center account.
       parameters:
-        - description: Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
+        - name: accountsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
           schema:
             type: string
-        - description: Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
+        - name: productsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
+      tags:
+        - accounts
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/manufacturercenter
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/manufacturercenter
-      tags:
-        - accounts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+parent}/products/{+name}
+        flatPath: v1/accounts/{accountsId}/products/{productsId}
+        resourceNameBindings:
+          accountsId: parent
+          productsId: name
+        resourceNameParameters:
+          name:
+            description: Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
+            location: path
+            pattern: ^[^/]+$
+            required: true
+            type: string
+          parent:
+            description: Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+          - name
     get:
-      description: Gets the product from a Manufacturer Center account, including product issues. A recently updated product takes around 15 minutes to process. Changes are only visible after it has been processed. While some issues may be available once the product has been processed, other issues may take days to appear.
       operationId: manufacturers.accounts.products.get
+      description: Gets the product from a Manufacturer Center account, including product issues. A recently updated product takes around 15 minutes to process. Changes are only visible after it has been processed. While some issues may be available once the product has been processed, other issues may take days to appear.
       parameters:
-        - description: Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
+        - name: accountsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
           schema:
             type: string
-        - description: Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
+        - name: productsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
           schema:
             type: string
-        - description: The information to be included in the response. Only sections listed here will be returned.
-          explode: true
+        - name: include
           in: query
-          name: include
           schema:
+            type: array
             items:
               enum:
                 - UNKNOWN
                 - ATTRIBUTES
                 - ISSUES
                 - DESTINATION_STATUSES
+              x-google-enum-descriptions:
+                - Unknown, never used.
+                - Include the attributes of the product.
+                - Include the issues of the product.
+                - Include the destination statuses of the product.
               type: string
-            type: array
+          description: The information to be included in the response. Only sections listed here will be returned.
           style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Product"
-          description: Successful response
+          explode: true
+      tags:
+        - accounts
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/manufacturercenter
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/manufacturercenter
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      x-google-discovery:
+        path: v1/{+parent}/products/{+name}
+        flatPath: v1/accounts/{accountsId}/products/{productsId}
+        resourceNameBindings:
+          accountsId: parent
+          productsId: name
+        resourceNameParameters:
+          name:
+            description: Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
+            location: path
+            pattern: ^[^/]+$
+            required: true
+            type: string
+          parent:
+            description: Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+          - name
+    put:
+      operationId: manufacturers.accounts.products.update
+      description: Inserts or updates the attributes of the product in a Manufacturer Center account. Creates a product with the provided attributes. If the product already exists, then all attributes are replaced with the new ones. The checks at upload time are minimal. All required attributes need to be present for a product to be valid. Issues may show up later after the API has accepted a new upload for a product and it is possible to overwrite an existing valid product with an invalid product. To detect this, you should retrieve the product and check it for issues once the new version is available. Uploaded attributes first need to be processed before they can be retrieved. Until then, new products will be unavailable, and retrieval of previously uploaded products will return the original state of the product.
+      parameters:
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
+          schema:
+            type: string
+        - name: productsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
+          schema:
+            type: string
       tags:
         - accounts
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    put:
-      description: Inserts or updates the attributes of the product in a Manufacturer Center account. Creates a product with the provided attributes. If the product already exists, then all attributes are replaced with the new ones. The checks at upload time are minimal. All required attributes need to be present for a product to be valid. Issues may show up later after the API has accepted a new upload for a product and it is possible to overwrite an existing valid product with an invalid product. To detect this, you should retrieve the product and check it for issues once the new version is available. Uploaded attributes first need to be processed before they can be retrieved. Until then, new products will be unavailable, and retrieval of previously uploaded products will return the original state of the product.
-      operationId: manufacturers.accounts.products.update
-      parameters:
-        - description: Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/manufacturercenter
+        - Oauth2c:
+            - https://www.googleapis.com/auth/manufacturercenter
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Attributes"
+              $ref: '#/components/schemas/Attributes'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/{+parent}/products/{+name}
+        flatPath: v1/accounts/{accountsId}/products/{productsId}
+        resourceNameBindings:
+          accountsId: parent
+          productsId: name
+        resourceNameParameters:
+          name:
+            description: Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
+            location: path
+            pattern: ^[^/]+$
+            required: true
+            type: string
+          parent:
+            description: Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/accounts/{accountsId}/products:
+    get:
+      operationId: manufacturers.accounts.products.list
+      description: Lists all the products in a Manufacturer Center account.
+      parameters:
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
+          schema:
+            type: string
+        - name: include
+          in: query
+          schema:
+            type: array
+            items:
+              enum:
+                - UNKNOWN
+                - ATTRIBUTES
+                - ISSUES
+                - DESTINATION_STATUSES
+              x-google-enum-descriptions:
+                - Unknown, never used.
+                - Include the attributes of the product.
+                - Include the issues of the product.
+                - Include the destination statuses of the product.
+              type: string
+          description: The information to be included in the response. Only sections listed here will be returned.
+          style: form
+          explode: true
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Maximum number of product statuses to return in the response, used for paging.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The token returned by the previous request.
+      tags:
+        - accounts
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/manufacturercenter
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/manufacturercenter
-      tags:
-        - accounts
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProductsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/products
+        flatPath: v1/accounts/{accountsId}/products
+        resourceNameBindings:
+          accountsId: parent
+        resourceNameParameters:
+          parent:
+            description: Parent ID in the format `accounts/{account_id}`. `account_id` - The ID of the Manufacturer Center account.
+            location: path
+            pattern: ^accounts/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Attributes:
       description: Attributes of the product. For more information, see https://support.google.com/manufacturers/answer/6124116.
+      x-google-discovery-id: Attributes
       properties:
         additionalImageLink:
           description: The additional images of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#addlimage.
           items:
-            $ref: "#/components/schemas/Image"
+            $ref: '#/components/schemas/Image'
           type: array
         ageGroup:
           description: The target age group of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#agegroup.
@@ -450,19 +579,21 @@ components:
           description: The brand name of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#brand.
           type: string
         capacity:
-          $ref: "#/components/schemas/Capacity"
           description: The capacity of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#capacity.
+          allOf:
+            - $ref: '#/components/schemas/Capacity'
         certification:
           description: Optional. List of certifications claimed by this product.
           items:
-            $ref: "#/components/schemas/GoogleShoppingManufacturersV1ProductCertification"
+            $ref: '#/components/schemas/GoogleShoppingManufacturersV1ProductCertification'
           type: array
         color:
           description: The color of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#color.
           type: string
         count:
-          $ref: "#/components/schemas/Count"
           description: The count of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#count.
+          allOf:
+            - $ref: '#/components/schemas/Count'
         description:
           description: The description of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#description.
           type: string
@@ -477,7 +608,7 @@ components:
         featureDescription:
           description: The rich format description of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#featuredesc.
           items:
-            $ref: "#/components/schemas/FeatureDescription"
+            $ref: '#/components/schemas/FeatureDescription'
           type: array
         flavor:
           description: The flavor of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#flavor.
@@ -489,18 +620,25 @@ components:
           description: The target gender of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#gender.
           type: string
         grocery:
-          $ref: "#/components/schemas/Grocery"
           description: Grocery Attributes. See more at https://support.google.com/manufacturers/answer/12098458#grocery.
+          allOf:
+            - $ref: '#/components/schemas/Grocery'
         gtin:
           description: The Global Trade Item Number (GTIN) of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#gtin.
           items:
             type: string
           type: array
         imageLink:
-          $ref: "#/components/schemas/Image"
           description: The image of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#image.
+          allOf:
+            - $ref: '#/components/schemas/Image'
         includedDestination:
           description: A list of included destinations such as "ClientExport", "ClientShoppingCatalog" or "PartnerShoppingCatalog". For more information, see https://support.google.com/manufacturers/answer/7443550
+          items:
+            type: string
+          type: array
+        intendedCountry:
+          description: 'Optional. List of countries to show this product in. Countries provided in this attribute will override any of the countries configured at feed level. The values should be: the [CLDR territory code](http://www.unicode.org/repos/cldr/tags/latest/common/main/en.xml) of the countries in which this item will be shown.'
           items:
             type: string
           type: array
@@ -514,15 +652,16 @@ components:
           description: The Manufacturer Part Number (MPN) of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#mpn.
           type: string
         nutrition:
-          $ref: "#/components/schemas/Nutrition"
           description: Nutrition Attributes. See more at https://support.google.com/manufacturers/answer/12098458#food-servings.
+          allOf:
+            - $ref: '#/components/schemas/Nutrition'
         pattern:
           description: The pattern of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#pattern.
           type: string
         productDetail:
           description: The details of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#productdetail.
           items:
-            $ref: "#/components/schemas/ProductDetail"
+            $ref: '#/components/schemas/ProductDetail'
           type: array
         productHighlight:
           description: The product highlights. For more information, see https://support.google.com/manufacturers/answer/10066942
@@ -566,8 +705,9 @@ components:
             type: string
           type: array
         suggestedRetailPrice:
-          $ref: "#/components/schemas/Price"
           description: The suggested retail price (MSRP) of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#price.
+          allOf:
+            - $ref: '#/components/schemas/Price'
         targetClientId:
           description: The target client id. Should only be used in the accounts of the data partners. For more information, see https://support.google.com/manufacturers/answer/10857344
           type: string
@@ -588,6 +728,7 @@ components:
       type: object
     Capacity:
       description: The capacity of a product. For more information, see https://support.google.com/manufacturers/answer/6124116#capacity.
+      x-google-discovery-id: Capacity
       properties:
         unit:
           description: The unit of the capacity, i.e., MB, GB, or TB.
@@ -599,12 +740,13 @@ components:
       type: object
     Certification:
       description: Description of a certification.
+      x-google-discovery-id: Certification
       properties:
         authority:
           description: Required. Name of the certification body.
           type: string
         code:
-          description: Required. A unique code to identify the certification.
+          description: Optional. A unique code to identify the certification.
           type: string
         link:
           description: Optional. A URL link to the certification.
@@ -624,6 +766,7 @@ components:
       type: object
     Count:
       description: The number of products in a single package. For more information, see https://support.google.com/manufacturers/answer/6124116#count.
+      x-google-discovery-id: Count
       properties:
         unit:
           description: The unit in which these products are counted.
@@ -635,10 +778,29 @@ components:
       type: object
     DestinationStatus:
       description: The destination status.
+      x-google-discovery-id: DestinationStatus
       properties:
+        approvedCountries:
+          description: Output only. List of country codes (ISO 3166-1 alpha-2) where the offer is approved.
+          items:
+            type: string
+          readOnly: true
+          type: array
         destination:
           description: The name of the destination.
           type: string
+        disapprovedCountries:
+          description: Output only. List of country codes (ISO 3166-1 alpha-2) where the offer is disapproved.
+          items:
+            type: string
+          readOnly: true
+          type: array
+        pendingCountries:
+          description: Output only. List of country codes (ISO 3166-1 alpha-2) where the offer is pending approval.
+          items:
+            type: string
+          readOnly: true
+          type: array
         status:
           description: The status of the destination.
           enum:
@@ -646,27 +808,36 @@ components:
             - ACTIVE
             - PENDING
             - DISAPPROVED
+          x-google-enum-descriptions:
+            - Unspecified status, never used.
+            - The product is used for this destination.
+            - The decision is still pending.
+            - The product is disapproved. Please look at the issues.
           type: string
       type: object
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     FeatureDescription:
       description: A feature description of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#featuredesc.
+      x-google-discovery-id: FeatureDescription
       properties:
         headline:
           description: A short description of the feature.
           type: string
         image:
-          $ref: "#/components/schemas/Image"
           description: An optional image describing the feature.
+          allOf:
+            - $ref: '#/components/schemas/Image'
         text:
           description: A detailed description of the feature.
           type: string
       type: object
     FloatUnit:
       description: Combination of float amount and unit.
+      x-google-discovery-id: FloatUnit
       properties:
         amount:
           description: amount.
@@ -678,18 +849,32 @@ components:
       type: object
     GoogleShoppingManufacturersV1ProductCertification:
       description: Description of a certification.
+      x-google-discovery-id: GoogleShoppingManufacturersV1ProductCertification
       properties:
         authority:
           description: Required. Name of the certification body.
           type: string
         code:
-          description: Required. A unique code to identify the certification.
+          description: Optional. A unique code to identify the certification.
+          type: string
+        link:
+          description: Optional. A URL link to the certification.
+          type: string
+        logo:
+          description: Optional. A URL link to the certification logo.
           type: string
         name:
           description: Required. Name of the certification.
           type: string
+        validUntil:
+          description: Optional. The expiration date (UTC).
+          type: string
+        value:
+          description: Optional. A custom value of the certification.
+          type: string
       type: object
     Grocery:
+      x-google-discovery-id: Grocery
       properties:
         activeIngredients:
           description: Active ingredients.
@@ -726,6 +911,7 @@ components:
       type: object
     Image:
       description: An image.
+      x-google-discovery-id: Image
       properties:
         imageUrl:
           description: The URL of the image. For crawled images, this is the provided URL. For uploaded images, this is a serving URL from Google if the image has been processed successfully.
@@ -746,6 +932,20 @@ components:
             - CRAWL_SKIPPED
             - HOSTLOADED
             - HTTP_404
+          x-google-enum-descriptions:
+            - The image status is unspecified. Should not be used.
+            - The image was uploaded and is being processed.
+            - The image crawl is still pending.
+            - The image was processed and it meets the requirements.
+            - The image URL is protected by robots.txt file and cannot be crawled.
+            - The image URL is protected by X-Robots-Tag and cannot be crawled.
+            - There was an error while crawling the image.
+            - The image cannot be processed.
+            - The image cannot be decoded.
+            - The image is too big.
+            - The image was manually overridden and will not be crawled.
+            - The image crawl was postponed to avoid overloading the host.
+            - The image URL returned a "404 Not Found" error.
           type: string
         type:
           description: The type of the image, i.e., crawled or uploaded. @OutputOnly
@@ -753,11 +953,22 @@ components:
             - TYPE_UNSPECIFIED
             - CRAWLED
             - UPLOADED
+          x-google-enum-descriptions:
+            - Type is unspecified. Should not be used.
+            - The image was crawled from a provided URL.
+            - The image was uploaded.
           type: string
       type: object
     Issue:
       description: Product issue.
+      x-google-discovery-id: Issue
       properties:
+        applicableCountries:
+          description: Output only. List of country codes (ISO 3166-1 alpha-2) where issue applies to the manufacturer product.
+          items:
+            type: string
+          readOnly: true
+          type: array
         attribute:
           description: If present, the attribute that triggered the issue. For more information about attributes, see https://support.google.com/manufacturers/answer/6124116.
           type: string
@@ -773,6 +984,10 @@ components:
             - RESOLUTION_UNSPECIFIED
             - USER_ACTION
             - PENDING_PROCESSING
+          x-google-enum-descriptions:
+            - Unspecified resolution, never used.
+            - The user who provided the data must act in order to resolve the issue (for example by correcting some data).
+            - The issue will be resolved automatically (for example image crawl or Google review). No action is required now. Resolution might lead to another issue (for example if crawl fails).
           type: string
         severity:
           description: The severity of the issue.
@@ -781,6 +996,11 @@ components:
             - ERROR
             - WARNING
             - INFO
+          x-google-enum-descriptions:
+            - Unspecified severity, never used.
+            - Error severity. The issue prevents the usage of the whole item.
+            - Warning severity. The issue is either one that prevents the usage of the attribute that triggered it or one that will soon prevent the usage of the whole item.
+            - Info severity. The issue is one that doesn't require immediate attention. It is, for example, used to communicate which attributes are still pending review.
           type: string
         timestamp:
           description: The timestamp when this issue appeared.
@@ -795,6 +1015,7 @@ components:
       type: object
     ListProductCertificationsResponse:
       description: Response for ListProductCertifications method.
+      x-google-discovery-id: ListProductCertificationsResponse
       properties:
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -802,10 +1023,11 @@ components:
         productCertifications:
           description: The product certifications from the specified certification body.
           items:
-            $ref: "#/components/schemas/ProductCertification"
+            $ref: '#/components/schemas/ProductCertification'
           type: array
       type: object
     ListProductsResponse:
+      x-google-discovery-id: ListProductsResponse
       properties:
         nextPageToken:
           description: The token for the retrieval of the next page of product statuses.
@@ -813,78 +1035,91 @@ components:
         products:
           description: List of the products.
           items:
-            $ref: "#/components/schemas/Product"
+            $ref: '#/components/schemas/Product'
           type: array
       type: object
     Nutrition:
+      x-google-discovery-id: Nutrition
       properties:
         addedSugars:
-          $ref: "#/components/schemas/FloatUnit"
           description: Added sugars.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         addedSugarsDailyPercentage:
           description: Added sugars daily percentage.
           format: double
           type: number
         calcium:
-          $ref: "#/components/schemas/FloatUnit"
           description: Calcium.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         calciumDailyPercentage:
           description: Calcium daily percentage.
           format: double
           type: number
         cholesterol:
-          $ref: "#/components/schemas/FloatUnit"
           description: Cholesterol.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         cholesterolDailyPercentage:
           description: Cholesterol daily percentage.
           format: double
           type: number
         dietaryFiber:
-          $ref: "#/components/schemas/FloatUnit"
           description: Dietary fiber.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         dietaryFiberDailyPercentage:
           description: Dietary fiber daily percentage.
           format: double
           type: number
         energy:
-          $ref: "#/components/schemas/FloatUnit"
           description: Mandatory Nutrition Facts. Energy.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         energyFromFat:
-          $ref: "#/components/schemas/FloatUnit"
           description: Energy from fat.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         folateDailyPercentage:
           description: Folate daily percentage.
           format: double
           type: number
         folateFolicAcid:
-          $ref: "#/components/schemas/FloatUnit"
           description: Folate folic acid.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         folateMcgDfe:
           description: Folate mcg DFE.
           format: double
           type: number
         iron:
-          $ref: "#/components/schemas/FloatUnit"
           description: Iron.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         ironDailyPercentage:
           description: Iron daily percentage.
           format: double
           type: number
         monounsaturatedFat:
-          $ref: "#/components/schemas/FloatUnit"
           description: Monounsaturated fat.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         nutritionFactMeasure:
           description: Nutrition fact measure.
           type: string
         polyols:
-          $ref: "#/components/schemas/FloatUnit"
           description: Polyols.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         polyunsaturatedFat:
-          $ref: "#/components/schemas/FloatUnit"
           description: Polyunsaturated fat.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         potassium:
-          $ref: "#/components/schemas/FloatUnit"
           description: Potassium.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         potassiumDailyPercentage:
           description: Potassium daily percentage.
           format: double
@@ -893,15 +1128,17 @@ components:
           description: Prepared size description.
           type: string
         protein:
-          $ref: "#/components/schemas/FloatUnit"
           description: Protein.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         proteinDailyPercentage:
           description: Protein daily percentage.
           format: double
           type: number
         saturatedFat:
-          $ref: "#/components/schemas/FloatUnit"
           description: Saturated fat.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         saturatedFatDailyPercentage:
           description: Saturated fat daily percentage.
           format: double
@@ -910,52 +1147,60 @@ components:
           description: Food Serving Size. Serving size description.
           type: string
         servingSizeMeasure:
-          $ref: "#/components/schemas/FloatUnit"
           description: Serving size measure.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         servingsPerContainer:
           description: Servings per container.
           type: string
         sodium:
-          $ref: "#/components/schemas/FloatUnit"
           description: Sodium.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         sodiumDailyPercentage:
           description: Sodium daily percentage.
           format: double
           type: number
         starch:
-          $ref: "#/components/schemas/FloatUnit"
           description: Starch.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         totalCarbohydrate:
-          $ref: "#/components/schemas/FloatUnit"
           description: Total carbohydrate.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         totalCarbohydrateDailyPercentage:
           description: Total carbohydrate daily percentage.
           format: double
           type: number
         totalFat:
-          $ref: "#/components/schemas/FloatUnit"
           description: Total fat.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         totalFatDailyPercentage:
           description: Total fat daily percentage.
           format: double
           type: number
         totalSugars:
-          $ref: "#/components/schemas/FloatUnit"
           description: Total sugars.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         totalSugarsDailyPercentage:
           description: Total sugars daily percentage.
           format: double
           type: number
         transFat:
-          $ref: "#/components/schemas/FloatUnit"
           description: Trans fat.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         transFatDailyPercentage:
           description: Trans fat daily percentage.
           format: double
           type: number
         vitaminD:
-          $ref: "#/components/schemas/FloatUnit"
           description: Vitamin D.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
         vitaminDDailyPercentage:
           description: Vitamin D daily percentage.
           format: double
@@ -963,11 +1208,12 @@ components:
         voluntaryNutritionFact:
           description: Voluntary nutrition fact.
           items:
-            $ref: "#/components/schemas/VoluntaryNutritionFact"
+            $ref: '#/components/schemas/VoluntaryNutritionFact'
           type: array
       type: object
     Price:
       description: A price.
+      x-google-discovery-id: Price
       properties:
         amount:
           description: The numeric value of the price.
@@ -978,22 +1224,27 @@ components:
       type: object
     Product:
       description: Product data.
+      x-google-discovery-id: Product
       properties:
         attributes:
-          $ref: "#/components/schemas/Attributes"
           description: Attributes of the product uploaded to the Manufacturer Center. Manually edited attributes are taken into account.
+          allOf:
+            - $ref: '#/components/schemas/Attributes'
         contentLanguage:
           description: The content language of the product as a two-letter ISO 639-1 language code (for example, en).
           type: string
         destinationStatuses:
           description: The status of the destinations.
           items:
-            $ref: "#/components/schemas/DestinationStatus"
+            $ref: '#/components/schemas/DestinationStatus'
           type: array
+        feedLabel:
+          description: Optional. The feed label for the product.
+          type: string
         issues:
           description: A server-generated list of issues associated with the product.
           items:
-            $ref: "#/components/schemas/Issue"
+            $ref: '#/components/schemas/Issue'
           type: array
         name:
           description: Name in the format `{target_country}:{content_language}:{product_id}`. `target_country` - The target country of the product as a CLDR territory code (for example, US). `content_language` - The content language of the product as a two-letter ISO 639-1 language code (for example, en). `product_id` - The ID of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#id.
@@ -1010,6 +1261,7 @@ components:
       type: object
     ProductCertification:
       description: Product certification data.
+      x-google-discovery-id: ProductCertification
       properties:
         brand:
           description: Required. This is the product's brand name. The brand is used to help identify your product.
@@ -1017,7 +1269,7 @@ components:
         certification:
           description: Required. A list of certifications to link to the described product.
           items:
-            $ref: "#/components/schemas/Certification"
+            $ref: '#/components/schemas/Certification'
           type: array
         countryCode:
           description: Optional. A 2-letter country code (ISO 3166-1 Alpha 2).
@@ -1027,13 +1279,13 @@ components:
         destinationStatuses:
           description: Output only. The statuses of the destinations.
           items:
-            $ref: "#/components/schemas/DestinationStatus"
+            $ref: '#/components/schemas/DestinationStatus'
           readOnly: true
           type: array
         issues:
           description: Output only. A server-generated list of issues associated with the product.
           items:
-            $ref: "#/components/schemas/Issue"
+            $ref: '#/components/schemas/Issue'
           readOnly: true
           type: array
         mpn:
@@ -1042,7 +1294,7 @@ components:
             type: string
           type: array
         name:
-          description: "Required. The unique name identifier of a product certification Format: accounts/{account}/languages/{language_code}/productCertifications/{id} Where `id` is a some unique identifier and `language_code` is a 2-letter ISO 639-1 code of a Shopping supported language according to https://support.google.com/merchants/answer/160637."
+          description: 'Required. The unique name identifier of a product certification Format: accounts/{account}/languages/{language_code}/productCertifications/{id} Where `id` is a some unique identifier and `language_code` is a 2-letter ISO 639-1 code of a Shopping supported language according to https://support.google.com/merchants/answer/160637.'
           type: string
         productCode:
           description: Optional. Another name for GTIN.
@@ -1060,6 +1312,7 @@ components:
       type: object
     ProductDetail:
       description: A product detail of the product. For more information, see https://support.google.com/manufacturers/answer/6124116#productdetail.
+      x-google-discovery-id: ProductDetail
       properties:
         attributeName:
           description: The name of the attribute.
@@ -1073,6 +1326,7 @@ components:
       type: object
     VoluntaryNutritionFact:
       description: Voluntary Nutrition Facts.
+      x-google-discovery-id: VoluntaryNutritionFact
       properties:
         dailyPercentage:
           description: Daily percentage.
@@ -1082,24 +1336,127 @@ components:
           description: Name.
           type: string
         value:
-          $ref: "#/components/schemas/FloatUnit"
           description: Value.
+          allOf:
+            - $ref: '#/components/schemas/FloatUnit'
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/manufacturercenter: Manage your product listings for Google Manufacturer Center
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/manufacturercenter: Manage your product listings for Google Manufacturer Center
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://developers.google.com/manufacturers/
+tags:
+  - name: accounts
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://manufacturers.googleapis.com/
+  batchPath: batch
+  canonicalName: Manufacturer Center
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: manufacturers:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://manufacturers.mtls.googleapis.com/
+  name: manufacturers
+  revision: '20250815'
+  rootUrl: https://manufacturers.googleapis.com/
+  servicePath: ''
+  version_module: true

@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://mybusinessnotifications.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: The My Business Notification Settings API enables managing notification settings for business accounts. Note - If you have a quota of 0 after enabling the API, please request for GBP API access.
+  description: 'The My Business Notification Settings API enables managing notification settings for business accounts. Note: If you have a quota of 0 after enabling the API, please request GBP API access at https://developers.google.com/my-business/content/prereqs#request-access. '
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -20,154 +18,119 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://mybusinessnotifications.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/mybusinessnotifications.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/mybusinessnotifications.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: mybusinessnotifications
-externalDocs:
-  url: https://developers.google.com/my-business/
-tags:
-  - name: accounts
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20261026; original source SHA-256 358e0f69e507c7488f436f514f1ffd782f408dad06207fbf04b89d2460b37f62.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://mybusinessnotifications.googleapis.com
 paths:
-  /v1/{name}:
+  /v1/accounts/{accountsId}/notificationSetting:
     get:
-      description: Returns the pubsub notification settings for the account.
       operationId: mybusinessnotifications.accounts.getNotificationSetting
+      description: Returns the pubsub notification settings for the account.
       parameters:
-        - description: Required. The resource name of the notification setting we are trying to fetch.
+        - name: accountsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. Required. The resource name of the notification setting we are trying to fetch.
           schema:
             type: string
+      tags:
+        - accounts
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/NotificationSetting"
-          description: Successful response
+                $ref: '#/components/schemas/NotificationSetting'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accounts/{accountsId}/notificationSetting
+        resourceNameBindings:
+          accountsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name of the notification setting we are trying to fetch.
+            location: path
+            pattern: ^accounts/[^/]+/notificationSetting$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: mybusinessnotifications.accounts.updateNotificationSetting
+      description: Sets the pubsub notification setting for the account informing Google which topic to send pubsub notifications for. Use the notification_types field within notification_setting to manipulate the events an account wants to subscribe to. An account will only have one notification setting resource, and only one pubsub topic can be set. To delete the setting, update with an empty notification_types
+      parameters:
+        - name: accountsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The resource name this setting is for. This is of the form `accounts/{account_id}/notificationSetting`.
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. The specific fields that should be updated. The only editable field is notification_setting.
       tags:
         - accounts
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Sets the pubsub notification setting for the account informing Google which topic to send pubsub notifications for. Use the notification_types field within notification_setting to manipulate the events an account wants to subscribe to. An account will only have one notification setting resource, and only one pubsub topic can be set. To delete the setting, update with an empty notification_types
-      operationId: mybusinessnotifications.accounts.updateNotificationSetting
-      parameters:
-        - description: Required. The resource name this setting is for. This is of the form `accounts/{account_id}/notificationSetting`.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: Required. The specific fields that should be updated. The only editable field is notification_setting.
-          in: query
-          name: updateMask
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NotificationSetting"
+              $ref: '#/components/schemas/NotificationSetting'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/NotificationSetting"
-          description: Successful response
-      tags:
-        - accounts
+                $ref: '#/components/schemas/NotificationSetting'
+      x-google-discovery:
+        path: v1/{+name}
+        flatPath: v1/accounts/{accountsId}/notificationSetting
+        resourceNameBindings:
+          accountsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The resource name this setting is for. This is of the form `accounts/{account_id}/notificationSetting`.
+            location: path
+            pattern: ^accounts/[^/]+/notificationSetting$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     NotificationSetting:
       description: A Google Pub/Sub topic where notifications can be published when a location is updated or has a new review. There will be only one notification setting resource per-account.
+      x-google-discovery-id: NotificationSetting
       properties:
         name:
           description: Required. The resource name this setting is for. This is of the form `accounts/{account_id}/notificationSetting`.
@@ -188,8 +151,7 @@ components:
               - DUPLICATE_LOCATION
               - LOSS_OF_VOICE_OF_MERCHANT
               - VOICE_OF_MERCHANT_UPDATED
-            type: string
-            x-enumDeprecated:
+            x-google-enum-deprecated:
               - false
               - false
               - false
@@ -202,8 +164,127 @@ components:
               - false
               - true
               - false
+            x-google-enum-descriptions:
+              - No notification type. Will not match any notifications.
+              - The location has Google updates for review. The location_name field on the notification will provide the resource name of the location with Google updates.
+              - A new review has been added to the location. The review_name field on the notification will provide the resource name of the review that was added, and location_name will have the location's resource name.
+              - A review on the location has been updated. The review_name field on the notification will provide the resource name of the review that was added, and location_name will have the location's resource name.
+              - A new media item has been added to the location by a Google Maps user. The notification will provide the resource name of the new media item.
+              - A new question is added to the location. The notification will provide the resource name of question.
+              - A question of the location is updated. The notification will provide the resource name of question.
+              - A new answer is added to the location. The notification will provide the resource name of question and answer.
+              - An answer of the location is updated. The notification will provide the resource name of question and answer.
+              - Indicates whether there is a change in location metadata's duplicate location field.
+              - 'Deprecated: Migrate the existing usages of this value to the more expanded "VOICE_OF_MERCHANT_UPDATED".'
+              - Indicates whether the location has an update in Voice of Merchant (VOM) status. VOM dictates whether the location is in good standing and the merchant has control over the business on Google. Any edits made to the location will propagate to Maps after passing the review phase. Call GetVoiceOfMerchantState rpc for more details.
+            type: string
           type: array
         pubsubTopic:
           description: Optional. The Google Pub/Sub topic that will receive notifications when locations managed by this account are updated. If unset, no notifications will be posted. The account mybusiness-api-pubsub@system.gserviceaccount.com must have at least Publish permissions on the Pub/Sub topic.
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes: {}
+externalDocs:
+  url: https://developers.google.com/my-business/
+tags:
+  - name: accounts
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://mybusinessnotifications.googleapis.com/
+  batchPath: batch
+  canonicalName: My Business Notification Settings
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: mybusinessnotifications:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://mybusinessnotifications.mtls.googleapis.com/
+  name: mybusinessnotifications
+  revision: '20261026'
+  rootUrl: https://mybusinessnotifications.googleapis.com/
+  servicePath: ''
+  version_module: true

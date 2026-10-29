@@ -1,6 +1,4 @@
-openapi: 3.0.0
-servers:
-  - url: https://versionhistory.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
@@ -20,281 +18,319 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://versionhistory.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/versionhistory.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/versionhistory.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: versionhistory
-externalDocs:
-  url: https://developers.chrome.com/versionhistory
-tags:
-  - name: platforms
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20250810; original source SHA-256 cc9e21ab3ef2f70c9676ca2c2837de05956bf17bec68ad7eed2e8f721db297dc.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://versionhistory.googleapis.com
 paths:
-  /v1/{parent}/channels:
+  /v1/{v1Id}/platforms:
     get:
-      description: Returns list of channels that are available for a given platform.
-      operationId: versionhistory.platforms.channels.list
-      parameters:
-        - description: "Required. The platform, which owns this collection of channels. Format: {product}/platforms/{platform}"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Optional. Optional limit on the number of channels to include in the response. If unspecified, the server will pick an appropriate default.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: Optional. A page token, received from a previous `ListChannels` call. Provide this to retrieve the subsequent page.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListChannelsResponse"
-          description: Successful response
-      tags:
-        - platforms
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/platforms:
-    get:
-      description: Returns list of platforms that are available for a given product. The resource "product" has no resource name in its name.
       operationId: versionhistory.platforms.list
+      description: Returns list of platforms that are available for a given product. The resource "product" has no resource name in its name.
       parameters:
-        - description: "Required. The product, which owns this collection of platforms. Format: {product}"
+        - name: v1Id
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The product, which owns this collection of platforms. Format: {product}'
           schema:
             type: string
-        - description: Optional. Optional limit on the number of channels to include in the response. If unspecified, the server will pick an appropriate default.
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: Optional. A page token, received from a previous `ListChannels` call. Provide this to retrieve the subsequent page.
+          description: Optional. Optional limit on the number of channels to include in the response. If unspecified, the server will pick an appropriate default.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
+          description: Optional. A page token, received from a previous `ListChannels` call. Provide this to retrieve the subsequent page.
+      tags:
+        - platforms
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListPlatformsResponse"
-          description: Successful response
+                $ref: '#/components/schemas/ListPlatformsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/platforms
+        flatPath: v1/{v1Id}/platforms
+        resourceNameBindings:
+          v1Id: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The product, which owns this collection of platforms. Format: {product}'
+            location: path
+            pattern: ^[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/{v1Id}/platforms/{platformsId}/channels:
+    get:
+      operationId: versionhistory.platforms.channels.list
+      description: Returns list of channels that are available for a given platform.
+      parameters:
+        - name: v1Id
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The platform, which owns this collection of channels. Format: {product}/platforms/{platform}'
+          schema:
+            type: string
+        - name: platformsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The platform, which owns this collection of channels. Format: {product}/platforms/{platform}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. Optional limit on the number of channels to include in the response. If unspecified, the server will pick an appropriate default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListChannels` call. Provide this to retrieve the subsequent page.
       tags:
         - platforms
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/releases:
-    get:
-      description: Returns list of releases of the given version.
-      operationId: versionhistory.platforms.channels.versions.releases.list
-      parameters:
-        - description: "Required. The version, which owns this collection of releases. Format: {product}/platforms/{platform}/channels/{channel}/versions/{version}"
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Optional. Filter string. Format is a comma separated list of All comma separated filter clauses are conjoined with a logical "and". Valid field_names are "version", "name", "platform", "channel", "fraction" "starttime", and "endtime". Valid operators are "<", "<=", "=", ">=", and ">". Channel comparison is done by distance from stable. must be a valid channel when filtering by channel. Ex) stable < beta, beta < dev, canary < canary_asan. Version comparison is done numerically. Ex) 1.0.0.8 < 1.0.0.10. If version is not entirely written, the version will be appended with 0 for the missing fields. Ex) version > 80 becoms version > 80.0.0.0 When filtering by starttime or endtime, string must be in RFC 3339 date string format. Name and platform are filtered by string comparison. Ex) "...?filter=channel<=beta, version >= 80 Ex) "...?filter=version > 80, version < 81 Ex) "...?filter=starttime>2020-01-01T00:00:00Z
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: 'Optional. Ordering string. Valid order_by strings are "version", "name", "starttime", "endtime", "platform", "channel", and "fraction". Optionally, you can append "desc" or "asc" to specify the sorting order. Multiple order_by strings can be used in a comma separated list. Ordering by channel will sort by distance from the stable channel (not alphabetically). A list of channels sorted in this order is: stable, beta, dev, canary, and canary_asan. Sorting by name may cause unexpected behaviour as it is a naive string sort. For example, 1.0.0.8 will be before 1.0.0.10 in descending order. If order_by is not specified the response will be sorted by starttime in descending order. Ex) "...?order_by=starttime asc" Ex) "...?order_by=platform desc, channel, startime desc"'
-          in: query
-          name: orderBy
-          schema:
-            type: string
-        - description: Optional. Optional limit on the number of releases to include in the response. If unspecified, the server will pick an appropriate default.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: Optional. A page token, received from a previous `ListReleases` call. Provide this to retrieve the subsequent page.
-          in: query
-          name: pageToken
-          schema:
-            type: string
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListReleasesResponse"
-          description: Successful response
-      tags:
-        - platforms
+                $ref: '#/components/schemas/ListChannelsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/channels
+        flatPath: v1/{v1Id}/platforms/{platformsId}/channels
+        resourceNameBindings:
+          v1Id: parent
+          platformsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The platform, which owns this collection of channels. Format: {product}/platforms/{platform}'
+            location: path
+            pattern: ^[^/]+/platforms/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/{parent}/versions:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/{v1Id}/platforms/{platformsId}/channels/{channelsId}/versions:
     get:
-      description: Returns list of version for the given platform/channel.
       operationId: versionhistory.platforms.channels.versions.list
+      description: Returns list of version for the given platform/channel.
       parameters:
-        - description: "Required. The channel, which owns this collection of versions. Format: {product}/platforms/{platform}/channels/{channel}"
+        - name: v1Id
           in: path
-          name: parent
           required: true
+          description: 'Component of the original `parent` resource name. Required. The channel, which owns this collection of versions. Format: {product}/platforms/{platform}/channels/{channel}'
           schema:
             type: string
-        - description: Optional. Filter string. Format is a comma separated list of All comma separated filter clauses are conjoined with a logical "and". Valid field_names are "version", "name", "platform", and "channel". Valid operators are "<", "<=", "=", ">=", and ">". Channel comparison is done by distance from stable. Ex) stable < beta, beta < dev, canary < canary_asan. Version comparison is done numerically. If version is not entirely written, the version will be appended with 0 in missing fields. Ex) version > 80 becoms version > 80.0.0.0 Name and platform are filtered by string comparison. Ex) "...?filter=channel<=beta, version >= 80 Ex) "...?filter=version > 80, version < 81
-          in: query
-          name: filter
+        - name: platformsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The channel, which owns this collection of versions. Format: {product}/platforms/{platform}/channels/{channel}'
           schema:
             type: string
-        - description: 'Optional. Ordering string. Valid order_by strings are "version", "name", "platform", and "channel". Optionally, you can append " desc" or " asc" to specify the sorting order. Multiple order_by strings can be used in a comma separated list. Ordering by channel will sort by distance from the stable channel (not alphabetically). A list of channels sorted in this order is: stable, beta, dev, canary, and canary_asan. Sorting by name may cause unexpected behaviour as it is a naive string sort. For example, 1.0.0.8 will be before 1.0.0.10 in descending order. If order_by is not specified the response will be sorted by version in descending order. Ex) "...?order_by=version asc" Ex) "...?order_by=platform desc, channel, version"'
-          in: query
-          name: orderBy
+        - name: channelsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The channel, which owns this collection of versions. Format: {product}/platforms/{platform}/channels/{channel}'
           schema:
             type: string
-        - description: Optional. Optional limit on the number of versions to include in the response. If unspecified, the server will pick an appropriate default.
+        - name: filter
           in: query
-          name: pageSize
           schema:
+            type: string
+          description: Optional. Filter string. Format is a comma separated list of All comma separated filter clauses are conjoined with a logical "and". Valid field_names are "version", "name", "platform", and "channel". Valid operators are "<", "<=", "=", ">=", and ">". Channel comparison is done by distance from stable. Ex) stable < beta, beta < dev, canary < canary_asan. Version comparison is done numerically. If version is not entirely written, the version will be appended with 0 in missing fields. Ex) version > 80 becoms version > 80.0.0.0 Name and platform are filtered by string comparison. Ex) "...?filter=channel<=beta, version >= 80 Ex) "...?filter=version > 80, version < 81
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: 'Optional. Ordering string. Valid order_by strings are "version", "name", "platform", and "channel". Optionally, you can append " desc" or " asc" to specify the sorting order. Multiple order_by strings can be used in a comma separated list. Ordering by channel will sort by distance from the stable channel (not alphabetically). A list of channels sorted in this order is: stable, beta, dev, canary, and canary_asan. Sorting by name may cause unexpected behaviour as it is a naive string sort. For example, 1.0.0.8 will be before 1.0.0.10 in descending order. If order_by is not specified the response will be sorted by version in descending order. Ex) "...?order_by=version asc" Ex) "...?order_by=platform desc, channel, version"'
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: Optional. A page token, received from a previous `ListVersions` call. Provide this to retrieve the subsequent page.
+          description: Optional. Optional limit on the number of versions to include in the response. If unspecified, the server will pick an appropriate default.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
+          description: Optional. A page token, received from a previous `ListVersions` call. Provide this to retrieve the subsequent page.
+      tags:
+        - platforms
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListVersionsResponse"
-          description: Successful response
+                $ref: '#/components/schemas/ListVersionsResponse'
+      x-google-discovery:
+        path: v1/{+parent}/versions
+        flatPath: v1/{v1Id}/platforms/{platformsId}/channels/{channelsId}/versions
+        resourceNameBindings:
+          v1Id: parent
+          platformsId: parent
+          channelsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The channel, which owns this collection of versions. Format: {product}/platforms/{platform}/channels/{channel}'
+            location: path
+            pattern: ^[^/]+/platforms/[^/]+/channels/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/{v1Id}/platforms/{platformsId}/channels/{channelsId}/versions/{versionsId}/releases:
+    get:
+      operationId: versionhistory.platforms.channels.versions.releases.list
+      description: Returns list of releases of the given version.
+      parameters:
+        - name: v1Id
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The version, which owns this collection of releases. Format: {product}/platforms/{platform}/channels/{channel}/versions/{version}'
+          schema:
+            type: string
+        - name: platformsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The version, which owns this collection of releases. Format: {product}/platforms/{platform}/channels/{channel}/versions/{version}'
+          schema:
+            type: string
+        - name: channelsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The version, which owns this collection of releases. Format: {product}/platforms/{platform}/channels/{channel}/versions/{version}'
+          schema:
+            type: string
+        - name: versionsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. The version, which owns this collection of releases. Format: {product}/platforms/{platform}/channels/{channel}/versions/{version}'
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Optional. Filter string. Format is a comma separated list of All comma separated filter clauses are conjoined with a logical "and". Valid field_names are "version", "name", "platform", "channel", "fraction" "starttime", and "endtime". Valid operators are "<", "<=", "=", ">=", and ">". Channel comparison is done by distance from stable. must be a valid channel when filtering by channel. Ex) stable < beta, beta < dev, canary < canary_asan. Version comparison is done numerically. Ex) 1.0.0.8 < 1.0.0.10. If version is not entirely written, the version will be appended with 0 for the missing fields. Ex) version > 80 becoms version > 80.0.0.0 When filtering by starttime or endtime, string must be in RFC 3339 date string format. Name and platform are filtered by string comparison. Ex) "...?filter=channel<=beta, version >= 80 Ex) "...?filter=version > 80, version < 81 Ex) "...?filter=starttime>2020-01-01T00:00:00Z
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: 'Optional. Ordering string. Valid order_by strings are "version", "name", "starttime", "endtime", "platform", "channel", and "fraction". Optionally, you can append "desc" or "asc" to specify the sorting order. Multiple order_by strings can be used in a comma separated list. Ordering by channel will sort by distance from the stable channel (not alphabetically). A list of channels sorted in this order is: stable, beta, dev, canary, and canary_asan. Sorting by name may cause unexpected behaviour as it is a naive string sort. For example, 1.0.0.8 will be before 1.0.0.10 in descending order. If order_by is not specified the response will be sorted by starttime in descending order. Ex) "...?order_by=starttime asc" Ex) "...?order_by=platform desc, channel, startime desc"'
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Optional. Optional limit on the number of releases to include in the response. If unspecified, the server will pick an appropriate default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: Optional. A page token, received from a previous `ListReleases` call. Provide this to retrieve the subsequent page.
       tags:
         - platforms
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListReleasesResponse'
+      x-google-discovery:
+        path: v1/{+parent}/releases
+        flatPath: v1/{v1Id}/platforms/{platformsId}/channels/{channelsId}/versions/{versionsId}/releases
+        resourceNameBindings:
+          v1Id: parent
+          platformsId: parent
+          channelsId: parent
+          versionsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. The version, which owns this collection of releases. Format: {product}/platforms/{platform}/channels/{channel}/versions/{version}'
+            location: path
+            pattern: ^[^/]+/platforms/[^/]+/channels/[^/]+/versions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     Channel:
       description: Each Channel is owned by a Platform and owns a collection of versions. Possible Channels are listed in the Channel enum below. Not all Channels are available for every Platform (e.g. CANARY does not exist for LINUX).
+      x-google-discovery-id: Channel
       properties:
         channelType:
           description: Type of channel.
@@ -309,6 +345,17 @@ components:
             - EXTENDED
             - LTS
             - LTC
+          x-google-enum-descriptions:
+            - ''
+            - The Stable channel.
+            - The Beta channel.
+            - The Dev channel.
+            - The Canary channel.
+            - The Canary channel for Chrome, with DCHECK/ASAN enabled.
+            - ''
+            - The Extended Stable channel for Chrome.
+            - The Long-term support channel for ChromeOS.
+            - The Long-term support candidate channel for ChromeOS.
           type: string
         name:
           description: Channel name. Format is "{product}/platforms/{platform}/channels/{channel}"
@@ -316,6 +363,7 @@ components:
       type: object
     Interval:
       description: Represents a time interval, encoded as a Timestamp start (inclusive) and a Timestamp end (exclusive). The start must be less than or equal to the end. When the start equals the end, the interval is empty (matches no time). When both start and end are unspecified, the interval matches any time.
+      x-google-discovery-id: Interval
       properties:
         endTime:
           description: Optional. Exclusive end of the interval. If specified, a Timestamp matching this interval will have to be before the end.
@@ -328,11 +376,12 @@ components:
       type: object
     ListChannelsResponse:
       description: Response message for ListChannels.
+      x-google-discovery-id: ListChannelsResponse
       properties:
         channels:
           description: The list of channels.
           items:
-            $ref: "#/components/schemas/Channel"
+            $ref: '#/components/schemas/Channel'
           type: array
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -340,6 +389,7 @@ components:
       type: object
     ListPlatformsResponse:
       description: Response message for ListPlatforms.
+      x-google-discovery-id: ListPlatformsResponse
       properties:
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -347,11 +397,12 @@ components:
         platforms:
           description: The list of platforms.
           items:
-            $ref: "#/components/schemas/Platform"
+            $ref: '#/components/schemas/Platform'
           type: array
       type: object
     ListReleasesResponse:
       description: Response message for ListReleases.
+      x-google-discovery-id: ListReleasesResponse
       properties:
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -359,11 +410,12 @@ components:
         releases:
           description: The list of releases.
           items:
-            $ref: "#/components/schemas/Release"
+            $ref: '#/components/schemas/Release'
           type: array
       type: object
     ListVersionsResponse:
       description: Response message for ListVersions.
+      x-google-discovery-id: ListVersionsResponse
       properties:
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -371,11 +423,12 @@ components:
         versions:
           description: The list of versions.
           items:
-            $ref: "#/components/schemas/Version"
+            $ref: '#/components/schemas/Version'
           type: array
       type: object
     Platform:
       description: Each Platform is owned by a Product and owns a collection of channels. Available platforms are listed in Platform enum below. Not all Channels are available for every Platform (e.g. CANARY does not exist for LINUX).
+      x-google-discovery-id: Platform
       properties:
         name:
           description: Platform name. Format is "{product}/platforms/{platform}"
@@ -398,31 +451,73 @@ components:
             - CHROMEOS
             - LACROS_ARM64
             - FUCHSIA
+            - WIN_ARM64
+          x-google-enum-descriptions:
+            - ''
+            - Chrome Desktop for Windows (32-bit).
+            - Chrome Desktop for Windows (x86_64).
+            - Chrome Desktop for macOS (x86_64).
+            - Chrome Desktop for Linux.
+            - Chrome for Android.
+            - WebView for Android.
+            - Chrome for iOS.
+            - ''
+            - Chrome for macOS (ARM64).
+            - ChromeOS Lacros (x86_64).
+            - ChromeOS Lacros (ARM).
+            - ChromeOS.
+            - ChromeOS Lacros (ARM64).
+            - Chrome for Fuchsia.
+            - Chrome Desktop for Windows (ARM64).
           type: string
       type: object
     Release:
       description: A Release is owned by a Version. A Release contains information about the release(s) of its parent version. This includes when the release began and ended, as well as what percentage it was released at. If the version is released again, or if the serving percentage changes, it will create another release under the version.
+      x-google-discovery-id: Release
       properties:
         fraction:
           description: Rollout fraction. This fraction indicates the fraction of people that should receive this version in this release. If the fraction is not specified in ReleaseManager, the API will assume fraction is 1.
           format: double
           type: number
         fractionGroup:
-          description: "Rollout fraction group. Only fractions with the same fraction_group are statistically comparable: there may be non-fractional differences between different fraction groups."
+          description: 'Rollout fraction group. Only fractions with the same fraction_group are statistically comparable: there may be non-fractional differences between different fraction groups.'
           format: int64
           type: string
         name:
           description: Release name. Format is "{product}/platforms/{platform}/channels/{channel}/versions/{version}/releases/{release}"
           type: string
+        pinnable:
+          description: Whether or not the release was available for version pinning.
+          type: boolean
+        rolloutData:
+          description: Rollout-related metadata. Some releases are part of one or more A/B rollouts. This field contains the names and data describing this release's role in any rollouts.
+          items:
+            $ref: '#/components/schemas/RolloutData'
+          type: array
         serving:
-          $ref: "#/components/schemas/Interval"
           description: Timestamp interval of when the release was live. If end_time is unspecified, the release is currently live.
+          allOf:
+            - $ref: '#/components/schemas/Interval'
         version:
           description: String containing just the version number. e.g. "84.0.4147.38"
           type: string
       type: object
+    RolloutData:
+      description: Rollout-related metadata for a release.
+      x-google-discovery-id: RolloutData
+      properties:
+        rolloutName:
+          description: The name of the rollout.
+          type: string
+        tag:
+          description: Tags associated with a release's role in a rollout. Most rollouts will have at least one release with a "rollout" tag and another release with a "control" tag. Some rollouts may have additional named arms.
+          items:
+            type: string
+          type: array
+      type: object
     Version:
       description: Each Version is owned by a Channel. A Version only displays the Version number (e.g. 84.0.4147.38). A Version owns a collection of releases.
+      x-google-discovery-id: Version
       properties:
         name:
           description: Version name. Format is "{product}/platforms/{platform}/channels/{channel}/versions/{version}" e.g. "chrome/platforms/win/channels/beta/versions/84.0.4147.38"
@@ -431,3 +526,108 @@ components:
           description: String containing just the version number. e.g. "84.0.4147.38"
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
+  securitySchemes: {}
+externalDocs:
+  url: https://developers.chrome.com/versionhistory
+tags:
+  - name: platforms
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://versionhistory.googleapis.com/
+  batchPath: batch
+  canonicalName: Version History
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: versionhistory:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://versionhistory.mtls.googleapis.com/
+  name: versionhistory
+  revision: '20250810'
+  rootUrl: https://versionhistory.googleapis.com/
+  servicePath: ''
+  version_module: true

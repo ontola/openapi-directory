@@ -1,12 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://contactcenteraiplatform.googleapis.com/
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: ""
+  description: ''
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -20,477 +18,879 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://contactcenteraiplatform.googleapis.com/$discovery/rest?version=v1alpha1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/contactcenteraiplatform.v1alpha1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/contactcenteraiplatform.v1alpha1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: contactcenteraiplatform
-externalDocs:
-  url: https://cloud.google.com/solutions/contact-center-ai-platform
-tags:
-  - name: projects
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20260423; original source SHA-256 c37f229ea094db86312b26f3b4ecccbd409fc1588b4eff5495f368addbc25751.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://contactcenteraiplatform.googleapis.com
 paths:
-  /v1alpha1/{name}:
-    delete:
-      description: Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.
-      operationId: contactcenteraiplatform.projects.locations.operations.delete
+  /v1alpha1/projects/{projectsId}/locations/{locationsId}:generateShifts:
+    post:
+      operationId: contactcenteraiplatform.projects.locations.generateShifts
+      description: Generates shifts constrained by various parameters.
       parameters:
-        - description: The name of the operation resource to be deleted.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: 'Component of the original `parent` resource name. Required. Name of the parent resource associated with the request. Format: projects/{project}/locations/{location}'
           schema:
             type: string
-        - description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes after the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-          in: query
-          name: requestId
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `parent` resource name. Required. Name of the parent resource associated with the request. Format: projects/{project}/locations/{location}'
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    get:
-      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
-      operationId: contactcenteraiplatform.projects.locations.operations.get
-      parameters:
-        - description: The name of the operation resource.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Updates the parameters of a single ContactCenter.
-      operationId: contactcenteraiplatform.projects.locations.contactCenters.patch
-      parameters:
-        - description: name of resource
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes since the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-          in: query
-          name: requestId
-          schema:
-            type: string
-        - description: Required. Field mask is used to specify the fields to be overwritten in the ContactCenter resource by the update. The fields specified in the update_mask are relative to the resource, not the full request. A field will be overwritten if it is in the mask. If the user does not provide a mask then all fields will be overwritten.
-          in: query
-          name: updateMask
-          schema:
-            type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ContactCenter"
+              $ref: '#/components/schemas/GenerateShiftsRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1alpha1/{+parent}:generateShifts
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}:generateShifts
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: 'Required. Name of the parent resource associated with the request. Format: projects/{project}/locations/{location}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha1/projects/{projectsId}/locations/{locationsId}:
+    get:
+      operationId: contactcenteraiplatform.projects.locations.get
+      description: Gets information about a location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Resource name for the location.
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1alpha1/{name}/locations:
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      x-google-discovery:
+        path: v1alpha1/{+name}
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: Resource name for the location.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha1/projects/{projectsId}/locations:
     get:
-      description: Lists information about the supported locations for this service.
       operationId: contactcenteraiplatform.projects.locations.list
+      description: 'Lists information about the supported locations for this service. This method lists locations based on the resource scope provided in the ListLocationsRequest.name field: * **Global locations**: If `name` is empty, the method lists the public locations available to all projects. * **Project-specific locations**: If `name` follows the format `projects/{project}`, the method lists locations visible to that specific project. This includes public, private, or other project-specific locations enabled for the project. For gRPC and client library implementations, the resource name is passed as the `name` field. For direct service calls, the resource name is incorporated into the request path based on the specific service implementation and version.'
       parameters:
-        - description: The resource that owns the locations collection, if applicable.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. The resource that owns the locations collection, if applicable.
           schema:
             type: string
-        - description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: extraLocationTypes
           in: query
-          name: filter
+          schema:
+            type: array
+            items:
+              type: string
+          description: Optional. Do not use this field unless explicitly documented otherwise. This is primarily for internal usage.
+          style: form
+          explode: true
+        - name: filter
+          in: query
           schema:
             type: string
-        - description: The maximum number of results to return. If not set, the service selects a default.
+          description: A filter to narrow down results to a preferred subset. The filtering language accepts strings like `"displayName=tokyo"`, and is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        - name: pageSize
           in: query
-          name: pageSize
           schema:
+            format: int32
             type: integer
-        - description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+          description: The maximum number of results to return. If not set, the service selects a default.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListLocationsResponse"
-          description: Successful response
+          description: A page token received from the `next_page_token` field in the response. Send that page token to receive the subsequent page.
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLocationsResponse'
+      x-google-discovery:
+        path: v1alpha1/{+name}/locations
+        flatPath: v1alpha1/projects/{projectsId}/locations
+        resourceNameBindings:
+          projectsId: name
+        resourceNameParameters:
+          name:
+            description: The resource that owns the locations collection, if applicable.
+            location: path
+            pattern: ^projects/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1alpha1/{name}/operations:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha1/projects/{projectsId}/locations/{locationsId}:queryContactCenterQuota:
     get:
-      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
-      operationId: contactcenteraiplatform.projects.locations.operations.list
-      parameters:
-        - description: The name of the operation's parent resource.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: The standard list filter.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: The standard list page size.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The standard list page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListOperationsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1alpha1/{name}:cancel:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
-      operationId: contactcenteraiplatform.projects.locations.operations.cancel
-      parameters:
-        - description: The name of the operation resource to be cancelled.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CancelOperationRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1alpha1/{parent}/contactCenters:
-    get:
-      description: Lists ContactCenters in a given project and location.
-      operationId: contactcenteraiplatform.projects.locations.contactCenters.list
-      parameters:
-        - description: Required. Parent value for ListContactCentersRequest
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Filtering results
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: Hint for how to order the results
-          in: query
-          name: orderBy
-          schema:
-            type: string
-        - description: Requested page size. Server may return fewer items than requested. If unspecified, server will pick an appropriate default.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A token identifying a page of results the server should return.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListContactCentersResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a new ContactCenter in a given project and location.
-      operationId: contactcenteraiplatform.projects.locations.contactCenters.create
-      parameters:
-        - description: Required. Value for parent.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: Required. Id of the requesting object If auto-generating Id server-side, remove this field and contact_center_id from the method_signature of Create RPC
-          in: query
-          name: contactCenterId
-          schema:
-            type: string
-        - description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes since the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-          in: query
-          name: requestId
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ContactCenter"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - projects
-  /v1alpha1/{parent}:queryContactCenterQuota:
-    get:
-      description: Queries the contact center quota, an aggregation over all the projects, that belongs to the billing account, which the input project belongs to.
       operationId: contactcenteraiplatform.projects.locations.queryContactCenterQuota
+      description: Queries the contact center quota, an aggregation over all the projects, that belongs to the billing account, which the input project belongs to.
       parameters:
-        - description: Required. Parent project resource id.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. Parent project resource id.
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ContactCenterQuota"
-          description: Successful response
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. Parent project resource id.
+          schema:
+            type: string
+      tags:
+        - projects
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactCenterQuota'
+      x-google-discovery:
+        path: v1alpha1/{+parent}:queryContactCenterQuota
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}:queryContactCenterQuota
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. Parent project resource id.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha1/projects/{projectsId}/locations/{locationsId}/contactCenters:
+    post:
+      operationId: contactcenteraiplatform.projects.locations.contactCenters.create
+      description: Creates a new ContactCenter in a given project and location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. Value for parent.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. Value for parent.
+          schema:
+            type: string
+        - name: contactCenterId
+          in: query
+          schema:
+            type: string
+          description: Required. Id of the requesting object If auto-generating Id server-side, remove this field and contact_center_id from the method_signature of Create RPC
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes since the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
       tags:
         - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactCenter'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1alpha1/{+parent}/contactCenters
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}/contactCenters
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. Value for parent.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: contactcenteraiplatform.projects.locations.contactCenters.list
+      description: Lists ContactCenters in a given project and location.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. Parent value for ListContactCentersRequest
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. Parent value for ListContactCentersRequest
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filtering results
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+          description: Hint for how to order the results
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: Requested page size. Server may return fewer items than requested. If unspecified, server will pick an appropriate default.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A token identifying a page of results the server should return.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListContactCentersResponse'
+      x-google-discovery:
+        path: v1alpha1/{+parent}/contactCenters
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}/contactCenters
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. Parent value for ListContactCentersRequest
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha1/projects/{projectsId}/locations/{locationsId}/contactCenters/{contactCentersId}:
+    delete:
+      operationId: contactcenteraiplatform.projects.locations.contactCenters.delete
+      description: Deletes a single ContactCenter.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource
+          schema:
+            type: string
+        - name: contactCentersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource
+          schema:
+            type: string
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes after the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1alpha1/{+name}
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}/contactCenters/{contactCentersId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          contactCentersId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the resource
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/contactCenters/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: contactcenteraiplatform.projects.locations.contactCenters.get
+      description: Gets details of a single ContactCenter.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource
+          schema:
+            type: string
+        - name: contactCentersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. Name of the resource
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactCenter'
+      x-google-discovery:
+        path: v1alpha1/{+name}
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}/contactCenters/{contactCentersId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          contactCentersId: name
+        resourceNameParameters:
+          name:
+            description: Required. Name of the resource
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/contactCenters/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: contactcenteraiplatform.projects.locations.contactCenters.patch
+      description: Updates the parameters of a single ContactCenter.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. name of resource
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. name of resource
+          schema:
+            type: string
+        - name: contactCentersId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. name of resource
+          schema:
+            type: string
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          description: Optional. An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. The server will guarantee that for at least 60 minutes since the first request. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. Field mask is used to specify the fields to be overwritten in the ContactCenter resource by the update. The fields specified in the update_mask are relative to the resource, not the full request. A field will be overwritten if it is in the mask. If the user does not provide a mask then all fields will be overwritten.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactCenter'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1alpha1/{+name}
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}/contactCenters/{contactCentersId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          contactCentersId: name
+        resourceNameParameters:
+          name:
+            description: name of resource
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/contactCenters/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel:
+    post:
+      operationId: contactcenteraiplatform.projects.locations.operations.cancel
+      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelOperationRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1alpha1/{+name}:cancel
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be cancelled.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:
+    delete:
+      operationId: contactcenteraiplatform.projects.locations.operations.delete
+      description: Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1alpha1/{+name}
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be deleted.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: contactcenteraiplatform.projects.locations.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1alpha1/{+name}
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1alpha1/projects/{projectsId}/locations/{locationsId}/operations:
+    get:
+      operationId: contactcenteraiplatform.projects.locations.operations.list
+      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The standard list filter.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The standard list page size.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: The standard list page token.
+        - name: returnPartialSuccess
+          in: query
+          schema:
+            type: boolean
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the ListOperationsResponse.unreachable field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"`. This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+      tags:
+        - projects
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1alpha1/{+name}/operations
+        flatPath: v1alpha1/projects/{projectsId}/locations/{locationsId}/operations
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation's parent resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     AdminUser:
-      description: "Message storing info about the first admin user. Next ID: 3"
+      description: 'Message storing info about the first admin user. Next ID: 3'
+      x-google-discovery-id: AdminUser
       properties:
         familyName:
           description: Optional. Last/family name of the first admin user.
@@ -501,14 +901,33 @@ components:
       type: object
     CancelOperationRequest:
       description: The request message for Operations.CancelOperation.
+      x-google-discovery-id: CancelOperationRequest
       properties: {}
       type: object
+    Component:
+      description: Defines a logical CCAIP component that e.g. “EMAIL”, "CRM". For more information see go/ccaip-private-path-v2. Each logical component is associated with a list of service attachments.
+      x-google-discovery-id: Component
+      properties:
+        name:
+          description: Name of the component.
+          type: string
+        serviceAttachmentNames:
+          description: 'Associated service attachments. The service attachment names that will be used for sending private traffic to the CCAIP tenant project. Example service attachment name: "projects/${TENANT_PROJECT_ID}/regions/${REGION}/serviceAttachments/ingress-default".'
+          items:
+            type: string
+          type: array
+      type: object
     ContactCenter:
-      description: "Message describing ContactCenter object Next ID: 20"
+      description: Message describing ContactCenter object
+      x-google-discovery-id: ContactCenter
       properties:
         adminUser:
-          $ref: "#/components/schemas/AdminUser"
           description: Optional. Info about the first admin user, such as given name and family name.
+          allOf:
+            - $ref: '#/components/schemas/AdminUser'
+        advancedReportingEnabled:
+          description: Optional. Whether the advanced reporting feature is enabled.
+          type: boolean
         ccaipManagedUsers:
           description: Optional. Whether to enable users to be created in the CCAIP-instance concurrently to having users in Cloud identity
           type: boolean
@@ -517,15 +936,38 @@ components:
           format: google-datetime
           readOnly: true
           type: string
+        critical:
+          description: Optional. Critical release channel.
+          allOf:
+            - $ref: '#/components/schemas/Critical'
         customerDomainPrefix:
           description: Required. Immutable. At least 2 and max 16 char long, must conform to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt).
+          type: string
+        deleteTime:
+          description: Output only. Timestamp in UTC of when this resource was soft-deleted.
+          format: google-datetime
+          readOnly: true
           type: string
         displayName:
           description: Required. A user friendly name for the ContactCenter.
           type: string
+        early:
+          description: Optional. Early release channel.
+          allOf:
+            - $ref: '#/components/schemas/Early'
+        expireTime:
+          description: Output only. Timestamp in UTC of when this resource is considered expired.
+          format: google-datetime
+          readOnly: true
+          type: string
+        featureConfig:
+          description: Optional. Feature configuration to populate the feature flags.
+          allOf:
+            - $ref: '#/components/schemas/FeatureConfig'
         instanceConfig:
-          $ref: "#/components/schemas/InstanceConfig"
           description: The configuration of this instance, it is currently immutable once created.
+          allOf:
+            - $ref: '#/components/schemas/InstanceConfig'
         kmsKey:
           description: Immutable. The KMS key name to encrypt the user input (`ContactCenter`).
           type: string
@@ -537,15 +979,33 @@ components:
         name:
           description: name of resource
           type: string
+        normal:
+          description: Optional. Normal release channel.
+          allOf:
+            - $ref: '#/components/schemas/Normal'
+        privateAccess:
+          description: Optional. VPC-SC related networking configuration.
+          allOf:
+            - $ref: '#/components/schemas/PrivateAccess'
         privateComponents:
-          description: Output only. A list of UJET components that should be privately accessed. This field is set by reading settings from the data plane. For more information about the format of the component please refer to go/ccaip-vpc-sc-org-policy. This field is must be fully populated only for Create/Update resource operations. The main use case for this field is OrgPolicy checks via CPE.
+          description: Output only. TODO(b/283407860) Deprecate this field.
           items:
             type: string
           readOnly: true
           type: array
+        purgeTime:
+          description: Output only. Timestamp in UTC of when this resource is going to be hard-deleted.
+          format: google-datetime
+          readOnly: true
+          type: string
+        releaseVersion:
+          description: Output only. UJET release version, unique for each new release.
+          readOnly: true
+          type: string
         samlParams:
-          $ref: "#/components/schemas/SAMLParams"
           description: Optional. Params that sets up Google as IdP.
+          allOf:
+            - $ref: '#/components/schemas/SAMLParams'
         state:
           description: Output only. The state of this contact center.
           enum:
@@ -557,6 +1017,23 @@ components:
             - STATE_TERMINATING_FAILED
             - STATE_TERMINATED
             - STATE_IN_GRACE_PERIOD
+            - STATE_FAILING_OVER
+            - STATE_DEGRADED
+            - STATE_REPAIRING
+            - STATE_EXPIRING
+          x-google-enum-descriptions:
+            - The default value. This value is used if the state is omitted.
+            - State DEPLOYING
+            - State DEPLOYED
+            - State TERMINATING
+            - State FAILED
+            - State TERMINATING_FAILED
+            - Reused for soft-deleted state because semantically equivalent to `DELETED` as implied by go/aip/164.
+            - State IN_GRACE_PERIOD
+            - State in STATE_FAILING_OVER. This State must ONLY be used by Multiregional Instances when a failover was triggered. Customers are not able to update instances in this state.
+            - State DEGRADED. This State must ONLY be used by Multiregional Instances after a failover was executed successfully. Customers are not able to update instances in this state.
+            - State REPAIRING. This State must ONLY be used by Multiregional Instances after a fallback was triggered. Customers are not able to update instancs in this state.
+            - Flagged by an automation as soon to be expired.
           readOnly: true
           type: string
         updateTime:
@@ -565,45 +1042,203 @@ components:
           readOnly: true
           type: string
         uris:
-          $ref: "#/components/schemas/URIs"
           description: Output only. URIs to access the deployed ContactCenters.
           readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/URIs'
         userEmail:
           description: Optional. Email address of the first admin user.
           type: string
       type: object
     ContactCenterQuota:
       description: Represents a quota for contact centers.
+      x-google-discovery-id: ContactCenterQuota
       properties:
         contactCenterCountLimit:
           deprecated: true
-          description: "Deprecated: Use the Quota fields instead. Reflects the count limit of contact centers on a billing account."
+          description: 'Deprecated: Use the Quota fields instead. Reflects the count limit of contact centers on a billing account.'
           format: int32
           type: integer
         contactCenterCountSum:
           deprecated: true
-          description: "Deprecated: Use the Quota fields instead. Reflects the count sum of contact centers on a billing account."
+          description: 'Deprecated: Use the Quota fields instead. Reflects the count sum of contact centers on a billing account.'
           format: int32
           type: integer
         quotas:
           description: Quota details per contact center instance type.
           items:
-            $ref: "#/components/schemas/Quota"
+            $ref: '#/components/schemas/Quota'
+          type: array
+      type: object
+    Critical:
+      description: Instances in this Channel will receive updates after all instances in `Normal` were updated. They also will only be updated outside of their peak hours.
+      x-google-discovery-id: Critical
+      properties:
+        peakHours:
+          description: Required. Hours during which the instance should not be updated.
+          items:
+            $ref: '#/components/schemas/WeeklySchedule'
+          type: array
+      type: object
+    Date:
+      description: 'Represents a whole or partial calendar date, such as a birthday. The time of day and time zone are either specified elsewhere or are insignificant. The date is relative to the Gregorian Calendar. This can represent one of the following: * A full date, with non-zero year, month, and day values. * A month and day, with a zero year (for example, an anniversary). * A year on its own, with a zero month and a zero day. * A year and month, with a zero day (for example, a credit card expiration date). Related types: * google.type.TimeOfDay * google.type.DateTime * google.protobuf.Timestamp'
+      x-google-discovery-id: Date
+      properties:
+        day:
+          description: Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant.
+          format: int32
+          type: integer
+        month:
+          description: Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day.
+          format: int32
+          type: integer
+        year:
+          description: Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year.
+          format: int32
+          type: integer
+      type: object
+    DateList:
+      description: List of dates.
+      x-google-discovery-id: DateList
+      properties:
+        values:
+          description: Optional. Values in the list.
+          items:
+            $ref: '#/components/schemas/Date'
+          type: array
+      type: object
+    DateTime:
+      description: 'Represents civil time (or occasionally physical time). This type can represent a civil time in one of a few possible ways: * When utc_offset is set and time_zone is unset: a civil time on a calendar day with a particular offset from UTC. * When time_zone is set and utc_offset is unset: a civil time on a calendar day in a particular time zone. * When neither time_zone nor utc_offset is set: a civil time on a calendar day in local time. The date is relative to the Proleptic Gregorian Calendar. If year, month, or day are 0, the DateTime is considered not to have a specific year, month, or day respectively. This type may also be used to represent a physical time if all the date and time fields are set and either case of the `time_offset` oneof is set. Consider using `Timestamp` message for physical time instead. If your use case also would like to store the user''s timezone, that can be done in another field. This type is more flexible than some applications may want. Make sure to document and validate your application''s limitations.'
+      x-google-discovery-id: DateTime
+      properties:
+        day:
+          description: Optional. Day of month. Must be from 1 to 31 and valid for the year and month, or 0 if specifying a datetime without a day.
+          format: int32
+          type: integer
+        hours:
+          description: Optional. Hours of day in 24 hour format. Should be from 0 to 23, defaults to 0 (midnight). An API may choose to allow the value "24:00:00" for scenarios like business closing time.
+          format: int32
+          type: integer
+        minutes:
+          description: Optional. Minutes of hour of day. Must be from 0 to 59, defaults to 0.
+          format: int32
+          type: integer
+        month:
+          description: Optional. Month of year. Must be from 1 to 12, or 0 if specifying a datetime without a month.
+          format: int32
+          type: integer
+        nanos:
+          description: Optional. Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999, defaults to 0.
+          format: int32
+          type: integer
+        seconds:
+          description: Optional. Seconds of minutes of the time. Must normally be from 0 to 59, defaults to 0. An API may allow the value 60 if it allows leap-seconds.
+          format: int32
+          type: integer
+        timeZone:
+          description: Time zone.
+          allOf:
+            - $ref: '#/components/schemas/TimeZone'
+        utcOffset:
+          description: 'UTC offset. Must be whole seconds, between -18 hours and +18 hours. For example, a UTC offset of -4:00 would be represented as { seconds: -14400 }.'
+          format: google-duration
+          type: string
+        year:
+          description: Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a datetime without a year.
+          format: int32
+          type: integer
+      type: object
+    Early:
+      description: LINT.IfChange First Channel to receive the updates. Meant to dev/test instances
+      x-google-discovery-id: Early
+      properties: {}
+      type: object
+    EmployeeInfo:
+      description: Information about a particular employee for planning purposes.
+      x-google-discovery-id: EmployeeInfo
+      properties:
+        id:
+          description: Required. Unique ID of this employee.
+          type: string
+        unwantedEventIntervals:
+          description: Optional. A list of unwanted event intervals for this employee. The start time of the interval must be in the planning horizon.
+          items:
+            $ref: '#/components/schemas/UnwantedEventInterval'
           type: array
       type: object
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
+      type: object
+    EventTemplate:
+      description: Template specifying rules for generating a single event that occurs during a shift. An event may represent a meeting, break, lunch, etc.
+      x-google-discovery-id: EventTemplate
+      properties:
+        durationMinutes:
+          description: Required. Fixed duration in minutes of this event.
+          format: int32
+          type: integer
+        id:
+          description: Required. Unique ID of this template.
+          type: string
+        maximumMinutesAfterShiftStart:
+          description: Optional. Maximum number of minutes after the beginning of a shift that this event can start.
+          format: int32
+          type: integer
+        minimumMinutesAfterShiftStart:
+          description: Optional. Minimum number of minutes after the beginning of a shift that this event can start.
+          format: int32
+          type: integer
+        startTimeIncrementMinutes:
+          description: Required. The time increment (in minutes) used to generate the set of possible event start times between `minimum_minutes_after_shift_start` and `maximum_minutes_after_shift_start`. For example, if the minimum minutes after shift start are 30, maximum minutes after shift start are 45, and the start time increment is 5 minutes, the event can take place 30, 35, 40, or 45 minutes after the start of the shift.
+          format: int32
+          type: integer
+      type: object
+    FeatureConfig:
+      x-google-discovery-id: FeatureConfig
+      properties:
+        agentDesktopEnabled:
+          description: Optional. If true - enables the agent desktop feature. Default is false.
+          type: boolean
+      type: object
+    GenerateShiftsRequest:
+      description: Request with constraints for generating shifts. The shifts generated must adhere to these constraints.
+      x-google-discovery-id: GenerateShiftsRequest
+      properties:
+        employeeInfo:
+          description: Optional. Employee information that should be considered when generating shifts.
+          items:
+            $ref: '#/components/schemas/EmployeeInfo'
+          type: array
+        planningHorizon:
+          description: Required. The solver will generate the maximum number of shifts per shift template.
+          allOf:
+            - $ref: '#/components/schemas/PlanningHorizon'
+        shiftTemplates:
+          description: Required. Set of shift templates specifying rules for generating shifts. A shift template can be used for generating multiple shifts.
+          items:
+            $ref: '#/components/schemas/ShiftTemplate'
+          type: array
+        solverConfig:
+          description: Required. Parameters for the solver.
+          allOf:
+            - $ref: '#/components/schemas/SolverConfig'
+        workforceDemands:
+          description: Required. All the workforce demands that the generated shifts need to cover. The planning horizon is defined between the earliest start time and the latest end time across all the entries. This field cannot be empty.
+          allOf:
+            - $ref: '#/components/schemas/WorkforceDemandList'
       type: object
     GoogleCloudCommonOperationMetadata:
       description: Represents the metadata of the long-running operation.
+      x-google-discovery-id: GoogleCloudCommonOperationMetadata
       properties:
         apiVersion:
           description: Output only. API version used to start the operation.
           readOnly: true
           type: string
         cancelRequested:
-          description: Output only. Identifies whether the user has requested cancellation of the operation. Operations that have been cancelled successfully have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
+          description: Output only. Identifies whether the user has requested cancellation of the operation. Operations that have been cancelled successfully have google.longrunning.Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
           readOnly: true
           type: boolean
         createTime:
@@ -631,6 +1266,7 @@ components:
       type: object
     InstanceConfig:
       description: Message storing the instance configuration.
+      x-google-discovery-id: InstanceConfig
       properties:
         instanceSize:
           description: The instance size of this the instance configuration.
@@ -642,16 +1278,44 @@ components:
             - STANDARD_XLARGE
             - STANDARD_2XLARGE
             - STANDARD_3XLARGE
-            - DEV_XSMALL
+            - MULTIREGION_SMALL
+            - MULTIREGION_MEDIUM
+            - MULTIREGION_LARGE
+            - MULTIREGION_XLARGE
+            - MULTIREGION_2XLARGE
+            - MULTIREGION_3XLARGE
+            - DEV_SMALL
+            - SANDBOX_SMALL
+            - TRIAL_SMALL
+            - TIME_LIMITED_TRIAL_SMALL
+          x-google-enum-descriptions:
+            - The default value. This value is used if the state is omitted.
+            - Instance Size STANDARD_SMALL.
+            - Instance Size STANDARD_MEDIUM.
+            - Instance Size STANDARD_LARGE.
+            - Instance Size STANDARD_XLARGE.
+            - Instance Size STANDARD_2XLARGE.
+            - Instance Size STANDARD_3XLARGE.
+            - Instance Size MULTIREGION_SMALL
+            - Instance Size MULTIREGION_MEDIUM
+            - Instance Size MULTIREGION_LARGE
+            - Instance Size MULTIREGION_XLARGE
+            - Instance Size MULTIREGION_2XLARGE.
+            - Instance Size MULTIREGION_3XLARGE.
+            - Instance Size DEV_SMALL
+            - Instance Size SANDBOX_SMALL
+            - Instance Size TRIAL_SMALL
+            - Instance Size TIME_LIMITED_TRIAL_SMALL
           type: string
       type: object
     ListContactCentersResponse:
       description: Message for response to listing ContactCenters
+      x-google-discovery-id: ListContactCentersResponse
       properties:
         contactCenters:
           description: The list of ContactCenter
           items:
-            $ref: "#/components/schemas/ContactCenter"
+            $ref: '#/components/schemas/ContactCenter'
           type: array
         nextPageToken:
           description: A token identifying a page of results the server should return.
@@ -664,11 +1328,12 @@ components:
       type: object
     ListLocationsResponse:
       description: The response message for Locations.ListLocations.
+      x-google-discovery-id: ListLocationsResponse
       properties:
         locations:
           description: A list of locations that matches the specified filter in the request.
           items:
-            $ref: "#/components/schemas/Location"
+            $ref: '#/components/schemas/Location'
           type: array
         nextPageToken:
           description: The standard List next-page token.
@@ -676,6 +1341,7 @@ components:
       type: object
     ListOperationsResponse:
       description: The response message for Operations.ListOperations.
+      x-google-discovery-id: ListOperationsResponse
       properties:
         nextPageToken:
           description: The standard List next-page token.
@@ -683,11 +1349,17 @@ components:
         operations:
           description: A list of operations that matches the specified filter in the request.
           items:
-            $ref: "#/components/schemas/Operation"
+            $ref: '#/components/schemas/Operation'
+          type: array
+        unreachable:
+          description: Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections. For example, when attempting to list all resources across all supported locations.
+          items:
+            type: string
           type: array
       type: object
     Location:
       description: A resource that represents a Google Cloud location.
+      x-google-discovery-id: Location
       properties:
         displayName:
           description: The friendly name for this location, typically a nearby city name. For example, "Tokyo".
@@ -703,24 +1375,33 @@ components:
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata. For example the available capacity at the given location.
           type: object
         name:
           description: 'Resource name for the location, which may vary between implementations. For example: `"projects/example-project/locations/us-east1"`'
           type: string
       type: object
+    Normal:
+      description: Instances in this Channel will receive updates after all instances in `Early` were updated + 2 days.
+      x-google-discovery-id: Normal
+      properties: {}
+      type: object
     Operation:
       description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
       properties:
         done:
           description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
           type: boolean
         error:
-          $ref: "#/components/schemas/Status"
           description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
           type: object
         name:
@@ -729,19 +1410,22 @@ components:
         response:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
           type: object
       type: object
     OperationMetadata:
       description: Represents the metadata of the long-running operation.
+      x-google-discovery-id: OperationMetadata
       properties:
         apiVersion:
           description: Output only. API version used to start the operation.
           readOnly: true
           type: string
         contactCenter:
-          $ref: "#/components/schemas/ContactCenter"
           description: Contact center information for this request
+          allOf:
+            - $ref: '#/components/schemas/ContactCenter'
         createTime:
           description: Output only. The time the operation was created.
           format: google-datetime
@@ -769,8 +1453,57 @@ components:
           readOnly: true
           type: string
       type: object
+    PlanningHorizon:
+      description: Specifies the time interval during which the solver should generate shifts. The start time must be before the end time.
+      x-google-discovery-id: PlanningHorizon
+      properties:
+        endTime:
+          description: Required. End of the time interval for the given demand (exclusive). These values are read down to the minute; seconds and all smaller units are ignored.
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+        startTime:
+          description: Required. Start of the time interval for the given demand (inclusive). These values are read down to the minute; seconds and all smaller units are ignored.
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+      type: object
+    PrivateAccess:
+      description: Defines ingress and egress private traffic settings for CCAIP instances.
+      x-google-discovery-id: PrivateAccess
+      properties:
+        egressSettings:
+          description: List of egress components that should not be accessed via the Internet. For more information see go/ccaip-private-path-v2.
+          items:
+            $ref: '#/components/schemas/Component'
+          type: array
+        ingressSettings:
+          description: List of ingress components that should not be accessed via the Internet. For more information see go/ccaip-private-path-v2.
+          items:
+            $ref: '#/components/schemas/Component'
+          type: array
+        pscSetting:
+          description: Private service connect settings.
+          allOf:
+            - $ref: '#/components/schemas/PscSetting'
+      type: object
+    PscSetting:
+      description: Private service connect settings.
+      x-google-discovery-id: PscSetting
+      properties:
+        allowedConsumerProjectIds:
+          description: The list of project ids that are allowed to send traffic to the service attachment. This field should be filled only for the ingress components.
+          items:
+            type: string
+          type: array
+        producerProjectIds:
+          description: Output only. The CCAIP tenant project ids.
+          items:
+            type: string
+          readOnly: true
+          type: array
+      type: object
     Quota:
       description: Quota details.
+      x-google-discovery-id: Quota
       properties:
         contactCenterCountLimit:
           description: Reflects the count limit of contact centers on a billing account.
@@ -790,12 +1523,97 @@ components:
             - STANDARD_XLARGE
             - STANDARD_2XLARGE
             - STANDARD_3XLARGE
-            - DEV_XSMALL
+            - MULTIREGION_SMALL
+            - MULTIREGION_MEDIUM
+            - MULTIREGION_LARGE
+            - MULTIREGION_XLARGE
+            - MULTIREGION_2XLARGE
+            - MULTIREGION_3XLARGE
+            - DEV_SMALL
+            - SANDBOX_SMALL
+            - TRIAL_SMALL
+            - TIME_LIMITED_TRIAL_SMALL
+          x-google-enum-descriptions:
+            - The default value. This value is used if the state is omitted.
+            - Instance Size STANDARD_SMALL.
+            - Instance Size STANDARD_MEDIUM.
+            - Instance Size STANDARD_LARGE.
+            - Instance Size STANDARD_XLARGE.
+            - Instance Size STANDARD_2XLARGE.
+            - Instance Size STANDARD_3XLARGE.
+            - Instance Size MULTIREGION_SMALL
+            - Instance Size MULTIREGION_MEDIUM
+            - Instance Size MULTIREGION_LARGE
+            - Instance Size MULTIREGION_XLARGE
+            - Instance Size MULTIREGION_2XLARGE.
+            - Instance Size MULTIREGION_3XLARGE.
+            - Instance Size DEV_SMALL
+            - Instance Size SANDBOX_SMALL
+            - Instance Size TRIAL_SMALL
+            - Instance Size TIME_LIMITED_TRIAL_SMALL
           type: string
       type: object
     SAMLParams:
       description: Message storing SAML params to enable Google as IDP.
+      x-google-discovery-id: SAMLParams
       properties:
+        authenticationContexts:
+          description: Additional contexts used for authentication.
+          items:
+            enum:
+              - AUTHENTICATION_CONTEXT_UNSPECIFIED
+              - INTERNET_PROTOCOL
+              - INTERNET_PROTOCOL_PASSWORD
+              - KERBEROS
+              - MOBILE_ONE_FACTOR_UNREGISTERED
+              - MOBILE_TWO_FACTOR_UNREGISTERED
+              - MOBILE_ONE_FACTOR_CONTRACT
+              - MOBILE_TWO_FACTOR_CONTRACT
+              - PASSWORD
+              - PASSWORD_PROTECTED_TRANSPORT
+              - PREVIOUS_SESSION
+              - PUBLIC_KEY_X509
+              - PUBLIC_KEY_PGP
+              - PUBLIC_KEY_SPKI
+              - PUBLIC_KEY_XML_DIGITAL_SIGNATURE
+              - SMARTCARD
+              - SMARTCARD_PKI
+              - SOFTWARE_PKI
+              - TELEPHONY
+              - TELEPHONY_NOMADIC
+              - TELEPHONY_PERSONALIZED
+              - TELEPHONY_AUTHENTICATED
+              - SECURE_REMOTE_PASSWORD
+              - SSL_TLS_CERTIFICATE_BASED
+              - TIME_SYNC_TOKEN
+            x-google-enum-descriptions:
+              - The Unspecified class indicates that the authentication was performed by unspecified means.
+              - The Internet Protocol class is applicable when a principal is authenticated through the use of a provided IP address.
+              - The Internet Protocol Password class is applicable when a principal is authenticated through the use of a provided IP address, in addition to a username/password.
+              - This class is applicable when the principal has authenticated using a password to a local authentication authority, in order to acquire a Kerberos ticket. That Kerberos ticket is then used for subsequent network authentication.
+              - Reflects no mobile customer registration procedures and an authentication of the mobile device without requiring explicit end-user interaction. This context class authenticates only the device and never the user; it is useful when services other than the mobile operator want to add a secure device authentication to their authentication process.
+              - Reflects no mobile customer registration procedures and a two-factor based authentication, such as secure device and user PIN. This context class is useful when a service other than the mobile operator wants to link their customer ID to a mobile supplied two-factor authentication service by capturing mobile phone data at enrollment.
+              - Reflects mobile contract customer registration procedures and a single factor authentication. For example, a digital signing device with tamper resistant memory for key storage, such as the mobile MSISDN, but no required PIN or biometric for real-time user authentication.
+              - Reflects mobile contract customer registration procedures and a two-factor based authentication. For example, a digital signing device with tamper resistant memory for key storage, such as a GSM SIM, that requires explicit proof of user identity and intent, such as a PIN or biometric.
+              - The Password class is applicable when a principal authenticates to an authentication authority through the presentation of a password over an unprotected HTTP session.
+              - The PasswordProtectedTransport class is applicable when a principal authenticates to an authentication authority through the presentation of a password over a protected session.
+              - The PreviousSession class is applicable when a principal had authenticated to an authentication authority at some point in the past using any authentication context supported by that authentication authority
+              - The X509 context class indicates that the principal authenticated by means of a digital signature where the key was validated as part of an X.509 Public Key Infrastructure.
+              - The PGP context class indicates that the principal authenticated by means of a digital signature where the key was validated as part of a PGP Public Key Infrastructure.
+              - The SPKI context class indicates that the principal authenticated by means of a digital signature where the key was validated via an SPKI Infrastructure.
+              - This context class indicates that the principal authenticated by means of a digital signature according to the processing rules specified in the XML Digital Signature specification [XMLSig].
+              - The Smartcard class is identified when a principal authenticates to an authentication authority using a smartcard.
+              - The SmartcardPKI class is applicable when a principal authenticates to an authentication authority through a two-factor authentication mechanism using a smartcard with enclosed private key and a PIN.
+              - The Software-PKI class is applicable when a principal uses an X.509 certificate stored in software to authenticate to the authentication authority.
+              - This class is used to indicate that the principal authenticated via the provision of a fixed-line telephone number, transported via a telephony protocol such as ADSL.
+              - Indicates that the principal is "roaming" (perhaps using a phone card) and authenticates via the means of the line number, a user suffix, and a password element.
+              - This class is used to indicate that the principal authenticated via the provision of a fixed-line telephone number and a user suffix, transported via a telephony protocol such as ADSL.
+              - Indicates that the principal authenticated via the means of the line number, a user suffix, and a password element.
+              - The Secure Remote Password class is applicable when the authentication was performed by means of Secure Remote Password as specified in [RFC 2945].
+              - This class indicates that the principal authenticated by means of a client certificate, secured with the SSL/TLS transport.
+              - The TimeSyncToken class is applicable when a principal authenticates through a time synchronization token.
+            type: string
+          type: array
         certificate:
           description: SAML certificate
           type: string
@@ -813,8 +1631,85 @@ components:
           description: Email address of the first admin users.
           type: string
       type: object
+    ShiftTemplate:
+      description: Template specifying rules for generating shifts. A shift is a unit of work that specifies a start time, end time, and may contain events (e.g. lunch, breaks etc.). Shifts will be assigned to specific dates in the response.
+      x-google-discovery-id: ShiftTemplate
+      properties:
+        assignableEmployeeIds:
+          description: Optional. A list of specific employee IDs that can be assigned to shifts generated by this template. If this field is present, there will be `EmployeeSchedule`s in the response for which the `EmployeeSchedule.employee_id` field is set to one of the IDs in this list. The number of employee schedules with an assigned employee ID will be between `minimum_employee_count` and `maximum_employee_count`. If this field is empty, between `minimum_employee_count` and `maximum_employee_count` employees can be assigned to shifts generated by this template and the employee schedules won't have an assigned employee ID. Currently, only one assignable employee ID is supported.
+          items:
+            type: string
+          type: array
+        daysOffCountPerWeek:
+          description: Optional. Fixed number of days off per week. An employee has a given day off if they are not assigned to a shift that starts on that day. A week is 7 days and begins on Sunday.
+          format: int32
+          type: integer
+        daysOffDates:
+          description: Optional. Fixed dates when shifts from this template should not be generated.
+          allOf:
+            - $ref: '#/components/schemas/DateList'
+        durationMinutes:
+          description: Required. Fixed duration of a shift generated by this template.
+          format: int32
+          type: integer
+        earliestStartTime:
+          description: Required. Earliest time in the day that a shift can start. This value is specified with hours and minutes; seconds and nanos are ignored.
+          allOf:
+            - $ref: '#/components/schemas/TimeOfDay'
+        eventTemplates:
+          description: Optional. Rules for generating events for each shift. Exactly one event will be included in each shift for each `EventTemplate` specified.
+          items:
+            $ref: '#/components/schemas/EventTemplate'
+          type: array
+        id:
+          description: Required. Unique ID of this template.
+          type: string
+        latestStartTime:
+          description: Required. Latest time in the day that a shift can start. This value is specified with hours and minutes; seconds and nanos are ignored. If this value is less than the `earliest_start_time`, it may imply an overnight shift.
+          allOf:
+            - $ref: '#/components/schemas/TimeOfDay'
+        maximumEmployeeCount:
+          description: Required. Maximum number of employees that can be assigned to all shifts generated by this template on working days.
+          format: int32
+          type: integer
+        minimumEmployeeCount:
+          description: Optional. Minimum number of employees that can be assigned to all shifts generated by this template on working days.
+          format: int32
+          type: integer
+        minimumIntereventGapMinutes:
+          description: Optional. Minimum minutes between the end of one event and the start of the next.
+          format: int32
+          type: integer
+        startTimeIncrementMinutes:
+          description: 'Optional. The time increment (in minutes) used to generate the set of possible start times between `earliest_start_time` and `latest_start_time`. For example, if the earliest start time is 8:00, the latest start time is 8:30, and the start time increment is 10 minutes, then all possible start times for this shift template are: 8:00, 8:10, 8:20, and 8:30.'
+          format: int32
+          type: integer
+      type: object
+    SolverConfig:
+      description: Specifies additional parameters for the solver generating shifts.
+      x-google-discovery-id: SolverConfig
+      properties:
+        maximumProcessingDuration:
+          description: 'Optional. Maximum time the solver should spend on the problem. If not set, defaults to 1 minute. The choice of a time limit should depend on the size of the problem. To give an example, when solving a 7-day instance with 2 `ShiftTemplates`, each with ~20 possible start times and holding 2 events with ~30 possible start times, and two days off per week, recommended values are: <10s for fast solutions (and likely suboptimal), (10s, 300s) for good quality solutions, and >300s for an exhaustive search. Larger instances may require longer time limits. This value is not a hard limit and it does not account for the communication overhead. The expected latency to solve the problem may slightly exceed this value.'
+          format: google-duration
+          type: string
+        scheduleType:
+          description: Required. Specifies the type of schedule to generate.
+          enum:
+            - SCHEDULE_TYPE_UNSPECIFIED
+            - SINGLE_SHIFT
+            - WEEKLY_WITH_FIXED_EVENTS
+            - WEEKLY_WITH_VARIABLE_EVENTS
+          x-google-enum-descriptions:
+            - Unspecified schedule type. Should not be used.
+            - Each `EmployeeSchedule` will include exactly one shift.
+            - '`EmployeeSchedule`s will include several shifts to generate a week-long schedule. The start and end time of events in a particular `EmployeeSchedule` will be identical. All the shifts have the same start and end time.'
+            - '`EmployeeSchedule`s will include several shifts to generate a week-long schedule. The start and end time of events in a particular `EmployeeSchedule` can vary. All the shifts have the same start and end time. This option may result in longer solve times.'
+          type: string
+      type: object
     Status:
-      description: "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors)."
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
       properties:
         code:
           description: The status code, which should be an enum value of google.rpc.Code.
@@ -825,14 +1720,48 @@ components:
           items:
             additionalProperties:
               description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
             type: object
           type: array
         message:
           description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
           type: string
       type: object
+    TimeOfDay:
+      description: Represents a time of day. The date and time zone are either not significant or are specified elsewhere. An API may choose to allow leap seconds. Related types are google.type.Date and `google.protobuf.Timestamp`.
+      x-google-discovery-id: TimeOfDay
+      properties:
+        hours:
+          description: Hours of a day in 24 hour format. Must be greater than or equal to 0 and typically must be less than or equal to 23. An API may choose to allow the value "24:00:00" for scenarios like business closing time.
+          format: int32
+          type: integer
+        minutes:
+          description: Minutes of an hour. Must be greater than or equal to 0 and less than or equal to 59.
+          format: int32
+          type: integer
+        nanos:
+          description: Fractions of seconds, in nanoseconds. Must be greater than or equal to 0 and less than or equal to 999,999,999.
+          format: int32
+          type: integer
+        seconds:
+          description: Seconds of a minute. Must be greater than or equal to 0 and typically must be less than or equal to 59. An API may allow the value 60 if it allows leap-seconds.
+          format: int32
+          type: integer
+      type: object
+    TimeZone:
+      description: Represents a time zone from the [IANA Time Zone Database](https://www.iana.org/time-zones).
+      x-google-discovery-id: TimeZone
+      properties:
+        id:
+          description: IANA Time Zone Database time zone. For example "America/New_York".
+          type: string
+        version:
+          description: Optional. IANA Time Zone Database version number. For example "2019a".
+          type: string
+      type: object
     URIs:
       description: Message storing the URIs of the ContactCenter.
+      x-google-discovery-id: URIs
       properties:
         chatBotUri:
           description: Chat Bot Uri of the ContactCenter
@@ -847,21 +1776,203 @@ components:
           description: Virtual Agent Streaming Service Uri of the ContactCenter.
           type: string
       type: object
+    UnwantedEventInterval:
+      description: Specifies a time interval during which the overlap with events (generated from event templates) should be minimal.
+      x-google-discovery-id: UnwantedEventInterval
+      properties:
+        durationMinutes:
+          description: Required. Duration of the event.
+          format: int32
+          type: integer
+        startTime:
+          description: Required. Start time of the event.
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+      type: object
+    WeeklySchedule:
+      description: Message representing a weekly schedule.
+      x-google-discovery-id: WeeklySchedule
+      properties:
+        days:
+          description: Required. Days of the week this schedule applies to.
+          items:
+            enum:
+              - DAY_OF_WEEK_UNSPECIFIED
+              - MONDAY
+              - TUESDAY
+              - WEDNESDAY
+              - THURSDAY
+              - FRIDAY
+              - SATURDAY
+              - SUNDAY
+            x-google-enum-descriptions:
+              - The day of the week is unspecified.
+              - Monday
+              - Tuesday
+              - Wednesday
+              - Thursday
+              - Friday
+              - Saturday
+              - Sunday
+            type: string
+          type: array
+        duration:
+          description: Optional. Duration of the schedule.
+          format: google-duration
+          type: string
+        endTime:
+          description: Optional. Daily end time of the schedule. If `end_time` is before `start_time`, the schedule will be considered as ending on the next day.
+          allOf:
+            - $ref: '#/components/schemas/TimeOfDay'
+        startTime:
+          description: Required. Daily start time of the schedule.
+          allOf:
+            - $ref: '#/components/schemas/TimeOfDay'
+      type: object
+    WorkforceDemand:
+      description: Specifies the number of employees required to cover the demand in the given time interval. The length of the interval must be strictly positive.
+      x-google-discovery-id: WorkforceDemand
+      properties:
+        employeeCount:
+          description: Optional. Number of employees needed to cover the demand for this interval.
+          format: int32
+          type: integer
+        endTime:
+          description: Required. End of the time interval for the given demand (exclusive). These values are read down to the minute; seconds and all smaller units are ignored.
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+        startTime:
+          description: Required. Start of the time interval for the given demand (inclusive). These values are read down to the minute; seconds and all smaller units are ignored.
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+      type: object
+    WorkforceDemandList:
+      description: List of workforce demands.
+      x-google-discovery-id: WorkforceDemandList
+      properties:
+        values:
+          description: Optional. Values in the list.
+          items:
+            $ref: '#/components/schemas/WorkforceDemand'
+          type: array
+      type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/solutions/contact-center-ai-platform
+tags:
+  - name: projects
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://contactcenteraiplatform.googleapis.com/
+  batchPath: batch
+  canonicalName: CCAI Platform
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: contactcenteraiplatform:v1alpha1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://contactcenteraiplatform.mtls.googleapis.com/
+  name: contactcenteraiplatform
+  revision: '20260423'
+  rootUrl: https://contactcenteraiplatform.googleapis.com/
+  servicePath: ''
+  version_module: true

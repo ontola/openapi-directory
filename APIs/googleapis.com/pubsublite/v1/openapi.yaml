@@ -1,13 +1,10 @@
-openapi: 3.0.0
-servers:
-  - url: https://pubsublite.googleapis.com/
-x-hasEquivalentPaths: true
+openapi: 3.0.3
 info:
   contact:
     name: Google
     url: https://google.com
     x-twitter: youtube
-  description: ""
+  description: ''
   license:
     name: Creative Commons Attribution 3.0
     url: http://creativecommons.org/licenses/by/3.0/
@@ -21,924 +18,1860 @@ info:
     url: https://upload.wikimedia.org/wikipedia/commons/e/e1/YouTube_play_buttom_icon_%282013-2017%29.svg
   x-origin:
     - format: google
-      url: https://pubsublite.googleapis.com/$discovery/rest?version=v1
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/pubsublite.v1.json
       version: v1
+    - format: openapi
+      url: https://raw.githubusercontent.com/googleapis/discovery-artifact-manager/1f1d01578507ceded42f7453bbef1bb0f637faee/discoveries/pubsublite.v1.json
+      version: '3.0'
   x-providerName: googleapis.com
   x-serviceName: pubsublite
-externalDocs:
-  url: https://cloud.google.com/pubsub/lite/docs
-tags:
-  - name: admin
-  - name: cursor
-  - name: topicStats
+  x-conversion:
+    - Converted the official Google Discovery v1 document to OpenAPI 3.0.3 with maintenance/google_discovery.py (conversion profile 1).
+    - Source repository revision 1f1d01578507ceded42f7453bbef1bb0f637faee; Discovery revision 20251114; original source SHA-256 d44675d8444122d660b6d28f25e3911f7d43a15c23eccf2563ad49649813041d.
+    - Used Google's flatPath to disambiguate methods sharing reserved resource-name paths. Original paths, complete resource-name parameter patterns/bindings and singleton constants remain in x-google-discovery metadata.
+    - Preserved schema and parameter constraints, exact integer bounds, reference siblings via allOf, and all native methods and schemas. Enum descriptions/deprecation and method-specific required annotations remain explicit x-google-* metadata, not global required constraints.
+    - OAuth flows and accepted scopes are alternatives. Authorization endpoints follow Google's OAuth documentation. Discovery supplies no success status code, so responses use the OpenAPI 2XX range.
+    - JSON requests/responses and binary downloads are represented directly. Upload protocols, streaming/subscription details, regional/mTLS metadata and other Discovery-only annotations remain explicit extensions; no upload endpoint or protocol implementation is invented.
+    - Preserved existing APIs.guru info/contact curation, externalDocs and tags when refreshing an existing version. Full OpenAPI validation, native inventories, all local references and typed YAML roundtrip passed. This is a description refresh, not live API/account compatibility verification.
+servers:
+  - url: https://pubsublite.googleapis.com
 paths:
-  /v1/admin/{name}:
-    delete:
-      description: Deletes the specified topic.
-      operationId: pubsublite.admin.projects.locations.topics.delete
-      parameters:
-        - description: Required. The name of the topic to delete.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-    get:
-      description: Returns the topic configuration.
-      operationId: pubsublite.admin.projects.locations.topics.get
-      parameters:
-        - description: Required. The name of the topic whose configuration to return.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Topic"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    patch:
-      description: Updates properties of the specified topic.
-      operationId: pubsublite.admin.projects.locations.topics.patch
-      parameters:
-        - description: "The name of the topic. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: Required. A mask specifying the topic fields to change.
-          in: query
-          name: updateMask
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Topic"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Topic"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-  /v1/admin/{name}/operations:
-    get:
-      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
-      operationId: pubsublite.admin.projects.locations.operations.list
-      parameters:
-        - description: The name of the operation's parent resource.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: The standard list filter.
-          in: query
-          name: filter
-          schema:
-            type: string
-        - description: The standard list page size.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: The standard list page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListOperationsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/admin/{name}/partitions:
-    get:
-      description: Returns the partition information for the requested topic.
-      operationId: pubsublite.admin.projects.locations.topics.getPartitions
-      parameters:
-        - description: Required. The topic whose partition information to return.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TopicPartitions"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/admin/{name}/subscriptions:
-    get:
-      description: Lists the subscriptions attached to the specified topic.
-      operationId: pubsublite.admin.projects.locations.topics.subscriptions.list
-      parameters:
-        - description: Required. The name of the topic whose subscriptions to list.
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: The maximum number of subscriptions to return. The service may return fewer than this value. If unset or zero, all subscriptions for the given topic will be returned.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A page token, received from a previous `ListTopicSubscriptions` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListTopicSubscriptions` must match the call that provided the page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListTopicSubscriptionsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/admin/{name}/topics:
-    get:
-      description: Lists the topics attached to the specified reservation.
-      operationId: pubsublite.admin.projects.locations.reservations.topics.list
-      parameters:
-        - description: "Required. The name of the reservation whose topics to list. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}"
-          in: path
-          name: name
-          required: true
-          schema:
-            type: string
-        - description: The maximum number of topics to return. The service may return fewer than this value. If unset or zero, all topics for the given reservation will be returned.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A page token, received from a previous `ListReservationTopics` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListReservationTopics` must match the call that provided the page token.
-          in: query
-          name: pageToken
-          schema:
-            type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListReservationTopicsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/admin/{name}:cancel:
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel:
     post:
-      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
       operationId: pubsublite.admin.projects.locations.operations.cancel
+      description: Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of `1`, corresponding to `Code.CANCELLED`.
       parameters:
-        - description: The name of the operation resource to be cancelled.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
           schema:
             type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be cancelled.
+          schema:
+            type: string
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CancelOperationRequest"
+              $ref: '#/components/schemas/CancelOperationRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-  /v1/admin/{name}:seek:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/admin/{+name}:cancel
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:cancel
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be cancelled.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Performs an out-of-band seek for a subscription to a specified target, which may be timestamps or named positions within the message backlog. Seek translates these targets to cursors for each partition and orchestrates subscribers to start consuming messages from these seek cursors. If an operation is returned, the seek has been registered and subscribers will eventually receive messages from the seek cursors (i.e. eventual consistency), as long as they are using a minimum supported client library version and not a system that tracks cursors independently of Pub/Sub Lite (e.g. Apache Beam, Dataflow, Spark). The seek operation will fail for unsupported clients. If clients would like to know when subscribers react to the seek (or not), they can poll the operation. The seek operation will succeed and complete once subscribers are ready to receive messages from the seek cursors for all partitions of the topic. This means that the seek operation will not complete until all subscribers come online. If the previous seek operation has not yet completed, it will be aborted and the new invocation of seek will supersede it.
-      operationId: pubsublite.admin.projects.locations.subscriptions.seek
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}:
+    delete:
+      operationId: pubsublite.admin.projects.locations.operations.delete
+      description: Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED`.
       parameters:
-        - description: Required. The name of the subscription to seek.
+        - name: projectsId
           in: path
-          name: name
           required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
           schema:
             type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SeekSubscriptionRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Operation"
-          description: Successful response
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource to be deleted.
+          schema:
+            type: string
+      tags:
+        - admin
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-  /v1/admin/{parent}/reservations:
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource to be deleted.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     get:
-      description: Returns the list of reservations for the given project.
-      operationId: pubsublite.admin.projects.locations.reservations.list
+      operationId: pubsublite.admin.projects.locations.operations.get
+      description: Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
       parameters:
-        - description: Required. The parent whose reservations are to be listed. Structured like `projects/{project_number}/locations/{location}`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
           schema:
             type: string
-        - description: The maximum number of reservations to return. The service may return fewer than this value. If unset or zero, all reservations for the parent will be returned.
-          in: query
-          name: pageSize
-          schema:
-            type: integer
-        - description: A page token, received from a previous `ListReservations` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListReservations` must match the call that provided the page token.
-          in: query
-          name: pageToken
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListReservationsResponse"
-          description: Successful response
+        - name: operationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation resource.
+          schema:
+            type: string
+      tags:
+        - admin
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/operations/{operationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          operationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/operations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a new reservation.
-      operationId: pubsublite.admin.projects.locations.reservations.create
-      parameters:
-        - description: Required. The parent location in which to create the reservation. Structured like `projects/{project_number}/locations/{location}`.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: "Required. The ID to use for the reservation, which will become the final component of the reservation's name. This value is structured like: `my-reservation-name`."
-          in: query
-          name: reservationId
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Reservation"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Reservation"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-  /v1/admin/{parent}/subscriptions:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/operations:
     get:
-      description: Returns the list of subscriptions for the given project.
-      operationId: pubsublite.admin.projects.locations.subscriptions.list
+      operationId: pubsublite.admin.projects.locations.operations.list
+      description: Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED`.
       parameters:
-        - description: Required. The parent whose subscriptions are to be listed. Structured like `projects/{project_number}/locations/{location}`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
           schema:
             type: string
-        - description: The maximum number of subscriptions to return. The service may return fewer than this value. If unset or zero, all subscriptions for the parent will be returned.
-          in: query
-          name: pageSize
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. The name of the operation's parent resource.
           schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: The standard list filter.
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: A page token, received from a previous `ListSubscriptions` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListSubscriptions` must match the call that provided the page token.
+          description: The standard list page size.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListSubscriptionsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-    parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-    post:
-      description: Creates a new subscription.
-      operationId: pubsublite.admin.projects.locations.subscriptions.create
-      parameters:
-        - description: Required. The parent location in which to create the subscription. Structured like `projects/{project_number}/locations/{location}`.
-          in: path
-          name: parent
-          required: true
-          schema:
-            type: string
-        - description: If true, the newly created subscription will only receive messages published after the subscription was created. Otherwise, the entire message backlog will be received on the subscription. Defaults to false.
+          description: The standard list page token.
+        - name: returnPartialSuccess
           in: query
-          name: skipBacklog
           schema:
             type: boolean
-        - description: "Required. The ID to use for the subscription, which will become the final component of the subscription's name. This value is structured like: `my-sub-name`."
-          in: query
-          name: subscriptionId
+          description: When set to `true`, operations that are reachable are returned as normal, and those that are unreachable are returned in the ListOperationsResponse.unreachable field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"`. This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOperationsResponse'
+      x-google-discovery:
+        path: v1/admin/{+name}/operations
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/operations
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+        resourceNameParameters:
+          name:
+            description: The name of the operation's parent resource.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/reservations:
+    post:
+      operationId: pubsublite.admin.projects.locations.reservations.create
+      description: Creates a new reservation.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent location in which to create the reservation. Structured like `projects/{project_number}/locations/{location}`.
           schema:
             type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent location in which to create the reservation. Structured like `projects/{project_number}/locations/{location}`.
+          schema:
+            type: string
+        - name: reservationId
+          in: query
+          schema:
+            type: string
+          description: 'Required. The ID to use for the reservation, which will become the final component of the reservation''s name. This value is structured like: `my-reservation-name`.'
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Subscription"
+              $ref: '#/components/schemas/Reservation'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Subscription"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - admin
-  /v1/admin/{parent}/topics:
+                $ref: '#/components/schemas/Reservation'
+      x-google-discovery:
+        path: v1/admin/{+parent}/reservations
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/reservations
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent location in which to create the reservation. Structured like `projects/{project_number}/locations/{location}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: Returns the list of topics for the given project.
-      operationId: pubsublite.admin.projects.locations.topics.list
+      operationId: pubsublite.admin.projects.locations.reservations.list
+      description: Returns the list of reservations for the given project.
       parameters:
-        - description: Required. The parent whose topics are to be listed. Structured like `projects/{project_number}/locations/{location}`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent whose reservations are to be listed. Structured like `projects/{project_number}/locations/{location}`.
           schema:
             type: string
-        - description: The maximum number of topics to return. The service may return fewer than this value. If unset or zero, all topics for the parent will be returned.
-          in: query
-          name: pageSize
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent whose reservations are to be listed. Structured like `projects/{project_number}/locations/{location}`.
           schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: A page token, received from a previous `ListTopics` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListTopics` must match the call that provided the page token.
+          description: The maximum number of reservations to return. The service may return fewer than this value. If unset or zero, all reservations for the parent will be returned.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListTopicsResponse"
-          description: Successful response
+          description: A page token, received from a previous `ListReservations` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListReservations` must match the call that provided the page token.
+      tags:
+        - admin
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListReservationsResponse'
+      x-google-discovery:
+        path: v1/admin/{+parent}/reservations
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/reservations
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent whose reservations are to be listed. Structured like `projects/{project_number}/locations/{location}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/reservations/{reservationsId}:
+    delete:
+      operationId: pubsublite.admin.projects.locations.reservations.delete
+      description: Deletes the specified reservation.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reservation to delete. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reservation to delete. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: reservationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reservation to delete. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
       tags:
         - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/reservations/{reservationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          reservationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the reservation to delete. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/reservations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: pubsublite.admin.projects.locations.reservations.get
+      description: Returns the reservation configuration.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reservation whose configuration to return. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reservation whose configuration to return. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: reservationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reservation whose configuration to return. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/reservations/{reservationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          reservationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the reservation whose configuration to return. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/reservations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: pubsublite.admin.projects.locations.reservations.patch
+      description: Updates properties of the specified reservation.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The name of the reservation. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The name of the reservation. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: reservationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The name of the reservation. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. A mask specifying the reservation fields to change.
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/reservations/{reservationsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          reservationsId: name
+        resourceNameParameters:
+          name:
+            description: 'The name of the reservation. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/reservations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/reservations/{reservationsId}/topics:
+    get:
+      operationId: pubsublite.admin.projects.locations.reservations.topics.list
+      description: Lists the topics attached to the specified reservation.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reservation whose topics to list. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reservation whose topics to list. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: reservationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. Required. The name of the reservation whose topics to list. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of topics to return. The service may return fewer than this value. If unset or zero, all topics for the given reservation will be returned.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token, received from a previous `ListReservationTopics` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListReservationTopics` must match the call that provided the page token.
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListReservationTopicsResponse'
+      x-google-discovery:
+        path: v1/admin/{+name}/topics
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/reservations/{reservationsId}/topics
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          reservationsId: name
+        resourceNameParameters:
+          name:
+            description: 'Required. The name of the reservation whose topics to list. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/reservations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/subscriptions:
     post:
-      description: Creates a new topic.
+      operationId: pubsublite.admin.projects.locations.subscriptions.create
+      description: Creates a new subscription.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent location in which to create the subscription. Structured like `projects/{project_number}/locations/{location}`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent location in which to create the subscription. Structured like `projects/{project_number}/locations/{location}`.
+          schema:
+            type: string
+        - name: skipBacklog
+          in: query
+          schema:
+            type: boolean
+          description: If true, the newly created subscription will only receive messages published after the subscription was created. Otherwise, the entire message backlog will be received on the subscription. Defaults to false.
+        - name: subscriptionId
+          in: query
+          schema:
+            type: string
+          description: 'Required. The ID to use for the subscription, which will become the final component of the subscription''s name. This value is structured like: `my-sub-name`.'
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+      x-google-discovery:
+        path: v1/admin/{+parent}/subscriptions
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/subscriptions
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent location in which to create the subscription. Structured like `projects/{project_number}/locations/{location}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    get:
+      operationId: pubsublite.admin.projects.locations.subscriptions.list
+      description: Returns the list of subscriptions for the given project.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent whose subscriptions are to be listed. Structured like `projects/{project_number}/locations/{location}`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent whose subscriptions are to be listed. Structured like `projects/{project_number}/locations/{location}`.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of subscriptions to return. The service may return fewer than this value. If unset or zero, all subscriptions for the parent will be returned.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token, received from a previous `ListSubscriptions` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListSubscriptions` must match the call that provided the page token.
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSubscriptionsResponse'
+      x-google-discovery:
+        path: v1/admin/{+parent}/subscriptions
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/subscriptions
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent whose subscriptions are to be listed. Structured like `projects/{project_number}/locations/{location}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}:
+    delete:
+      operationId: pubsublite.admin.projects.locations.subscriptions.delete
+      description: Deletes the specified subscription.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the subscription to delete.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the subscription to delete.
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the subscription to delete.
+          schema:
+            type: string
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          subscriptionsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the subscription to delete.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: pubsublite.admin.projects.locations.subscriptions.get
+      description: Returns the subscription configuration.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the subscription whose configuration to return.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the subscription whose configuration to return.
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the subscription whose configuration to return.
+          schema:
+            type: string
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          subscriptionsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the subscription whose configuration to return.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: pubsublite.admin.projects.locations.subscriptions.patch
+      description: Updates properties of the specified subscription.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The name of the subscription. Structured like: projects/{project_number}/locations/{location}/subscriptions/{subscription_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The name of the subscription. Structured like: projects/{project_number}/locations/{location}/subscriptions/{subscription_id}'
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The name of the subscription. Structured like: projects/{project_number}/locations/{location}/subscriptions/{subscription_id}'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. A mask specifying the subscription fields to change.
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          subscriptionsId: name
+        resourceNameParameters:
+          name:
+            description: 'The name of the subscription. Structured like: projects/{project_number}/locations/{location}/subscriptions/{subscription_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}:seek:
+    post:
+      operationId: pubsublite.admin.projects.locations.subscriptions.seek
+      description: Performs an out-of-band seek for a subscription to a specified target, which may be timestamps or named positions within the message backlog. Seek translates these targets to cursors for each partition and orchestrates subscribers to start consuming messages from these seek cursors. If an operation is returned, the seek has been registered and subscribers will eventually receive messages from the seek cursors (i.e. eventual consistency), as long as they are using a minimum supported client library version and not a system that tracks cursors independently of Pub/Sub Lite (e.g. Apache Beam, Dataflow, Spark). The seek operation will fail for unsupported clients. If clients would like to know when subscribers react to the seek (or not), they can poll the operation. The seek operation will succeed and complete once subscribers are ready to receive messages from the seek cursors for all partitions of the topic. This means that the seek operation will not complete until all subscribers come online. If the previous seek operation has not yet completed, it will be aborted and the new invocation of seek will supersede it.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the subscription to seek.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the subscription to seek.
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the subscription to seek.
+          schema:
+            type: string
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeekSubscriptionRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+      x-google-discovery:
+        path: v1/admin/{+name}:seek
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}:seek
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          subscriptionsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the subscription to seek.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/topics:
+    post:
       operationId: pubsublite.admin.projects.locations.topics.create
+      description: Creates a new topic.
       parameters:
-        - description: Required. The parent location in which to create the topic. Structured like `projects/{project_number}/locations/{location}`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent location in which to create the topic. Structured like `projects/{project_number}/locations/{location}`.
           schema:
             type: string
-        - description: "Required. The ID to use for the topic, which will become the final component of the topic's name. This value is structured like: `my-topic-name`."
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent location in which to create the topic. Structured like `projects/{project_number}/locations/{location}`.
+          schema:
+            type: string
+        - name: topicId
           in: query
-          name: topicId
           schema:
             type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Topic"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Topic"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
+          description: 'Required. The ID to use for the topic, which will become the final component of the topic''s name. This value is structured like: `my-topic-name`.'
       tags:
         - admin
-  /v1/cursor/{parent}/cursors:
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Topic'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+      x-google-discovery:
+        path: v1/admin/{+parent}/topics
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/topics
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent location in which to create the topic. Structured like `projects/{project_number}/locations/{location}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
     get:
-      description: Returns all committed cursor information for a subscription.
-      operationId: pubsublite.cursor.projects.locations.subscriptions.cursors.list
+      operationId: pubsublite.admin.projects.locations.topics.list
+      description: Returns the list of topics for the given project.
       parameters:
-        - description: Required. The subscription for which to retrieve cursors. Structured like `projects/{project_number}/locations/{location}/subscriptions/{subscription_id}`.
+        - name: projectsId
           in: path
-          name: parent
           required: true
+          description: Component of the original `parent` resource name. Required. The parent whose topics are to be listed. Structured like `projects/{project_number}/locations/{location}`.
           schema:
             type: string
-        - description: The maximum number of cursors to return. The service may return fewer than this value. If unset or zero, all cursors for the parent will be returned.
-          in: query
-          name: pageSize
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The parent whose topics are to be listed. Structured like `projects/{project_number}/locations/{location}`.
           schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
             type: integer
-        - description: A page token, received from a previous `ListPartitionCursors` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListPartitionCursors` must match the call that provided the page token.
+          description: The maximum number of topics to return. The service may return fewer than this value. If unset or zero, all topics for the parent will be returned.
+        - name: pageToken
           in: query
-          name: pageToken
           schema:
             type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ListPartitionCursorsResponse"
-          description: Successful response
+          description: A page token, received from a previous `ListTopics` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListTopics` must match the call that provided the page token.
+      tags:
+        - admin
       security:
         - Oauth2:
             - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
+        - Oauth2c:
             - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTopicsResponse'
+      x-google-discovery:
+        path: v1/admin/{+parent}/topics
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/topics
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The parent whose topics are to be listed. Structured like `projects/{project_number}/locations/{location}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}:
+    delete:
+      operationId: pubsublite.admin.projects.locations.topics.delete
+      description: Deletes the specified topic.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the topic to delete.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the topic to delete.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the topic to delete.
+          schema:
+            type: string
       tags:
-        - cursor
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          topicsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the topic to delete.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    get:
+      operationId: pubsublite.admin.projects.locations.topics.get
+      description: Returns the topic configuration.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the topic whose configuration to return.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the topic whose configuration to return.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the topic whose configuration to return.
+          schema:
+            type: string
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          topicsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the topic whose configuration to return.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    patch:
+      operationId: pubsublite.admin.projects.locations.topics.patch
+      description: Updates properties of the specified topic.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The name of the topic. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}'
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The name of the topic. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}'
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: 'Component of the original `name` resource name. The name of the topic. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}'
+          schema:
+            type: string
+        - name: updateMask
+          in: query
+          schema:
+            format: google-fieldmask
+            type: string
+          description: Required. A mask specifying the topic fields to change.
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Topic'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+      x-google-discovery:
+        path: v1/admin/{+name}
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          topicsId: name
+        resourceNameParameters:
+          name:
+            description: 'The name of the topic. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}'
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
-  /v1/cursor/{subscription}:commitCursor:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}/partitions:
+    get:
+      operationId: pubsublite.admin.projects.locations.topics.getPartitions
+      description: Returns the partition information for the requested topic.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The topic whose partition information to return.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The topic whose partition information to return.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The topic whose partition information to return.
+          schema:
+            type: string
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicPartitions'
+      x-google-discovery:
+        path: v1/admin/{+name}/partitions
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}/partitions
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          topicsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The topic whose partition information to return.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}/subscriptions:
+    get:
+      operationId: pubsublite.admin.projects.locations.topics.subscriptions.list
+      description: Lists the subscriptions attached to the specified topic.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the topic whose subscriptions to list.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the topic whose subscriptions to list.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `name` resource name. Required. The name of the topic whose subscriptions to list.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of subscriptions to return. The service may return fewer than this value. If unset or zero, all subscriptions for the given topic will be returned.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token, received from a previous `ListTopicSubscriptions` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListTopicSubscriptions` must match the call that provided the page token.
+      tags:
+        - admin
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTopicSubscriptionsResponse'
+      x-google-discovery:
+        path: v1/admin/{+name}/subscriptions
+        flatPath: v1/admin/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}/subscriptions
+        resourceNameBindings:
+          projectsId: name
+          locationsId: name
+          topicsId: name
+        resourceNameParameters:
+          name:
+            description: Required. The name of the topic whose subscriptions to list.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - name
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/cursor/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}:commitCursor:
     post:
-      description: Updates the committed cursor.
       operationId: pubsublite.cursor.projects.locations.subscriptions.commitCursor
+      description: Updates the committed cursor.
       parameters:
-        - description: The subscription for which to update the cursor.
+        - name: projectsId
           in: path
-          name: subscription
           required: true
+          description: Component of the original `subscription` resource name. The subscription for which to update the cursor.
           schema:
             type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CommitCursorRequest"
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CommitCursorResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The subscription for which to update the cursor.
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `subscription` resource name. The subscription for which to update the cursor.
+          schema:
+            type: string
       tags:
         - cursor
-  /v1/topicStats/{topic}:computeHeadCursor:
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommitCursorRequest'
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommitCursorResponse'
+      x-google-discovery:
+        path: v1/cursor/{+subscription}:commitCursor
+        flatPath: v1/cursor/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}:commitCursor
+        resourceNameBindings:
+          projectsId: subscription
+          locationsId: subscription
+          subscriptionsId: subscription
+        resourceNameParameters:
+          subscription:
+            description: The subscription for which to update the cursor.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - subscription
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/cursor/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}/cursors:
+    get:
+      operationId: pubsublite.cursor.projects.locations.subscriptions.cursors.list
+      description: Returns all committed cursor information for a subscription.
+      parameters:
+        - name: projectsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The subscription for which to retrieve cursors. Structured like `projects/{project_number}/locations/{location}/subscriptions/{subscription_id}`.
+          schema:
+            type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The subscription for which to retrieve cursors. Structured like `projects/{project_number}/locations/{location}/subscriptions/{subscription_id}`.
+          schema:
+            type: string
+        - name: subscriptionsId
+          in: path
+          required: true
+          description: Component of the original `parent` resource name. Required. The subscription for which to retrieve cursors. Structured like `projects/{project_number}/locations/{location}/subscriptions/{subscription_id}`.
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            format: int32
+            type: integer
+          description: The maximum number of cursors to return. The service may return fewer than this value. If unset or zero, all cursors for the parent will be returned.
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+          description: A page token, received from a previous `ListPartitionCursors` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListPartitionCursors` must match the call that provided the page token.
+      tags:
+        - cursor
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
+      responses:
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPartitionCursorsResponse'
+      x-google-discovery:
+        path: v1/cursor/{+parent}/cursors
+        flatPath: v1/cursor/projects/{projectsId}/locations/{locationsId}/subscriptions/{subscriptionsId}/cursors
+        resourceNameBindings:
+          projectsId: parent
+          locationsId: parent
+          subscriptionsId: parent
+        resourceNameParameters:
+          parent:
+            description: Required. The subscription for which to retrieve cursors. Structured like `projects/{project_number}/locations/{location}/subscriptions/{subscription_id}`.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/subscriptions/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - parent
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/topicStats/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}:computeHeadCursor:
     post:
-      description: Compute the head cursor for the partition. The head cursor's offset is guaranteed to be less than or equal to all messages which have not yet been acknowledged as published, and greater than the offset of any message whose publish has already been acknowledged. It is zero if there have never been messages in the partition.
       operationId: pubsublite.topicStats.projects.locations.topics.computeHeadCursor
+      description: Compute the head cursor for the partition. The head cursor's offset is guaranteed to be less than or equal to all messages which have not yet been acknowledged as published, and greater than the offset of any message whose publish has already been acknowledged. It is zero if there have never been messages in the partition.
       parameters:
-        - description: Required. The topic for which we should compute the head cursor.
+        - name: projectsId
           in: path
-          name: topic
           required: true
+          description: Component of the original `topic` resource name. Required. The topic for which we should compute the head cursor.
           schema:
             type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. Required. The topic for which we should compute the head cursor.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. Required. The topic for which we should compute the head cursor.
+          schema:
+            type: string
+      tags:
+        - topicStats
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ComputeHeadCursorRequest"
+              $ref: '#/components/schemas/ComputeHeadCursorRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ComputeHeadCursorResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - topicStats
-  /v1/topicStats/{topic}:computeMessageStats:
+                $ref: '#/components/schemas/ComputeHeadCursorResponse'
+      x-google-discovery:
+        path: v1/topicStats/{+topic}:computeHeadCursor
+        flatPath: v1/topicStats/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}:computeHeadCursor
+        resourceNameBindings:
+          projectsId: topic
+          locationsId: topic
+          topicsId: topic
+        resourceNameParameters:
+          topic:
+            description: Required. The topic for which we should compute the head cursor.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - topic
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/topicStats/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}:computeMessageStats:
     post:
-      description: Compute statistics about a range of messages in a given topic and partition.
       operationId: pubsublite.topicStats.projects.locations.topics.computeMessageStats
+      description: Compute statistics about a range of messages in a given topic and partition.
       parameters:
-        - description: Required. The topic for which we should compute message stats.
+        - name: projectsId
           in: path
-          name: topic
           required: true
+          description: Component of the original `topic` resource name. Required. The topic for which we should compute message stats.
           schema:
             type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. Required. The topic for which we should compute message stats.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. Required. The topic for which we should compute message stats.
+          schema:
+            type: string
+      tags:
+        - topicStats
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ComputeMessageStatsRequest"
+              $ref: '#/components/schemas/ComputeMessageStatsRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ComputeMessageStatsResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - topicStats
-  /v1/topicStats/{topic}:computeTimeCursor:
+                $ref: '#/components/schemas/ComputeMessageStatsResponse'
+      x-google-discovery:
+        path: v1/topicStats/{+topic}:computeMessageStats
+        flatPath: v1/topicStats/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}:computeMessageStats
+        resourceNameBindings:
+          projectsId: topic
+          locationsId: topic
+          topicsId: topic
+        resourceNameParameters:
+          topic:
+            description: Required. The topic for which we should compute message stats.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - topic
     parameters:
-      - $ref: "#/components/parameters/_.xgafv"
-      - $ref: "#/components/parameters/access_token"
-      - $ref: "#/components/parameters/alt"
-      - $ref: "#/components/parameters/callback"
-      - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/key"
-      - $ref: "#/components/parameters/oauth_token"
-      - $ref: "#/components/parameters/prettyPrint"
-      - $ref: "#/components/parameters/quotaUser"
-      - $ref: "#/components/parameters/upload_protocol"
-      - $ref: "#/components/parameters/uploadType"
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
+  /v1/topicStats/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}:computeTimeCursor:
     post:
-      description: Compute the corresponding cursor for a publish or event time in a topic partition.
       operationId: pubsublite.topicStats.projects.locations.topics.computeTimeCursor
+      description: Compute the corresponding cursor for a publish or event time in a topic partition.
       parameters:
-        - description: Required. The topic for which we should compute the cursor.
+        - name: projectsId
           in: path
-          name: topic
           required: true
+          description: Component of the original `topic` resource name. Required. The topic for which we should compute the cursor.
           schema:
             type: string
+        - name: locationsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. Required. The topic for which we should compute the cursor.
+          schema:
+            type: string
+        - name: topicsId
+          in: path
+          required: true
+          description: Component of the original `topic` resource name. Required. The topic for which we should compute the cursor.
+          schema:
+            type: string
+      tags:
+        - topicStats
+      security:
+        - Oauth2:
+            - https://www.googleapis.com/auth/cloud-platform
+        - Oauth2c:
+            - https://www.googleapis.com/auth/cloud-platform
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ComputeTimeCursorRequest"
+              $ref: '#/components/schemas/ComputeTimeCursorRequest'
       responses:
-        "200":
+        2XX:
+          description: Successful response; Discovery does not specify an HTTP status code.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ComputeTimeCursorResponse"
-          description: Successful response
-      security:
-        - Oauth2:
-            - https://www.googleapis.com/auth/cloud-platform
-          Oauth2c:
-            - https://www.googleapis.com/auth/cloud-platform
-      tags:
-        - topicStats
+                $ref: '#/components/schemas/ComputeTimeCursorResponse'
+      x-google-discovery:
+        path: v1/topicStats/{+topic}:computeTimeCursor
+        flatPath: v1/topicStats/projects/{projectsId}/locations/{locationsId}/topics/{topicsId}:computeTimeCursor
+        resourceNameBindings:
+          projectsId: topic
+          locationsId: topic
+          topicsId: topic
+        resourceNameParameters:
+          topic:
+            description: Required. The topic for which we should compute the cursor.
+            location: path
+            pattern: ^projects/[^/]+/locations/[^/]+/topics/[^/]+$
+            required: true
+            type: string
+        parameterOrder:
+          - topic
+    parameters:
+      - $ref: '#/components/parameters/$.xgafv'
+      - $ref: '#/components/parameters/access_token'
+      - $ref: '#/components/parameters/alt'
+      - $ref: '#/components/parameters/callback'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/oauth_token'
+      - $ref: '#/components/parameters/prettyPrint'
+      - $ref: '#/components/parameters/quotaUser'
+      - $ref: '#/components/parameters/uploadType'
+      - $ref: '#/components/parameters/upload_protocol'
 components:
-  parameters:
-    _.xgafv:
-      description: V1 error format.
-      in: query
-      name: $.xgafv
-      schema:
-        enum:
-          - "1"
-          - "2"
-        type: string
-    access_token:
-      description: OAuth access token.
-      in: query
-      name: access_token
-      schema:
-        type: string
-    alt:
-      description: Data format for response.
-      in: query
-      name: alt
-      schema:
-        enum:
-          - json
-          - media
-          - proto
-        type: string
-    callback:
-      description: JSONP
-      in: query
-      name: callback
-      schema:
-        type: string
-    fields:
-      description: Selector specifying which fields to include in a partial response.
-      in: query
-      name: fields
-      schema:
-        type: string
-    key:
-      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-      in: query
-      name: key
-      schema:
-        type: string
-    oauth_token:
-      description: OAuth 2.0 token for the current user.
-      in: query
-      name: oauth_token
-      schema:
-        type: string
-    prettyPrint:
-      description: Returns response with indentations and line breaks.
-      in: query
-      name: prettyPrint
-      schema:
-        type: boolean
-    quotaUser:
-      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-      in: query
-      name: quotaUser
-      schema:
-        type: string
-    uploadType:
-      description: Legacy upload protocol for media (e.g. "media", "multipart").
-      in: query
-      name: uploadType
-      schema:
-        type: string
-    upload_protocol:
-      description: Upload protocol for media (e.g. "raw", "multipart").
-      in: query
-      name: upload_protocol
-      schema:
-        type: string
   schemas:
     CancelOperationRequest:
       description: The request message for Operations.CancelOperation.
+      x-google-discovery-id: CancelOperationRequest
       properties: {}
       type: object
     Capacity:
       description: The throughput capacity configuration for each partition.
+      x-google-discovery-id: Capacity
       properties:
         publishMibPerSec:
           description: Publish throughput capacity per partition in MiB/s. Must be >= 4 and <= 16.
@@ -951,10 +1884,12 @@ components:
       type: object
     CommitCursorRequest:
       description: Request for CommitCursor.
+      x-google-discovery-id: CommitCursorRequest
       properties:
         cursor:
-          $ref: "#/components/schemas/Cursor"
           description: The new value for the committed cursor.
+          allOf:
+            - $ref: '#/components/schemas/Cursor'
         partition:
           description: The partition for which to update the cursor. Partitions are zero indexed, so `partition` must be in the range [0, topic.num_partitions).
           format: int64
@@ -962,10 +1897,12 @@ components:
       type: object
     CommitCursorResponse:
       description: Response for CommitCursor.
+      x-google-discovery-id: CommitCursorResponse
       properties: {}
       type: object
     ComputeHeadCursorRequest:
       description: Compute the current head cursor for a partition.
+      x-google-discovery-id: ComputeHeadCursorRequest
       properties:
         partition:
           description: Required. The partition for which we should compute the head cursor.
@@ -974,27 +1911,33 @@ components:
       type: object
     ComputeHeadCursorResponse:
       description: Response containing the head cursor for the requested topic and partition.
+      x-google-discovery-id: ComputeHeadCursorResponse
       properties:
         headCursor:
-          $ref: "#/components/schemas/Cursor"
           description: The head cursor.
+          allOf:
+            - $ref: '#/components/schemas/Cursor'
       type: object
     ComputeMessageStatsRequest:
       description: Compute statistics about a range of messages in a given topic and partition.
+      x-google-discovery-id: ComputeMessageStatsRequest
       properties:
         endCursor:
-          $ref: "#/components/schemas/Cursor"
           description: The exclusive end of the range. The range is empty if end_cursor <= start_cursor. Specifying a start_cursor before the first message and an end_cursor after the last message will retrieve all messages.
+          allOf:
+            - $ref: '#/components/schemas/Cursor'
         partition:
           description: Required. The partition for which we should compute message stats.
           format: int64
           type: string
         startCursor:
-          $ref: "#/components/schemas/Cursor"
           description: The inclusive start of the range.
+          allOf:
+            - $ref: '#/components/schemas/Cursor'
       type: object
     ComputeMessageStatsResponse:
       description: Response containing stats for messages in the requested topic and partition.
+      x-google-discovery-id: ComputeMessageStatsResponse
       properties:
         messageBytes:
           description: The number of quota bytes accounted to these messages.
@@ -1015,24 +1958,29 @@ components:
       type: object
     ComputeTimeCursorRequest:
       description: Compute the corresponding cursor for a publish or event time in a topic partition.
+      x-google-discovery-id: ComputeTimeCursorRequest
       properties:
         partition:
           description: Required. The partition for which we should compute the cursor.
           format: int64
           type: string
         target:
-          $ref: "#/components/schemas/TimeTarget"
           description: Required. The target publish or event time. Specifying a future time will return an unset cursor.
+          allOf:
+            - $ref: '#/components/schemas/TimeTarget'
       type: object
     ComputeTimeCursorResponse:
       description: Response containing the cursor corresponding to a publish or event time in a topic partition.
+      x-google-discovery-id: ComputeTimeCursorResponse
       properties:
         cursor:
-          $ref: "#/components/schemas/Cursor"
           description: If present, the cursor references the first message with time greater than or equal to the specified target time. If such a message cannot be found, the cursor will be unset (i.e. `cursor` is not present).
+          allOf:
+            - $ref: '#/components/schemas/Cursor'
       type: object
     Cursor:
       description: A cursor that describes the position of a message within a topic partition.
+      x-google-discovery-id: Cursor
       properties:
         offset:
           description: The offset of a message within a topic partition. Must be greater than or equal 0.
@@ -1041,6 +1989,7 @@ components:
       type: object
     DeliveryConfig:
       description: The settings for a subscription's message delivery.
+      x-google-discovery-id: DeliveryConfig
       properties:
         deliveryRequirement:
           description: The DeliveryRequirement for this subscription.
@@ -1048,14 +1997,20 @@ components:
             - DELIVERY_REQUIREMENT_UNSPECIFIED
             - DELIVER_IMMEDIATELY
             - DELIVER_AFTER_STORED
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - The server does not wait for a published message to be successfully written to storage before delivering it to subscribers.
+            - The server will not deliver a published message to subscribers until the message has been successfully written to storage. This will result in higher end-to-end latency, but consistent delivery.
           type: string
       type: object
     Empty:
-      description: "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }"
+      description: 'A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); }'
+      x-google-discovery-id: Empty
       properties: {}
       type: object
     ExportConfig:
       description: Configuration for a Pub/Sub Lite subscription that writes messages to a destination. User subscriber clients must not connect to this subscription.
+      x-google-discovery-id: ExportConfig
       properties:
         currentState:
           description: Output only. The current state of the export, which may be different to the desired state due to errors. This field is output only.
@@ -1065,10 +2020,16 @@ components:
             - PAUSED
             - PERMISSION_DENIED
             - NOT_FOUND
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - Messages are being exported.
+            - Exporting messages is suspended.
+            - Messages cannot be exported due to permission denied errors. Output only.
+            - Messages cannot be exported due to missing resources. Output only.
           readOnly: true
           type: string
         deadLetterTopic:
-          description: "Optional. The name of an optional Pub/Sub Lite topic to publish messages that can not be exported to the destination. For example, the message can not be published to the Pub/Sub service because it does not satisfy the constraints documented at https://cloud.google.com/pubsub/docs/publisher. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}. Must be within the same project and location as the subscription. The topic may be changed or removed."
+          description: 'Optional. The name of an optional Pub/Sub Lite topic to publish messages that can not be exported to the destination. For example, the message can not be published to the Pub/Sub service because it does not satisfy the constraints documented at https://cloud.google.com/pubsub/docs/publisher. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}. Must be within the same project and location as the subscription. The topic may be changed or removed.'
           type: string
         desiredState:
           description: The desired state of this export. Setting this to values other than `ACTIVE` and `PAUSED` will result in an error.
@@ -1078,13 +2039,21 @@ components:
             - PAUSED
             - PERMISSION_DENIED
             - NOT_FOUND
+          x-google-enum-descriptions:
+            - Default value. This value is unused.
+            - Messages are being exported.
+            - Exporting messages is suspended.
+            - Messages cannot be exported due to permission denied errors. Output only.
+            - Messages cannot be exported due to missing resources. Output only.
           type: string
         pubsubConfig:
-          $ref: "#/components/schemas/PubSubConfig"
           description: Messages are automatically written from the Pub/Sub Lite topic associated with this subscription to a Pub/Sub topic.
+          allOf:
+            - $ref: '#/components/schemas/PubSubConfig'
       type: object
     ListOperationsResponse:
       description: The response message for Operations.ListOperations.
+      x-google-discovery-id: ListOperationsResponse
       properties:
         nextPageToken:
           description: The standard List next-page token.
@@ -1092,11 +2061,17 @@ components:
         operations:
           description: A list of operations that matches the specified filter in the request.
           items:
-            $ref: "#/components/schemas/Operation"
+            $ref: '#/components/schemas/Operation'
+          type: array
+        unreachable:
+          description: Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections. For example, when attempting to list all resources across all supported locations.
+          items:
+            type: string
           type: array
       type: object
     ListPartitionCursorsResponse:
       description: Response for ListPartitionCursors
+      x-google-discovery-id: ListPartitionCursorsResponse
       properties:
         nextPageToken:
           description: A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.
@@ -1104,11 +2079,12 @@ components:
         partitionCursors:
           description: The partition cursors from this request.
           items:
-            $ref: "#/components/schemas/PartitionCursor"
+            $ref: '#/components/schemas/PartitionCursor'
           type: array
       type: object
     ListReservationTopicsResponse:
       description: Response for ListReservationTopics.
+      x-google-discovery-id: ListReservationTopicsResponse
       properties:
         nextPageToken:
           description: A token that can be sent as `page_token` to retrieve the next page of results. If this field is omitted, there are no more results.
@@ -1121,6 +2097,7 @@ components:
       type: object
     ListReservationsResponse:
       description: Response for ListReservations.
+      x-google-discovery-id: ListReservationsResponse
       properties:
         nextPageToken:
           description: A token that can be sent as `page_token` to retrieve the next page of results. If this field is omitted, there are no more results.
@@ -1128,11 +2105,12 @@ components:
         reservations:
           description: The list of reservation in the requested parent. The order of the reservations is unspecified.
           items:
-            $ref: "#/components/schemas/Reservation"
+            $ref: '#/components/schemas/Reservation'
           type: array
       type: object
     ListSubscriptionsResponse:
       description: Response for ListSubscriptions.
+      x-google-discovery-id: ListSubscriptionsResponse
       properties:
         nextPageToken:
           description: A token that can be sent as `page_token` to retrieve the next page of results. If this field is omitted, there are no more results.
@@ -1140,11 +2118,12 @@ components:
         subscriptions:
           description: The list of subscriptions in the requested parent. The order of the subscriptions is unspecified.
           items:
-            $ref: "#/components/schemas/Subscription"
+            $ref: '#/components/schemas/Subscription'
           type: array
       type: object
     ListTopicSubscriptionsResponse:
       description: Response for ListTopicSubscriptions.
+      x-google-discovery-id: ListTopicSubscriptionsResponse
       properties:
         nextPageToken:
           description: A token that can be sent as `page_token` to retrieve the next page of results. If this field is omitted, there are no more results.
@@ -1157,6 +2136,7 @@ components:
       type: object
     ListTopicsResponse:
       description: Response for ListTopics.
+      x-google-discovery-id: ListTopicsResponse
       properties:
         nextPageToken:
           description: A token that can be sent as `page_token` to retrieve the next page of results. If this field is omitted, there are no more results.
@@ -1164,21 +2144,24 @@ components:
         topics:
           description: The list of topic in the requested parent. The order of the topics is unspecified.
           items:
-            $ref: "#/components/schemas/Topic"
+            $ref: '#/components/schemas/Topic'
           type: array
       type: object
     Operation:
       description: This resource represents a long-running operation that is the result of a network API call.
+      x-google-discovery-id: Operation
       properties:
         done:
           description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
           type: boolean
         error:
-          $ref: "#/components/schemas/Status"
           description: The error result of the operation in case of failure or cancellation.
+          allOf:
+            - $ref: '#/components/schemas/Status'
         metadata:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
           type: object
         name:
@@ -1187,11 +2170,13 @@ components:
         response:
           additionalProperties:
             description: Properties of the object. Contains field @type with type URL.
+            x-google-discovery-type: any
           description: The normal, successful response of the operation. If the original method returns no data on success, such as `Delete`, the response is `google.protobuf.Empty`. If the original method is standard `Get`/`Create`/`Update`, the response should be the resource. For other methods, the response should have the type `XxxResponse`, where `Xxx` is the original method name. For example, if the original method name is `TakeSnapshot()`, the inferred response type is `TakeSnapshotResponse`.
           type: object
       type: object
     OperationMetadata:
       description: Metadata for long running operations.
+      x-google-discovery-id: OperationMetadata
       properties:
         createTime:
           description: The time the operation was created.
@@ -1202,7 +2187,7 @@ components:
           format: google-datetime
           type: string
         target:
-          description: "Resource path for the target of the operation. For example, targets of seeks are subscription resources, structured like: projects/{project_number}/locations/{location}/subscriptions/{subscription_id}"
+          description: 'Resource path for the target of the operation. For example, targets of seeks are subscription resources, structured like: projects/{project_number}/locations/{location}/subscriptions/{subscription_id}'
           type: string
         verb:
           description: Name of the verb executed by the operation.
@@ -1210,26 +2195,30 @@ components:
       type: object
     PartitionConfig:
       description: The settings for a topic's partitions.
+      x-google-discovery-id: PartitionConfig
       properties:
         capacity:
-          $ref: "#/components/schemas/Capacity"
           description: The capacity configuration.
+          allOf:
+            - $ref: '#/components/schemas/Capacity'
         count:
           description: The number of partitions in the topic. Must be at least 1. Once a topic has been created the number of partitions can be increased but not decreased. Message ordering is not guaranteed across a topic resize. For more information see https://cloud.google.com/pubsub/lite/docs/topics#scaling_capacity
           format: int64
           type: string
         scale:
           deprecated: true
-          description: "DEPRECATED: Use capacity instead which can express a superset of configurations. Every partition in the topic is allocated throughput equivalent to `scale` times the standard partition throughput (4 MiB/s). This is also reflected in the cost of this topic; a topic with `scale` of 2 and count of 10 is charged for 20 partitions. This value must be in the range [1,4]."
+          description: 'DEPRECATED: Use capacity instead which can express a superset of configurations. Every partition in the topic is allocated throughput equivalent to `scale` times the standard partition throughput (4 MiB/s). This is also reflected in the cost of this topic; a topic with `scale` of 2 and count of 10 is charged for 20 partitions. This value must be in the range [1,4].'
           format: int32
           type: integer
       type: object
     PartitionCursor:
       description: A pair of a Cursor and the partition it is for.
+      x-google-discovery-id: PartitionCursor
       properties:
         cursor:
-          $ref: "#/components/schemas/Cursor"
           description: The value of the cursor.
+          allOf:
+            - $ref: '#/components/schemas/Cursor'
         partition:
           description: The partition this is for.
           format: int64
@@ -1237,16 +2226,18 @@ components:
       type: object
     PubSubConfig:
       description: Configuration for exporting to a Pub/Sub topic.
+      x-google-discovery-id: PubSubConfig
       properties:
         topic:
-          description: "The name of the Pub/Sub topic. Structured like: projects/{project_number}/topics/{topic_id}. The topic may be changed."
+          description: 'The name of the Pub/Sub topic. Structured like: projects/{project_number}/topics/{topic_id}. The topic may be changed.'
           type: string
       type: object
     Reservation:
       description: Metadata about a reservation resource.
+      x-google-discovery-id: Reservation
       properties:
         name:
-          description: "The name of the reservation. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}"
+          description: 'The name of the reservation. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
           type: string
         throughputCapacity:
           description: The reserved throughput capacity. Every unit of throughput capacity is equivalent to 1 MiB/s of published messages or 2 MiB/s of subscribed messages. Any topics which are declared as using capacity from a Reservation will consume resources from this reservation instead of being charged individually.
@@ -1255,13 +2246,15 @@ components:
       type: object
     ReservationConfig:
       description: The settings for this topic's Reservation usage.
+      x-google-discovery-id: ReservationConfig
       properties:
         throughputReservation:
-          description: "The Reservation to use for this topic's throughput capacity. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}"
+          description: 'The Reservation to use for this topic''s throughput capacity. Structured like: projects/{project_number}/locations/{location}/reservations/{reservation_id}'
           type: string
       type: object
     RetentionConfig:
       description: The settings for a topic's message retention.
+      x-google-discovery-id: RetentionConfig
       properties:
         perPartitionBytes:
           description: The provisioned storage, in bytes, per partition. If the number of bytes stored in any of the topic's partitions grows beyond this value, older messages will be dropped to make room for newer ones, regardless of the value of `period`.
@@ -1274,6 +2267,7 @@ components:
       type: object
     SeekSubscriptionRequest:
       description: Request for SeekSubscription.
+      x-google-discovery-id: SeekSubscriptionRequest
       properties:
         namedTarget:
           description: Seek to a named position with respect to the message backlog.
@@ -1281,17 +2275,24 @@ components:
             - NAMED_TARGET_UNSPECIFIED
             - TAIL
             - HEAD
+          x-google-enum-descriptions:
+            - Unspecified named target. Do not use.
+            - Seek to the oldest retained message.
+            - Seek past all recently published messages, skipping the entire message backlog.
           type: string
         timeTarget:
-          $ref: "#/components/schemas/TimeTarget"
           description: Seek to the first message whose publish or event time is greater than or equal to the specified query time. If no such message can be located, will seek to the end of the message backlog.
+          allOf:
+            - $ref: '#/components/schemas/TimeTarget'
       type: object
     SeekSubscriptionResponse:
       description: Response for SeekSubscription long running operation.
+      x-google-discovery-id: SeekSubscriptionResponse
       properties: {}
       type: object
     Status:
-      description: "The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors)."
+      description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+      x-google-discovery-id: Status
       properties:
         code:
           description: The status code, which should be an enum value of google.rpc.Code.
@@ -1302,6 +2303,7 @@ components:
           items:
             additionalProperties:
               description: Properties of the object. Contains field @type with type URL.
+              x-google-discovery-type: any
             type: object
           type: array
         message:
@@ -1310,22 +2312,26 @@ components:
       type: object
     Subscription:
       description: Metadata about a subscription resource.
+      x-google-discovery-id: Subscription
       properties:
         deliveryConfig:
-          $ref: "#/components/schemas/DeliveryConfig"
           description: The settings for this subscription's message delivery.
+          allOf:
+            - $ref: '#/components/schemas/DeliveryConfig'
         exportConfig:
-          $ref: "#/components/schemas/ExportConfig"
           description: If present, messages are automatically written from the Pub/Sub Lite topic associated with this subscription to a destination.
+          allOf:
+            - $ref: '#/components/schemas/ExportConfig'
         name:
-          description: "The name of the subscription. Structured like: projects/{project_number}/locations/{location}/subscriptions/{subscription_id}"
+          description: 'The name of the subscription. Structured like: projects/{project_number}/locations/{location}/subscriptions/{subscription_id}'
           type: string
         topic:
-          description: "The name of the topic this subscription is attached to. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}"
+          description: 'The name of the topic this subscription is attached to. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}'
           type: string
       type: object
     TimeTarget:
       description: A target publish or event time. Can be used for seeking to or retrieving the corresponding cursor.
+      x-google-discovery-id: TimeTarget
       properties:
         eventTime:
           description: Request the cursor of the first message with event time greater than or equal to `event_time`. If messages are missing an event time, the publish time is used as a fallback. As event times are user supplied, subsequent messages may have event times less than `event_time` and should be filtered by the client, if necessary.
@@ -1338,43 +2344,152 @@ components:
       type: object
     Topic:
       description: Metadata about a topic resource.
+      x-google-discovery-id: Topic
       properties:
         name:
-          description: "The name of the topic. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}"
+          description: 'The name of the topic. Structured like: projects/{project_number}/locations/{location}/topics/{topic_id}'
           type: string
         partitionConfig:
-          $ref: "#/components/schemas/PartitionConfig"
           description: The settings for this topic's partitions.
+          allOf:
+            - $ref: '#/components/schemas/PartitionConfig'
         reservationConfig:
-          $ref: "#/components/schemas/ReservationConfig"
           description: The settings for this topic's Reservation usage.
+          allOf:
+            - $ref: '#/components/schemas/ReservationConfig'
         retentionConfig:
-          $ref: "#/components/schemas/RetentionConfig"
           description: The settings for this topic's message retention.
+          allOf:
+            - $ref: '#/components/schemas/RetentionConfig'
       type: object
     TopicPartitions:
       description: Response for GetTopicPartitions.
+      x-google-discovery-id: TopicPartitions
       properties:
         partitionCount:
           description: The number of partitions in the topic.
           format: int64
           type: string
       type: object
+  parameters:
+    $.xgafv:
+      name: $.xgafv
+      in: query
+      schema:
+        enum:
+          - '1'
+          - '2'
+        x-google-enum-descriptions:
+          - v1 error format
+          - v2 error format
+        type: string
+      description: V1 error format.
+    access_token:
+      name: access_token
+      in: query
+      schema:
+        type: string
+      description: OAuth access token.
+    alt:
+      name: alt
+      in: query
+      schema:
+        default: json
+        enum:
+          - json
+          - media
+          - proto
+        x-google-enum-descriptions:
+          - Responses with Content-Type of application/json
+          - Media download with context-dependent Content-Type
+          - Responses with Content-Type of application/x-protobuf
+        type: string
+      description: Data format for response.
+    callback:
+      name: callback
+      in: query
+      schema:
+        type: string
+      description: JSONP
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+      description: Selector specifying which fields to include in a partial response.
+    key:
+      name: key
+      in: query
+      schema:
+        type: string
+      description: API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+    oauth_token:
+      name: oauth_token
+      in: query
+      schema:
+        type: string
+      description: OAuth 2.0 token for the current user.
+    prettyPrint:
+      name: prettyPrint
+      in: query
+      schema:
+        default: true
+        type: boolean
+      description: Returns response with indentations and line breaks.
+    quotaUser:
+      name: quotaUser
+      in: query
+      schema:
+        type: string
+      description: Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+    uploadType:
+      name: uploadType
+      in: query
+      schema:
+        type: string
+      description: Legacy upload protocol for media (e.g. "media", "multipart").
+    upload_protocol:
+      name: upload_protocol
+      in: query
+      schema:
+        type: string
+      description: Upload protocol for media (e.g. "raw", "multipart").
   securitySchemes:
     Oauth2:
-      description: Oauth 2.0 implicit authentication
+      type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-      type: oauth2
     Oauth2c:
-      description: Oauth 2.0 authorizationCode authentication
+      type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
           scopes:
             https://www.googleapis.com/auth/cloud-platform: See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
-          tokenUrl: https://accounts.google.com/o/oauth2/token
-      type: oauth2
+externalDocs:
+  url: https://cloud.google.com/pubsub/lite/docs
+tags:
+  - name: admin
+  - name: cursor
+  - name: topicStats
+x-google-discovery:
+  basePath: ''
+  baseUrl: https://pubsublite.googleapis.com/
+  batchPath: batch
+  canonicalName: PubsubLite
+  fullyEncodeReservedExpansion: true
+  icons:
+    x16: http://www.google.com/images/icons/product/search-16.gif
+    x32: http://www.google.com/images/icons/product/search-32.gif
+  id: pubsublite:v1
+  kind: discovery#restDescription
+  mtlsRootUrl: https://pubsublite.mtls.googleapis.com/
+  name: pubsublite
+  revision: '20251114'
+  rootUrl: https://pubsublite.googleapis.com/
+  servicePath: ''
+  version_module: true
