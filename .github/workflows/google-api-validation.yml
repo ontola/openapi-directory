@@ -1,0 +1,62 @@
+name: Google API validation
+
+on:
+  pull_request:
+    paths:
+      - 'APIs/googleapis.com/**'
+      - 'maintenance/google_*.py'
+      - '.github/workflows/google-api-validation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-google:
+    runs-on: ubuntu-latest
+    steps:
+      # Execute trusted base tooling, never scripts supplied by an API PR.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          sparse-checkout: maintenance
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: maintenance/requirements.txt
+      - run: python -m pip install -r maintenance/requirements.txt
+      - name: Validate the exact head and source projections
+        env:
+          GOOGLE_BASE: ${{ github.event.pull_request.base.sha }}
+          GOOGLE_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git fetch origin "$GOOGLE_HEAD"
+          if [ -f maintenance/google_validate_head.py ]; then
+            python maintenance/google_validate_head.py --base "$GOOGLE_BASE" --head "$GOOGLE_HEAD"
+          elif [ -z "$(git diff --name-only "$GOOGLE_BASE" "$GOOGLE_HEAD" -- APIs/googleapis.com)" ]; then
+            echo 'Infrastructure-only change; no Google API artifacts to validate.'
+          else
+            echo 'Base lacks Google validation tooling; merge the infrastructure first.'
+            exit 1
+          fi
+      - name: Publish exact-head validation summary
+        if: always()
+        run: |
+          if [ -f cache/maintenance/google-head-validation/report.json ]; then
+            python - <<'PY'
+          import json, os
+          from pathlib import Path
+          result = json.loads(Path('cache/maintenance/google-head-validation/report.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write('## Google artifacts at the exact head\n\n```json\n')
+              summary.write(json.dumps({k: v for k, v in result.items() if k != 'artifacts'}, indent=2))
+              summary.write('\n```\n\nThis verifies descriptions and pinned sources, not live API/account behavior.\n')
+          PY
+          fi
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: google-api-head-validation
+          path: cache/maintenance/google-head-validation/report.json
+          if-no-files-found: ignore

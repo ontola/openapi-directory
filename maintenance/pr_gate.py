@@ -24,6 +24,7 @@ import time
 
 MAINTENANCE = ("Official-source maintenance", "tests")
 DRAFT = ("Generated API draft validation", "validate")
+GOOGLE = ("Google API validation", "validate-google")
 
 
 def required(paths, head_ref):
@@ -31,9 +32,12 @@ def required(paths, head_ref):
     if any(p.startswith("maintenance/") or p.startswith(".github/workflows/") for p in paths):
         needs.append(MAINTENANCE)
     api = any(p.startswith("APIs/") or p == "maintenance/sources.json" for p in paths)
+    google = any(p.startswith("APIs/googleapis.com/") for p in paths)
+    if google:
+        needs.append(GOOGLE)
     if api and (head_ref or "").startswith("codex/official-update-"):
         needs.append(DRAFT)
-    elif api and any(p.startswith("APIs/") for p in paths):
+    elif api and not google and any(p.startswith("APIs/") for p in paths):
         notes.append("API files changed outside a generated draft: no automated API validation exists; human review required")
     return needs, notes
 
