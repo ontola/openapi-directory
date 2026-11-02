@@ -1,0 +1,495 @@
+{
+  "generated_at": "2026-11-02T16:08:37.812343+00:00",
+  "base_revision": "566b580b6e0f6c06f940cc24734f4fabe8c02e4e",
+  "previous_batch_merges": [
+    {
+      "pr": 471,
+      "head": "66c25721f21362cf2444300f0e5987fbd1fd6d0f",
+      "merge_commit": "0104a187951bdee6fbe18b95e51066e2beb3c0b5",
+      "name": "Linear",
+      "checks": {
+        "gate": [
+          "completed",
+          "success"
+        ],
+        "snapshots": [
+          "completed",
+          "success"
+        ]
+      }
+    },
+    {
+      "pr": 472,
+      "head": "613143a9ecd248a4aed6e9c0f1dd92207c3cb443",
+      "merge_commit": "4ae0a35bdaa789307e61bb7e40e3cd78023489a6",
+      "name": "Buildkite",
+      "checks": {
+        "gate": [
+          "completed",
+          "success"
+        ],
+        "snapshots": [
+          "completed",
+          "success"
+        ]
+      }
+    },
+    {
+      "pr": 473,
+      "head": "9f8e9404b86d53eae9e4f874ca000b5c806a52e3",
+      "merge_commit": "4f2b5142b384f86a4e47be157ab8ad9b53fdda56",
+      "name": "GitLab.com",
+      "checks": {
+        "snapshots": [
+          "completed",
+          "success"
+        ],
+        "gate": [
+          "completed",
+          "success"
+        ]
+      }
+    },
+    {
+      "pr": 474,
+      "head": "1ec9d8c5215d55b2c1762e3a7d6c4d6abd90fbee",
+      "merge_commit": "7a8c9e75fb4064bb423aa2d81a4508398dba0b06",
+      "name": "monday.com",
+      "checks": {
+        "gate": [
+          "completed",
+          "success"
+        ],
+        "snapshots": [
+          "completed",
+          "success"
+        ]
+      }
+    },
+    {
+      "pr": 475,
+      "head": "08b7c6f6ce6e8f87910f371e7a569141a8186cd4",
+      "merge_commit": "0b065a82a7566f2501d3a9f1b75a5e2b151418a5",
+      "name": "Shopify Customer Account 2026-10",
+      "checks": {
+        "snapshots": [
+          "completed",
+          "success"
+        ],
+        "gate": [
+          "completed",
+          "success"
+        ]
+      }
+    },
+    {
+      "pr": 476,
+      "head": "842213ed0c60eb4acaea7b51e27dd85629664285",
+      "merge_commit": "50de7825939f60d943c0b704183ac7a2d8b4e348",
+      "name": "Saleor core",
+      "checks": {
+        "snapshots": [
+          "completed",
+          "success"
+        ],
+        "gate": [
+          "completed",
+          "success"
+        ]
+      }
+    },
+    {
+      "pr": 477,
+      "head": "1f30c15ad7c588546c53c81747090a9a897426f6",
+      "merge_commit": "ae02f1aa2dfb59c145e13bf1131fb58abe91e1c5",
+      "name": "Dagster OSS",
+      "checks": {
+        "snapshots": [
+          "completed",
+          "success"
+        ],
+        "gate": [
+          "completed",
+          "success"
+        ]
+      }
+    },
+    {
+      "pr": 478,
+      "head": "311f9927f7c8afbce02f5f5efe94bf23dab57f65",
+      "merge_commit": "653c8bb4dcbcfd503e62ddfb8319bd3bea6e2edd",
+      "name": "Dagster Plus",
+      "checks": {
+        "snapshots": [
+          "completed",
+          "success"
+        ],
+        "gate": [
+          "completed",
+          "success"
+        ]
+      }
+    },
+    {
+      "pr": 479,
+      "head": "9a3018fb123f9278e5734e1ed576dba613615fc4",
+      "merge_commit": "566b580b6e0f6c06f940cc24734f4fabe8c02e4e",
+      "name": "Shared coverage report",
+      "checks": {
+        "audit": [
+          "completed",
+          "skipped"
+        ],
+        "snapshots": [
+          "completed",
+          "success"
+        ],
+        "gate": [
+          "completed",
+          "success"
+        ],
+        "tests": [
+          "completed",
+          "success"
+        ]
+      }
+    }
+  ],
+  "services_prepared": 5,
+  "artifacts_prepared": [
+    {
+      "provider": "apollographql.com",
+      "service": "graphos-platform",
+      "endpoint": "https://api.apollographql.com/graphql",
+      "path": "GraphQL/apollographql.com/graphos-platform/d1e79ff6bb44362ff87896a9e8d62e47e15d85af/schema.graphql",
+      "provenance": "GraphQL/apollographql.com/graphos-platform/d1e79ff6bb44362ff87896a9e8d62e47e15d85af/provenance.json",
+      "sha256": "b030ac8df1c5bebf98d04bb15648ce5ab6a01b009cde390c3cd76a55a08a1c02",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "commercetools.com",
+      "service": "composable-commerce",
+      "endpoint": null,
+      "path": "GraphQL/commercetools.com/composable-commerce/3d4c96317c886ebb22b900e526242d47d03dd435/schema.graphql",
+      "provenance": "GraphQL/commercetools.com/composable-commerce/3d4c96317c886ebb22b900e526242d47d03dd435/provenance.json",
+      "sha256": "65e172764ee5399bc515d43ef51498434ff3ca21331d124d29ebc47ffc174516",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "fly.io",
+      "service": "control-plane",
+      "endpoint": null,
+      "path": "GraphQL/fly.io/control-plane/3fa856aab14d248d1b4d259dacfac5df169d4930/schema.graphql",
+      "provenance": "GraphQL/fly.io/control-plane/3fa856aab14d248d1b4d259dacfac5df169d4930/provenance.json",
+      "sha256": "4892a13a8191cc395042843fe459575c13f60d599b4657e1e4426690b4cd7d20",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "opencti.io",
+      "service": "core",
+      "endpoint": null,
+      "path": "GraphQL/opencti.io/core/a2972226e67b9c113a3f6856584da4b75806174b/schema.graphql",
+      "provenance": "GraphQL/opencti.io/core/a2972226e67b9c113a3f6856584da4b75806174b/provenance.json",
+      "sha256": "c08c07469f587d21b88ecb3d571c8d87b08bf9764a22a23821896c56641371a3",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "sourcegraph.com",
+      "service": "public-graphql",
+      "endpoint": "https://sourcegraph.com/.api/graphql",
+      "path": "GraphQL/sourcegraph.com/public-graphql/sha256-abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21/schema.json",
+      "provenance": "GraphQL/sourcegraph.com/public-graphql/sha256-abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21/provenance.json",
+      "sha256": "abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21",
+      "status": "source_snapshot"
+    }
+  ],
+  "blocked_sources": [
+    {
+      "sha256": "079a281523a8c2f9e840feafba0d83303b1d18f557c274e9da1774a75d92bcc6",
+      "format": "introspection",
+      "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+      "validation_errors": [
+        "Interface field Node.id is not deprecated, so implementation field ChannelDefinition.id must not be deprecated.",
+        "Interface field Node.id is not deprecated, so implementation field ChannelInformation.id must not be deprecated.",
+        "Interface field CommentEventSubject.hasTimelineComment is not deprecated, so implementation field Customer.hasTimelineComment must not be deprecated.",
+        "Interface field Node.id is not deprecated, so implementation field DiscountAutomaticBxgy.id must not be deprecated.",
+        "Interface field HasMetafields.metafield is not deprecated, so implementation field MediaImage.metafield must not be deprecated.",
+        "Interface field HasMetafields.metafields is not deprecated, so implementation field MediaImage.metafields must not be deprecated."
+      ],
+      "counts": {
+        "types": 3708,
+        "fields": 12780,
+        "directives": 7
+      },
+      "roots": {
+        "query": "QueryRoot",
+        "mutation": "Mutation",
+        "subscription": null
+      },
+      "url": "https://shopify.dev/admin-graphql-direct-proxy/2026-10",
+      "local_path": "cache/maintenance/graphql-expansion-2/shopify-admin-2026-10.introspection.json",
+      "retrieved_at": "2026-11-02T15:58:35.546021+00:00",
+      "http_metadata": {
+        "url": "https://shopify.dev/admin-graphql-direct-proxy/2026-10",
+        "etag": "W/\"70bd54-fdQ81VDDQ8FqsNkotftf6nAeIZ8\"",
+        "last_modified": null
+      },
+      "request_scope": "Standard schema introspection only; no credentials, application-data fields or mutations."
+    },
+    {
+      "sha256": "25716c2bd53862c23ef79d20e527ea1ec53b7c5c120772e60c38cade3c6b2f3f",
+      "format": "introspection",
+      "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+      "validation_errors": [
+        "Interface field Node.id is not deprecated, so implementation field MediaPresentation.id must not be deprecated."
+      ],
+      "counts": {
+        "types": 421,
+        "fields": 1467,
+        "directives": 8
+      },
+      "roots": {
+        "query": "QueryRoot",
+        "mutation": "Mutation",
+        "subscription": null
+      },
+      "url": "https://shopify.dev/storefront-graphql-direct-proxy/2026-10",
+      "local_path": "cache/maintenance/graphql-expansion-2/shopify-storefront-2026-10.introspection.json",
+      "retrieved_at": "2026-11-02T15:58:34.413779+00:00",
+      "http_metadata": {
+        "url": "https://shopify.dev/storefront-graphql-direct-proxy/2026-10",
+        "etag": "W/\"c67af-b355YSaJZAuF5xJCb2yc1DlYxn0\"",
+        "last_modified": null
+      },
+      "request_scope": "Standard schema introspection only; no credentials, application-data fields or mutations."
+    },
+    {
+      "sha256": "3c3d1448f2a746d6e5977ba3aa205889f959c427be5cfe37c72e79b1fa65f2be",
+      "format": "introspection",
+      "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+      "validation_errors": [
+        "Interface field Node.id is not deprecated, so implementation field Team.id must not be deprecated."
+      ],
+      "counts": {
+        "types": 616,
+        "fields": 2705,
+        "directives": 5
+      },
+      "roots": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      },
+      "repository": "railwayapp/cli",
+      "revision": "b62467ef1b5303e3e340283ed96425dcf9612993",
+      "source_path": "src/gql/schema.json",
+      "url": "https://raw.githubusercontent.com/railwayapp/cli/b62467ef1b5303e3e340283ed96425dcf9612993/src/gql/schema.json",
+      "local_path": "cache/maintenance/graphql-expansion-2/railwayapp--src--gql--schema.json",
+      "retrieved_at": "2026-11-02T15:57:16.902074+00:00",
+      "git_blob": "3f3c4ca20d99c07417db70882caedf47196308f9"
+    },
+    {
+      "parse_error": "Field 'EnterpriseOwnerInfo.repositoryDeployKeySetting' can only be defined once.\n\nField 'EnterpriseOwnerInfo.repositoryDeployKeySettingOrganizations' can only be defined once.",
+      "repository": "octokit/graphql-schema",
+      "revision": "82ff2d4780080e6929ebb95608cefa22dfa05ac7",
+      "source_path": "schema.graphql",
+      "url": "https://raw.githubusercontent.com/octokit/graphql-schema/82ff2d4780080e6929ebb95608cefa22dfa05ac7/schema.graphql",
+      "sha256": "3c62d0526d133cee53221c89de9b455ade24db78b9e7ad56d642c4c15bce2654",
+      "local_path": "cache/maintenance/graphql-expansion-2/octokit--schema.graphql",
+      "retrieved_at": "2026-11-02T15:54:02.782555+00:00",
+      "git_blob": "55a7e16f1e6cce02df23725cc7f470ebf23bec1c"
+    },
+    {
+      "sha256": "bbdb03f4006f4e34964d67d55385f1c8c47c4cacd507ccdc38af2544247ecddd",
+      "format": "introspection",
+      "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+      "validation_errors": [
+        "Interface field Reactable.databaseId is not deprecated, so implementation field PullRequest.databaseId must not be deprecated.",
+        "Interface field Reactable.databaseId is not deprecated, so implementation field PullRequestReview.databaseId must not be deprecated.",
+        "Interface field Reactable.databaseId is not deprecated, so implementation field PullRequestReviewComment.databaseId must not be deprecated.",
+        "Interface field Comment.authorAssociation is not deprecated, so implementation field TeamDiscussion.authorAssociation must not be deprecated.",
+        "Interface field UniformResourceLocatable.resourcePath is not deprecated, so implementation field TeamDiscussion.resourcePath must not be deprecated.",
+        "Interface field UniformResourceLocatable.url is not deprecated, so implementation field TeamDiscussion.url must not be deprecated.",
+        "Interface field Comment.authorAssociation is not deprecated, so implementation field TeamDiscussionComment.authorAssociation must not be deprecated.",
+        "Interface field UniformResourceLocatable.resourcePath is not deprecated, so implementation field TeamDiscussionComment.resourcePath must not be deprecated.",
+        "Interface field UniformResourceLocatable.url is not deprecated, so implementation field TeamDiscussionComment.url must not be deprecated."
+      ],
+      "counts": {
+        "types": 1598,
+        "fields": 7507,
+        "directives": 6
+      },
+      "roots": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": null
+      },
+      "repository": "octokit/graphql-schema",
+      "revision": "82ff2d4780080e6929ebb95608cefa22dfa05ac7",
+      "source_path": "schema.json",
+      "url": "https://raw.githubusercontent.com/octokit/graphql-schema/82ff2d4780080e6929ebb95608cefa22dfa05ac7/schema.json",
+      "local_path": "cache/maintenance/graphql-expansion-2/octokit--schema.json",
+      "retrieved_at": "2026-11-02T15:54:04.760907+00:00",
+      "git_blob": "8cc7a1755bbabca243ae9847c5f56e88eb8b68f2"
+    },
+    {
+      "sha256": "fa6b44dd3fdcd492bcc3911393746943a431511c85e33dce55880ef28fc21f97",
+      "format": "introspection",
+      "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+      "validation_errors": [
+        "Interface field AgentStudioAgent.scenarioList is not deprecated, so implementation field AgentStudioServiceAgent.scenarioList must not be deprecated.",
+        "Interface field AssetsObjectTypeAttribute.isEditable is not deprecated, so implementation field AssetsExternalReferenceTypeAttribute.isEditable must not be deprecated.",
+        "Interface field AssetsObjectTypeAttribute.maximumCardinality is not deprecated, so implementation field AssetsExternalReferenceTypeAttribute.maximumCardinality must not be deprecated.",
+        "Interface field AssetsObjectTypeAttribute.objectTypeId is not deprecated, so implementation field AssetsExternalReferenceTypeAttribute.objectTypeId must not be deprecated.",
+        "Interface field AssetsObjectTypeAttribute.position is not deprecated, so implementation field AssetsExternalReferenceTypeAttribute.position must not be deprecated.",
+        "Interface field CommerceEntitlementExperienceCapabilities.changeOffering is not deprecated, so implementation field CcpEntitlementExperienceCapabilities.changeOffering must not be deprecated.",
+        "Interface field CommerceEntitlementExperienceCapabilities.changeOffering is not deprecated, so implementation field HamsEntitlementExperienceCapabilities.changeOffering must not be deprecated.",
+        "Interface field JiraView.error is not deprecated, so implementation field JiraBoardView.error must not be deprecated.",
+        "Interface field JiraIssueField.fieldId is not deprecated, so implementation field JiraFallbackField.fieldId must not be deprecated.",
+        "Interface field JiraIssueField.aliasFieldId is not deprecated, so implementation field JiraFallbackField.aliasFieldId must not be deprecated.",
+        "Interface field JiraIssueField.type is not deprecated, so implementation field JiraFallbackField.type must not be deprecated.",
+        "Interface field JiraIssueField.name is not deprecated, so implementation field JiraFallbackField.name must not be deprecated.",
+        "Interface field JiraIssueField.description is not deprecated, so implementation field JiraFallbackField.description must not be deprecated.",
+        "Interface field JiraIssueField.isEditableInIssueTransition is not deprecated, so implementation field JiraFallbackField.isEditableInIssueTransition must not be deprecated.",
+        "Interface field JiraIssueField.issue is not deprecated, so implementation field JiraFallbackField.issue must not be deprecated.",
+        "Interface field JiraIssueField.fieldOperations is not deprecated, so implementation field JiraFallbackField.fieldOperations must not be deprecated.",
+        "Interface field JiraListRowField.fieldId is not deprecated, so implementation field JiraFallbackField.fieldId must not be deprecated.",
+        "Interface field JiraListRowField.aliasFieldId is not deprecated, so implementation field JiraFallbackField.aliasFieldId must not be deprecated.",
+        "Interface field JiraListRowField.type is not deprecated, so implementation field JiraFallbackField.type must not be deprecated.",
+        "Interface field JiraListRowField.name is not deprecated, so implementation field JiraFallbackField.name must not be deprecated.",
+        "Interface field JiraListRowField.description is not deprecated, so implementation field JiraFallbackField.description must not be deprecated.",
+        "Interface field JiraListRowField.isEditableInIssueTransition is not deprecated, so implementation field JiraFallbackField.isEditableInIssueTransition must not be deprecated.",
+        "Interface field JiraIssueFieldConfiguration.fieldConfig is not deprecated, so implementation field JiraFallbackField.fieldConfig must not be deprecated.",
+        "Interface field JiraListRow.fieldSets is not deprecated, so implementation field JiraIssue.fieldSets must not be deprecated.",
+        "Interface field HasTotal.totalCount is not deprecated, so implementation field JiraJpdIdeaInsightConnection.totalCount must not be deprecated.",
+        "Interface field HasPageInfo.pageInfo is not deprecated, so implementation field JiraJpdIdeaInsightConnection.pageInfo must not be deprecated.",
+        "Interface field JiraJqlFieldValue.displayName is not deprecated, so implementation field JiraJqlUserFieldValue.displayName must not be deprecated.",
+        "Interface field KnowledgeDiscoveryIntent.classification is not deprecated, so implementation field KnowledgeDiscoveryJobTitleIntent.classification must not be deprecated.",
+        "Interface field KnowledgeDiscoveryIntent.transformedQuery is not deprecated, so implementation field KnowledgeDiscoveryJobTitleIntent.transformedQuery must not be deprecated.",
+        "Interface field KnowledgeDiscoveryIntent.subTypes is not deprecated, so implementation field KnowledgeDiscoveryJobTitleIntent.subTypes must not be deprecated.",
+        "Interface field KnowledgeDiscoveryIntent.detectionType is not deprecated, so implementation field KnowledgeDiscoveryJobTitleIntent.detectionType must not be deprecated.",
+        "Interface field KnowledgeDiscoveryIntent.classification is not deprecated, so implementation field KnowledgeDiscoveryOrgChartIntent.classification must not be deprecated.",
+        "Interface field KnowledgeDiscoveryIntent.transformedQuery is not deprecated, so implementation field KnowledgeDiscoveryOrgChartIntent.transformedQuery must not be deprecated.",
+        "Interface field KnowledgeDiscoveryIntent.subTypes is not deprecated, so implementation field KnowledgeDiscoveryOrgChartIntent.subTypes must not be deprecated.",
+        "Interface field KnowledgeDiscoveryIntent.detectionType is not deprecated, so implementation field KnowledgeDiscoveryOrgChartIntent.detectionType must not be deprecated."
+      ],
+      "counts": {
+        "types": 32256,
+        "fields": 109661,
+        "directives": 25
+      },
+      "roots": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      },
+      "url": "https://api.atlassian.com/graphql",
+      "local_path": "cache/maintenance/graphql-expansion-2/atlassian.introspection.json",
+      "retrieved_at": "2026-11-02T16:04:54.358813+00:00"
+    },
+    {
+      "parse_error": "Expecting value: line 1 column 1 (char 0)",
+      "url": "https://gql.hashnode.com",
+      "local_path": "cache/maintenance/graphql-expansion-2/hashnode.introspection.json",
+      "sha256": "38fb392b0d39951a422a5c998a27b04648c955c9d045d187cc6426c7a9b46a34",
+      "retrieved_at": "2026-11-02T15:58:33.988081+00:00",
+      "http_metadata": {
+        "url": "https://hashnode.com/changelog/2026-05-13-graphql-api-paid-access",
+        "etag": null,
+        "last_modified": null
+      },
+      "request_scope": "Standard schema introspection only; no credentials, application-data fields or mutations."
+    },
+    {
+      "url": "https://api.grafbase.com/graphql",
+      "error": "HTTP Error 404: Not Found",
+      "checked_at": "2026-11-02T16:03:20.909907+00:00"
+    }
+  ],
+  "limitations": [
+    "Native schema validity does not establish current runtime behavior or permissions.",
+    "Only schema metadata was queried; no credentials were sent to public schema endpoints."
+  ],
+  "deferred_valid_publication": {
+    "source": {
+      "sha256": "fc65db854177f08c2986eb161e0112e9716cbe6a9f91d8a83dd65225b6c98d60",
+      "format": "sdl",
+      "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+      "validation_errors": [],
+      "counts": {
+        "types": 413,
+        "fields": 971,
+        "directives": 5
+      },
+      "roots": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      },
+      "repository": "grafbase/grafbase",
+      "revision": "b8223903090f38b50d74c6678656d90d4e8dadb7",
+      "source_path": "cli/src/api/graphql/api.graphql",
+      "url": "https://raw.githubusercontent.com/grafbase/grafbase/b8223903090f38b50d74c6678656d90d4e8dadb7/cli/src/api/graphql/api.graphql",
+      "local_path": "cache/maintenance/graphql-expansion-2/grafbase--cli--src--api--graphql--api.graphql",
+      "retrieved_at": "2026-11-02T15:54:01.665270+00:00",
+      "git_blob": "25cfbed423ff5b8f0a92ec331cc34f4c7af69521",
+      "artifact_last_commit": {
+        "sha": "2cca0e5f4c050e2f8173a96c88e9926e48a1bbc5",
+        "committed_at": "2025-09-05T15:23:54Z"
+      }
+    },
+    "reason": "CLI schema last changed 2025-09-05; official configured API endpoint returned HTTP 404 on a metadata-only request. No current-runtime coverage claim or import."
+  },
+  "prepared_delivery": [
+    {
+      "provider": "apollographql.com",
+      "service": "graphos-platform",
+      "name": "Apollo GraphOS Platform",
+      "pr": 480,
+      "url": "https://github.com/ontola/openapi-directory/pull/480",
+      "head": "215b931effd87dc508a13cf3b5ff53e79b7de639",
+      "base": "566b580b6e0f6c06f940cc24734f4fabe8c02e4e",
+      "branch": "codex/graphql2-apollographql-com-graphos-platform"
+    },
+    {
+      "provider": "commercetools.com",
+      "service": "composable-commerce",
+      "name": "commercetools Composable Commerce",
+      "pr": 481,
+      "url": "https://github.com/ontola/openapi-directory/pull/481",
+      "head": "4580db26beef3ca8a00e75034b3e1ae8395b4407",
+      "base": "566b580b6e0f6c06f940cc24734f4fabe8c02e4e",
+      "branch": "codex/graphql2-commercetools-com-composable-commerce"
+    },
+    {
+      "provider": "fly.io",
+      "service": "control-plane",
+      "name": "Fly.io control plane",
+      "pr": 482,
+      "url": "https://github.com/ontola/openapi-directory/pull/482",
+      "head": "d74e69a4b9541e912f13c9554c7405d8ed7b715b",
+      "base": "566b580b6e0f6c06f940cc24734f4fabe8c02e4e",
+      "branch": "codex/graphql2-fly-io-control-plane"
+    },
+    {
+      "provider": "opencti.io",
+      "service": "core",
+      "name": "OpenCTI",
+      "pr": 483,
+      "url": "https://github.com/ontola/openapi-directory/pull/483",
+      "head": "2586b9ed60fdda2c9643fe6929e393cf056523c3",
+      "base": "566b580b6e0f6c06f940cc24734f4fabe8c02e4e",
+      "branch": "codex/graphql2-opencti-io-core"
+    },
+    {
+      "provider": "sourcegraph.com",
+      "service": "public-graphql",
+      "name": "Sourcegraph",
+      "pr": 484,
+      "url": "https://github.com/ontola/openapi-directory/pull/484",
+      "head": "c2fef581cdf634b5a782bc3ed8dd65e07c03663b",
+      "base": "566b580b6e0f6c06f940cc24734f4fabe8c02e4e",
+      "branch": "codex/graphql2-sourcegraph-com-public-graphql"
+    }
+  ]
+}

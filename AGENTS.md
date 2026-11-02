@@ -1,5 +1,14 @@
 # AGENTS.md — working on this OpenAPI directory fork
 
+**GraphQL expansion / explicit batch approval — 2026-11-02:** The user approved
+merging #471–#479 and requested more GraphQL coverage. All nine approved PRs are
+merged after exact-head hosted checks; index reconciliations preserved prior entries.
+The published environment now permits the required network access, superseding the
+old runtime-denial observation below. Read
+`maintenance/reports/graphql-second-expansion-2026-11-02.md` for five further prepared
+surfaces, source scope and new blockers. New work remains separate from the approved
+batch; no scheduled writer, paused automation or environment configuration was changed.
+
 **User-directed audit resumed — 2026-11-02:** The user asked to work through the
 open-issue/freshness/missing-source queue until done. Work is on the existing isolated
 cloud checkout; no worktree or historical automation was created/resumed. Read
