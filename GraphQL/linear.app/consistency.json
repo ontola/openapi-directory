@@ -1,0 +1,57 @@
+{
+  "status": "changed",
+  "complete": false,
+  "introspection_equal": false,
+  "sdl_ast_equal": null,
+  "semantic_changes": [
+    {
+      "kind": "changed",
+      "path": "#/__schema/directives/deprecated/args/reason/type/kind"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/directives/deprecated/args/reason/type/name"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/directives/deprecated/args/reason/type/ofType"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/directives/deprecated/locations"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/directives/specifiedBy/args/url/description"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/directives/specifiedBy/description"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/types/DateTime/description"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/types/DateTimeOrDuration/description"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/types/Mutation/fields/issueDescriptionUpdateFromFront/args/description/description"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/types/Query/fields/attachment/description"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/types/Query/fields/attachmentIssue/description"
+    },
+    {
+      "kind": "changed",
+      "path": "#/__schema/types/TimelessDate/description"
+    }
+  ],
+  "limitation": "Introspection cannot establish applied directives or full SDL equality"
+}
