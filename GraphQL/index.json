@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-11-02T15:05:48.549107+00:00",
+  "checked_at": "2026-11-02T16:08:37.811433+00:00",
   "issue": "https://github.com/ontola/openapi-directory/issues/465",
   "baseline_inventory": "maintenance/reports/graphql-inventory-2026-11-02.json",
   "artifacts": [
@@ -92,6 +92,15 @@
       "path": "GraphQL/dagster.io/plus/ef5c227a91576661f7c4b8619b855cd95e68ccd5/schema.graphql",
       "provenance": "GraphQL/dagster.io/plus/ef5c227a91576661f7c4b8619b855cd95e68ccd5/provenance.json",
       "sha256": "d6440b39871cd164360c05be141c710eb82c7a586ebd92db24139ce2a9195f81",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "sourcegraph.com",
+      "service": "public-graphql",
+      "endpoint": "https://sourcegraph.com/.api/graphql",
+      "path": "GraphQL/sourcegraph.com/public-graphql/sha256-abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21/schema.json",
+      "provenance": "GraphQL/sourcegraph.com/public-graphql/sha256-abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21/provenance.json",
+      "sha256": "abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21",
       "status": "source_snapshot"
     }
   ],
