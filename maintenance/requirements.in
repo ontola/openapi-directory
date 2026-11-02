@@ -2,3 +2,4 @@ PyYAML==6.0.3
 openapi-spec-validator==0.9.0
 openapi-schema-validator[ecma-regex]==0.9.0
 regress==2026.9.1
+graphql-core==3.3.1

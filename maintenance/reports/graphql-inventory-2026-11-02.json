@@ -1,0 +1,370 @@
+{
+  "base_revision": "a0e4333fa86e5d9a29292c48862632866a6c38ba",
+  "native_sdl_artifacts": [],
+  "introspection_candidates": [],
+  "openapi_mentions": [
+    {
+      "path": "APIs/amazonaws.com/amplifybackend/2020-08-11/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/amazonaws.com/amplifyuibuilder/2021-08-11/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/amazonaws.com/appsync/2017-07-25/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/amazonaws.com/config/2014-11-12/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/amazonaws.com/iotthingsgraph/2018-09-06/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/amazonaws.com/securityhub/2018-10-26/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/amazonaws.com/wafv2/2019-07-29/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/apicurio.local/registry/1.3.2.Final/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/apicurio.local/registry/2.4.x/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/apideck.com/accounting/10.0.0/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/apideck.com/vault/10.0.0/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/apigee.local/registry/0.0.1/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/cloudflare.com/4.0.0/openapi.yaml",
+      "graphql_routes": [
+        "/accounts/{account_id}/cloudforce-one/events/graphql",
+        "/accounts/{account_id}/cloudforce-one/v2/events/graphql"
+      ],
+      "classification": "endpoint_wrapper",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/datadoghq.com/v1/1.0/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/datadoghq.com/v2/1.0/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/dnd5eapi.co/0.1/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/getpostman.com/1.20.0/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/api.github.com.2022-11-28/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/api.github.com/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghec.2022-11-28/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghec/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-2.18/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-2.19/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-2.20/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-2.21/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-2.22/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-3.0/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-3.1/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-3.2/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-3.3/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-3.4/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-3.5/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-3.6/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-3.7/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/ghes-3.8/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/github.com/github.ae/1.1.4/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/gitlab.com/v4-readonly/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/gitlab.com/v4-readonly/source/openapi_v3.yaml",
+      "graphql_routes": [
+        "/api/v4/geo/node_proxy/{id}/graphql"
+      ],
+      "classification": "endpoint_wrapper",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/apigee/v1/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/apigeeregistry/v1/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/apihub/v1/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/apim/v1alpha/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/compute/alpha/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/compute/beta/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/compute/preview/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/compute/v1/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/connectors/v2/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/firebasedataconnect/v1/openapi.yaml",
+      "graphql_routes": [
+        "/v1/projects/{projectsId}/locations/{locationsId}/services/{servicesId}:executeGraphql",
+        "/v1/projects/{projectsId}/locations/{locationsId}/services/{servicesId}:executeGraphqlRead",
+        "/v1/projects/{projectsId}/locations/{locationsId}/services/{servicesId}:introspectGraphql"
+      ],
+      "classification": "endpoint_wrapper",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/firebasedataconnect/v1beta/openapi.yaml",
+      "graphql_routes": [
+        "/v1beta/projects/{projectsId}/locations/{locationsId}/services/{servicesId}:executeGraphql",
+        "/v1beta/projects/{projectsId}/locations/{locationsId}/services/{servicesId}:executeGraphqlRead",
+        "/v1beta/projects/{projectsId}/locations/{locationsId}/services/{servicesId}:introspectGraphql"
+      ],
+      "classification": "endpoint_wrapper",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/googleapis.com/migrationcenter/v1alpha1/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/just-eat.co.uk/1.0.0/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/meshery.local/0.4.27/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/microcks.local/1.7.0/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/redhat.com/catalog_inventory/1.0.0/openapi.yaml",
+      "graphql_routes": [
+        "/graphql"
+      ],
+      "classification": "endpoint_wrapper",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/render.com/1.0.0/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/vtex.local/Headless-CMS-API/0.31.2/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    },
+    {
+      "path": "APIs/workos.com/1.0/openapi.yaml",
+      "graphql_routes": [],
+      "classification": "text_mention",
+      "native_schema": false
+    }
+  ],
+  "parse_failures": [],
+  "limitations": [
+    "A GraphQL endpoint wrapper or prose mention is not a native schema.",
+    "Introspection-shaped files are candidates until validated.",
+    "Search is bounded to committed native SDL suffixes and GraphQL/__schema mentions in APIs and GraphQL directories; arbitrary embedded schemas elsewhere are unassessed."
+  ]
+}

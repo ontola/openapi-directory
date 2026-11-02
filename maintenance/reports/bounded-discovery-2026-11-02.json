@@ -1,0 +1,1428 @@
+{
+  "generated_at": "2026-11-02T14:09:00.672951+00:00",
+  "repositories": [
+    {
+      "repository": "snowflakedb/snowflake-rest-api-specs",
+      "revision": "990e25d97236a11826c9eed40e587c2b859e5680",
+      "patterns": [
+        "specifications/*.yaml",
+        "specifications/*.json"
+      ],
+      "checked_at": "2026-11-02T14:07:56.744732+00:00",
+      "candidates": [
+        {
+          "path": "specifications/account.yaml",
+          "size": 16374,
+          "sha256": "c7e050f7d80ebfdb8819669e70d48500e38978eac0e9d39f2a7b026e5b05fd06",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 3,
+            "operations": 4,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "./common.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: ./common.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "38c64aa04aa1d25a2c052139d975e4c380d82f0c14620161f0c18c9410b9a924",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 3,
+              "operations": 4,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/account/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/alert.yaml",
+          "size": 24194,
+          "sha256": "eadf8756f9323f8b2dec36c1ae6baa450fbd2c810854bed397b44558d82c4ad1",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 7,
+            "operations": 9,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "7e15a2d57831a06570c133e0cd7fc8509b930c2213a110564d63203eea2781da",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 7,
+              "operations": 9,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/alert/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/api-integration.yaml",
+          "size": 19203,
+          "sha256": "2d5d45706d323f93ac32d83b3e498cb066a16f6d797764301af5373616b6f627",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 5,
+            "operations": 8,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "e91b2cb5d30f523d6b30f2bf9e57d72190216b5d0b648de7fa934af93ae5e207",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 5,
+              "operations": 8,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/api-integration/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/artifact-repository.yaml",
+          "size": 14219,
+          "sha256": "e7525e083a83c93d13ab425e4612512f8ee538be8617482c9694311cf032eeda",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 3,
+            "operations": 6,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "fe332d282432f4f2afdb8a7b1db2c11c95086bf2fbb46a679cc3f321ccf24763",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 3,
+              "operations": 6,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/artifact-repository/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/catalog-integration.yaml",
+          "size": 17665,
+          "sha256": "929b4b49d9829d02f84b37774db32308c653a7a303add2887c19496c1427a9bf",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 5,
+            "operations": 7,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "5ee35959a06f537c5790c4736d7101649d179ecb021778e148e46148681071cd",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 5,
+              "operations": 7,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/catalog-integration/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/code-bundle-execution.yaml",
+          "size": 15281,
+          "sha256": "86d73ea240ce404da72f6a76e3609f0c72d2d896bcac0248a4876a04c9a2b3f7",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 3,
+            "operations": 4,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common-code-bundle.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common-code-bundle.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "2cecca47c10e39485de0504d0d79a95c21fb8e36dd77c8e5afbd4095b961606c",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 3,
+              "operations": 4,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/code-bundle-execution/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/code-bundle.yaml",
+          "size": 16846,
+          "sha256": "85cfa8708055f3b381f80af4429e9f158737426558228812740d03a496333d83",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 4,
+            "operations": 6,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common-code-bundle.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common-code-bundle.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "c191322a57613d77a818fd95bfb0a226bc029e79da55381810cfcb2de02e256b",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 4,
+              "operations": 6,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/code-bundle/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/common-code-bundle.yaml",
+          "size": 3964,
+          "sha256": "25b4dfb89a27e83b2eb581222a6384b287d61f10b3f679e6e8abe0bd3392d654",
+          "status": "not_an_openapi_entry"
+        },
+        {
+          "path": "specifications/common-cortex-agent.yaml",
+          "size": 10487,
+          "sha256": "07fcfe17a8f148c775703cb457f9e41fcd1a1b931f9882f7288829c8ccd4cc3c",
+          "status": "not_an_openapi_entry"
+        },
+        {
+          "path": "specifications/common-cortex-analyst.yaml",
+          "size": 8494,
+          "sha256": "03da1504d8121bc1b3642be335521e57c00b91229052524614cd8866931bd91d",
+          "status": "not_an_openapi_entry"
+        },
+        {
+          "path": "specifications/common-cortex-tool.yaml",
+          "size": 17619,
+          "sha256": "a3b1635de4088c96ab43fe16515f768b0672586337fd104a3922772a1e559718",
+          "status": "not_an_openapi_entry"
+        },
+        {
+          "path": "specifications/common-file-format.yaml",
+          "size": 9931,
+          "sha256": "0c3abfb58a4387ab2db34154c99ae98507c644e56bcaf5be7839ac526fcb32de",
+          "status": "not_an_openapi_entry"
+        },
+        {
+          "path": "specifications/common.yaml",
+          "size": 26347,
+          "sha256": "df3b8b533f189f6ae4229d4657d1251535e74a25318d5d73de24d0788dcb0b21",
+          "status": "not_an_openapi_entry"
+        },
+        {
+          "path": "specifications/compute-pool.yaml",
+          "size": 28477,
+          "sha256": "f7293eef7951904a8943f1ea63adc80297a11cb9456fc8f95dbcaf55b357362e",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-compute-pool"
+          ]
+        },
+        {
+          "path": "specifications/cortex-analyst.yaml",
+          "size": 38714,
+          "sha256": "ddd74fa4c9bceb1c1a1d133b027d93b3b58d06172ddd243cda22f2e67133546a",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 9,
+            "operations": 9,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common-cortex-analyst.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common-cortex-analyst.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "4457bca56f81fdd0fe89f1b925bd4e7ce46a62fc8273651991f42b7c041eb3af",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 9,
+              "operations": 9,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/cortex-analyst/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/cortex-embed.yaml",
+          "size": 4683,
+          "sha256": "35e3d237db98cf1c89b4c8ae4c37828b475a846ac251c8792202d473c1851e25",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.1.0",
+            "paths": 1,
+            "operations": 1,
+            "format": "3.0.2"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "50d596b90a8579fb18f9bc39c1949ae810110f4775306a1e99a724e07269af9a",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.1.0",
+              "paths": 1,
+              "operations": 1,
+              "format": "3.0.2"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/cortex-embed/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/cortex-generic-anthropic.yaml",
+          "size": 2182,
+          "sha256": "7c7e42000557654508fefc57f78fe541dd291e5b838b6cb84d6b50bb46593d8b",
+          "status": "excluded_compatibility_description",
+          "native": {
+            "version": "0.1.0",
+            "paths": 1,
+            "operations": 1,
+            "format": "3.0.2"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ]
+        },
+        {
+          "path": "specifications/cortex-generic-openai.yaml",
+          "size": 2219,
+          "sha256": "553608327025cb4cb2aa55fb2173c37a1b0e76200b1db9b88243f66abcd3e14e",
+          "status": "excluded_compatibility_description",
+          "native": {
+            "version": "0.1.0",
+            "paths": 1,
+            "operations": 1,
+            "format": "3.0.2"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ]
+        },
+        {
+          "path": "specifications/cortex-inference.yaml",
+          "size": 25976,
+          "sha256": "71ed759db8ff215e2174e3e2f3d198954ac6ff3db523d8f67ad59345b67326d6",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.1.0",
+            "paths": 2,
+            "operations": 2,
+            "format": "3.0.2"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "afa915e97b66e3d70fa9d248e0fcbc900574206ad689143752e4a917fbe2e89b",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.1.0",
+              "paths": 2,
+              "operations": 2,
+              "format": "3.0.2"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/cortex-inference/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/cortex-search-service.yaml",
+          "size": 31801,
+          "sha256": "6a3446eaa18d3bded772ae52c1a53c28b432adc46b97668e3b1e735c7d0cf7b8",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.1.0",
+            "paths": 7,
+            "operations": 9,
+            "format": "3.0.1"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "8f0facca48f3bf1dc0e7e13e164e74ae4cb2bdf617e805a1f1f8e9b7c8a22582",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.1.0",
+              "paths": 7,
+              "operations": 9,
+              "format": "3.0.1"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/cortex-search-service/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/database-role.yaml",
+          "size": 28387,
+          "sha256": "9e72bc5202b70e2abff1376b8f255d56b6bfff601e4f7db3d2262af68bea4f3f",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-database-role"
+          ]
+        },
+        {
+          "path": "specifications/database.yaml",
+          "size": 41491,
+          "sha256": "c177503a537b1cda70c4422be4c7b350c32bb657b76fde3e29179d4bd50a138e",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-database"
+          ]
+        },
+        {
+          "path": "specifications/dynamic-table.yaml",
+          "size": 37491,
+          "sha256": "ea1f0995b981cc067234a5ef716dad3cb4e96045734fa066a9ec289886a7284d",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 13,
+            "operations": 15,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "./common.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: ./common.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "ddd10262f652150fa37b0796b99247fe8ea2b8a999717a2ce8fb4ffba2bf97d6",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 13,
+              "operations": 15,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/dynamic-table/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/event-table.yaml",
+          "size": 20262,
+          "sha256": "aca7d73f99d0e5e495899a8fb2b6ad1085e0bfcf821fbbe9e795076c11a7401f",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 6,
+            "operations": 8,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "9dfc4ef8879a65178a307f01390c1e9a9c280fd0194a94a84bf613c59387beb0",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 6,
+              "operations": 8,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/event-table/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/external-volume.yaml",
+          "size": 14482,
+          "sha256": "c1c945bd915b221472669c0a33accf91436474414933c550f587bcd38bde2be4",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 3,
+            "operations": 5,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "f3af3693bb0b7f8d689823622aa960704366896d9f7590aba1521523aa0d20ba",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 3,
+              "operations": 5,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/external-volume/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/function.yaml",
+          "size": 17392,
+          "sha256": "3677881b88d01278ec4f6e05106a725bc27a0a740d6c829ad934f8bf74edee69",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 6,
+            "operations": 8,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "./common.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: ./common.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "361db992692174dc865043e18ce38ca3d77dd35239ba02e31dd8d31926da1efc",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 6,
+              "operations": 8,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/function/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/grant.yaml",
+          "size": 19457,
+          "sha256": "e7d9ffd1eaa183e064e6ef3efe394a0e22299108296c721072334866b35e4bb9",
+          "status": "excluded_deprecated_grant",
+          "native": {
+            "version": "0.0.1",
+            "paths": 7,
+            "operations": 7,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ]
+        },
+        {
+          "path": "specifications/iceberg-table.yaml",
+          "size": 53202,
+          "sha256": "a338acda282999dd49882233cbf6b827fbc19ed19e12e3c9b3a6fcc0a644e769",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 17,
+            "operations": 19,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "./common.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: ./common.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "0839a7b10e9f105e3f633434637ee96793bf30467685c90c883d6b325187bf3a",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 17,
+              "operations": 19,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/iceberg-table/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/image-repository.yaml",
+          "size": 17816,
+          "sha256": "f76374dc5e2b4a2b8348e46afb040e8898a242a4427ba92396b9f34b5b9c2f67",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 6,
+            "operations": 8,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "./common.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: ./common.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "e81619d47553fc36087102d4e97a90212a799aeb9a8f599bd6fdcc6d43f4e7c2",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 6,
+              "operations": 8,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/image-repository/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/managed-account.yaml",
+          "size": 8170,
+          "sha256": "cbc5618b5daf8b09769b9ef2476da7d43f162f620b7da983886cff7d67518e3e",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 2,
+            "operations": 3,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "./common.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: ./common.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "f6a4500b5a68afc7be02ab155ab5dc96db9fdadd062682325c976bd005932828",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 2,
+              "operations": 3,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/managed-account/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/network-policy.yaml",
+          "size": 14336,
+          "sha256": "e125a504df1f4f0e335ce384194a4c8b3f922ed20685e0cefd49c5895578f2cf",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 5,
+            "operations": 7,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "a2e2a2097ca19d1471b3a8a13b9e3fc23b6d64b5ee90e8125414b62f85f59c8c",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 5,
+              "operations": 7,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/network-policy/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/network-rule.yaml",
+          "size": 9804,
+          "sha256": "2b927cd390f2388b3c6f96a15f1f4243c39ef62fa35bb479e76946cef2156a5f",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 2,
+            "operations": 4,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "2525f3d73b87e7d4652005c20a1851fd4c434939d95249b274c51cdcfaf7179e",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 2,
+              "operations": 4,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/network-rule/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/notebook.yaml",
+          "size": 26777,
+          "sha256": "d6c7fc8651710f733560a66c225e1e70b29a6648d1a9da87f9ff8a0e5491ce33",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 9,
+            "operations": 11,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "411914f8c531b9af164afc923efdf38f1ce3c02f951c5f076236a240807d57ff",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 9,
+              "operations": 11,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/notebook/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/notification-integration.yaml",
+          "size": 20404,
+          "sha256": "8fd489431d80755b929cbd3caac6682940503904557f42306e77c85a1dcefb23",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 5,
+            "operations": 7,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "899bee2cc319949ba716c27befd02f0d8712752b3003e33f6cb28711ab589f65",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 5,
+              "operations": 7,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/notification-integration/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/password-policy.yaml",
+          "size": 19436,
+          "sha256": "8167f6b4ffcbfa158d7cbf4cf734a132ff01b201555ba7f7cec3efd17e43e639",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 6,
+            "operations": 8,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "1ee0fc0554283309bedbabe8e2474205957d3097a5e365ded500d1a493a12611",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 6,
+              "operations": 8,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/password-policy/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/pipe.yaml",
+          "size": 18371,
+          "sha256": "af3bde50c9b7bd3fd023fbad13daa7c90715119a95cfa558edabd33c18f3235e",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 6,
+            "operations": 8,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "41aad14bf6c904237a14858905322d226f2da42449f42d0e5b388bb4a7b4c00a",
+            "warnings": 0,
+            "validation_errors": [
+              "OpenAPI validation: #/components/schemas/Pipe/properties/copy_statement/pattern: format constraint failed"
+            ],
+            "native": {
+              "version": "0.0.1",
+              "paths": 6,
+              "operations": 8,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/pipe/bundled.json"
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/procedure.yaml",
+          "size": 24654,
+          "sha256": "db76af12d0a87bdc4554dd2fa84a9de7f8bb73fb13d717ba7c6a65691c1924fd",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 6,
+            "operations": 8,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "f9aeb39747df86aa1c74aa0226cc9b71dd94354a623c8dca2d8578dba21ee645",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 6,
+              "operations": 8,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/procedure/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/result.yaml",
+          "size": 2805,
+          "sha256": "cc4eac796741b5f072753698bc22ae5177967ffe723f4713d513ae5f1c7ea111",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 1,
+            "operations": 1,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "1d1e774d0b80ed2a76ac3fef388edb161a6756867fd4c9b8dd42a17b56ea66d3",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 1,
+              "operations": 1,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/result/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/role.yaml",
+          "size": 30811,
+          "sha256": "3449df2f72bd72e7160adf4f5200933a58f69604b535d8dfd263f58c2b463e00",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-role"
+          ]
+        },
+        {
+          "path": "specifications/schema.yaml",
+          "size": 27464,
+          "sha256": "55cb1ed07a87208e9bfd170c333670f1d9e95e979b94e8ed6d018155b8b90dfd",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-schema"
+          ]
+        },
+        {
+          "path": "specifications/secret.yaml",
+          "size": 11818,
+          "sha256": "d67f94930ac53507146d188957415d29eb270146aa4044df8386a0c9a698a030",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 2,
+            "operations": 4,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "347de27a91093e5bb31ebf9c39d6d5085cae887c7751e416c6134281ed874652",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 2,
+              "operations": 4,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/secret/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/sequence.yaml",
+          "size": 14252,
+          "sha256": "c0400d3a92dffe5cb1d30b30698ee0887bd63b3e53ec1c6d507a5734b2dce37f",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 4,
+            "operations": 6,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "3053db688ba04c60adac6c927fc74ecb6511936d2360f1bf8383c70a24a0c3a0",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 4,
+              "operations": 6,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/sequence/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/service.yaml",
+          "size": 44400,
+          "sha256": "225a90881060c5ba91cce9941d14549e53dcb61b690c3d5a8c12c61da533c993",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 13,
+            "operations": 16,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "./common.yaml",
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: ./common.yaml, common.yaml"
+          ],
+          "bundled": {
+            "sha256": "c9acf0a652293a18da95f61ddbd7bad440df1ba869e4f375d17116df3ca07c09",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 13,
+              "operations": 16,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/service/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/spark-connect.yaml",
+          "size": 20867,
+          "sha256": "754697b47d0e03c4e16803f568ca5abbc7f2da538c9fea57a60bcc2ceb5a73c0",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 10,
+            "operations": 10,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "33e61890c09a03b630f546d79f540a478b70b9b190d89890734ce656b0adc26b",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 10,
+              "operations": 10,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/spark-connect/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/sqlapi.yaml",
+          "size": 29936,
+          "sha256": "28b780dd056961e975b4e1ccffe72b04d96d713ad3aaf378d5a6dc0316586dce",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-sql"
+          ]
+        },
+        {
+          "path": "specifications/stage.yaml",
+          "size": 24149,
+          "sha256": "85634e14fda822de7354f90fe9829f1b8a46d12efcecd2f45916185c6db6881e",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-stage"
+          ]
+        },
+        {
+          "path": "specifications/stream.yaml",
+          "size": 24102,
+          "sha256": "428260fbff09a3b0bdda7a2f9eb67026f87d8ef4477f710e6c2c731cd691359f",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 6,
+            "operations": 8,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "76fa7c45354269ff4a39811cdde19ca247534ab96e2c5f7921a2ae746106da40",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 6,
+              "operations": 8,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/stream/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/streamlit.yaml",
+          "size": 42331,
+          "sha256": "e1277eea5db94b7de6801266062cba5c3055d534c1ffcef0a4f10ac496eb017b",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 14,
+            "operations": 16,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "16b90f0d4c0142c57a4dc7eaf2158f9a2ccbe0d397ef606250908a6975635241",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 14,
+              "operations": 16,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/streamlit/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/table.yaml",
+          "size": 56200,
+          "sha256": "dfeb7bc3dc3ae9f023d1ffedfb423acd11ce7fe3b74dc79fd4eb4ddb160cd3cb",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-table"
+          ]
+        },
+        {
+          "path": "specifications/tag.yaml",
+          "size": 15039,
+          "sha256": "30b863ecd9dc063f98f078bb3b0a6db4144755c5621aebaca9e282c1ffa29124",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 4,
+            "operations": 7,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "e00201f787ea55a147f7f49c38e44164c35b42a941a6f5265f9065ad6dd2de44",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 4,
+              "operations": 7,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/tag/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/task.yaml",
+          "size": 42520,
+          "sha256": "9dc282435a8aea6304d61a12ba78eb2c31f89d28f0581ba44d2d244f3fc04649",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-task"
+          ]
+        },
+        {
+          "path": "specifications/user-defined-function.yaml",
+          "size": 28989,
+          "sha256": "795bcd67b655dce544483226c6b07a244539de33cde22c9ea84055c62cf204bf",
+          "status": "unregistered_needs_scope_review",
+          "native": {
+            "version": "0.0.1",
+            "paths": 7,
+            "operations": 9,
+            "format": "3.0.0"
+          },
+          "external_reference_roots": [
+            "common.yaml"
+          ],
+          "validation_errors": [
+            "External OpenAPI references require bundling: common.yaml"
+          ],
+          "bundled": {
+            "sha256": "4bae7dd3289edd752110d5e0ba10733d193d49bbc202bec679c333f182ad16f6",
+            "warnings": 0,
+            "validation_errors": [],
+            "native": {
+              "version": "0.0.1",
+              "paths": 7,
+              "operations": 9,
+              "format": "3.0.0"
+            },
+            "artifact": "cache/maintenance/audit-2026-11-02/snowflake/user-defined-function/bundled.json",
+            "typed_yaml_roundtrip": true
+          },
+          "lifecycle": "unassessed; individual official service guide required before registration/import",
+          "identical_stored_artifacts": [],
+          "same_operation_set_as_stored": [],
+          "same_operation_set_as_other_candidates": []
+        },
+        {
+          "path": "specifications/user.yaml",
+          "size": 26543,
+          "sha256": "c18785aebdbfc298e589ea971760c405f3b233597615efc5fbb0b10c07c35379",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-user"
+          ]
+        },
+        {
+          "path": "specifications/view.yaml",
+          "size": 16430,
+          "sha256": "d0798ce6502634ee22625a1a6229b2ca494e94001b8b50594420e649343c86e6",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-view"
+          ]
+        },
+        {
+          "path": "specifications/warehouse.yaml",
+          "size": 34685,
+          "sha256": "bfc1bcd7b981c83f35ed32d34c367a694206e7849485c60a4dce172c05b915ab",
+          "status": "registered_use_freshness_audit",
+          "source_ids": [
+            "snowflake-warehouse"
+          ]
+        }
+      ],
+      "scope": "Bounded filename scan of a pinned official archive. No global absence, source-health or runtime freshness claim."
+    },
+    {
+      "repository": "anthropics/anthropic-sdk-typescript",
+      "revision": "cb5fba419808e3844fa6407e59577ab7ba346b79",
+      "patterns": [
+        "*openapi*",
+        "*swagger*",
+        "*specification*"
+      ],
+      "checked_at": "2026-11-02T14:07:56.987636+00:00",
+      "candidates": [],
+      "scope": "Bounded filename scan of a pinned official archive. No global absence, source-health or runtime freshness claim."
+    }
+  ]
+}

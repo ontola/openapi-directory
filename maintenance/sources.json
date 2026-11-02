@@ -3127,6 +3127,20 @@
       "coverage": "Revolut X Crypto Exchange REST API (balances, orders, trades, market data). Preserve API-key authentication and the revx.revolut.com server.",
       "version_policy": "vendor",
       "priority": "normal"
+    },
+    {
+      "id": "revolut-merchant",
+      "provider": "revolut.com",
+      "target": "APIs/revolut.com/merchant/2026-08-17/openapi.yaml",
+      "github": {
+        "repository": "revolut-engineering/revolut-openapi",
+        "ref": "master",
+        "path": "json/merchant-2026-08-17.json"
+      },
+      "discovery": "Official Revolut repository linked to developer.revolut.com; README identifies these as vendor API definitions. Latest dated Merchant file in pinned catalog eff8f86e87d45c56428c59c320250e8b3ae5b7d8, checked 2026-11-02: native OpenAPI 3.1.2 / vendor 2026-08-17 / 46 paths / 68 operations passes the pinned native validator with zero patches. Earlier invalidity recorded in October is superseded for these exact source bytes. A later dated release needs a reviewed path update. Source-health API access is still blocked in this cloud instance; registration is not an import or publication.",
+      "coverage": "Revolut Merchant API: acquiring, orders, payments, refunds, customers and merchant subscriptions. Separate from Revolut Business, Open Banking, Crypto Ramp and Revolut X. Preserve vendor authentication, server URLs and examples.",
+      "version_policy": "vendor",
+      "priority": "normal"
     }
   ]
 }

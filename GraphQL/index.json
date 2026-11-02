@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-02T14:07:05.103875+00:00",
+  "issue": "https://github.com/ontola/openapi-directory/issues/465",
+  "baseline_inventory": "maintenance/reports/graphql-inventory-2026-11-02.json",
+  "artifacts": [
+    {
+      "provider": "github.com",
+      "service": "public-graphql",
+      "endpoint": "https://api.github.com/graphql",
+      "path": "GraphQL/github.com/public/ab7258a0374c0666a71f27493b655975d304a8e5/schema.graphql",
+      "provenance": "GraphQL/github.com/public/ab7258a0374c0666a71f27493b655975d304a8e5/provenance.json",
+      "sha256": "0d71ca68a4e951599b2ea541a81cc259a843608fc22b8eb1713a1d03551b149e",
+      "status": "validation_blocked"
+    }
+  ],
+  "discovery_source": {
+    "repository": "APIs-guru/graphql-apis",
+    "revision": "551bf174aca54cb3d1c85e01a9404127db72953d",
+    "scope": "Selected well-known official APIs; directory entries are leads, not authoritative schemas or endpoint availability checks."
+  },
+  "candidates": [
+    {
+      "name": "Braintree",
+      "status": "missing_native_artifact",
+      "endpoint": null,
+      "authoritative_schema_source": null,
+      "documentation_leads": [
+        "https://graphql.braintreepayments.com/"
+      ],
+      "format": null,
+      "revision": null,
+      "sha256": null,
+      "freshness": "unassessed",
+      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+    },
+    {
+      "name": "Buildkite",
+      "status": "missing_native_artifact",
+      "endpoint": null,
+      "authoritative_schema_source": null,
+      "documentation_leads": [
+        "https://building.buildkite.com/tutorial-getting-started-with-graphql-queries-and-mutations-11211dfe5d64#.7uhjusw1q"
+      ],
+      "format": null,
+      "revision": null,
+      "sha256": null,
+      "freshness": "unassessed",
+      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+    },
+    {
+      "name": "Contentful",
+      "status": "missing_native_artifact",
+      "endpoint": null,
+      "authoritative_schema_source": null,
+      "documentation_leads": [
+        "https://www.contentful.com/developers/docs/tutorials/general/graphql/"
+      ],
+      "format": null,
+      "revision": null,
+      "sha256": null,
+      "freshness": "unassessed",
+      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification. An account-specific content model must not be represented as a universal schema."
+    },
+    {
+      "name": "GitLab",
+      "status": "missing_native_artifact",
+      "endpoint": null,
+      "authoritative_schema_source": null,
+      "documentation_leads": [
+        "https://docs.gitlab.com/ee/api/graphql/"
+      ],
+      "format": null,
+      "revision": null,
+      "sha256": null,
+      "freshness": "unassessed",
+      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+    },
+    {
+      "name": "monday.com",
+      "status": "missing_native_artifact",
+      "endpoint": null,
+      "authoritative_schema_source": null,
+      "documentation_leads": [
+        "https://developer.monday.com/api-reference?ref=graphqlkit"
+      ],
+      "format": null,
+      "revision": null,
+      "sha256": null,
+      "freshness": "unassessed",
+      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+    },
+    {
+      "name": "Shopify Storefront",
+      "status": "missing_native_artifact",
+      "endpoint": null,
+      "authoritative_schema_source": null,
+      "documentation_leads": [
+        "https://help.shopify.com/api/storefront-api"
+      ],
+      "format": null,
+      "revision": null,
+      "sha256": null,
+      "freshness": "unassessed",
+      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+    },
+    {
+      "name": "Shopify Admin",
+      "status": "missing_native_artifact",
+      "endpoint": null,
+      "authoritative_schema_source": null,
+      "documentation_leads": [
+        "https://shopify.dev/docs/admin-api/graphql/reference"
+      ],
+      "format": null,
+      "revision": null,
+      "sha256": null,
+      "freshness": "unassessed",
+      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+    }
+  ]
+}
