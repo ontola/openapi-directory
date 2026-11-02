@@ -84,6 +84,15 @@
       "provenance": "GraphQL/dagster.io/oss/ef5c227a91576661f7c4b8619b855cd95e68ccd5/provenance.json",
       "sha256": "8b21ccf6cb9a0cdadd4c2ffc1a6713c91da8436c3d06ba1af1066aa47fc9f39d",
       "status": "source_snapshot"
+    },
+    {
+      "provider": "dagster.io",
+      "service": "plus",
+      "endpoint": null,
+      "path": "GraphQL/dagster.io/plus/ef5c227a91576661f7c4b8619b855cd95e68ccd5/schema.graphql",
+      "provenance": "GraphQL/dagster.io/plus/ef5c227a91576661f7c4b8619b855cd95e68ccd5/provenance.json",
+      "sha256": "d6440b39871cd164360c05be141c710eb82c7a586ebd92db24139ce2a9195f81",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
