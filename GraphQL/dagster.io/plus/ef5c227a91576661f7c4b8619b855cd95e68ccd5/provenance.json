@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "provider": "dagster.io",
+  "service": "plus",
+  "endpoint": null,
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "dagster-io/dagster",
+  "source_revision": "ef5c227a91576661f7c4b8619b855cd95e68ccd5",
+  "source_path": "python_modules/libraries/dagster-dg-cli/dagster_dg_cli/cli/plus/schema.graphql",
+  "source_url": "https://raw.githubusercontent.com/dagster-io/dagster/ef5c227a91576661f7c4b8619b855cd95e68ccd5/python_modules/libraries/dagster-dg-cli/dagster_dg_cli/cli/plus/schema.graphql",
+  "source_git_blob_sha1": "f8439fd31b04cccc20cc7380f190f0c38170c1b9",
+  "artifact_last_commit": {
+    "sha": "8bba6b4a7ad8b5a1ca20c65fc012ae5aa600934b",
+    "committed_at": "2026-08-25T12:34:36Z"
+  },
+  "retrieved_at": "2026-11-02T15:00:13.933887+00:00",
+  "sha256": "d6440b39871cd164360c05be141c710eb82c7a586ebd92db24139ce2a9195f81",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "d6440b39871cd164360c05be141c710eb82c7a586ebd92db24139ce2a9195f81",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 1021,
+      "fields": 3201,
+      "directives": 5
+    },
+    "roots": {
+      "query": "CloudQuery",
+      "mutation": "CloudMutation",
+      "subscription": "CloudSubscription"
+    }
+  },
+  "scope": "Official Dagster Plus CLI schema snapshot, documented by adjacent GRAPHQL_SCHEMA.md. Last file change is recorded independently; no claim it equals the currently deployed hosted API.",
+  "freshness_scope": "Verified source snapshot, native validation and original byte identity at retrieval; not verified runtime freshness.",
+  "limitations": [
+    "Runtime permissions and available tenant features can differ from the published schema.",
+    "Pinned repository head is not proof of stable release or current deployment version."
+  ],
+  "license_reference": "https://github.com/dagster-io/dagster/tree/ef5c227a91576661f7c4b8619b855cd95e68ccd5#readme",
+  "scope_evidence": "https://raw.githubusercontent.com/dagster-io/dagster/ef5c227a91576661f7c4b8619b855cd95e68ccd5/python_modules/libraries/dagster-dg-cli/dagster_dg_cli/cli/plus/GRAPHQL_SCHEMA.md"
+}
