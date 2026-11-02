@@ -35,7 +35,22 @@ native coverage. The candidate queue records GitLab, Shopify Admin/Storefront,
 monday.com, Braintree, Buildkite and Contentful as missing native artifacts within
 that baseline, with upstream discovery links and explicitly unassessed freshness.
 Contentful's schema depends on a space/content model; a demo schema cannot stand
-for all accounts. Linear is a further integration lead, outside this bounded list.
+for all accounts. These were the initial leads; additions and updated status are
+recorded below and in the index.
+
+## Expanded coverage
+
+The [coverage expansion report](../maintenance/reports/graphql-expansion-2026-11-02.md)
+adds native-valid snapshots for Linear, Buildkite, public GitLab.com, monday.com,
+Shopify Customer Account 2026-10, Saleor, Dagster OSS and Dagster Plus. Source
+snapshots are distinct from verified runtime freshness. Self-managed and
+tenant-specific endpoints remain explicit limitations rather than guessed URLs.
+Linear's two official formats are retained with their 12 semantic differences;
+equal counts are not treated as proof of equivalence.
+
+GitLab was retrieved through a one-off, credential-free standard introspection
+query selecting schema metadata only. Its request is retained with the original
+response and provenance. No application-data query or mutation was executed.
 
 ## Validation and comparison
 
@@ -91,6 +106,6 @@ rejected. Validation failures block semantic equivalence claims.
    need the separate work linked from #465 (atomic-plugins #679–#682); this snapshot
    neither implements those components nor authorizes provider requests.
 
-No scheduled writer, endpoint introspection, API deployment or OpenAPI publication
+No scheduled writer, automatic endpoint introspection, API deployment or OpenAPI publication
 change is introduced. The remaining vendor-schema retrievals, GitHub profile issue
 and account-specific limitations keep #465 open.

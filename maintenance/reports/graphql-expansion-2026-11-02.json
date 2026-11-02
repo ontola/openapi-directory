@@ -1,0 +1,340 @@
+{
+  "generated_at": "2026-11-02T15:05:48.549107+00:00",
+  "linear_cross_format_comparison": {
+    "status": "changed",
+    "complete": false,
+    "introspection_equal": false,
+    "sdl_ast_equal": null,
+    "semantic_changes": [
+      {
+        "kind": "changed",
+        "path": "#/__schema/directives/deprecated/args/reason/type/kind"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/directives/deprecated/args/reason/type/name"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/directives/deprecated/args/reason/type/ofType"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/directives/deprecated/locations"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/directives/specifiedBy/args/url/description"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/directives/specifiedBy/description"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/types/DateTime/description"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/types/DateTimeOrDuration/description"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/types/Mutation/fields/issueDescriptionUpdateFromFront/args/description/description"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/types/Query/fields/attachment/description"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/types/Query/fields/attachmentIssue/description"
+      },
+      {
+        "kind": "changed",
+        "path": "#/__schema/types/TimelessDate/description"
+      }
+    ],
+    "limitation": "Introspection cannot establish applied directives or full SDL equality"
+  },
+  "blocked_sources": [
+    {
+      "sha256": "7d500b033d941c62d440ac90e0554ba2bdeb7030a81b095a72742f11b91b1453",
+      "format": "sdl",
+      "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+      "validation_errors": [
+        "Interface field Node.id is not deprecated, so implementation field InStoreContext.id must not be deprecated.",
+        "Interface field InStoreContextResult.id is not deprecated, so implementation field InStoreContext.id must not be deprecated.",
+        "Interface field InStoreContextResult.reader is not deprecated, so implementation field InStoreContext.reader must not be deprecated."
+      ],
+      "counts": {
+        "types": 778,
+        "fields": 2929,
+        "directives": 6
+      },
+      "roots": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": null
+      },
+      "repository": "braintree/graphql-api",
+      "revision": "ee2999a36a3f797b7f1341ee83b97a25ba0f9ae0",
+      "source_path": "schema.graphql",
+      "url": "https://raw.githubusercontent.com/braintree/graphql-api/ee2999a36a3f797b7f1341ee83b97a25ba0f9ae0/schema.graphql",
+      "local_path": "cache/maintenance/graphql-expansion/braintree--schema.graphql",
+      "retrieved_at": "2026-11-02T15:00:07.526569+00:00",
+      "git_blob": "dcd799be727bc89f3d4ccac5aacedcd9b61d042e",
+      "artifact_last_commit": {
+        "sha": "ee2999a36a3f797b7f1341ee83b97a25ba0f9ae0",
+        "committed_at": "2026-10-27T19:06:55Z"
+      }
+    },
+    {
+      "sha256": "193181e5e7405fdbe88c77b51bc1e24748a559674e2f94d101494c31b81e3fea",
+      "format": "sdl",
+      "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+      "validation_errors": [
+        "Interface field Node.id is not deprecated, so implementation field MediaPresentation.id must not be deprecated."
+      ],
+      "counts": {
+        "types": 421,
+        "fields": 1467,
+        "directives": 8
+      },
+      "roots": {
+        "query": "QueryRoot",
+        "mutation": "Mutation",
+        "subscription": null
+      },
+      "repository": "Shopify/hydrogen",
+      "revision": "5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3",
+      "source_path": "packages/hydrogen/src/graphql/generated/storefront.schema.graphql",
+      "url": "https://raw.githubusercontent.com/Shopify/hydrogen/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/packages/hydrogen/src/graphql/generated/storefront.schema.graphql",
+      "local_path": "cache/maintenance/graphql-expansion/Shopify--packages--hydrogen--src--graphql--generated--storefront.schema.graphql",
+      "retrieved_at": "2026-11-02T15:01:47.625022+00:00",
+      "git_blob": "8d8de22545e75b194dca2f38978159473b4e887e",
+      "artifact_last_commit": {
+        "sha": "a9bf729edea7fb10f9566fe721863faec7260f4a",
+        "committed_at": "2026-10-02T14:44:20Z"
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "provider": "Shopify Admin",
+      "status": "source_not_located",
+      "detail": "Official shopify-app-js tree contains a codegen test fixture, which was not imported as an Admin schema."
+    },
+    {
+      "provider": "Hasura and Strapi",
+      "status": "deployment_specific",
+      "detail": "Arbitrary tenant metadata/content models determine application schema; example/test schemas are not universal vendor APIs."
+    }
+  ],
+  "scope": "Selected official schema publications. Source snapshots, not verified runtime freshness or permission coverage.",
+  "gitlab_public_introspection": {
+    "native": {
+      "sha256": "5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb",
+      "format": "introspection",
+      "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+      "validation_errors": [],
+      "counts": {
+        "types": 4639,
+        "fields": 20059,
+        "directives": 7
+      },
+      "roots": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "retrieval": {
+      "method": "POST",
+      "operation_type": "query",
+      "request_artifact": "request.json",
+      "request_scope": "Read-only standard introspection (__schema/__type); no credentials, application data selections or mutations.",
+      "authentication": "none",
+      "http_metadata": {
+        "url": "https://gitlab.com/api/graphql",
+        "last_modified": null,
+        "etag": "W/\"5d6b91b62fedf9d69fae04aef4ac0745\""
+      }
+    },
+    "scope": "Public GitLab.com schema returned by anonymous standard introspection. This does not describe every self-managed GitLab release, edition, extension or permission context."
+  },
+  "services_prepared": 8,
+  "artifacts_prepared": [
+    {
+      "provider": "linear.app",
+      "service": "public-graphql",
+      "endpoint": "https://api.linear.app/graphql",
+      "path": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/schema.graphql",
+      "provenance": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/provenance.json",
+      "sha256": "73fac69ae08c0cf8329bbc85a3728a9e24e6e66116ac2f5d6aebbef922b30daf",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "linear.app",
+      "service": "public-graphql",
+      "endpoint": "https://api.linear.app/graphql",
+      "path": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/schema.json",
+      "provenance": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/introspection-provenance.json",
+      "sha256": "f9e60943474385a96da3f7a1f20a79cc0be08ae31ff06f12743d96681a446509",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "buildkite.com",
+      "service": "public-graphql",
+      "endpoint": "https://graphql.buildkite.com/v1",
+      "path": "GraphQL/buildkite.com/public-graphql/e9f0425acfe3de99111ea4a917843f7ca9924858/schema.graphql",
+      "provenance": "GraphQL/buildkite.com/public-graphql/e9f0425acfe3de99111ea4a917843f7ca9924858/provenance.json",
+      "sha256": "7cf64f5ee528e3916ed7683d7a8b33f230c1d2c318ea15ed68a471d3630e3a94",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "saleor.io",
+      "service": "core",
+      "endpoint": null,
+      "path": "GraphQL/saleor.io/core/0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b/schema.graphql",
+      "provenance": "GraphQL/saleor.io/core/0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b/provenance.json",
+      "sha256": "d29655a68e8994f42c68f562b51bf222ed3578330a4f51b97b626aaa2cd2dae0",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "dagster.io",
+      "service": "oss",
+      "endpoint": null,
+      "path": "GraphQL/dagster.io/oss/ef5c227a91576661f7c4b8619b855cd95e68ccd5/schema.graphql",
+      "provenance": "GraphQL/dagster.io/oss/ef5c227a91576661f7c4b8619b855cd95e68ccd5/provenance.json",
+      "sha256": "8b21ccf6cb9a0cdadd4c2ffc1a6713c91da8436c3d06ba1af1066aa47fc9f39d",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "dagster.io",
+      "service": "plus",
+      "endpoint": null,
+      "path": "GraphQL/dagster.io/plus/ef5c227a91576661f7c4b8619b855cd95e68ccd5/schema.graphql",
+      "provenance": "GraphQL/dagster.io/plus/ef5c227a91576661f7c4b8619b855cd95e68ccd5/provenance.json",
+      "sha256": "d6440b39871cd164360c05be141c710eb82c7a586ebd92db24139ce2a9195f81",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "shopify.com",
+      "service": "customer-account",
+      "endpoint": null,
+      "path": "GraphQL/shopify.com/customer-account/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/schema.json",
+      "provenance": "GraphQL/shopify.com/customer-account/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/introspection-provenance.json",
+      "sha256": "a9c03194694fe06aec414901fc350ed9f048a5a72b0cf6a562e3b520d75a29b9",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "monday.com",
+      "service": "platform",
+      "endpoint": "https://api.monday.com/v2",
+      "path": "GraphQL/monday.com/platform/sha256-c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb/schema.json",
+      "provenance": "GraphQL/monday.com/platform/sha256-c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb/introspection-provenance.json",
+      "sha256": "c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "gitlab.com",
+      "service": "public",
+      "endpoint": "https://gitlab.com/api/graphql",
+      "path": "GraphQL/gitlab.com/public/sha256-5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb/schema.json",
+      "provenance": "GraphQL/gitlab.com/public/sha256-5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb/provenance.json",
+      "sha256": "5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb",
+      "status": "source_snapshot"
+    }
+  ],
+  "delivery": [
+    {
+      "provider": "linear.app",
+      "service": "public-graphql",
+      "name": "Linear",
+      "pr": 471,
+      "url": "https://github.com/ontola/openapi-directory/pull/471",
+      "head": "66c25721f21362cf2444300f0e5987fbd1fd6d0f",
+      "base": "0f7eeaf42afd6d8e6b72709f40ccf11b91a7b543",
+      "branch": "codex/graphql-linear-app-public-graphql",
+      "status": "open_pending_batch_merge_approval"
+    },
+    {
+      "provider": "buildkite.com",
+      "service": "public-graphql",
+      "name": "Buildkite",
+      "pr": 472,
+      "url": "https://github.com/ontola/openapi-directory/pull/472",
+      "head": "e8038e660c12ca6dfb9ee2d960feb9736588482d",
+      "base": "0f7eeaf42afd6d8e6b72709f40ccf11b91a7b543",
+      "branch": "codex/graphql-buildkite-com-public-graphql",
+      "status": "open_pending_batch_merge_approval"
+    },
+    {
+      "provider": "gitlab.com",
+      "service": "public",
+      "name": "GitLab.com",
+      "pr": 473,
+      "url": "https://github.com/ontola/openapi-directory/pull/473",
+      "head": "be2106883364f2fed55e8bfd8785f62fb1ec931b",
+      "base": "0f7eeaf42afd6d8e6b72709f40ccf11b91a7b543",
+      "branch": "codex/graphql-gitlab-com-public",
+      "status": "open_pending_batch_merge_approval"
+    },
+    {
+      "provider": "monday.com",
+      "service": "platform",
+      "name": "monday.com",
+      "pr": 474,
+      "url": "https://github.com/ontola/openapi-directory/pull/474",
+      "head": "8222548839aa61fd1edbef47b3f59bef7400791d",
+      "base": "0f7eeaf42afd6d8e6b72709f40ccf11b91a7b543",
+      "branch": "codex/graphql-monday-com-platform",
+      "status": "open_pending_batch_merge_approval"
+    },
+    {
+      "provider": "shopify.com",
+      "service": "customer-account",
+      "name": "Shopify Customer Account 2026-10",
+      "pr": 475,
+      "url": "https://github.com/ontola/openapi-directory/pull/475",
+      "head": "9093866ed92b77f84dc3fac084778bfe5739453e",
+      "base": "0f7eeaf42afd6d8e6b72709f40ccf11b91a7b543",
+      "branch": "codex/graphql-shopify-com-customer-account",
+      "status": "open_pending_batch_merge_approval"
+    },
+    {
+      "provider": "saleor.io",
+      "service": "core",
+      "name": "Saleor core",
+      "pr": 476,
+      "url": "https://github.com/ontola/openapi-directory/pull/476",
+      "head": "7fdd910868f783cb507c8d552e988e234bdc1182",
+      "base": "0f7eeaf42afd6d8e6b72709f40ccf11b91a7b543",
+      "branch": "codex/graphql-saleor-io-core",
+      "status": "open_pending_batch_merge_approval"
+    },
+    {
+      "provider": "dagster.io",
+      "service": "oss",
+      "name": "Dagster OSS",
+      "pr": 477,
+      "url": "https://github.com/ontola/openapi-directory/pull/477",
+      "head": "b2f6b6ac8f856d698375d38d7e7345b7e75bf225",
+      "base": "0f7eeaf42afd6d8e6b72709f40ccf11b91a7b543",
+      "branch": "codex/graphql-dagster-io-oss",
+      "status": "open_pending_batch_merge_approval"
+    },
+    {
+      "provider": "dagster.io",
+      "service": "plus",
+      "name": "Dagster Plus",
+      "pr": 478,
+      "url": "https://github.com/ontola/openapi-directory/pull/478",
+      "head": "4aca98082e06c27dcbf977db208d5add054c4653",
+      "base": "0f7eeaf42afd6d8e6b72709f40ccf11b91a7b543",
+      "branch": "codex/graphql-dagster-io-plus",
+      "status": "open_pending_batch_merge_approval"
+    }
+  ]
+}
