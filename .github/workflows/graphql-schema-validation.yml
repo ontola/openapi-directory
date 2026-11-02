@@ -1,0 +1,32 @@
+name: Native GraphQL snapshot validation
+
+on:
+  pull_request:
+    paths:
+      - 'GraphQL/**'
+      - 'maintenance/graphql*.py'
+      - 'maintenance/test_graphql*.py'
+      - 'maintenance/requirements.*'
+      - '.github/workflows/graphql-schema-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  snapshots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: |
+            maintenance
+            GraphQL
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r maintenance/requirements.txt
+      - run: python -m unittest discover -s maintenance -p 'test_graphql*.py' -v
+      # A retained upstream-invalid snapshot may pass integrity checks only when
+      # its complete current validation errors are recorded and it stays blocked.
+      - run: python maintenance/graphql_schema.py --verify-index GraphQL/index.json

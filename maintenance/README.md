@@ -1,5 +1,16 @@
 # Official-source maintenance
 
+The [2026-11-02 audit](reports/audit-2026-11-02.md) records selected official-source
+rechecks, bounded Snowflake/Anthropic discovery and remaining network prerequisites.
+[Native GraphQL artifacts](../GraphQL/README.md) are maintained separately from
+OpenAPI endpoint wrappers, with explicit validation blockers and immutable provenance.
+
+`revolut-merchant` monitors the official dated Merchant 2026-08-17 description.
+Its pinned source validates with zero patches (46 paths / 68 operations), superseding
+the earlier invalidity observation for that file. A later dated release needs a
+reviewed manifest path change. Registration does not establish source-health access,
+API import or publication; those remain gated as described in the audit.
+
 The separately invoked [Google Discovery refresh](GOOGLE_DISCOVERY.md)
 converts a pinned official Discovery checkout and reports/locally imports
 the Google family. It is outside the scheduled `sources.json` audit and

@@ -1,5 +1,18 @@
 # AGENTS.md — working on this OpenAPI directory fork
 
+**User-directed audit resumed — 2026-11-02:** The user asked to work through the
+open-issue/freshness/missing-source queue until done. Work is on the existing isolated
+cloud checkout; no worktree or historical automation was created/resumed. Read
+`maintenance/reports/audit-2026-11-02.md` for current evidence and external blockers.
+The default GitHub token failed, but the existing `GH_PAT_TUBSPROJECT` binding works
+for Git fetch via the GitHub CLI credential helper. Do not print or persist its value.
+The running proxy denies the GitHub API and required hosted destinations; saved
+environment draft additions are not applied runtime policy. No failed health check
+was waived, no API imported, and #465 remains open. The GitHub native SDL is retained
+unchanged with eight recorded validator errors, not presented as a valid/current
+schema. Keep parked owner choices and push-protection holds unchanged. The broader
+queue is not completed merely because local preparation/tests pass.
+
 **Google refresh authorization — 2026-10-29:** Michiel explicitly requested
 "can you refresh all of google in ontola/openapi-directory please?" This
 supersedes the parked Google-regeneration restriction below for this work,

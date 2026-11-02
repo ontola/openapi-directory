@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "provider": "github.com",
+  "service": "public-graphql",
+  "endpoint": "https://api.github.com/graphql",
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "github/docs",
+  "source_revision": "ab7258a0374c0666a71f27493b655975d304a8e5",
+  "source_path": "src/graphql/data/fpt/schema.docs.graphql",
+  "source_url": "https://raw.githubusercontent.com/github/docs/ab7258a0374c0666a71f27493b655975d304a8e5/src/graphql/data/fpt/schema.docs.graphql",
+  "ownership_evidence": "GitHub-owned documentation repository; src/graphql/README.md documents schema synchronization from GitHub API. fpt is the Free/Pro/Team documentation variant.",
+  "license_reference": "https://github.com/github/docs/tree/ab7258a0374c0666a71f27493b655975d304a8e5#licenses",
+  "retrieved_at": "2026-11-02T14:02:25.827489+00:00",
+  "sha256": "0d71ca68a4e951599b2ea541a81cc259a843608fc22b8eb1713a1d03551b149e",
+  "status": "validation_blocked",
+  "validation": {
+    "sha256": "0d71ca68a4e951599b2ea541a81cc259a843608fc22b8eb1713a1d03551b149e",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [
+      "Interface field Node.id is not deprecated, so implementation field Project.id must not be deprecated.",
+      "Interface field Node.id is not deprecated, so implementation field ProjectCard.id must not be deprecated.",
+      "Interface field Node.id is not deprecated, so implementation field ProjectColumn.id must not be deprecated.",
+      "Interface field Reactable.databaseId is not deprecated, so implementation field PullRequest.databaseId must not be deprecated.",
+      "Interface field Reactable.databaseId is not deprecated, so implementation field PullRequestReview.databaseId must not be deprecated.",
+      "Interface field Reactable.databaseId is not deprecated, so implementation field PullRequestReviewComment.databaseId must not be deprecated.",
+      "Interface field Subscribable.viewerCanSubscribe is not deprecated, so implementation field Team.viewerCanSubscribe must not be deprecated.",
+      "Interface field Subscribable.viewerSubscription is not deprecated, so implementation field Team.viewerSubscription must not be deprecated."
+    ],
+    "counts": {
+      "types": 1829,
+      "fields": 8426,
+      "directives": 8
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": null
+    }
+  },
+  "freshness_scope": "Byte-exact official SDL at a pinned source revision. No endpoint introspection or account/runtime completeness claim. Latest artifact-specific revision could not be established via the denied GitHub API.",
+  "limitations": [
+    "Eight native interface deprecation validation errors under the pinned graphql-core 3.3.1 profile; source retained unchanged, not advertised as usable or verified-current.",
+    "Published SDL and permission-dependent runtime introspection can differ.",
+    "No credential or live account data was requested."
+  ]
+}
