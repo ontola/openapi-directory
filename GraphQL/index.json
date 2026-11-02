@@ -14,6 +14,60 @@
       "status": "validation_blocked"
     },
     {
+      "provider": "linear.app",
+      "service": "public-graphql",
+      "endpoint": "https://api.linear.app/graphql",
+      "path": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/schema.graphql",
+      "provenance": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/provenance.json",
+      "sha256": "73fac69ae08c0cf8329bbc85a3728a9e24e6e66116ac2f5d6aebbef922b30daf",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "linear.app",
+      "service": "public-graphql",
+      "endpoint": "https://api.linear.app/graphql",
+      "path": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/schema.json",
+      "provenance": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/introspection-provenance.json",
+      "sha256": "f9e60943474385a96da3f7a1f20a79cc0be08ae31ff06f12743d96681a446509",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "buildkite.com",
+      "service": "public-graphql",
+      "endpoint": "https://graphql.buildkite.com/v1",
+      "path": "GraphQL/buildkite.com/public-graphql/e9f0425acfe3de99111ea4a917843f7ca9924858/schema.graphql",
+      "provenance": "GraphQL/buildkite.com/public-graphql/e9f0425acfe3de99111ea4a917843f7ca9924858/provenance.json",
+      "sha256": "7cf64f5ee528e3916ed7683d7a8b33f230c1d2c318ea15ed68a471d3630e3a94",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "gitlab.com",
+      "service": "public",
+      "endpoint": "https://gitlab.com/api/graphql",
+      "path": "GraphQL/gitlab.com/public/sha256-5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb/schema.json",
+      "provenance": "GraphQL/gitlab.com/public/sha256-5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb/provenance.json",
+      "sha256": "5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "monday.com",
+      "service": "platform",
+      "endpoint": "https://api.monday.com/v2",
+      "path": "GraphQL/monday.com/platform/sha256-c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb/schema.json",
+      "provenance": "GraphQL/monday.com/platform/sha256-c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb/introspection-provenance.json",
+      "sha256": "c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "shopify.com",
+      "service": "customer-account",
+      "endpoint": null,
+      "path": "GraphQL/shopify.com/customer-account/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/schema.json",
+      "provenance": "GraphQL/shopify.com/customer-account/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/introspection-provenance.json",
+      "sha256": "a9c03194694fe06aec414901fc350ed9f048a5a72b0cf6a562e3b520d75a29b9",
+      "status": "source_snapshot"
+    },
+    {
       "provider": "saleor.io",
       "service": "core",
       "endpoint": null,
@@ -45,17 +99,17 @@
     },
     {
       "name": "Buildkite",
-      "status": "missing_native_artifact",
-      "endpoint": null,
-      "authoritative_schema_source": null,
+      "status": "source_snapshot_retained",
+      "endpoint": "https://graphql.buildkite.com/v1",
+      "authoritative_schema_source": "https://raw.githubusercontent.com/buildkite/docs/e9f0425acfe3de99111ea4a917843f7ca9924858/data/graphql/schema.graphql",
       "documentation_leads": [
         "https://building.buildkite.com/tutorial-getting-started-with-graphql-queries-and-mutations-11211dfe5d64#.7uhjusw1q"
       ],
-      "format": null,
-      "revision": null,
-      "sha256": null,
-      "freshness": "unassessed",
-      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+      "format": "sdl",
+      "revision": "e9f0425acfe3de99111ea4a917843f7ca9924858",
+      "sha256": "7cf64f5ee528e3916ed7683d7a8b33f230c1d2c318ea15ed68a471d3630e3a94",
+      "freshness": "source_snapshot_only",
+      "limitation": "Publication retained and validated; runtime permissions and current deployed schema remain unassessed."
     },
     {
       "name": "Contentful",
@@ -73,31 +127,31 @@
     },
     {
       "name": "GitLab",
-      "status": "missing_native_artifact",
-      "endpoint": null,
-      "authoritative_schema_source": null,
+      "status": "source_snapshot_retained",
+      "endpoint": "https://gitlab.com/api/graphql",
+      "authoritative_schema_source": "https://gitlab.com/api/graphql",
       "documentation_leads": [
         "https://docs.gitlab.com/ee/api/graphql/"
       ],
-      "format": null,
+      "format": "introspection",
       "revision": null,
-      "sha256": null,
-      "freshness": "unassessed",
-      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+      "sha256": "5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb",
+      "freshness": "public_schema_observed_at_retrieval",
+      "limitation": "Public GitLab.com schema returned by anonymous standard introspection. This does not describe every self-managed GitLab release, edition, extension or permission context."
     },
     {
       "name": "monday.com",
-      "status": "missing_native_artifact",
-      "endpoint": null,
-      "authoritative_schema_source": null,
+      "status": "source_snapshot_retained",
+      "endpoint": "https://api.monday.com/v2",
+      "authoritative_schema_source": "https://api.monday.com/v2/get_schema",
       "documentation_leads": [
         "https://developer.monday.com/api-reference?ref=graphqlkit"
       ],
-      "format": null,
+      "format": "introspection",
       "revision": null,
-      "sha256": null,
-      "freshness": "unassessed",
-      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+      "sha256": "c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb",
+      "freshness": "source_snapshot_only",
+      "limitation": "Publication retained and validated; runtime permissions and current deployed schema remain unassessed."
     },
     {
       "name": "Shopify Storefront",

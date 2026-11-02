@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "provider": "gitlab.com",
+  "service": "public",
+  "endpoint": "https://gitlab.com/api/graphql",
+  "format": "introspection",
+  "artifact": "schema.json",
+  "upstream_version": null,
+  "source_repository": null,
+  "source_revision": null,
+  "source_path": null,
+  "source_url": "https://gitlab.com/api/graphql",
+  "retrieved_at": "2026-11-02T15:07:24.190168+00:00",
+  "sha256": "5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb",
+    "format": "introspection",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 4639,
+      "fields": 20059,
+      "directives": 7
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": "Subscription"
+    }
+  },
+  "ownership_evidence": "GitLab.com first-party GraphQL endpoint; official documentation at https://docs.gitlab.com/api/graphql/.",
+  "retrieval": {
+    "method": "POST",
+    "operation_type": "query",
+    "request_artifact": "request.json",
+    "request_scope": "Read-only standard introspection (__schema/__type); no credentials, application data selections or mutations.",
+    "authentication": "none",
+    "http_metadata": {
+      "url": "https://gitlab.com/api/graphql",
+      "last_modified": null,
+      "etag": "W/\"5d6b91b62fedf9d69fae04aef4ac0745\""
+    }
+  },
+  "scope": "Public GitLab.com schema returned by anonymous standard introspection. This does not describe every self-managed GitLab release, edition, extension or permission context.",
+  "freshness_scope": "Native-valid public schema snapshot directly observed at retrieval time; no vendor release version or Git revision is invented.",
+  "limitations": [
+    "Standard introspection does not expose applied SDL directives and cannot prove complete SDL equivalence.",
+    "A schema snapshot is not a test of application-data operations or authorization."
+  ]
+}
