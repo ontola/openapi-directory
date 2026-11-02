@@ -57,6 +57,15 @@
       "provenance": "GraphQL/monday.com/platform/sha256-c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb/introspection-provenance.json",
       "sha256": "c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb",
       "status": "source_snapshot"
+    },
+    {
+      "provider": "shopify.com",
+      "service": "customer-account",
+      "endpoint": null,
+      "path": "GraphQL/shopify.com/customer-account/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/schema.json",
+      "provenance": "GraphQL/shopify.com/customer-account/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/introspection-provenance.json",
+      "sha256": "a9c03194694fe06aec414901fc350ed9f048a5a72b0cf6a562e3b520d75a29b9",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
