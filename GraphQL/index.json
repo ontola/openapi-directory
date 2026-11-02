@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-11-02T14:07:05.103875+00:00",
+  "checked_at": "2026-11-02T15:05:48.549107+00:00",
   "issue": "https://github.com/ontola/openapi-directory/issues/465",
   "baseline_inventory": "maintenance/reports/graphql-inventory-2026-11-02.json",
   "artifacts": [
@@ -12,6 +12,15 @@
       "provenance": "GraphQL/github.com/public/ab7258a0374c0666a71f27493b655975d304a8e5/provenance.json",
       "sha256": "0d71ca68a4e951599b2ea541a81cc259a843608fc22b8eb1713a1d03551b149e",
       "status": "validation_blocked"
+    },
+    {
+      "provider": "saleor.io",
+      "service": "core",
+      "endpoint": null,
+      "path": "GraphQL/saleor.io/core/0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b/schema.graphql",
+      "provenance": "GraphQL/saleor.io/core/0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b/provenance.json",
+      "sha256": "d29655a68e8994f42c68f562b51bf222ed3578330a4f51b97b626aaa2cd2dae0",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
