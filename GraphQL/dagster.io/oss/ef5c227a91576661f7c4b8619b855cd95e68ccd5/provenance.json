@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "provider": "dagster.io",
+  "service": "oss",
+  "endpoint": null,
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "dagster-io/dagster",
+  "source_revision": "ef5c227a91576661f7c4b8619b855cd95e68ccd5",
+  "source_path": "js_modules/ui-core/src/graphql/schema.graphql",
+  "source_url": "https://raw.githubusercontent.com/dagster-io/dagster/ef5c227a91576661f7c4b8619b855cd95e68ccd5/js_modules/ui-core/src/graphql/schema.graphql",
+  "source_git_blob_sha1": "8d2ff9e1ed75c01a36f916a0e9c3f37c8166d13c",
+  "artifact_last_commit": {
+    "sha": "2e76684f10983bec919acf00035b056e39fade4f",
+    "committed_at": "2026-10-08T18:58:07Z"
+  },
+  "retrieved_at": "2026-11-02T15:00:11.596535+00:00",
+  "sha256": "8b21ccf6cb9a0cdadd4c2ffc1a6713c91da8436c3d06ba1af1066aa47fc9f39d",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "8b21ccf6cb9a0cdadd4c2ffc1a6713c91da8436c3d06ba1af1066aa47fc9f39d",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 615,
+      "fields": 2181,
+      "directives": 5
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": "Subscription"
+    }
+  },
+  "scope": "Complete OSS GraphQL schema shipped in Dagster UI source. Deployment-specific endpoint and server version are unassessed; does not include all Plus-only API operations.",
+  "freshness_scope": "Verified source snapshot, native validation and original byte identity at retrieval; not verified runtime freshness.",
+  "limitations": [
+    "Runtime permissions and available tenant features can differ from the published schema.",
+    "Pinned repository head is not proof of stable release or current deployment version."
+  ],
+  "license_reference": "https://github.com/dagster-io/dagster/tree/ef5c227a91576661f7c4b8619b855cd95e68ccd5#readme"
+}
