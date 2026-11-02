@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-11-02T14:07:05.103875+00:00",
+  "checked_at": "2026-11-02T15:05:48.549107+00:00",
   "issue": "https://github.com/ontola/openapi-directory/issues/465",
   "baseline_inventory": "maintenance/reports/graphql-inventory-2026-11-02.json",
   "artifacts": [
@@ -12,6 +12,15 @@
       "provenance": "GraphQL/github.com/public/ab7258a0374c0666a71f27493b655975d304a8e5/provenance.json",
       "sha256": "0d71ca68a4e951599b2ea541a81cc259a843608fc22b8eb1713a1d03551b149e",
       "status": "validation_blocked"
+    },
+    {
+      "provider": "shopify.com",
+      "service": "customer-account",
+      "endpoint": null,
+      "path": "GraphQL/shopify.com/customer-account/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/schema.json",
+      "provenance": "GraphQL/shopify.com/customer-account/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/introspection-provenance.json",
+      "sha256": "a9c03194694fe06aec414901fc350ed9f048a5a72b0cf6a562e3b520d75a29b9",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "provider": "shopify.com",
+  "service": "customer-account",
+  "endpoint": null,
+  "format": "introspection",
+  "artifact": "schema.json",
+  "upstream_version": "2026-10",
+  "source_repository": "Shopify/hydrogen",
+  "source_revision": "5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3",
+  "source_path": "packages/hydrogen/src/graphql/generated/customer-account.schema.json",
+  "source_url": "https://raw.githubusercontent.com/Shopify/hydrogen/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/packages/hydrogen/src/graphql/generated/customer-account.schema.json",
+  "source_git_blob_sha1": "b1931569c7b256e394874350aed3044a6a8fd8c7",
+  "artifact_last_commit": {
+    "sha": "a9bf729edea7fb10f9566fe721863faec7260f4a",
+    "committed_at": "2026-10-02T14:44:20Z"
+  },
+  "retrieved_at": "2026-11-02T15:01:48.589133+00:00",
+  "sha256": "a9c03194694fe06aec414901fc350ed9f048a5a72b0cf6a562e3b520d75a29b9",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "a9c03194694fe06aec414901fc350ed9f048a5a72b0cf6a562e3b520d75a29b9",
+    "format": "introspection",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 509,
+      "fields": 1714,
+      "directives": 7
+    },
+    "roots": {
+      "query": "QueryRoot",
+      "mutation": "Mutation",
+      "subscription": null
+    }
+  },
+  "scope": "Complete Customer Account API introspection snapshot shipped by official Hydrogen, version selected by src/core/constants.ts and source documented by codegen.ts. Customer/shop endpoint is deployment-dependent; not Admin or Storefront coverage.",
+  "freshness_scope": "Verified source snapshot, native validation and original byte identity at retrieval; not verified runtime freshness.",
+  "limitations": [
+    "Runtime permissions and available tenant features can differ from the published schema.",
+    "Standard introspection cannot establish applied SDL directives or full SDL equivalence."
+  ],
+  "license_reference": "https://github.com/Shopify/hydrogen/tree/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3#readme",
+  "version_evidence": {
+    "url": "https://raw.githubusercontent.com/Shopify/hydrogen/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/packages/hydrogen/src/core/constants.ts",
+    "constant": "CUSTOMER_ACCOUNT_API_VERSION",
+    "value": "2026-10"
+  }
+}
