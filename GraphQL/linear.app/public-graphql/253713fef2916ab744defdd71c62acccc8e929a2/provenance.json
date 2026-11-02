@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "provider": "linear.app",
+  "service": "public-graphql",
+  "endpoint": "https://api.linear.app/graphql",
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "linear/linear",
+  "source_revision": "253713fef2916ab744defdd71c62acccc8e929a2",
+  "source_path": "packages/sdk/src/schema.graphql",
+  "source_url": "https://raw.githubusercontent.com/linear/linear/253713fef2916ab744defdd71c62acccc8e929a2/packages/sdk/src/schema.graphql",
+  "source_git_blob_sha1": "ff6468874971ab79914a57097d62d6afb89338ad",
+  "artifact_last_commit": {
+    "sha": "253713fef2916ab744defdd71c62acccc8e929a2",
+    "committed_at": "2026-11-02T14:39:03Z"
+  },
+  "retrieved_at": "2026-11-02T15:00:09.716591+00:00",
+  "sha256": "73fac69ae08c0cf8329bbc85a3728a9e24e6e66116ac2f5d6aebbef922b30daf",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "73fac69ae08c0cf8329bbc85a3728a9e24e6e66116ac2f5d6aebbef922b30daf",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 1361,
+      "fields": 9678,
+      "directives": 5
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": "Subscription"
+    }
+  },
+  "scope": "Complete production API schema distributed by Linear in its official SDK; repository README describes generating all production API operations/models.",
+  "freshness_scope": "Verified source snapshot, native validation and original byte identity at retrieval; not verified runtime freshness.",
+  "limitations": [
+    "Runtime permissions and available tenant features can differ from the published schema.",
+    "Pinned repository head is not proof of stable release or current deployment version.",
+    "Official SDL and companion introspection differ at 12 semantic locations; no equivalence or complete cross-format reconstruction is claimed."
+  ],
+  "license_reference": "https://github.com/linear/linear/tree/253713fef2916ab744defdd71c62acccc8e929a2#readme",
+  "companion_consistency": {
+    "status": "differs",
+    "semantic_locations_changed": 12,
+    "report": "GraphQL/linear.app/consistency.json"
+  }
+}
