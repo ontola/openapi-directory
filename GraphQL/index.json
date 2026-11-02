@@ -75,6 +75,15 @@
       "provenance": "GraphQL/saleor.io/core/0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b/provenance.json",
       "sha256": "d29655a68e8994f42c68f562b51bf222ed3578330a4f51b97b626aaa2cd2dae0",
       "status": "source_snapshot"
+    },
+    {
+      "provider": "dagster.io",
+      "service": "oss",
+      "endpoint": null,
+      "path": "GraphQL/dagster.io/oss/ef5c227a91576661f7c4b8619b855cd95e68ccd5/schema.graphql",
+      "provenance": "GraphQL/dagster.io/oss/ef5c227a91576661f7c4b8619b855cd95e68ccd5/provenance.json",
+      "sha256": "8b21ccf6cb9a0cdadd4c2ffc1a6713c91da8436c3d06ba1af1066aa47fc9f39d",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
