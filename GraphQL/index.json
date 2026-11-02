@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-11-02T14:07:05.103875+00:00",
+  "checked_at": "2026-11-02T15:05:48.549107+00:00",
   "issue": "https://github.com/ontola/openapi-directory/issues/465",
   "baseline_inventory": "maintenance/reports/graphql-inventory-2026-11-02.json",
   "artifacts": [
@@ -12,6 +12,24 @@
       "provenance": "GraphQL/github.com/public/ab7258a0374c0666a71f27493b655975d304a8e5/provenance.json",
       "sha256": "0d71ca68a4e951599b2ea541a81cc259a843608fc22b8eb1713a1d03551b149e",
       "status": "validation_blocked"
+    },
+    {
+      "provider": "linear.app",
+      "service": "public-graphql",
+      "endpoint": "https://api.linear.app/graphql",
+      "path": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/schema.graphql",
+      "provenance": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/provenance.json",
+      "sha256": "73fac69ae08c0cf8329bbc85a3728a9e24e6e66116ac2f5d6aebbef922b30daf",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "linear.app",
+      "service": "public-graphql",
+      "endpoint": "https://api.linear.app/graphql",
+      "path": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/schema.json",
+      "provenance": "GraphQL/linear.app/public-graphql/253713fef2916ab744defdd71c62acccc8e929a2/introspection-provenance.json",
+      "sha256": "f9e60943474385a96da3f7a1f20a79cc0be08ae31ff06f12743d96681a446509",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
