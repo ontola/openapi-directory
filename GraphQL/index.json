@@ -66,6 +66,15 @@
       "provenance": "GraphQL/shopify.com/customer-account/5c7211089e7c608e5d4ed89a5c14f53d8ed8acf3/introspection-provenance.json",
       "sha256": "a9c03194694fe06aec414901fc350ed9f048a5a72b0cf6a562e3b520d75a29b9",
       "status": "source_snapshot"
+    },
+    {
+      "provider": "saleor.io",
+      "service": "core",
+      "endpoint": null,
+      "path": "GraphQL/saleor.io/core/0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b/schema.graphql",
+      "provenance": "GraphQL/saleor.io/core/0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b/provenance.json",
+      "sha256": "d29655a68e8994f42c68f562b51bf222ed3578330a4f51b97b626aaa2cd2dae0",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
