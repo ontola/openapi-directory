@@ -48,6 +48,15 @@
       "provenance": "GraphQL/gitlab.com/public/sha256-5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb/provenance.json",
       "sha256": "5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb",
       "status": "source_snapshot"
+    },
+    {
+      "provider": "monday.com",
+      "service": "platform",
+      "endpoint": "https://api.monday.com/v2",
+      "path": "GraphQL/monday.com/platform/sha256-c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb/schema.json",
+      "provenance": "GraphQL/monday.com/platform/sha256-c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb/introspection-provenance.json",
+      "sha256": "c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
@@ -114,17 +123,17 @@
     },
     {
       "name": "monday.com",
-      "status": "missing_native_artifact",
-      "endpoint": null,
-      "authoritative_schema_source": null,
+      "status": "source_snapshot_retained",
+      "endpoint": "https://api.monday.com/v2",
+      "authoritative_schema_source": "https://api.monday.com/v2/get_schema",
       "documentation_leads": [
         "https://developer.monday.com/api-reference?ref=graphqlkit"
       ],
-      "format": null,
+      "format": "introspection",
       "revision": null,
-      "sha256": null,
-      "freshness": "unassessed",
-      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+      "sha256": "c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb",
+      "freshness": "source_snapshot_only",
+      "limitation": "Publication retained and validated; runtime permissions and current deployed schema remain unassessed."
     },
     {
       "name": "Shopify Storefront",

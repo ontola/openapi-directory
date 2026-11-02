@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "provider": "monday.com",
+  "service": "platform",
+  "endpoint": "https://api.monday.com/v2",
+  "format": "introspection",
+  "artifact": "schema.json",
+  "upstream_version": null,
+  "source_repository": null,
+  "source_revision": null,
+  "source_path": null,
+  "source_url": "https://api.monday.com/v2/get_schema",
+  "source_git_blob_sha1": null,
+  "artifact_last_commit": null,
+  "retrieved_at": "2026-11-02T15:01:49.596846+00:00",
+  "sha256": "c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "c6ba5df1b07a9cf663bdbd6feff349261d9c5daff67eda150150c9efe15faabb",
+    "format": "introspection",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 1456,
+      "fields": 4908,
+      "directives": 6
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": null
+    }
+  },
+  "scope": "Complete public platform schema export fetched without credentials from the api.monday.com schema publication. Effective default API version is not supplied by the retained publication; no account permission or tenant data claim.",
+  "freshness_scope": "Verified source snapshot, native validation and original byte identity at retrieval; not verified runtime freshness.",
+  "limitations": [
+    "Runtime permissions and available tenant features can differ from the published schema.",
+    "Standard introspection cannot establish applied SDL directives or full SDL equivalence."
+  ],
+  "license_reference": "https://developer.monday.com/api-reference/docs/introduction-to-graphql",
+  "ownership_evidence": "Published by api.monday.com; the official introduction-to-graphql documentation links /v2/get_schema. No repository revision or dated API version is invented."
+}
