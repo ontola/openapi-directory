@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "provider": "saleor.io",
+  "service": "core",
+  "endpoint": null,
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "saleor/saleor",
+  "source_revision": "0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b",
+  "source_path": "saleor/graphql/schema.graphql",
+  "source_url": "https://raw.githubusercontent.com/saleor/saleor/0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b/saleor/graphql/schema.graphql",
+  "source_git_blob_sha1": "f7bac3747afb332b3bfb5ac6234369fb9bbbb9f9",
+  "artifact_last_commit": {
+    "sha": "3dd4bf79a46132ed2f8e6225a9863f5ef8dc243b",
+    "committed_at": "2026-10-16T10:34:17Z"
+  },
+  "retrieved_at": "2026-11-02T15:00:14.570054+00:00",
+  "sha256": "d29655a68e8994f42c68f562b51bf222ed3578330a4f51b97b626aaa2cd2dae0",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "d29655a68e8994f42c68f562b51bf222ed3578330a4f51b97b626aaa2cd2dae0",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 1475,
+      "fields": 6400,
+      "directives": 7
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": "Subscription"
+    }
+  },
+  "scope": "Saleor core server schema at this source revision; deployment-specific endpoint and installed release must be checked. No stable-release or tenant-extension claim.",
+  "freshness_scope": "Verified source snapshot, native validation and original byte identity at retrieval; not verified runtime freshness.",
+  "limitations": [
+    "Runtime permissions and available tenant features can differ from the published schema.",
+    "Pinned repository head is not proof of stable release or current deployment version."
+  ],
+  "license_reference": "https://github.com/saleor/saleor/tree/0e3fa1b022558b33fb9ff5efdadebd3bbccdb83b#readme"
+}
