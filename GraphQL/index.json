@@ -39,6 +39,15 @@
       "provenance": "GraphQL/buildkite.com/public-graphql/e9f0425acfe3de99111ea4a917843f7ca9924858/provenance.json",
       "sha256": "7cf64f5ee528e3916ed7683d7a8b33f230c1d2c318ea15ed68a471d3630e3a94",
       "status": "source_snapshot"
+    },
+    {
+      "provider": "gitlab.com",
+      "service": "public",
+      "endpoint": "https://gitlab.com/api/graphql",
+      "path": "GraphQL/gitlab.com/public/sha256-5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb/schema.json",
+      "provenance": "GraphQL/gitlab.com/public/sha256-5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb/provenance.json",
+      "sha256": "5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
@@ -91,17 +100,17 @@
     },
     {
       "name": "GitLab",
-      "status": "missing_native_artifact",
-      "endpoint": null,
-      "authoritative_schema_source": null,
+      "status": "source_snapshot_retained",
+      "endpoint": "https://gitlab.com/api/graphql",
+      "authoritative_schema_source": "https://gitlab.com/api/graphql",
       "documentation_leads": [
         "https://docs.gitlab.com/ee/api/graphql/"
       ],
-      "format": null,
+      "format": "introspection",
       "revision": null,
-      "sha256": null,
-      "freshness": "unassessed",
-      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+      "sha256": "5d6b91b62fedf9d69fae04aef4ac0745f56f13c5517d8ce410bdb7c83f2be2bb",
+      "freshness": "public_schema_observed_at_retrieval",
+      "limitation": "Public GitLab.com schema returned by anonymous standard introspection. This does not describe every self-managed GitLab release, edition, extension or permission context."
     },
     {
       "name": "monday.com",
