@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "provider": "buildkite.com",
+  "service": "public-graphql",
+  "endpoint": "https://graphql.buildkite.com/v1",
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "buildkite/docs",
+  "source_revision": "e9f0425acfe3de99111ea4a917843f7ca9924858",
+  "source_path": "data/graphql/schema.graphql",
+  "source_url": "https://raw.githubusercontent.com/buildkite/docs/e9f0425acfe3de99111ea4a917843f7ca9924858/data/graphql/schema.graphql",
+  "source_git_blob_sha1": "d92228c224f25f8205c0ffe30042092d0248ec3e",
+  "artifact_last_commit": {
+    "sha": "26ff708458927f5678ac7104d488d56221fc859c",
+    "committed_at": "2026-10-31T00:03:34Z"
+  },
+  "retrieved_at": "2026-11-02T15:00:09.118800+00:00",
+  "sha256": "7cf64f5ee528e3916ed7683d7a8b33f230c1d2c318ea15ed68a471d3630e3a94",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "7cf64f5ee528e3916ed7683d7a8b33f230c1d2c318ea15ed68a471d3630e3a94",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 536,
+      "fields": 2188,
+      "directives": 5
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": "Subscription"
+    }
+  },
+  "scope": "Complete GraphQL schema published in Buildkite official documentation. Artifact publication is not proof of every runtime account permission.",
+  "freshness_scope": "Verified source snapshot, native validation and original byte identity at retrieval; not verified runtime freshness.",
+  "limitations": [
+    "Runtime permissions and available tenant features can differ from the published schema.",
+    "Pinned repository head is not proof of stable release or current deployment version."
+  ],
+  "license_reference": "https://github.com/buildkite/docs/tree/e9f0425acfe3de99111ea4a917843f7ca9924858#readme"
+}
