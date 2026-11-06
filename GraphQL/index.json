@@ -111,6 +111,15 @@
       "provenance": "GraphQL/commercetools.com/composable-commerce/3d4c96317c886ebb22b900e526242d47d03dd435/provenance.json",
       "sha256": "65e172764ee5399bc515d43ef51498434ff3ca21331d124d29ebc47ffc174516",
       "status": "source_snapshot"
+    },
+    {
+      "provider": "fly.io",
+      "service": "control-plane",
+      "endpoint": null,
+      "path": "GraphQL/fly.io/control-plane/3fa856aab14d248d1b4d259dacfac5df169d4930/schema.graphql",
+      "provenance": "GraphQL/fly.io/control-plane/3fa856aab14d248d1b4d259dacfac5df169d4930/provenance.json",
+      "sha256": "4892a13a8191cc395042843fe459575c13f60d599b4657e1e4426690b4cd7d20",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
