@@ -1,5 +1,12 @@
 # AGENTS.md — working on this OpenAPI directory fork
 
+**Standing merge authorization — 2026-11-06:** The user explicitly said:
+"you may always merge PRs in this repo if you think they are an improvement".
+This authorizes individual PRs and batches in `ontola/openapi-directory` without
+renewed routine merge approval. Review the final file scope, verify the exact head
+and required CI, and merge when the change is an improvement. Earlier notes requiring
+explicit per-batch merge approval are historical and superseded by this instruction.
+
 **GraphQL expansion / explicit batch approval — 2026-11-02:** The user approved
 merging #471–#479 and requested more GraphQL coverage. All nine approved PRs are
 merged after exact-head hosted checks; index reconciliations preserved prior entries.
