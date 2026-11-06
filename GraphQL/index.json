@@ -95,6 +95,15 @@
       "status": "source_snapshot"
     },
     {
+      "provider": "apollographql.com",
+      "service": "graphos-platform",
+      "endpoint": "https://api.apollographql.com/graphql",
+      "path": "GraphQL/apollographql.com/graphos-platform/d1e79ff6bb44362ff87896a9e8d62e47e15d85af/schema.graphql",
+      "provenance": "GraphQL/apollographql.com/graphos-platform/d1e79ff6bb44362ff87896a9e8d62e47e15d85af/provenance.json",
+      "sha256": "b030ac8df1c5bebf98d04bb15648ce5ab6a01b009cde390c3cd76a55a08a1c02",
+      "status": "source_snapshot"
+    },
+    {
       "provider": "commercetools.com",
       "service": "composable-commerce",
       "endpoint": null,
