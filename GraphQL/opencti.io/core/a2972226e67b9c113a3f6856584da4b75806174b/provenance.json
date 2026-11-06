@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "provider": "opencti.io",
+  "service": "core",
+  "endpoint": null,
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "opencti-platform/opencti",
+  "source_revision": "a2972226e67b9c113a3f6856584da4b75806174b",
+  "source_path": "opencti-platform/opencti-front/src/schema/relay.schema.graphql",
+  "source_url": "https://raw.githubusercontent.com/opencti-platform/opencti/a2972226e67b9c113a3f6856584da4b75806174b/opencti-platform/opencti-front/src/schema/relay.schema.graphql",
+  "source_git_blob_sha1": "0c323ddd1edddaa81774b24771e05676cd24cc4e",
+  "artifact_last_commit": {
+    "sha": "679ed6f4cd546b425004a7ab9c7fd4aad809d75f",
+    "committed_at": "2026-10-30T08:46:21Z"
+  },
+  "retrieved_at": "2026-11-02T15:54:06.436489+00:00",
+  "sha256": "c08c07469f587d21b88ecb3d571c8d87b08bf9764a22a23821896c56641371a3",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "c08c07469f587d21b88ecb3d571c8d87b08bf9764a22a23821896c56641371a3",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 1235,
+      "fields": 12714,
+      "directives": 12
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": "Subscription"
+    }
+  },
+  "scope": "Complete SDL consumed by the official OpenCTI Relay client. The adjacent Relay config names this file and excludes client-only LSP directives. Deployment version, edition, modules and permissions may vary.",
+  "freshness_scope": "Native-valid, byte-exact source publication at the recorded retrieval/revision; runtime parity and account authorization are separate checks.",
+  "limitations": [
+    "No application-data operation or mutation was executed.",
+    "Repository head does not establish deployed version or every account/edition permission."
+  ],
+  "license_reference": "https://github.com/opencti-platform/opencti/tree/a2972226e67b9c113a3f6856584da4b75806174b#readme",
+  "scope_evidence": "https://raw.githubusercontent.com/opencti-platform/opencti/a2972226e67b9c113a3f6856584da4b75806174b/opencti-platform/opencti-front/relay.config.json"
+}
