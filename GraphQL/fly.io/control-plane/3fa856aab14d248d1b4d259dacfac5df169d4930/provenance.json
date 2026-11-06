@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "provider": "fly.io",
+  "service": "control-plane",
+  "endpoint": null,
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "superfly/flyctl",
+  "source_revision": "3fa856aab14d248d1b4d259dacfac5df169d4930",
+  "source_path": "gql/schema.graphql",
+  "source_url": "https://raw.githubusercontent.com/superfly/flyctl/3fa856aab14d248d1b4d259dacfac5df169d4930/gql/schema.graphql",
+  "source_git_blob_sha1": "29a0c1bb293da7f5e2ed9a0f39b3b13ceb35c1b8",
+  "artifact_last_commit": {
+    "sha": "564979126279ed0fbac5bb0ed614b0584d49159a",
+    "committed_at": "2026-09-02T14:42:57Z"
+  },
+  "retrieved_at": "2026-11-02T15:57:17.242241+00:00",
+  "sha256": "4892a13a8191cc395042843fe459575c13f60d599b4657e1e4426690b4cd7d20",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "4892a13a8191cc395042843fe459575c13f60d599b4657e1e4426690b4cd7d20",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 493,
+      "fields": 2150,
+      "directives": 5
+    },
+    "roots": {
+      "query": "Queries",
+      "mutation": "Mutations",
+      "subscription": null
+    }
+  },
+  "scope": "GraphQL control-plane schema shipped in official flyctl. This source snapshot does not establish current runtime compatibility or replace the separate Machines REST API.",
+  "freshness_scope": "Native-valid, byte-exact source publication at the recorded retrieval/revision; runtime parity and account authorization are separate checks.",
+  "limitations": [
+    "No application-data operation or mutation was executed.",
+    "Repository head does not establish deployed version or every account/edition permission.",
+    "Runtime endpoint binding was not independently verified; use the official client/deployment configuration."
+  ],
+  "license_reference": "https://github.com/superfly/flyctl/tree/3fa856aab14d248d1b4d259dacfac5df169d4930#readme"
+}

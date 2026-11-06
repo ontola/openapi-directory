@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "provider": "sourcegraph.com",
+  "service": "public-graphql",
+  "endpoint": "https://sourcegraph.com/.api/graphql",
+  "format": "introspection",
+  "artifact": "schema.json",
+  "upstream_version": null,
+  "source_repository": null,
+  "source_revision": null,
+  "source_path": null,
+  "source_url": "https://sourcegraph.com/.api/graphql",
+  "source_git_blob_sha1": null,
+  "artifact_last_commit": null,
+  "retrieved_at": "2026-11-02T16:07:09.704336+00:00",
+  "sha256": "abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21",
+    "format": "introspection",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 842,
+      "fields": 3454,
+      "directives": 4
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": null
+    }
+  },
+  "scope": "Public Sourcegraph schema observed via credential-free standard introspection. Only provider-supported metadata fields were requested; modern annotations not exposed by this server remain unknown.",
+  "freshness_scope": "Native-valid, byte-exact source publication at the recorded retrieval/revision; runtime parity and account authorization are separate checks.",
+  "limitations": [
+    "No application-data operation or mutation was executed.",
+    "Standard introspection cannot establish applied SDL directives or complete SDL equivalence."
+  ],
+  "license_reference": "https://sourcegraph.com/docs/api/graphql",
+  "retrieval": {
+    "method": "POST",
+    "request_artifact": "request.json",
+    "operation_type": "query",
+    "authentication": "none",
+    "scope": "__schema/__type only",
+    "http_metadata": {
+      "url": "https://sourcegraph.com/.api/graphql",
+      "etag": null,
+      "last_modified": null
+    }
+  },
+  "introspection_limitations": [
+    "Provider rejects __Schema.description, __Directive.isRepeatable, input-value deprecations and includeDeprecated on arguments/input fields.",
+    "Used the provider-supported older standard introspection query. Missing modern annotations are unknown, not proof of their absence.",
+    "Native validation still uses graphql-core 3.3.1; no rule was disabled or profile lowered."
+  ]
+}
