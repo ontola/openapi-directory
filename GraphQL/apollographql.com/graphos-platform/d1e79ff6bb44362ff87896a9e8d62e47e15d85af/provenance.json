@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "provider": "apollographql.com",
+  "service": "graphos-platform",
+  "endpoint": "https://api.apollographql.com/graphql",
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "apollographql/rover",
+  "source_revision": "d1e79ff6bb44362ff87896a9e8d62e47e15d85af",
+  "source_path": "crates/rover-client/.schema/schema.graphql",
+  "source_url": "https://raw.githubusercontent.com/apollographql/rover/d1e79ff6bb44362ff87896a9e8d62e47e15d85af/crates/rover-client/.schema/schema.graphql",
+  "source_git_blob_sha1": "6d290e01ad92c8690835ad28544936df615655a3",
+  "artifact_last_commit": {
+    "sha": "901c2ab44af64ec9e86e10c9421f42dd6858ccfd",
+    "committed_at": "2026-10-21T21:39:19Z"
+  },
+  "retrieved_at": "2026-11-02T15:54:02.036358+00:00",
+  "sha256": "b030ac8df1c5bebf98d04bb15648ce5ab6a01b009cde390c3cd76a55a08a1c02",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "b030ac8df1c5bebf98d04bb15648ce5ab6a01b009cde390c3cd76a55a08a1c02",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 524,
+      "fields": 1594,
+      "directives": 5
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": null
+    }
+  },
+  "scope": "Apollo Platform/GraphOS control-plane schema published in the official Rover CLI. This is not the application schema of every customer graph; deployed account permissions and runtime parity are unassessed.",
+  "freshness_scope": "Native-valid, byte-exact source publication at the recorded retrieval/revision; runtime parity and account authorization are separate checks.",
+  "limitations": [
+    "No application-data operation or mutation was executed.",
+    "Repository head does not establish deployed version or every account/edition permission."
+  ],
+  "license_reference": "https://github.com/apollographql/rover/tree/d1e79ff6bb44362ff87896a9e8d62e47e15d85af#readme",
+  "endpoint_evidence": "https://raw.githubusercontent.com/apollographql/rover/d1e79ff6bb44362ff87896a9e8d62e47e15d85af/src/cli.rs"
+}
