@@ -129,6 +129,15 @@
       "provenance": "GraphQL/opencti.io/core/a2972226e67b9c113a3f6856584da4b75806174b/provenance.json",
       "sha256": "c08c07469f587d21b88ecb3d571c8d87b08bf9764a22a23821896c56641371a3",
       "status": "source_snapshot"
+    },
+    {
+      "provider": "sourcegraph.com",
+      "service": "public-graphql",
+      "endpoint": "https://sourcegraph.com/.api/graphql",
+      "path": "GraphQL/sourcegraph.com/public-graphql/sha256-abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21/schema.json",
+      "provenance": "GraphQL/sourcegraph.com/public-graphql/sha256-abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21/provenance.json",
+      "sha256": "abb41e980ed930d1aeef611340b0a016382484cd9edae7bbc8594f323a953e21",
+      "status": "source_snapshot"
     }
   ],
   "discovery_source": {
