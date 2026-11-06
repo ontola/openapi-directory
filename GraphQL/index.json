@@ -95,6 +95,42 @@
       "status": "source_snapshot"
     },
     {
+      "provider": "apollographql.com",
+      "service": "graphos-platform",
+      "endpoint": "https://api.apollographql.com/graphql",
+      "path": "GraphQL/apollographql.com/graphos-platform/d1e79ff6bb44362ff87896a9e8d62e47e15d85af/schema.graphql",
+      "provenance": "GraphQL/apollographql.com/graphos-platform/d1e79ff6bb44362ff87896a9e8d62e47e15d85af/provenance.json",
+      "sha256": "b030ac8df1c5bebf98d04bb15648ce5ab6a01b009cde390c3cd76a55a08a1c02",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "commercetools.com",
+      "service": "composable-commerce",
+      "endpoint": null,
+      "path": "GraphQL/commercetools.com/composable-commerce/3d4c96317c886ebb22b900e526242d47d03dd435/schema.graphql",
+      "provenance": "GraphQL/commercetools.com/composable-commerce/3d4c96317c886ebb22b900e526242d47d03dd435/provenance.json",
+      "sha256": "65e172764ee5399bc515d43ef51498434ff3ca21331d124d29ebc47ffc174516",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "fly.io",
+      "service": "control-plane",
+      "endpoint": null,
+      "path": "GraphQL/fly.io/control-plane/3fa856aab14d248d1b4d259dacfac5df169d4930/schema.graphql",
+      "provenance": "GraphQL/fly.io/control-plane/3fa856aab14d248d1b4d259dacfac5df169d4930/provenance.json",
+      "sha256": "4892a13a8191cc395042843fe459575c13f60d599b4657e1e4426690b4cd7d20",
+      "status": "source_snapshot"
+    },
+    {
+      "provider": "opencti.io",
+      "service": "core",
+      "endpoint": null,
+      "path": "GraphQL/opencti.io/core/a2972226e67b9c113a3f6856584da4b75806174b/schema.graphql",
+      "provenance": "GraphQL/opencti.io/core/a2972226e67b9c113a3f6856584da4b75806174b/provenance.json",
+      "sha256": "c08c07469f587d21b88ecb3d571c8d87b08bf9764a22a23821896c56641371a3",
+      "status": "source_snapshot"
+    },
+    {
       "provider": "sourcegraph.com",
       "service": "public-graphql",
       "endpoint": "https://sourcegraph.com/.api/graphql",

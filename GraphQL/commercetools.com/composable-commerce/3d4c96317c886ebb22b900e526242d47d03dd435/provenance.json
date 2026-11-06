@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "provider": "commercetools.com",
+  "service": "composable-commerce",
+  "endpoint": null,
+  "format": "sdl",
+  "artifact": "schema.graphql",
+  "upstream_version": null,
+  "source_repository": "commercetools/commercetools-api-reference",
+  "source_revision": "3d4c96317c886ebb22b900e526242d47d03dd435",
+  "source_path": "api-specs/graphql/schema.sdl",
+  "source_url": "https://raw.githubusercontent.com/commercetools/commercetools-api-reference/3d4c96317c886ebb22b900e526242d47d03dd435/api-specs/graphql/schema.sdl",
+  "source_git_blob_sha1": "f5fbe06ab4c17e6344051cb01a0aef9f2e8708f8",
+  "artifact_last_commit": {
+    "sha": "b9ac4d2bfc4d1896f586b1be9f908eda031aed87",
+    "committed_at": "2026-10-22T10:55:59Z"
+  },
+  "retrieved_at": "2026-11-02T15:57:56.182560+00:00",
+  "sha256": "65e172764ee5399bc515d43ef51498434ff3ca21331d124d29ebc47ffc174516",
+  "status": "source_snapshot",
+  "validation": {
+    "sha256": "65e172764ee5399bc515d43ef51498434ff3ca21331d124d29ebc47ffc174516",
+    "format": "sdl",
+    "validation_profile": "graphql-core 3.3.1 (native SDL/introspection; no assumed-valid schemas)",
+    "validation_errors": [],
+    "counts": {
+      "types": 2323,
+      "fields": 8951,
+      "directives": 5
+    },
+    "roots": {
+      "query": "Query",
+      "mutation": "Mutation",
+      "subscription": null
+    }
+  },
+  "scope": "Composable Commerce GraphQL SDL linked directly from the official API documentation. Runtime endpoint depends on region and project key; no project data was queried.",
+  "freshness_scope": "Native-valid, byte-exact source publication at the recorded retrieval/revision; runtime parity and account authorization are separate checks.",
+  "limitations": [
+    "No application-data operation or mutation was executed.",
+    "Repository head does not establish deployed version or every account/edition permission."
+  ],
+  "license_reference": "https://github.com/commercetools/commercetools-api-reference/tree/3d4c96317c886ebb22b900e526242d47d03dd435#readme",
+  "ownership_evidence": "https://docs.commercetools.com/api/graphql directly links the retained api-specs/graphql/schema.sdl publication."
+}
