@@ -1,5 +1,21 @@
 # AGENTS.md — working on this OpenAPI directory fork
 
+**Standing merge authorization — 2026-11-06:** The user explicitly said:
+"you may always merge PRs in this repo if you think they are an improvement".
+This authorizes individual PRs and batches in `ontola/openapi-directory` without
+renewed routine merge approval. Review the final file scope, verify the exact head
+and required CI, and merge when the change is an improvement. Earlier notes requiring
+explicit per-batch merge approval are historical and superseded by this instruction.
+
+**GraphQL expansion / explicit batch approval — 2026-11-02:** The user approved
+merging #471–#479 and requested more GraphQL coverage. All nine approved PRs are
+merged after exact-head hosted checks; index reconciliations preserved prior entries.
+The published environment now permits the required network access, superseding the
+old runtime-denial observation below. Read
+`maintenance/reports/graphql-second-expansion-2026-11-02.md` for five further prepared
+surfaces, source scope and new blockers. New work remains separate from the approved
+batch; no scheduled writer, paused automation or environment configuration was changed.
+
 **User-directed audit resumed — 2026-11-02:** The user asked to work through the
 open-issue/freshness/missing-source queue until done. Work is on the existing isolated
 cloud checkout; no worktree or historical automation was created/resumed. Read

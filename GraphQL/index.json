@@ -232,17 +232,17 @@
     },
     {
       "name": "Shopify Admin",
-      "status": "missing_native_artifact",
+      "status": "validation_blocked",
       "endpoint": null,
-      "authoritative_schema_source": null,
+      "authoritative_schema_source": "https://shopify.dev/admin-graphql-direct-proxy/2026-10",
       "documentation_leads": [
         "https://shopify.dev/docs/admin-api/graphql/reference"
       ],
-      "format": null,
+      "format": "introspection",
       "revision": null,
-      "sha256": null,
-      "freshness": "unassessed",
-      "limitation": "No authoritative native artifact retrieved in this run; endpoint and permission context require verification."
+      "sha256": "079a281523a8c2f9e840feafba0d83303b1d18f557c274e9da1774a75d92bcc6",
+      "freshness": "official_2026_10_schema_export_observed",
+      "limitation": "Official 2026-10 schema export located; six interface/deprecation errors under the pinned validation profile. No schema patch or profile downgrade performed."
     }
   ]
 }

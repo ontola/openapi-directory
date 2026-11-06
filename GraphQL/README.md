@@ -5,6 +5,10 @@ An OpenAPI document exposing a `/graphql` route is not a complete GraphQL schema
 See [issue #465](https://github.com/ontola/openapi-directory/issues/465) and the
 [baseline inventory](../maintenance/reports/graphql-inventory-2026-11-02.json).
 
+The [latest coverage report](../maintenance/reports/graphql-second-expansion-2026-11-02.md)
+records the merged first expansion (#471–#479), five further prepared API surfaces,
+and fresh source/validation findings. It supersedes earlier pending-delivery notes.
+
 `index.json` records retained artifacts and a bounded discovery queue. Unknown
 endpoints, formats, source revisions and hashes remain null; a playground or saved
 query is not substituted for an authoritative schema. The public directory used
