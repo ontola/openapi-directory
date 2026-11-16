@@ -1,0 +1,205 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Dropbox file inventory API",
+    "version": "2",
+    "description": "Metadata-only profile of the Dropbox API.",
+    "contact": {
+      "url": "https://docs.dropboxapi.com/dropbox-api/docs/detecting-changes"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.dropboxapi.com/2"
+    }
+  ],
+  "security": [
+    {
+      "dropboxOAuth": [
+        "files.metadata.read"
+      ]
+    }
+  ],
+  "paths": {
+    "/files/list_folder": {
+      "post": {
+        "operationId": "listFolder",
+        "description": "Start a metadata listing.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "path"
+                ],
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "description": "Folder path. Use an empty string for the root."
+                  },
+                  "recursive": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "include_deleted": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Folder entries and continuation cursor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListFolderResult"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Invalid path or cursor. A reset error requires a fresh listing."
+          }
+        }
+      }
+    },
+    "/files/list_folder/continue": {
+      "post": {
+        "operationId": "continueListFolder",
+        "description": "Read another page or later changes. Continue while has_more is true. Retain the final cursor for subsequent polling.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "cursor"
+                ],
+                "properties": {
+                  "cursor": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Folder entries and continuation cursor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListFolderResult"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Invalid path or cursor. A reset error requires a fresh listing."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "dropboxOAuth": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://www.dropbox.com/oauth2/authorize",
+            "tokenUrl": "https://api.dropboxapi.com/oauth2/token",
+            "scopes": {
+              "files.metadata.read": "Read file and folder metadata"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ListFolderResult": {
+        "type": "object",
+        "required": [
+          "entries",
+          "cursor",
+          "has_more"
+        ],
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Metadata"
+            }
+          },
+          "cursor": {
+            "type": "string"
+          },
+          "has_more": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Metadata": {
+        "type": "object",
+        "required": [
+          ".tag",
+          "name"
+        ],
+        "properties": {
+          ".tag": {
+            "type": "string",
+            "enum": [
+              "file",
+              "folder",
+              "deleted"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "path_lower": {
+            "type": "string"
+          },
+          "path_display": {
+            "type": "string"
+          },
+          "rev": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "client_modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "server_modified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "content_hash": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
